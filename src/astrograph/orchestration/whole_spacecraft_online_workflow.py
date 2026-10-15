@@ -756,7 +756,9 @@ class WholeSpacecraftOnlineDiagnosisWorkflow:
                 )
             # Optional post-persistence read-only explanation. It must never
             # alter the online DAG's structured result or decision governance.
-            if self.post_diagnosis_knowledge_service is not None:
+            if (self.post_diagnosis_knowledge_service is not None
+                    and envelope.execution_policy.allow_llm
+                    and not envelope.execution_policy.deterministic_only):
                 from .online_post_diagnosis import run_online_post_diagnosis_explanation
                 try:
                     run_online_post_diagnosis_explanation(
