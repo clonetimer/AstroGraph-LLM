@@ -251,8 +251,9 @@ def _anomaly_screening_report(
         "|---:|---|---:|---:|---:|---:|",
     ]
     for rank, (score, field, before, after, scale) in enumerate(ranked[:top_k], 1):
+        safe_field = field.replace("|", "\\|")
         lines.append(
-            f"| {rank} | {field.replace('|', '\\|')} | {_format_number(before)} | "
+            f"| {rank} | {safe_field} | {_format_number(before)} | "
             f"{_format_number(after)} | {_format_number(scale)} | {_format_number(score)} |"
         )
     if not ranked:
