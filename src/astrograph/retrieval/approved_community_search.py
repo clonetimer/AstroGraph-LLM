@@ -16,19 +16,25 @@ from astrograph.integrations.platform_knowledge import _tokens
 SCHEMA = 'astrograph-reviewed-community-global-search.v1'
 
 
-def _edge_ok(edge: Mapping[str, Any], scope: str) -> bool:
+def _edge_ok(edge: Mapping[str, Any], scope: str, *,
+             snapshot: int | None = None, allow_negated: bool = False) -> bool:
     provenance = edge.get('provenance') or {}
+    if not isinstance(provenance, Mapping):
+        return False
     source_sha = str(provenance.get('source_sha256', ''))
+    endpoints = [edge.get(part) for part in ('source', 'target')]
     return (edge.get('equipment_scope') == scope
+        and (snapshot is None or edge.get('snapshot') is None or edge.get('snapshot') == snapshot)
         and edge.get('review_status') == 'INDEPENDENTLY_REVIEWED_REFERENCE_RELATION'
-        and edge.get('polarity') == 'AFFIRMATIVE'
+        and (edge.get('polarity') == 'AFFIRMATIVE' or
+             (allow_negated and edge.get('polarity') == 'NEGATED'))
         and edge.get('conflict_status') not in {'CONTESTED_BY_APPROVED_REFERENCE', 'DISPUTED'}
         and len(source_sha) == 64 and all(c in '0123456789abcdef' for c in source_sha)
         and isinstance(provenance.get('source_locators'), list) and bool(provenance['source_locators'])
         and bool(edge.get('evidence_quote')) and bool(edge.get('truth_source_ref'))
         and bool(edge.get('reviewer'))
-        and all((edge.get(part) or {}).get('entity_id') and (edge.get(part) or {}).get('name')
-                for part in ('source', 'target')))
+        and all(isinstance(part, Mapping) and part.get('entity_id') and part.get('name')
+                for part in endpoints))
 
 
 def _components(edges: Sequence[dict[str, Any]]) -> list[set[str]]:
@@ -84,16 +90,18 @@ def build_approved_community_reports(*, reviewed_edges: Sequence[Mapping[str, An
     if len(reviewed_edges) > max_edges:
         skeleton['status'] = 'ABSTAIN_GRAPH_INDEX_LIMIT_EXCEEDED'
         return skeleton
-    # Exclude contradictory triples irrespective of edge-provided conflict flag.
+    # Conflict vetoes require the *same* scope, snapshot and independently
+    # reviewed provenance as the affirmative edge. Unreviewed or cross-model
+    # negations must not suppress valid, model-specific evidence.
+    eligible_edges = [edge for edge in reviewed_edges
+                      if _edge_ok(edge, equipment_scope, snapshot=snapshot, allow_negated=True)]
     polarities: dict[tuple[str,str,str], set[str]] = defaultdict(set)
-    for edge in reviewed_edges:
-        try:
-            key = (edge['source']['entity_id'], edge['relation_type'], edge['target']['entity_id'])
-            polarities[key].add(str(edge.get('polarity', '')))
-        except (TypeError, KeyError): pass
+    for edge in eligible_edges:
+        key = (edge['source']['entity_id'], edge.get('relation_type'), edge['target']['entity_id'])
+        polarities[key].add(str(edge.get('polarity', '')))
     filtered = []
-    for edge in reviewed_edges:
-        if not _edge_ok(edge, equipment_scope):
+    for edge in eligible_edges:
+        if edge.get('polarity') != 'AFFIRMATIVE':
             continue
         triple = (edge['source']['entity_id'],edge['relation_type'],edge['target']['entity_id'])
         if 'NEGATED' in polarities[triple]:

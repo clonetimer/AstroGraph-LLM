@@ -9,6 +9,8 @@ from astrograph.knowledge.schema_v3 import KnowledgeGraphV3
 from .document_governance import (
     ClaimEpistemicStatus,
     DocumentEvidenceClaim,
+    DocumentAuthority,
+    DocumentVisibilityClass,
     bind_document_evidence_claim,
 )
 from .models import (
@@ -99,6 +101,15 @@ def evaluate_document_claim_admissions(
             reasons.append("FORMAL_DOCUMENT_FUSION_DISABLED")
         if not claim.runtime_evidence_eligible:
             reasons.append("CLAIM_NOT_RUNTIME_EVIDENCE")
+        if claim.source_authority != DocumentAuthority.APPROVED_SOURCE:
+            reasons.append("SOURCE_AUTHORITY_NOT_APPROVED")
+        if claim.source_visibility_class is None:
+            reasons.append("SOURCE_VISIBILITY_NOT_BOUND")
+        if claim.source_visibility_class in {
+            DocumentVisibilityClass.RESOLVED_CASE_TRAIN_ONLY,
+            DocumentVisibilityClass.TRUTH_QUARANTINED,
+        }:
+            reasons.append("SOURCE_TRUTH_OR_TRAIN_ONLY_NOT_RUNTIME_ELIGIBLE")
         if claim.claim_id not in calibrated:
             reasons.append("CLAIM_NOT_CALIBRATED")
         if (
@@ -106,8 +117,14 @@ def evaluate_document_claim_admissions(
             or claim.source_provenance_group_id not in independent
         ):
             reasons.append("SOURCE_INDEPENDENCE_NOT_ESTABLISHED")
-        if not claim.applicability or not (set(claim.applicability) & context):
+        # Each applicability entry is a *constraint*, not an interchangeable
+        # search keyword. An episode-A claim with matching graph scope must
+        # never be accepted into episode B by an OR-over-tags check.
+        if not claim.applicability or not set(claim.applicability).issubset(context):
             reasons.append("APPLICABILITY_NOT_ESTABLISHED")
+        if (claim.source_visibility_class == DocumentVisibilityClass.OBSERVATION_CAUSAL
+                and not any(item.startswith('episode:') for item in claim.applicability)):
+            reasons.append("OBSERVATION_EPISODE_BINDING_MISSING")
         eligible = not reasons
         admissions.append(
             DocumentClaimAdmission(

@@ -23,6 +23,12 @@ def _signal(fault_id: str, status: str, *, support=0, contradict=0, missing=0, s
     )
 
 
+@pytest.mark.parametrize('invalid',[float('nan'),float('inf'),float('-inf')])
+def test_nonfinite_candidate_scores_rejected_before_topk(invalid):
+    with pytest.raises(ValidationError):
+        CandidateSignal(fault_id='FAULT-A',status='SUPPORTED',source_score=invalid)
+
+
 def test_candidate_interface_accepts_future_evidence_navigator_results():
     request = CandidateSelectionInput(
         registered_fault_ids=["F-A", "F-B", "F-C"],

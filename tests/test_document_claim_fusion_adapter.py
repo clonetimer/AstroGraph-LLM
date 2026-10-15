@@ -82,6 +82,48 @@ def _eligible_claim_and_admission():
     return claim, evaluate_document_claim_admissions([claim], policy)[0]
 
 
+def test_document_fusion_requires_every_scope_constraint_and_episode_binding():
+    claim, _ = _eligible_claim_and_admission()
+    policy = DocumentClaimAdmissionPolicy(
+        formal_document_fusion_enabled=True,
+        policy_review_status='HUMAN_REVIEWED', reviewer_id='reviewer:adapter',
+        fusion_approval_receipt_sha256='1'*64,
+        calibration_receipt_sha256='2'*64,
+        source_independence_receipt_sha256='3'*64,
+        calibrated_claim_ids=[claim.claim_id],
+        independent_provenance_group_ids=[claim.source_provenance_group_id],
+        applicability_context=['episode:episode:adapter','graph-scope:SAT-X'],
+    )
+    mismatch = claim.model_copy(update={
+        'applicability':['episode:episode:OTHER','graph-scope:SAT-X']})
+    result = evaluate_document_claim_admissions([mismatch],policy)[0]
+    assert not result.formal_fusion_eligible
+    assert 'APPLICABILITY_NOT_ESTABLISHED' in result.reason_codes
+    missing_episode = claim.model_copy(update={'applicability':['graph-scope:SAT-X']})
+    result = evaluate_document_claim_admissions([missing_episode],policy)[0]
+    assert not result.formal_fusion_eligible
+    assert 'OBSERVATION_EPISODE_BINDING_MISSING' in result.reason_codes
+    valid = claim.model_copy(update={
+        'applicability':['episode:episode:adapter','graph-scope:SAT-X']})
+    assert evaluate_document_claim_admissions([valid],policy)[0].formal_fusion_eligible
+    # Defensive guard even when a deserialized legacy claim claims voting
+    # eligibility despite its train-only origin.
+    quarantined = valid.model_copy(update={
+        'source_visibility_class':DocumentVisibilityClass.RESOLVED_CASE_TRAIN_ONLY})
+    result = evaluate_document_claim_admissions([quarantined],policy)[0]
+    assert not result.formal_fusion_eligible
+    assert 'SOURCE_TRUTH_OR_TRAIN_ONLY_NOT_RUNTIME_ELIGIBLE' in result.reason_codes
+    low_authority = valid.model_copy(update={
+        'source_authority':DocumentAuthority.ENGINEERING_REFERENCE})
+    result = evaluate_document_claim_admissions([low_authority],policy)[0]
+    assert not result.formal_fusion_eligible
+    assert 'SOURCE_AUTHORITY_NOT_APPROVED' in result.reason_codes
+    unbound = valid.model_copy(update={'source_visibility_class':None})
+    result = evaluate_document_claim_admissions([unbound],policy)[0]
+    assert not result.formal_fusion_eligible
+    assert 'SOURCE_VISIBILITY_NOT_BOUND' in result.reason_codes
+
+
 def _mapping(claim_id: str) -> DocumentClaimFaultMapping:
     return DocumentClaimFaultMapping(
         mapping_id="mapping:adapter:wheel-current-rise-to-fault-b",

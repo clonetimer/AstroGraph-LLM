@@ -256,8 +256,17 @@ class PreReasoningRetrievalService:
             unknown = set(dense_scores) - {item.chunk_id for item in eligible}
             if unknown:
                 raise ValueError(f"dense score provider returned unknown chunk IDs: {sorted(unknown)}")
-            if any(score < 0.0 or score > 1.0 for score in dense_scores.values()):
-                raise ValueError("dense scores must be normalized to [0, 1]")
+            # NaN passes both < 0 and > 1 comparisons. Without an explicit
+            # finite check it silently removes affected chunks from retrieval.
+            # Treat a malformed provider response as a failed retrieval, never
+            # as evidence of an absent matching document.
+            try:
+                dense_scores = {key: float(value) for key, value in dense_scores.items()}
+            except (TypeError, ValueError, OverflowError) as exc:
+                raise ValueError("dense scores must be finite numbers in [0, 1]") from exc
+            if any(not math.isfinite(score) or score < 0.0 or score > 1.0
+                   for score in dense_scores.values()):
+                raise ValueError("dense scores must be finite numbers in [0, 1]")
         elif request.config.dense_weight > 0.0:
             raise ValueError("dense_weight is positive but no dense score provider is configured")
 
