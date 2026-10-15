@@ -17,10 +17,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[platform,test]"
-      - name: Source-only smoke tests
+      - name: Source-only RAG / GraphRAG / LLM bridge regression
         run: |
           python -m pytest -q --astrograph-test-profile source-only \
             tests/test_candidate_selection.py \
             tests/test_pre_reasoning_retrieval.py \
             tests/test_foundation_r3_literature_bidirectional.py \
-            tests/test_foundation_r4_competition_claim_guard.py
+            tests/test_foundation_r4_competition_claim_guard.py \
+            tests/test_foundation_r5_reported_observations.py \
+            tests/test_foundation_r6_observation_retrieval.py \
+            tests/test_foundation_r7_causal_claims.py \
+            tests/test_foundation_r8_causal_differential.py \
+            tests/test_foundation_r9_reviewed_applicability.py \
+            tests/test_foundation_r10_temporal_causal.py \
+            tests/test_foundation_r11_material_llm_tool_integration.py
