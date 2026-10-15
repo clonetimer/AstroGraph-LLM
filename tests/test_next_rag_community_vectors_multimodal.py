@@ -84,12 +84,12 @@ def test_conflicting_and_unapproved_edges_excluded_from_global_index():
     assert build_approved_community_reports(reviewed_edges=[item],equipment_scope='UNKNOWN',snapshot=0)['status'].startswith('ABSTAIN')
 
 
-def test_cross_scope_unreviewed_and_stale_negation_cannot_veto_reviewed_graph():
+def test_cross_scope_unreviewed_and_future_negation_cannot_veto_reviewed_graph():
     approved = edge()
     wrong_scope = edge(scope='SAT-Y-ADCS-V1', polarity='NEGATED')
     unreviewed = edge(polarity='NEGATED', reviewer='')
-    stale = {**edge(polarity='NEGATED'), 'snapshot':1}
-    for contaminant in (wrong_scope, unreviewed, stale):
+    future = {**edge(polarity='NEGATED'), 'snapshot':3}
+    for contaminant in (wrong_scope, unreviewed, future):
         index = build_approved_community_reports(
             reviewed_edges=[approved, contaminant], equipment_scope=SCOPE,
             snapshot=2,
@@ -97,7 +97,10 @@ def test_cross_scope_unreviewed_and_stale_negation_cannot_veto_reviewed_graph():
         assert index['status'] == 'SUCCEEDED'
         assert index['indexed_edge_count'] == 1
         assert global_community_search(index, '飞轮摩擦增大')['evidence_points']
-    current_negation = {**edge(polarity='NEGATED'), 'snapshot':2}
+    # An older approved relation is STILL visible in a later frozen graph
+    # unless the graph repository has retracted it. Its snapshot is the
+    # approval version, not an expiration date.
+    current_negation = {**edge(polarity='NEGATED'), 'snapshot':1}
     blocked = build_approved_community_reports(
         reviewed_edges=[approved, current_negation], equipment_scope=SCOPE,
         snapshot=2,

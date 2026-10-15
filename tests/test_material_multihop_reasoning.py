@@ -148,11 +148,24 @@ def test_negated_or_contested_review_claim_never_supports_hypothesis(tmp_path):
 
 def test_retraction_applies_only_to_new_snapshot(tmp_path):
     mem,records=reviewed(tmp_path)
+    from astrograph.retrieval.approved_community_search import build_approved_community_reports
+    idx_before = build_approved_community_reports(
+        reviewed_edges=mem.approved_graph_for_reasoning(
+            equipment_scope=SCOPE, snapshot=mem.snapshot(),
+            exclude_source_group_id=JOB2),
+        equipment_scope=SCOPE, snapshot=mem.snapshot())
+    assert idx_before['indexed_edge_count'] == 4
     before=run(mem,log('飞轮电流升高'))
     assert before['decision']=='PROVISIONAL_EVIDENCE_BACKED_HYPOTHESIS'
     mem.retract_graph(proposal_id=records[1]['proposal_id'],reviewer='expert',
                       reason='Independent engineering verification revokes this mechanism to symptom mapping',
                       truth_source_ref='correction-memo-2026-QA-02')
+    idx_after = build_approved_community_reports(
+        reviewed_edges=mem.approved_graph_for_reasoning(
+            equipment_scope=SCOPE, snapshot=mem.snapshot(),
+            exclude_source_group_id=JOB2),
+        equipment_scope=SCOPE, snapshot=mem.snapshot())
+    assert idx_after['indexed_edge_count'] == 3
     after=run(mem,log('飞轮电流升高'))
     assert after['decision']=='ABSTAIN_NO_SYMPTOM_LOG_ANCHOR'
     assert run(mem,log('飞轮电流升高'),snapshot=4)['decision']=='PROVISIONAL_EVIDENCE_BACKED_HYPOTHESIS'

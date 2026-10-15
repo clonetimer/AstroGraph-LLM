@@ -51,6 +51,11 @@ def test_hybrid_fusion_is_visible_and_never_promotes_ground_truth(tmp_path):
     assert c['reference_retrieval']['hits'][0]['source_sha256']
     assert 'BM25' in c['reference_retrieval']['methods']
     assert 'CHAR_NGRAM' in c['reference_retrieval']['methods']
+    assert c['reference_retrieval']['reviewed_counterevidence']['items'] == []
+    assert fused['bidirectional_graph_comparison']['diagnostic_vote_allowed'] is False
+    assert fused['bidirectional_graph_comparison']['status'] == 'ABSTAIN_EQUIPMENT_SCOPE_REQUIRED'
+    assert c['bidirectional_graph_review'].get('validated_root_cause') is not True
+    assert c['contrastive_reference_review'] == {} or not c['contrastive_reference_review']['diagnostic_vote_allowed']
     assert c['log_evidence_matrix']['supporting_ids']
     assert c['evidence_assessment']['verified_current_root_cause'] is False
     assert all(not action['control_authorized'] for action in review['handling_measures'])
