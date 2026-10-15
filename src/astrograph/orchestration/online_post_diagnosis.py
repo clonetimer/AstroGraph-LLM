@@ -101,6 +101,32 @@ def freeze_online_diagnosis(result: ExecutionResult) -> tuple[str, dict[str, Any
     return frozen.run_id, snapshot, receipt
 
 
+def _verify_persisted_artifacts(result: ExecutionResult, output_root: Path) -> None:
+    """Match the returned host decision to committed on-disk artifact bytes."""
+    try:
+        expected_dir = Path(result.metadata["artifact_dir"]).resolve(strict=True)
+        actual_dir = output_root.resolve(strict=True)
+        if actual_dir != expected_dir:
+            raise OnlinePostDiagnosisBindingError("ONLINE_ARTIFACT_DIRECTORY_MISMATCH")
+        manifest = json.loads((actual_dir / "manifest.json").read_text(encoding="utf-8"))
+        if manifest.get("run_id") != result.metadata.get("run_id"):
+            raise OnlinePostDiagnosisBindingError("ONLINE_ARTIFACT_RUN_MISMATCH")
+        for key in ("structured_diagnosis_output", "decision_record"):
+            entry = manifest["files"][key]
+            path = (actual_dir / entry["path"]).resolve(strict=True)
+            if not path.is_relative_to(actual_dir):
+                raise OnlinePostDiagnosisBindingError("ONLINE_ARTIFACT_PATH_ESCAPE")
+            content = path.read_bytes()
+            if (len(content) != entry["size_bytes"] or
+                    hashlib.sha256(content).hexdigest() != entry["sha256"] or
+                    json.loads(content) != result.output_payload[key]):
+                raise OnlinePostDiagnosisBindingError("ONLINE_ARTIFACT_CONTENT_MISMATCH")
+    except OnlinePostDiagnosisBindingError:
+        raise
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise OnlinePostDiagnosisBindingError("ONLINE_ARTIFACT_INTEGRITY_INVALID") from exc
+
+
 def run_online_post_diagnosis_explanation(
     *, result: ExecutionResult, knowledge_service: Any,
     output_root: Path, document_paths: list[Path] | None = None,
@@ -119,6 +145,7 @@ def run_online_post_diagnosis_explanation(
     original = deepcopy(result)
     try:
         run_id, snapshot, identity = freeze_online_diagnosis(result)
+        _verify_persisted_artifacts(result, output_root)
         receipt["identity"] = identity
         from astrograph.integrations.post_diagnosis_explanation import run_frozen_post_diagnosis_explanation
         explanation = run_frozen_post_diagnosis_explanation(
