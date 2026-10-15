@@ -31,4 +31,7 @@ jobs:
             tests/test_foundation_r9_reviewed_applicability.py \
             tests/test_foundation_r10_temporal_causal.py \
             tests/test_foundation_r11_material_llm_tool_integration.py \
-            tests/test_foundation_r11b_task_bound_explanations.py
+            tests/test_foundation_r11b_task_bound_explanations.py \
+            tests/test_foundation_r11b2_post_diagnosis_bridge.py \
+            tests/test_platform_knowledge_enrichment.py \
+            tests/test_upload_report_platform.py
