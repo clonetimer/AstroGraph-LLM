@@ -72,8 +72,7 @@ $env:ASTROGRAPH_PORT = "8081"
 ```powershell
 $env:ASTROGRAPH_PLATFORM_ROOT = Join-Path $PWD "runs\command-center"
 ```
-- 用户名：v3admin
-- 密码：AstroGraph_UIReview_2026!
+已有账户的用户名和密码由管理员自行设定；本项目不提供默认登录凭据。请勿将测试账户凭据写入 README 或提交至版本库。
 
 如果换成新的目录，系统会把它视为全新环境，需要重新初始化管理员。
 
