@@ -108,6 +108,62 @@ def _bm25(query_terms: list[str], documents: list[list[str]]) -> list[float]:
     return scores
 
 
+
+def bind_frozen_material_review(
+    diagnosis_snapshot: dict[str, Any],
+    material_review_context: dict[str, Any] | None,
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    """Fail closed if a reviewed material bundle is not bound to this diagnosis.
+
+    The caller owns the frozen candidates and task identity. A material bundle is
+    evidence, not an authority to add candidates, change the active run or widen
+    what the LLM may see. Do not echo mismatched IDs into public receipts.
+    """
+    if material_review_context is None:
+        return None, {"status": "NOT_AVAILABLE_NO_APPROVED_MATERIAL_REVIEW",
+                      "diagnostic_vote_allowed": False}
+
+    def denied(reason: str) -> tuple[None, dict[str, Any]]:
+        return None, {"status": "DENIED_TASK_BINDING", "reason_code": reason,
+                      "diagnostic_vote_allowed": False}
+
+    if not isinstance(material_review_context, dict):
+        return denied("INVALID_MATERIAL_REVIEW")
+    rows = material_review_context.get("candidates")
+    if not isinstance(rows, list) or not rows or len(rows) > 12:
+        return denied("MATERIAL_CANDIDATES_INVALID")
+    material_ids = [row.get("fault_id") if isinstance(row, dict) else None for row in rows]
+    if any(not isinstance(fid, str) or not fid or len(fid) > 160 for fid in material_ids):
+        return denied("MATERIAL_CANDIDATES_INVALID")
+    if len(set(material_ids)) != len(material_ids):
+        return denied("MATERIAL_CANDIDATES_DUPLICATED")
+
+    frozen_ids = diagnosis_snapshot.get("candidate_fault_ids")
+    if isinstance(frozen_ids, list) and frozen_ids:
+        if any(not isinstance(fid, str) or not fid for fid in frozen_ids):
+            return denied("FROZEN_CANDIDATES_INVALID")
+        if set(material_ids) != set(frozen_ids) or len(material_ids) != len(frozen_ids):
+            return denied("FROZEN_CANDIDATES_MISMATCH")
+    else:
+        # Old single-candidate entrypoints have no list. Never allow them to
+        # smuggle an independent set of competing material candidates.
+        if len(material_ids) != 1 or material_ids[0] != diagnosis_snapshot.get("candidate_fault_id"):
+            return denied("FROZEN_CANDIDATES_NOT_BOUND")
+
+    top_id = diagnosis_snapshot.get("candidate_fault_id")
+    if top_id is not None and top_id not in material_ids:
+        return denied("FROZEN_TOP_CANDIDATE_MISMATCH")
+    review_group = material_review_context.get("source_group_id")
+    snapshot_group = diagnosis_snapshot.get("material_source_group_id")
+    if review_group is not None or snapshot_group is not None:
+        if not isinstance(review_group, str) or not review_group or review_group != snapshot_group:
+            return denied("MATERIAL_SOURCE_GROUP_MISMATCH")
+    return material_review_context, {
+        "status": "BOUND_FROZEN_DIAGNOSIS", "candidate_count": len(material_ids),
+        "source_group_checked": review_group is not None,
+        "diagnostic_vote_allowed": False,
+    }
+
 class PlatformKnowledgeClaim(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
     kind: Literal["OBSERVATION", "LOCAL_KNOWLEDGE", "LITERATURE", "ONTOLOGY_CANDIDATE", "HYPOTHESIS", "MATERIAL_LOG_CUE", "MATERIAL_REFERENCE", "GRAPH_ASSOCIATION", "CONFIRMED_CASE"]
@@ -1008,6 +1064,9 @@ class PlatformKnowledgeEnrichmentService:
         material_review_context: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         output_root.mkdir(parents=True, exist_ok=True)
+        material_review_context, material_binding = bind_frozen_material_review(
+            diagnosis_snapshot, material_review_context,
+        )
         timings: dict[str, float] = {}
         reported_observations = review_numbered_observations(task)
 
@@ -1083,7 +1142,9 @@ class PlatformKnowledgeEnrichmentService:
                     summarize_material_causal_review(material_review_context)
                     if material_review_context else None
                 )
-                tool_investigation = {"status": "DISABLED"}
+                tool_investigation = {"status": (
+                    "DISABLED" if material_review_context else material_binding["status"]
+                ), "diagnostic_vote_allowed": False}
                 if material_review_context and self.config.material_tool_calls_enabled:
                     try:
                         tool_investigation = execute_material_tool_plan(
@@ -1142,6 +1203,7 @@ class PlatformKnowledgeEnrichmentService:
                         "local_knowledge_hits": local_hits,
                         "literature_documents": documents,
                         "material_reasoning": {
+                            "material_binding": material_binding,
                             "claim_boundary": "Cues, reference matches, graph associations and historical cases are not current confirmed diagnoses; cite only supplied IDs; do not issue controls.",
                             "competition_boundary": "No upstream candidate changes; comparison is non-voting and all log matches are unverified textual cues.",
                             "reviewed_causal_chains": causal_review_for_llm,
@@ -1190,7 +1252,13 @@ class PlatformKnowledgeEnrichmentService:
                                     for x in (item.get('historical_confirmed_cases') or {}).get('hits',[])[:5]
                                 ],
                             } for item in (material_review_context or {}).get('candidates',[])[:5]],
-                        } if material_review_context else None,
+                        } if material_review_context else {
+                            "material_binding": material_binding,
+                            "tool_investigation": tool_investigation,
+                            "reviewed_causal_chains": None,
+                            "candidates": [],
+                            "diagnostic_vote_allowed": False,
+                        },
                         "anything2ontology": {
                             "status": a2o.get("status"),
                             "active_kg_modified": False,
@@ -1268,6 +1336,7 @@ class PlatformKnowledgeEnrichmentService:
             "diagnosis_frozen": True,
             "user_reported_observation_ledger": reported_observations,
             "diagnostic_candidate_can_be_overridden": False,
+            "material_binding": material_binding,
             "active_kg_modified": False,
             "retrieval_query_sha256": hashlib.sha256(retrieval_query.encode()).hexdigest(),
             "document_ingestion": ingestion,
@@ -1299,6 +1368,7 @@ class PlatformKnowledgeEnrichmentService:
 __all__ = [
     "Anything2OntologyCLIAdapter",
     "PlatformKnowledgeClaim",
+    "bind_frozen_material_review",
     "PlatformKnowledgeConfig",
     "PlatformKnowledgeEnrichmentService",
     "PlatformKnowledgeExplanation",

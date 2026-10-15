@@ -213,7 +213,7 @@ def test_causal_differential_reaches_llm_without_new_candidate_ids(tmp_path):
         'competing_hypothesis_review':build_competing_hypothesis_review([a,b],[]),
     }
     service.enrich(task='Compare two supplied hypotheses',
-        diagnosis_snapshot={'candidate_fault_id':'FAULT_A','evidence':[]},
+        diagnosis_snapshot={'candidate_fault_id':'FAULT_A','candidate_fault_ids':['FAULT_A','FAULT_B'],'evidence':[]},
         document_paths=[],output_root=tmp_path/'knowledge',material_review_context=context)
     transmitted=backend.payload['material_reasoning']['competing_hypothesis_review']['causal_path_differential']
     assert [row['fault_id'] for row in transmitted['candidates']]==['FAULT_A','FAULT_B']

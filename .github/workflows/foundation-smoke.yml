@@ -30,4 +30,5 @@ jobs:
             tests/test_foundation_r8_causal_differential.py \
             tests/test_foundation_r9_reviewed_applicability.py \
             tests/test_foundation_r10_temporal_causal.py \
-            tests/test_foundation_r11_material_llm_tool_integration.py
+            tests/test_foundation_r11_material_llm_tool_integration.py \
+            tests/test_foundation_r11b_task_bound_explanations.py

@@ -132,7 +132,7 @@ def test_material_llm_receives_competing_hypotheses_not_just_top_candidate(tmp_p
         context['candidates'], [{'symptom_id': 'SYMPTOM-B',
                                  'candidate_fault_ids': ['RW_FRICTION', 'RW_POWER']}])
     outcome = service.enrich(task='Review fault possibilities',
-        diagnosis_snapshot={'candidate_fault_id':'RW_FRICTION', 'evidence': []},
+        diagnosis_snapshot={'candidate_fault_id':'RW_FRICTION', 'candidate_fault_ids': ['RW_FRICTION', 'RW_POWER'], 'evidence': []},
         document_paths=[], output_root=tmp_path/'knowledge', material_review_context=context)
     assert outcome['generation']['status']=='SUCCEEDED'
     comparison = backend.payload['material_reasoning']['competing_hypothesis_review']

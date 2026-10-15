@@ -1227,6 +1227,7 @@ class UploadReportJobStore:
             "status": review["status"],
             "candidate_fault_id": review["top_fault_id"],
             "candidate_fault_ids": [x["fault_id"] for x in review["candidates"]],
+            "material_source_group_id": job_id,
             "location_candidates": [],
             "evidence": [
                 {"evidence_id": x["evidence_id"], "field": x["filename"],

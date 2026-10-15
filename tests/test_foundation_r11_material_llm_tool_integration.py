@@ -116,7 +116,8 @@ def test_material_llm_enrichment_passes_verdicts_and_tool_results(tmp_path):
     service = PlatformKnowledgeEnrichmentService(
         PlatformKnowledgeConfig(a2o_enabled=False, material_tool_calls_enabled=True), llm_backend=spy)
     output = service.enrich(task="Compare frozen pump candidates.",
-                            diagnosis_snapshot={"candidate_fault_id": None, "evidence": []},
+                            diagnosis_snapshot={"candidate_fault_id": None, "candidate_fault_ids":
+                                ["PUMP_FAULT_A", "PUMP_FAULT_B"], "evidence": []},
                             document_paths=[], output_root=tmp_path / "knowledge",
                             material_review_context=sample_context())
     assert [agent for agent, _ in spy.payloads] == [
@@ -133,7 +134,8 @@ def test_material_llm_legacy_single_call_when_opt_out(tmp_path):
     service = PlatformKnowledgeEnrichmentService(
         PlatformKnowledgeConfig(a2o_enabled=False, material_tool_calls_enabled=False), llm_backend=spy)
     service.enrich(task="Compare frozen pump candidates.",
-                   diagnosis_snapshot={"candidate_fault_id": None, "evidence": []},
+                   diagnosis_snapshot={"candidate_fault_id": None, "candidate_fault_ids":
+                                ["PUMP_FAULT_A", "PUMP_FAULT_B"], "evidence": []},
                    document_paths=[], output_root=tmp_path / "knowledge",
                    material_review_context=sample_context())
     assert [agent for agent, _ in spy.payloads] == ["platform-knowledge-explanation"]
