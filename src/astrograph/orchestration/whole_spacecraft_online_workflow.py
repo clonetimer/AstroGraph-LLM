@@ -304,8 +304,14 @@ class WholeSpacecraftOnlineDiagnosisWorkflow:
         data_model_registry: DataDrivenModelRegistry | None = None,
         dataset_profile_registry: DatasetProfileRegistry | None = None,
         runtime_policy_registry: RuntimePolicyRegistry | None = None,
+        post_diagnosis_knowledge_service: Any | None = None,
+        post_diagnosis_document_paths: tuple[Path, ...] = (),
+        post_diagnosis_material_review: dict[str, Any] | None = None,
     ) -> None:
         self.backend = reasoning_backend
+        self.post_diagnosis_knowledge_service = post_diagnosis_knowledge_service
+        self.post_diagnosis_document_paths = tuple(post_diagnosis_document_paths)
+        self.post_diagnosis_material_review = post_diagnosis_material_review
         self.tools = tool_registry or build_online_tool_registry()
         self.data_models = data_model_registry
         self.dataset_profiles = dataset_profile_registry
@@ -748,6 +754,21 @@ class WholeSpacecraftOnlineDiagnosisWorkflow:
                     code="ASTROGRAPH_ONLINE_DAG_NO_RESULT",
                     message="Whole-spacecraft online DAG terminated without an ExecutionResult.",
                 )
+            # Optional post-persistence read-only explanation. It must never
+            # alter the online DAG's structured result or decision governance.
+            if self.post_diagnosis_knowledge_service is not None:
+                from .online_post_diagnosis import run_online_post_diagnosis_explanation
+                try:
+                    run_online_post_diagnosis_explanation(
+                        result=final,
+                        knowledge_service=self.post_diagnosis_knowledge_service,
+                        output_root=Path(str(final.metadata.get("artifact_dir", ""))),
+                        document_paths=list(self.post_diagnosis_document_paths),
+                        material_review_context=self.post_diagnosis_material_review,
+                    )
+                except Exception:
+                    # A completed diagnosis survives even a sidecar I/O failure.
+                    pass
             return final
         except OnlineStageExecutionError as exc:
             return ExecutionResult.failed(
