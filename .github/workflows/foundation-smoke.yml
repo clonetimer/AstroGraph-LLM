@@ -34,4 +34,6 @@ jobs:
             tests/test_foundation_r11b_task_bound_explanations.py \
             tests/test_foundation_r11b2_post_diagnosis_bridge.py \
             tests/test_platform_knowledge_enrichment.py \
-            tests/test_upload_report_platform.py
+            tests/test_upload_report_platform.py \
+            tests/test_design_diagnostic_harness.py \
+            tests/test_foundation_r11b3_oag_post_diagnosis.py
