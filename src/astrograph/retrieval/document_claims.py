@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import math
 
 from astrograph.knowledge.construction import GovernedDocumentProcessingBundle
 from astrograph.knowledge.schema_v3 import KnowledgeGraphV3
@@ -9,6 +10,7 @@ from astrograph.knowledge.schema_v3 import KnowledgeGraphV3
 from .document_governance import (
     ClaimEpistemicStatus,
     DocumentEvidenceClaim,
+    ClaimTemporalScope,
     DocumentAuthority,
     DocumentVisibilityClass,
     bind_document_evidence_claim,
@@ -88,8 +90,22 @@ def materialize_document_graph_claims(
 def evaluate_document_claim_admissions(
     claims: list[DocumentEvidenceClaim],
     policy: DocumentClaimAdmissionPolicy,
+    *,
+    observation_time_s: float | None = None,
 ) -> list[DocumentClaimAdmission]:
-    """Fail closed on authority, calibration, independence and applicability."""
+    """Fail closed on authority, calibration, independence, scope and causal time.
+
+    The inference cutoff is supplied by the trusted caller, *not* by a document
+    or a signed approval policy. The v1 policy hash therefore stays unchanged.
+    """
+
+    if observation_time_s is not None and (
+        isinstance(observation_time_s, bool)
+        or not isinstance(observation_time_s, (float, int))
+        or not math.isfinite(observation_time_s)
+        or observation_time_s < 0
+    ):
+        raise ValueError("observation_time_s must be a finite nonnegative number")
 
     calibrated = set(policy.calibrated_claim_ids)
     independent = set(policy.independent_provenance_group_ids)
@@ -125,6 +141,18 @@ def evaluate_document_claim_admissions(
         if (claim.source_visibility_class == DocumentVisibilityClass.OBSERVATION_CAUSAL
                 and not any(item.startswith('episode:') for item in claim.applicability)):
             reasons.append("OBSERVATION_EPISODE_BINDING_MISSING")
+        if claim.temporal_scope == ClaimTemporalScope.TIME_BOUNDED:
+            if observation_time_s is None:
+                reasons.append("INFERENCE_TIME_REQUIRED")
+            elif (
+                claim.valid_time_end_s is None
+                or claim.observable_cutoff_time_s is None
+                or not math.isfinite(claim.valid_time_end_s)
+                or not math.isfinite(claim.observable_cutoff_time_s)
+                or claim.valid_time_end_s > observation_time_s
+                or claim.observable_cutoff_time_s > observation_time_s
+            ):
+                reasons.append("FUTURE_DOCUMENT_EVIDENCE_BLOCKED")
         eligible = not reasons
         admissions.append(
             DocumentClaimAdmission(

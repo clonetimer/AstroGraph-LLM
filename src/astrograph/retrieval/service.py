@@ -410,8 +410,16 @@ class PreReasoningRetrievalService:
         ]
         from .document_claims import evaluate_document_claim_admissions
 
+        access = request.query.document_access_context
         document_claim_admissions = evaluate_document_claim_admissions(
-            selected_document_claims, request.document_claim_admission_policy
+            selected_document_claims,
+            request.document_claim_admission_policy,
+            observation_time_s=(
+                access.observation_time_s
+                if access is not None and access.mode.value == "RUNTIME_DIAGNOSIS"
+                and access.episode_id == request.query.episode_id
+                else None
+            ),
         )
         package_payload = {
             "query_sha256": query_hash,

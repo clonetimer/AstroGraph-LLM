@@ -270,3 +270,14 @@ SSH 隧道是独立进程，停止 AstroGraph 不会自动关闭隧道。如不�
 ### 为什么报告没有直接给出确定根因
 
 当材料缺失、证据互相矛盾或引用无法支持结论时，系统会保留“证据不足”或待复核状态。这是为了避免把模型推测当成已经证实的工程事实。
+
+## 附录：耗时测试采用日志文件与完成标记
+
+为了避免在交互终端持续打印输出，可用独立进程执行长时间验证（Windows PowerShell / Linux 均可用）：
+
+```powershell
+python scripts/launch_logged_tests.py start --timeout 600 foundation-smoke -- python -m pytest -q tests/test_document_claim_fusion_adapter.py
+python scripts/launch_logged_tests.py status foundation-smoke
+```
+
+启动命令立即返回；完整标准输出/错误输出写入 `validation_logs/foundation-smoke/output.log`。作业结束会**原子写入** `validation_logs/foundation-smoke/done.json`，包含退出码、结束时间与日志路径。CI 或外部文件监视器可以将 `done.json` 作为完成触发条件；它不会自行向 ChatGPT 会话推送消息。若需要复跑，请使用新的作业名称，避免覆盖历史日志。出现 FAILED 或超时必须检查日志，不能按 PASS 处理。正式验收应额外校验原始数据与 SHA256 清单。
