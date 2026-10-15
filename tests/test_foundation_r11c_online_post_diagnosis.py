@@ -167,3 +167,20 @@ def test_other_artifact_directory_rejected_before_llm(tmp_path):
     )
     assert receipt["reason_code"] == "ONLINE_ARTIFACT_INTEGRITY_INVALID"
     assert not spy.calls
+
+
+def test_llm_generation_failure_returned_as_status_is_not_marked_succeeded(tmp_path):
+    result = execute(tmp_path)
+
+    class FailedStatus(Spy):
+        def enrich(self, **kwargs):
+            self.calls.append(kwargs)
+            return {"status": "FAILED", "generation": {"status": "FAILED"}}
+
+    service = FailedStatus()
+    receipt = run_online_post_diagnosis_explanation(
+        result=result, knowledge_service=service, output_root=tmp_path / "online",
+    )
+    assert receipt["status"] == "FAILED_CLOSED"
+    assert receipt["reason_code"] == "EXPLANATION_BACKEND_FAILED"
+    assert result.status == ExecutionStatus.SUCCEEDED
