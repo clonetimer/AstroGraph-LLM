@@ -294,7 +294,7 @@ def test_llm_hallucination_draft_is_not_user_facing():
     assert result['material_answer_guard']['automatic_control_authorized'] is False
 
 
-def test_validated_cited_llm_result_is_visible_for_expert_review():
+def test_citation_id_validation_does_not_expose_unverified_model_narrative():
     from astrograph.integrations.material_multihop import apply_material_answer_guard
     draft={'generation':{
         'status':'SUCCEEDED',
@@ -312,11 +312,13 @@ def test_validated_cited_llm_result_is_visible_for_expert_review():
     result=apply_material_answer_guard(
         draft,{'answer_policy':{'all_candidates_abstained':False},'candidates':[]})
     visible=result['model_explanation']
-    assert visible['status']=='AVAILABLE_REQUIRES_EXPERT_REVIEW'
-    assert visible['claims'][0]['citation_ids']==['MLOG-001','KREF-001']
-    assert visible['recommended_review_actions']==['核对轮速、指令与电流变化。']
+    assert visible['status']=='NO_VERIFIABLE_EXTRACTS'
+    assert visible['claims']==[]
+    assert visible['recommended_review_actions']==[]
     assert visible['automatic_control_authorized'] is False
-    assert result['material_answer_guard']['validated_structured_model_output_exposed'] is True
+    assert result['material_answer_guard']['validated_structured_model_output_exposed'] is False
+    assert result['generation']['claim_level_audit']['withheld_claim_count']==1
+    assert '摩擦增大值得优先排查' not in json.dumps(result,ensure_ascii=False)
     assert result['final_explanation']['source']=='DETERMINISTIC_MATERIAL_MULTIHOP_POLICY'
 
 
