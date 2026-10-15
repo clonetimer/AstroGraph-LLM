@@ -42,4 +42,5 @@ jobs:
             tests/test_whole_spacecraft_runtime_dag.py \
             tests/test_online_hybrid_tool_registry.py \
             tests/test_foundation_r11d_model_wire_protocol.py \
-            tests/test_openai_compatible_backend.py
+            tests/test_openai_compatible_backend.py \
+            tests/test_foundation_r11e_investigation_quality.py
