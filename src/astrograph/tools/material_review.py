@@ -14,7 +14,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from astrograph.orchestration.models import PermissionScope, SideEffectLevel, WorkflowContext
 from astrograph.tools.registry import ToolDefinition, ToolRegistry, ToolSpec
 
-VERSION = "material-review-tools.r11.1"
+VERSION = "material-review-tools.r11.2"
 TOOL_IDS = (
     "material.rag.compare_hypotheses",
     "material.graph.search_causal_paths",
@@ -185,6 +185,85 @@ def summarize_material_causal_review(material_review: dict[str, Any], *, max_can
             "diagnostic_vote_allowed": False, "current_root_cause_proven": False}
 
 
+
+def material_investigation_opportunities(
+    material_review: dict[str, Any], *, max_opportunities: int = 32,
+) -> dict[str, Any]:
+    """Identify checkable review questions; NEVER infer a current root cause.
+
+    All identifiers originate from the already host-reviewed frozen material.
+    Review opportunities are advisory, not evidence, diagnostic votes, or proof.
+    """
+    rows = (material_review.get("candidates") or [])[:12]
+    opportunities: list[dict[str, Any]] = []
+    candidates = [r for r in rows if isinstance(r, dict) and isinstance(r.get("fault_id"), str)]
+    if len(candidates) > 1 and material_review.get("competing_hypothesis_review"):
+        opportunities.append({"tool_id": TOOL_IDS[0], "reason_code": "REVIEWED_COMPETITION_AVAILABLE"})
+    for candidate in candidates:
+        fid = candidate["fault_id"]
+        review = ((candidate.get("multi_hop") or {}).get("causal_chain_review") or {})
+        chains = (review.get("chains") or [])[:12]
+        blocked = (review.get("blocked") or [])[:12]
+        if chains or blocked:
+            opportunities.append({"tool_id": TOOL_IDS[1], "fault_id": fid,
+                                  "reason_code": "CAUSAL_PATH_OR_BLOCKER_AVAILABLE"})
+        for chain in chains:
+            if not isinstance(chain, dict) or not isinstance(chain.get("path_id"), str) or not chain["path_id"]:
+                continue
+            for tool, key, reason in (
+                (TOOL_IDS[2], "reviewed_context_consistency", "REVIEWED_CONTEXT_NEEDS_CHECK"),
+                (TOOL_IDS[3], "reviewed_temporal_consistency", "REVIEWED_TEMPORAL_NEEDS_CHECK"),
+            ):
+                if chain.get(key):
+                    opportunities.append({"tool_id": tool, "fault_id": fid,
+                                          "path_id": chain["path_id"], "reason_code": reason})
+    total = len(opportunities)
+    return {
+        "status": "CHECKABLE_REVIEW_AVAILABLE" if total else "NO_REVIEWED_TOOL_OPPORTUNITIES",
+        "opportunities": opportunities[:max_opportunities],
+        "total_opportunities": total, "truncated": total > max_opportunities,
+        "per_turn_tool_budget": 3, "diagnostic_vote_allowed": False,
+        "actual_flight_evidence_verified": False,
+    }
+
+
+def audit_material_investigation_plan(
+    plan: MaterialToolPlan, opportunities: dict[str, Any], calls: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Audit requested checks against host-reviewable evidence, not model quality."""
+    available = opportunities["opportunities"]
+    def key(row: dict[str, Any]) -> tuple[str, str | None, str | None]:
+        return row["tool_id"], row.get("fault_id"), row.get("path_id")
+    possible = {key(row) for row in available}
+    requested = [key(action.model_dump(exclude_none=True)) for action in plan.actions]
+    successful = {k for k, call in zip(requested, calls) if call["status"] == "SUCCEEDED"}
+    inspected = possible & successful
+    missing = [row for row in available if key(row) not in inspected]
+    denied = sum(call["status"] != "SUCCEEDED" for call in calls)
+    repeated = len(requested) - len(set(requested))
+    unchecked = len(possible - inspected)
+    irrelevant = len(successful - possible)
+    if opportunities["truncated"]:
+        status = "REVIEW_OPPORTUNITY_LIST_TRUNCATED"
+    elif not possible:
+        status = "TOOL_CALLED_WITHOUT_REVIEW_OPPORTUNITY" if requested else "NO_REVIEWED_TOOL_OPPORTUNITIES"
+    elif not requested:
+        status = "MODEL_DECLINED_AVAILABLE_REVIEW"
+    elif denied or repeated or unchecked or irrelevant:
+        status = "REVIEW_COVERAGE_INCOMPLETE"
+    else:
+        status = "REVIEWED_TOOL_CHECKS_COVERED_NOT_FLIGHT_VERIFIED"
+    return {
+        "status": status, "opportunities_total": opportunities["total_opportunities"],
+        "checks_executed": len(successful), "checks_matching_opportunities": len(inspected),
+        "checks_missing_in_visible_list": unchecked, "checks_denied": denied,
+        "checks_repeated": repeated, "checks_without_host_opportunity": irrelevant,
+        "review_gaps": [dict(row) for row in missing[:8]],
+        "tool_budget": 3, "evaluation_is_deterministic": True,
+        "diagnostic_vote_allowed": False, "root_cause_proven": False,
+    }
+
+
 def execute_material_tool_plan(*, backend: Any, material_review: dict[str, Any],
                                run_id: str = "material-review") -> dict[str, Any]:
     """Optional two-pass LLM-selected tool protocol, with host-side validation.
@@ -197,14 +276,18 @@ def execute_material_tool_plan(*, backend: Any, material_review: dict[str, Any],
     paths = {str(r.get("fault_id")): [str(x.get("path_id")) for x in
              ((r.get("multi_hop") or {}).get("causal_chain_review") or {}).get("chains", [])[:12]]
              for r in material_review.get("candidates", [])[:12] if r.get("fault_id")}
+    opportunities = material_investigation_opportunities(material_review)
     plan = backend.generate_structured(
         agent_id="platform-knowledge-material-tool-selector", output_model=MaterialToolPlan,
         payload={"task": "Select up to three read-only evidence review tools. Use only given candidate and path IDs. "
                          "Never request diagnosis, graph editing, external files or spacecraft controls. "
-                         "When no useful investigation is available, return an empty actions list.",
+                         "When no useful investigation is available, return an empty actions list. "
+                         "The opportunities are host-generated reference checks, not root-cause votes; "
+                         "do not invent present-flight evidence or treat a missing check as negative evidence.",
                  "available_tools": [spec.model_dump(mode="json") for spec in registry.list_specs()],
                  "frozen_candidate_ids": ids, "reviewed_path_ids_by_candidate": paths,
-                 "causal_review": summarize_material_causal_review(material_review)})
+                 "causal_review": summarize_material_causal_review(material_review),
+                 "investigation_opportunities": opportunities})
     plan = MaterialToolPlan.model_validate(plan)
     context = WorkflowContext(workflow_id="material.llm.investigation", run_id=run_id,
                               permissions=[PermissionScope.READ_KNOWLEDGE])
@@ -221,6 +304,8 @@ def execute_material_tool_plan(*, backend: Any, material_review: dict[str, Any],
         except (ValueError, KeyError, TypeError, PermissionError) as exc:
             outputs.append({"tool_id": action.tool_id, "status": "DENIED",
                             "reason": "ARGUMENT_NOT_IN_FROZEN_REVIEW"})
+    plan_audit = audit_material_investigation_plan(plan, opportunities, outputs)
     return {"status": "COMPLETED", "tool_version": VERSION,
             "calls": outputs, "receipts": registry.executor.receipts(),
+            "review_coverage_audit": plan_audit,
             "diagnostic_vote_allowed": False, "current_root_cause_proven": False}
