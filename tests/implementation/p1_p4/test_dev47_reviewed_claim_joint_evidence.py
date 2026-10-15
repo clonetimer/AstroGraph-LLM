@@ -74,7 +74,7 @@ def _assets(tmp_path: Path, *, duplicate_mapping: bool = False):
         independent_provenance_group_ids=["independent:HIL:reviewed"],
         applicability_context=["episode:episode:dev47"],
     )
-    admission = evaluate_document_claim_admissions([claim], policy)[0]
+    admission = evaluate_document_claim_admissions([claim], policy, observation_time_s=5.0)[0]
     trace = DocumentClaimAdmissionTrace(claims=[claim], admissions=[admission], policy=policy)
     mapping = DocumentClaimFaultMapping(
         mapping_id="mapping:dev47:imu-dropout",
@@ -93,7 +93,7 @@ def _assets(tmp_path: Path, *, duplicate_mapping: bool = False):
         admissions = [admission, admission.model_copy(update={"claim_id": claim2.claim_id})]
         trace = DocumentClaimAdmissionTrace(claims=[claim, claim2], admissions=admissions, policy=policy.model_copy(update={"calibrated_claim_ids": [claim.claim_id, claim2.claim_id]}))
         # recompute because policy SHA changed
-        trace = DocumentClaimAdmissionTrace(claims=[claim, claim2], admissions=evaluate_document_claim_admissions([claim, claim2], trace.policy), policy=trace.policy)
+        trace = DocumentClaimAdmissionTrace(claims=[claim, claim2], admissions=evaluate_document_claim_admissions([claim, claim2], trace.policy, observation_time_s=5.0), policy=trace.policy)
         mappings.append(mapping.model_copy(update={"mapping_id": "mapping:dev47:duplicate", "claim_id": claim2.claim_id, "polarity": "CONTRADICTS"}))
     trace_path = tmp_path / "claim-trace.json"
     mapping_path = tmp_path / "mapping-bundle.json"
@@ -124,7 +124,7 @@ def _core():
 
 def test_exact_source_sha_and_locator_get_reviewed_context_only(tmp_path: Path) -> None:
     binding, claim = _assets(tmp_path)
-    enricher = ReviewedClaimRAGEnricher.from_binding(binding)
+    enricher = ReviewedClaimRAGEnricher.from_binding(binding, observation_time_s=5.0, episode_id="episode:dev47")
     hit = {
         "citation_id": "DOC-REVIEWED-1:chunk:dev47",
         "document_id": claim.source_document_id,
@@ -149,7 +149,7 @@ def test_hash_drift_and_ambiguous_same_locator_fail_closed(tmp_path: Path) -> No
     trace_path = Path(binding.claim_trace_path)
     trace_path.write_text(trace_path.read_text(encoding="utf-8") + "\n", encoding="utf-8")
     with pytest.raises(ValueError, match="SHA-256 mismatch"):
-        ReviewedClaimRAGEnricher.from_binding(binding)
+        ReviewedClaimRAGEnricher.from_binding(binding, observation_time_s=5.0, episode_id="episode:dev47")
 
 
 
@@ -157,7 +157,7 @@ def test_ambiguous_same_source_locator_is_not_assigned_a_stance(tmp_path: Path) 
     child = tmp_path / "amb"
     child.mkdir()
     binding, claim = _assets(child, duplicate_mapping=True)
-    enricher = ReviewedClaimRAGEnricher.from_binding(binding)
+    enricher = ReviewedClaimRAGEnricher.from_binding(binding, observation_time_s=5.0, episode_id="episode:dev47")
     out = enricher.enrich_hit({
         "citation_id": "C1",
         "document_id": claim.source_document_id,
@@ -242,7 +242,7 @@ def test_mission_structured_output_projects_joint_evidence_without_mutating_core
 def test_taskrun_reviewed_enrichment_helper_propagates_exact_mapping(tmp_path: Path) -> None:
     binding, claim = _assets(tmp_path)
     run = object.__new__(_TaskRun)
-    run.reviewed_claim_enricher = ReviewedClaimRAGEnricher.from_binding(binding)
+    run.reviewed_claim_enricher = ReviewedClaimRAGEnricher.from_binding(binding, observation_time_s=5.0, episode_id="episode:dev47")
     hits = [{
         "citation_id": "DOC-REVIEWED-1:chunk:dev47",
         "document_id": claim.source_document_id,
@@ -265,7 +265,7 @@ def test_reviewed_claim_binding_recomputes_admission_and_rejects_tamper(tmp_path
     trace_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     tampered = binding.model_copy(update={"claim_trace_sha256": _sha_file(trace_path)})
     with pytest.raises(ValueError, match="admissions differ from policy recomputation"):
-        ReviewedClaimRAGEnricher.from_binding(tampered)
+        ReviewedClaimRAGEnricher.from_binding(tampered, observation_time_s=5.0, episode_id="episode:dev47")
 
 
 def test_default_host_has_no_reviewed_claim_supply_and_partial_binding_is_invalid() -> None:

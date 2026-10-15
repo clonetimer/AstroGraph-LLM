@@ -79,7 +79,7 @@ def _eligible_claim_and_admission():
         independent_provenance_group_ids=["independent:HIL:adapter"],
         applicability_context=["episode:episode:adapter"],
     )
-    return claim, evaluate_document_claim_admissions([claim], policy)[0]
+    return claim, evaluate_document_claim_admissions([claim], policy, observation_time_s=5.0)[0]
 
 
 def test_document_fusion_requires_every_scope_constraint_and_episode_binding():
@@ -105,7 +105,7 @@ def test_document_fusion_requires_every_scope_constraint_and_episode_binding():
     assert 'OBSERVATION_EPISODE_BINDING_MISSING' in result.reason_codes
     valid = claim.model_copy(update={
         'applicability':['episode:episode:adapter','graph-scope:SAT-X']})
-    assert evaluate_document_claim_admissions([valid],policy)[0].formal_fusion_eligible
+    assert evaluate_document_claim_admissions([valid],policy,observation_time_s=5.0)[0].formal_fusion_eligible
     # Defensive guard even when a deserialized legacy claim claims voting
     # eligibility despite its train-only origin.
     quarantined = valid.model_copy(update={
@@ -152,6 +152,7 @@ def test_admitted_exact_mapping_builds_lineage_complete_kg_forward_ranking() -> 
         registered_fault_ids=["FAULT_A", "FAULT_B"],
         source_artifact_id="artifact:document-claim-adapter",
         source_artifact_sha256="5" * 64,
+        observation_time_s=5.0,
     )
     ranking = build.ranking
     assert ranking.source == RankingSource.KG_FORWARD
@@ -206,6 +207,7 @@ def test_unmapped_eligible_claim_is_rejected_instead_of_silently_dropped() -> No
             registered_fault_ids=["FAULT_A", "FAULT_B"],
             source_artifact_id="artifact:document-claim-adapter",
             source_artifact_sha256="5" * 64,
+            observation_time_s=5.0,
         )
 
     mismatched = _mapping(claim.claim_id).model_copy(
@@ -220,6 +222,7 @@ def test_unmapped_eligible_claim_is_rejected_instead_of_silently_dropped() -> No
             registered_fault_ids=["FAULT_A", "FAULT_B"],
             source_artifact_id="artifact:document-claim-adapter",
             source_artifact_sha256="5" * 64,
+            observation_time_s=5.0,
         )
 
 
@@ -236,6 +239,7 @@ def test_ineligible_claim_produces_no_document_vote() -> None:
         registered_fault_ids=["FAULT_A", "FAULT_B"],
         source_artifact_id="artifact:document-claim-adapter",
         source_artifact_sha256="5" * 64,
+        observation_time_s=5.0,
     )
     assert build.consumed_claim_ids == []
     assert all(not item.contributes_to_fusion for item in build.ranking.candidates)
@@ -292,6 +296,7 @@ def test_online_shadow_recomputes_admission_and_builds_reviewed_ranking(tmp_path
         ),
         episode_id="episode:adapter",
         registered_fault_ids=["FAULT_A", "FAULT_B"],
+        observation_time_s=5.0,
     )
     assert result.status == "SHADOW_RANKING_READY"
     assert result.ranking_build.consumed_claim_ids == [claim.claim_id]
@@ -322,10 +327,12 @@ def test_online_shadow_rejects_hash_and_admission_tampering(tmp_path) -> None:
             config=config,
             episode_id="episode:adapter",
             registered_fault_ids=["FAULT_A"],
+            observation_time_s=5.0,
         )
     with pytest.raises(ValueError, match="trace SHA-256 mismatch"):
         build_online_document_claim_shadow(
             config=config.model_copy(update={"claim_trace_sha256": "f" * 64}),
             episode_id="episode:adapter",
             registered_fault_ids=["FAULT_A"],
+            observation_time_s=5.0,
         )
