@@ -55,6 +55,8 @@ def test_hybrid_fusion_is_visible_and_never_promotes_ground_truth(tmp_path):
     assert fused['bidirectional_graph_comparison']['diagnostic_vote_allowed'] is False
     assert fused['bidirectional_graph_comparison']['status'] == 'ABSTAIN_EQUIPMENT_SCOPE_REQUIRED'
     assert c['bidirectional_graph_review'].get('validated_root_cause') is not True
+    assert c['multi_hop']['causal_chain_review']['chains']==[]
+    assert not c['multi_hop']['causal_chain_review']['diagnostic_vote_allowed']
     assert c['contrastive_reference_review'] == {} or not c['contrastive_reference_review']['diagnostic_vote_allowed']
     assert c['log_evidence_matrix']['supporting_ids']
     assert c['evidence_assessment']['verified_current_root_cause'] is False

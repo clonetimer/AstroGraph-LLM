@@ -1,0 +1,20 @@
+{
+  "schema_version": "astrograph-foundation-r6-change-manifest.v1",
+  "baseline": "R5 Candidate",
+  "change_file_sha256": {
+    "README.md": "0f13d455248c01dde5d8b2270bdc5ea8a97ea3ffd78d121844e9c79eaea13c30",
+    "FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md": "19c602e90d59c17319ff1ea5b5681d5065199e3eefbf665f23d31bfe143ead0c",
+    "src/astrograph/retrieval/observation_balanced.py": "e56f536be6e83f5c892774f3e0664e6c238d3e041788f300059e0684194e6f9a",
+    "src/astrograph/integrations/platform_knowledge.py": "1c24f425d60fc82f8fc5cef5d7a949a2716eb785dfd48f98e6efc671f2c6cb14",
+    "src/astrograph/integrations/material_graph_builder.py": "2888f48a87282206351615b156f2202cda0de9d1968b0b7ffcb079da44e8e67e",
+    "src/astrograph/integrations/material_multihop.py": "859495be2ae68953650c832dbdeddafed9385099c7e891660f1c69e5efd64818",
+    "src/astrograph/integrations/material_reasoning.py": "9ee2ee75fe600e8f2d28ca57e1cfd369f991db228564f36929c74cfd18a4c1f4",
+    "src/astrograph/llm/task_prompts.py": "d70453e82a8e84a5d2da1228f087d23c7f9ca0e6d580d33903668d94d2d30570",
+    "tests/test_foundation_r6_observation_retrieval.py": "1d31c8d59831fdcc8086c768a035aaefff76a991ec69d06f64a51a7dff1b76fc"
+  },
+  "no_production_gold_mechanism_injected": true,
+  "tests": "126 passed, 3 skipped, exit 0 (targeted suite); see validation_logs/r6-final/done.json",
+  "feature_flags": {
+    "ASTROGRAPH_MATERIAL_GRAPH_MAX_HOPS": "3 default, 4 opt-in"
+  }
+}

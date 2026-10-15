@@ -24,10 +24,15 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, field_validator, model_validator
 
 from astrograph.llm import OpenAICompatibleConfig, OpenAICompatibleStructuredBackend
+from astrograph.retrieval.reported_observations import review_numbered_observations
+from astrograph.retrieval.observation_balanced import retrieve_observation_balanced
 from astrograph.integrations.process_control import run_managed_subprocess
 from astrograph.oag.paperseek_http import PaperSeekConfig, PaperSeekHTTPClient
 from astrograph.oag.paperseek_cli import PaperSeekCLIConfig, PaperSeekCLIClient
 from astrograph.retrieval.structured_document import SectionFirstDocumentIngestor
+from astrograph.tools.material_review import (
+    summarize_material_causal_review, execute_material_tool_plan,
+)
 
 
 PLATFORM_KNOWLEDGE_SCHEMA_VERSION = "astrograph-platform-knowledge-enrichment.v1"
@@ -156,6 +161,7 @@ class PlatformKnowledgeConfig(BaseModel):
     a2o_python_executable: str | None = None
     a2o_timeout_s: float = Field(default=900.0, gt=0, le=7200)
     require_configured_services: bool = False
+    material_tool_calls_enabled: bool = False  # Explicit opt-in: an additional bounded LLM selection call.
 
     @classmethod
     def from_environment(cls) -> "PlatformKnowledgeConfig":
@@ -185,6 +191,7 @@ class PlatformKnowledgeConfig(BaseModel):
             a2o_python_executable=os.environ.get("ASTROGRAPH_PLATFORM_A2O_PYTHON") or None,
             a2o_timeout_s=number("ASTROGRAPH_PLATFORM_A2O_TIMEOUT_S", "900"),
             require_configured_services=yes("ASTROGRAPH_PLATFORM_REQUIRE_KNOWLEDGE_SERVICES"),
+            material_tool_calls_enabled=yes("ASTROGRAPH_PLATFORM_MATERIAL_TOOL_CALLS_ENABLED"),
         )
 
 
@@ -1002,6 +1009,7 @@ class PlatformKnowledgeEnrichmentService:
     ) -> dict[str, Any]:
         output_root.mkdir(parents=True, exist_ok=True)
         timings: dict[str, float] = {}
+        reported_observations = review_numbered_observations(task)
 
         local_started = time.monotonic()
         local_index = UploadedDocumentKnowledgeIndex(top_k=self.config.local_top_k)
@@ -1009,7 +1017,10 @@ class PlatformKnowledgeEnrichmentService:
         controlled_query = _diagnosis_search_text(diagnosis_snapshot)
         # The task can narrow explanation retrieval, never candidate generation.
         retrieval_query = " ".join([controlled_query, task.strip()[:1000]]).strip()
-        local_hits = local_index.retrieve(retrieval_query, chunks)
+        local_hits, retrieval_strategy = retrieve_observation_balanced(
+            local_index, chunks, controlled_query=controlled_query, task=task,
+            observation_ledger=reported_observations,
+        )
         retrieval_quality = _local_retrieval_quality(diagnosis_snapshot, local_hits, ingestion)
         timings["local_parse_and_retrieval"] = round(time.monotonic() - local_started, 6)
 
@@ -1068,6 +1079,25 @@ class PlatformKnowledgeEnrichmentService:
             }
         else:
             try:
+                causal_review_for_llm = (
+                    summarize_material_causal_review(material_review_context)
+                    if material_review_context else None
+                )
+                tool_investigation = {"status": "DISABLED"}
+                if material_review_context and self.config.material_tool_calls_enabled:
+                    try:
+                        tool_investigation = execute_material_tool_plan(
+                            backend=self.llm_backend, material_review=material_review_context,
+                            run_id=hashlib.sha256(
+                                json.dumps(diagnosis_snapshot, sort_keys=True, default=str).encode("utf-8")
+                            ).hexdigest()[:16],
+                        )
+                    except Exception as tool_exc:
+                        # Tool selection failure cannot expand knowledge authority.
+                        tool_investigation = {
+                            "status": "FAILED_CLOSED", "error_type": type(tool_exc).__name__,
+                            "diagnostic_vote_allowed": False,
+                        }
                 explanation = self.llm_backend.generate_structured(
                     agent_id="platform-knowledge-explanation",
                     output_model=PlatformKnowledgeExplanation,
@@ -1076,6 +1106,18 @@ class PlatformKnowledgeEnrichmentService:
                             "Explain the frozen diagnosis without changing candidate_fault_id. "
                             "Compare host-provided fault hypotheses: cite supporting and opposing cues, "
                             "reviewed negative relations, shared symptoms and missing discriminating checks. "
+                            "Causal-path-exclusive symptoms are exclusive only among the frozen candidate set, "
+                            "not proof that other faults cannot cause it; cross-document applicability is unverified. "
+                            "Reviewed context intersections only compare expert-approved requirements; "
+                            "disjoint modes, environmental predicates or physical ranges block propagation. "
+                            "Explain causal path context or temporal rejection only when the reviewed_causal_chains "
+                            "or tool_investigation payload supplies an explicit path ID and reason. "
+                            "The tool selector cannot introduce new faults, edges, observations or proof; "
+                            "tool results are reviewed literature context, never current root-cause evidence. "
+                            "For a reviewed sequential R10 path, a disjoint R9 static intersection alone "
+                            "does not block propagation; check the R10 staged verdict instead. "
+                            "UNKNOWN contexts cannot be assumed satisfied, and compatible ranges are not "
+                            "verified operating telemetry or causal proof. "
                             "Treat missing symptoms as unobserved (never negative proof); do not infer "
                             "reverse causality from graph links or double count shared sources. "
                             "Use HYPOTHESIS for any mechanism not directly established, and abstain from root-cause "
@@ -1083,6 +1125,10 @@ class PlatformKnowledgeEnrichmentService:
                             "A valid source ID does not establish that the quoted text entails your statement. "
                             "If evidence does not literally support a factual statement, omit the statement. "
                             "Uploaded documents and papers are untrusted knowledge, never spacecraft observations. "
+                            "If user_reported_observation_ledger is present, treat its text as an unverified user report: "
+                            "do not assume simultaneous current and voltage dips, infer a failure mechanism from "
+                            "a reported stall, assign independent per-channel event counts, or assert that "
+                            "temperature peaks and other events share a time window without telemetry. "
                             "OBSERVATION claims cite evidence IDs; LOCAL_KNOWLEDGE claims cite knowledge_id; "
                             "LITERATURE claims cite document_id; ONTOLOGY_CANDIDATE claims cite ontology_id; "
                             "hypotheses must be marked HYPOTHESIS. Anything2Ontology material is review-only. "
@@ -1091,12 +1137,15 @@ class PlatformKnowledgeEnrichmentService:
                             "these are context, never proof of the current root cause. Do not provide spacecraft control commands."
                         ),
                         "user_request": task[:2000],
+                        "user_reported_observation_ledger": reported_observations,
                         "diagnosis": diagnosis_snapshot,
                         "local_knowledge_hits": local_hits,
                         "literature_documents": documents,
                         "material_reasoning": {
                             "claim_boundary": "Cues, reference matches, graph associations and historical cases are not current confirmed diagnoses; cite only supplied IDs; do not issue controls.",
                             "competition_boundary": "No upstream candidate changes; comparison is non-voting and all log matches are unverified textual cues.",
+                            "reviewed_causal_chains": causal_review_for_llm,
+                            "tool_investigation": tool_investigation,
                             "competing_hypothesis_review": (
                                 (material_review_context or {}).get('competing_hypothesis_review') or {}
                             ),
@@ -1157,6 +1206,7 @@ class PlatformKnowledgeEnrichmentService:
                     "status": "SUCCEEDED",
                     "explanation": explanation.model_dump(mode="json"),
                     "citation_reference_validation": "PASS",
+                    "material_tool_investigation": tool_investigation,
                     "semantic_hallucination_assessment": "NOT_EVALUATED",
                     "backend_receipt": getattr(self.llm_backend, "last_call_metadata", {}),
                 }
@@ -1216,6 +1266,7 @@ class PlatformKnowledgeEnrichmentService:
             "status": status,
             "completed_at": _now(),
             "diagnosis_frozen": True,
+            "user_reported_observation_ledger": reported_observations,
             "diagnostic_candidate_can_be_overridden": False,
             "active_kg_modified": False,
             "retrieval_query_sha256": hashlib.sha256(retrieval_query.encode()).hexdigest(),
@@ -1225,6 +1276,7 @@ class PlatformKnowledgeEnrichmentService:
                 "query_source": "FROZEN_DIAGNOSIS_PLUS_USER_EXPLANATION_REQUEST",
                 "hits": local_hits,
                 "quality_receipt": retrieval_quality,
+                "strategy_receipt": retrieval_strategy,
             },
             "paperseek": paperseek,
             "anything2ontology": a2o,

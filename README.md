@@ -1,3 +1,8 @@
+> R11-A 大模型工具桥接（候选版）：已审核材料对照、R7 因果路径、R9 工况与 R10 时序检查成为任务绑定的只读工具；可选择性开启模型工具选择（默认关闭），无论是否开启都会向 LLM 提供精简路径校验和阻断原因。公开报告只显示确定性审查结论，不将文献因果关系当成卫星已证实根因：[`FOUNDATION_R11_LLM_MATERIAL_TOOLS.md`](FOUNDATION_R11_LLM_MATERIAL_TOOLS.md)。
+> R10 时序感知因果链：独立审核阶段状态与时间范围，防止合法跨工况传播被 R9 静态交集误杀；未认证飞行故障：[`FOUNDATION_R10_TEMPORAL_CAUSAL.md`](FOUNDATION_R10_TEMPORAL_CAUSAL.md)。
+> R8 因果语义方向、跨文献上下文及竞争假设差异审查（开发候选）：[`FOUNDATION_R8_CAUSAL_DIFFERENTIAL.md`](FOUNDATION_R8_CAUSAL_DIFFERENTIAL.md)。
+> R6 逐条现象检索与多阶段机理图谱（开发候选）：[`FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md`](FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md)。
+> R5 自然语言故障现象输入预审（开发候选）：[`FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md`](FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md)。
 > R4 文献与故障假设增强候选版说明：[`FOUNDATION_R4_COMPETITION_AND_CLAIM_AUDIT.md`](FOUNDATION_R4_COMPETITION_AND_CLAIM_AUDIT.md)。
 
 # AstroGraph 使用步骤
@@ -5,6 +10,30 @@
 AstroGraph 是一个面向航天器故障研判的本地 Web 工作台。用户可以上传已有诊断结果、运行日志和参考文献，选择规则引擎或已配置的大模型生成原因分析、证据说明和处置建议，再由领域专家完成复核。
 
 > 系统输出用于辅助研判，不代表故障已经工程确诊，也不会自动向设备下发控制指令。
+
+## R6：多现象均衡检索与可选四跳机理审查（不直接确诊）
+
+编号现象现在会分别执行局部资料检索，同时保留联合查询。多路命中经有界去重和 RRF 融合，返回每条现象的词法覆盖收据；资料本身仍需审核，不能作为当前设备已经失效的证据。
+
+图谱允许生成“机理→机理”的**待审核关联**；缺省三跳不变。管理员需要主动设置下列环境变量才允许四跳路径探索，所有路径仍需型号、来源与独立审批门禁：
+
+```powershell
+$env:ASTROGRAPH_MATERIAL_GRAPH_MAX_HOPS = "4"
+python -m pytest -q tests/test_foundation_r6_observation_retrieval.py
+```
+
+请勿把已经公布的故障调查答案加入检索语料再用同一案例宣布“盲测准确率提升”。对应的完整说明见 [`FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md`](FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md)。
+
+## R5：仅有故障现象文字时的安全预审（不执行正式诊断）
+
+用户如果只有编号的文字现象，可先检查原文是否被完整保留，再决定是否上传已有诊断结果、运行日志和参考文献进行正式材料复核。**仅提供文字不能证明故障根因，也不能把文本预审结果当作已核实的遥测。**
+
+```powershell
+python scripts/review_reported_observations.py --file examples/r5_south_solar_wing_observations.txt --output observation_preview.json
+python -m pytest -q tests/test_foundation_r5_reported_observations.py
+```
+
+当前演示保留“3次跌落”“181°C”“150°C”“南太阳翼调整时堵转”等原话及原文哈希，不自行判断时序同步、温度是否超限或机械根因。详见 [`FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md`](FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md)。
 
 ## 1. 运行环境
 
@@ -305,3 +334,14 @@ Get-Content validation_logs\rag-r3\output.log -Tail 30
 ```
 
 更多源文件、接口边界、风险与回归范围见 `docs/implementation/ASTROGRAPH_R3_LITERATURE_RETRIEVAL_GRAPHRAG_AUDIT.md`。R3 仍是**开发候选**，不可将定向回归通过表述为真实航天场景诊断性能已经提高。
+
+## 附录：R7 已审核因果声明链（开发候选）
+
+基于 R6 的文献审核图谱，R7 将 `CAUSES` / `CONTRIBUTES_TO` 与原来的 `ASSOCIATED_WITH` 严格区分。
+符合原文定位与独立审批要求的 `CAUSES` 边，可在固定型号、快照和管理员指定深度下，形成**独立的文献因果声明链**；否定、条件未知、反向遍历、跨型号、未经审核的关联边不能补齐该链。
+返回结果位于材料诊断候选的 `multi_hop.causal_chain_review`，每一跳包含原文和来源审核收据；任何结果均不代表本星已确诊，不改变故障排名或自动控制权限。
+更多边界、已知限制与回归方法参见 `FOUNDATION_R7_CAUSAL_CLAIMS.md`。
+
+## R9: Reviewed cause-chain operating context (development candidate)
+
+R9 adds optional **expert-approved**, structured applicability annotations on independently reviewed causal reference edges. The CAUSES path evaluator checks intersections of operating modes, environmental regimes and supported unit-normalized physical parameter ranges, blocking contradictory cross-document paths. Old edges without these annotations remain readable but are explicitly classified as **context not fully reviewed**; compatible annotations are *not* evidence that the spacecraft satisfied those conditions. No graph path gains diagnosis-voting or control authority. API and known limitations: [`FOUNDATION_R9_CONTEXT_CONSTRAINTS.md`](FOUNDATION_R9_CONTEXT_CONSTRAINTS.md).
