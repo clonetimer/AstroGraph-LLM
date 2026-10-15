@@ -1,3 +1,5 @@
+> R4 文献与故障假设增强候选版说明：[`FOUNDATION_R4_COMPETITION_AND_CLAIM_AUDIT.md`](FOUNDATION_R4_COMPETITION_AND_CLAIM_AUDIT.md)。
+
 # AstroGraph 使用步骤
 
 AstroGraph 是一个面向航天器故障研判的本地 Web 工作台。用户可以上传已有诊断结果、运行日志和参考文献，选择规则引擎或已配置的大模型生成原因分析、证据说明和处置建议，再由领域专家完成复核。

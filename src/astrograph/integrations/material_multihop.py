@@ -489,35 +489,38 @@ def apply_material_answer_guard(knowledge: dict[str,Any], reasoning: dict[str,An
         if (raw_generation.get('status') == 'SUCCEEDED'
                 and raw_generation.get('citation_reference_validation') == 'PASS'
                 and isinstance(raw_explanation,dict)):
-            safe_claims=[]
-            for claim in (raw_explanation.get('claims') or [])[:12]:
-                if not isinstance(claim,dict):
-                    continue
-                citation_ids=[str(x)[:240] for x in (claim.get('citation_ids') or [])[:16]]
-                if not citation_ids:
-                    continue
-                safe_claims.append({
-                    'kind':str(claim.get('kind') or 'HYPOTHESIS'),
-                    'text':str(claim.get('text') or '')[:4000],
-                    'citation_ids':citation_ids,
-                })
+            from astrograph.retrieval.material_claim_guard import audit_material_claims
+            claim_audit = audit_material_claims(output, reasoning, raw_explanation)
+            safe_claims = claim_audit['published_extracts']
+            generated['claim_level_audit'] = {
+                key: value for key, value in claim_audit.items() if key != 'published_extracts'
+            }
             model_explanation={
-                'status':'AVAILABLE_REQUIRES_EXPERT_REVIEW',
-                'source':'LLM_GROUNDED',
+                'status':'EXTRACTIVE_REVIEW_ONLY' if safe_claims else 'NO_VERIFIABLE_EXTRACTS',
+                'source':'LLM_EXTRACTIVE_REVIEW',
                 'summary':(
-                    f"大模型生成了 {len(safe_claims)} 条带引用的原因与证据说明；"
-                    "以下内容必须与规则结论、原始材料和已审核图谱共同复核。"
+                    f"已比对 {len(claim_audit['claim_receipts'])} 条模型声明，"
+                    f"仅保留 {len(safe_claims)} 条来源原文完全匹配的摘录；"
+                    '文字一致不等于证明因果关系。'
                 ),
-                'candidate_fault_id':raw_explanation.get('candidate_fault_id'),
+                'candidate_fault_id':(
+                    raw_explanation.get('candidate_fault_id')
+                    if raw_explanation.get('candidate_fault_id') in {
+                        c.get('fault_id') for c in reasoning.get('candidates', [])
+                        if isinstance(c, dict)
+                    } else None
+                ),
                 'abstained':bool(raw_explanation.get('abstained')),
                 'claims':safe_claims,
-                'recommended_review_actions':[str(x)[:1200] for x in (raw_explanation.get('recommended_review_actions') or [])[:12]],
-                'limitations':[str(x)[:1200] for x in (raw_explanation.get('limitations') or [])[:12]],
+                'recommended_review_actions':[],
+                'limitations':['未独立验证原文的因果真值；原始生成内容仅存于服务端审计产物。'],
                 'citation_reference_validation':str(raw_generation.get('citation_reference_validation') or 'NOT_EVALUATED'),
-                'semantic_hallucination_assessment':'NOT_EVALUATED',
+                'semantic_hallucination_assessment':'EXTRACTIVE_ONLY_NOT_ENTAILMENT',
                 'automatic_control_authorized':False,
             }
-            generated['unverified_explanation_withheld_from_report']=False
+            # Keep the unchecked model summary, hypotheses and free-form action
+            # strings out of user-facing reports even when their IDs were valid.
+            generated['unverified_explanation_withheld_from_report']=True
     if raw_generation.get('error') is not None:
         generated['error_details_withheld_from_report']=True
     if raw_generation.get('backend_receipt') is not None:
@@ -536,7 +539,7 @@ def apply_material_answer_guard(knowledge: dict[str,Any], reasoning: dict[str,An
     output['material_answer_guard']={
         'status':'ABSTAIN' if all_abstained else 'PROVISIONAL_ONLY',
         'decisions':decisions, 'unverified_generated_narrative_exposed':False,
-        'validated_structured_model_output_exposed':model_explanation is not None,
+        'validated_structured_model_output_exposed':bool(model_explanation and model_explanation.get('claims')),
         'citation_id_validation_is_not_semantic_verification':True,
         'automatic_control_authorized':False,
         'claim_boundary':'A missing graph edge, negation or unverified reference cannot be filled by an LLM.',

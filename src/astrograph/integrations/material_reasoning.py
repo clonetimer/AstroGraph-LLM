@@ -253,6 +253,44 @@ def _graph_retrieve(candidate_ids: list[str]) -> dict[str, Any]:
                 'error_message':str(exc)[:300],'active_kg_modified':False}
 
 
+def build_competing_hypothesis_review(items: list[dict[str, Any]],
+                                      shared_symptoms: list[dict[str, Any]]) -> dict[str, Any]:
+    """Deterministic competition table; references cannot change the diagnosis.
+
+    Absence of a retrieved passage, log keyword or expected symptom is a
+    missing check, never an observed negative or proof of another candidate.
+    """
+    rows = []
+    for item in items[:12]:
+        bidir = item.get('bidirectional_graph_review') or {}
+        log = item.get('log_evidence_matrix') or {}
+        reviewed = ((item.get('reference_retrieval') or {})
+                    .get('reviewed_counterevidence') or {})
+        rows.append({
+            'fault_id': item['fault_id'],
+            'fault_name': item['fault_name'],
+            'supporting_log_cue_ids': list(dict.fromkeys(log.get('supporting_ids') or []))[:12],
+            'opposing_log_cue_ids': list(dict.fromkeys(log.get('contradicting_ids') or []))[:12],
+            'approved_negative_relation_ids': [x['edge_id'] for x in reviewed.get('items', [])[:12]],
+            'missing_expected_symptom_ids': list(bidir.get('missing_symptom_cue_ids') or [])[:16],
+            'shared_symptom_ids': sorted({x['symptom_id'] for x in shared_symptoms
+                 if item['fault_id'] in x.get('candidate_fault_ids', [])})[:16],
+            'contrastive_reference': dict(item.get('contrastive_reference_review') or {}),
+            'current_root_cause_confirmed': False,
+            'status': 'NON_VOTING_DIFFERENTIAL_REVIEW',
+        })
+    return {
+        'schema_version': 'astrograph-competing-hypothesis-review.v1',
+        'status': 'READY_FOR_EXPERT_COMPARISON' if len(rows) >= 2 else
+            'SINGLE_OR_NO_HYPOTHESIS',
+        'candidates': rows, 'shared_symptoms': shared_symptoms[:24],
+        'missing_cue_is_not_negative_evidence': True,
+        'reviewed_negative_claim_is_not_current_observation': True,
+        'diagnostic_vote_allowed': False,
+        'automatic_control_authorized': False,
+    }
+
+
 def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
                                review: dict[str, Any], memory: MaterialCaseMemory | None = None,
                                source_group_id: str = '') -> dict[str, Any]:
@@ -507,6 +545,8 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             'source_group_id':source_group_id,'equipment_scope':manifest.equipment_scope or 'UNKNOWN',
             'document_ingestion':ingestion,'semantic_backend':semantic_status,
             'global_community_retrieval':community_global,
+            'competing_hypothesis_review': build_competing_hypothesis_review(
+                items, bidirectional.get('shared_symptoms', [])),
             'bidirectional_graph_comparison': {
                 'schema_version': bidirectional['schema_version'] if 'schema_version' in bidirectional
                     else 'astrograph-bidirectional-graph-review.v1',

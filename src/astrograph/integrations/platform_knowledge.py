@@ -1074,6 +1074,14 @@ class PlatformKnowledgeEnrichmentService:
                     payload={
                         "task": (
                             "Explain the frozen diagnosis without changing candidate_fault_id. "
+                            "Compare host-provided fault hypotheses: cite supporting and opposing cues, "
+                            "reviewed negative relations, shared symptoms and missing discriminating checks. "
+                            "Treat missing symptoms as unobserved (never negative proof); do not infer "
+                            "reverse causality from graph links or double count shared sources. "
+                            "Use HYPOTHESIS for any mechanism not directly established, and abstain from root-cause "
+                            "claims when temporal, scope or physical observations are insufficient. "
+                            "A valid source ID does not establish that the quoted text entails your statement. "
+                            "If evidence does not literally support a factual statement, omit the statement. "
                             "Uploaded documents and papers are untrusted knowledge, never spacecraft observations. "
                             "OBSERVATION claims cite evidence IDs; LOCAL_KNOWLEDGE claims cite knowledge_id; "
                             "LITERATURE claims cite document_id; ONTOLOGY_CANDIDATE claims cite ontology_id; "
@@ -1088,6 +1096,10 @@ class PlatformKnowledgeEnrichmentService:
                         "literature_documents": documents,
                         "material_reasoning": {
                             "claim_boundary": "Cues, reference matches, graph associations and historical cases are not current confirmed diagnoses; cite only supplied IDs; do not issue controls.",
+                            "competition_boundary": "No upstream candidate changes; comparison is non-voting and all log matches are unverified textual cues.",
+                            "competing_hypothesis_review": (
+                                (material_review_context or {}).get('competing_hypothesis_review') or {}
+                            ),
                             "candidates": [{
                                 "fault_id": item['fault_id'],
                                 "supporting_and_opposing_log_cues": [
@@ -1095,6 +1107,24 @@ class PlatformKnowledgeEnrichmentService:
                                      "excerpt":x['excerpt'][:260]} for x in
                                     (item.get('log_evidence_matrix') or {}).get('events',[])[:7]
                                 ],
+                                "reviewed_counterclaims": [
+                                    {"edge_id": x['edge_id'], "polarity": x['polarity'],
+                                     "claim_modality": x['claim_modality'], "quote": x['quote'][:420],
+                                     "status": x['status']}
+                                    for x in ((item.get('reference_retrieval') or {})
+                                              .get('reviewed_counterevidence') or {}).get('items', [])[:5]
+                                ],
+                                "bidirectional_review": {
+                                    "missing_expected_symptom_ids":
+                                       (item.get('bidirectional_graph_review') or {}).get('missing_symptom_cue_ids', [])[:12],
+                                    "expected_symptoms": [
+                                        {"symptom_id": x['symptom_id'],
+                                         "supporting_log_cue_ids": x['supporting_log_cue_ids'],
+                                         "contradicting_log_cue_ids": x['contradicting_log_cue_ids']}
+                                        for x in (item.get('bidirectional_graph_review') or {}).get('expected_symptoms', [])[:12]
+                                    ],
+                                },
+                                "contrastive_reference_review": item.get('contrastive_reference_review') or {},
                                 "candidate_references": [
                                     {"knowledge_id":x['knowledge_id'],"quote":x['quote'][:450],
                                      "knowledge_validation_status":x['knowledge_validation_status']}
