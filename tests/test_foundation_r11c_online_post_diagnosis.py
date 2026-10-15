@@ -144,3 +144,26 @@ def test_deterministic_policy_blocks_even_configured_optional_llm(tmp_path):
     assert result.status == ExecutionStatus.SUCCEEDED
     assert not spy.calls
     assert not (tmp_path / "online/post_diagnosis/online_explanation_receipt.json").exists()
+
+
+def test_corrupted_persisted_decision_refused_even_with_valid_in_memory_result(tmp_path):
+    result = execute(tmp_path)
+    decision = tmp_path / "online/diagnosis/decision_record.json"
+    decision.write_text(decision.read_text() + " ", encoding="utf-8")
+    spy = Spy()
+    receipt = run_online_post_diagnosis_explanation(
+        result=result, knowledge_service=spy, output_root=tmp_path / "online",
+    )
+    assert receipt["status"] == "FAILED_CLOSED"
+    assert receipt["reason_code"] == "ONLINE_ARTIFACT_CONTENT_MISMATCH"
+    assert not spy.calls
+
+
+def test_other_artifact_directory_rejected_before_llm(tmp_path):
+    result = execute(tmp_path)
+    spy = Spy()
+    receipt = run_online_post_diagnosis_explanation(
+        result=result, knowledge_service=spy, output_root=tmp_path / "other",
+    )
+    assert receipt["reason_code"] == "ONLINE_ARTIFACT_INTEGRITY_INVALID"
+    assert not spy.calls
