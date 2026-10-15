@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrograph.local/schemas/model-admission-manifest-v1.json",
+  "title": "ModelAdmissionManifest",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-model-admission-manifest.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "admission_id": {
+      "minLength": 1,
+      "title": "Admission Id",
+      "type": "string"
+    },
+    "model_id": {
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "model_version": {
+      "minLength": 1,
+      "title": "Model Version",
+      "type": "string"
+    },
+    "provider_id": {
+      "minLength": 1,
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "model_artifact_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Model Artifact Sha256",
+      "type": "string"
+    },
+    "data_model_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Data Model Manifest Sha256",
+      "type": "string"
+    },
+    "feature_contract_id": {
+      "minLength": 1,
+      "title": "Feature Contract Id",
+      "type": "string"
+    },
+    "feature_contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Feature Contract Sha256",
+      "type": "string"
+    },
+    "supported_fault_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Supported Fault Ids",
+      "type": "array"
+    },
+    "normal_class_id": {
+      "default": "NORMAL",
+      "title": "Normal Class Id",
+      "type": "string"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "claim_boundary": {
+      "default": "Content-addressed execution binding only. It does not certify training data, calibration, fault coverage, or flight readiness.",
+      "title": "Claim Boundary",
+      "type": "string"
+    }
+  },
+  "required": [
+    "admission_id",
+    "model_id",
+    "model_version",
+    "provider_id",
+    "model_artifact_sha256",
+    "data_model_manifest_sha256",
+    "feature_contract_id",
+    "feature_contract_sha256",
+    "supported_fault_ids"
+  ],
+  "type": "object"
+}

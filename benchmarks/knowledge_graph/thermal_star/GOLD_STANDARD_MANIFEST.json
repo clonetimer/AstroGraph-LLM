@@ -1,0 +1,10 @@
+{
+  "schema_version": "astrograph-kg-gold-thermal-star.v1",
+  "node_count": 45,
+  "edge_count": 50,
+  "negative_constraint_count": 3,
+  "query_count": 2,
+  "dangling_edge_count": 0,
+  "passed": true,
+  "claim_boundary": "E0 synthetic engineering knowledge gold standard."
+}

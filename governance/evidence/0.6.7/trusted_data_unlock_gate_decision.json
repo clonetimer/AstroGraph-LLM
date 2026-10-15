@@ -1,0 +1,73 @@
+{
+  "schema_version": "astrograph-trusted-data-unlock-gate.v2",
+  "status": "PASS",
+  "audit_sha256": "f25a8e1c3aef6521a5dc2def18f3482f54a88090587cf71a1d5e548f1debf75b",
+  "manifest_sha256": "346986cd006519dec0f57a615777eec491354e204353d4c0783f1113213e747d",
+  "checks": [
+    {
+      "criterion_id": "AUDIT_PROVENANCE",
+      "status": "PASS",
+      "observed": true,
+      "expected": true,
+      "severity": "HARD"
+    },
+    {
+      "criterion_id": "MANIFEST_INTEGRITY",
+      "status": "PASS",
+      "observed": "rows=12;total=12",
+      "expected": ">=12 and equal",
+      "severity": "HARD"
+    },
+    {
+      "criterion_id": "ACCEPTANCE_VALID_RUNS",
+      "status": "PASS",
+      "observed": 12,
+      "expected": ">=12",
+      "severity": "HARD"
+    },
+    {
+      "criterion_id": "ACCEPTANCE_VALID_PAIRS",
+      "status": "PASS",
+      "observed": 6,
+      "expected": ">=3",
+      "severity": "HARD"
+    },
+    {
+      "criterion_id": "NO_LABEL_LEAKAGE",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "severity": "HARD"
+    },
+    {
+      "criterion_id": "NO_FALSE_ACCEPTANCE",
+      "status": "PASS",
+      "observed": [],
+      "expected": [],
+      "severity": "HARD"
+    },
+    {
+      "criterion_id": "USE_RESTRICTIONS",
+      "status": "PASS",
+      "observed": [],
+      "expected": [],
+      "severity": "HARD"
+    },
+    {
+      "criterion_id": "REPRODUCTION_READY",
+      "status": "PASS",
+      "observed": true,
+      "expected": true,
+      "severity": "HARD"
+    },
+    {
+      "criterion_id": "AUDIT_STATUS",
+      "status": "PASS",
+      "observed": "PASS",
+      "expected": "PASS",
+      "severity": "HARD"
+    }
+  ],
+  "blockers": [],
+  "claim_boundary": "Trusted data provenance and reproducibility only; not diagnosis accuracy or flight qualification."
+}

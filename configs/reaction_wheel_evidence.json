@@ -1,0 +1,324 @@
+{
+  "schema_version": "astrograph-reaction-wheel-executable-evidence.v1",
+  "catalog_version": "reaction-wheel-e0-v0.6.5",
+  "claim_boundary": "E0 synthetic engineering evidence only; thresholds reproduce the validated laboratory campaign gates and are not flight-certified limits.",
+  "registered_faults": [
+    {
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "反作用轮摩擦增大",
+      "formal_case_id": "rw_friction_increase"
+    },
+    {
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "反作用轮力矩能力丧失",
+      "formal_case_id": "rw_torque_authority_loss"
+    }
+  ],
+  "feature_definitions": [
+    {
+      "feature_definition_id": "FD-RW-FRICTION-PEAK-ABS-V1",
+      "name": "反作用轮摩擦/失配力矩配对残差峰值",
+      "source_field_template": "estimate.adcs.rw.friction_torque_nm_{wheel}",
+      "aggregation": "MAX_ABS_PAIRED_RESIDUAL",
+      "unit": "N*m",
+      "window_scope": "episode",
+      "algorithm_version": "paired-residual-closed-window-v1",
+      "required_semantics": [
+        "component_instance",
+        "axis",
+        "sign_convention",
+        "sample_period_s"
+      ],
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json",
+        "protocols/phm_project_a/telemetry_physical_semantics_v1.csv"
+      ]
+    },
+    {
+      "feature_definition_id": "FD-RW-ACTUAL-TORQUE-PEAK-ABS-V1",
+      "name": "反作用轮实际力矩估计配对残差峰值",
+      "source_field_template": "estimate.adcs.rw.actual_torque_nm_{wheel}",
+      "aggregation": "MAX_ABS_PAIRED_RESIDUAL",
+      "unit": "N*m",
+      "window_scope": "episode",
+      "algorithm_version": "paired-residual-closed-window-v1",
+      "required_semantics": [
+        "component_instance",
+        "axis",
+        "sign_convention",
+        "sample_period_s"
+      ],
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json",
+        "protocols/phm_project_a/telemetry_physical_semantics_v1.csv"
+      ]
+    },
+    {
+      "feature_definition_id": "FD-RW-CURRENT-PEAK-ABS-V1",
+      "name": "反作用轮电机电流配对残差峰值",
+      "source_field_template": "sensor.adcs.rw.motor_current_a_{wheel}",
+      "aggregation": "MAX_ABS_PAIRED_RESIDUAL",
+      "unit": "A",
+      "window_scope": "episode",
+      "algorithm_version": "paired-residual-closed-window-v1",
+      "required_semantics": [
+        "component_instance",
+        "axis",
+        "sign_convention",
+        "sample_period_s"
+      ],
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "feature_definition_id": "FD-RW-SPEED-PEAK-ABS-V1",
+      "name": "反作用轮轮速配对残差峰值",
+      "source_field_template": "sensor.adcs.rw.speed_rad_s_{wheel}",
+      "aggregation": "MAX_ABS_PAIRED_RESIDUAL",
+      "unit": "rad/s",
+      "window_scope": "episode",
+      "algorithm_version": "paired-residual-closed-window-v1",
+      "required_semantics": [
+        "component_instance",
+        "axis",
+        "sign_convention",
+        "sample_period_s"
+      ],
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "feature_definition_id": "FD-RW-AVAILABLE-DROP-FRACTION-V1",
+      "name": "反作用轮可用状态下降样本比例",
+      "source_field_template": "status.adcs.rw.available_{wheel}",
+      "aggregation": "AVAILABILITY_DROP_FRACTION",
+      "unit": "1",
+      "window_scope": "episode",
+      "algorithm_version": "paired-status-closed-window-v1",
+      "required_semantics": [
+        "component_instance",
+        "status_code_definition",
+        "sample_period_s"
+      ],
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "feature_definition_id": "FD-RW-DRIVER-CODE-PEAK-ABS-V1",
+      "name": "反作用轮驱动状态码配对残差峰值",
+      "source_field_template": "status.adcs.rw.driver_code_{wheel}",
+      "aggregation": "MAX_ABS_STATUS_RESIDUAL",
+      "unit": "code",
+      "window_scope": "episode",
+      "algorithm_version": "paired-status-closed-window-v1",
+      "required_semantics": [
+        "component_instance",
+        "status_code_definition",
+        "sample_period_s"
+      ],
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDING-TEMP-PEAK-ABS-V1",
+      "name": "反作用轮绕组温度配对残差峰值",
+      "source_field_template": "sensor.adcs.rw.winding_temp_c_{wheel}",
+      "aggregation": "MAX_ABS_PAIRED_RESIDUAL",
+      "unit": "degC",
+      "window_scope": "episode",
+      "algorithm_version": "paired-residual-closed-window-v1",
+      "required_semantics": [
+        "component_instance",
+        "sample_period_s"
+      ],
+      "source_refs": [
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    }
+  ],
+  "evidence_definitions": [
+    {
+      "evidence_definition_id": "ED-RW-FRIC-DIRECT-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "摩擦/失配力矩残差超过实验验证阈值",
+      "feature_definition_id": "FD-RW-FRICTION-PEAK-ABS-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.0005,
+      "threshold_unit": "N*m",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-FRIC-CURRENT-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "电机电流残差超过实验验证阈值",
+      "feature_definition_id": "FD-RW-CURRENT-PEAK-ABS-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.01,
+      "threshold_unit": "A",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-FRIC-SPEED-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "轮速残差超过实验验证阈值",
+      "feature_definition_id": "FD-RW-SPEED-PEAK-ABS-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.05,
+      "threshold_unit": "rad/s",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-FRIC-AVAILABLE-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "反作用轮保持可用",
+      "feature_definition_id": "FD-RW-AVAILABLE-DROP-FRACTION-V1",
+      "role": "REQUIRED",
+      "comparison": "LESS_THAN",
+      "threshold": 0.05,
+      "threshold_unit": "1",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "src/astrograph/diagnosis/reaction_wheel.py"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-FRIC-DRIVER-OK-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "驱动状态码未显示不可用",
+      "feature_definition_id": "FD-RW-DRIVER-CODE-PEAK-ABS-V1",
+      "role": "REQUIRED",
+      "comparison": "LESS_THAN",
+      "threshold": 0.5,
+      "threshold_unit": "code",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "src/astrograph/diagnosis/reaction_wheel.py"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-FRIC-TEMP-SUPPORT-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "绕组温度偏移作为支持证据",
+      "feature_definition_id": "FD-RW-WINDING-TEMP-PEAK-ABS-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.005,
+      "threshold_unit": "degC",
+      "critical": false,
+      "evidence_level": "E0",
+      "source_refs": [
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-TORQUE-AVAILABLE-DROP-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "反作用轮可用状态下降",
+      "feature_definition_id": "FD-RW-AVAILABLE-DROP-FRACTION-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.05,
+      "threshold_unit": "1",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "src/astrograph/diagnosis/reaction_wheel.py",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-TORQUE-DRIVER-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "驱动状态码显示不可用",
+      "feature_definition_id": "FD-RW-DRIVER-CODE-PEAK-ABS-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.5,
+      "threshold_unit": "code",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "src/astrograph/diagnosis/reaction_wheel.py",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-TORQUE-ACTUAL-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "实际力矩估计残差超过实验验证阈值",
+      "feature_definition_id": "FD-RW-ACTUAL-TORQUE-PEAK-ABS-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.0005,
+      "threshold_unit": "N*m",
+      "critical": false,
+      "evidence_level": "E0",
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-TORQUE-CURRENT-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "电机电流残差超过实验验证阈值",
+      "feature_definition_id": "FD-RW-CURRENT-PEAK-ABS-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.01,
+      "threshold_unit": "A",
+      "critical": false,
+      "evidence_level": "E0",
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    },
+    {
+      "evidence_definition_id": "ED-RW-TORQUE-SPEED-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "轮速残差超过实验验证阈值",
+      "feature_definition_id": "FD-RW-SPEED-PEAK-ABS-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.05,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "evidence_level": "E0",
+      "source_refs": [
+        "configs/reaction_wheel_diagnosis_rules.json",
+        "reference/evidence_sources/reaction_wheel_validation.json"
+      ]
+    }
+  ]
+}

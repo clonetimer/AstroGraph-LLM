@@ -1,0 +1,29 @@
+schema_version: phm.fault_contract.v1
+fault_id: DATA_STORAGE_WRITE_FAILURE
+name_zh: 存储写入异常
+subsystem: communications_and_data_handling
+component: onboard_storage_write_interface
+fault_type: service_fault
+mechanism: 载荷数据消息在进入Basilisk存储积分前被部分或全部拒绝，读取和下行链保持独立。
+injection_target: StorageWriteFaultController.dataOutMsg
+parameters:
+  remaining_write_ratio: {unit: "1", nominal: 0.0, range: [0.0, 0.8], source: engineering_assumption}
+direct_channels:
+  - status.data.storage_write_available
+  - data.accepted_write_bps
+component_response_channels:
+  - data.storage_bits
+subsystem_propagation_channels:
+  - comm.downlinked_bits
+confusable_faults:
+  - COMM_DOWNLINK_SERVICE_LOSS
+  - COMM_TRANSMITTER_OUTPUT_POWER_LOSS
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  write_status_must_drop: true
+  accepted_write_rate_must_drop: true
+  storage_integral_must_change: true
+known_limits:
+  - 当前表示写入接口吞吐丧失，不模拟坏块分布、纠错码或数据内容损坏。
+  - 丢失的数据量是仿真内部验收量，项目A原始特征只包含可观测服务状态、速率和存储计数。

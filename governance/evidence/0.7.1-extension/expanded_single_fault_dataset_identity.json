@@ -1,0 +1,20 @@
+{
+  "claim_boundary": "Identity only; restricted truth is external to the candidate source tree.",
+  "formal_case_count": 132,
+  "formal_public": {
+    "file_count": 265,
+    "sha256": "05d5010dffc468bcfd64435cdd4137cf121ebec7837767849b7c9ecfbf88f12c",
+    "size_bytes": 8979406
+  },
+  "research_case_count": 6,
+  "research_public": {
+    "file_count": 13,
+    "sha256": "d0055604dcc055f7a0819fae660652974500b9f3e5826713c16781ee8a753fdc",
+    "size_bytes": 184103
+  },
+  "schema_version": "astrograph-expanded-single-fault-dataset-identity.v1",
+  "truth_manifest": {
+    "sha256": "83fdaf904f78c4b73a2551388e582c82c8558eb6354c5bff9529a20badcd777c",
+    "size_bytes": 342341
+  }
+}

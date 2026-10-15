@@ -1,0 +1,406 @@
+{
+  "cases": [
+    {
+      "case_id": "R31-00-FailedOff",
+      "case_sha256": "ccb887716058b5386f639aac18979ad0ea863570262d0f55446b3f9dc9f6a100",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-00-FlowBlocked",
+      "case_sha256": "5297d9affbf0defb8db7b5fea3f8b22c3b4f11ee34bb1bda061e43c0e0f65c02",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-01-FailedOff",
+      "case_sha256": "13624f55d44025024937dc7b9baba6f01a1245e8a0afde30129656ae720239a4",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-01-FlowBlocked",
+      "case_sha256": "521d3fc5cd2575f0cb233bdce3f5a684319bd3a1e1072447f3954a7b014fc8e6",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-02-FailedOff",
+      "case_sha256": "0273adfae5f654ae34b95af06c81885ed214c0a34c7a0eb92528f440898e47ff",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-02-FlowBlocked",
+      "case_sha256": "5bcc818607d87b471a64c41f69aad8f9cc32469bb721dd8606944005a1dc706e",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-03-FailedOff",
+      "case_sha256": "a2f1f1e442df15f0030c75e4896b215f471092c6b981156bd58b685ef92fd8c5",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-03-FlowBlocked",
+      "case_sha256": "d43abeb927d4a90b8d2a8f26c7d0a87e05be23ac11886720b14d0862215528b2",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-04-FailedOff",
+      "case_sha256": "6802adb19e75b7c6971457d6a5a20e8c8c322ba85c30d487c7efbc52b9c584c6",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-04-FlowBlocked",
+      "case_sha256": "db0b0c058d347e130715cbcf8da7aae675e2d681265683490d63ea93c9518ff9",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-05-FailedOff",
+      "case_sha256": "a07dc658a24a9428e68da411cfb4620c4811279066a157af24bb8555f6cbd993",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-05-FlowBlocked",
+      "case_sha256": "46f45afab55163ed02f405823f8f362fd8827e0f699b881bf39f10b96bcbc943",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-06-FailedOff",
+      "case_sha256": "9e21154b397e60b6bacd03d1cc6dea960d64ec900bf8db146ed7d801018d7476",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-06-FlowBlocked",
+      "case_sha256": "8ba81c002dfe456c8b273c37eacc37f483ce8877db22093b4d44aef7b6dfb34f",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-07-FailedOff",
+      "case_sha256": "c5a331024ae5eb969a3641fa70f733016870f7c9df6e7df0ad36109de3c01008",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-07-FlowBlocked",
+      "case_sha256": "fca66746b42cc2da76db496a7fd4201eeb7edfac82da8a1553f2ab6e8f343eb5",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-08-FailedOff",
+      "case_sha256": "4a41a66a6864282b51637e10c1466c36e70ff96749afe22171f4ec702475bf6c",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-08-FlowBlocked",
+      "case_sha256": "c5658712780345457b397dd219973ac7fdafbc2ed030309d678122ff69abd295",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-09-FailedOff",
+      "case_sha256": "1063c752b3e43528a1a80a00711abb1106c23a8f40ffe07407303c576710590e",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-09-FlowBlocked",
+      "case_sha256": "745a773353be7d054e8fd1ded8610e02914f71dd8b6215322210919799fe31bd",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-10-FailedOff",
+      "case_sha256": "6b13aaf686b7e9555a9636f0e28b9a6d2d40ed955638075f194299dfd28cad6f",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-10-FlowBlocked",
+      "case_sha256": "990da402db9b31d2dd2c2621c7bb746ca551034a7fe3a84f860288a87d0e09ae",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-11-FailedOff",
+      "case_sha256": "e09bc3df1523b328a7845be040ecafe61231c132f81227db507f98d7ae211e39",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-11-FlowBlocked",
+      "case_sha256": "bcf37b0b07421062dc5c7170df5ca3b5eb96c8adb1419baf7ef77b8d13ae17b0",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-12-FailedOff",
+      "case_sha256": "f0aee591befc0ee6d06324aabecb188157bc0d6fe63c8dd139265caaa05e4105",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-12-FlowBlocked",
+      "case_sha256": "666dfdf5c83fd62ceb71cb18477306c2b15a711cef230b30cce74111cdceae48",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-13-FailedOff",
+      "case_sha256": "39dcfc0ee22bc7c1a1696c7163792db0b431cfed3783562b77a7831c83d07c27",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-13-FlowBlocked",
+      "case_sha256": "6ff3bbcaeb04c1698d49697523eb75dd1145b36ec9e2daabf23034bc3134a99e",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-14-FailedOff",
+      "case_sha256": "a0b257914bc4925ff637d8174b580100e702798202b7b6cfdb177050e1f5b0df",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-14-FlowBlocked",
+      "case_sha256": "896a66204401f1c357123cb6ecca17d664ac48f9a6bc41bbe652e4725be4979e",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-15-FailedOff",
+      "case_sha256": "3c981a3adad39bb601fb9bc29e0ca64571f5001c8fe7d06139ce1115fd60810b",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-15-FlowBlocked",
+      "case_sha256": "d6f30f2d8cfcab43c4fe92db213b0f82fe2ece7586a85bda8617e975582c6b25",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-16-FailedOff",
+      "case_sha256": "259711cd8181a805e2ca2eed3e83c4ed5958594f4b129171894621ad576c0b36",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-16-FlowBlocked",
+      "case_sha256": "8f6337826eae29f2e3874ec4712b021f9eb4dae379b9baa339579b9ac1ba1322",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-17-FailedOff",
+      "case_sha256": "e0d87de6127af89f6bcc77ed2ad82be083e2ca9bfe2e9ac5873a2f186fb2d5a6",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-17-FlowBlocked",
+      "case_sha256": "aabbd046b89d5d4dd2ef7f30cc0e63922159aa394e50ec2456fd41d2f8e8ba18",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-18-FailedOff",
+      "case_sha256": "1cbc9accc066cd3fef62d3736b7f8a1500036f2503403315d60f290ca298e310",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-18-FlowBlocked",
+      "case_sha256": "8899dd9c7c7425d569e37081f6e23b9b38d26b2c0280f31c9c8e5ca9776dcc1a",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-19-FailedOff",
+      "case_sha256": "647e98e9d018c1bec4588595fe8011f0f06765bb278668c875172f7a4943e731",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-19-FlowBlocked",
+      "case_sha256": "08093b26def9b6f8b437ffd3f0520dfd3d5587a87dbff324651c2a27dac124e8",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-20-FailedOff",
+      "case_sha256": "e83ed5bb2bd1c5c932027e4dd86b802da806b5c36f7a97b2ca0daa7c2460d4f6",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-20-FlowBlocked",
+      "case_sha256": "35451a39eb274a4964b72246c3c997b8b9f9e356aa209ad6e89540e15f85f31c",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-21-FailedOff",
+      "case_sha256": "6b751f46dcaa3f53a4834423a83937c4461938a7fe913a7276e1a3944e5ef497",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-21-FlowBlocked",
+      "case_sha256": "08b0eee81bd95d51df62f7efb8758bca666a2ec7d13dc96539504c1a886625ee",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-22-FailedOff",
+      "case_sha256": "e6ca4dd2ac65c695b3a25650d6623d7b7ddc935da0a9183438ade14a64fc2dd2",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-22-FlowBlocked",
+      "case_sha256": "132ff85d2cfea1ad7ff8370c8a5f88fc3952851f6dc9b15bccc993dfcac60bf5",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-23-FailedOff",
+      "case_sha256": "a366d277436fff28ce8d6502296cd4aed2ed05f0a9853a30a9e0d5aa0e75d76a",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-23-FlowBlocked",
+      "case_sha256": "256c5c88add0b61c15d4ea3fe0fe16a826d8d82d654202b79580878327fa142d",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-24-FailedOff",
+      "case_sha256": "398aaf4be53b6a33f0d9e3ae2bef6c90c1f966387b4646036739b65f56fb7559",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-24-FlowBlocked",
+      "case_sha256": "4f6d30dd1a0396255e916bb42945a47281974013d6ad13e22f334eb4bdb303eb",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-25-FailedOff",
+      "case_sha256": "df6eb4070c2b693815923203aca4d11e57223c47d48ade9ce07615cc066c4381",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-25-FlowBlocked",
+      "case_sha256": "9d96b915eba69f9336e95eaa31294aedba25fc2c5b30cff3952dd3d775569fc6",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-26-FailedOff",
+      "case_sha256": "994e64b47bc82970706ec02adf3d1220fdaa1b72f5ead12426ea9f91e7134cf5",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-26-FlowBlocked",
+      "case_sha256": "0344ca8e96adf35ca4e7000ad0cbbd6249fcee5712bb1dcd0915b47388da295e",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-27-FailedOff",
+      "case_sha256": "a9ba8df8391aea1517bec42caf4bf2d003b733ebe83b2b28cb6d5347158d63b6",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-27-FlowBlocked",
+      "case_sha256": "5a45028c69e0f9787ffe50b95cf3960d0e81d5e9189bd0dfab9f4d7de098b23a",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-28-FailedOff",
+      "case_sha256": "c75ca6a3e36248ec83662d449d60f0dcb95ac95ac2518e4895781c15ccbd5494",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-28-FlowBlocked",
+      "case_sha256": "b66e9ee3f197a425b3ab3ce305661696f457077538260703f915aeac42b3edee",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-29-FailedOff",
+      "case_sha256": "0add37a889758fcb1c8218c3d5229454236e10a28ef05cd3d07bdaa86fb87b29",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-29-FlowBlocked",
+      "case_sha256": "d3000a493e6292ab2eaa78675e44656c0541aa23712e09172dac430b52ef3f38",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-30-FailedOff",
+      "case_sha256": "86d6602687de0fd38d5a16f2d309ef93fd22ce5a8f959fe9583ee747029415cd",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-30-FlowBlocked",
+      "case_sha256": "75bfd294fb20f86fe3003f6fe0ccdf9716ff8377aa882fa503892855dec5ca35",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-31-FailedOff",
+      "case_sha256": "a67fa82e71410b1ed7a6f2183365557541f6a6a9ba071d9d8cc9ed4d0fe90af9",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-31-FlowBlocked",
+      "case_sha256": "5bc7d99b3c693b08132ab12b67113beb3b942d4336496d12dc183da2ec26f816",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-32-FailedOff",
+      "case_sha256": "8a2d7fa78931287fe34cfd2cf754db99e08ac78daf838b270f43ce41b232d2f2",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-32-FlowBlocked",
+      "case_sha256": "28101015f07478421bd006864cb3e62f1da98262bc418dc9f926af09470a7cfb",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-33-FailedOff",
+      "case_sha256": "c3079d0968425f94135a6efdb3843363638b0394af7b267a23a56f5a8ae01ebb",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-33-FlowBlocked",
+      "case_sha256": "620ae4ab5aa516afea6f00c5ca692b4eaa09d39d6f8d8d44a08aefa69d6abfca",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-34-FailedOff",
+      "case_sha256": "4083249d2b902e7bba21ffeac2e974966071e735dc465f6483f4c3b23e47974a",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-34-FlowBlocked",
+      "case_sha256": "66c2f85ac96e3c88e513dd78a3452b1be3c25b9da397f870598e00cc8a7ebcae",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-35-FailedOff",
+      "case_sha256": "8e6683d6d86bbe043382f917ac1757208701eb61b9e35fd00dbda5c7f362fe70",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-35-FlowBlocked",
+      "case_sha256": "eefe5193febeb8d66df9f02f0d14ec85edd80fdccef6e5117d60d9a4f99d4f7f",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-36-FailedOff",
+      "case_sha256": "7b0d858fd40bf936a651c6b4fa05fbc9b2afa9b87cd1e6fcbe9b1a522dcb6820",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-36-FlowBlocked",
+      "case_sha256": "c5ed3fdbe9da3386c4033b278043210cef457a7d272f0f8b5a9b85ee90d35a72",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-37-FailedOff",
+      "case_sha256": "d42c2e459f3f49f5a9360d6360f5424dfc3542f772623c1febd956340242581c",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-37-FlowBlocked",
+      "case_sha256": "695951d7a589f0b12aaa3e6517d568019617dd9e63312aa66615dabb025b8ed1",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-38-FailedOff",
+      "case_sha256": "9aa291add910c985b5e426ce8a919a1c0ed3624f5c61415686e570a166e9c99c",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-38-FlowBlocked",
+      "case_sha256": "b2b7ff30802250923242c9176144a0a2784b75486289260fc2438de6c1c0f6d7",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    },
+    {
+      "case_id": "R31-39-FailedOff",
+      "case_sha256": "57b60410026b780121553692694da1fa3445f619ab5611f82b319566cfd0692d",
+      "hidden_fault_id": "PUMP:FailedOff"
+    },
+    {
+      "case_id": "R31-39-FlowBlocked",
+      "case_sha256": "41109131f7670d9be2ad2349e8d2b58ea251444845fc02ae9e653fff8c5affb4",
+      "hidden_fault_id": "PUMP:FlowBlocked"
+    }
+  ],
+  "schema_version": "astrograph-r31-pump-blind-truth.v1",
+  "seed": 3101
+}

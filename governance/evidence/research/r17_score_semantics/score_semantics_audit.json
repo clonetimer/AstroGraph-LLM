@@ -1,0 +1,20 @@
+{
+  "schema_version": "astrograph-score-semantics-audit.v1",
+  "model_id": "rw-engineering-screening",
+  "model_version": "0.1.0-candidate",
+  "output_semantics": "NONNEGATIVE_SCORES",
+  "class_value_semantics": "NORMALIZED_RANKING_MASS",
+  "calibrated_probabilities": false,
+  "calibration_id": null,
+  "calibration_receipt_sha256": null,
+  "calibration_evidence_status": "NOT_CALIBRATED",
+  "probability_threshold_eligible": false,
+  "ranking_score_semantics": "NORMALIZED_RANKING_MASS",
+  "fusion_score_semantics": "RECIPROCAL_RANK_SCORE_NOT_PROBABILITY",
+  "warnings": [
+    "NORMALIZED_RANKING_MASS_NOT_PROBABILITY",
+    "BIRRF_SCORE_NOT_PROBABILITY"
+  ],
+  "claim_boundary": "Score-semantics consistency audit only. It does not establish calibration transfer, OOD reliability, HIL/flight qualification, or diagnostic correctness.",
+  "audit_sha256": "f9e135caacd1b9af4891ced78b3676ac2ddf37eddcaa99d0b6b15124a71a0214"
+}

@@ -1,0 +1,70 @@
+{
+  "$defs": {
+    "UnifiedBackend": {
+      "enum": [
+        "auto",
+        "composite",
+        "unified"
+      ],
+      "title": "UnifiedBackend",
+      "type": "string"
+    },
+    "UnifiedBatchCase": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "telemetry": {
+          "format": "path",
+          "title": "Telemetry",
+          "type": "string"
+        },
+        "nominal": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nominal"
+        },
+        "backend": {
+          "$ref": "#/$defs/UnifiedBackend",
+          "default": "auto"
+        }
+      },
+      "required": [
+        "case_id",
+        "telemetry"
+      ],
+      "title": "UnifiedBatchCase",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-unified-batch-manifest.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/UnifiedBatchCase"
+      },
+      "title": "Cases",
+      "type": "array"
+    }
+  },
+  "required": [
+    "cases"
+  ],
+  "title": "UnifiedBatchManifest",
+  "type": "object"
+}

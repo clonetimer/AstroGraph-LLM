@@ -1,0 +1,7 @@
+{
+  "source_kind": "CURRENT_SOURCE_ONLY",
+  "historical_records_included": false,
+  "excluded_history_roots": ["docs/history/", "runs/", "event-center-v2/"],
+  "history_location": "NOT_INCLUDED_IN_THIS_SOURCE_PACKAGE",
+  "note": "Current source and synthetic acceptance materials only; runtime accounts, sessions and historic test logs excluded. Original frozen governance manifests are preserved for traceability, not re-certified by this UI delivery."
+}

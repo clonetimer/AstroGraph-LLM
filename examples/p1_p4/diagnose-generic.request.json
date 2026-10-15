@@ -1,0 +1,11 @@
+{
+  "schema_version": "astrograph-mission-request.v1",
+  "task_id": "generic-battery-example",
+  "task": "diagnose",
+  "work_mode": "normal",
+  "goal": "Detect anomalies in the supplied series and report only source-grounded possible physical causes.",
+  "artifacts": {
+    "series_manifest": "examples/p1_p4/generic-series.manifest.json"
+  },
+  "documents": []
+}

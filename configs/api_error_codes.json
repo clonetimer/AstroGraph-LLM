@@ -1,0 +1,18 @@
+{
+  "schema_version": "astrograph-api-error-catalog.v1",
+  "catalog_version": "api-errors-0.3.4",
+  "errors": [
+    {"code": "ASTROGRAPH_REQUEST_VALIDATION_ERROR", "http_status": 422, "retryable": false},
+    {"code": "ASTROGRAPH_INVALID_OPERATION", "http_status": 422, "retryable": false},
+    {"code": "ASTROGRAPH_IDEMPOTENCY_CONFLICT", "http_status": 409, "retryable": false},
+    {"code": "ASTROGRAPH_STATE_CONFLICT", "http_status": 409, "retryable": false},
+    {"code": "ASTROGRAPH_IDEMPOTENCY_LEASE_LOST", "http_status": 409, "retryable": true},
+    {"code": "ASTROGRAPH_RESOURCE_NOT_FOUND", "http_status": 404, "retryable": false},
+    {"code": "ASTROGRAPH_KNOWLEDGE_UNAVAILABLE", "http_status": 503, "retryable": true},
+    {"code": "ASTROGRAPH_INTERNAL_ERROR", "http_status": 500, "retryable": true}
+  ],
+  "response_schema": {
+    "schema_version": "astrograph-api-error.v1",
+    "error": {"code": "string", "message": "string", "request_id": "string", "details": "object"}
+  }
+}

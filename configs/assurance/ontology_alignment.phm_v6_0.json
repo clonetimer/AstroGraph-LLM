@@ -1,0 +1,150 @@
+{
+  "counts": {
+    "dataset": 17,
+    "executable": 5,
+    "fusion_eligible": 5,
+    "semantic": 17,
+    "strict_registered": 5
+  },
+  "dataset_id": "PHM_V6_0",
+  "report_sha256": "9a826bcc7aa4077878b4472c99bf166b71bd2bf4ae8513460338132bb408c038",
+  "rows": [
+    {
+      "dataset_class_id": "comm_data_downlink_link_loss",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:transport-degradation",
+      "registered_fault_id": "COMM_DOWNLINK_SERVICE_LOSS",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "comm_data_storage_capacity_loss",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:storage-capacity-loss",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "comm_data_transmitter_rate_loss",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:transport-degradation",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "eps_battery_capacity_loss",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:storage-capacity-loss",
+      "registered_fault_id": "EPS_BATTERY_CAPACITY_LOSS",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "eps_battery_open_circuit",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:flow-restriction",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "eps_load_overload",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:excess-demand",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "eps_pdu_channel_trip",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:actuation-authority-loss",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "eps_solar_string_open",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:actuation-authority-loss",
+      "registered_fault_id": "EPS_SOLAR_ARRAY_STRING_FAILURE",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "payload_instrument_off",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:actuation-authority-loss",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "payload_instrument_rate_loss",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:transport-degradation",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "propulsion_fuel_leak",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:uncommanded-inventory-loss",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "propulsion_thruster_ignition_failure",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:actuation-authority-loss",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "propulsion_thruster_nozzle_blockage",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:flow-restriction",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "thermal_heater_stuck_off",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:output-stagnation",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "thermal_heater_stuck_on",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:uncommanded-energy-input",
+      "registered_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "thermal_node_heat_bias",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:uncommanded-energy-input",
+      "registered_fault_id": null,
+      "status": "SEMANTIC_ONLY"
+    },
+    {
+      "dataset_class_id": "thermal_radiator_rejection_loss",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:thermal-exchange-degradation",
+      "registered_fault_id": "THERMAL_RADIATOR_REJECTION_LOSS",
+      "status": "EXACT_REGISTERED"
+    }
+  ],
+  "schema_version": "astrograph-ontology-alignment-report.v1"
+}

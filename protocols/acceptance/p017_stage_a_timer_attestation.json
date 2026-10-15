@@ -1,0 +1,33 @@
+{
+  "schema_version": "astrograph-research-stage-authorization-attestation.v1",
+  "request_id": "P017-GENERIC-DIAGNOSIS-RESEARCH-RESET-001",
+  "problem_id": "P-017",
+  "reviewer": "Timer",
+  "status": "APPROVED_STAGE_A_ONLY",
+  "recorded_at_utc": "2026-08-02T07:00:00Z",
+  "verbatim_attestation_text_zh": "我已审阅 P-017 根因报告及三个候选的完整失败证据。我授权启动一个独立于已耗尽 3/3 候选预算的新研究协议 Stage A，仅允许使用新开发种子 20310818 和新校准种子 20310819 进行协议设计、可辨识性分析和开发/校准实验；本审批不授权生产候选拟合、技术验证或生成验证种子。无特殊原因和外部审批同意，G1.1 五项制品、故障分类、阈值、分母和 600 秒预算保持不变，20280820、20290820、20300820 永久禁止复用。Stage B 必须在精确模型、特征、维数、正则化、共形规则和有限候选预算拟合前另行提交 Timer 冻结，并使用全新未触碰验证种子。",
+  "bound_request": {
+    "path": "protocols/acceptance/p017_new_generic_diagnosis_research_authorization_request.json",
+    "sha256": "effb758052ed70f7023b08ee2fb3f855c2c7268ed8bfc16ff8f3a5b87477d7a6"
+  },
+  "bound_root_cause": {
+    "path": "governance/evidence/0.7.1-extension/generic_diagnosis_failure_root_cause.v1.json",
+    "sha256": "a8929fcd83c7b9a6d7438b18a48fe70ae4396d557d03bd1157abb5314d8ea234"
+  },
+  "authorized": {
+    "development_seed": 20310818,
+    "calibration_seed": 20310819,
+    "protocol_design": true,
+    "identifiability_analysis": true,
+    "development_and_calibration_experiments": true
+  },
+  "not_authorized": {
+    "production_candidate_fit": true,
+    "technical_validation": true,
+    "technical_validation_seed_creation": true,
+    "candidate4_under_exhausted_protocol": true,
+    "stage_b": true
+  },
+  "permanently_exhausted_validation_seeds": [20280820, 20290820, 20300820],
+  "claim_boundary": "Approves Stage A development/calibration research only. No production artifact, validation seed, promotion or G3 claim is authorized."
+}

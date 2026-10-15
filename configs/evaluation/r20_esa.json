@@ -1,0 +1,17 @@
+{
+ "schema_version":"astrograph-r20-esa-evaluation-plan.v1",
+ "evaluation_task_id":"ESA_MISSION1_ANOMALY_EVENT_DETECTION_V1",
+ "channels":["channel_41","channel_42","channel_43","channel_44","channel_45","channel_46"],
+ "aggregation":"OR across supplied six channels on common 5min grid",
+ "resampling":"retrospective nonoverlapping 5min median; bin prediction begins at bin END; missing bins no extrapolated alarm",
+ "partition_duration_fractions":[0.30,0.375,0.45,0.50],
+ "partition_boundary_policy":"move cut forward beyond any same-ID event envelope it intersects; reject non-increasing boundaries; whole event group assigned once",
+ "partitions":["MODEL_TRAIN","CALIBRATION_FIT","DEVELOPMENT_SELECTION","CONFIRMATORY_EVALUATION","EXTERNAL_VALIDATION"],
+ "fit":"per-channel median/MAD on MODEL_TRAIN observed bins excluding all annotated categories",
+ "scale_floor_relative":0.000001,
+ "score_threshold":6,
+ "threshold_policy":"fixed engineering threshold before evaluation; no tuning on any external labels",
+ "confirmation_duration_s":600,
+ "score_semantics":"UNCALIBRATED_ANOMALY_SCORE",
+ "qualification":"NOT_FLIGHT_QUALIFIED"
+}

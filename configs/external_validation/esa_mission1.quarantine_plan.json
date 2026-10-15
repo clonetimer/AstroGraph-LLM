@@ -1,0 +1,51 @@
+{
+  "archive_sha256": "eb4e99e598ea3205ff18114999c1f61f855f6b740e6c0dfb1eed308a4cffb169",
+  "channel_archives": [
+    {
+      "member": "ESA-Mission1-lightweight/ESA-Mission1/channels/channel_41.zip",
+      "nested_member_count": 1,
+      "unsafe_serialized_members": [
+        "channel_41"
+      ]
+    },
+    {
+      "member": "ESA-Mission1-lightweight/ESA-Mission1/channels/channel_42.zip",
+      "nested_member_count": 1,
+      "unsafe_serialized_members": [
+        "channel_42"
+      ]
+    },
+    {
+      "member": "ESA-Mission1-lightweight/ESA-Mission1/channels/channel_43.zip",
+      "nested_member_count": 1,
+      "unsafe_serialized_members": [
+        "channel_43"
+      ]
+    },
+    {
+      "member": "ESA-Mission1-lightweight/ESA-Mission1/channels/channel_44.zip",
+      "nested_member_count": 1,
+      "unsafe_serialized_members": [
+        "channel_44"
+      ]
+    },
+    {
+      "member": "ESA-Mission1-lightweight/ESA-Mission1/channels/channel_45.zip",
+      "nested_member_count": 1,
+      "unsafe_serialized_members": [
+        "channel_45"
+      ]
+    },
+    {
+      "member": "ESA-Mission1-lightweight/ESA-Mission1/channels/channel_46.zip",
+      "nested_member_count": 1,
+      "unsafe_serialized_members": [
+        "channel_46"
+      ]
+    }
+  ],
+  "claim_boundary": "No physical RCA may be inferred from anonymized channels without external semantic mapping.",
+  "normal_runtime_deserialization_allowed": false,
+  "required_conversion": "ONE_SHOT_NETWORK_ISOLATED_PICKLE_TO_PARQUET_OR_ARROW",
+  "schema_version": "astrograph-esa-quarantine-plan.v1"
+}

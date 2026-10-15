@@ -1,0 +1,25 @@
+{
+  "schema_version": "astrograph-data-driven-model-manifest.v1",
+  "model_id": "example-tcn-fault-classifier",
+  "model_version": "0.1.0-unvalidated",
+  "display_name": "Example TCN fault classifier",
+  "task_type": "MULTICLASS_FAULT_CLASSIFICATION",
+  "runtime": "PYTORCH",
+  "output_semantics": "LOGITS",
+  "capabilities": ["FAULT_RANKING", "NORMAL_CLASS", "TEMPORAL_CONTEXT"],
+  "supported_fault_ids": ["ADCS_RW_FRICTION_INCREASE", "ADCS_RW_JAM"],
+  "normal_class_id": "NORMAL",
+  "feature_schema_ids": ["REPLACE_WITH_APPROVED_FEATURE_SCHEMA_ID"],
+  "input_contract": {
+    "payload.sequence": "float[time,channel]",
+    "channel_order": "must be versioned",
+    "mask": "optional boolean[time,channel]"
+  },
+  "calibration_id": null,
+  "training_dataset_ids": [],
+  "claim_boundary": "Template only. No trained model or diagnostic threshold is included.",
+  "metadata": {
+    "template_only": true,
+    "online_registration_allowed": false
+  }
+}

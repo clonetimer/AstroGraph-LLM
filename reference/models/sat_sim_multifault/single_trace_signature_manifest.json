@@ -1,0 +1,33 @@
+{
+  "schema_version": "astrograph-sat-sim-multifault-single-profile.v1",
+  "profile_id": "laboratory-single-trace-multifault",
+  "method": "DETERMINISTIC_PHYSICAL_SIGNATURES",
+  "calibration_campaigns": [
+    "multifault-development-full",
+    "multifault-holdout-full"
+  ],
+  "final_campaigns_used_for_calibration": [],
+  "supports_paired_nominal_at_inference": false,
+  "uses_truth_at_inference": false,
+  "uses_case_id_as_feature": false,
+  "claim_boundary": "Laboratory Basilisk known-catalog physical signatures; not flight calibration or diagnostic probability.",
+  "thresholds": {
+    "rw_relative_torque_max": 0.76,
+    "rw_speed_peak_min_rad_s": 380.0,
+    "battery_soc_mean_min": 0.75,
+    "solar_net_power_mean_max_w": -175.0,
+    "solar_thermal_mean_max_c": 25.0,
+    "solar_heater_load_mean_max_w": 3.0,
+    "payload_rate_mean_max_bps": 2200000.0,
+    "ignition_flow_mean_abs_max": 1e-06,
+    "partial_flow_mean_abs_max": 0.00037,
+    "radiator_temp_mean_min_c": 26.7,
+    "radiator_temp_last_min_c": 25.0,
+    "heater_off_active_mean_min": 0.05,
+    "heater_off_active_mean_max": 0.4,
+    "heater_on_active_mean_min": 0.6,
+    "heater_on_active_mean_max": 0.95,
+    "downlink_requested_mean_max_bps": 300000.0,
+    "storage_bits_max_max": 80000000.0
+  }
+}

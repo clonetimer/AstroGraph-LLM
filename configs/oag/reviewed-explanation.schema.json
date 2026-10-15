@@ -1,0 +1,190 @@
+{
+  "$defs": {
+    "DiagnosticAssessment": {
+      "additionalProperties": false,
+      "description": "An auditable reasoning summary, not an unrestricted chain of thought.",
+      "properties": {
+        "schema_version": {
+          "const": "astrograph-diagnostic-assessment.v1",
+          "default": "astrograph-diagnostic-assessment.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "hypotheses": {
+          "items": {
+            "$ref": "#/$defs/HypothesisAssessment"
+          },
+          "title": "Hypotheses",
+          "type": "array"
+        },
+        "conclusion_status": {
+          "enum": [
+            "SUPPORTED_CANDIDATE",
+            "ALTERNATIVES",
+            "UNKNOWN"
+          ],
+          "title": "Conclusion Status",
+          "type": "string"
+        },
+        "selected_fault_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selected Fault Id"
+        },
+        "additional_observation_definition_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Additional Observation Definition Ids",
+          "type": "array"
+        },
+        "causal_identification": {
+          "const": "NOT_ESTABLISHED",
+          "default": "NOT_ESTABLISHED",
+          "title": "Causal Identification",
+          "type": "string"
+        },
+        "control_actions_authorized": {
+          "const": false,
+          "default": false,
+          "title": "Control Actions Authorized",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "hypotheses",
+        "conclusion_status"
+      ],
+      "title": "DiagnosticAssessment",
+      "type": "object"
+    },
+    "ExplainedClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "OBSERVATION",
+            "KNOWLEDGE",
+            "HYPOTHESIS"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "citation_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Citation Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "text"
+      ],
+      "title": "ExplainedClaim",
+      "type": "object"
+    },
+    "HypothesisAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "fault_id": {
+          "minLength": 1,
+          "title": "Fault Id",
+          "type": "string"
+        },
+        "supporting_evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supporting Evidence Ids",
+          "type": "array"
+        },
+        "contradicting_evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Contradicting Evidence Ids",
+          "type": "array"
+        },
+        "missing_required_definition_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Required Definition Ids",
+          "type": "array"
+        },
+        "verdict": {
+          "enum": [
+            "SUPPORTED_CANDIDATE",
+            "CONTRADICTED",
+            "INSUFFICIENT_EVIDENCE"
+          ],
+          "title": "Verdict",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fault_id",
+        "verdict"
+      ],
+      "title": "HypothesisAssessment",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A requested evidence assessment must be required in the model's schema.",
+  "properties": {
+    "candidate_fault_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Candidate Fault Id"
+    },
+    "abstained": {
+      "title": "Abstained",
+      "type": "boolean"
+    },
+    "claims": {
+      "items": {
+        "$ref": "#/$defs/ExplainedClaim"
+      },
+      "title": "Claims",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "assessment": {
+      "$ref": "#/$defs/DiagnosticAssessment"
+    }
+  },
+  "required": [
+    "abstained",
+    "assessment"
+  ],
+  "title": "ReviewedOAGExplanation",
+  "type": "object"
+}

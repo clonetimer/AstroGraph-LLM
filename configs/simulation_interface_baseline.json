@@ -1,0 +1,31 @@
+{
+  "dataset_contract_version": "1.0.0",
+  "telemetry_dictionary_version": "D0-v1.0.1",
+  "fault_catalog_version": "D0-five-faults-v1",
+  "streams": ["legacy", "adcs", "eps", "comm", "thermal"],
+  "channel_ids": [
+    "sensor.eps.battery_voltage_v",
+    "sensor.eps.battery_current_a",
+    "sensor.eps.solar_array_current_a",
+    "sensor.thermal.radiator_temp_c",
+    "sensor.adcs.rw.speed_rad_s_0",
+    "comm.downlink_rate_bps"
+  ],
+  "fault_ids": [
+    "FAULT_BATTERY_CAPACITY_LOSS",
+    "FAULT_SOLAR_EFFICIENCY_LOSS",
+    "FAULT_RADIATOR_REJECTION_LOSS",
+    "FAULT_RW_JAM",
+    "FAULT_DOWNLINK_LOSS"
+  ],
+  "degradation_ids": [
+    "DEG_BATTERY_CAPACITY",
+    "DEG_SOLAR_ARRAY",
+    "DEG_RADIATOR",
+    "DEG_ADCS_RESPONSE",
+    "DEG_DOWNLINK_CAPACITY"
+  ],
+  "required_identity_fields": ["dataset_id", "run_id", "record_id", "time_s"],
+  "raw_labels_separated": true,
+  "paired_nominal_supported": true
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "astrograph-generic-head-technical-validation.v1",
+  "protocol_sha256": "b296b579fdbc08e58933a52bcd2129719404966993452f93caf8ae09dae63240",
+  "calibration_artifact_sha256": "02ce6b45de800078c9f4f3cf3699a8720b4c4f7ff06927aab06f2a01cff2f4b7",
+  "formal_hidden_truth_used": false,
+  "synthetic_controlled_reference_used": true,
+  "technical_validation_seed": 20280820,
+  "validation_run_count": 1,
+  "denominators": {
+    "normal": 240,
+    "known": 720,
+    "open_set": 720,
+    "total": 1680
+  },
+  "failed_run_count": 218,
+  "failure_reason_counts": {
+    "identified storage capacity is non-positive": 130,
+    "identified thermal parameters are non-positive": 88
+  },
+  "metrics": {
+    "detection_accuracy": 0.8505952380952381,
+    "classification_accuracy_micro": 0.6013888888888889,
+    "classification_accuracy_macro": 0.6013888888888889,
+    "localization_accuracy": 0.6013888888888889,
+    "reasoning_correctness": 0.6013888888888889,
+    "known_class_retention": 0.8097222222222222,
+    "open_set_rejection": 0.3888888888888889,
+    "worst_known_mechanism_classification": 0.525,
+    "worst_open_set_mechanism_rejection": 0.0125
+  },
+  "known_mechanism_rates": {
+    "CAPACITY_LOSS": 0.7041666666666667,
+    "DRIFT": 0.575,
+    "LEAKAGE": 0.525
+  },
+  "open_set_mechanism_rates": {
+    "BIAS": 0.5416666666666666,
+    "INTERMITTENT": 0.0125,
+    "STUCK": 0.6125
+  },
+  "per_archetype": {
+    "storage.energy_buffer": {
+      "case_count": 840,
+      "detection_accuracy": 0.819047619047619,
+      "classification_accuracy": 0.5638888888888889,
+      "localization_accuracy": 0.5638888888888889,
+      "reasoning_correctness": 0.5638888888888889,
+      "known_class_retention": 0.6861111111111111,
+      "open_set_rejection": 0.4222222222222222
+    },
+    "thermal.lumped_capacity": {
+      "case_count": 840,
+      "detection_accuracy": 0.8821428571428571,
+      "classification_accuracy": 0.6388888888888888,
+      "localization_accuracy": 0.6388888888888888,
+      "reasoning_correctness": 0.6388888888888888,
+      "known_class_retention": 0.9333333333333333,
+      "open_set_rejection": 0.35555555555555557
+    }
+  },
+  "thresholds": {
+    "detection_accuracy": 0.98,
+    "classification_accuracy": 0.9,
+    "localization_accuracy": 0.95,
+    "reasoning_correctness": 0.9,
+    "known_class_retention": 0.98,
+    "open_set_rejection": 0.98,
+    "open_set_alpha": 0.02
+  },
+  "checks": {
+    "denominators_preserved": true,
+    "detection_accuracy": false,
+    "classification_accuracy_micro": false,
+    "classification_accuracy_macro": false,
+    "localization_accuracy": false,
+    "reasoning_correctness": false,
+    "known_class_retention": false,
+    "open_set_rejection": false
+  },
+  "technical_status": "FAIL",
+  "t310_status": "INCOMPLETE",
+  "t311_status": "INCOMPLETE",
+  "p014_status": "OPEN",
+  "validation_split_sha256": "5b2b55f8bb91c8245601744f4f931ab7894d992821f0f04afbd0d857bbe67762",
+  "elapsed_seconds": 10.328605199996673,
+  "claim_boundary": "Single frozen-seed synthetic technical validation with every declared case retained. It does not use formal hidden-acceptance truth and cannot establish independent-source validation, G3, G4, flight validity or safety qualification."
+}

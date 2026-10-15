@@ -1,0 +1,24 @@
+{
+  "schema_version": "astrograph-generic-mechanism-fit-evidence.v1",
+  "protocol_sha256": "b296b579fdbc08e58933a52bcd2129719404966993452f93caf8ae09dae63240",
+  "formal_hidden_truth_used": false,
+  "synthetic_controlled_reference_used": true,
+  "development_case_count": 720,
+  "calibration_case_count": 360,
+  "development_failure_count": 46,
+  "calibration_failure_count": 20,
+  "development_feature_case_count": 674,
+  "calibration_feature_case_count": 340,
+  "development_classification_accuracy": 0.7888888888888889,
+  "calibration_classification_accuracy": 0.7444444444444445,
+  "temperature": 1.0147058823529411,
+  "class_distance_thresholds": {
+    "CAPACITY_LOSS": 4.508640050449232,
+    "DRIFT": 5.851929293430158,
+    "LEAKAGE": 6.152147431663284
+  },
+  "elapsed_seconds": 5.322049700000207,
+  "technical_validation_read": false,
+  "status": "FIT_COMPLETE",
+  "claim_boundary": "Development and calibration evidence only. Technical validation was not read and no T-310, T-311, P-014, G3 or G4 completion is established."
+}

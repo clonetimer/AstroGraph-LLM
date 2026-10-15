@@ -1,0 +1,97 @@
+{
+  "schema_version": "astrograph-generic-head-research-protocol.stage-a.v1",
+  "protocol_id": "astrograph.generic-heads.p017.stage-a.identifiability",
+  "protocol_version": "1.0.0",
+  "authorization": {
+    "path": "protocols/acceptance/p017_stage_a_timer_attestation.json",
+    "sha256": "478570c6363c500bfcd21b07417244c31e2c5a977841caa81795534cdf066633",
+    "scope": "DEVELOPMENT_AND_CALIBRATION_RESEARCH_ONLY"
+  },
+  "formal_hidden_truth_used": false,
+  "production_candidate_fit": false,
+  "technical_validation_authorized": false,
+  "technical_validation_seed": null,
+  "development_seed": 20310818,
+  "calibration_seed": 20310819,
+  "permanently_exhausted_validation_seeds": [20280820, 20290820, 20300820],
+  "classes": ["NORMAL", "CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+  "formal_open_set_classes_not_generated": ["BIAS", "INTERMITTENT", "STUCK"],
+  "component_archetypes": ["storage.energy_buffer", "thermal.lumped_capacity"],
+  "case_counts": {
+    "development_per_archetype_per_class": 160,
+    "calibration_per_archetype_per_class": 80,
+    "development_total": 1280,
+    "calibration_total": 640
+  },
+  "domain_randomization": {
+    "sample_count": {"storage": 160, "thermal": 180},
+    "storage_step_s_choices": [0.5, 0.75, 1.0, 1.25, 1.5, 2.0],
+    "thermal_step_s_choices": [0.5, 0.75, 1.0, 1.25, 1.5, 1.75],
+    "storage_energy_capacity_j_range": [12000.0, 60000.0],
+    "thermal_capacity_j_per_k_range": [500.0, 1800.0],
+    "thermal_conductance_w_per_k_range": [1.5, 7.0],
+    "storage_sine_period_s_range": [5.0, 21.0],
+    "thermal_heat_period_s_range": [7.0, 29.0],
+    "basis": "Union envelope of the disclosed development/calibration and configuration-out protocol domains; no exhausted seed is used."
+  },
+  "frozen_feature_source": {
+    "implementation": "src/astrograph/diagnosis/generic/segmented_calibration.py",
+    "dimension": 22,
+    "labels_or_truth_used_at_runtime": false
+  },
+  "research_alternatives": [
+    {
+      "research_id": "R1_SHARED_GAUSSIAN",
+      "description": "One shared standardization and class-conditional Gaussian model across both archetypes.",
+      "archetype_conditioned": false,
+      "covariance": "SHRUNK_FULL",
+      "shrinkage_to_diagonal": 0.2,
+      "eigenvalue_floor": 0.001
+    },
+    {
+      "research_id": "R2_ARCHETYPE_GAUSSIAN",
+      "description": "One joint model with archetype-conditioned standardization and class-conditional Gaussian components.",
+      "archetype_conditioned": true,
+      "covariance": "SHRUNK_FULL",
+      "shrinkage_to_diagonal": 0.2,
+      "eigenvalue_floor": 0.001
+    },
+    {
+      "research_id": "R3_ARCHETYPE_ROBUST_GAUSSIAN",
+      "description": "One joint model with archetype-conditioned median/MAD scaling and diagonal class-conditional Gaussian components.",
+      "archetype_conditioned": true,
+      "normalization": "MEDIAN_AND_1.4826_MAD",
+      "covariance": "DIAGONAL",
+      "variance_floor": 0.001
+    }
+  ],
+  "conformal_rule": {
+    "score_calibration": "SQUARED_MAHALANOBIS_DISTANCE_TO_THE_CANDIDATE_CLASS_COMPONENT",
+    "score_runtime": "SQUARED_MAHALANOBIS_DISTANCE_TO_THE_SAME_CANDIDATE_CLASS_COMPONENT",
+    "alpha": 0.02,
+    "quantile": "rank=ceil((n+1)*(1-alpha)), clipped to n",
+    "prediction_set": "Include each class whose score is at or below its class-and-archetype threshold.",
+    "ood": "Prediction set is empty.",
+    "known_decision": "Choose minimum Gaussian negative log score inside the nonempty prediction set.",
+    "reachability_requirement": "For each archetype, a finite deterministic stress vector must make every class score exceed its threshold."
+  },
+  "stage_a_exit_checks": {
+    "calibration_classification_accuracy": 0.9,
+    "calibration_normal_detection_accuracy": 0.98,
+    "calibration_known_retention": 0.98,
+    "open_set_rule_reachable_for_each_archetype": true,
+    "failed_feature_extractions": 0,
+    "maximum_runtime_seconds": 600
+  },
+  "selection_rule": "Report all alternatives. A Stage-B proposal may name an alternative only if every Stage-A exit check passes; otherwise stop without requesting a validation seed.",
+  "prohibited_actions": [
+    "Generate BIAS, INTERMITTENT or STUCK cases during Stage A",
+    "Read or regenerate 20280820, 20290820 or 20300820",
+    "Create or reserve any technical-validation seed",
+    "Write a production calibration artifact",
+    "Call any Stage-A result candidate 4",
+    "Change G1.1 classes, thresholds or denominators",
+    "Delete or skip failed cases"
+  ],
+  "claim_boundary": "Research identifiability evidence only. Passing Stage A does not authorize candidate fitting, Stage B, technical validation or G3 promotion."
+}

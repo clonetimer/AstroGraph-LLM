@@ -1,0 +1,31 @@
+[
+  {
+    "query_id": "Q-HEATER",
+    "question": "加热器常开的必要证据是什么？",
+    "start_id": "THERMAL_HEATER_STUCK_ON",
+    "relation_types": [
+      "REQUIRES_EVIDENCE"
+    ],
+    "expected_ids": [
+      "ED-HEATER-CURRENT-REQUIRED-V1",
+      "ED-HEATER-MISMATCH-REQUIRED-V1"
+    ]
+  },
+  {
+    "query_id": "Q-STAR",
+    "question": "星敏失锁的必要证据是什么？",
+    "start_id": "ADCS_STAR_TRACKER_DROPOUT",
+    "relation_types": [
+      "REQUIRES_EVIDENCE"
+    ],
+    "expected_ids": [
+      "ED-STAR-AGE-REQUIRED-V1",
+      "ED-STAR-FUSION-REQUIRED-V1",
+      "ED-STAR-LOCKED-REQUIRED-V1",
+      "ED-STAR-RW0-AVAILABLE-V1",
+      "ED-STAR-RW1-AVAILABLE-V1",
+      "ED-STAR-RW2-AVAILABLE-V1",
+      "ED-STAR-VALID-REQUIRED-V1"
+    ]
+  }
+]

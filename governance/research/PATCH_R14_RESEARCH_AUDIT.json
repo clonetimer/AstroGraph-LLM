@@ -1,0 +1,370 @@
+{
+  "schema_version": "astrograph-research-audit-registry.v1",
+  "patch_id": "PATCH-R14",
+  "audit_date": "2026-09-18",
+  "canonical_source": "ONE_UNIFIED_ASTROGRAPH_TREE",
+  "method": {
+    "source_review": true,
+    "deterministic_counterexamples": [
+      "NONFINITE_FEATURE_RESULT",
+      "MIXED_CITATION_NUMERIC_GROUNDING"
+    ],
+    "external_research_crosscheck": true,
+    "real_confirmatory_inference_executed": false,
+    "claim_boundary": "Audit findings identify code/research risks. They are not performance results, fault-rate estimates, or flight qualification."
+  },
+  "issue_counts": {
+    "total": 21,
+    "P0-RESEARCH": 3,
+    "P0-GOVERNANCE": 2,
+    "P1-RESEARCH": 9,
+    "P1-GOVERNANCE": 1,
+    "P2-ENGINEERING": 3,
+    "P2-GOVERNANCE": 1,
+    "P2-RESEARCH": 2,
+    "confirmed_defects": 2
+  },
+  "issues": [
+    {
+      "id": "R14-RES-001",
+      "severity": "P0-RESEARCH",
+      "class": "CONFIRMATORY_INFERENCE",
+      "status": "OPEN",
+      "title": "38-case confirmatory inference records group_id but ordinary exact McNemar ignores clustering",
+      "evidence": [
+        "src/astrograph/evaluation/llm_method_campaign.py: freeze_confirmatory_case_manifest() assigns group_id",
+        "src/astrograph/evaluation/llm_method_campaign.py: paired_arm_effect() indexes only case_id and calls exact_mcnemar_two_sided()",
+        "configs/evaluation/llm_method_acceptance.v2.json: EXACT_TWO_SIDED_MCNEMAR"
+      ],
+      "impact": "Cases sharing a trajectory/subsystem group can be statistically dependent. Treating all 38 paired case outcomes as independent can misstate sampling variability and p-values.",
+      "gate": "Resolve and preregister before any A0-A7 result is used for promotion.",
+      "recommendation": "Make the inferential unit group-aware. Freeze a clustered matched-pair method (for example cluster-level permutation/sign approach, cluster-adjusted McNemar, or a justified hierarchical model), report number of independent groups, and retain case-level descriptive counts."
+    },
+    {
+      "id": "R14-RES-002",
+      "severity": "P0-RESEARCH",
+      "class": "ESTIMAND",
+      "status": "OPEN",
+      "title": "Probe-promotion question and current primary confirmatory estimand are not the same comparison",
+      "evidence": [
+        "configs/evaluation/llm_method_acceptance.v2.json: primary A2_CONTROLLED_FULL vs A0_ALGORITHM_ONLY",
+        "same config: A2 vs A7_NO_ACTIVE_PROBE is secondary/descriptive unless separately preregistered",
+        "roadmap/ledger ties future Probe promotion to confirmatory evidence"
+      ],
+      "impact": "A2-vs-A0 estimates the effect of the whole controlled-LLM stack, not the marginal contribution of active Probe. A positive full-stack result cannot by itself identify Probe benefit.",
+      "gate": "Before formal EvidenceFact-producer review for Probe.",
+      "recommendation": "Preregister A2-vs-A7 as the Probe-specific primary or co-primary estimand, with its own induced-error, effect-size/CI, multiplicity and minimum-benefit rules."
+    },
+    {
+      "id": "R14-RES-003",
+      "severity": "P0-RESEARCH",
+      "class": "STATISTICAL_DESIGN",
+      "status": "OPEN",
+      "title": "Promotion gate lacks a preregistered effect-size confidence interval and power/minimum-detectable-effect justification",
+      "evidence": [
+        "configs/evaluation/llm_method_acceptance.v2.json thresholds",
+        "paired_arm_effect() returns counts and exact p-value but no compatible CI"
+      ],
+      "impact": "Significance alone does not establish a practically meaningful gain. With induced errors fixed at zero, the exact two-sided test also makes min_net_gain=1 largely non-binding once p<=0.05 is satisfied.",
+      "gate": "Before formal confirmatory execution if results may support promotion.",
+      "recommendation": "Freeze an effect estimand (paired difference or group-level effect), confidence interval, minimum meaningful effect and power/precision rationale. Treat p-value as one component rather than the promotion effect measure."
+    },
+    {
+      "id": "R14-GOV-001",
+      "severity": "P0-GOVERNANCE",
+      "class": "FORMAL_EVIDENCE_SEMANTICS",
+      "status": "CONFIRMED_DEFECT",
+      "title": "Non-finite/quality-flagged FeatureResult can be compiled as ordinary NOT_SATISFIED instead of invalid/missing data",
+      "evidence": [
+        "src/astrograph/evidence/executable.py: FeatureResult permits float NaN and carries quality_flags",
+        "evaluate_evidence() only treats None as MISSING_DATA before numeric comparison",
+        "reaction_wheel_executable.py can emit NONFINITE_INPUT quality flags",
+        "R14 deterministic probe reproduced NaN + NONFINITE_INPUT -> NOT_SATISFIED"
+      ],
+      "impact": "Data-quality failure can be interpreted as negative evidence rather than unavailable evidence. This is upstream of deterministic hypothesis compilation and therefore matters more than an LLM-only presentation defect.",
+      "gate": "Fix before treating the unified tree as a candidate for any formal-evidence qualification.",
+      "recommendation": "Define a central FeatureResult validity taxonomy. Reject non-finite values at the model boundary (or map them to INVALID_DATA/MISSING_DATA), make severe quality flags fail closed before threshold comparison, and apply the same policy to conjunctive feature results."
+    },
+    {
+      "id": "R14-GND-001",
+      "severity": "P0-GOVERNANCE",
+      "class": "LLM_GROUNDING",
+      "status": "CONFIRMED_DEFECT",
+      "title": "Mixed evidence + knowledge citations bypass Agent paragraph numeric grounding",
+      "evidence": [
+        "src/astrograph/integrations/platform_agent.py: numeric grounding is called only when paragraph_citations <= evidence_ids",
+        "R14 deterministic probe: E1=0.2 A + K1 visible, text=900 A, citations=[E1,K1] -> accepted"
+      ],
+      "impact": "R13 fixed single-evidence citation value substitution, but a mixed-source paragraph can still reuse a valid evidence ID while adding an unsupported explicit measurement.",
+      "gate": "Fix before describing Agent narrative numeric grounding as complete.",
+      "recommendation": "Run measurement grounding on the evidence-citation subset even when knowledge citations are also present; require each explicit measured claim to bind a supporting EvidenceFact/span rather than letting a mixed citation set disable the check."
+    },
+    {
+      "id": "R14-REP-001",
+      "severity": "P1-RESEARCH",
+      "class": "REPRODUCIBILITY",
+      "status": "OPEN",
+      "title": "Confirmatory execution receipt freezes model ID but not full model/runtime/software identity",
+      "evidence": [
+        "build_confirmatory_execution_receipt() v3 freezes design/case/dataset snapshot, vLLM URL/model ID, Python/platform, arm order and thresholds",
+        "post-execution identity rechecks advertised model ID but not model artifact bytes/revision"
+      ],
+      "impact": "An identical served model ID can point to different weights/tokenizer/runtime builds. Source/dependency/accelerator drift can also change inference while current identity remains STABLE.",
+      "gate": "Close before claiming a reproducible real A0-A7 campaign.",
+      "recommendation": "Freeze model artifact/revision and tokenizer hashes, vLLM/container/build identity, AstroGraph SOURCE_MANIFEST hash, dependency lock/SBOM, CUDA/driver/GPU identity, and the complete inference config/prompt-profile hash."
+    },
+    {
+      "id": "R14-VAL-001",
+      "severity": "P1-RESEARCH",
+      "class": "EXTERNAL_VALIDITY",
+      "status": "KNOWN_BOUNDARY",
+      "title": "No real confirmatory, HIL, target-hardware or operational-shadow validation yet",
+      "evidence": [
+        "R13/R12 implementation ledger explicitly states no real ADCS/PHM + live-vLLM 38x8 result",
+        "current PUBLIC_CASE and maintenance children remain non-release-eligible"
+      ],
+      "impact": "Software correctness and simulator regression do not establish spacecraft diagnostic validity, robustness or flight suitability.",
+      "gate": "Required before any stronger-than-engineering qualification claim.",
+      "recommendation": "Adopt a validation ladder: frozen simulation -> cross-simulator/domain-shift -> hardware/processor-in-loop fault injection -> target compute/resource/stress -> operational shadow telemetry -> independent release review."
+    },
+    {
+      "id": "R14-MOD-001",
+      "severity": "P1-RESEARCH",
+      "class": "SCORE_SEMANTICS",
+      "status": "IMPLEMENTED_NEEDS_OPTIMIZATION",
+      "title": "Hand-engineered RW softmax scores are typed as PROBABILITIES despite explicit uncalibrated status",
+      "evidence": [
+        "src/astrograph/integrations/sat_sim_pipeline.py: hand-built raw_scores -> _softmax()",
+        "same file declares ModelOutputSemantics.PROBABILITIES",
+        "formal binding/calibration boundaries are otherwise explicit"
+      ],
+      "impact": "Normalization to one does not make an engineering score a probabilistic estimate. The type encourages downstream/user misinterpretation even though BiRRF currently relies mainly on ranking and guards calibration claims.",
+      "gate": "Before publishing probability-like performance or using magnitude as calibrated confidence.",
+      "recommendation": "Represent these as NONNEGATIVE_SCORES or add a dedicated normalized-heuristic semantics. Reserve PROBABILITIES for a model with calibration evidence and an explicit calibration receipt."
+    },
+    {
+      "id": "R14-TMP-001",
+      "severity": "P1-RESEARCH",
+      "class": "TEMPORAL_STATISTICS",
+      "status": "IMPLEMENTED_NEEDS_OPTIMIZATION",
+      "title": "R13 analysis/display separation fixes key bugs, but temporal/statistical thresholds remain heuristic and sampling-sensitive at scale",
+      "evidence": [
+        "temporal_localization.py uses fixed causal baseline horizon and fixed z/window/confirmation choices",
+        "maintenance analysis caps/selection still bound channels/rows for UI-side analytics",
+        "multidimensional diagnostics use engineering z/threshold rules"
+      ],
+      "impact": "Append invariance and peak preservation are improved, but false-alarm rate, delay, cadence sensitivity, early-fault contamination and >20k sampling effects are not yet calibrated as diagnostic performance.",
+      "gate": "Optimization before research claims based on these maintenance statistics; not currently a formal Evidence vote.",
+      "recommendation": "Add explicit time-axis admission, streaming/full-series statistics, early-anomaly-safe baseline policy, nominal false-alarm/ARL calibration, delay distributions, and sensitivity analysis for cadence/window/threshold choices."
+    },
+    {
+      "id": "R14-ADM-001",
+      "severity": "P1-GOVERNANCE",
+      "class": "SUPPLEMENTAL_INPUT",
+      "status": "IMPLEMENTED_NEEDS_OPTIMIZATION",
+      "title": "Supplemental capsule verifies shape/window/unit but not a full acquisition/sampling pedigree",
+      "evidence": [
+        "maintenance_input_admission.py permits non-decreasing timestamps (duplicates allowed)",
+        "requires at least one finite admitted sample but no operator-specific minimum cadence/coverage/gap rule",
+        "source_note is descriptive rather than a signed acquisition identity"
+      ],
+      "impact": "This is acceptably bounded today because overlays are non-release-eligible, but it is insufficient provenance for any future path toward formal telemetry/evidence.",
+      "gate": "Before supplemental inputs are ever considered for formal release evidence.",
+      "recommendation": "Bind acquisition source, sensor/calibration version, timestamp uniqueness/cadence/gap rules, minimum coverage/sample count by operator, uncertainty/precision and authenticated provenance."
+    },
+    {
+      "id": "R14-OOD-001",
+      "severity": "P1-RESEARCH",
+      "class": "OPEN_SET",
+      "status": "IMPLEMENTED_NEEDS_EXTERNAL_VALIDATION",
+      "title": "Open-set/abstention mechanisms have strong scope labels but limited external validity",
+      "evidence": [
+        "diagnosis/sat_sim_open_set.py states limited Basilisk laboratory calibration and not flight reliability",
+        "data_driven/adcs_posthoc.py v2 uses group-isolated calibration/qualification and explicitly bounds OOD threat model"
+      ],
+      "impact": "OOD/rejection behavior can change materially under simulator, spacecraft, sensor, mission-phase and covariate/conditional shifts not represented by the calibration set.",
+      "gate": "Before using abstention thresholds as operational reliability claims.",
+      "recommendation": "Evaluate risk-coverage and OOD detection with confidence intervals across independent simulator/HIL/corruption/mission-condition sets. Consider conformal/risk-control methods only where their assumptions and target risk are explicitly satisfied."
+    },
+    {
+      "id": "R14-FUS-001",
+      "severity": "P1-RESEARCH",
+      "class": "FUSION",
+      "status": "IMPLEMENTED_NEEDS_OPTIMIZATION",
+      "title": "BiRRF governance is stronger than its empirical weight/smoothing calibration",
+      "evidence": [
+        "fusion/birrf.py handles branch weights, reciprocal rank smoothing, KG redundancy correlation, shared correlation groups and KG fault-universe coverage",
+        "production-strict policy is explicitly not a calibrated-probability claim"
+      ],
+      "impact": "Rank fusion is robust to uncalibrated score magnitudes but can remain sensitive to source ordering, weight/smoothing choices, source dependence and KG quality. Coverage of a fault universe does not prove causal correctness of KG edges.",
+      "gate": "Before claiming fusion weights are empirically optimal or calibrated.",
+      "recommendation": "Run preregistered weight/smoothing sensitivity, leave-one-source-out and dependence perturbation studies; independently validate KG edge quality/source independence and compare against simpler fusion baselines."
+    },
+    {
+      "id": "R14-SCP-001",
+      "severity": "P1-RESEARCH",
+      "class": "FAULT_SCOPE",
+      "status": "OPEN",
+      "title": "Formal confirmatory scope is effectively single-fault/class-mapped; compound/cascade faults are not established",
+      "evidence": [
+        "38-case design selects exact registered fault-class mapping from ADCS/PHM test rows",
+        "large parts of candidate/fault classification contracts are single-label/multiclass"
+      ],
+      "impact": "A spacecraft fault-management claim broader than isolated registered faults would exceed the evaluated fault model.",
+      "gate": "Before generalizing to multi-fault/cascading diagnosis.",
+      "recommendation": "State single-fault scope explicitly, then create separate compound/cascade/unknown-fault campaigns with interaction-aware truth and partial-credit/isolation metrics."
+    },
+    {
+      "id": "R14-MET-001",
+      "severity": "P1-RESEARCH",
+      "class": "METRICS",
+      "status": "OPEN",
+      "title": "Confirmatory metrics emphasize classification but under-specify operational fault-management costs",
+      "evidence": [
+        "required metrics include accuracy/macro-F1/balanced accuracy/coverage/selective risk and diagnostic gain",
+        "formal campaign does not preregister mission-time false alarm rate, detection/isolation delay or availability/action cost"
+      ],
+      "impact": "Two systems with similar classification accuracy can have very different operational utility and safety due to false-alarm burden and detection latency.",
+      "gate": "Before claiming operational FDIR/PHM effectiveness.",
+      "recommendation": "Add event/window-level false alarms per operating time, missed-event rate, detection/isolation delay distributions, abstention duration, resource/latency budget and downstream action/recovery correctness where applicable."
+    },
+    {
+      "id": "R14-SAM-001",
+      "severity": "P1-RESEARCH",
+      "class": "SAMPLE_SIZE",
+      "status": "OPEN",
+      "title": "38-case denominator yields very sparse per-class evidence and highly discrete macro metrics",
+      "evidence": [
+        "case design fixes sample_index in {4,9}, expected 28 ADCS + 10 PHM cases",
+        "each exact mapped class therefore has very few independent realizations"
+      ],
+      "impact": "Macro-F1/balanced accuracy and class-specific conclusions can have large uncertainty. More cases from the same trajectory group do not create equivalent independent information.",
+      "gate": "Before class-specific efficacy claims.",
+      "recommendation": "Report per-class/group denominators and intervals, expand independent trajectory/fault-severity/mission-condition groups, and base sample-size planning on independent groups rather than raw case count."
+    },
+    {
+      "id": "R14-PKG-001",
+      "severity": "P2-ENGINEERING",
+      "class": "DEPENDENCY_ARCHITECTURE",
+      "status": "MERGE_RESOLVED_WITH_FOLLOWUP",
+      "title": "Unified metadata closes an existing joblib gap but minimal-headless dependency boundaries can be cleaner",
+      "evidence": [
+        "R13 Backend pyproject omitted joblib while shared integrations eager-imported a joblib-using scientific-model module",
+        "complete Platform pyproject declares joblib; R14 canonical tree retains it"
+      ],
+      "impact": "Current merged project is internally consistent, but a truly minimal core install still imports some scientific integration surface eagerly.",
+      "gate": "Optimization only; do not reintroduce dual source trees.",
+      "recommendation": "If minimal deployment matters, make scientific-model integrations lazy and move joblib/ML stack behind an explicit extra while adding import-with-core-only contract tests."
+    },
+    {
+      "id": "R14-MNT-001",
+      "severity": "P2-ENGINEERING",
+      "class": "AUDITABILITY",
+      "status": "OPEN",
+      "title": "Several governance/control-plane modules are very large and broad exception handling is frequent",
+      "evidence": [
+        "upload_report.py ~3121 LOC; cli.py ~2357; api.py ~1526; whole_spacecraft_stage_executor.py ~1453; llm_method_campaign.py ~1313",
+        "static scan: 194 occurrences of `except Exception` across 92 source files; upload_report.py contains 27"
+      ],
+      "impact": "Large change surfaces and generic exception translation raise review, fault-isolation and error-taxonomy risk even when tests pass.",
+      "gate": "Maintainability/audit optimization, especially before safety-critical qualification work.",
+      "recommendation": "Split admission/state/materialization/presentation/orchestration responsibilities, replace broad catches at trust boundaries with typed reason codes, and add contract tests per boundary."
+    },
+    {
+      "id": "R14-NUM-001",
+      "severity": "P2-ENGINEERING",
+      "class": "NUMERIC_SEMANTICS",
+      "status": "LATENT",
+      "title": "Evidence EQUAL/NOT_EQUAL operators use exact floating-point equality",
+      "evidence": [
+        "evidence/executable.py compare_value(): `value == threshold` / `value != threshold`",
+        "current frozen evidence configs do not appear to rely on continuous-valued equality comparisons"
+      ],
+      "impact": "Latent risk if future continuous telemetry evidence uses equality; exact binary float comparison rarely expresses engineering tolerance.",
+      "gate": "Before introducing a continuous EQUAL/NOT_EQUAL EvidenceDefinition.",
+      "recommendation": "Reserve exact equality for discrete/coded semantics or add an explicitly versioned tolerance/quantization contract."
+    },
+    {
+      "id": "R14-UP-001",
+      "severity": "P2-GOVERNANCE",
+      "class": "UPSTREAM_PROVIDER",
+      "status": "IMPLEMENTED_NEEDS_OPTIMIZATION",
+      "title": "Manual R13 response bundles prove integrity/identity, not producer authenticity or raw-recompute provenance",
+      "evidence": [
+        "Manual provider hashes schema/request/project/run identities and safe-ZIP limits",
+        "receipt explicitly records raw_telemetry_recompute_verified=false and formal_release_eligible=false"
+      ],
+      "impact": "This is correct for manual exchange. Future remote automatic providers would need stronger origin and execution trust if their output were ever elevated.",
+      "gate": "Before remote provider results can contribute to any formal evidence/release path.",
+      "recommendation": "Add provider authentication/signatures, nonce/replay protection, software/container/model identity, raw-input provenance/attestation and policy-scoped authorization. Keep hash integrity distinct from origin trust."
+    },
+    {
+      "id": "R14-KG-001",
+      "severity": "P2-RESEARCH",
+      "class": "KNOWLEDGE_GRAPH",
+      "status": "IMPLEMENTED_NEEDS_OPTIMIZATION",
+      "title": "KG fault-universe coverage is a completeness control, not a validity/causality measurement",
+      "evidence": [
+        "production-strict requires KG fault-universe coverage and suppresses incomplete branches",
+        "BiRRF records KG coverage/declaration lineage and correlation/redundancy"
+      ],
+      "impact": "A graph can cover every registered fault yet contain weak, dependent or incorrect causal/evidence relations.",
+      "gate": "Before claiming KG coverage implies diagnostic knowledge quality.",
+      "recommendation": "Define edge-level provenance/review grade, causal-vs-associational semantics, independent-source count, contradiction/age handling, and measure incremental diagnostic utility with blinded leave-edge/source-out evaluations."
+    },
+    {
+      "id": "R14-GND-002",
+      "severity": "P2-RESEARCH",
+      "class": "LLM_GROUNDING",
+      "status": "IMPLEMENTED_NEEDS_OPTIMIZATION",
+      "title": "Numeric grounding is deterministic but unit/claim semantics remain narrow",
+      "evidence": [
+        "platform_knowledge.py checks explicit number+unit pairs with exact normalized unit and near-exact numeric value",
+        "summary validation is against the allowed evidence set rather than a fine-grained claim-to-span mapping"
+      ],
+      "impact": "Equivalent unit conversions, derived quantities, rounding policy and qualitative entailment are not represented; citation presence alone is not full support.",
+      "gate": "Optimization before using citation-valid rate as a strong factual-faithfulness metric.",
+      "recommendation": "Move to claim-level attribution with evidence field/window/provenance binding, unit algebra/conversion policy, derivation lineage and separate support/contradiction/insufficiency labels."
+    }
+  ],
+  "external_references": [
+    {
+      "name": "NASA Systems Engineering Handbook Appendix — V&V plan outline",
+      "url": "https://www.nasa.gov/reference/system-engineering-handbook-appendix/"
+    },
+    {
+      "name": "NASA Systems Engineering Handbook — Fundamentals / verification vs validation",
+      "url": "https://www.nasa.gov/reference/2-0-fundamentals-of-systems-engineering/"
+    },
+    {
+      "name": "NASA Software Engineering Handbook SWE-067 — Verify Implementation",
+      "url": "https://swehb.nasa.gov/spaces/SWEHBVB/pages/32604539/SWE-067+-+Verify+Implementation"
+    },
+    {
+      "name": "Pesola et al. 2023 — Hybrid model/data spacecraft fault detection with HIL injection",
+      "url": "https://www.papers.phmsociety.org/index.php/phmconf/article/view/3461",
+      "doi": "10.36001/phmconf.2023.v15i1.3461"
+    },
+    {
+      "name": "Durkalski et al. — Analysis of clustered matched-pair data",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/sim.1438",
+      "doi": "10.1002/sim.1438"
+    },
+    {
+      "name": "Fay & Lumbard — exact McNemar-compatible confidence intervals",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33263202/"
+    },
+    {
+      "name": "Zhang et al. 2024 — Fine-grained citation faithfulness evaluation",
+      "url": "https://aclanthology.org/2024.inlg-main.35/"
+    },
+    {
+      "name": "Cattelan & Silva 2024 — selective classification under distribution shift",
+      "url": "https://proceedings.mlr.press/v244/cattelan24a.html"
+    },
+    {
+      "name": "2025 review — anomaly detection in spacecraft telemetry",
+      "url": "https://www.mdpi.com/2076-3417/15/10/5653"
+    }
+  ]
+}

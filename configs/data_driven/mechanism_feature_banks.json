@@ -1,0 +1,72 @@
+{
+  "schema_version": "astrograph-mechanism-feature-banks.v1",
+  "datasets": {
+    "adcs_v5_2_2": {
+      "families": {
+        "innovation": [
+          "adcs.innovation.star_gyro_rate_residual_rad_s_x",
+          "adcs.innovation.star_gyro_rate_residual_rad_s_y",
+          "adcs.innovation.star_gyro_rate_residual_rad_s_z",
+          "adcs.innovation.star_gyro_rate_residual_norm_rad_s"
+        ],
+        "rw_execution": [
+          "adcs.rw.command_execution_residual_nm_0",
+          "adcs.rw.command_execution_residual_nm_1",
+          "adcs.rw.command_execution_residual_nm_2",
+          "adcs.rw.command_execution_residual_nm_3",
+          "adcs.rw.speed_response_residual_nm_0",
+          "adcs.rw.speed_response_residual_nm_1",
+          "adcs.rw.speed_response_residual_nm_2",
+          "adcs.rw.speed_response_residual_nm_3"
+        ],
+        "rw_current_pair": [
+          "adcs.rw.commanded_current_a_0",
+          "adcs.rw.commanded_current_a_1",
+          "adcs.rw.commanded_current_a_2",
+          "adcs.rw.commanded_current_a_3",
+          "adcs.rw.applied_current_a_0",
+          "adcs.rw.applied_current_a_1",
+          "adcs.rw.applied_current_a_2",
+          "adcs.rw.applied_current_a_3"
+        ]
+      },
+      "profiles": {
+        "base": [],
+        "innovation": ["innovation"],
+        "rw_execution": ["rw_execution"],
+        "rw_current_pair": ["rw_current_pair"],
+        "full": ["innovation", "rw_execution", "rw_current_pair"]
+      }
+    },
+    "phm_v6_0": {
+      "families": {
+        "cross_subsystem_residuals": [
+          "adcs.innovation.star_gyro_rate_residual_norm_rad_s",
+          "adcs.rw.command_execution_residual_norm_nm",
+          "adcs.rw.speed_response_residual_norm_nm",
+          "eps.power_balance_residual_w",
+          "eps.pdu.payload_execution_residual",
+          "eps.pdu.adcs_execution_residual",
+          "eps.pdu.comm_execution_residual",
+          "eps.pdu.heater_execution_residual",
+          "eps.loads.payload_power_residual_w",
+          "eps.loads.comm_power_residual_w",
+          "eps.loads.heater_power_residual_w",
+          "eps.loads.adcs_power_residual_w",
+          "payload.rate_execution_residual_bps",
+          "comm.command_execution_residual_bps",
+          "data.buffer_flow_residual_bps",
+          "thermal.heater_execution_residual",
+          "thermal.heater_power_residual_w",
+          "propulsion.thrust_execution_residual_n",
+          "propulsion.fuel_flow_residual_kg_s"
+        ]
+      },
+      "profiles": {
+        "selected_only": [],
+        "mechanism_required": ["cross_subsystem_residuals"]
+      }
+    }
+  },
+  "claim_boundary": "Columns are generator-provided mechanism proxies. Their inclusion is not proof of physical causality, hardware validity, or cross-dataset transfer."
+}

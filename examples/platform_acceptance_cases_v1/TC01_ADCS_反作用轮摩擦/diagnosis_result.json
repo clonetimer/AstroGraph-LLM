@@ -1,0 +1,9 @@
+{
+  "schema_version": "external-diagnosis-result.v1",
+  "case_id": "SYNTH-ADCS-001",
+  "equipment_scope": "LAB_ADCS_V1",
+  "subsystem": "ADCS",
+  "candidate_fault_id": "ADCS_RW_FRICTION_INCREASE",
+  "diagnostic_summary": "上游模型提示反作用轮摩擦增大，尚未经物理故障确认。",
+  "review_status": "UNVERIFIED"
+}

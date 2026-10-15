@@ -1,0 +1,50 @@
+{
+  "schema_version": "astrograph-calibration-fitting-design.v1",
+  "design_id": "calibration-fitting-r19.v1",
+  "calibrator": {
+    "method": "TEMPERATURE_SCALING_ON_LOG_PROBABILITIES",
+    "fit_partition": "CALIBRATION_FIT",
+    "fit_objective": "EQUAL_INDEPENDENT_GROUP_MACRO_NLL",
+    "minimum_fit_groups": 8,
+    "temperature_lower": 0.05,
+    "temperature_upper": 20.0,
+    "coarse_points": 121,
+    "refine_iterations": 80,
+    "minimum_positive_groups_per_class": 2
+  },
+  "required_partitions": [
+    "CALIBRATION_FIT",
+    "DEVELOPMENT_SELECTION",
+    "CONFIRMATORY_EVALUATION",
+    "EXTERNAL_VALIDATION"
+  ],
+  "required_dimensions": [
+    "simulator_version",
+    "mission_mode",
+    "fault_severity",
+    "noise_condition"
+  ],
+  "minimum_development_groups": 4,
+  "minimum_confirmatory_groups": 8,
+  "minimum_external_validation_groups": 8,
+  "ece_bins": 10,
+  "bootstrap_resamples": 2000,
+  "bootstrap_seed": 20260918,
+  "max_development_selective_risk": 0.1,
+  "guardrails": {
+    "max_confirmatory_nll_increase": 0.0,
+    "max_confirmatory_brier_increase": 0.0,
+    "max_confirmatory_ece_increase": 0.05,
+    "max_external_nll_increase": 0.02,
+    "max_external_brier_increase": 0.02,
+    "max_external_ece_increase": 0.05,
+    "max_classwise_brier_increase": 0.05,
+    "max_classwise_ece_increase": 0.1,
+    "max_external_selective_risk_increase": 0.02,
+    "max_external_coverage_decrease": 0.1
+  },
+  "guardrail_status": "ENGINEERING_REVIEW_FLOORS_NOT_FLIGHT_CALIBRATED",
+  "selection_rule": "Calibrator parameters use CALIBRATION_FIT only. Abstention threshold uses DEVELOPMENT_SELECTION only. CONFIRMATORY_EVALUATION and EXTERNAL_VALIDATION are locked evaluation partitions and may not retune either calibrator or threshold.",
+  "claim_boundary": "R19 freezes a calibration-fitting and external-validation admission protocol. Passing the engineering guardrails may create a content-bound calibration qualification receipt for review, but does not establish arbitrary-shift reliability, HIL/flight qualification, release safety, or calibrated diagnostic correctness.",
+  "minimum_positive_groups_per_class": 2
+}

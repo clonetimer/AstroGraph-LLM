@@ -1,0 +1,469 @@
+{
+  "schema_version": "astrograph-whole-spacecraft-effect-validation.v1",
+  "scene_count": 21,
+  "passed_count": 21,
+  "passed": true,
+  "rows": [
+    {
+      "scene": "nominal",
+      "passed": true,
+      "checks": [
+        {
+          "check": "no_active_event",
+          "passed": true,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "scene": "battery_capacity_loss",
+      "passed": true,
+      "checks": [
+        {
+          "member": "battery_capacity_loss",
+          "field": "eps.effective_battery_capacity_wh",
+          "expectation": "ratio 0.65",
+          "value": 0.65,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "solar_efficiency_loss",
+      "passed": true,
+      "checks": [
+        {
+          "member": "solar_efficiency_loss",
+          "field": "eps.solar_array_power_w",
+          "expectation": "ratio 0.55",
+          "value": 0.5499999999999998,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "radiator_rejection_loss",
+      "passed": true,
+      "checks": [
+        {
+          "member": "radiator_rejection_loss",
+          "field": "thermal.payload_true_temp_c",
+          "expectation": "greater_delta 0.01",
+          "value": 0.05843928131931264,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "reaction_wheel_jam",
+      "passed": true,
+      "checks": [
+        {
+          "member": "reaction_wheel_jam",
+          "field": "status.adcs.rw.available_0",
+          "expectation": "max_le 0.0",
+          "value": 0.0,
+          "passed": true
+        },
+        {
+          "member": "reaction_wheel_jam",
+          "field": "status.adcs.rw.driver_code_0",
+          "expectation": "min_ge 2.0",
+          "value": 2.0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "downlink_service_loss",
+      "passed": true,
+      "checks": [
+        {
+          "member": "downlink_service_loss",
+          "field": "comm.downlink_bps",
+          "expectation": "max_le 0.0",
+          "value": 0.0,
+          "passed": true
+        },
+        {
+          "member": "downlink_service_loss",
+          "field": "status.comm.transmitter_on",
+          "expectation": "max_le 0.0",
+          "value": 0.0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "battery_internal_resistance_increase",
+      "passed": true,
+      "checks": [
+        {
+          "member": "battery_internal_resistance_increase",
+          "field": "eps.battery_internal_resistance_scale",
+          "expectation": "ratio 2.0",
+          "value": 2.0,
+          "passed": true
+        },
+        {
+          "member": "battery_internal_resistance_increase",
+          "field": "eps.battery_ohmic_loss_w",
+          "expectation": "min_ge 1e-09",
+          "value": 1.141304018425361,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "solar_array_string_failure",
+      "passed": true,
+      "checks": [
+        {
+          "member": "solar_array_string_failure",
+          "field": "status.eps.solar_array_available_strings",
+          "expectation": "max_le 6.0",
+          "value": 6.0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "heater_stuck_on",
+      "passed": true,
+      "checks": [
+        {
+          "member": "heater_stuck_on",
+          "field": "status.thermal.heater_command_on",
+          "expectation": "max_le 0.0",
+          "value": 0.0,
+          "passed": true
+        },
+        {
+          "member": "heater_stuck_on",
+          "field": "status.thermal.heater_on",
+          "expectation": "true_fraction_ge 0.9",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "member": "heater_stuck_on",
+          "field": "sensor.thermal.heater_current_a",
+          "expectation": "median_ge 0.2",
+          "value": 0.716,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "temperature_sensor_bias",
+      "passed": true,
+      "checks": [
+        {
+          "member": "temperature_sensor_bias",
+          "field": "thermal.temperature_sensor_bias_c",
+          "expectation": "mean_near 5.0",
+          "value": 5.0,
+          "passed": true
+        },
+        {
+          "member": "temperature_sensor_bias",
+          "field": "thermal.payload_temp_c",
+          "expectation": "greater_delta 4.5",
+          "value": 5.0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "temperature_sensor_drift",
+      "passed": true,
+      "checks": [
+        {
+          "member": "temperature_sensor_drift",
+          "field": "thermal.temperature_sensor_bias_c",
+          "expectation": "max_ge 4.5",
+          "value": 5.0,
+          "passed": true
+        },
+        {
+          "member": "temperature_sensor_drift",
+          "field": "thermal.temperature_sensor_bias_c",
+          "expectation": "min_le 0.2",
+          "value": 2.96059473233375e-16,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "reaction_wheel_friction_increase",
+      "passed": true,
+      "checks": [
+        {
+          "member": "reaction_wheel_friction_increase",
+          "field": "adcs.rw.effective_drag_nms_0",
+          "expectation": "mean_near 0.015",
+          "value": 0.015000000000000001,
+          "passed": true
+        },
+        {
+          "member": "reaction_wheel_friction_increase",
+          "field": "estimate.adcs.rw.friction_torque_nm_0",
+          "expectation": "greater_abs_delta 0.0005",
+          "value": 0.3098209750264298,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "reaction_wheel_torque_authority_loss",
+      "passed": true,
+      "checks": [
+        {
+          "member": "reaction_wheel_torque_authority_loss",
+          "field": "adcs.rw.effective_max_torque_nm_0",
+          "expectation": "mean_near 0.07",
+          "value": 0.06999999999999992,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "star_tracker_dropout",
+      "passed": true,
+      "checks": [
+        {
+          "member": "star_tracker_dropout",
+          "field": "status.adcs.star_tracker_valid",
+          "expectation": "false_fraction_ge 0.9",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "member": "star_tracker_dropout",
+          "field": "status.adcs.star_tracker_locked",
+          "expectation": "false_fraction_ge 0.9",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "member": "star_tracker_dropout",
+          "field": "sensor.adcs.star_tracker_data_age_s",
+          "expectation": "max_ge 30.0",
+          "value": 61.0,
+          "passed": true
+        },
+        {
+          "member": "star_tracker_dropout",
+          "field": "status.adcs.sensor_fusion_mode_code",
+          "expectation": "min_ge 2.0",
+          "value": 2.0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "gyro_bias_drift",
+      "passed": true,
+      "checks": [
+        {
+          "member": "gyro_bias_drift",
+          "field": "adcs.sensor.gyro_bias_rad_s_x",
+          "expectation": "max_ge 0.0008",
+          "value": 0.0010471975511965,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "transmitter_output_power_loss",
+      "passed": true,
+      "checks": [
+        {
+          "member": "transmitter_output_power_loss",
+          "field": "comm.transmitter_rf_power_scale",
+          "expectation": "median_near 0.45",
+          "value": 0.45,
+          "passed": true
+        },
+        {
+          "member": "transmitter_output_power_loss",
+          "field": "sensor.comm.rf_output_power_w",
+          "expectation": "less_delta -0.001",
+          "value": -1.4787540983606557,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "storage_write_failure",
+      "passed": true,
+      "checks": [
+        {
+          "member": "storage_write_failure",
+          "field": "data.storage_write_scale",
+          "expectation": "false_fraction_ge 0.9",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "member": "storage_write_failure",
+          "field": "status.data.storage_write_available",
+          "expectation": "false_fraction_ge 0.9",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "member": "storage_write_failure",
+          "field": "data.accepted_write_bps",
+          "expectation": "zero_fraction_ge 0.9",
+          "value": 1.0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "eps_capacity_plus_solar",
+      "passed": true,
+      "checks": [
+        {
+          "member": "battery_capacity_loss",
+          "field": "eps.effective_battery_capacity_wh",
+          "expectation": "ratio 0.65",
+          "value": 0.655223880597015,
+          "passed": true
+        },
+        {
+          "member": "solar_efficiency_loss",
+          "field": "eps.solar_array_power_w",
+          "expectation": "ratio 0.55",
+          "value": 0.5768649218743694,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "radiator_plus_heater",
+      "passed": true,
+      "checks": [
+        {
+          "member": "radiator_rejection_loss",
+          "field": "thermal.payload_true_temp_c",
+          "expectation": "greater_delta 0.01",
+          "value": 0.08577585889220174,
+          "passed": true
+        },
+        {
+          "member": "heater_stuck_on",
+          "field": "status.thermal.heater_command_on",
+          "expectation": "max_le 0.0",
+          "value": 0.0,
+          "passed": true
+        },
+        {
+          "member": "heater_stuck_on",
+          "field": "status.thermal.heater_on",
+          "expectation": "true_fraction_ge 0.9",
+          "value": 0.9402985074626866,
+          "passed": true
+        },
+        {
+          "member": "heater_stuck_on",
+          "field": "sensor.thermal.heater_current_a",
+          "expectation": "median_ge 0.2",
+          "value": 0.717,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "rw_friction_plus_star_tracker",
+      "passed": true,
+      "checks": [
+        {
+          "member": "reaction_wheel_friction_increase",
+          "field": "adcs.rw.effective_drag_nms_0",
+          "expectation": "mean_near 0.015",
+          "value": 0.014999999999999998,
+          "passed": true
+        },
+        {
+          "member": "reaction_wheel_friction_increase",
+          "field": "estimate.adcs.rw.friction_torque_nm_0",
+          "expectation": "greater_abs_delta 0.0005",
+          "value": 0.3107250181324479,
+          "passed": true
+        },
+        {
+          "member": "star_tracker_dropout",
+          "field": "status.adcs.star_tracker_valid",
+          "expectation": "false_fraction_ge 0.9",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "member": "star_tracker_dropout",
+          "field": "status.adcs.star_tracker_locked",
+          "expectation": "false_fraction_ge 0.9",
+          "value": 1.0,
+          "passed": true
+        },
+        {
+          "member": "star_tracker_dropout",
+          "field": "sensor.adcs.star_tracker_data_age_s",
+          "expectation": "max_ge 30.0",
+          "value": 67.0,
+          "passed": true
+        },
+        {
+          "member": "star_tracker_dropout",
+          "field": "status.adcs.sensor_fusion_mode_code",
+          "expectation": "min_ge 2.0",
+          "value": 2.0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "scene": "transmitter_plus_storage_write",
+      "passed": true,
+      "checks": [
+        {
+          "member": "transmitter_output_power_loss",
+          "field": "comm.transmitter_rf_power_scale",
+          "expectation": "median_near 0.45",
+          "value": 0.45,
+          "passed": true
+        },
+        {
+          "member": "transmitter_output_power_loss",
+          "field": "sensor.comm.rf_output_power_w",
+          "expectation": "less_delta -0.001",
+          "value": -2.7211940298507464,
+          "passed": true
+        },
+        {
+          "member": "storage_write_failure",
+          "field": "data.storage_write_scale",
+          "expectation": "false_fraction_ge 0.9",
+          "value": 0.9402985074626866,
+          "passed": true
+        },
+        {
+          "member": "storage_write_failure",
+          "field": "status.data.storage_write_available",
+          "expectation": "false_fraction_ge 0.9",
+          "value": 0.9402985074626866,
+          "passed": true
+        },
+        {
+          "member": "storage_write_failure",
+          "field": "data.accepted_write_bps",
+          "expectation": "zero_fraction_ge 0.9",
+          "value": 0.9402985074626866,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "claim_boundary": "E0 synthetic smoke physical-effect validation; not flight calibrated."
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "astrograph-new-research-authorization-request.v1",
+  "request_id": "P017-GENERIC-DIAGNOSIS-RESEARCH-RESET-001",
+  "problem_id": "P-017",
+  "requested_reviewer": "Timer",
+  "status": "PENDING_TIMER_APPROVAL",
+  "purpose": "Authorize a new governed research protocol after the completed and exhausted 3/3 G1.1 candidate path; this is not candidate 4 under P-014/P-015/P-016.",
+  "bound_root_cause_evidence": "governance/evidence/0.7.1-extension/generic_diagnosis_failure_root_cause.v1.json",
+  "bound_root_cause_evidence_sha256": "a8929fcd83c7b9a6d7438b18a48fe70ae4396d557d03bd1157abb5314d8ea234",
+  "preserved_without_change": {
+    "diagnosis_scope": true,
+    "fault_taxonomy": true,
+    "coverage_matrix": true,
+    "metric_policy": true,
+    "reasoning_rubric": true,
+    "known_mechanisms": ["CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+    "open_set_mechanisms": ["BIAS", "INTERMITTENT", "STUCK"],
+    "thresholds": {
+      "detection_accuracy": 0.98,
+      "classification_accuracy": 0.9,
+      "localization_accuracy": 0.95,
+      "reasoning_correctness": 0.9,
+      "known_class_retention": 0.98,
+      "open_set_rejection": 0.98
+    },
+    "denominators": {"normal": 240, "known": 720, "open_set": 720, "total": 1680},
+    "maximum_runtime_seconds": 600
+  },
+  "permanently_exhausted_validation_seeds": [20280820, 20290820, 20300820],
+  "requested_stage_a_authority": {
+    "scope": "Protocol design and development/calibration experiments only; no technical validation.",
+    "new_development_seed": 20310818,
+    "new_calibration_seed": 20310819,
+    "technical_validation_seed": null,
+    "allowed_design": [
+      "Archetype-conditioned dimensionless temporal gray-box evidence",
+      "One switching-state-space or mechanism-generative production model",
+      "Class-conditional conformal prediction sets with identical calibration and runtime score semantics",
+      "OOD only when every frozen known-class prediction set is empty",
+      "Independent localization and reasoning evaluation using topology perturbations and root-cause evidence"
+    ],
+    "required_pre_fit_checks": [
+      "Known-mechanism separability on development and calibration only",
+      "OOD decision mathematical reachability proof",
+      "Calibration/runtime nonconformity semantic identity test",
+      "Cross-archetype and configuration sensitivity analysis",
+      "No formal open-set validation class used for fitting or threshold selection"
+    ]
+  },
+  "stage_b_gate": {
+    "status": "NOT_AUTHORIZED_BY_THIS_REQUEST",
+    "requirements": [
+      "Submit exact feature definitions, model equations, dimensions, regularization, conformal rule and resource accounting before fit freeze.",
+      "Timer separately freezes a genuinely untouched technical-validation seed.",
+      "Timer authorizes a finite new candidate budget under a new protocol identifier.",
+      "The stage-A evidence must not include or regenerate any exhausted validation seed."
+    ]
+  },
+  "prohibited_actions": [
+    "Treat this phase as candidate 4 under the exhausted G1.1 candidate budget",
+    "Modify or overwrite candidates 1, 2 or 3 or their evidence",
+    "Reuse 20280820, 20290820 or 20300820",
+    "Delete or skip tests or cases",
+    "Change denominators, merge classes, expand UNKNOWN/OOD or lower thresholds",
+    "Use an ensemble, fallback, legacy exact-fault router or second implicit production model",
+    "Fit a production candidate or create a validation seed before the separate stage-B freeze",
+    "Claim P-014, T-310, T-311 or G3 PASS from stage-A work"
+  ],
+  "approval_text_requested_zh": "Timer 审批：我已审阅 P-017 根因报告及三个候选的完整失败证据。我授权启动一个独立于已耗尽 3/3 候选预算的新研究协议 Stage A，仅允许使用新开发种子 20310818 和新校准种子 20310819 进行协议设计、可辨识性分析和开发/校准实验；本审批不授权生产候选拟合、技术验证或生成验证种子。G1.1 五项制品、故障分类、阈值、分母和 600 秒预算保持不变，20280820、20290820、20300820 永久禁止复用。Stage B 必须在精确模型、特征、维数、正则化、共形规则和有限候选预算拟合前另行提交 Timer 冻结，并使用全新未触碰验证种子。",
+  "claim_boundary": "Pending request only. No new model, candidate, validation seed or G3 claim is authorized until Timer signs the requested Stage-A text."
+}

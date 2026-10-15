@@ -1,0 +1,31 @@
+schema_version: phm.fault_contract.v1
+fault_id: ADCS_GYRO_BIAS_DRIFT
+name_zh: 陀螺零偏漂移
+subsystem: ADCS
+component: gyroscope
+fault_type: continuous_degradation
+mechanism: 陀螺测量零偏从事件开始时按给定漂移率累积，测量进入姿态融合与闭环控制链。
+injection_target: ImuFaultInjector.imuOutMsg
+parameters:
+  drift_rate_deg_s_per_s: {unit: "(deg/s)/s", nominal: [0.0001, 0.0, 0.0], source: engineering_assumption}
+direct_channels:
+  - sensor.adcs.gyro_rate_rad_s_x
+component_response_channels:
+  - estimate.adcs.pointing_error_deg
+  - status.adcs.sensor_fusion_mode_code
+subsystem_propagation_channels:
+  - adcs.rw.command_torque_nm_0
+  - sensor.adcs.rw.speed_rad_s_0
+confusable_faults:
+  - ADCS_STAR_TRACKER_DROPOUT
+  - ADCS_RW_FRICTION_INCREASE
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  bias_must_accumulate_with_time: true
+  minimum_final_injected_bias_rad_s: 0.0003
+  minimum_raw_gyro_residual_rad_s: 0.0002
+known_limits:
+  - 注入零偏是真值验收证据，不进入项目A原始遥测特征。
+  - 参数未按目标陀螺数据手册或台架数据标定。
+

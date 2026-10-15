@@ -1,0 +1,84 @@
+{
+  "schema_version": "astrograph-object-plugin-build-spec.v1",
+  "plugin_id": "generated.demo.sspa",
+  "plugin_version": "0.1.0",
+  "object_type": "solid_state_power_amplifier",
+  "subsystem": "PAYLOAD",
+  "dataset_profiles": ["SSPA_SIM_DEMO"],
+  "object_parameters": {
+    "note": "Demonstration only. Replace with reviewed SSPA parameters."
+  },
+  "telemetry_bindings": [
+    {
+      "binding_id": "output_power",
+      "source_field": "payload.sspa.output_power_dbm",
+      "unit": "dBm",
+      "semantic_role": "response",
+      "required": true,
+      "description": "Output power telemetry."
+    },
+    {
+      "binding_id": "drain_current",
+      "source_field": "payload.sspa.drain_current_a",
+      "unit": "A",
+      "semantic_role": "mechanism_support",
+      "required": true,
+      "description": "Drain current telemetry."
+    }
+  ],
+  "features": [
+    {
+      "feature_id": "FD-SSPA-OUTPUT-POWER-MEAN-ABS-RESIDUAL-DEMO",
+      "name": "Output power mean absolute residual",
+      "output_unit": "dB",
+      "input_bindings": {
+        "current": "output_power",
+        "baseline": "output_power"
+      },
+      "operator_id": "MEAN_ABS_PAIRED_RESIDUAL",
+      "operator_pipeline": [],
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "A knowledge graph-enhanced large language model framework for satellite component fault diagnosis.pdf",
+        "DEMO_THRESHOLD_NOT_CALIBRATED"
+      ],
+      "claim_boundary": "Demonstration feature only; not a calibrated SSPA health metric."
+    },
+    {
+      "feature_id": "FD-SSPA-ELECTROTHERMAL-COUPLING-DEMO",
+      "name": "Electrothermal coupling parameter",
+      "output_unit": "1",
+      "input_bindings": {
+        "current": "drain_current"
+      },
+      "operator_id": null,
+      "operator_pipeline": [],
+      "operator_parameters": {},
+      "custom_formula": "Fit an object-specific electrothermal coupling parameter from current, power and temperature histories.",
+      "source_refs": [
+        "A knowledge graph-enhanced large language model framework for satellite component fault diagnosis.pdf",
+        "OBJECT_ENGINEERING_REVIEW_REQUIRED"
+      ],
+      "claim_boundary": "Custom-code placeholder; implementation and formula review required."
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ED-SSPA-OUTPUT-POWER-DEGRADATION-DEMO",
+      "target_fault_id": "SSPA_GAIN_DEGRADATION_DEMO",
+      "feature_id": "FD-SSPA-OUTPUT-POWER-MEAN-ABS-RESIDUAL-DEMO",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.5,
+      "threshold_unit": "dB",
+      "critical": true,
+      "source_refs": ["DEMO_THRESHOLD_NOT_CALIBRATED"],
+      "claim_boundary": "Demonstration threshold only; must not be used for engineering diagnosis."
+    }
+  ],
+  "source_refs": [
+    "A knowledge graph-enhanced large language model framework for satellite component fault diagnosis.pdf"
+  ],
+  "claim_boundary": "Generated SSPA demonstration plugin; not approved for online diagnosis."
+}

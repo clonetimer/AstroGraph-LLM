@@ -1,0 +1,40 @@
+{
+  "schema_version": "astrograph-admitted-measurements.v1",
+  "episode_id": "episode",
+  "series": [
+    {
+      "feature_definition_id": "F_b",
+      "field": "sensor.b",
+      "unit": "1",
+      "time_s": [
+        0.0,
+        1.0,
+        2.0
+      ],
+      "current": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "baseline": null,
+      "available_at_s": 2.0
+    },
+    {
+      "feature_definition_id": "F_counter",
+      "field": "sensor.counter",
+      "unit": "1",
+      "time_s": [
+        0.0,
+        1.0,
+        2.0
+      ],
+      "current": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "baseline": null,
+      "available_at_s": 2.0
+    }
+  ]
+}

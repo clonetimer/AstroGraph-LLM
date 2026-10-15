@@ -1,0 +1,43 @@
+{
+  "schema_version": "astrograph-r27-prepackage-gate.v1",
+  "patch_id": "PATCH-R27",
+  "base_r26_source_zip_sha256": "9c790a2c47156b18b12e0c7160c449efa6cf5384baac73e66212783f20b491ec",
+  "development_receipt_sha256": "f4b96e55aa519007c2d6e278e6a12ab6aa8cd6b7a2744118e3739f7f936e8549",
+  "architecture_receipt_sha256": "c3a35edb019ad9856301716f7f72aa77244a58f1f4fed205c4097e4c7afa781e",
+  "protocol_receipt_sha256": "5353a86210d7ab982053c45c583b4b3ec6eafd412ac15b64f355311e1626faf7",
+  "source_verify_pre_gate": {
+    "verified_files": 2759,
+    "errors": []
+  },
+  "collect_only": {
+    "tests_collected": 3552,
+    "collection_errors": 0
+  },
+  "affected_regression": {
+    "passed": 97,
+    "failed": 0
+  },
+  "distribution_regression": {
+    "passed": 20,
+    "failed": 0
+  },
+  "production_js": {
+    "module_count": 10,
+    "status": "PASS"
+  },
+  "chromium": {
+    "passed": 3,
+    "failed": 0
+  },
+  "documentation_freshness": "PASS",
+  "delivery_evidence_source_only": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+  "delivery_evidence_strict": "FAIL_AS_DESIGNED_8_HISTORICAL_EXTERNAL_ARCHIVES",
+  "competition_or_rematch_regenerated": false,
+  "esa_seen_confirmatory_regenerated": false,
+  "runtime_default_changed": false,
+  "agent_required_for_core_prediction": false,
+  "status": "PREPACKAGE_GATE_PASS_DEVELOPMENT_ONLY",
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "test_scope_note": "97-test expanded R20-R27 DXC/ESA/data-exposure/model-based/simulation/Probe/controlled-Agent regression; 20-test distribution/inventory/delivery-consistency group.",
+  "receipt_sha256": "6dfad78bcdc683b8b416df47dc6bfe8b18c020506ed7109f284ca7c74ef9528c"
+}

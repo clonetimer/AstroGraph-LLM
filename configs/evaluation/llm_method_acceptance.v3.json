@@ -1,0 +1,96 @@
+{
+  "schema_version": "astrograph-llm-method-acceptance-campaign.v3",
+  "campaign_id": "llm-method-acceptance-v3-confirmatory",
+  "qualification_status": "PREEXECUTION_GATES_FROZEN",
+  "arm_order": [
+    "A0_ALGORITHM_ONLY",
+    "A1_LATE_LLM",
+    "A2_CONTROLLED_FULL",
+    "A3_NO_KG_OBSERVATION",
+    "A4_NO_RAG_OAG_CONTEXT",
+    "A5_NO_EXPERIENCE_CONTEXT",
+    "A6_NO_OBSERVATION_FEEDBACK",
+    "A7_NO_ACTIVE_PROBE"
+  ],
+  "case_selection": {
+    "datasets": [
+      "adcs.v5_2_2",
+      "phm.v6_0"
+    ],
+    "split": "test",
+    "test_sample_indices": [
+      4,
+      9
+    ],
+    "registered_exact_mapping_only": true,
+    "selection_rule": "Include every test row whose dataset class has an exact registered fault mapping. Pair each fault row with its frozen nominal counterpart. No post-result case removal is allowed.",
+    "expected_adcs_case_count": 28,
+    "expected_phm_case_count": 10,
+    "expected_case_count": 38
+  },
+  "case_manifest_path": "governance/evidence/research/llm_method_confirmatory_v3/case_manifest.json",
+  "primary_comparison": "A2_CONTROLLED_FULL vs A0_ALGORITHM_ONLY",
+  "secondary_probe_comparison": "A2_CONTROLLED_FULL vs A7_NO_ACTIVE_PROBE",
+  "statistics": {
+    "inferential_unit": "group_id",
+    "primary_test": "EXACT_TWO_SIDED_GROUP_DIRECTION_SIGN",
+    "effect_estimate": "EQUAL_GROUP_WEIGHTED_MEAN_PAIRED_ACCURACY_DIFFERENCE",
+    "effect_confidence_interval": "STUDENT_T_95_ON_INDEPENDENT_GROUP_DELTAS",
+    "legacy_case_level_test": "EXACT_TWO_SIDED_MCNEMAR_DESCRIPTIVE_ONLY",
+    "alpha": 0.05,
+    "minimum_independent_group_count": 12,
+    "multiple_comparison_policy": "Full-stack engineering promotion uses A2 vs A0. Probe formal-evidence-producer review uses the separately preregistered A2 vs A7 estimand. Other ablations remain descriptive and may not be substituted post hoc.",
+    "precision_policy": "No retrospective power claim is accepted. Promotion requires the preregistered independent-group count and 95% effect-interval half-width gates. If precision is inadequate, expand independent groups under a new preregistered campaign; do not delete cases or alter thresholds after results are observed.",
+    "minimum_effect_rationale": "The 0.15 equal-group accuracy-difference floor is frozen before real execution and approximately preserves the practical magnitude implied by the prior design's first significance-clearing all-benefit pattern (6 one-direction discordances among at most 38 independent groups ~= 0.158). It is an engineering review floor, not a flight-calibrated utility threshold.",
+    "missing_arm_policy": "FAIL_CAMPAIGN",
+    "failed_case_policy": "FAIL_CAMPAIGN_NO_DENOMINATOR_CHANGE"
+  },
+  "promotion_thresholds": {
+    "max_induced_error_count": 0,
+    "min_true_fault_in_candidate_set_rate": 1.0,
+    "min_evidence_citation_valid_rate": 1.0,
+    "min_case_net_diagnostic_gain": 1,
+    "min_independent_group_count": 12,
+    "min_group_mean_accuracy_delta": 0.15,
+    "min_group_mean_accuracy_delta_ci95_lower": 0.0,
+    "max_group_mean_accuracy_delta_ci95_half_width": 0.2,
+    "max_group_direction_exact_p": 0.05
+  },
+  "required_metrics": [
+    "accuracy",
+    "macro_f1",
+    "balanced_accuracy",
+    "coverage",
+    "selective_risk",
+    "failure_to_abstain_rate",
+    "true_fault_in_candidate_set_rate",
+    "probe_execution_count",
+    "probe_execution_case_count",
+    "new_observation_count",
+    "new_raw_observation_count",
+    "formal_evidence_generated_count",
+    "resolved_gap_count",
+    "corrected_case_count",
+    "induced_error_count",
+    "net_diagnostic_gain",
+    "independent_group_count",
+    "positive_group_count",
+    "negative_group_count",
+    "tie_group_count",
+    "group_mean_accuracy_delta",
+    "group_mean_accuracy_delta_ci95_lower",
+    "group_mean_accuracy_delta_ci95_upper",
+    "group_mean_accuracy_delta_ci95_half_width",
+    "group_direction_exact_two_sided_p"
+  ],
+  "claim_boundary": "Frozen engineering confirmatory design with group-aware inference. Passing full-stack gates authorizes engineering promotion review only. Passing the separate A2-vs-A7 probe estimand only authorizes an independent Probe formal-evidence-producer review; neither result establishes flight qualification, safety certification, or generalization outside the frozen datasets.",
+  "probe_promotion_thresholds": {
+    "max_induced_error_count": 0,
+    "min_probe_exposed_group_count": 6,
+    "min_independent_group_count": 12,
+    "min_group_mean_accuracy_delta": 0.15,
+    "min_group_mean_accuracy_delta_ci95_lower": 0.0,
+    "max_group_mean_accuracy_delta_ci95_half_width": 0.2,
+    "max_group_direction_exact_p": 0.05
+  }
+}

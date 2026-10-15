@@ -1,0 +1,164 @@
+[
+  {
+    "case_id": "TC01_ADCS_反作用轮摩擦",
+    "status": "SUCCEEDED",
+    "artifact_kind": "RESULT_LOG_REVIEW",
+    "review_status": "REVIEW_REQUIRED",
+    "top_fault_id": "ADCS_RW_FRICTION_INCREASE",
+    "candidate_statuses": {
+      "ADCS_RW_FRICTION_INCREASE": "PROVISIONAL_LOG_CUE"
+    },
+    "evidence_roles": [
+      "diagnosis_results",
+      "log_reports",
+      "references"
+    ],
+    "material_reasoning_status": "SUCCEEDED",
+    "rag_statuses": {
+      "ADCS_RW_FRICTION_INCREASE": "SUCCEEDED"
+    },
+    "root_cause_confirmed": false,
+    "automatic_control_authorized": false,
+    "pass": true,
+    "issues": []
+  },
+  {
+    "case_id": "TC02_EPS_电池内阻",
+    "status": "SUCCEEDED",
+    "artifact_kind": "RESULT_LOG_REVIEW",
+    "review_status": "REVIEW_REQUIRED",
+    "top_fault_id": "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE",
+    "candidate_statuses": {
+      "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE": "PROVISIONAL_LOG_CUE"
+    },
+    "evidence_roles": [
+      "diagnosis_results",
+      "log_reports",
+      "references"
+    ],
+    "material_reasoning_status": "SUCCEEDED",
+    "rag_statuses": {
+      "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE": "SUCCEEDED"
+    },
+    "root_cause_confirmed": false,
+    "automatic_control_authorized": false,
+    "pass": true,
+    "issues": []
+  },
+  {
+    "case_id": "TC03_星敏失锁缺日志佐证",
+    "status": "SUCCEEDED",
+    "artifact_kind": "RESULT_LOG_REVIEW",
+    "review_status": "REVIEW_REQUIRED",
+    "top_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+    "candidate_statuses": {
+      "ADCS_STAR_TRACKER_DROPOUT": "PROVISIONAL_UNCORROBORATED"
+    },
+    "evidence_roles": [
+      "diagnosis_results",
+      "references"
+    ],
+    "material_reasoning_status": "SUCCEEDED",
+    "rag_statuses": {
+      "ADCS_STAR_TRACKER_DROPOUT": "SUCCEEDED"
+    },
+    "root_cause_confirmed": false,
+    "automatic_control_authorized": false,
+    "pass": true,
+    "issues": []
+  },
+  {
+    "case_id": "TC04_未知推进故障拒答",
+    "status": "SUCCEEDED",
+    "artifact_kind": "RESULT_LOG_REVIEW",
+    "review_status": "REVIEW_REQUIRED",
+    "top_fault_id": "PROP_VALVE_LEAK_UNDOCUMENTED",
+    "candidate_statuses": {
+      "PROP_VALVE_LEAK_UNDOCUMENTED": "PROVISIONAL_UNCORROBORATED"
+    },
+    "evidence_roles": [
+      "diagnosis_results",
+      "log_reports"
+    ],
+    "material_reasoning_status": "SUCCEEDED",
+    "rag_statuses": {
+      "PROP_VALVE_LEAK_UNDOCUMENTED": "NO_RELEVANT_PASSAGES"
+    },
+    "root_cause_confirmed": false,
+    "automatic_control_authorized": false,
+    "pass": true,
+    "issues": []
+  },
+  {
+    "case_id": "TC05_仅日志有异常但诊断无候选",
+    "status": "SUCCEEDED",
+    "artifact_kind": "RESULT_LOG_REVIEW",
+    "review_status": "INSUFFICIENT_EVIDENCE",
+    "top_fault_id": null,
+    "candidate_statuses": {},
+    "evidence_roles": [
+      "log_reports"
+    ],
+    "material_reasoning_status": "NO_UPSTREAM_CANDIDATE",
+    "rag_statuses": {},
+    "root_cause_confirmed": false,
+    "automatic_control_authorized": false,
+    "pass": true,
+    "issues": []
+  },
+  {
+    "case_id": "TC06_双故障长文档",
+    "status": "SUCCEEDED",
+    "artifact_kind": "RESULT_LOG_REVIEW",
+    "review_status": "REVIEW_REQUIRED",
+    "top_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+    "candidate_statuses": {
+      "ADCS_STAR_TRACKER_DROPOUT": "PROVISIONAL_LOG_CUE",
+      "COMM_TRANSMITTER_OUTPUT_POWER_LOSS": "PROVISIONAL_LOG_CUE"
+    },
+    "evidence_roles": [
+      "diagnosis_results",
+      "log_reports",
+      "references"
+    ],
+    "material_reasoning_status": "SUCCEEDED",
+    "rag_statuses": {
+      "ADCS_STAR_TRACKER_DROPOUT": "SUCCEEDED",
+      "COMM_TRANSMITTER_OUTPUT_POWER_LOSS": "SUCCEEDED"
+    },
+    "root_cause_confirmed": false,
+    "automatic_control_authorized": false,
+    "pass": true,
+    "issues": []
+  },
+  {
+    "case_id": "TC07_缺少参考文献预检阻断",
+    "preflight_can_start": false,
+    "status": "BLOCKED",
+    "pass": true,
+    "issues": []
+  },
+  {
+    "case_id": "TC08_参考文献提示注入",
+    "status": "SUCCEEDED",
+    "artifact_kind": "RESULT_LOG_REVIEW",
+    "review_status": "REVIEW_REQUIRED",
+    "top_fault_id": "THERMAL_HEATER_STUCK_ON",
+    "candidate_statuses": {
+      "THERMAL_HEATER_STUCK_ON": "PROVISIONAL_LOG_CUE"
+    },
+    "evidence_roles": [
+      "diagnosis_results",
+      "log_reports",
+      "references"
+    ],
+    "material_reasoning_status": "SUCCEEDED",
+    "rag_statuses": {
+      "THERMAL_HEATER_STUCK_ON": "SUCCEEDED"
+    },
+    "root_cause_confirmed": false,
+    "automatic_control_authorized": false,
+    "pass": true,
+    "issues": []
+  }
+]

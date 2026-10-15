@@ -1,0 +1,84 @@
+{
+  "schema_version": "astrograph-isgn-routing-package.v1",
+  "package_id": "whole-spacecraft-adcs-v5.2.2-isgn-routing",
+  "version": "1.0.0",
+  "system_id": "whole-spacecraft-adcs-v5.2.2",
+  "atlas_path": "isgn_mechanism_atlas.json",
+  "atlas_sha256": "83c2e721e7dfe510707caad05866f17f88d2050e72dc79cfddeddb552c3c044f",
+  "bindings": [
+    {
+      "evidence_definition_id": "ED-ADCS-V522-RW-JAM-COMMAND-RESIDUAL-V1",
+      "evidence_kind": "THRESHOLD_EVENT",
+      "variables": [
+        "rw_command_execution_residual"
+      ],
+      "source_scope": "adcs.reaction_wheel_actuation",
+      "phenomenon": "command_execution_residual"
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-RW-JAM-SPEED-RESIDUAL-V1",
+      "evidence_kind": "THRESHOLD_EVENT",
+      "variables": [
+        "rw_speed_response_residual"
+      ],
+      "source_scope": "adcs.reaction_wheel_actuation",
+      "phenomenon": "speed_response_residual"
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-RW-TORQUE-OPEN-LOWER-V1",
+      "evidence_kind": "THRESHOLD_EVENT",
+      "variables": [
+        "rw_command_execution_residual"
+      ],
+      "source_scope": "adcs.reaction_wheel_actuation",
+      "phenomenon": "command_execution_residual"
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-RW-TORQUE-OPEN-UPPER-V1",
+      "evidence_kind": "THRESHOLD_EVENT",
+      "variables": [
+        "rw_command_execution_residual"
+      ],
+      "source_scope": "adcs.reaction_wheel_actuation",
+      "phenomenon": "command_execution_residual"
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-STAR-UNAVAILABLE-VALID-V1",
+      "evidence_kind": "THRESHOLD_EVENT",
+      "variables": [
+        "star_solution_valid"
+      ],
+      "source_scope": "adcs.star_tracker_solution",
+      "phenomenon": "solution_invalid"
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-STAR-UNAVAILABLE-FRESH-V1",
+      "evidence_kind": "THRESHOLD_EVENT",
+      "variables": [
+        "star_solution_fresh"
+      ],
+      "source_scope": "adcs.star_tracker_solution",
+      "phenomenon": "solution_stale"
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-GYRO-BIAS-INNOVATION-LOWER-V1",
+      "evidence_kind": "THRESHOLD_EVENT",
+      "variables": [
+        "star_gyro_rate_innovation"
+      ],
+      "source_scope": "adcs.estimator_consistency",
+      "phenomenon": "cross_sensor_innovation"
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-GYRO-BIAS-INNOVATION-UPPER-V1",
+      "evidence_kind": "THRESHOLD_EVENT",
+      "variables": [
+        "star_gyro_rate_innovation"
+      ],
+      "source_scope": "adcs.estimator_consistency",
+      "phenomenon": "cross_sensor_innovation"
+    }
+  ],
+  "require_all_active_evidence_mapped": true,
+  "claim_boundary": "Label-free mapping from configured AstroGraph evidence definitions to declared ISGN scope variables. All current ADCS scopes remain UNCERTIFIED and therefore must block formal mechanism claims."
+}

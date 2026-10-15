@@ -1,0 +1,2485 @@
+{
+  "schema_version": "astrograph-local-acceptance-catalog.v1",
+  "stages": [
+    {
+      "id": "00-environment",
+      "title": "环境与工具可用性",
+      "dependencies": [],
+      "category": "local",
+      "scope": "ENVIRONMENT_PROBE",
+      "acceptance": "核心依赖可导入；可选依赖分别列出，不据此推断真实服务可用。",
+      "artifacts": [
+        "environment.json",
+        "capabilities.json"
+      ]
+    },
+    {
+      "id": "01-input-contract",
+      "title": "输入、时间与模型绑定",
+      "dependencies": [],
+      "category": "local",
+      "scope": "READ_ONLY_INPUT_AUDIT",
+      "acceptance": "源/参照是有效表；模型在宿主批准清单；展示通道、时间和文件哈希。",
+      "artifacts": [
+        "inputs.json"
+      ]
+    },
+    {
+      "id": "10-data-inference",
+      "title": "真实三任务模型推理",
+      "dependencies": [
+        "01-input-contract"
+      ],
+      "category": "local",
+      "scope": "REAL_ALREADY_USED_ADCS_SLICE",
+      "acceptance": "调用既有 prepare-native；生成合法、无真值 OAGInput；三任务输出非空。",
+      "artifacts": [
+        "prepared-input.json",
+        "graph/nodes.csv",
+        "graph/edges.csv",
+        "three-task.json"
+      ]
+    },
+    {
+      "id": "11-detection",
+      "title": "异常检测独立结果",
+      "dependencies": [
+        "10-data-inference"
+      ],
+      "category": "local",
+      "scope": "SINGLE_WINDOW_NOT_PERFORMANCE",
+      "acceptance": "展示检测分数、固定阈值、判断、时间窗口；不计算单样本 F1。",
+      "artifacts": [
+        "detection.json",
+        "detection.csv"
+      ]
+    },
+    {
+      "id": "12-localization",
+      "title": "部件定位独立结果",
+      "dependencies": [
+        "10-data-inference"
+      ],
+      "category": "local",
+      "scope": "SINGLE_WINDOW_NOT_PERFORMANCE",
+      "acceptance": "同时展示独立定位头、分类派生分布和实际部署分布，不混淆三者。",
+      "artifacts": [
+        "localization.json",
+        "localization.csv"
+      ]
+    },
+    {
+      "id": "13-classification",
+      "title": "故障分类独立结果",
+      "dependencies": [
+        "10-data-inference"
+      ],
+      "category": "local",
+      "scope": "SINGLE_WINDOW_NOT_PERFORMANCE",
+      "acceptance": "分别展示原始分类、部件约束后概率、融合前故障排序。",
+      "artifacts": [
+        "classification.json",
+        "classification.csv"
+      ]
+    },
+    {
+      "id": "20-graph-reasoning",
+      "title": "图谱前向与反向推理",
+      "dependencies": [
+        "10-data-inference"
+      ],
+      "category": "local",
+      "scope": "REAL_GRAPH_QUERY",
+      "acceptance": "执行既有图查询；输出节点、边和完整路径；截断结果不能验收通过。",
+      "artifacts": [
+        "reasoning.json",
+        "nodes.csv",
+        "edges.csv"
+      ]
+    },
+    {
+      "id": "21-fusion",
+      "title": "BiRRF 与初始证据裁决",
+      "dependencies": [
+        "20-graph-reasoning"
+      ],
+      "category": "local",
+      "scope": "REAL_KERNEL_BEFORE_CHECKS",
+      "acceptance": "执行原内核；输出各路排名、融合分数、证据与反证、初始裁决。",
+      "artifacts": [
+        "fusion.json",
+        "fusion-ranking.csv",
+        "diagnosis.json",
+        "explanation.md"
+      ]
+    },
+    {
+      "id": "22-agent-normal",
+      "title": "正常模式与自主补证",
+      "dependencies": [
+        "21-fusion"
+      ],
+      "category": "local",
+      "scope": "REAL_MISSION_EXISTING_SLICE",
+      "acceptance": "正常模式实际运行，显示计划、工具回执、补证前后变化；不是重新统计准确率。",
+      "artifacts": [
+        "result.json",
+        "decision-delta.json",
+        "checks.json",
+        "explanation.md"
+      ]
+    },
+    {
+      "id": "23-agent-thinking",
+      "title": "思考模式",
+      "dependencies": [
+        "22-agent-normal"
+      ],
+      "category": "local",
+      "scope": "MODE_EXECUTION_NOT_LLM_QUALITY",
+      "acceptance": "思考模式完成；明确实际规划器和回退；无新证据不得伪称新的正确诊断。",
+      "artifacts": [
+        "result.json",
+        "mode-comparison.json"
+      ]
+    },
+    {
+      "id": "24-agent-creative",
+      "title": "创造模式",
+      "dependencies": [
+        "22-agent-normal"
+      ],
+      "category": "local",
+      "scope": "QUARANTINED_EXPLORATION",
+      "acceptance": "诊断和探索分开；未验证假设无投票、执行、发布与确认记忆权限。",
+      "artifacts": [
+        "result.json",
+        "exploration.json"
+      ]
+    },
+    {
+      "id": "25-memory",
+      "title": "案例暂存、确认、检索与隔离",
+      "dependencies": [],
+      "category": "local",
+      "scope": "SYNTHETIC_MEMORY_CONTRACT_ONLY",
+      "acceptance": "隔离演示库：未确认不可检索、自我确认拒绝、确认幂等、同源与时间隔离。",
+      "artifacts": [
+        "memory-report.json",
+        "acceptance-only.sqlite"
+      ]
+    },
+    {
+      "id": "30-text-convert",
+      "title": "原生文本转换",
+      "dependencies": [],
+      "category": "local",
+      "scope": "NATIVE_TEXT_REAL_EXECUTION",
+      "acceptance": "UTF-8/Markdown 实际转换并保留源哈希；不冒充 PDF/图像解析。",
+      "artifacts": [
+        "converted.json"
+      ]
+    },
+    {
+      "id": "31-text-clean",
+      "title": "文本清洗",
+      "dependencies": [
+        "30-text-convert"
+      ],
+      "category": "local",
+      "scope": "CONSERVATIVE_CLEANING",
+      "acceptance": "记录控制字符、换行、尾空格变更；不改写单位、数字、公式和否定。",
+      "artifacts": [
+        "cleaned.json",
+        "cleaning-diff.json"
+      ]
+    },
+    {
+      "id": "32-rag",
+      "title": "本地 BM25 检索",
+      "dependencies": [
+        "31-text-clean"
+      ],
+      "category": "local",
+      "scope": "REAL_LEXICAL_RETRIEVAL",
+      "acceptance": "非空命中有来源、片段位置和分数语义；相关性不等于故障概率。",
+      "artifacts": [
+        "retrieval.json",
+        "hits.csv"
+      ]
+    },
+    {
+      "id": "33-mineru",
+      "title": "MinerU 文档转换",
+      "dependencies": [],
+      "category": "external",
+      "scope": "REAL_EXTERNAL_DEPENDENCY_REQUIRED",
+      "acceptance": "需要真实可执行文件和用户提供的非文本资料；失败不使用假 Markdown 顶替。",
+      "artifacts": [
+        "conversion.json"
+      ]
+    },
+    {
+      "id": "34-paperseek",
+      "title": "PaperSeek 文献获取",
+      "dependencies": [],
+      "category": "external",
+      "scope": "REAL_EXTERNAL_DEPENDENCY_REQUIRED",
+      "acceptance": "实际调用配置端点/源码 CLI；有效题录和来源；无结果或部分失败单列。",
+      "artifacts": [
+        "result.json",
+        "literature.json"
+      ]
+    },
+    {
+      "id": "35-graph-build",
+      "title": "Anything2Ontology / LLM 图谱构建",
+      "dependencies": [
+        "31-text-clean"
+      ],
+      "category": "external",
+      "scope": "REVIEW_ONLY_GRAPH_CANDIDATE",
+      "acceptance": "实际配置的抽取器产出待审核本体；严格区分 A2O 与 LLM 路径；不发布活动图谱。",
+      "artifacts": [
+        "result.json",
+        "graph-candidate.json"
+      ]
+    },
+    {
+      "id": "36-external-contracts",
+      "title": "外部工具协议夹具测试",
+      "dependencies": [],
+      "category": "local",
+      "scope": "FIXTURES_NOT_REAL_MODELS",
+      "acceptance": "PaperSeek、MinerU、A2O 和 LLM 协议用例通过；必须标为夹具验证。",
+      "artifacts": [
+        "junit.xml",
+        "test-summary.json"
+      ]
+    },
+    {
+      "id": "37-rag-hybrid",
+      "title": "稀疏稠密混合与 Cross-Encoder",
+      "dependencies": [
+        "31-text-clean"
+      ],
+      "category": "external",
+      "scope": "REAL_LOCAL_MODEL_WEIGHTS_REQUIRED",
+      "acceptance": "加载宿主本地模型；必须真实出现 BM25_DENSE_RRF_CROSS_ENCODER，词法回退不算通过。",
+      "artifacts": [
+        "retrieval.json",
+        "hits.csv"
+      ]
+    },
+    {
+      "id": "38-rag-evaluation",
+      "title": "检索排序与引用小样本验收",
+      "dependencies": [
+        "31-text-clean"
+      ],
+      "category": "local",
+      "scope": "FIXTURE_RETRIEVAL_NOT_DIAGNOSTIC_GAIN",
+      "acceptance": "冻结小型正负查询；计算 Recall@k、MRR、引用完整性并记录局限。",
+      "artifacts": [
+        "rag-metrics.json"
+      ]
+    },
+    {
+      "id": "39-llm-planning",
+      "title": "真实 LLM 思考与创造验收",
+      "dependencies": [
+        "22-agent-normal",
+        "31-text-clean"
+      ],
+      "category": "external",
+      "scope": "REAL_BACKEND_NOT_FIXTURE",
+      "acceptance": "真实后端产生被接受的规划/输出；回退不冒充真实模型通过；无诊断覆盖写。",
+      "artifacts": [
+        "llm-acceptance.json"
+      ]
+    },
+    {
+      "id": "40-model-train",
+      "title": "三任务候选训练",
+      "dependencies": [],
+      "category": "training",
+      "scope": "DEMO_TRAINING_OR_EXPLICIT_USER_MANIFEST",
+      "acceptance": "先显式批准清单；真实梯度更新；训练/验证组隔离；无生产模型替换。",
+      "artifacts": [
+        "training-report.json",
+        "result.json"
+      ]
+    },
+    {
+      "id": "41-candidate-infer",
+      "title": "新训练候选三任务推理",
+      "dependencies": [
+        "40-model-train"
+      ],
+      "category": "training",
+      "scope": "OFFLINE_CANDIDATE_NOT_PRODUCTION",
+      "acceptance": "无标签 NPZ；模型、通道和单位绑定；输出三头概率及逐类 CSV。",
+      "artifacts": [
+        "candidate-inference.json",
+        "candidate-heads.csv"
+      ]
+    },
+    {
+      "id": "50-three-task-replay",
+      "title": "ADCS 全量三任务回放",
+      "dependencies": [],
+      "category": "long",
+      "scope": "RETROSPECTIVE_USED_SPLIT",
+      "acceptance": "显式允许耗时任务并提供 ADCS.zip；逐窗口保存不可用、正常、错类和未决。",
+      "artifacts": [
+        "replay/report.json"
+      ]
+    },
+    {
+      "id": "51-three-task-rescore",
+      "title": "从保存预测复算三任务",
+      "dependencies": [],
+      "category": "evaluation",
+      "scope": "SCORING_ONLY_NO_MODEL_RERUN",
+      "acceptance": "只读已连接真值的 joined_evaluation.json（不是无标签 inference.jsonl）；保留全部分母，区分定位头和系统派生定位。",
+      "artifacts": [
+        "metrics.json"
+      ]
+    },
+    {
+      "id": "52-comparison-prepare",
+      "title": "对比实验分组数据准备",
+      "dependencies": [],
+      "category": "long",
+      "scope": "OFFLINE_EVALUATION_SIDE_READS_LABELS",
+      "acceptance": "显式 ADCS.zip；复用已冻结协议，不让标签进入在线诊断。",
+      "artifacts": [
+        "benchmark-data/protocol.json"
+      ]
+    },
+    {
+      "id": "53-comparison-train",
+      "title": "参考架构多模型对比训练",
+      "dependencies": [
+        "52-comparison-prepare",
+        "60-regression"
+      ],
+      "category": "long",
+      "scope": "REFERENCE_ADAPTATIONS_NOT_FULL_LATEST_SOTA",
+      "acceptance": "复用上一轮参考实现与验收门；保存真实权重与日志，不自动替换默认模型。",
+      "artifacts": [
+        "trained-runs/"
+      ]
+    },
+    {
+      "id": "54-comparison-normal",
+      "title": "正常模式与同模型回放",
+      "dependencies": [
+        "53-comparison-train"
+      ],
+      "category": "long",
+      "scope": "SYSTEM_ADDS_REFERENCE_AND_KNOWLEDGE",
+      "acceptance": "原模型和三个同结构种子执行真实正常模式；不混同信息条件。",
+      "artifacts": [
+        "normal-runs/"
+      ]
+    },
+    {
+      "id": "55-comparison-rescore",
+      "title": "交付实验包复算",
+      "dependencies": [],
+      "category": "evaluation",
+      "scope": "SAVED_PREDICTIONS_ONLY",
+      "acceptance": "使用解压后的 benchmark_data/trained_runs/normal_runs；不重训或下载模型。",
+      "artifacts": [
+        "comparison/"
+      ]
+    },
+    {
+      "id": "60-regression",
+      "title": "多模式与验收脚本回归",
+      "dependencies": [],
+      "category": "local",
+      "scope": "SELECTED_TESTS_NOT_FULL_REPOSITORY",
+      "acceptance": "真实 pytest/JUnit；通过、失败、跳过分别记录；不宣称全仓。",
+      "artifacts": [
+        "junit.xml",
+        "test-summary.json"
+      ]
+    },
+    {
+      "id": "61-structured-output",
+      "title": "结构化结果和任务轨迹核验",
+      "dependencies": [
+        "22-agent-normal"
+      ],
+      "category": "local",
+      "scope": "RESULT_AND_EVENT_INTEGRITY",
+      "acceptance": "校验 AgentResult、事件哈希链、任务工件和只读复用结果。",
+      "artifacts": [
+        "validation.json",
+        "result.schema.json"
+      ]
+    },
+    {
+      "id": "62-agent-reliability",
+      "title": "Agent可靠性与故障注入验收",
+      "dependencies": [],
+      "category": "local",
+      "scope": "FAULT_INJECTION_LOOPBACK_FIXTURES_NOT_LIVE_LLM_QUALITY",
+      "acceptance": "超时中断、实际HTTP尝试预算、上下文保真、降级可见、核心结果保留、只读恢复与记忆缓存测试；不宣称真实大模型质量。",
+      "artifacts": [
+        "junit.xml",
+        "test-summary.json"
+      ]
+    },
+    {
+      "id": "63-context-budget",
+      "title": "LLM上下文无损投影、预算与依赖隔离",
+      "dependencies": [],
+      "category": "local",
+      "scope": "LOSSLESS_CONTEXT_AND_BUDGET_CONTRACT_NOT_LIVE_LLM",
+      "acceptance": "重复血缘集合可还原、重叠关系不丢失；数值/单位/反证不变；消息和输出预算一致，真实超限仍拒绝；不是实际模型规划质量。",
+      "artifacts": [
+        "junit.xml",
+        "test-summary.json"
+      ]
+    },
+    {
+      "id": "64-citation-grounding",
+      "title": "可见来源、引用约束与真实请求留痕合同",
+      "dependencies": [],
+      "category": "local",
+      "scope": "SOURCE_VISIBILITY_WIRE_AUDIT_FIXTURES_NOT_LIVE_LLM_QUALITY",
+      "acceptance": "必须可见的短诊断锚点、来源命名空间、全文摘录/ID选择、空输出弃权、原始请求响应与哈希及非可信引用拒绝。",
+      "artifacts": [
+        "junit.xml",
+        "test-summary.json"
+      ]
+    },
+    {
+      "id": "65-agent-quality",
+      "title": "Agent质量评价工具与边界验收",
+      "dependencies": [],
+      "category": "local",
+      "scope": "QUALITY_SCORER_AND_SYNTHETIC_SENSITIVITY_NOT_LIVE_MODEL_QUALITY",
+      "acceptance": "评价脚本保留失败/未运行分母，区分新文本/证据/正确性，验证qrels与评审绑定；不以夹具通过宣布真实模型收益。",
+      "artifacts": [
+        "junit.xml",
+        "test-summary.json"
+      ]
+    },
+    {
+      "id": "66-generic-series",
+      "title": "P1 通用单/多参量序列诊断",
+      "dependencies": [],
+      "category": "local",
+      "scope": "GENERIC_SERIES_SAFE_DEGRADATION",
+      "acceptance": "已映射单参量可检测并给出 provisional 可能原因；未映射参量只能检测，物理原因保持不足；不使用真值。",
+      "artifacts": [
+        "known-result.json",
+        "unknown-result.json"
+      ]
+    },
+    {
+      "id": "67-model-capabilities",
+      "title": "P2 模型能力注册与严格兼容发现",
+      "dependencies": [],
+      "category": "local",
+      "scope": "CAPABILITY_DISCOVERY_NOT_EXECUTION_AUTHORIZATION",
+      "acceptance": "按检测/定位/分类分别发现兼容模型；任意通用分类不得臆造；ADCS/PHM宿主绑定合同可发现；发现不授予执行权限。",
+      "artifacts": [
+        "capabilities.json"
+      ]
+    },
+    {
+      "id": "68-phm-mission-replay",
+      "title": "P3 sat/PHM 统一 Mission 离线回放",
+      "dependencies": [
+        "67-model-capabilities"
+      ],
+      "category": "long",
+      "scope": "REAL_PHM_V60_RETROSPECTIVE_REPLAY_TRUTH_AWARE",
+      "acceptance": "真实PHM数据通过Mission replay执行；四项指标非空；明确读取真值/activation且禁止在线诊断声明。",
+      "artifacts": [
+        "result.json",
+        "replay-manifest.json"
+      ]
+    },
+    {
+      "id": "69-knowledge-feedback-lifecycle",
+      "title": "P4 文献/知识/专家反馈治理闭环",
+      "dependencies": [],
+      "category": "local",
+      "scope": "EXPERT_GOVERNED_OFFLINE_IMPROVEMENT_ONLY",
+      "acceptance": "文档需专家批准后才进入库；知识候选和专家纠错只进入离线评估候选；活动KG、生产模型、确认记忆均不得自动修改。",
+      "artifacts": [
+        "lifecycle.sqlite",
+        "research-result.json"
+      ]
+    },
+    {
+      "id": "70-generic-series-matrix",
+      "title": "扩展P1通用序列场景矩阵",
+      "dependencies": [],
+      "category": "local",
+      "scope": "GENERIC_SERIES_EXTENDED_SAFETY_MATRIX",
+      "acceptance": "覆盖稳定/异常、已知/未知语义、错误/缺失单位、显式语义和混合通道；错误单位不能获得物理故障语义。",
+      "artifacts": [
+        "matrix.json",
+        "matrix.csv"
+      ]
+    },
+    {
+      "id": "71-data-document-joint",
+      "title": "数据＋文献联合诊断边界",
+      "dependencies": [],
+      "category": "local",
+      "scope": "DATA_RAG_CONTEXT_NOT_DIAGNOSTIC_VOTE",
+      "acceptance": "相关文档可被检索为来源上下文；恶意/越权文本不得补造缺失的物理语义或改变证据等级。",
+      "artifacts": [
+        "known-with-document.json",
+        "unknown-with-poison.json"
+      ]
+    },
+    {
+      "id": "72-capability-boundary-matrix",
+      "title": "通用/ADCS/PHM模型能力边界矩阵",
+      "dependencies": [],
+      "category": "local",
+      "scope": "CAPABILITY_COMPATIBILITY_AND_SAFE_DEGRADATION",
+      "acceptance": "任意通用输入只保证检测；无兼容分类/定位模型不得臆造；ADCS宿主绑定和PHM回放边界保持严格。",
+      "artifacts": [
+        "capability-matrix.json"
+      ]
+    },
+    {
+      "id": "73-lifecycle-negative-matrix",
+      "title": "文献与专家反馈负向治理矩阵",
+      "dependencies": [],
+      "category": "local",
+      "scope": "LIFECYCLE_TAMPER_PERMISSION_AND_RELEASE_GATES",
+      "acceptance": "未审批文献不可见、未授权专家被拒、已批准文档篡改后拒绝读取、专家反馈只生成离线候选且不修改生产状态。",
+      "artifacts": [
+        "lifecycle-report.json"
+      ]
+    },
+    {
+      "id": "74-sat-replay-repeatability",
+      "title": "sat/PHM真实回放重复性",
+      "dependencies": [],
+      "category": "long",
+      "scope": "REAL_PHM_REPEATABILITY_SAME_FROZEN_SPLIT",
+      "acceptance": "同一冻结PHM数据和晋升模型执行两次，四项指标、split audit、策略和选定知识链样本一致；仍是truth-aware retrospective replay。",
+      "artifacts": [
+        "repeatability.json",
+        "run-a/phm_v60_regression_report.json",
+        "run-b/phm_v60_regression_report.json"
+      ]
+    },
+    {
+      "id": "75-adcs-replay-repeatability",
+      "title": "ADCS固定cohort全量回放重复性",
+      "dependencies": [],
+      "category": "long",
+      "scope": "RETROSPECTIVE_ADCS_REPEATABILITY_USED_SPLIT",
+      "acceptance": "同一ADCS.zip和固定cohort完整回放两次；逐窗推理哈希、三任务/系统分支指标、状态计数和工具调用一致。",
+      "artifacts": [
+        "repeatability.json",
+        "run-a/report.json",
+        "run-b/report.json"
+      ]
+    },
+    {
+      "id": "76-generic-domain-coverage",
+      "title": "通用跨分系统语义与原因覆盖矩阵",
+      "dependencies": [],
+      "category": "local",
+      "scope": "GENERIC_SIGNAL_SEMANTIC_AND_PROVISIONAL_CAUSE_COVERAGE",
+      "acceptance": "所有启用E0异常规则通道必须通过单位约束语义映射；仅基于现有故障目录完全同名通道生成provisional原因候选，不允许升级为已验证根因。",
+      "artifacts": [
+        "coverage-matrix.csv",
+        "coverage-results.json",
+        "coverage-gaps.json",
+        "multi-subsystem.json"
+      ]
+    },
+    {
+      "id": "77-model-capability-coverage",
+      "title": "模型能力层级与实际三任务覆盖",
+      "dependencies": [],
+      "category": "local",
+      "scope": "MODEL_CAPABILITY_TIER_COVERAGE_NO_EXECUTION_AUTHORIZATION",
+      "acceptance": "量化19个generic注册信号的检测/定位/分类模型覆盖；ADCS仅在native绑定合同下三任务可用，PHM仅retrospective replay三任务可用；发现结果不得授权执行。",
+      "artifacts": [
+        "model-capability-profiles.json",
+        "model-capability-coverage.csv"
+      ]
+    },
+    {
+      "id": "78-generic-knowledge-gap-review",
+      "title": "Generic知识缺口专家审查包",
+      "dependencies": [
+        "76-generic-domain-coverage"
+      ],
+      "category": "local",
+      "scope": "EXPERT_REVIEW_PACKET_NO_ACTIVE_KG_WRITE",
+      "acceptance": "把5个未覆盖通道生成专家审查包；仅exact CONTEXT关系可形成待审KnowledgeProposal，非精确名称只作为review hint；不得自动别名、不得写活动KG。",
+      "artifacts": [
+        "gap-review-packet.json",
+        "gap-review-matrix.csv",
+        "staged-proposals.json"
+      ]
+    },
+    {
+      "id": "79-mission-replay-unified",
+      "title": "ADCS/PHM统一Mission Replay契约",
+      "dependencies": [],
+      "category": "local",
+      "scope": "UNIFIED_REPLAY_ENTRY_WITH_OFFLINE_BOUNDARY",
+      "acceptance": "ADCS和PHM共享ReplayManifest/Mission入口；ADCS使用zip worker，PHM使用dataset-root worker；真实全量重复性仍由74/75证明。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "80-generic-input-contract",
+      "title": "GenericSeries确定性模型输入契约",
+      "dependencies": [
+        "79-mission-replay-unified"
+      ],
+      "category": "local",
+      "scope": "DETERMINISTIC_GENERIC_MODEL_INPUT_CONTRACT",
+      "acceptance": "通道顺序、单位、时间戳、输入内容均进入哈希；NaN/Inf/重复时间戳在模型执行路径fail-closed且保留审计。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "81-model-execution-bridge",
+      "title": "Capability到严格Provider执行桥",
+      "dependencies": [
+        "80-generic-input-contract"
+      ],
+      "category": "local",
+      "scope": "CAPABILITY_DISCOVERY_TO_STRICT_ADMISSION_EXECUTION",
+      "acceptance": "兼容性发现不授权执行；只有显式host binding、包哈希和现有DataDrivenModelRegistry admission全部通过才执行。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "82-single-signal-identifiability",
+      "title": "单参量可辨识性筛查",
+      "dependencies": [
+        "81-model-execution-bridge"
+      ],
+      "category": "local",
+      "scope": "SINGLE_SIGNAL_IDENTIFIABILITY_NO_FORCED_CLASSIFICATION",
+      "acceptance": "知识目录唯一映射不等于经验可分类；一对多故障明确标记歧义；无独立标注profile不晋升单参量分类能力。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "83-generic-three-task-contract",
+      "title": "Generic多参量三任务结果契约",
+      "dependencies": [
+        "82-single-signal-identifiability"
+      ],
+      "category": "local",
+      "scope": "DETECTION_LOCALIZATION_CLASSIFICATION_EXPLICIT_SEMANTICS",
+      "acceptance": "严格admission模型输出检测、定位、分类三个独立结果；定位仅代表affected component，不能自动声明root cause。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "84-generic-birrf-shadow",
+      "title": "Generic learned path接入BiRRF Shadow",
+      "dependencies": [
+        "83-generic-three-task-contract"
+      ],
+      "category": "local",
+      "scope": "GENERIC_DATA_BRANCH_BIRRF_SHADOW_NO_E0_DOUBLE_COUNT",
+      "acceptance": "learned prediction可转换为正式FaultRanking并进入BiRRF shadow；provisional E0及缺失backward evidence为零票，不重复计证据。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "85-calibration-ood-abstention",
+      "title": "校准/OOD/Abstention门",
+      "dependencies": [
+        "84-generic-birrf-shadow"
+      ],
+      "category": "local",
+      "scope": "FAIL_CLOSED_MODEL_DECISION_ELIGIBILITY",
+      "acceptance": "未校准输出不得作为正式分类概率；未评估OOD或OOD超阈值必须abstain/unknown。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "86-document-provider-quality",
+      "title": "文献Provider质量边界",
+      "dependencies": [
+        "85-calibration-ood-abstention"
+      ],
+      "category": "local",
+      "scope": "PARSER_ADAPTER_AVAILABILITY_SEPARATE_FROM_DOMAIN_QUALITY",
+      "acceptance": "原生文本可用；MinerU/A2O配置状态与复杂PDF/领域抽取质量声明严格分离，缺外部Provider时明确边界而不静默成功。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "87-data-literature-context",
+      "title": "数据＋文献非投票联合上下文",
+      "dependencies": [
+        "86-document-provider-quality"
+      ],
+      "category": "local",
+      "scope": "CORE_DIAGNOSIS_PLUS_NONVOTING_LITERATURE_ASSESSMENT",
+      "acceptance": "核心数据诊断先提交；检索相关性不等于支持/反驳；只有显式reviewed mapping可标注stance，且附件仍不修改已提交诊断。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "88-feedback-regression-binding",
+      "title": "专家纠错绑定失败回归集",
+      "dependencies": [
+        "87-data-literature-context"
+      ],
+      "category": "local",
+      "scope": "EXPERT_CORRECTION_TO_CONTENT_BOUND_FAILURE_CASE",
+      "acceptance": "纠错绑定原结果SHA、输入/模型/KG provenance并幂等写入failure regression set；不修改生产状态。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "89-controlled-evolution",
+      "title": "自动离线受控进化循环",
+      "dependencies": [
+        "88-feedback-regression-binding"
+      ],
+      "category": "local",
+      "scope": "AUTOMATIC_OFFLINE_CHALLENGER_EVALUATION_WITH_FROZEN_PRODUCTION_GATE",
+      "acceptance": "challenger自动执行指标gate与专家失败病例回归，满足条件自动生成upgrade proposal；生产晋升仍不自动发生。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "90-continuous-active-diagnosis",
+      "title": "连续病例时间线与主动诊断",
+      "dependencies": [
+        "89-controlled-evolution"
+      ],
+      "category": "local",
+      "scope": "CONTINUOUS_CASE_STATE_AND_NEXT_BEST_OBSERVATION",
+      "acceptance": "跨窗口病例状态append-only且可追踪诊断修订；基于候选故障签名提出下一最佳观测，但不授权航天器控制。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "91-adcs-metric-protocol-ledger",
+      "title": "ADCS指标口径与证据台账",
+      "dependencies": [
+        "90-continuous-active-diagnosis"
+      ],
+      "category": "local",
+      "scope": "ADCS_PROTOCOL_BOUND_METRIC_LEDGER",
+      "acceptance": "区分P2五折研究基线、历史production qualification、已使用group回放和当前Mission模型绑定；每条指标绑定来源SHA且禁止把历史资格指标当成当前三任务结果。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "92-adcs-current-v2-status",
+      "title": "当前ADCS v2三任务状态核定",
+      "dependencies": [
+        "91-adcs-metric-protocol-ledger"
+      ],
+      "category": "local",
+      "scope": "CURRENT_V2_USED_GROUP_REPLAY_STATUS_WITH_DENOMINATORS",
+      "acceptance": "当前Mission绑定模型SHA不变；已使用sample_04/09回放三任务指标分别报告，并同时保留501/546执行覆盖率、45不可用窗和全窗检测指标；不宣称新独立确认。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "93-adcs-independent-confirmation-supply",
+      "title": "ADCS独立确认数据供给审计",
+      "dependencies": [
+        "92-adcs-current-v2-status"
+      ],
+      "category": "local",
+      "scope": "NO_RELABELING_OF_REUSED_GROUPS_AS_NEW_HOLDOUT",
+      "acceptance": "对上传ADCS.zip核对sample group；若00–09均已历史使用，则必须输出NEW_GROUP_REQUIRED并冻结新独立确认协议，不得通过重新切分旧组制造confirmatory结果。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "94-adcs-calibration-ood-qualification",
+      "title": "ADCS概率校准与有界OOD资格",
+      "dependencies": [
+        "93-adcs-independent-confirmation-supply"
+      ],
+      "category": "local",
+      "scope": "TRAIN_VALIDATION_ONLY_POSTHOC_RELIABILITY_QUALIFICATION",
+      "acceptance": "冻结当前v2网络权重；Test不参与拟合；概率校准和预声明有界OOD threat model满足资格门，但不改变三任务基线、不替代独立新group确认、不自动晋升生产。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "208-reviewed-claim-rag-asset-integrity",
+      "title": "Reviewed Claim RAG资产哈希与Admission重算",
+      "dependencies": [],
+      "category": "local",
+      "scope": "HASH_PINNED_REVIEWED_CLAIM_TRACE_MAPPING_AND_RECOMPUTED_ADMISSION",
+      "acceptance": "claim trace/mapping均由SHA绑定且admission必须与policy重算一致；漂移或篡改fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "209-reviewed-claim-rag-exact-source-match",
+      "title": "Reviewed Claim RAG精确Source SHA+Locator匹配",
+      "dependencies": [
+        "208-reviewed-claim-rag-asset-integrity"
+      ],
+      "category": "local",
+      "scope": "EXACT_RETRIEVED_SOURCE_TO_HUMAN_REVIEWED_CLAIM_MAPPING",
+      "acceptance": "只有source SHA和locator精确唯一匹配才允许携带reviewed stance，且仍为non-voting context。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "210-reviewed-claim-rag-ambiguity-boundary",
+      "title": "Reviewed Claim RAG错配与歧义安全边界",
+      "dependencies": [
+        "209-reviewed-claim-rag-exact-source-match"
+      ],
+      "category": "local",
+      "scope": "REVIEWED_CLAIM_SOURCE_MISMATCH_AND_MULTI_MAPPING_FAIL_CLOSED",
+      "acceptance": "同一source+locator存在多映射或仅检索相关时不得赋予SUPPORTS/CONTRADICTS。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "211-reviewed-claim-rag-native-mission-bridge",
+      "title": "Reviewed Claim到Working Hypothesis Mission Stance桥",
+      "dependencies": [
+        "210-reviewed-claim-rag-ambiguity-boundary"
+      ],
+      "category": "local",
+      "scope": "MISSION_RAG_REVIEWED_CLAIM_TO_WORKING_HYPOTHESIS_CONTEXT",
+      "acceptance": "Mission RAG命中经host bridge携带reviewed metadata，不改变core diagnosis和正式投票。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "212-reviewed-claim-rag-current-corpus-boundary",
+      "title": "dev47 当前Reviewed Mapping供给现实边界",
+      "dependencies": [
+        "211-reviewed-claim-rag-native-mission-bridge"
+      ],
+      "category": "local",
+      "scope": "DEV47_REVIEWED_CLAIM_BRIDGE_READY_CURRENT_MAPPING_SUPPLY_ZERO",
+      "acceptance": "默认host未绑定reviewed mapping时必须保持0供给，不伪造reviewed stance。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "213-joint-evidence-branch-separation",
+      "title": "联合证据包分支隔离",
+      "dependencies": [
+        "212-reviewed-claim-rag-current-corpus-boundary"
+      ],
+      "category": "local",
+      "scope": "JOINT_EVIDENCE_SEPARATES_MODEL_KG_LITERATURE_CORE",
+      "acceptance": "MODEL/KG/LITERATURE/CORE证据节点分别编号和哈希，语义不可互换。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "214-joint-evidence-relevance-boundary",
+      "title": "联合证据包检索相关性边界",
+      "dependencies": [
+        "213-joint-evidence-branch-separation"
+      ],
+      "category": "local",
+      "scope": "RETRIEVAL_RELEVANCE_NEVER_BECOMES_STANCE",
+      "acceptance": "文献检索相关性不得自动变成支持/反驳或正式诊断证据。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "215-joint-evidence-mission-projection",
+      "title": "Mission联合证据包最终投影",
+      "dependencies": [
+        "214-joint-evidence-relevance-boundary"
+      ],
+      "category": "local",
+      "scope": "MISSION_OUTPUT_EXPOSES_TRACEABLE_JOINT_EVIDENCE",
+      "acceptance": "最终Mission输出附加联合证据包和摘要，但diagnosis_result逐值保持不变。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "216-joint-evidence-regression",
+      "title": "Reviewed Claim与联合证据回归",
+      "dependencies": [
+        "215-joint-evidence-mission-projection"
+      ],
+      "category": "local",
+      "scope": "REVIEWED_CLAIM_AND_JOINT_EVIDENCE_SELECTED_REGRESSION",
+      "acceptance": "新增bridge/evidence package与既有document claim、literature context选定回归共同通过。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "217-joint-evidence-support-dev47",
+      "title": "dev47 数据+文献联合证据能力矩阵",
+      "dependencies": [
+        "216-joint-evidence-regression"
+      ],
+      "category": "local",
+      "scope": "DEV47_SCENARIO6_TRACEABLE_NONVOTING_EVIDENCE_MATRIX",
+      "acceptance": "记录场景6当前可追溯联合证据能力及non-voting/core不变边界。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "218-joint-evidence-feedback-catalog",
+      "title": "联合证据专家反馈引用目录",
+      "dependencies": [
+        "217-joint-evidence-support-dev47"
+      ],
+      "category": "local",
+      "scope": "JOINT_EVIDENCE_STABLE_EXPERT_REFERENCE_CATALOG",
+      "acceptance": "联合证据报告暴露稳定evidence_id与branch/role/source定位，供专家精确引用，不改变诊断。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "219-joint-evidence-feedback-binding",
+      "title": "专家反馈精确绑定联合证据节点",
+      "dependencies": [
+        "218-joint-evidence-feedback-catalog"
+      ],
+      "category": "local",
+      "scope": "EXPERT_FEEDBACK_EXACT_JOINT_EVIDENCE_NODE_BINDING",
+      "acceptance": "ExpertFeedback中的evidence_refs可绑定到当前诊断对应的联合证据节点，并记录branch/role。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "220-joint-evidence-feedback-fail-closed",
+      "title": "专家反馈Evidence ID错配安全边界",
+      "dependencies": [
+        "219-joint-evidence-feedback-binding"
+      ],
+      "category": "local",
+      "scope": "UNKNOWN_OR_WRONG_DIAGNOSIS_EVIDENCE_REFERENCE_FAIL_CLOSED",
+      "acceptance": "未知evidence_id或package/core hash错配必须拒绝；旧自由文本引用显式保持UNBOUND。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "221-joint-evidence-feedback-regression-bridge",
+      "title": "专家纠错到失败回归的证据节点溯源",
+      "dependencies": [
+        "220-joint-evidence-feedback-fail-closed"
+      ],
+      "category": "local",
+      "scope": "FAILURE_REGRESSION_PERSISTS_JOINT_EVIDENCE_BINDING",
+      "acceptance": "现有FailureRegressionSet保留联合证据binding，且旧feedback/regression行为兼容。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "222-evidence-feedback-support-dev48",
+      "title": "dev48 证据级专家纠错能力矩阵",
+      "dependencies": [
+        "221-joint-evidence-feedback-regression-bridge"
+      ],
+      "category": "local",
+      "scope": "DEV48_EXPERT_CORRECTION_EVIDENCE_LEVEL_TRACEABILITY",
+      "acceptance": "记录证据级反馈绑定、fail-closed和回归溯源能力，不自动修改生产系统。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "223-evidence-error-attribution-model",
+      "title": "证据级错误归因：模型分支",
+      "dependencies": [
+        "222-evidence-feedback-support-dev48"
+      ],
+      "category": "local",
+      "scope": "MODEL_EVIDENCE_TO_MODEL_LAYER_TRIAGE_ONLY",
+      "acceptance": "MODEL证据引用生成model层审查建议但不覆盖专家target_layers。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "224-evidence-error-attribution-cross-branch",
+      "title": "证据级错误归因：跨分支",
+      "dependencies": [
+        "223-evidence-error-attribution-model"
+      ],
+      "category": "local",
+      "scope": "KG_LITERATURE_CORE_TO_REVIEW_ONLY_LAYER_SUGGESTIONS",
+      "acceptance": "KG/LITERATURE/CORE证据映射到知识/记忆/规划/执行审查建议，并显式报告与专家选择的差异。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "225-evidence-error-attribution-unbound",
+      "title": "无结构证据反馈归因边界",
+      "dependencies": [
+        "224-evidence-error-attribution-cross-branch"
+      ],
+      "category": "local",
+      "scope": "LEGACY_UNBOUND_FEEDBACK_NOT_AUTO_ATTRIBUTED",
+      "acceptance": "旧自由文本feedback没有结构化evidence node时不得自动推断错误层。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "226-evidence-error-attribution-regression",
+      "title": "证据级归因与Feedback回归",
+      "dependencies": [
+        "225-evidence-error-attribution-unbound"
+      ],
+      "category": "local",
+      "scope": "EVIDENCE_ATTRIBUTION_AND_FEEDBACK_SELECTED_REGRESSION",
+      "acceptance": "错误归因、证据绑定和既有feedback regression选定测试共同通过。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "227-evidence-error-attribution-support-dev49",
+      "title": "dev49 证据级错误归因能力矩阵",
+      "dependencies": [
+        "226-evidence-error-attribution-regression"
+      ],
+      "category": "local",
+      "scope": "DEV49_REVIEW_ONLY_ERROR_ATTRIBUTION_MATRIX",
+      "acceptance": "记录自动triage的边界：仅建议，不覆盖专家、不修改生产系统。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "228-controlled-feedback-processing-packet",
+      "title": "证据绑定专家纠错统一处理包",
+      "dependencies": [
+        "227-evidence-error-attribution-support-dev49"
+      ],
+      "category": "local",
+      "scope": "EVIDENCE_BOUND_FEEDBACK_TO_CANDIDATES_AND_FAILURE_CASE_PACKET",
+      "acceptance": "一次处理完成证据绑定、错误归因、improvement candidates和failure regression写入，但不晋升生产。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "229-controlled-feedback-idempotency",
+      "title": "受控纠错处理幂等性",
+      "dependencies": [
+        "228-controlled-feedback-processing-packet"
+      ],
+      "category": "local",
+      "scope": "SAME_FEEDBACK_EVENT_IDEMPOTENT_DIFFERENT_PAYLOAD_REJECTED",
+      "acceptance": "同一feedback/event重复执行结果稳定；同event不同内容fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "230-controlled-feedback-prewrite-gates",
+      "title": "受控纠错持久化前安全门",
+      "dependencies": [
+        "229-controlled-feedback-idempotency"
+      ],
+      "category": "local",
+      "scope": "UNKNOWN_EVIDENCE_OR_UNAPPROVED_REVIEWER_BLOCKS_BEFORE_WRITE",
+      "acceptance": "未知evidence引用或未批准reviewer在任何候选/失败病例持久化前阻断。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "231-controlled-feedback-regression",
+      "title": "受控纠错链回归",
+      "dependencies": [
+        "230-controlled-feedback-prewrite-gates"
+      ],
+      "category": "local",
+      "scope": "CONTROLLED_FEEDBACK_PACKET_AND_LEGACY_LIFECYCLE_REGRESSION",
+      "acceptance": "统一处理包与既有feedback/error-attribution/regression链共同通过。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "232-controlled-feedback-support-dev50",
+      "title": "dev50 受控纠错处理能力矩阵",
+      "dependencies": [
+        "231-controlled-feedback-regression"
+      ],
+      "category": "local",
+      "scope": "DEV50_GOVERNED_FEEDBACK_INTAKE_MATRIX",
+      "acceptance": "记录处理包、幂等、prewrite gate和PENDING_REVIEW候选边界；禁止自动production promotion。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "233-challenger-candidate-admission",
+      "title": "离线Challenger候选准入",
+      "dependencies": [
+        "232-controlled-feedback-support-dev50"
+      ],
+      "category": "local",
+      "scope": "ONLY_REVIEWED_MODEL_CANDIDATE_ENTERS_MODEL_EVALUATOR",
+      "acceptance": "仅APPROVED_FOR_OFFLINE_EVALUATION且target_layer=model的candidate可进入model challenger evaluator。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "234-challenger-exact-binding",
+      "title": "Challenger与Improvement Candidate精确绑定",
+      "dependencies": [
+        "233-challenger-candidate-admission"
+      ],
+      "category": "local",
+      "scope": "CHALLENGER_METADATA_BINDS_CANDIDATE_AND_FEEDBACK",
+      "acceptance": "challenger metadata必须精确绑定approved candidate_id与feedback_id。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "235-challenger-failure-regression-gate",
+      "title": "Challenger专家失败病例回归门",
+      "dependencies": [
+        "234-challenger-exact-binding"
+      ],
+      "category": "local",
+      "scope": "UNFIXED_EXPERT_FAILURE_CASE_REJECTS_CHALLENGER",
+      "acceptance": "任何已记录专家纠错病例未修复时，challenger不得生成upgrade proposal。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "236-challenger-human-gate",
+      "title": "Challenger通过后人工晋升门",
+      "dependencies": [
+        "235-challenger-failure-regression-gate"
+      ],
+      "category": "local",
+      "scope": "SUCCESSFUL_OFFLINE_EVALUATION_STOPS_AT_PENDING_HUMAN_GATE",
+      "acceptance": "指标与失败回归通过时最多生成PENDING_HUMAN_GATE upgrade proposal，不自动promotion。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "237-challenger-support-dev51",
+      "title": "dev51 离线Challenger治理能力矩阵",
+      "dependencies": [
+        "236-challenger-human-gate"
+      ],
+      "category": "local",
+      "scope": "DEV51_APPROVED_CHALLENGER_GOVERNANCE_MATRIX",
+      "acceptance": "记录candidate admission、精确绑定、failure regression与human gate边界。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "238-layer-evaluation-contract-routing",
+      "title": "非模型层离线评价协议路由",
+      "dependencies": [
+        "237-challenger-support-dev51"
+      ],
+      "category": "local",
+      "scope": "PLANNING_MEMORY_TOOL_KNOWLEDGE_EXECUTION_HAVE_DISTINCT_OFFLINE_CHECK_CONTRACTS",
+      "acceptance": "五个非模型层使用各自required checks；model候选不得进入该评价器。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "239-layer-evaluation-exact-binding",
+      "title": "非模型评价Artifact精确绑定",
+      "dependencies": [
+        "238-layer-evaluation-contract-routing"
+      ],
+      "category": "local",
+      "scope": "HASH_CANDIDATE_FEEDBACK_LAYER_AND_EVIDENCE_BINDING_FAIL_CLOSED",
+      "acceptance": "评价artifact必须通过SHA、candidate_id、feedback_id、target_layer及evidence_refs精确绑定。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "240-layer-evaluation-required-check-gate",
+      "title": "非模型层Required Checks安全门",
+      "dependencies": [
+        "239-layer-evaluation-exact-binding"
+      ],
+      "category": "local",
+      "scope": "MISSING_OR_FAILED_REQUIRED_CHECK_REJECTS_NON_MODEL_CANDIDATE",
+      "acceptance": "任一层required check缺失或失败即REJECTED，不生成upgrade proposal。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "241-layer-evaluation-human-gate",
+      "title": "非模型层通过后人工晋升门",
+      "dependencies": [
+        "240-layer-evaluation-required-check-gate"
+      ],
+      "category": "local",
+      "scope": "SUCCESSFUL_NON_MODEL_OFFLINE_EVALUATION_STOPS_AT_GOVERNED_PROMOTION_REVIEW",
+      "acceptance": "通过全部层级检查后最多进入ELIGIBLE_FOR_GOVERNED_PROMOTION_REVIEW并生成human-gated proposal，不自动部署。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "242-layer-evaluation-support-dev52",
+      "title": "dev52 分层离线评价治理能力矩阵",
+      "dependencies": [
+        "241-layer-evaluation-human-gate"
+      ],
+      "category": "local",
+      "scope": "DEV52_NON_MODEL_LAYER_EVALUATION_GOVERNANCE_MATRIX",
+      "acceptance": "记录五层专属评价、安全门、精确绑定及禁止自动production promotion的边界。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "243-evolution-dispatcher-route",
+      "title": "统一受控进化评价路由",
+      "dependencies": [
+        "242-layer-evaluation-support-dev52"
+      ],
+      "category": "local",
+      "scope": "SIX_IMPROVEMENT_LAYERS_ROUTE_TO_TARGET_SPECIFIC_EVALUATORS",
+      "acceptance": "model与五个非模型层从统一入口路由至各自既有评价器，不混用评价协议。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "244-evolution-dispatcher-admission",
+      "title": "统一评价入口准入与串线阻断",
+      "dependencies": [
+        "243-evolution-dispatcher-route"
+      ],
+      "category": "local",
+      "scope": "PENDING_CANDIDATE_AND_CROSS_ROUTE_ARGUMENTS_FAIL_CLOSED",
+      "acceptance": "未批准candidate与跨路由参数在执行评价前fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "245-evolution-dispatcher-status-normalization",
+      "title": "统一评价状态规范化",
+      "dependencies": [
+        "244-evolution-dispatcher-admission"
+      ],
+      "category": "local",
+      "scope": "NATIVE_EVALUATOR_STATUS_NORMALIZED_WITHOUT_LOSING_NATIVE_RESULT",
+      "acceptance": "各评价器原生状态与结果哈希保留，并统一映射到人工复核/拒绝/停止状态；拒绝不生成proposal。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "246-evolution-dispatcher-regression",
+      "title": "统一评价入口回归",
+      "dependencies": [
+        "245-evolution-dispatcher-status-normalization"
+      ],
+      "category": "local",
+      "scope": "DEV53_DISPATCHER_PLUS_DEV52_AND_DEV51_REGRESSION",
+      "acceptance": "统一入口、分层非模型评价和model challenger共同通过回归。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "247-evolution-dispatcher-support-dev53",
+      "title": "dev53 六层统一评价能力矩阵",
+      "dependencies": [
+        "246-evolution-dispatcher-regression"
+      ],
+      "category": "local",
+      "scope": "DEV53_GOVERNED_EVOLUTION_EVALUATION_ROUTING_MATRIX",
+      "acceptance": "六层改进候选均可从统一受控入口进入正确离线评价链；禁止自动production promotion。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "248-improvement-work-order-layer-profile",
+      "title": "改进候选Sandbox Work Order分层配置",
+      "dependencies": [
+        "247-evolution-dispatcher-support-dev53"
+      ],
+      "category": "local",
+      "scope": "APPROVED_CANDIDATE_TO_HASH_PINNED_LAYER_SPECIFIC_SANDBOX_WORK_ORDER",
+      "acceptance": "六类approved candidate生成分层change_kind、baseline hash与required checks明确的sandbox work order。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "249-improvement-work-order-boundary",
+      "title": "Work Order基线与Sandbox边界",
+      "dependencies": [
+        "248-improvement-work-order-layer-profile"
+      ],
+      "category": "local",
+      "scope": "PENDING_WRONG_CHANGE_KIND_AND_OUTSIDE_SANDBOX_FAIL_CLOSED",
+      "acceptance": "未审批candidate、错误change kind、sandbox外challenger路径均fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "250-challenger-artifact-seal",
+      "title": "Challenger Artifact内容封印",
+      "dependencies": [
+        "249-improvement-work-order-boundary"
+      ],
+      "category": "local",
+      "scope": "CHANGED_SANDBOX_CHALLENGER_CONTENT_HASHED_AND_SEALED",
+      "acceptance": "仅sandbox内且相对baseline有内容变化的challenger可生成hash-pinned seal。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "251-challenger-seal-tamper-regression",
+      "title": "Challenger Seal篡改与Symlink回归",
+      "dependencies": [
+        "250-challenger-artifact-seal"
+      ],
+      "category": "local",
+      "scope": "WORK_ORDER_DRIFT_UNCHANGED_CONTENT_AND_SYMLINK_FAIL_CLOSED",
+      "acceptance": "work order hash漂移、无内容变化、symlink challenger均无法封印。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "252-improvement-work-order-support-dev54",
+      "title": "dev54 受控Challenger准备能力矩阵",
+      "dependencies": [
+        "251-challenger-seal-tamper-regression"
+      ],
+      "category": "local",
+      "scope": "DEV54_SANDBOX_CHALLENGER_PREPARATION_GOVERNANCE_MATRIX",
+      "acceptance": "记录分层work order、sandbox边界、artifact seal及禁止production write/promotion边界。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "253-sealed-layer-evaluation-exact-chain",
+      "title": "Sealed Non-Model评价精确链绑定",
+      "dependencies": [
+        "252-improvement-work-order-support-dev54"
+      ],
+      "category": "local",
+      "scope": "WORK_ORDER_SEAL_CHALLENGER_FILES_AND_EVALUATION_ARTIFACT_EXACTLY_BOUND",
+      "acceptance": "非模型评价必须精确绑定work order、challenger seal、当前challenger文件hash和evaluation artifact。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "254-sealed-layer-evaluation-drift-gate",
+      "title": "Seal后Artifact漂移安全门",
+      "dependencies": [
+        "253-sealed-layer-evaluation-exact-chain"
+      ],
+      "category": "local",
+      "scope": "POST_SEAL_CHALLENGER_DRIFT_OR_ASSET_HASH_DRIFT_FAIL_CLOSED",
+      "acceptance": "seal后challenger内容漂移及work order/seal/evaluation hash漂移均fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "255-sealed-layer-evaluation-reference-gate",
+      "title": "Evaluation对Work Order与Seal显式引用门",
+      "dependencies": [
+        "254-sealed-layer-evaluation-drift-gate"
+      ],
+      "category": "local",
+      "scope": "EVALUATION_ARTIFACT_MUST_REFERENCE_WORK_ORDER_AND_CHALLENGER_SEAL_SHA",
+      "acceptance": "evaluation artifact未显式引用work order/seal SHA时不得资格化。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "256-sealed-layer-evaluation-native-gate",
+      "title": "Sealed评价保持原生Layer Gate",
+      "dependencies": [
+        "255-sealed-layer-evaluation-reference-gate"
+      ],
+      "category": "local",
+      "scope": "SEALED_BINDING_DOES_NOT_OVERRIDE_LAYER_REQUIRED_CHECK_FAILURE",
+      "acceptance": "完整seal绑定不覆盖layer required checks；失败仍REJECTED，model仍走独立评价器。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "257-sealed-layer-evaluation-support-dev55",
+      "title": "dev55 Sealed Layer Evaluation能力矩阵",
+      "dependencies": [
+        "256-sealed-layer-evaluation-native-gate"
+      ],
+      "category": "local",
+      "scope": "DEV55_SEALED_NON_MODEL_EVALUATION_GOVERNANCE_MATRIX",
+      "acceptance": "记录work-order→seal→evaluation不可替换链及禁止自动promotion边界。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "258-sealed-dispatcher-non-model-route",
+      "title": "统一Dispatcher强制Sealed非模型评价",
+      "dependencies": [
+        "257-sealed-layer-evaluation-support-dev55"
+      ],
+      "category": "local",
+      "scope": "UNIFIED_DISPATCHER_NON_MODEL_ROUTE_REQUIRES_WORK_ORDER_SEAL_AND_EVALUATION_BINDING",
+      "acceptance": "五个非模型层从统一入口必须走dev55 sealed qualification，并在原生结果中保留work order/seal hash。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "259-sealed-dispatcher-legacy-bypass-block",
+      "title": "旧Non-Model评价捷径阻断",
+      "dependencies": [
+        "258-sealed-dispatcher-non-model-route"
+      ],
+      "category": "local",
+      "scope": "LEGACY_EVALUATION_ONLY_NON_MODEL_DISPATCH_PATH_FAILS_CLOSED",
+      "acceptance": "仅提供旧evaluation artifact而缺work order/seal时统一入口fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "260-sealed-dispatcher-model-regression",
+      "title": "Sealed升级保持Model Challenger路由",
+      "dependencies": [
+        "259-sealed-dispatcher-legacy-bypass-block"
+      ],
+      "category": "local",
+      "scope": "MODEL_CHALLENGER_ROUTE_UNCHANGED_BY_NON_MODEL_SEAL_REQUIREMENT",
+      "acceptance": "model candidate仍进入既有model challenger/failure-regression evaluator。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "261-sealed-dispatcher-regression",
+      "title": "Sealed统一Dispatcher回归",
+      "dependencies": [
+        "260-sealed-dispatcher-model-regression"
+      ],
+      "category": "local",
+      "scope": "DEV56_DISPATCHER_PLUS_DEV55_AND_MODEL_CHALLENGER_REGRESSION",
+      "acceptance": "dispatcher、sealed layer evaluation与model challenger共同通过回归。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "262-sealed-dispatcher-support-dev56",
+      "title": "dev56 高保证统一评价入口能力矩阵",
+      "dependencies": [
+        "261-sealed-dispatcher-regression"
+      ],
+      "category": "local",
+      "scope": "DEV56_HIGH_ASSURANCE_EVOLUTION_DISPATCH_MATRIX",
+      "acceptance": "统一入口非模型强制sealed，model维持独立评价；两者均禁止自动production promotion。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "263-sealed-model-work-order-binding",
+      "title": "Model Challenger Work Order/Seal绑定",
+      "dependencies": [
+        "262-sealed-dispatcher-support-dev56"
+      ],
+      "category": "local",
+      "scope": "MODEL_CHALLENGER_PACKAGE_BINDS_APPROVED_CANDIDATE_WORK_ORDER_AND_SEAL",
+      "acceptance": "model candidate必须使用MODEL_CHALLENGER_PACKAGE work order，seal精确绑定该work order。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "264-sealed-model-artifact-drift-gate",
+      "title": "Model Package Seal后漂移安全门",
+      "dependencies": [
+        "263-sealed-model-work-order-binding"
+      ],
+      "category": "local",
+      "scope": "SEALED_MODEL_PACKAGE_REHASHED_BEFORE_METRIC_EVALUATION",
+      "acceptance": "评价前重算模型package hash；seal后内容漂移fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "265-sealed-model-metadata-binding",
+      "title": "Model Challenger Metadata精确绑定",
+      "dependencies": [
+        "264-sealed-model-artifact-drift-gate"
+      ],
+      "category": "local",
+      "scope": "CHALLENGER_METADATA_BINDS_WORK_ORDER_SEAL_AND_MODEL_ARTIFACT_HASHES",
+      "acceptance": "challenger metadata必须精确绑定work order SHA、seal SHA和sealed model artifact映射。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "266-sealed-model-existing-gates",
+      "title": "Sealed Model保持Failure Regression与指标Gate",
+      "dependencies": [
+        "265-sealed-model-metadata-binding"
+      ],
+      "category": "local",
+      "scope": "ARTIFACT_LINEAGE_VERIFICATION_PRECEDES_EXISTING_MODEL_EVALUATION_GATES",
+      "acceptance": "artifact lineage通过后仍复用原failure regression/metric/human gate，不绕过任何已有门。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "267-sealed-model-support-dev57",
+      "title": "dev57 Sealed Model Challenger能力矩阵",
+      "dependencies": [
+        "266-sealed-model-existing-gates"
+      ],
+      "category": "local",
+      "scope": "DEV57_SEALED_MODEL_CHALLENGER_GOVERNANCE_MATRIX",
+      "acceptance": "记录模型包不可替换链、原评价gate与禁止自动production promotion边界。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "268-fully-sealed-dispatcher-model-route",
+      "title": "统一Dispatcher强制Sealed Model路由",
+      "dependencies": [
+        "267-sealed-model-support-dev57"
+      ],
+      "category": "local",
+      "scope": "UNIFIED_MODEL_ROUTE_REQUIRES_SEALED_WORK_ORDER_AND_MODEL_PACKAGE_SEAL",
+      "acceptance": "model candidate从统一入口必须携带sealed model work order/seal，原生结果保留artifact lineage。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "269-fully-sealed-dispatcher-model-bypass-block",
+      "title": "Model未封印评价捷径阻断",
+      "dependencies": [
+        "268-fully-sealed-dispatcher-model-route"
+      ],
+      "category": "local",
+      "scope": "MODEL_EVALUATION_WITHOUT_SEALED_ARTIFACT_BINDING_FAILS_CLOSED",
+      "acceptance": "仅提供model metrics/evaluation kwargs但缺sealed work order/seal时统一入口fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "270-fully-sealed-dispatcher-non-model-regression",
+      "title": "全Sealed升级保持Non-Model路由",
+      "dependencies": [
+        "269-fully-sealed-dispatcher-model-bypass-block"
+      ],
+      "category": "local",
+      "scope": "NON_MODEL_SEALED_ROUTE_PRESERVED",
+      "acceptance": "五个非模型层继续使用work order+seal+evaluation完整链。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "271-fully-sealed-dispatcher-regression",
+      "title": "六层全Sealed统一入口回归",
+      "dependencies": [
+        "270-fully-sealed-dispatcher-non-model-regression"
+      ],
+      "category": "local",
+      "scope": "DEV58_FULLY_SEALED_DISPATCHER_MODEL_AND_NON_MODEL_REGRESSION",
+      "acceptance": "model与五个非模型层统一入口、各原生evaluator和seal链共同通过回归。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "272-fully-sealed-dispatcher-support-dev58",
+      "title": "dev58 六层全Sealed受控进化能力矩阵",
+      "dependencies": [
+        "271-fully-sealed-dispatcher-regression"
+      ],
+      "category": "local",
+      "scope": "DEV58_FULLY_SEALED_GOVERNED_EVOLUTION_MATRIX",
+      "acceptance": "六层candidate均从统一入口绑定实际challenger artifact；最高仅人工复核，禁止自动production promotion。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "273-evaluation-run-receipt-model",
+      "title": "Model Evaluation Run Receipt绑定",
+      "dependencies": [
+        "272-fully-sealed-dispatcher-support-dev58"
+      ],
+      "category": "local",
+      "scope": "MODEL_METRICS_RECEIPT_BINDS_CANDIDATE_WORK_ORDER_SEAL_AND_SPLIT",
+      "acceptance": "model metrics必须由hash-pinned evaluation-run receipt绑定candidate/work-order/seal和冻结split audit ref。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "274-evaluation-run-receipt-layer",
+      "title": "Non-Model Evaluation Run Receipt绑定",
+      "dependencies": [
+        "273-evaluation-run-receipt-model"
+      ],
+      "category": "local",
+      "scope": "LAYER_CHECKS_RECEIPT_BINDS_EVALUATION_ARTIFACT_AND_SEALED_CHALLENGER",
+      "acceptance": "非模型checks/metrics receipt必须绑定同一candidate/work-order/seal及evaluation artifact SHA/evaluator identity。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "275-evaluation-run-receipt-payload-drift",
+      "title": "评价结果Payload漂移安全门",
+      "dependencies": [
+        "274-evaluation-run-receipt-layer"
+      ],
+      "category": "local",
+      "scope": "METRIC_OR_CHECK_PAYLOAD_CHANGE_AFTER_RECEIPT_FAILS_CLOSED",
+      "acceptance": "receipt生成后修改model metrics或non-model checks不得进入评价gate。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "276-evaluation-run-receipt-integrity",
+      "title": "Evaluation Run Receipt完整性回归",
+      "dependencies": [
+        "275-evaluation-run-receipt-payload-drift"
+      ],
+      "category": "local",
+      "scope": "RECEIPT_HASH_AND_SOURCE_REFERENCE_DRIFT_FAIL_CLOSED",
+      "acceptance": "receipt hash漂移或缺冻结split/evaluation source ref均fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "277-evaluation-run-receipt-support-dev59",
+      "title": "dev59 评价证据同源能力矩阵",
+      "dependencies": [
+        "276-evaluation-run-receipt-integrity"
+      ],
+      "category": "local",
+      "scope": "DEV59_EVALUATION_EVIDENCE_PROVENANCE_MATRIX",
+      "acceptance": "六层统一入口的评价结果均具备与sealed challenger同源的content-addressed receipt；禁止自动promotion。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "278-promotion-review-model-binding",
+      "title": "Model Promotion Review Packet绑定",
+      "dependencies": [
+        "277-evaluation-run-receipt-support-dev59"
+      ],
+      "category": "local",
+      "scope": "MODEL_PROMOTION_REVIEW_PACKET_EXACT_LINEAGE_BINDING",
+      "acceptance": "model候选只有在review eligible后才能生成content-addressed promotion review packet，并精确绑定work-order/seal/evaluation receipt/proposal。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "279-promotion-review-layer-binding",
+      "title": "Non-Model Promotion Review Packet绑定",
+      "dependencies": [
+        "278-promotion-review-model-binding"
+      ],
+      "category": "local",
+      "scope": "NON_MODEL_PROMOTION_REVIEW_PACKET_EXACT_LINEAGE_BINDING",
+      "acceptance": "五个非模型层使用同一promotion review contract，保持layer-specific evaluator结果与sealed lineage。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "280-promotion-review-eligibility-gate",
+      "title": "Promotion Review Eligibility安全门",
+      "dependencies": [
+        "279-promotion-review-layer-binding"
+      ],
+      "category": "local",
+      "scope": "REJECTED_OR_RECEIPT_SUBSTITUTED_CANDIDATE_CANNOT_ENTER_PROMOTION_REVIEW",
+      "acceptance": "REJECTED结果或evaluation receipt替换必须fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "281-promotion-review-integrity",
+      "title": "Promotion Review Packet完整性回归",
+      "dependencies": [
+        "280-promotion-review-eligibility-gate"
+      ],
+      "category": "local",
+      "scope": "CONTENT_ADDRESSED_PROMOTION_PACKET_AND_DEV59_RECEIPT_REGRESSION",
+      "acceptance": "packet篡改、proposal漂移和dev59评价证据链回归均fail-closed/通过。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "282-promotion-review-support-dev60",
+      "title": "dev60 Promotion Review能力矩阵",
+      "dependencies": [
+        "281-promotion-review-integrity"
+      ],
+      "category": "local",
+      "scope": "DEV60_GOVERNED_PROMOTION_REVIEW_PACKET_MATRIX",
+      "acceptance": "六层候选可形成不可变promotion review packet；最高仅待治理晋升复核，禁止自动production promotion。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "283-promotion-preflight-baseline-freeze",
+      "title": "Promotion事务生产基线冻结",
+      "dependencies": [
+        "282-promotion-review-support-dev60"
+      ],
+      "category": "local",
+      "scope": "PRODUCTION_TARGET_BASELINE_HASH_FREEZE_BEFORE_PROMOTION_TRANSACTION",
+      "acceptance": "promotion transaction preflight冻结当前production目标hash且不执行任何写入。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "284-promotion-preflight-path-boundary",
+      "title": "Promotion事务目标路径安全边界",
+      "dependencies": [
+        "283-promotion-preflight-baseline-freeze"
+      ],
+      "category": "local",
+      "scope": "PROMOTION_WRITE_TARGET_MUST_STAY_WITHIN_APPROVED_PRODUCTION_ROOT",
+      "acceptance": "超出批准production root或symlink目标必须fail-closed。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "285-promotion-preflight-rollback-gate",
+      "title": "Promotion事务Rollback覆盖门",
+      "dependencies": [
+        "284-promotion-preflight-path-boundary"
+      ],
+      "category": "local",
+      "scope": "EVERY_WRITE_TARGET_REQUIRES_EXACT_ROLLBACK_BASELINE_AND_LIVE_REVALIDATION",
+      "acceptance": "每个写目标必须有精确rollback baseline；production baseline漂移时事务准备失效。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "286-promotion-preflight-integrity",
+      "title": "Promotion事务Preflight完整性回归",
+      "dependencies": [
+        "285-promotion-preflight-rollback-gate"
+      ],
+      "category": "local",
+      "scope": "CONTENT_ADDRESSED_PREFLIGHT_AND_PROMOTION_REVIEW_REGRESSION",
+      "acceptance": "preflight文件hash和live baseline均重验，dev60 promotion packet回归通过。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "287-promotion-preflight-support-dev61",
+      "title": "dev61 Promotion事务准备能力矩阵",
+      "dependencies": [
+        "286-promotion-preflight-integrity"
+      ],
+      "category": "local",
+      "scope": "DEV61_GOVERNED_PROMOTION_TRANSACTION_PREFLIGHT_MATRIX",
+      "acceptance": "promotion前已具备基线冻结、rollback覆盖和路径边界；仍不执行production写入。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "288-evolution-rehearsal-six-layers",
+      "title": "六层受控进化端到端Rehearsal",
+      "dependencies": [
+        "287-promotion-preflight-support-dev61"
+      ],
+      "category": "local",
+      "scope": "ALL_SIX_LAYERS_SEALED_EVALUATION_TO_PROMOTION_PREFLIGHT_REHEARSAL",
+      "acceptance": "六层approved candidate均可从sealed evaluator走到promotion preflight，且production零写入。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "289-evolution-rehearsal-rejection-gate",
+      "title": "Rehearsal Evaluator Rejection安全门",
+      "dependencies": [
+        "288-evolution-rehearsal-six-layers"
+      ],
+      "category": "local",
+      "scope": "REJECTED_EVALUATION_STOPS_BEFORE_PROMOTION_PREFLIGHT",
+      "acceptance": "任一原生evaluator拒绝时必须在promotion packet/preflight前终止。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "290-evolution-rehearsal-admission-gate",
+      "title": "Rehearsal Candidate Admission安全门",
+      "dependencies": [
+        "289-evolution-rehearsal-rejection-gate"
+      ],
+      "category": "local",
+      "scope": "PENDING_CANDIDATE_CANNOT_ENTER_END_TO_END_REHEARSAL",
+      "acceptance": "未获离线评价许可的candidate不得进入统一rehearsal。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "291-evolution-rehearsal-lineage",
+      "title": "Rehearsal Receipt证据链",
+      "dependencies": [
+        "290-evolution-rehearsal-admission-gate"
+      ],
+      "category": "local",
+      "scope": "REHEARSAL_RECEIPT_BINDS_EVALUATION_PROMOTION_PACKET_AND_PREFLIGHT",
+      "acceptance": "rehearsal receipt精确绑定evaluation receipt、promotion review packet和transaction preflight hash。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "292-evolution-rehearsal-support-dev62",
+      "title": "dev62 受控进化Rehearsal能力矩阵",
+      "dependencies": [
+        "291-evolution-rehearsal-lineage"
+      ],
+      "category": "local",
+      "scope": "DEV62_END_TO_END_CONTROLLED_EVOLUTION_REHEARSAL_MATRIX",
+      "acceptance": "专家批准后的六层改进可自动完成离线评价和晋升前准备；生产写入仍由治理门隔离。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "293-release-source-continuity",
+      "title": "dev63 Release源码连续性核验",
+      "dependencies": [
+        "292-evolution-rehearsal-support-dev62"
+      ],
+      "category": "local",
+      "scope": "DEV41_ADCS_NATIVE_SOURCE_CONTINUITY_RESTORED_IN_DEV63",
+      "acceptance": "当前源码必须真实包含exact 33-channel ADCS native执行；partial/unit drift不得自动选择。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "294-release-scenarios-1-4",
+      "title": "场景1–4总回归",
+      "dependencies": [
+        "293-release-source-continuity"
+      ],
+      "category": "local",
+      "scope": "REPLAY_GENERIC_SINGLE_AND_MULTI_PARAMETER_DIAGNOSIS_REGRESSION",
+      "acceptance": "Replay、Generic检测/能力边界和exact ADCS三任务共同通过当前源码回归。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "295-release-scenarios-5-6",
+      "title": "场景5–6总回归",
+      "dependencies": [
+        "294-release-scenarios-1-4"
+      ],
+      "category": "local",
+      "scope": "DOCUMENT_GOVERNANCE_AND_NONVOTING_JOINT_EVIDENCE_REGRESSION",
+      "acceptance": "文献治理、reviewed claim与MODEL/KG/LITERATURE/CORE联合证据包回归通过，文献保持non-voting。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "296-release-scenarios-7-8",
+      "title": "场景7–8总回归",
+      "dependencies": [
+        "295-release-scenarios-5-6"
+      ],
+      "category": "local",
+      "scope": "CONTROLLED_EVOLUTION_AND_CONTINUOUS_ACTIVE_DIAGNOSIS_REGRESSION",
+      "acceptance": "连续/主动诊断与专家纠错、sealed evaluator、promotion review/preflight/rehearsal共同通过回归，生产不自动晋升。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "297-release-readiness-support-dev63",
+      "title": "dev63 Release Readiness能力矩阵",
+      "dependencies": [
+        "296-release-scenarios-7-8"
+      ],
+      "category": "local",
+      "scope": "POST48_DEV63_DECLARED_CAPABILITY_RELEASE_READINESS_FREEZE",
+      "acceptance": "场景1–8的支持范围、profile gates和外部依赖机器可读冻结；functional dev series结束，进入RC。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "298-post49-version-convergence",
+      "title": "post49 稳定版版本与Claim收敛",
+      "dependencies": [],
+      "category": "local",
+      "scope": "POST49_STABLE_VERSION_AND_CLAIM_CONVERGENCE",
+      "acceptance": "当前发布版本必须为0.7.1.post49，无dev后缀，canonical stable release claim与runtime/package版本一致。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "299-post49-rc-continuity",
+      "title": "post49 对dev63 RC内容连续性核验",
+      "dependencies": [
+        "298-post49-version-convergence"
+      ],
+      "category": "local",
+      "scope": "POST49_DIRECT_RC_CONTENT_CONTINUITY",
+      "acceptance": "post49不得修改受保护模型/数据/reference/benchmark资产或诊断源码；仅允许稳定发布收敛改动。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "300-post49-scenario-boundary",
+      "title": "post49 场景1–8能力边界冻结",
+      "dependencies": [
+        "299-post49-rc-continuity"
+      ],
+      "category": "local",
+      "scope": "POST49_SCENARIO_1_8_BOUNDARY_FREEZE",
+      "acceptance": "稳定版继承dev63场景1–8支持范围、profile gates与外部资格依赖，不产生新的诊断晋升。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "301-post49-governance-distribution",
+      "title": "post49 治理与分发一致性",
+      "dependencies": [
+        "300-post49-scenario-boundary"
+      ],
+      "category": "local",
+      "scope": "POST49_GOVERNANCE_AND_DISTRIBUTION_INTEGRITY",
+      "acceptance": "post49 contract/change request/task board/rollback、governance health及分发清单必须一致。",
+      "artifacts": [
+        "verification.json"
+      ]
+    },
+    {
+      "id": "302-post49-stable-readiness",
+      "title": "post49 稳定版最终Readiness",
+      "dependencies": [
+        "301-post49-governance-distribution"
+      ],
+      "category": "local",
+      "scope": "POST49_STABLE_SOFTWARE_RELEASE_READINESS",
+      "acceptance": "post49作为稳定软件发布通过最终验收；functional dev剩余为0，production/flight/safety资格不得由稳定打包自动提升。",
+      "artifacts": [
+        "verification.json"
+      ]
+    }
+  ],
+  "suites": {
+    "core": [
+      "00-environment",
+      "11-detection",
+      "12-localization",
+      "13-classification",
+      "22-agent-normal",
+      "61-structured-output"
+    ],
+    "local": [
+      "00-environment",
+      "11-detection",
+      "12-localization",
+      "13-classification",
+      "22-agent-normal",
+      "23-agent-thinking",
+      "24-agent-creative",
+      "25-memory",
+      "32-rag",
+      "36-external-contracts",
+      "38-rag-evaluation",
+      "40-model-train",
+      "41-candidate-infer",
+      "61-structured-output",
+      "66-generic-series",
+      "67-model-capabilities",
+      "69-knowledge-feedback-lifecycle",
+      "76-generic-domain-coverage",
+      "77-model-capability-coverage",
+      "78-generic-knowledge-gap-review",
+      "79-mission-replay-unified",
+      "80-generic-input-contract",
+      "81-model-execution-bridge",
+      "82-single-signal-identifiability",
+      "83-generic-three-task-contract",
+      "84-generic-birrf-shadow",
+      "85-calibration-ood-abstention",
+      "86-document-provider-quality",
+      "87-data-literature-context",
+      "88-feedback-regression-binding",
+      "89-controlled-evolution",
+      "90-continuous-active-diagnosis",
+      "91-adcs-metric-protocol-ledger",
+      "92-adcs-current-v2-status",
+      "93-adcs-independent-confirmation-supply",
+      "94-adcs-calibration-ood-qualification",
+      "208-reviewed-claim-rag-asset-integrity",
+      "209-reviewed-claim-rag-exact-source-match",
+      "210-reviewed-claim-rag-ambiguity-boundary",
+      "211-reviewed-claim-rag-native-mission-bridge",
+      "212-reviewed-claim-rag-current-corpus-boundary",
+      "213-joint-evidence-branch-separation",
+      "214-joint-evidence-relevance-boundary",
+      "215-joint-evidence-mission-projection",
+      "216-joint-evidence-regression",
+      "217-joint-evidence-support-dev47",
+      "218-joint-evidence-feedback-catalog",
+      "219-joint-evidence-feedback-binding",
+      "220-joint-evidence-feedback-fail-closed",
+      "221-joint-evidence-feedback-regression-bridge",
+      "222-evidence-feedback-support-dev48",
+      "223-evidence-error-attribution-model",
+      "224-evidence-error-attribution-cross-branch",
+      "225-evidence-error-attribution-unbound",
+      "226-evidence-error-attribution-regression",
+      "227-evidence-error-attribution-support-dev49",
+      "228-controlled-feedback-processing-packet",
+      "229-controlled-feedback-idempotency",
+      "230-controlled-feedback-prewrite-gates",
+      "231-controlled-feedback-regression",
+      "232-controlled-feedback-support-dev50",
+      "233-challenger-candidate-admission",
+      "234-challenger-exact-binding",
+      "235-challenger-failure-regression-gate",
+      "236-challenger-human-gate",
+      "237-challenger-support-dev51",
+      "238-layer-evaluation-contract-routing",
+      "239-layer-evaluation-exact-binding",
+      "240-layer-evaluation-required-check-gate",
+      "241-layer-evaluation-human-gate",
+      "242-layer-evaluation-support-dev52",
+      "243-evolution-dispatcher-route",
+      "244-evolution-dispatcher-admission",
+      "245-evolution-dispatcher-status-normalization",
+      "246-evolution-dispatcher-regression",
+      "247-evolution-dispatcher-support-dev53",
+      "248-improvement-work-order-layer-profile",
+      "249-improvement-work-order-boundary",
+      "250-challenger-artifact-seal",
+      "251-challenger-seal-tamper-regression",
+      "252-improvement-work-order-support-dev54",
+      "253-sealed-layer-evaluation-exact-chain",
+      "254-sealed-layer-evaluation-drift-gate",
+      "255-sealed-layer-evaluation-reference-gate",
+      "256-sealed-layer-evaluation-native-gate",
+      "257-sealed-layer-evaluation-support-dev55",
+      "258-sealed-dispatcher-non-model-route",
+      "259-sealed-dispatcher-legacy-bypass-block",
+      "260-sealed-dispatcher-model-regression",
+      "261-sealed-dispatcher-regression",
+      "262-sealed-dispatcher-support-dev56",
+      "263-sealed-model-work-order-binding",
+      "264-sealed-model-artifact-drift-gate",
+      "265-sealed-model-metadata-binding",
+      "266-sealed-model-existing-gates",
+      "267-sealed-model-support-dev57",
+      "268-fully-sealed-dispatcher-model-route",
+      "269-fully-sealed-dispatcher-model-bypass-block",
+      "270-fully-sealed-dispatcher-non-model-regression",
+      "271-fully-sealed-dispatcher-regression",
+      "272-fully-sealed-dispatcher-support-dev58",
+      "273-evaluation-run-receipt-model",
+      "274-evaluation-run-receipt-layer",
+      "275-evaluation-run-receipt-payload-drift",
+      "276-evaluation-run-receipt-integrity",
+      "277-evaluation-run-receipt-support-dev59",
+      "278-promotion-review-model-binding",
+      "279-promotion-review-layer-binding",
+      "280-promotion-review-eligibility-gate",
+      "281-promotion-review-integrity",
+      "282-promotion-review-support-dev60",
+      "283-promotion-preflight-baseline-freeze",
+      "284-promotion-preflight-path-boundary",
+      "285-promotion-preflight-rollback-gate",
+      "286-promotion-preflight-integrity",
+      "287-promotion-preflight-support-dev61",
+      "288-evolution-rehearsal-six-layers",
+      "289-evolution-rehearsal-rejection-gate",
+      "290-evolution-rehearsal-admission-gate",
+      "291-evolution-rehearsal-lineage",
+      "292-evolution-rehearsal-support-dev62",
+      "293-release-source-continuity",
+      "294-release-scenarios-1-4",
+      "295-release-scenarios-5-6",
+      "296-release-scenarios-7-8",
+      "297-release-readiness-support-dev63"
+    ],
+    "external": [
+      "33-mineru",
+      "34-paperseek",
+      "35-graph-build",
+      "37-rag-hybrid",
+      "39-llm-planning"
+    ],
+    "regression": [
+      "60-regression",
+      "62-agent-reliability",
+      "63-context-budget",
+      "64-citation-grounding",
+      "65-agent-quality"
+    ],
+    "all": [
+      "00-environment",
+      "01-input-contract",
+      "10-data-inference",
+      "11-detection",
+      "12-localization",
+      "13-classification",
+      "20-graph-reasoning",
+      "21-fusion",
+      "22-agent-normal",
+      "23-agent-thinking",
+      "24-agent-creative",
+      "25-memory",
+      "30-text-convert",
+      "31-text-clean",
+      "32-rag",
+      "33-mineru",
+      "34-paperseek",
+      "35-graph-build",
+      "36-external-contracts",
+      "37-rag-hybrid",
+      "38-rag-evaluation",
+      "39-llm-planning",
+      "40-model-train",
+      "41-candidate-infer",
+      "50-three-task-replay",
+      "51-three-task-rescore",
+      "52-comparison-prepare",
+      "53-comparison-train",
+      "54-comparison-normal",
+      "55-comparison-rescore",
+      "60-regression",
+      "61-structured-output",
+      "62-agent-reliability",
+      "63-context-budget",
+      "64-citation-grounding",
+      "65-agent-quality",
+      "66-generic-series",
+      "67-model-capabilities",
+      "68-phm-mission-replay",
+      "69-knowledge-feedback-lifecycle",
+      "70-generic-series-matrix",
+      "71-data-document-joint",
+      "72-capability-boundary-matrix",
+      "73-lifecycle-negative-matrix",
+      "74-sat-replay-repeatability",
+      "75-adcs-replay-repeatability",
+      "76-generic-domain-coverage",
+      "77-model-capability-coverage",
+      "78-generic-knowledge-gap-review",
+      "79-mission-replay-unified",
+      "80-generic-input-contract",
+      "81-model-execution-bridge",
+      "82-single-signal-identifiability",
+      "83-generic-three-task-contract",
+      "84-generic-birrf-shadow",
+      "85-calibration-ood-abstention",
+      "86-document-provider-quality",
+      "87-data-literature-context",
+      "88-feedback-regression-binding",
+      "89-controlled-evolution",
+      "90-continuous-active-diagnosis",
+      "91-adcs-metric-protocol-ledger",
+      "92-adcs-current-v2-status",
+      "93-adcs-independent-confirmation-supply",
+      "94-adcs-calibration-ood-qualification",
+      "208-reviewed-claim-rag-asset-integrity",
+      "209-reviewed-claim-rag-exact-source-match",
+      "210-reviewed-claim-rag-ambiguity-boundary",
+      "211-reviewed-claim-rag-native-mission-bridge",
+      "212-reviewed-claim-rag-current-corpus-boundary",
+      "213-joint-evidence-branch-separation",
+      "214-joint-evidence-relevance-boundary",
+      "215-joint-evidence-mission-projection",
+      "216-joint-evidence-regression",
+      "217-joint-evidence-support-dev47",
+      "218-joint-evidence-feedback-catalog",
+      "219-joint-evidence-feedback-binding",
+      "220-joint-evidence-feedback-fail-closed",
+      "221-joint-evidence-feedback-regression-bridge",
+      "222-evidence-feedback-support-dev48",
+      "223-evidence-error-attribution-model",
+      "224-evidence-error-attribution-cross-branch",
+      "225-evidence-error-attribution-unbound",
+      "226-evidence-error-attribution-regression",
+      "227-evidence-error-attribution-support-dev49",
+      "228-controlled-feedback-processing-packet",
+      "229-controlled-feedback-idempotency",
+      "230-controlled-feedback-prewrite-gates",
+      "231-controlled-feedback-regression",
+      "232-controlled-feedback-support-dev50",
+      "233-challenger-candidate-admission",
+      "234-challenger-exact-binding",
+      "235-challenger-failure-regression-gate",
+      "236-challenger-human-gate",
+      "237-challenger-support-dev51",
+      "238-layer-evaluation-contract-routing",
+      "239-layer-evaluation-exact-binding",
+      "240-layer-evaluation-required-check-gate",
+      "241-layer-evaluation-human-gate",
+      "242-layer-evaluation-support-dev52",
+      "243-evolution-dispatcher-route",
+      "244-evolution-dispatcher-admission",
+      "245-evolution-dispatcher-status-normalization",
+      "246-evolution-dispatcher-regression",
+      "247-evolution-dispatcher-support-dev53",
+      "248-improvement-work-order-layer-profile",
+      "249-improvement-work-order-boundary",
+      "250-challenger-artifact-seal",
+      "251-challenger-seal-tamper-regression",
+      "252-improvement-work-order-support-dev54",
+      "253-sealed-layer-evaluation-exact-chain",
+      "254-sealed-layer-evaluation-drift-gate",
+      "255-sealed-layer-evaluation-reference-gate",
+      "256-sealed-layer-evaluation-native-gate",
+      "257-sealed-layer-evaluation-support-dev55",
+      "258-sealed-dispatcher-non-model-route",
+      "259-sealed-dispatcher-legacy-bypass-block",
+      "260-sealed-dispatcher-model-regression",
+      "261-sealed-dispatcher-regression",
+      "262-sealed-dispatcher-support-dev56",
+      "263-sealed-model-work-order-binding",
+      "264-sealed-model-artifact-drift-gate",
+      "265-sealed-model-metadata-binding",
+      "266-sealed-model-existing-gates",
+      "267-sealed-model-support-dev57",
+      "268-fully-sealed-dispatcher-model-route",
+      "269-fully-sealed-dispatcher-model-bypass-block",
+      "270-fully-sealed-dispatcher-non-model-regression",
+      "271-fully-sealed-dispatcher-regression",
+      "272-fully-sealed-dispatcher-support-dev58",
+      "273-evaluation-run-receipt-model",
+      "274-evaluation-run-receipt-layer",
+      "275-evaluation-run-receipt-payload-drift",
+      "276-evaluation-run-receipt-integrity",
+      "277-evaluation-run-receipt-support-dev59",
+      "278-promotion-review-model-binding",
+      "279-promotion-review-layer-binding",
+      "280-promotion-review-eligibility-gate",
+      "281-promotion-review-integrity",
+      "282-promotion-review-support-dev60",
+      "283-promotion-preflight-baseline-freeze",
+      "284-promotion-preflight-path-boundary",
+      "285-promotion-preflight-rollback-gate",
+      "286-promotion-preflight-integrity",
+      "287-promotion-preflight-support-dev61",
+      "288-evolution-rehearsal-six-layers",
+      "289-evolution-rehearsal-rejection-gate",
+      "290-evolution-rehearsal-admission-gate",
+      "291-evolution-rehearsal-lineage",
+      "292-evolution-rehearsal-support-dev62",
+      "293-release-source-continuity",
+      "294-release-scenarios-1-4",
+      "295-release-scenarios-5-6",
+      "296-release-scenarios-7-8",
+      "297-release-readiness-support-dev63"
+    ],
+    "extended": [
+      "70-generic-series-matrix",
+      "71-data-document-joint",
+      "72-capability-boundary-matrix",
+      "73-lifecycle-negative-matrix",
+      "74-sat-replay-repeatability",
+      "75-adcs-replay-repeatability",
+      "76-generic-domain-coverage",
+      "77-model-capability-coverage",
+      "78-generic-knowledge-gap-review",
+      "79-mission-replay-unified",
+      "80-generic-input-contract",
+      "81-model-execution-bridge",
+      "82-single-signal-identifiability",
+      "83-generic-three-task-contract",
+      "84-generic-birrf-shadow",
+      "85-calibration-ood-abstention",
+      "86-document-provider-quality",
+      "87-data-literature-context",
+      "88-feedback-regression-binding",
+      "89-controlled-evolution",
+      "90-continuous-active-diagnosis",
+      "91-adcs-metric-protocol-ledger",
+      "92-adcs-current-v2-status",
+      "93-adcs-independent-confirmation-supply",
+      "94-adcs-calibration-ood-qualification",
+      "208-reviewed-claim-rag-asset-integrity",
+      "209-reviewed-claim-rag-exact-source-match",
+      "210-reviewed-claim-rag-ambiguity-boundary",
+      "211-reviewed-claim-rag-native-mission-bridge",
+      "212-reviewed-claim-rag-current-corpus-boundary",
+      "213-joint-evidence-branch-separation",
+      "214-joint-evidence-relevance-boundary",
+      "215-joint-evidence-mission-projection",
+      "216-joint-evidence-regression",
+      "217-joint-evidence-support-dev47",
+      "218-joint-evidence-feedback-catalog",
+      "219-joint-evidence-feedback-binding",
+      "220-joint-evidence-feedback-fail-closed",
+      "221-joint-evidence-feedback-regression-bridge",
+      "222-evidence-feedback-support-dev48",
+      "223-evidence-error-attribution-model",
+      "224-evidence-error-attribution-cross-branch",
+      "225-evidence-error-attribution-unbound",
+      "226-evidence-error-attribution-regression",
+      "227-evidence-error-attribution-support-dev49",
+      "228-controlled-feedback-processing-packet",
+      "229-controlled-feedback-idempotency",
+      "230-controlled-feedback-prewrite-gates",
+      "231-controlled-feedback-regression",
+      "232-controlled-feedback-support-dev50",
+      "233-challenger-candidate-admission",
+      "234-challenger-exact-binding",
+      "235-challenger-failure-regression-gate",
+      "236-challenger-human-gate",
+      "237-challenger-support-dev51",
+      "238-layer-evaluation-contract-routing",
+      "239-layer-evaluation-exact-binding",
+      "240-layer-evaluation-required-check-gate",
+      "241-layer-evaluation-human-gate",
+      "242-layer-evaluation-support-dev52",
+      "243-evolution-dispatcher-route",
+      "244-evolution-dispatcher-admission",
+      "245-evolution-dispatcher-status-normalization",
+      "246-evolution-dispatcher-regression",
+      "247-evolution-dispatcher-support-dev53",
+      "248-improvement-work-order-layer-profile",
+      "249-improvement-work-order-boundary",
+      "250-challenger-artifact-seal",
+      "251-challenger-seal-tamper-regression",
+      "252-improvement-work-order-support-dev54",
+      "253-sealed-layer-evaluation-exact-chain",
+      "254-sealed-layer-evaluation-drift-gate",
+      "255-sealed-layer-evaluation-reference-gate",
+      "256-sealed-layer-evaluation-native-gate",
+      "257-sealed-layer-evaluation-support-dev55",
+      "258-sealed-dispatcher-non-model-route",
+      "259-sealed-dispatcher-legacy-bypass-block",
+      "260-sealed-dispatcher-model-regression",
+      "261-sealed-dispatcher-regression",
+      "262-sealed-dispatcher-support-dev56",
+      "263-sealed-model-work-order-binding",
+      "264-sealed-model-artifact-drift-gate",
+      "265-sealed-model-metadata-binding",
+      "266-sealed-model-existing-gates",
+      "267-sealed-model-support-dev57",
+      "268-fully-sealed-dispatcher-model-route",
+      "269-fully-sealed-dispatcher-model-bypass-block",
+      "270-fully-sealed-dispatcher-non-model-regression",
+      "271-fully-sealed-dispatcher-regression",
+      "272-fully-sealed-dispatcher-support-dev58",
+      "273-evaluation-run-receipt-model",
+      "274-evaluation-run-receipt-layer",
+      "275-evaluation-run-receipt-payload-drift",
+      "276-evaluation-run-receipt-integrity",
+      "277-evaluation-run-receipt-support-dev59"
+    ],
+    "post49_stable": [
+      "298-post49-version-convergence",
+      "299-post49-rc-continuity",
+      "300-post49-scenario-boundary",
+      "301-post49-governance-distribution",
+      "302-post49-stable-readiness"
+    ]
+  }
+}

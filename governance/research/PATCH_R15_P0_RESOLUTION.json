@@ -1,0 +1,53 @@
+{
+  "schema_version": "astrograph-research-audit-resolution.v1",
+  "patch_id": "PATCH-R15",
+  "date": "2026-09-18",
+  "source_audit": "governance/research/PATCH_R14_RESEARCH_AUDIT.json",
+  "scope": "Close the five R14 P0 findings before real confirmatory execution; preserve P1/P2 as open.",
+  "resolved_findings": [
+    {
+      "id": "R14-GOV-001",
+      "status": "CLOSED",
+      "resolution": "Central FeatureResult validity classification now maps nonfinite/invalid/zero-sample data to INVALID_DATA and missing/insufficient data to MISSING_DATA before threshold comparison; conjuncts use the same policy.",
+      "tests": [
+        "tests/test_r15_evidence_validity_and_grounding.py"
+      ]
+    },
+    {
+      "id": "R14-GND-001",
+      "status": "CLOSED",
+      "resolution": "Mixed Evidence + Knowledge citations no longer disable measurement grounding; Evidence citation subsets remain numerically validated in Agent narrative and mixed hypothesis claims.",
+      "tests": [
+        "tests/test_r15_evidence_validity_and_grounding.py",
+        "tests/test_r13_stability_hardening.py"
+      ]
+    },
+    {
+      "id": "R14-RES-001",
+      "status": "CLOSED_PREEXECUTION_ENGINEERING",
+      "resolution": "group_id is the preregistered inferential unit. Case-level McNemar is descriptive only; group-direction exact sign inference and equal-group effect estimates are used for promotion.",
+      "tests": [
+        "tests/test_llm_method_confirmatory_campaign.py"
+      ]
+    },
+    {
+      "id": "R14-RES-002",
+      "status": "CLOSED_PREEXECUTION_ENGINEERING",
+      "resolution": "A7_NO_ACTIVE_PROBE vs A2_CONTROLLED_FULL is separately reported and preregistered as the only estimand allowed to inform future Probe formal-evidence-producer review.",
+      "tests": [
+        "tests/test_llm_method_ablation.py",
+        "tests/test_llm_method_confirmatory_campaign.py"
+      ]
+    },
+    {
+      "id": "R14-RES-003",
+      "status": "CLOSED_PREEXECUTION_ENGINEERING",
+      "resolution": "v3 design freezes equal-group effect size, 95% t interval, minimum effect, independent-group count, interval precision and exact group-direction p gates. Inadequate precision requires a new preregistered expanded campaign.",
+      "tests": [
+        "tests/test_llm_method_confirmatory_campaign.py"
+      ]
+    }
+  ],
+  "remaining_open_findings": 16,
+  "claim_boundary": "P0 closure means the engineering confirmatory design is no longer blocked by these five R14 findings. It does not create real A0-A7 results, formal Probe evidence authority, flight qualification, or resolution of the remaining R14 P1/P2 findings."
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "astrograph-extension-perimeter.v1",
+  "status": "OPTIONAL_PERIPHERAL",
+  "providers": [
+    {
+      "provider_name": "DOR",
+      "capabilities": ["SEMANTIC_AUDIT", "CONTROL_PLANE_AUDIT", "ACTIVE_DISCOVERY"],
+      "online_default": false,
+      "note": "Active discovery remains opt-in/offline unless an explicit reviewed runtime policy enables a bounded audit."
+    },
+    {
+      "provider_name": "FEC",
+      "capabilities": ["EVIDENCE_CALIBRATION"],
+      "online_default": false,
+      "note": "Evidence calibration is an extension receipt; FEC does not own AstroGraph runtime policy."
+    },
+    {
+      "provider_name": "ISGN",
+      "capabilities": ["MECHANISM_EVIDENCE"],
+      "online_default": false,
+      "note": "Mechanism discovery produces evidence/receipts and never mutates the active KG directly."
+    },
+    {
+      "provider_name": "M2N",
+      "capabilities": ["MODEL_CHALLENGER"],
+      "online_default": false,
+      "note": "Model design/challenger output must cross the stable ModelContract before promotion."
+    }
+  ]
+}

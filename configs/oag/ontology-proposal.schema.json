@@ -1,0 +1,74 @@
+{
+  "$defs": {
+    "KnowledgeTriple": {
+      "additionalProperties": false,
+      "properties": {
+        "subject": {
+          "minLength": 1,
+          "title": "Subject",
+          "type": "string"
+        },
+        "predicate": {
+          "enum": [
+            "part_of",
+            "affects",
+            "associated_with",
+            "measured_by",
+            "has_symptom",
+            "requires_evidence"
+          ],
+          "title": "Predicate",
+          "type": "string"
+        },
+        "object": {
+          "minLength": 1,
+          "title": "Object",
+          "type": "string"
+        },
+        "source_document_id": {
+          "minLength": 1,
+          "title": "Source Document Id",
+          "type": "string"
+        },
+        "source_quote": {
+          "minLength": 1,
+          "title": "Source Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "predicate",
+        "object",
+        "source_document_id",
+        "source_quote"
+      ],
+      "title": "KnowledgeTriple",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "triples": {
+      "items": {
+        "$ref": "#/$defs/KnowledgeTriple"
+      },
+      "title": "Triples",
+      "type": "array"
+    },
+    "lifecycle": {
+      "const": "REVIEW_REQUIRED",
+      "default": "REVIEW_REQUIRED",
+      "title": "Lifecycle",
+      "type": "string"
+    },
+    "active_kg_modified": {
+      "const": false,
+      "default": false,
+      "title": "Active Kg Modified",
+      "type": "boolean"
+    }
+  },
+  "title": "OntologyProposal",
+  "type": "object"
+}

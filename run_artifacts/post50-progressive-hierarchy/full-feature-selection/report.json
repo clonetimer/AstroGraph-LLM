@@ -1,0 +1,502 @@
+{
+  "schema_version": "astrograph-adcs-v522-deep-comparison.v1",
+  "split_audit": {
+    "schema_version": "astrograph-adcs-v522-split-audit.v1",
+    "primary_group_key": "trajectory_pair_id",
+    "assignment": "sample_index modulo 5; train={0,1,2}, validation={3}, test={4}",
+    "group_overlap": {
+      "train_validation": [],
+      "train_test": [],
+      "validation_test": []
+    },
+    "group_overlap_count": 0,
+    "splits": {
+      "train": {
+        "trajectory_count": 546,
+        "fault_trajectory_count": 528,
+        "nominal_trajectory_count": 18,
+        "trajectory_group_count": 18,
+        "scenario_counts": {
+          "attitude_acquisition_post_settle": 132,
+          "attitude_acquisition_transient": 132,
+          "nominal_baseline": 18,
+          "propulsive_maneuver_preburn_settled": 132,
+          "steady_pointing_payload_settled": 132
+        },
+        "class_counts": {
+          "adcs_control_loop_failure": 24,
+          "adcs_gyro_bias_step": 24,
+          "adcs_imu_axis_dropout": 24,
+          "adcs_imu_gyro_noise_amplification": 24,
+          "adcs_imu_total_output_zero": 48,
+          "adcs_rw_jamming": 24,
+          "adcs_rw_speed_sensor_fault": 24,
+          "adcs_rw_torque_path_open": 48,
+          "adcs_star_solution_constant_bias": 24,
+          "adcs_star_solution_unavailable": 120,
+          "adcs_star_tracker_stuck_at_last": 24,
+          "adcs_sun_sensor_cell_failure": 24,
+          "adcs_sun_sensor_saturation": 24,
+          "adcs_sun_vector_unavailable": 72,
+          "nominal": 18
+        }
+      },
+      "validation": {
+        "trajectory_count": 182,
+        "fault_trajectory_count": 176,
+        "nominal_trajectory_count": 6,
+        "trajectory_group_count": 6,
+        "scenario_counts": {
+          "attitude_acquisition_post_settle": 44,
+          "attitude_acquisition_transient": 44,
+          "nominal_baseline": 6,
+          "propulsive_maneuver_preburn_settled": 44,
+          "steady_pointing_payload_settled": 44
+        },
+        "class_counts": {
+          "adcs_control_loop_failure": 8,
+          "adcs_gyro_bias_step": 8,
+          "adcs_imu_axis_dropout": 8,
+          "adcs_imu_gyro_noise_amplification": 8,
+          "adcs_imu_total_output_zero": 16,
+          "adcs_rw_jamming": 8,
+          "adcs_rw_speed_sensor_fault": 8,
+          "adcs_rw_torque_path_open": 16,
+          "adcs_star_solution_constant_bias": 8,
+          "adcs_star_solution_unavailable": 40,
+          "adcs_star_tracker_stuck_at_last": 8,
+          "adcs_sun_sensor_cell_failure": 8,
+          "adcs_sun_sensor_saturation": 8,
+          "adcs_sun_vector_unavailable": 24,
+          "nominal": 6
+        }
+      },
+      "test": {
+        "trajectory_count": 182,
+        "fault_trajectory_count": 176,
+        "nominal_trajectory_count": 6,
+        "trajectory_group_count": 6,
+        "scenario_counts": {
+          "attitude_acquisition_post_settle": 44,
+          "attitude_acquisition_transient": 44,
+          "nominal_baseline": 6,
+          "propulsive_maneuver_preburn_settled": 44,
+          "steady_pointing_payload_settled": 44
+        },
+        "class_counts": {
+          "adcs_control_loop_failure": 8,
+          "adcs_gyro_bias_step": 8,
+          "adcs_imu_axis_dropout": 8,
+          "adcs_imu_gyro_noise_amplification": 8,
+          "adcs_imu_total_output_zero": 16,
+          "adcs_rw_jamming": 8,
+          "adcs_rw_speed_sensor_fault": 8,
+          "adcs_rw_torque_path_open": 16,
+          "adcs_star_solution_constant_bias": 8,
+          "adcs_star_solution_unavailable": 40,
+          "adcs_star_tracker_stuck_at_last": 8,
+          "adcs_sun_sensor_cell_failure": 8,
+          "adcs_sun_sensor_saturation": 8,
+          "adcs_sun_vector_unavailable": 24,
+          "nominal": 6
+        }
+      }
+    },
+    "frozen_counts_match": true,
+    "status": "PASS"
+  },
+  "window_counts": {
+    "train": 32148,
+    "validation": 12408,
+    "test": 51324
+  },
+  "selection": "validation weighted macro-F1: detection .2 + localization .3 + classification .5",
+  "preprocessing": {
+    "schema_version": "astrograph-channel-preprocessor.v1",
+    "method": "standard",
+    "fit_scope": "train_only",
+    "channel_count": 49,
+    "clipped_channel_count": 0,
+    "normalized_clip": null,
+    "finite_state": true
+  },
+  "feature_profile": "full",
+  "feature_columns": [
+    "adcs.pointing_error_deg",
+    "adcs.sensor.gyro_measured_rad_s_x",
+    "adcs.sensor.gyro_measured_rad_s_y",
+    "adcs.sensor.gyro_measured_rad_s_z",
+    "adcs.sensor.imu.valid",
+    "adcs.sensor.gyro_axis_valid_x",
+    "adcs.sensor.gyro_axis_valid_y",
+    "adcs.sensor.gyro_axis_valid_z",
+    "adcs.star_tracker.valid",
+    "adcs.star_tracker.solution_fresh",
+    "adcs.sun_sensor.valid",
+    "adcs.sun_sensor.saturated",
+    "adcs.sun_sensor.cell_healthy",
+    "adcs.rw.command_execution_residual_norm_nm",
+    "adcs.rw.speed_response_residual_norm_nm",
+    "adcs.rw.speed_sensor_invalid_count",
+    "adcs.sensor.gyro_invalid_axis_count",
+    "adcs.rw.measured_speed_rad_s_0",
+    "adcs.rw.measured_speed_rad_s_1",
+    "adcs.rw.measured_speed_rad_s_2",
+    "adcs.rw.measured_speed_rad_s_3",
+    "adcs.rw.command_torque_nm_0",
+    "adcs.rw.command_torque_nm_1",
+    "adcs.rw.command_torque_nm_2",
+    "adcs.rw.command_torque_nm_3",
+    "adcs.rw.motor_current_a_0",
+    "adcs.rw.motor_current_a_1",
+    "adcs.rw.motor_current_a_2",
+    "adcs.rw.motor_current_a_3",
+    "adcs.innovation.star_gyro_rate_residual_rad_s_x",
+    "adcs.innovation.star_gyro_rate_residual_rad_s_y",
+    "adcs.innovation.star_gyro_rate_residual_rad_s_z",
+    "adcs.innovation.star_gyro_rate_residual_norm_rad_s",
+    "adcs.rw.command_execution_residual_nm_0",
+    "adcs.rw.command_execution_residual_nm_1",
+    "adcs.rw.command_execution_residual_nm_2",
+    "adcs.rw.command_execution_residual_nm_3",
+    "adcs.rw.speed_response_residual_nm_0",
+    "adcs.rw.speed_response_residual_nm_1",
+    "adcs.rw.speed_response_residual_nm_2",
+    "adcs.rw.speed_response_residual_nm_3",
+    "adcs.rw.commanded_current_a_0",
+    "adcs.rw.commanded_current_a_1",
+    "adcs.rw.commanded_current_a_2",
+    "adcs.rw.commanded_current_a_3",
+    "adcs.rw.applied_current_a_0",
+    "adcs.rw.applied_current_a_1",
+    "adcs.rw.applied_current_a_2",
+    "adcs.rw.applied_current_a_3"
+  ],
+  "alarm_policy_mode": "hysteresis",
+  "external_nominal_root": null,
+  "development_nominal_root": "/mnt/PRO6000_disk/Timer/sat/data/generated/adcs_nominal_envelope_development_seed20260923",
+  "development_nominal_partition_policy": "indices 0,1,2,5,6,7 augment train; 3,4,8,9 augment validation",
+  "models": [
+    {
+      "family": "progressive_hierarchical_gat_tcn",
+      "parameter_count": 138744,
+      "best_epoch": 3,
+      "best_validation": {
+        "detection_macro_f1": 0.8143301582251566,
+        "detection_selection_score": 0.8090717747402743,
+        "fault_event_recall": 0.8068181818181818,
+        "nominal_trajectory_false_alarm_rate": 0.0,
+        "false_alarm_episodes_per_hour": 0.0,
+        "nominal_trajectory_false_alarm_constraint": 0.05,
+        "meets_nominal_false_alarm_constraint": true,
+        "detector_deep_blend_alpha": 1.0,
+        "detection_threshold": 0.99,
+        "alarm_on_threshold": 0.99,
+        "alarm_off_threshold": 0.89,
+        "alarm_minimum_consecutive": 5,
+        "localization_macro_f1": 0.9037166311131823,
+        "classification_macro_f1": 0.8589589973424715,
+        "hierarchy_blend_alpha": 0.0,
+        "conditioning_mode": "hard",
+        "selection_score": 0.8624088429532453,
+        "epoch": 3,
+        "train_loss": 0.6471091928552659
+      },
+      "training_seconds": 281.26129403800223,
+      "seed": 20260814,
+      "device": "cpu",
+      "batch_size": 512,
+      "maximum_epochs": 3,
+      "minimum_epochs": 0,
+      "early_stop_patience": 2,
+      "epochs_completed": 3,
+      "peak_cuda_memory_bytes": null,
+      "receptive_field": 29,
+      "hierarchy_consistency_weight": 0.0,
+      "gradient_strategy": "sum",
+      "gradient_audit": [],
+      "cuda_device_name": null,
+      "branching_mode": "graph_free_detection_plus_six_level_progressive_gat_diagnosis",
+      "mechanism_graph": {
+        "schema_version": "astrograph-progressive-diagnosis-hierarchy.v1",
+        "graph_id": "adcs_v5_2_2",
+        "parameters": [
+          "pointing_error",
+          "gyro_measurement",
+          "imu_validity",
+          "rw_speed",
+          "rw_torque_command",
+          "rw_current",
+          "rw_execution_residual",
+          "rw_speed_residual",
+          "rw_sensor_validity",
+          "star_validity",
+          "sun_validity"
+        ],
+        "parts": [
+          "attitude_error_signal",
+          "gyro_triad",
+          "imu_health_logic",
+          "wheel_rotor_sensor",
+          "wheel_drive",
+          "wheel_residual_monitor",
+          "star_tracker_head",
+          "sun_sensor_head"
+        ],
+        "components": [
+          "control_loop",
+          "imu",
+          "reaction_wheel",
+          "star_tracker",
+          "sun_sensor"
+        ],
+        "functional_modules": [
+          "attitude_control",
+          "inertial_sensing",
+          "actuation",
+          "optical_sensing"
+        ],
+        "subsystems": [
+          "adcs"
+        ],
+        "spacecraft": "whole_spacecraft",
+        "parameter_groups": [
+          [
+            0
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6,
+            7,
+            16
+          ],
+          [
+            17,
+            18,
+            19,
+            20
+          ],
+          [
+            21,
+            22,
+            23,
+            24
+          ],
+          [
+            25,
+            26,
+            27,
+            28
+          ],
+          [
+            13
+          ],
+          [
+            14
+          ],
+          [
+            15
+          ],
+          [
+            8,
+            9
+          ],
+          [
+            10,
+            11,
+            12
+          ]
+        ],
+        "parameter_part": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          4,
+          5,
+          5,
+          3,
+          6,
+          7
+        ],
+        "part_component": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          2,
+          3,
+          4
+        ],
+        "component_module": [
+          0,
+          1,
+          2,
+          3,
+          3
+        ],
+        "module_subsystem": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "channel_routing": {
+          "pointing_error": [
+            "adcs.pointing_error_deg"
+          ],
+          "gyro_measurement": [
+            "adcs.sensor.gyro_measured_rad_s_x",
+            "adcs.sensor.gyro_measured_rad_s_y",
+            "adcs.sensor.gyro_measured_rad_s_z"
+          ],
+          "imu_validity": [
+            "adcs.sensor.imu.valid",
+            "adcs.sensor.gyro_axis_valid_x",
+            "adcs.sensor.gyro_axis_valid_y",
+            "adcs.sensor.gyro_axis_valid_z",
+            "adcs.sensor.gyro_invalid_axis_count"
+          ],
+          "rw_speed": [
+            "adcs.rw.measured_speed_rad_s_0",
+            "adcs.rw.measured_speed_rad_s_1",
+            "adcs.rw.measured_speed_rad_s_2",
+            "adcs.rw.measured_speed_rad_s_3"
+          ],
+          "rw_torque_command": [
+            "adcs.rw.command_torque_nm_0",
+            "adcs.rw.command_torque_nm_1",
+            "adcs.rw.command_torque_nm_2",
+            "adcs.rw.command_torque_nm_3"
+          ],
+          "rw_current": [
+            "adcs.rw.motor_current_a_0",
+            "adcs.rw.motor_current_a_1",
+            "adcs.rw.motor_current_a_2",
+            "adcs.rw.motor_current_a_3"
+          ],
+          "rw_execution_residual": [
+            "adcs.rw.command_execution_residual_norm_nm"
+          ],
+          "rw_speed_residual": [
+            "adcs.rw.speed_response_residual_norm_nm"
+          ],
+          "rw_sensor_validity": [
+            "adcs.rw.speed_sensor_invalid_count"
+          ],
+          "star_validity": [
+            "adcs.star_tracker.valid",
+            "adcs.star_tracker.solution_fresh"
+          ],
+          "sun_validity": [
+            "adcs.sun_sensor.valid",
+            "adcs.sun_sensor.saturated",
+            "adcs.sun_sensor.cell_healthy"
+          ]
+        },
+        "claim_boundary": "Synthetic ADCS engineering hierarchy used as a reviewed routing prior. It is neither learned causality nor evidence of flight-level topology.",
+        "topology_fit_scope": "configuration_only; no telemetry values or labels used"
+      },
+      "graph_diagnostics": {
+        "hierarchy_levels": [
+          "parameter",
+          "part",
+          "component",
+          "functional_module",
+          "subsystem",
+          "whole_spacecraft"
+        ],
+        "level_counts": [
+          11,
+          8,
+          5,
+          4,
+          1,
+          1
+        ],
+        "top_down_gates": [
+          0.09302855283021927,
+          0.09302855283021927,
+          0.10269363969564438
+        ],
+        "detection_uses_graph": false,
+        "topology_fit_scope": "reviewed configuration only; no telemetry values or labels"
+      },
+      "validation_history": [
+        {
+          "detection_macro_f1": 0.7417556535586214,
+          "detection_selection_score": 0.7753676051584955,
+          "fault_event_recall": 0.7897727272727273,
+          "nominal_trajectory_false_alarm_rate": 0.0,
+          "false_alarm_episodes_per_hour": 0.0,
+          "nominal_trajectory_false_alarm_constraint": 0.05,
+          "meets_nominal_false_alarm_constraint": true,
+          "detector_deep_blend_alpha": 1.0,
+          "detection_threshold": 0.975,
+          "alarm_on_threshold": 0.975,
+          "alarm_off_threshold": 0.875,
+          "alarm_minimum_consecutive": 10,
+          "localization_macro_f1": 0.8864633603728717,
+          "classification_macro_f1": 0.8117326823164597,
+          "hierarchy_blend_alpha": 1.0,
+          "conditioning_mode": "hard",
+          "selection_score": 0.8268788703017904,
+          "epoch": 1,
+          "train_loss": 1.668935189625955
+        },
+        {
+          "detection_macro_f1": 0.8060990680178999,
+          "detection_selection_score": 0.8026251749508245,
+          "fault_event_recall": 0.8011363636363636,
+          "nominal_trajectory_false_alarm_rate": 0.0,
+          "false_alarm_episodes_per_hour": 0.0,
+          "nominal_trajectory_false_alarm_constraint": 0.05,
+          "meets_nominal_false_alarm_constraint": true,
+          "detector_deep_blend_alpha": 1.0,
+          "detection_threshold": 0.99,
+          "alarm_on_threshold": 0.99,
+          "alarm_off_threshold": 0.89,
+          "alarm_minimum_consecutive": 5,
+          "localization_macro_f1": 0.8973190640495604,
+          "classification_macro_f1": 0.8546371057907967,
+          "hierarchy_blend_alpha": 0.75,
+          "conditioning_mode": "hard",
+          "selection_score": 0.8570393071004314,
+          "epoch": 2,
+          "train_loss": 0.7911287731564844
+        },
+        {
+          "detection_macro_f1": 0.8143301582251566,
+          "detection_selection_score": 0.8090717747402743,
+          "fault_event_recall": 0.8068181818181818,
+          "nominal_trajectory_false_alarm_rate": 0.0,
+          "false_alarm_episodes_per_hour": 0.0,
+          "nominal_trajectory_false_alarm_constraint": 0.05,
+          "meets_nominal_false_alarm_constraint": true,
+          "detector_deep_blend_alpha": 1.0,
+          "detection_threshold": 0.99,
+          "alarm_on_threshold": 0.99,
+          "alarm_off_threshold": 0.89,
+          "alarm_minimum_consecutive": 5,
+          "localization_macro_f1": 0.9037166311131823,
+          "classification_macro_f1": 0.8589589973424715,
+          "hierarchy_blend_alpha": 0.0,
+          "conditioning_mode": "hard",
+          "selection_score": 0.8624088429532453,
+          "epoch": 3,
+          "train_loss": 0.6471091928552659
+        }
+      ],
+      "evaluation_scope": "validation_only; test scores were not computed"
+    }
+  ],
+  "claim_boundary": "Single-seed architecture screening on E0 synthetic data; no production promotion."
+}

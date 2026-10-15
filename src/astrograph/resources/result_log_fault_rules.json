@@ -1,0 +1,97 @@
+{
+  "schema_version": "astrograph-result-log-rule-catalog.v1",
+  "status": "ENGINEERING_HEURISTICS_REVIEW_REQUIRED",
+  "notes": "Engineering mechanism examples derived from bundled reference/evidence_sources contracts; not flight-qualified, not learned probabilities.",
+  "rules": [
+    {
+      "fault_id": "ADCS_RW_FRICTION_INCREASE", "label": "反作用轮摩擦增大",
+      "aliases": ["反作用轮摩擦增大", "reaction wheel friction", "rw friction"],
+      "log_signals": ["friction_torque", "motor_current", "winding_temp", "bearing drag", "摩擦力矩", "电机电流", "轮绕组温度"],
+      "reference_terms": ["摩擦", "friction", "电机电流", "轮速"],
+      "cause": "反作用轮机械阻力增加或轴承/润滑状态变化；当前仅是待复核机理假设。",
+      "actions": ["复核同一反作用轮的电机电流、轮速与绕组温度随时间的变化，并排除控制指令变化。", "核对摩擦力矩估计与可用轮组健康状态；涉及轮组降额或切换时按飞控审批流程实施。"],
+      "verification": ["对照轮速、力矩指令和电流的同时间窗口变化", "排查轮卡滞或扭矩能力下降等混淆故障"]
+    },
+    {
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS", "label": "反作用轮输出扭矩能力下降",
+      "aliases": ["反作用轮扭矩能力下降", "reaction wheel torque authority loss", "rw torque loss"],
+      "log_signals": ["torque_residual", "torque_saturation", "requested torque", "applied torque", "力矩不足", "扭矩残差", "扭矩饱和"],
+      "reference_terms": ["扭矩", "torque", "力矩", "reaction wheel"],
+      "cause": "反作用轮执行扭矩不足，可能涉及驱动链路受限或执行能力衰退，需区分限幅与硬件异常。",
+      "actions": ["比较控制指令扭矩、实际扭矩、轮速及姿态控制误差。", "检查是否因指令饱和、限幅或电源约束引起；需调整控制分配时先按授权流程评审。"],
+      "verification": ["定量核对命令-响应残差", "区分摩擦增大与扭矩能力下降"]
+    },
+    {
+      "fault_id": "ADCS_STAR_TRACKER_DROPOUT", "label": "星敏感器失锁或数据中断",
+      "aliases": ["星敏感器失锁", "星敏数据中断", "star tracker dropout", "star tracker lost"],
+      "log_signals": ["star_tracker_valid", "star_tracker_locked", "data_age", "lost lock", "tracker invalid", "星敏失锁", "星敏无效", "星敏中断"],
+      "reference_terms": ["星敏", "star tracker", "失锁", "gyro propagation"],
+      "cause": "星敏感器姿态解不可用或更新中断，融合器可能退化为仅依赖陀螺递推；失锁诱因需另行调查。",
+      "actions": ["核对星敏有效/锁定标志、数据时效、融合模式及姿态误差时间线。", "检查遮挡、强光、温度和接口链路；任何姿态源切换应按在轨操作规程获批。"],
+      "verification": ["核对失锁与陀螺递推模式切换顺序", "复核星敏重捕获后姿态误差是否收敛"]
+    },
+    {
+      "fault_id": "ADCS_GYRO_BIAS_DRIFT", "label": "陀螺仪零偏漂移",
+      "aliases": ["陀螺仪零偏漂移", "gyro bias drift", "陀螺零偏"],
+      "log_signals": ["gyro_bias", "rate_residual", "bias drift", "零偏", "角速度残差", "gyroscope drift"],
+      "reference_terms": ["陀螺", "gyro", "零偏", "bias"],
+      "cause": "陀螺仪零偏或温漂造成的角速度估计误差；需排除姿态参考更新中断的影响。",
+      "actions": ["交叉比对陀螺输出、星敏姿态残差、温度与估计零偏的时间序列。", "核对标定有效性和温度依赖性，避免直接更新在轨标定常数。"],
+      "verification": ["检查多源姿态解残差", "对照温度变化和估计零偏漂移"]
+    },
+    {
+      "fault_id": "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE", "label": "电池内阻增大",
+      "aliases": ["电池内阻增大", "battery internal resistance", "battery resistance increase"],
+      "log_signals": ["battery_voltage", "battery_current", "battery_temp", "voltage sag", "internal_resistance", "压降", "电池温度", "电池内阻"],
+      "reference_terms": ["内阻", "resistance", "电池", "battery"],
+      "cause": "电池等效内阻增长可能导致负载下端电压偏差和附加热损耗；需排除负载突变和传感器偏置。",
+      "actions": ["对齐充放电电流、端电压、SOC 和温度记录，比较类似负载工况。", "检查电池管理告警与功率预算；涉及充放电策略修改必须经过安全与飞控审批。"],
+      "verification": ["评估负载变化是否能解释电压偏差", "复核电压/电流传感器有效性"]
+    },
+    {
+      "fault_id": "EPS_SOLAR_ARRAY_STRING_FAILURE", "label": "太阳阵支路故障",
+      "aliases": ["太阳阵支路故障", "solar array string failure", "太阳电池阵支路失效"],
+      "log_signals": ["array_current", "solar_string", "solar_power", "string open", "太阳阵电流", "发电功率下降", "支路电流"],
+      "reference_terms": ["太阳阵", "solar array", "支路", "string"],
+      "cause": "光伏阵列某支路发电能力下降或支路开路；需先排除遮挡、姿态与照明变化。",
+      "actions": ["比对太阳阵各支路电流、电压、光照和姿态模式，排除进出地影因素。", "开展功率余量复核；涉及电源重构需人工审批。"],
+      "verification": ["排除地影及太阳入射角变化", "核对各支路相对功率差异"]
+    },
+    {
+      "fault_id": "THERMAL_HEATER_STUCK_ON", "label": "加热器持续导通",
+      "aliases": ["加热器持续导通", "heater stuck on", "加热器卡常开"],
+      "log_signals": ["heater_on", "heater_command", "heater_current", "temperature rising", "加热器导通", "加热器电流", "温度持续升高"],
+      "reference_terms": ["加热器", "heater", "热控", "导通"],
+      "cause": "加热器可能因开关驱动故障持续供电，也可能是温控指令或采样异常；需区分指令与实际电流。",
+      "actions": ["核对温控设定值、加热器指令与实际开关/电流状态及相邻温度。", "在实施断电或热控重配前进行热安全评审和授权确认。"],
+      "verification": ["检查指令与开关回读是否一致", "核对独立温度测点"]
+    },
+    {
+      "fault_id": "THERMAL_TEMPERATURE_SENSOR_BIAS", "label": "温度传感器偏置",
+      "aliases": ["温度传感器偏置", "temperature sensor bias", "温度传感器漂移"],
+      "log_signals": ["temperature_sensor", "sensor_bias", "temp residual", "温度偏差", "传感器偏置", "测点不一致"],
+      "reference_terms": ["温度传感器", "temperature sensor", "偏置", "bias"],
+      "cause": "温度测点可能存在零点偏移、漂移或测量链路异常，不能仅凭单测点变化认定真实热事件。",
+      "actions": ["交叉比较冗余测点、加热器指令及热模型预期趋势。", "检查传感器接口和时标，标定参数变更须经过审查。"],
+      "verification": ["核对空间相邻测点是否一致", "区分传感器偏置与真实升温"]
+    },
+    {
+      "fault_id": "COMM_TRANSMITTER_OUTPUT_POWER_LOSS", "label": "通信发射机功率下降",
+      "aliases": ["通信发射机功率下降", "transmitter output power loss", "发射功率下降"],
+      "log_signals": ["tx_power", "pa_current", "transmitter_power", "rssi", "发射功率", "功放电流", "下行链路衰减"],
+      "reference_terms": ["发射机", "transmitter", "功放", "output power"],
+      "cause": "功率放大链路的输出降低，或供电/测量链路异常；需排除地面链路变化。",
+      "actions": ["核对发射机功率回读、供电电流、温度与地面接收质量并对齐通信窗口。", "检查配置变更及链路预算；切换发射链路需经任务授权。"],
+      "verification": ["区分卫星端功率下降与地面链路衰落", "检查功放供电和温度"]
+    },
+    {
+      "fault_id": "DATA_STORAGE_WRITE_FAILURE", "label": "存储写入失败",
+      "aliases": ["存储写入失败", "storage write failure", "write failed", "数据写入故障"],
+      "log_signals": ["write error", "write failed", "i/o error", "fs error", "存储写入失败", "文件系统错误", "写入超时"],
+      "reference_terms": ["存储", "storage", "write", "写入"],
+      "cause": "存储器或文件系统写入链路异常，也可能是容量、权限、总线超时或任务并发导致。",
+      "actions": ["检查写入错误码、剩余容量、设备状态和任务时序，先保全日志与数据。", "规划只读检查及恢复策略；任何格式化、重置或数据删除操作均须经过任务批准。"],
+      "verification": ["交叉核对设备错误码、容量与文件系统日志", "排除软件任务竞争和短时总线异常"]
+    }
+  ]
+}

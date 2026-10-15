@@ -1,0 +1,1976 @@
+{
+  "schema_version": "astrograph-configured-runtime-evidence.v1",
+  "package_id": "adcs-v522-paired-rw-window",
+  "version": "1.0.0",
+  "source_schema_sha256": "e72b774ab9e950d07641ea0b7b82ecaada2c3d7e005e95918f270350b0dc9136",
+  "domain_id": "ADCS_V5_2_2",
+  "analysis_component_instance": "ADCS",
+  "episode_mode": "full_run",
+  "time_axis": {
+    "source_field": "time_s",
+    "source_unit": "s"
+  },
+  "channels": [
+    {
+      "source_field": "derived.rw.window.0.command_rms",
+      "semantic_channel_id": "asset.adcs.rw_0.window.command_rms",
+      "component_instance": "RW_0",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.nominal_command_rms",
+      "semantic_channel_id": "asset.adcs.rw_0.window.nominal_command_rms",
+      "component_instance": "RW_0",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.transfer_gain",
+      "semantic_channel_id": "asset.adcs.rw_0.window.transfer_gain",
+      "component_instance": "RW_0",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.nominal_transfer_gain",
+      "semantic_channel_id": "asset.adcs.rw_0.window.nominal_transfer_gain",
+      "component_instance": "RW_0",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.gain_distance_from_one",
+      "semantic_channel_id": "asset.adcs.rw_0.window.gain_distance_from_one",
+      "component_instance": "RW_0",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.transfer_fit_error",
+      "semantic_channel_id": "asset.adcs.rw_0.window.transfer_fit_error",
+      "component_instance": "RW_0",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.nominal_transfer_fit_error",
+      "semantic_channel_id": "asset.adcs.rw_0.window.nominal_transfer_fit_error",
+      "component_instance": "RW_0",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.speed_absmax",
+      "semantic_channel_id": "asset.adcs.rw_0.window.speed_absmax",
+      "component_instance": "RW_0",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.nominal_speed_absmin",
+      "semantic_channel_id": "asset.adcs.rw_0.window.nominal_speed_absmin",
+      "component_instance": "RW_0",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.speed_offset_absmean",
+      "semantic_channel_id": "asset.adcs.rw_0.window.speed_offset_absmean",
+      "component_instance": "RW_0",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.speed_offset_std",
+      "semantic_channel_id": "asset.adcs.rw_0.window.speed_offset_std",
+      "component_instance": "RW_0",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.0.paired_command_absmax",
+      "semantic_channel_id": "asset.adcs.rw_0.window.paired_command_absmax",
+      "component_instance": "RW_0",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.command_rms",
+      "semantic_channel_id": "asset.adcs.rw_1.window.command_rms",
+      "component_instance": "RW_1",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.nominal_command_rms",
+      "semantic_channel_id": "asset.adcs.rw_1.window.nominal_command_rms",
+      "component_instance": "RW_1",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.transfer_gain",
+      "semantic_channel_id": "asset.adcs.rw_1.window.transfer_gain",
+      "component_instance": "RW_1",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.nominal_transfer_gain",
+      "semantic_channel_id": "asset.adcs.rw_1.window.nominal_transfer_gain",
+      "component_instance": "RW_1",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.gain_distance_from_one",
+      "semantic_channel_id": "asset.adcs.rw_1.window.gain_distance_from_one",
+      "component_instance": "RW_1",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.transfer_fit_error",
+      "semantic_channel_id": "asset.adcs.rw_1.window.transfer_fit_error",
+      "component_instance": "RW_1",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.nominal_transfer_fit_error",
+      "semantic_channel_id": "asset.adcs.rw_1.window.nominal_transfer_fit_error",
+      "component_instance": "RW_1",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.speed_absmax",
+      "semantic_channel_id": "asset.adcs.rw_1.window.speed_absmax",
+      "component_instance": "RW_1",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.nominal_speed_absmin",
+      "semantic_channel_id": "asset.adcs.rw_1.window.nominal_speed_absmin",
+      "component_instance": "RW_1",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.speed_offset_absmean",
+      "semantic_channel_id": "asset.adcs.rw_1.window.speed_offset_absmean",
+      "component_instance": "RW_1",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.speed_offset_std",
+      "semantic_channel_id": "asset.adcs.rw_1.window.speed_offset_std",
+      "component_instance": "RW_1",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.1.paired_command_absmax",
+      "semantic_channel_id": "asset.adcs.rw_1.window.paired_command_absmax",
+      "component_instance": "RW_1",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.command_rms",
+      "semantic_channel_id": "asset.adcs.rw_2.window.command_rms",
+      "component_instance": "RW_2",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.nominal_command_rms",
+      "semantic_channel_id": "asset.adcs.rw_2.window.nominal_command_rms",
+      "component_instance": "RW_2",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.transfer_gain",
+      "semantic_channel_id": "asset.adcs.rw_2.window.transfer_gain",
+      "component_instance": "RW_2",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.nominal_transfer_gain",
+      "semantic_channel_id": "asset.adcs.rw_2.window.nominal_transfer_gain",
+      "component_instance": "RW_2",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.gain_distance_from_one",
+      "semantic_channel_id": "asset.adcs.rw_2.window.gain_distance_from_one",
+      "component_instance": "RW_2",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.transfer_fit_error",
+      "semantic_channel_id": "asset.adcs.rw_2.window.transfer_fit_error",
+      "component_instance": "RW_2",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.nominal_transfer_fit_error",
+      "semantic_channel_id": "asset.adcs.rw_2.window.nominal_transfer_fit_error",
+      "component_instance": "RW_2",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.speed_absmax",
+      "semantic_channel_id": "asset.adcs.rw_2.window.speed_absmax",
+      "component_instance": "RW_2",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.nominal_speed_absmin",
+      "semantic_channel_id": "asset.adcs.rw_2.window.nominal_speed_absmin",
+      "component_instance": "RW_2",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.speed_offset_absmean",
+      "semantic_channel_id": "asset.adcs.rw_2.window.speed_offset_absmean",
+      "component_instance": "RW_2",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.speed_offset_std",
+      "semantic_channel_id": "asset.adcs.rw_2.window.speed_offset_std",
+      "component_instance": "RW_2",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.2.paired_command_absmax",
+      "semantic_channel_id": "asset.adcs.rw_2.window.paired_command_absmax",
+      "component_instance": "RW_2",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.command_rms",
+      "semantic_channel_id": "asset.adcs.rw_3.window.command_rms",
+      "component_instance": "RW_3",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.nominal_command_rms",
+      "semantic_channel_id": "asset.adcs.rw_3.window.nominal_command_rms",
+      "component_instance": "RW_3",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.transfer_gain",
+      "semantic_channel_id": "asset.adcs.rw_3.window.transfer_gain",
+      "component_instance": "RW_3",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.nominal_transfer_gain",
+      "semantic_channel_id": "asset.adcs.rw_3.window.nominal_transfer_gain",
+      "component_instance": "RW_3",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.gain_distance_from_one",
+      "semantic_channel_id": "asset.adcs.rw_3.window.gain_distance_from_one",
+      "component_instance": "RW_3",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.transfer_fit_error",
+      "semantic_channel_id": "asset.adcs.rw_3.window.transfer_fit_error",
+      "component_instance": "RW_3",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.nominal_transfer_fit_error",
+      "semantic_channel_id": "asset.adcs.rw_3.window.nominal_transfer_fit_error",
+      "component_instance": "RW_3",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.speed_absmax",
+      "semantic_channel_id": "asset.adcs.rw_3.window.speed_absmax",
+      "component_instance": "RW_3",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.nominal_speed_absmin",
+      "semantic_channel_id": "asset.adcs.rw_3.window.nominal_speed_absmin",
+      "component_instance": "RW_3",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.speed_offset_absmean",
+      "semantic_channel_id": "asset.adcs.rw_3.window.speed_offset_absmean",
+      "component_instance": "RW_3",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.speed_offset_std",
+      "semantic_channel_id": "asset.adcs.rw_3.window.speed_offset_std",
+      "component_instance": "RW_3",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    },
+    {
+      "source_field": "derived.rw.window.3.paired_command_absmax",
+      "semantic_channel_id": "asset.adcs.rw_3.window.paired_command_absmax",
+      "component_instance": "RW_3",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.0
+    }
+  ],
+  "feature_definitions": [
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-COMMAND-RMS-V1",
+      "name": "RW0 window statistic: command_rms",
+      "source_field_template": "asset.adcs.rw_0.window.command_rms",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-COMMAND-RMS-V1",
+      "name": "RW0 window statistic: nominal_command_rms",
+      "source_field_template": "asset.adcs.rw_0.window.nominal_command_rms",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-TRANSFER-GAIN-V1",
+      "name": "RW0 window statistic: transfer_gain",
+      "source_field_template": "asset.adcs.rw_0.window.transfer_gain",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-GAIN-V1",
+      "name": "RW0 window statistic: nominal_transfer_gain",
+      "source_field_template": "asset.adcs.rw_0.window.nominal_transfer_gain",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-GAIN-DISTANCE-FROM-ONE-V1",
+      "name": "RW0 window statistic: gain_distance_from_one",
+      "source_field_template": "asset.adcs.rw_0.window.gain_distance_from_one",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-TRANSFER-FIT-ERROR-V1",
+      "name": "RW0 window statistic: transfer_fit_error",
+      "source_field_template": "asset.adcs.rw_0.window.transfer_fit_error",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-FIT-ERROR-V1",
+      "name": "RW0 window statistic: nominal_transfer_fit_error",
+      "source_field_template": "asset.adcs.rw_0.window.nominal_transfer_fit_error",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-SPEED-ABSMAX-V1",
+      "name": "RW0 window statistic: speed_absmax",
+      "source_field_template": "asset.adcs.rw_0.window.speed_absmax",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-SPEED-ABSMIN-V1",
+      "name": "RW0 window statistic: nominal_speed_absmin",
+      "source_field_template": "asset.adcs.rw_0.window.nominal_speed_absmin",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-SPEED-OFFSET-ABSMEAN-V1",
+      "name": "RW0 window statistic: speed_offset_absmean",
+      "source_field_template": "asset.adcs.rw_0.window.speed_offset_absmean",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-SPEED-OFFSET-STD-V1",
+      "name": "RW0 window statistic: speed_offset_std",
+      "source_field_template": "asset.adcs.rw_0.window.speed_offset_std",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-0-PAIRED-COMMAND-ABSMAX-V1",
+      "name": "RW0 window statistic: paired_command_absmax",
+      "source_field_template": "asset.adcs.rw_0.window.paired_command_absmax",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-COMMAND-RMS-V1",
+      "name": "RW1 window statistic: command_rms",
+      "source_field_template": "asset.adcs.rw_1.window.command_rms",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-COMMAND-RMS-V1",
+      "name": "RW1 window statistic: nominal_command_rms",
+      "source_field_template": "asset.adcs.rw_1.window.nominal_command_rms",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-TRANSFER-GAIN-V1",
+      "name": "RW1 window statistic: transfer_gain",
+      "source_field_template": "asset.adcs.rw_1.window.transfer_gain",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-GAIN-V1",
+      "name": "RW1 window statistic: nominal_transfer_gain",
+      "source_field_template": "asset.adcs.rw_1.window.nominal_transfer_gain",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-GAIN-DISTANCE-FROM-ONE-V1",
+      "name": "RW1 window statistic: gain_distance_from_one",
+      "source_field_template": "asset.adcs.rw_1.window.gain_distance_from_one",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-TRANSFER-FIT-ERROR-V1",
+      "name": "RW1 window statistic: transfer_fit_error",
+      "source_field_template": "asset.adcs.rw_1.window.transfer_fit_error",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-FIT-ERROR-V1",
+      "name": "RW1 window statistic: nominal_transfer_fit_error",
+      "source_field_template": "asset.adcs.rw_1.window.nominal_transfer_fit_error",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-SPEED-ABSMAX-V1",
+      "name": "RW1 window statistic: speed_absmax",
+      "source_field_template": "asset.adcs.rw_1.window.speed_absmax",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-SPEED-ABSMIN-V1",
+      "name": "RW1 window statistic: nominal_speed_absmin",
+      "source_field_template": "asset.adcs.rw_1.window.nominal_speed_absmin",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-SPEED-OFFSET-ABSMEAN-V1",
+      "name": "RW1 window statistic: speed_offset_absmean",
+      "source_field_template": "asset.adcs.rw_1.window.speed_offset_absmean",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-SPEED-OFFSET-STD-V1",
+      "name": "RW1 window statistic: speed_offset_std",
+      "source_field_template": "asset.adcs.rw_1.window.speed_offset_std",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-1-PAIRED-COMMAND-ABSMAX-V1",
+      "name": "RW1 window statistic: paired_command_absmax",
+      "source_field_template": "asset.adcs.rw_1.window.paired_command_absmax",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-COMMAND-RMS-V1",
+      "name": "RW2 window statistic: command_rms",
+      "source_field_template": "asset.adcs.rw_2.window.command_rms",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-COMMAND-RMS-V1",
+      "name": "RW2 window statistic: nominal_command_rms",
+      "source_field_template": "asset.adcs.rw_2.window.nominal_command_rms",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-TRANSFER-GAIN-V1",
+      "name": "RW2 window statistic: transfer_gain",
+      "source_field_template": "asset.adcs.rw_2.window.transfer_gain",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-GAIN-V1",
+      "name": "RW2 window statistic: nominal_transfer_gain",
+      "source_field_template": "asset.adcs.rw_2.window.nominal_transfer_gain",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-GAIN-DISTANCE-FROM-ONE-V1",
+      "name": "RW2 window statistic: gain_distance_from_one",
+      "source_field_template": "asset.adcs.rw_2.window.gain_distance_from_one",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-TRANSFER-FIT-ERROR-V1",
+      "name": "RW2 window statistic: transfer_fit_error",
+      "source_field_template": "asset.adcs.rw_2.window.transfer_fit_error",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-FIT-ERROR-V1",
+      "name": "RW2 window statistic: nominal_transfer_fit_error",
+      "source_field_template": "asset.adcs.rw_2.window.nominal_transfer_fit_error",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-SPEED-ABSMAX-V1",
+      "name": "RW2 window statistic: speed_absmax",
+      "source_field_template": "asset.adcs.rw_2.window.speed_absmax",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-SPEED-ABSMIN-V1",
+      "name": "RW2 window statistic: nominal_speed_absmin",
+      "source_field_template": "asset.adcs.rw_2.window.nominal_speed_absmin",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-SPEED-OFFSET-ABSMEAN-V1",
+      "name": "RW2 window statistic: speed_offset_absmean",
+      "source_field_template": "asset.adcs.rw_2.window.speed_offset_absmean",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-SPEED-OFFSET-STD-V1",
+      "name": "RW2 window statistic: speed_offset_std",
+      "source_field_template": "asset.adcs.rw_2.window.speed_offset_std",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-2-PAIRED-COMMAND-ABSMAX-V1",
+      "name": "RW2 window statistic: paired_command_absmax",
+      "source_field_template": "asset.adcs.rw_2.window.paired_command_absmax",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-COMMAND-RMS-V1",
+      "name": "RW3 window statistic: command_rms",
+      "source_field_template": "asset.adcs.rw_3.window.command_rms",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-COMMAND-RMS-V1",
+      "name": "RW3 window statistic: nominal_command_rms",
+      "source_field_template": "asset.adcs.rw_3.window.nominal_command_rms",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-TRANSFER-GAIN-V1",
+      "name": "RW3 window statistic: transfer_gain",
+      "source_field_template": "asset.adcs.rw_3.window.transfer_gain",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-GAIN-V1",
+      "name": "RW3 window statistic: nominal_transfer_gain",
+      "source_field_template": "asset.adcs.rw_3.window.nominal_transfer_gain",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-GAIN-DISTANCE-FROM-ONE-V1",
+      "name": "RW3 window statistic: gain_distance_from_one",
+      "source_field_template": "asset.adcs.rw_3.window.gain_distance_from_one",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-TRANSFER-FIT-ERROR-V1",
+      "name": "RW3 window statistic: transfer_fit_error",
+      "source_field_template": "asset.adcs.rw_3.window.transfer_fit_error",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-FIT-ERROR-V1",
+      "name": "RW3 window statistic: nominal_transfer_fit_error",
+      "source_field_template": "asset.adcs.rw_3.window.nominal_transfer_fit_error",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-SPEED-ABSMAX-V1",
+      "name": "RW3 window statistic: speed_absmax",
+      "source_field_template": "asset.adcs.rw_3.window.speed_absmax",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-SPEED-ABSMIN-V1",
+      "name": "RW3 window statistic: nominal_speed_absmin",
+      "source_field_template": "asset.adcs.rw_3.window.nominal_speed_absmin",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-SPEED-OFFSET-ABSMEAN-V1",
+      "name": "RW3 window statistic: speed_offset_absmean",
+      "source_field_template": "asset.adcs.rw_3.window.speed_offset_absmean",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-SPEED-OFFSET-STD-V1",
+      "name": "RW3 window statistic: speed_offset_std",
+      "source_field_template": "asset.adcs.rw_3.window.speed_offset_std",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    },
+    {
+      "feature_definition_id": "FD-RW-WINDOW-3-PAIRED-COMMAND-ABSMAX-V1",
+      "name": "RW3 window statistic: paired_command_absmax",
+      "source_field_template": "asset.adcs.rw_3.window.paired_command_absmax",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "paired-rw-window-statistics@1.0.0",
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "Scalar statistic computed from this aligned observation window, repeated for scalar operator compatibility; not a time series."
+    }
+  ],
+  "evidence_definitions": [
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-0-ADCS_RW_JAM-V1",
+      "target_fault_id": "ADCS_RW_JAM",
+      "name": "RW0 jointly observed ADCS_RW_JAM mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-0-SPEED-ABSMAX-V1",
+      "role": "SUPPORTING",
+      "comparison": "LESS_OR_EQUAL",
+      "threshold": 1.0,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-SPEED-ABSMIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 2.0,
+          "threshold_unit": "rad/s"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-GAIN-DISTANCE-FROM-ONE-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.15,
+          "threshold_unit": "1"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-0-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "RW0 jointly observed ADCS_RW_TORQUE_AUTHORITY_LOSS mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-0-TRANSFER-GAIN-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.1,
+      "threshold_unit": "1",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.85,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-0-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+      "target_fault_id": "ADCS_RW_SPEED_SENSOR_BIAS",
+      "name": "RW0 jointly observed ADCS_RW_SPEED_SENSOR_BIAS mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-0-SPEED-OFFSET-ABSMEAN-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 5.0,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-SPEED-OFFSET-STD-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.2,
+          "threshold_unit": "rad/s"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-GAIN-DISTANCE-FROM-ONE-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.05,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-0-PAIRED-COMMAND-ABSMAX-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 2e-05,
+          "threshold_unit": "N*m"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-1-ADCS_RW_JAM-V1",
+      "target_fault_id": "ADCS_RW_JAM",
+      "name": "RW1 jointly observed ADCS_RW_JAM mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-1-SPEED-ABSMAX-V1",
+      "role": "SUPPORTING",
+      "comparison": "LESS_OR_EQUAL",
+      "threshold": 1.0,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-SPEED-ABSMIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 2.0,
+          "threshold_unit": "rad/s"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-GAIN-DISTANCE-FROM-ONE-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.15,
+          "threshold_unit": "1"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-1-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "RW1 jointly observed ADCS_RW_TORQUE_AUTHORITY_LOSS mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-1-TRANSFER-GAIN-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.1,
+      "threshold_unit": "1",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.85,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-1-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+      "target_fault_id": "ADCS_RW_SPEED_SENSOR_BIAS",
+      "name": "RW1 jointly observed ADCS_RW_SPEED_SENSOR_BIAS mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-1-SPEED-OFFSET-ABSMEAN-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 5.0,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-SPEED-OFFSET-STD-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.2,
+          "threshold_unit": "rad/s"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-GAIN-DISTANCE-FROM-ONE-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.05,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-1-PAIRED-COMMAND-ABSMAX-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 2e-05,
+          "threshold_unit": "N*m"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-2-ADCS_RW_JAM-V1",
+      "target_fault_id": "ADCS_RW_JAM",
+      "name": "RW2 jointly observed ADCS_RW_JAM mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-2-SPEED-ABSMAX-V1",
+      "role": "SUPPORTING",
+      "comparison": "LESS_OR_EQUAL",
+      "threshold": 1.0,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-SPEED-ABSMIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 2.0,
+          "threshold_unit": "rad/s"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-GAIN-DISTANCE-FROM-ONE-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.15,
+          "threshold_unit": "1"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-2-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "RW2 jointly observed ADCS_RW_TORQUE_AUTHORITY_LOSS mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-2-TRANSFER-GAIN-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.1,
+      "threshold_unit": "1",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.85,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-2-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+      "target_fault_id": "ADCS_RW_SPEED_SENSOR_BIAS",
+      "name": "RW2 jointly observed ADCS_RW_SPEED_SENSOR_BIAS mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-2-SPEED-OFFSET-ABSMEAN-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 5.0,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-SPEED-OFFSET-STD-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.2,
+          "threshold_unit": "rad/s"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-GAIN-DISTANCE-FROM-ONE-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.05,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-2-PAIRED-COMMAND-ABSMAX-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 2e-05,
+          "threshold_unit": "N*m"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-3-ADCS_RW_JAM-V1",
+      "target_fault_id": "ADCS_RW_JAM",
+      "name": "RW3 jointly observed ADCS_RW_JAM mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-3-SPEED-ABSMAX-V1",
+      "role": "SUPPORTING",
+      "comparison": "LESS_OR_EQUAL",
+      "threshold": 1.0,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-SPEED-ABSMIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 2.0,
+          "threshold_unit": "rad/s"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-GAIN-DISTANCE-FROM-ONE-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.15,
+          "threshold_unit": "1"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-3-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "RW3 jointly observed ADCS_RW_TORQUE_AUTHORITY_LOSS mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-3-TRANSFER-GAIN-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.1,
+      "threshold_unit": "1",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.85,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    },
+    {
+      "evidence_definition_id": "ED-RW-WINDOW-3-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+      "target_fault_id": "ADCS_RW_SPEED_SENSOR_BIAS",
+      "name": "RW3 jointly observed ADCS_RW_SPEED_SENSOR_BIAS mechanism",
+      "feature_definition_id": "FD-RW-WINDOW-3-SPEED-OFFSET-ABSMEAN-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 5.0,
+      "threshold_unit": "rad/s",
+      "critical": false,
+      "and_feature_conditions": [
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-COMMAND-RMS-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 5e-05,
+          "threshold_unit": "N*m"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.9,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-GAIN-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 1.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-NOMINAL-TRANSFER-FIT-ERROR-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.1,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-SPEED-OFFSET-STD-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.2,
+          "threshold_unit": "rad/s"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-GAIN-DISTANCE-FROM-ONE-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.05,
+          "threshold_unit": "1"
+        },
+        {
+          "feature_definition_id": "FD-RW-WINDOW-3-PAIRED-COMMAND-ABSMAX-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 2e-05,
+          "threshold_unit": "N*m"
+        }
+      ],
+      "source_refs": [
+        "sat/src/sat_sim/bsk_engine/project_native_modules.py",
+        "sat/src/sat_sim/bsk_engine/unified_native.py",
+        "docs/history/root/DIAGNOSTIC_ROOT_CAUSE_POST43.md"
+      ],
+      "claim_boundary": "One affected wheel suffices (OR across wheels); every conjunct for that wheel is mandatory. Proposed simulation mechanism; alternative faults outside this three-class scope may confound it."
+    }
+  ],
+  "claim_boundary": "Causal 20-s paired observation window for three RW mechanisms. Derived statistics, not hidden fault metadata. Thresholds frozen after post42 development analysis; no flight qualification or LLM accuracy claim."
+}

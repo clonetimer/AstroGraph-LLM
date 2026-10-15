@@ -1,0 +1,31 @@
+{
+  "schema_version": "astrograph-r26-esa-frozen-prediction-receipt.v1",
+  "status": "PREDICTION_FROZEN_PRE_TRUTH",
+  "raw_group_id": "synthetic-r26-esa-smoke",
+  "r26_detector_receipt_sha256": "e6ae59b685649c20b74cd0de82b968ddef6e4c628e67ba3bc6af6d8a5e777612",
+  "r26_detector_identity_sha256": "9e384a7eab3acdd91ea50bf7dec467c663b905892dfd0675c8999794a4dd5c94",
+  "holdout_binding_receipt_sha256": null,
+  "time_ns_sha256": "2db0b9e46b151d6163d8aa57e006e655b4040d5f6f4ec33b310f3647473a497e",
+  "channel_value_sha256": {
+    "channel_41": "a4fc99643994218e03468bea64c6f2e76e9ca03198766cab4526cb22ec54d101",
+    "channel_42": "a4fc99643994218e03468bea64c6f2e76e9ca03198766cab4526cb22ec54d101",
+    "channel_43": "06b88a66a323125590370eb5d97d3930b63294d645760320861585d23c5202b0",
+    "channel_44": "06b88a66a323125590370eb5d97d3930b63294d645760320861585d23c5202b0",
+    "channel_45": "06b88a66a323125590370eb5d97d3930b63294d645760320861585d23c5202b0",
+    "channel_46": "06b88a66a323125590370eb5d97d3930b63294d645760320861585d23c5202b0"
+  },
+  "sample_count": 10,
+  "score_sha256": "ed4f0afc056d3ee9216ad1b500bdd30daf9114eecce7d1380d4d5e1630777159",
+  "alarm_point_count": 2,
+  "alarm_groups": [
+    [
+      5000000000,
+      6000000000
+    ]
+  ],
+  "alarm_group_count": 1,
+  "truth_joined": false,
+  "score_semantics": "ROBUST_LAG_ONE_DELTA_Z_NOT_PROBABILITY",
+  "formal_evidence_generated": false,
+  "receipt_sha256": "56d38ea68222a2c1d8ec47d7d04cf6c9b5325f21dfed8db8c873def1cc2f602b"
+}

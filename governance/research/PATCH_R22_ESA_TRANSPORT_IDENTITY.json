@@ -1,0 +1,20 @@
+{
+  "schema_version": "astrograph-r22-esa-transport-identity-review.v2",
+  "status": "TRANSPORT_ONLY_IDENTICAL_BASELINE_AND_R21_SELECTION",
+  "r21_esa_development_report_file_sha256": "724079a067464e2d4c69bb8286c68027a90d848b8db4c05efcfd48631564d292",
+  "r21_esa_development_report_receipt_sha256": "98215ae02a7a4c91b23a9934e450a8fce16e1433c679f5d0c70f328f8936b9b0",
+  "selected_candidate": "MEDIAN_5MIN_THRESHOLD_6",
+  "threshold": 6,
+  "reference_identity_match": true,
+  "reference_sha256": "bf4440cdfa29c69ffa72b9953a5043f89e26689c3314bdb0216541ad589ac3cc",
+  "comparison_semantics": "TRANSPORT_ONLY_IDENTICAL_BASELINE_AND_R21_SELECTION",
+  "superiority_contrast_allowed": false,
+  "implementation_identity_sha256": "1074733fb3aa9fca5760293c0ca7d279963ede2b1a49efdd4decfde6cda3716c",
+  "confirmation_duration_s": 600.0,
+  "array_payload_identity_bound": true,
+  "truth_join_after_prediction_freeze_supported": true,
+  "replication_plan_sha256": "f3fb9db86150b49037575843eedc4720b2d9c446324b623a93d6a84987c4ae62",
+  "new_external_validation_receipt_generated": false,
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "16e2711ae29ecef0c2b2238de2637f3c3af236c82642d0f45206ecca30943e2b"
+}

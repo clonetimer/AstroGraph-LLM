@@ -1,0 +1,5 @@
+timestamp,subsystem,signal,value,unit,severity,comment
+2026-09-20T09:00:00Z,EPS,battery_current,5.6,A,INFO,demo load step
+2026-09-20T09:00:02Z,EPS,battery_voltage,25.3,V,WARN,voltage sag under load
+2026-09-20T09:00:03Z,EPS,battery_temp,27.5,degC,INFO,stable
+2026-09-20T09:00:30Z,EPS,battery_current,2.1,A,INFO,recovery after reduced load

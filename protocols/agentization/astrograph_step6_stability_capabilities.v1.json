@@ -1,0 +1,32 @@
+{
+  "capabilities": [
+    {
+      "description": "Outcome-blind evidence-feasible Step-6 route assessment.",
+      "label_access": "NONE",
+      "name": "lineage.step6.assess",
+      "profile_allowlist": [
+        "MAINTAINER",
+        "DEVELOPMENT",
+        "SHADOW"
+      ],
+      "side_effect": "NONE"
+    },
+    {
+      "description": "Separate software stability from scientific release eligibility.",
+      "label_access": "NONE",
+      "name": "release.stability.assess",
+      "profile_allowlist": [
+        "MAINTAINER"
+      ],
+      "side_effect": "NONE"
+    }
+  ],
+  "extension_id": "astrograph-step6-stability-r001",
+  "manifest_sha256": "fcc7d5ec4e0efd23e660dccb11cd7c9f3a598404ae7cd7d6265352537f06f6a5",
+  "permanently_post_hoc_groups": [
+    4,
+    9
+  ],
+  "qualification_change_allowed": false,
+  "schema_version": "astrograph-capability-extension.v1"
+}

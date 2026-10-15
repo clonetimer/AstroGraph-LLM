@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrograph.local/schemas/feature-admission-contract-v1.json",
+  "title": "FeatureContract",
+  "$defs": {
+    "FeatureValueKind": {
+      "enum": [
+        "NUMBER",
+        "INTEGER",
+        "BOOLEAN",
+        "STRING",
+        "NUMBER_ARRAY",
+        "NULLABLE_NUMBER_ARRAY",
+        "INTEGER_ARRAY",
+        "BOOLEAN_ARRAY",
+        "STRING_ARRAY"
+      ],
+      "title": "FeatureValueKind",
+      "type": "string"
+    },
+    "InputBinding": {
+      "additionalProperties": false,
+      "description": "One explicitly admitted model-visible payload leaf.\n\n``payload_path`` is relative to ``ModelInferenceRequest.payload``.  Every leaf\nvisible to a strict provider must have exactly one binding; unknown leaves are\nrejected rather than imputed or ignored.",
+      "properties": {
+        "binding_id": {
+          "minLength": 1,
+          "title": "Binding Id",
+          "type": "string"
+        },
+        "payload_path": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Payload Path",
+          "type": "array"
+        },
+        "value_kind": {
+          "$ref": "#/$defs/FeatureValueKind"
+        },
+        "role": {
+          "$ref": "#/$defs/InputRole",
+          "default": "FEATURE"
+        },
+        "shape": {
+          "default": [],
+          "items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Shape",
+          "type": "array"
+        },
+        "source_fields": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Fields",
+          "type": "array"
+        },
+        "semantic_signal_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Semantic Signal Ids",
+          "type": "array"
+        },
+        "transform_chain": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Transform Chain",
+          "type": "array"
+        },
+        "expected_value_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional canonical JSON SHA-256 for a literal contract value. This is used for model-visible context such as a frozen channel order.",
+          "title": "Expected Value Sha256"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "binding_id",
+        "payload_path",
+        "value_kind",
+        "source_fields",
+        "semantic_signal_ids"
+      ],
+      "title": "InputBinding",
+      "type": "object"
+    },
+    "InputRole": {
+      "enum": [
+        "FEATURE",
+        "MASK",
+        "CONTEXT"
+      ],
+      "title": "InputRole",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-feature-admission-contract.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "feature_schema_id": {
+      "minLength": 1,
+      "title": "Feature Schema Id",
+      "type": "string"
+    },
+    "bindings": {
+      "items": {
+        "$ref": "#/$defs/InputBinding"
+      },
+      "minItems": 1,
+      "title": "Bindings",
+      "type": "array"
+    },
+    "require_observation_scope": {
+      "default": true,
+      "title": "Require Observation Scope",
+      "type": "boolean"
+    },
+    "require_input_hash_match": {
+      "default": true,
+      "title": "Require Input Hash Match",
+      "type": "boolean"
+    },
+    "allow_additional_payload_leaves": {
+      "default": false,
+      "title": "Allow Additional Payload Leaves",
+      "type": "boolean"
+    },
+    "claim_boundary": {
+      "default": "Default-deny model-input contract. Admission proves conformance to the frozen input interface; it does not establish model validity or diagnostic accuracy.",
+      "title": "Claim Boundary",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_id",
+    "feature_schema_id",
+    "bindings"
+  ],
+  "type": "object"
+}

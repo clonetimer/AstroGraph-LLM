@@ -1,0 +1,60 @@
+{
+  "schema_version": "astrograph-generic-head-research-protocol.stage-a.v2",
+  "protocol_id": "astrograph.generic-heads.p017.stage-a.separability-ceiling",
+  "protocol_version": "2.0.0",
+  "authorization": {
+    "path": "protocols/acceptance/p017_stage_a_timer_attestation.json",
+    "sha256": "478570c6363c500bfcd21b07417244c31e2c5a977841caa81795534cdf066633"
+  },
+  "retained_stage_a_v1_failure": {
+    "protocol_sha256": "f6fb6e5e525ed78ef979ab9f07fbac601112b112fdbfc3607fb69117f4f3f028",
+    "implementation_sha256": "253e8ecdb7096f2030656fe4946d3856ee15dd2f879f710b2c95a338686fd910",
+    "evidence_sha256": "c4d78e01264016d6e39adeb38bb646b5e07b3902d99b80264ebb502c7beda413",
+    "status": "FAIL"
+  },
+  "research_question": "Does the frozen 22-dimensional segmented evidence contain enough nonlinear information to separate NORMAL and the three known mechanisms when component archetype is explicit?",
+  "method_role": "DEVELOPMENT_CALIBRATION_SEPARABILITY_ORACLE_NOT_A_PRODUCTION_CANDIDATE",
+  "development_seed": 20310818,
+  "calibration_seed": 20310819,
+  "technical_validation_seed": null,
+  "permanently_exhausted_validation_seeds": [20280820, 20290820, 20300820],
+  "formal_open_set_classes_generated": [],
+  "input_mapping": {
+    "segmented_feature_dimension": 22,
+    "archetype_indicator_dimension": 1,
+    "total_dimension": 23,
+    "archetype_indicator": {"storage.energy_buffer": 0.0, "thermal.lumped_capacity": 1.0}
+  },
+  "oracle": {
+    "family": "EXTRA_TREES_CLASSIFIER",
+    "n_estimators": 512,
+    "criterion": "log_loss",
+    "max_features": "sqrt",
+    "max_depth": null,
+    "min_samples_leaf": 2,
+    "bootstrap": false,
+    "class_weight": null,
+    "random_state": 20310818,
+    "n_jobs": 1
+  },
+  "exit_checks": {
+    "known_classification_accuracy": 0.9,
+    "normal_detection_accuracy": 0.98,
+    "each_archetype_known_classification_accuracy": 0.9,
+    "failed_feature_extractions": 0,
+    "maximum_runtime_seconds": 600
+  },
+  "interpretation_rule": {
+    "PASS": "The representation contains nonlinear class information; Stage A must next design one governed model with a nondegenerate same-score OOD rule.",
+    "FAIL": "The representation itself is insufficient; Stage A must add pre-frozen temporal physical evidence or observability before any Stage-B request."
+  },
+  "prohibited_actions": [
+    "Use the oracle as a production candidate or bind it to AstroGraph",
+    "Calibrate or claim open-set rejection",
+    "Generate BIAS, INTERMITTENT or STUCK",
+    "Read or regenerate exhausted validation seeds",
+    "Create a technical-validation seed",
+    "Use oracle results to change G1.1 thresholds, classes or denominators"
+  ],
+  "claim_boundary": "Stage-A separability ceiling only; no OOD, production, validation, Stage-B or G3 claim."
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": "astrograph-document-chunking-human-gold-protocol.v1",
+  "protocol_id": "document-chunking-human-gold-r001",
+  "status": "FROZEN_BEFORE_HUMAN_LABELING",
+  "machine_preregistration_sha256": "ff4d138304ba343b7525cd9ef4662e26b1baed6adaff9b5d98d7f7d0e7269b2e",
+  "machine_results_sha256": "d8bf983e287fb76089d613fb7919b66a11db26ddf0862c846189793270ae1644",
+  "expected_query_count": 31,
+  "candidate_pool": {
+    "systems": [
+      "section_aware",
+      "fixed_character"
+    ],
+    "depth": 5,
+    "judgement_unit": "one frozen query-system-ranked-chunk tuple",
+    "query_identity_exposed_to_retriever": false,
+    "system_identity_blinded_to_reviewer": true,
+    "machine_source_span_proxy_visible_to_reviewer": false,
+    "machine_source_span_proxy_is_gold": false
+  },
+  "judgement": {
+    "relevance_grades": {
+      "0": "IRRELEVANT",
+      "1": "PARTIAL_SUPPORT",
+      "2": "DIRECT_SUPPORT"
+    },
+    "citation_locator_decisions": [
+      "PASS",
+      "FAIL"
+    ],
+    "named_reviewer_and_comment_required": true,
+    "machine_fields_editable": false
+  },
+  "metric_definitions": {
+    "Recall@5": "fraction of queries with at least one grade-2 DIRECT_SUPPORT result in top 5",
+    "Precision@5": "mean fraction of returned top-5 chunks with grade greater than zero",
+    "nDCG@5": "graded relevance using gains 2^grade-1 and log2 discount",
+    "MRR": "reciprocal rank of first grade-2 DIRECT_SUPPORT result",
+    "citation_locator_validity": "fraction of returned chunks whose displayed source locator is confirmed valid"
+  },
+  "promotion": {
+    "minimum_section_recall_at_k": 0.9,
+    "minimum_section_ndcg_at_k": 0.85,
+    "minimum_section_mrr": 0.9,
+    "minimum_citation_locator_validity": 1.0,
+    "minimum_ndcg_delta": 0.05,
+    "bootstrap_confidence": 0.95,
+    "bootstrap_iterations": 10000,
+    "bootstrap_seed": 20260905
+  },
+  "claim_boundary": "Prospective human-label protocol frozen after the machine proxy run but before any human relevance labels. A complete workbook may promote section-aware chunking for this synthetic handbook only; it cannot establish real-document, GraphRAG, diagnosis or Active-KG gain."
+}

@@ -1,0 +1,359 @@
+{
+  "schema_version": "astrograph-architecture-boundary-policy.v1",
+  "scan_roots": [
+    "src",
+    "configs"
+  ],
+  "generic_paths": [
+    "configs/diagnosis/generic_head_calibration_protocol.v1.json",
+    "configs/diagnosis/generic_heads.v1.json",
+    "src/astrograph/architecture/__init__.py",
+    "src/astrograph/architecture/boundaries.py",
+    "src/astrograph/diagnosis/generic/__init__.py",
+    "src/astrograph/diagnosis/generic/anomaly.py",
+    "src/astrograph/diagnosis/generic/calibration.py",
+    "src/astrograph/diagnosis/generic/contracts.py",
+    "src/astrograph/diagnosis/generic/governor.py",
+    "src/astrograph/diagnosis/generic/localization.py",
+    "src/astrograph/diagnosis/generic/mechanism.py",
+    "src/astrograph/diagnosis/generic/pipeline.py",
+    "src/astrograph/diagnosis/generic/reasoning.py",
+    "src/astrograph/knowledge/schema_v3.py",
+    "src/astrograph/physics/archetypes.py",
+    "src/astrograph/physics/contracts.py",
+    "src/astrograph/semantics/archetypes.py",
+    "src/astrograph/semantics/channel_mapping.py",
+    "src/astrograph/semantics/contracts.py",
+    "src/astrograph/semantics/leakage.py",
+    "src/astrograph/semantics/units.py",
+    "src/astrograph/state_estimation/contracts.py",
+    "src/astrograph/state_estimation/gray_box.py",
+    "src/astrograph/features/generic/__init__.py",
+    "src/astrograph/features/generic/balance.py",
+    "src/astrograph/features/generic/contracts.py",
+    "src/astrograph/features/generic/registry.py",
+    "src/astrograph/features/generic/robust_statistics.py",
+    "src/astrograph/features/generic/temporal.py",
+    "src/astrograph/features/generic/token_builder.py",
+    "src/astrograph/state_estimation/numerical.py",
+    "src/astrograph/knowledge/projection.py",
+    "src/astrograph/knowledge/neo4j_projection.py"
+  ],
+  "compatibility_allowlist": [
+    {
+      "path": "configs/architecture/module_boundaries.json",
+      "rationale": "Machine-readable boundary inventory necessarily names governed sources."
+    },
+    {
+      "path": "configs/data_driven_models/temporal_autoencoder.example.json",
+      "rationale": "Legacy model input example."
+    },
+    {
+      "path": "configs/data_sources/sat_agent_platform.example.json",
+      "rationale": "Declared Sat-Agent platform source-adapter example."
+    },
+    {
+      "path": "configs/data_sources/sat_agent_platform_schema_profiles.s0.v1.json",
+      "rationale": "P-018 S0 source-specific schema profiles; not generic model logic."
+    },
+    {
+      "path": "configs/datasets/adcs_v5_2_2/dor_semantic_package.json",
+      "rationale": "Dataset-specific DOR semantic compatibility package bound to the declared Sat-Agent source; not generic core logic."
+    },
+    {
+      "path": "configs/datasets/adcs_v5_2_2/external_source_registry.json",
+      "rationale": "Dataset-specific external-source provenance registry for the declared Sat-Agent adapter; not generic model logic."
+    },
+    {
+      "path": "configs/datasets/adcs_v5_2_2/isgn_mechanism_atlas.json",
+      "rationale": "Dataset-specific ISGN mechanism compatibility atlas bound to Sat-Agent evidence; not generic core logic."
+    },
+    {
+      "path": "configs/datasets/adcs_v5_2_2/runtime_window_evidence.json",
+      "rationale": "Paired ADCS short-window evidence adapter cites the simulator implementation for source semantics; restricted to this dataset, not generic model logic."
+    },
+    {
+      "path": "configs/datasets/adcs_v5_2_2/runtime_window_integrated_evidence.json",
+      "rationale": "Dataset-specific window evidence preserves legacy non-RW coverage and records simulator source semantics outside generic model logic."
+    },
+    {
+      "path": "configs/datasets/adcs_v5_2_2/runtime_sensor_checks.research.json",
+      "rationale": "Dataset-specific research sensor checks bind Sat-Agent channel semantics outside the generic diagnosis core."
+    },
+    {
+      "path": "configs/evaluation/r36_diagnostic_benchmarks.json",
+      "rationale": "Frozen development benchmark declarations name source-specific scenarios; they do not specialize runtime algorithms."
+    },
+    {
+      "path": "configs/datasets/phm_v6_0/knowledge_coverage.json",
+      "rationale": "Dataset-specific E0 knowledge coverage record that cites the legacy Sat-Sim catalog as provenance; not generic model logic."
+    },
+    {
+      "path": "configs/fault_modes/lab_fault_catalog.json",
+      "rationale": "Legacy laboratory fault catalog."
+    },
+    {
+      "path": "configs/independent_run_campaigns/whole_spacecraft_known_faults.json",
+      "rationale": "Legacy qualification campaign definition."
+    },
+    {
+      "path": "configs/reaction_wheel_evidence.json",
+      "rationale": "Legacy reaction-wheel evidence adapter."
+    },
+    {
+      "path": "configs/research/soft_kg_new_mc_campaign_r001.json",
+      "rationale": "Frozen research campaign provenance explicitly records the Sat-Sim generator; it is not generic core logic."
+    },
+    {
+      "path": "configs/semantics/sat_agent_archetype_feature_contracts.s0.v1.json",
+      "rationale": "Sat-Agent-bound zero-fit feature-contract catalog with generic archetype operators."
+    },
+    {
+      "path": "configs/semantics/sat_agent_channel_maps.json",
+      "rationale": "Declared Sat-Agent source adapter."
+    },
+    {
+      "path": "configs/semantics/sat_agent_platform_channel_maps.s0.v1.json",
+      "rationale": "Declared P-018 S0 Sat-Agent channel mappings."
+    },
+    {
+      "path": "configs/thermal_star_evidence.json",
+      "rationale": "Legacy thermal evidence adapter."
+    },
+    {
+      "path": "src/astrograph/anomaly/reaction_wheel.py",
+      "rationale": "Legacy component compatibility module."
+    },
+    {
+      "path": "src/astrograph/api.py",
+      "rationale": "Legacy public API compatibility routes."
+    },
+    {
+      "path": "src/astrograph/cli.py",
+      "rationale": "Legacy CLI compatibility routes."
+    },
+    {
+      "path": "src/astrograph/compat/api.py",
+      "rationale": "Explicit Stable Architecture Convergence compatibility router for legacy Sat-Sim endpoint."
+    },
+    {
+      "path": "src/astrograph/data/gate.py",
+      "rationale": "Dataset truth-isolation gate."
+    },
+    {
+      "path": "src/astrograph/data/trusted.py",
+      "rationale": "Trusted-data boundary adapter."
+    },
+    {
+      "path": "src/astrograph/data_driven/whole_spacecraft_hgb.py",
+      "rationale": "Legacy exact-class data-driven model."
+    },
+    {
+      "path": "src/astrograph/data_sources/__init__.py",
+      "rationale": "Public export for the declared Sat-Agent platform adapter."
+    },
+    {
+      "path": "src/astrograph/data_sources/factory.py",
+      "rationale": "Generic factory wiring for the declared Sat-Agent platform source type."
+    },
+    {
+      "path": "src/astrograph/data_sources/models.py",
+      "rationale": "Source-type enumeration for the declared Sat-Agent platform adapter."
+    },
+    {
+      "path": "src/astrograph/data_sources/sat_agent_platform.py",
+      "rationale": "Read-only source-specific adapter with truth and identity isolation."
+    },
+    {
+      "path": "src/astrograph/diagnosis/__init__.py",
+      "rationale": "Legacy diagnosis exports."
+    },
+    {
+      "path": "src/astrograph/diagnosis/reaction_wheel.py",
+      "rationale": "Legacy reaction-wheel diagnosis."
+    },
+    {
+      "path": "src/astrograph/diagnosis/sat_sim_catalog.py",
+      "rationale": "Sat-Sim compatibility engine."
+    },
+    {
+      "path": "src/astrograph/diagnosis/sat_sim_multifault.py",
+      "rationale": "Sat-Sim compatibility engine."
+    },
+    {
+      "path": "src/astrograph/diagnosis/sat_sim_multifault_single.py",
+      "rationale": "Sat-Sim compatibility engine."
+    },
+    {
+      "path": "src/astrograph/diagnosis/sat_sim_open_set.py",
+      "rationale": "Sat-Sim compatibility engine."
+    },
+    {
+      "path": "src/astrograph/diagnosis/sat_sim_paired.py",
+      "rationale": "Sat-Sim compatibility engine."
+    },
+    {
+      "path": "src/astrograph/diagnosis/trusted_single_fault.py",
+      "rationale": "Legacy Sat-Agent qualification path."
+    },
+    {
+      "path": "src/astrograph/diagnosis/unified.py",
+      "rationale": "Legacy engine router."
+    },
+    {
+      "path": "src/astrograph/evaluation/online_acceptance.py",
+      "rationale": "Legacy exact-class acceptance mapping."
+    },
+    {
+      "path": "src/astrograph/evidence/reaction_wheel_executable.py",
+      "rationale": "Legacy fixed-field evidence builder."
+    },
+    {
+      "path": "src/astrograph/evidence/thermal_star_executable.py",
+      "rationale": "Legacy fixed-field evidence builder."
+    },
+    {
+      "path": "src/astrograph/governance/models.py",
+      "rationale": "Governance field names, not model input."
+    },
+    {
+      "path": "src/astrograph/integrations/__init__.py",
+      "rationale": "Legacy integration exports."
+    },
+    {
+      "path": "src/astrograph/integrations/rw_jam_promotion.py",
+      "rationale": "Legacy promotion evidence adapter."
+    },
+    {
+      "path": "src/astrograph/integrations/sat_sim_eligibility.py",
+      "rationale": "Sat-Sim qualification adapter."
+    },
+    {
+      "path": "src/astrograph/integrations/sat_sim_pipeline.py",
+      "rationale": "Sat-Sim compatibility pipeline."
+    },
+    {
+      "path": "src/astrograph/integrations/sat_sim_public_case.py",
+      "rationale": "Sat-Sim public-package adapter."
+    },
+    {
+      "path": "src/astrograph/integrations/sat_sim_scientific_model.py",
+      "rationale": "Sat-Sim compatibility model."
+    },
+    {
+      "path": "src/astrograph/integrations/upload_report.py",
+      "rationale": "Source-specific upload-to-report adapter for governed Satellite Simulation public artifacts."
+    },
+    {
+      "path": "src/astrograph/investigation/governor.py",
+      "rationale": "Legacy exact-class decision compatibility."
+    },
+    {
+      "path": "src/astrograph/knowledge/coverage_review.py",
+      "rationale": "Dataset-specific static coverage-review adapter records legacy Sat-Sim provenance without entering generic knowledge core or Runtime voting."
+    },
+    {
+      "path": "src/astrograph/knowledge/sat_sim_fault_catalog.py",
+      "rationale": "Legacy Sat-Sim graph projection."
+    },
+    {
+      "path": "src/astrograph/integrations/maintenance_presentation.py",
+      "rationale": "Maintenance presentation adapter reports source-specific compatibility evidence outside the generic core."
+    },
+    {
+      "path": "src/astrograph/integrations/maintenance_production_rerun.py",
+      "rationale": "Maintenance rerun adapter verifies source-specific release provenance outside the generic core."
+    },
+    {
+      "path": "src/astrograph/onboarding.py",
+      "rationale": "Legacy dataset onboarding boundary."
+    },
+    {
+      "path": "src/astrograph/resources/expanded_single_fault_catalog.json",
+      "rationale": "Frozen legacy exact-class catalog."
+    },
+    {
+      "path": "src/astrograph/resources/registered_fault_case_catalog.v1.json",
+      "rationale": "Versioned exact-class output compatibility catalog; diagnostic execution remains fault-ID based."
+    },
+    {
+      "path": "src/astrograph/simulation/datasets.py",
+      "rationale": "Simulation label generation boundary."
+    },
+    {
+      "path": "src/astrograph/simulation/runtime_adapter.py",
+      "rationale": "Simulation source adapter."
+    },
+    {
+      "path": "src/astrograph/tools/online.py",
+      "rationale": "Legacy exact-class online tool compatibility."
+    },
+    {
+      "path": "src/astrograph/upstream/contracts.py",
+      "rationale": "Upstream boundary contract explicitly models Sat-Agent source identity without placing it in generic diagnosis logic."
+    },
+    {
+      "path": "src/astrograph/upstream/manual_provider.py",
+      "rationale": "Manual upstream provider is a source-specific compatibility adapter, not generic diagnosis logic."
+    },
+    {
+      "path": "src/astrograph/upstream/registry.py",
+      "rationale": "Upstream provider registry declares the Sat-Agent adapter boundary outside generic diagnosis logic."
+    },
+    {
+      "path": "src/astrograph/windowing/builder.py",
+      "rationale": "Legacy exact-fault window labels."
+    },
+    {
+      "path": "src/astrograph/windowing/episode_builder.py",
+      "rationale": "Generic episode models with source configuration referencing Sat-Agent; no model-logic specialization."
+    },
+    {
+      "path": "src/astrograph/windowing/episode_models.py",
+      "rationale": "Generic episode models with source configuration referencing Sat-Agent; no model-logic specialization."
+    },
+    {
+      "path": "src/astrograph/windowing/label_adapter.py",
+      "rationale": "Independent label adapter that reads Sat-Agent source label.*/modifier.* columns; labels are physically separated from model input by design."
+    },
+    {
+      "path": "src/astrograph/resources/adcs_mechanism_hypotheses.v1.json",
+      "rationale": "Source-specific native Basilisk mechanism hypotheses and observation roles; not generic model logic or identified temporal causality."
+    },
+    {
+      "path": "configs/research/zero_authority.v1.json",
+      "rationale": "Optional ADCS paired-simulation mechanism experiment; source-specific evidence is not part of the generic diagnosis core."
+    },
+    {
+      "path": "configs/research/terminal8_zero_authority.v1.json",
+      "rationale": "Optional ADCS paired-simulation mechanism experiment; source-specific evidence is not part of the generic diagnosis core."
+    }
+  ],
+  "patterns": [
+    {
+      "pattern_id": "source_system",
+      "expression": "(?i)\\bsat[-_ ]?(?:sim|agent)(?:\\b|_)",
+      "description": "Concrete Sat-Sim or Sat-Agent identity."
+    },
+    {
+      "pattern_id": "fault_identifier",
+      "expression": "(?i)\\bFAULT\\.(?:ADCS|COMM|EPS|THERMAL|PAYLOAD|UNSPECIFIED)[A-Z0-9_.-]*\\b",
+      "description": "Concrete legacy fault identifier."
+    },
+    {
+      "pattern_id": "raw_channel",
+      "expression": "(?i)\\b(?:estimate|truth|effect|event|label|object)\\.(?:adcs|comm|eps|thermal|payload|degradation|fault|health|modifier|phase|synthetic|active|composite)[A-Za-z0-9_.-]*",
+      "description": "Concrete source or truth field."
+    },
+    {
+      "pattern_id": "case_identity",
+      "expression": "(?i)\\b(?:case|scenario)[-_][0-9][A-Za-z0-9_-]*\\b",
+      "description": "Concrete case or scenario identifier."
+    },
+    {
+      "pattern_id": "domain_fault_alias",
+      "expression": "(?i)\\b(?:rw|battery|solar_array|radiator|downlink)_(?:jam|friction|overspeed|capacity_loss|efficiency_loss|rejection_loss|loss)\\b",
+      "description": "Concrete legacy domain fault alias."
+    }
+  ]
+}

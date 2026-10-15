@@ -1,0 +1,43 @@
+{
+  "schema_version": "astrograph-task-board.v1",
+  "board_id": "BOARD-POST49-CURRENT-DELIVERY-R1",
+  "contract_id": "ASTROGRAPH-POST49-CURRENT-DELIVERY-SOURCE-R1",
+  "contract_sha256": "de04ce0a474e82324d21bde8727f19dda53699880b927bf2aae4d569cade8bdb",
+  "goal": "Produce a current-only post49 delivery source with functional parity and no historical records.",
+  "planned_steps": [
+    {
+      "step_id": "DELIVERY-1",
+      "description": "Prune historical docs/dev ledgers/receipts/prior contracts and initialize mutable ledgers empty.",
+      "status": "COMPLETED",
+      "evidence": [
+        "DELIVERY_PROFILE.json"
+      ]
+    },
+    {
+      "step_id": "DELIVERY-2",
+      "description": "Normalize current release/readiness/docs/tooling so removed historical paths are not current dependencies; preserve hash-pinned functional provenance assets.",
+      "status": "COMPLETED",
+      "evidence": [
+        "docs/CURRENT_DELIVERY_SOURCE.md",
+        "docs/CURRENT_DOCS.json",
+        "governance/implementation/post49/RELEASE_READINESS.json"
+      ]
+    },
+    {
+      "step_id": "DELIVERY-3",
+      "description": "Run current delivery validation and fresh functional regression/smoke tests.",
+      "status": "COMPLETED",
+      "evidence": [
+        "governance/implementation/post49/DELIVERY_VALIDATION.json",
+        "DELIVERY_AUDIT.json"
+      ]
+    }
+  ],
+  "missing_inputs": [],
+  "scope_changes": [
+    "Historical audit artifacts are delivered separately, not in this source package.",
+    "Frozen provenance URI strings embedded in current hash-pinned functional assets may remain; referenced archive files are not bundled."
+  ],
+  "deliverability": "Current-source product/developer delivery; audit/history reproduction requires a separate archive.",
+  "updated_at": "2026-09-16T18:00:00+08:00"
+}

@@ -1,0 +1,16 @@
+task_id,case_id,time_s,sample_index,target_level,target_name,mode,adcs.imu.gyro_x_rad_s,adcs.imu.gyro_y_rad_s,adcs.imu.gyro_z_rad_s,adcs.imu.accel_x_m_s2,adcs.imu.accel_y_m_s2,adcs.imu.accel_z_m_s2,adcs.imu.effective_gyro_bias_x_rad_s,label.fault_active,label.degradation_active,label.health_state,label.modifier_active,modifier.active_count,modifier.active_ids,label.constraint_active
+component_imu_v1_bias_step_fault,case_000,1.7,17,component,imu,fault,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal,False,,,
+component_imu_v1_bias_step_fault,case_000,1.8,18,component,imu,fault,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal,False,,,
+component_imu_v1_bias_step_fault,case_000,1.9,19,component,imu,fault,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal,False,,,
+component_imu_v1_bias_step_fault,case_000,2.0,20,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.1,21,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.2,22,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.3,23,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.4,24,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.5,25,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.6,26,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.7,27,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.8,28,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,2.9,29,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,3.0,30,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False
+component_imu_v1_bias_step_fault,case_000,3.1,31,component,imu,fault,0.3,0.2,0.3,0.0,0.0,0.0,0.2,True,False,fault,True,1.0,imu_gyro_bias_step,False

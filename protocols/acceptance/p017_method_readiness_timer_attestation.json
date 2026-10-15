@@ -1,0 +1,29 @@
+{
+  "schema_version": "astrograph-independent-approval-attestation.v1",
+  "attestation_id": "P017-METHOD-READINESS-TIMER-001",
+  "problem_id": "P-017",
+  "reviewer_id": "Timer",
+  "reviewer_role": "INDEPENDENT_EVALUATOR",
+  "approved_on": "2026-08-02",
+  "status": "APPROVED_METHOD_READINESS_ONLY",
+  "bound_request": {
+    "path": "protocols/acceptance/p017_method_readiness_authorization_request.json",
+    "sha256": "e66acab3f9587e168b753f3ba507df8ded295d1f869612981c4e4261f890fabb"
+  },
+  "authorized_seeds": {
+    "development": 20330818,
+    "calibration": 20330819,
+    "technical_validation": null
+  },
+  "authorized_model_count": 1,
+  "authorization_limits": {
+    "second_model": false,
+    "formal_open_classes": false,
+    "production_fit": false,
+    "validation_seed": false,
+    "stage_b": false,
+    "reuse_exhausted_validation_seeds": false
+  },
+  "approval_text_verbatim_zh": "我已审阅 P-017 可观测性干预完整 FAIL 证据和仿真/诊断根因审计。我确认 Stage B 仍不成立，并授权一个仅开发/校准的方法就绪研究，使用开发种子 20330818 和校准种子 20330819；只允许一个预冻结的 45 维架构交互特征映射、单一 L2 多项逻辑回归头及同分数类与架构条件共形规则。热数据固定为 3600 秒被动记录，储能数据保持不变，故障严重度、噪声、案例数、类别、阈值、分母和 600 秒预算保持不变。本审批不授权第二模型、正式开放类、生产拟合、验证种子或 Stage B；20280820、20290820、20300820 继续永久禁止复用。",
+  "claim_boundary": "Development/calibration method-readiness authorization only; no production, validation seed or Stage B authority."
+}

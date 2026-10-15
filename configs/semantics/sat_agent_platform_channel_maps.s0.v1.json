@@ -1,0 +1,1490 @@
+{
+  "schema_version": "astrograph-channel-map-catalog.v1",
+  "catalog_id": "astrograph.adapters.sat-agent-platform.p018-s0",
+  "version": "1.0.0",
+  "maps": [
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.battery.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "eps.battery.soc",
+          "semantic_channel_id": "asset.eps.storage_0.state_of_charge",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "storage.energy_buffer",
+          "port_role_id": "state.energy_fraction",
+          "quantity_kind_id": "energy.state_of_charge",
+          "source_unit": "1",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "eps.battery.net_power_w",
+          "semantic_channel_id": "asset.eps.storage_0.exchange_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "storage.energy_buffer",
+          "port_role_id": "power.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "eps.battery.applied_power_w",
+          "semantic_channel_id": "asset.eps.storage_0.applied_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "storage.energy_buffer",
+          "port_role_id": "power.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "eps.battery.storage_wh",
+          "semantic_channel_id": "asset.eps.storage_0.stored_energy",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "storage.energy_buffer",
+          "port_role_id": "state.energy_reserve",
+          "quantity_kind_id": "energy.stored_energy",
+          "source_unit": "Wh",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.subsystem.adcs-rw.v2",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "command.adcs.rw.motor_torque_nm_0",
+          "semantic_channel_id": "asset.adcs.actuator_0.command_torque",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "command.effort",
+          "quantity_kind_id": "mechanical.torque",
+          "source_unit": "N*m",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "estimate.adcs.rw.actual_torque_nm_0",
+          "semantic_channel_id": "asset.adcs.actuator_0.response_torque",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "response.effort",
+          "quantity_kind_id": "mechanical.torque",
+          "source_unit": "N*m",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "sensor.adcs.rw.speed_rad_s_0",
+          "semantic_channel_id": "asset.adcs.actuator_0.angular_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "state.rate",
+          "quantity_kind_id": "mechanical.angular_rate",
+          "source_unit": "rad/s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "sensor.adcs.rw.motor_current_a_0",
+          "semantic_channel_id": "asset.adcs.actuator_0.motor_current",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "state.electrical_current",
+          "quantity_kind_id": "electrical.current",
+          "source_unit": "A",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "estimate.adcs.pointing_error_deg",
+          "semantic_channel_id": "asset.adcs.actuator_0.pointing_error",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "performance.angular_error",
+          "quantity_kind_id": "angle.angular_deviation",
+          "source_unit": "deg",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.subsystem.thermal.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "thermal.source_native.battery_temp_k",
+          "semantic_channel_id": "asset.thermal.battery_0.temperature",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "state.temperature",
+          "quantity_kind_id": "thermal.temperature",
+          "source_unit": "K",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "thermal.source_native.electronics_temp_k",
+          "semantic_channel_id": "asset.thermal.electronics_0.temperature",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "state.temperature",
+          "quantity_kind_id": "thermal.temperature",
+          "source_unit": "K",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "thermal.source_native.payload_temp_k",
+          "semantic_channel_id": "asset.thermal.payload_0.temperature",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "state.temperature",
+          "quantity_kind_id": "thermal.temperature",
+          "source_unit": "K",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "thermal.source_native.heater_power_w",
+          "semantic_channel_id": "asset.thermal.heater_0.exchange_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "heat.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.subsystem.eps-unified.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "eps.battery_soc",
+          "semantic_channel_id": "asset.eps.storage_0.state_of_charge",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "storage.energy_buffer",
+          "port_role_id": "state.energy_fraction",
+          "quantity_kind_id": "energy.state_of_charge",
+          "source_unit": "1",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "eps.net_power_w",
+          "semantic_channel_id": "asset.eps.storage_0.exchange_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "storage.energy_buffer",
+          "port_role_id": "power.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "eps.solar_power_w",
+          "semantic_channel_id": "asset.eps.storage_0.solar_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "storage.energy_buffer",
+          "port_role_id": "power.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.whole-spacecraft.composite.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "battery_soc",
+          "semantic_channel_id": "asset.eps.storage_0.state_of_charge",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "storage.energy_buffer",
+          "port_role_id": "state.energy_fraction",
+          "quantity_kind_id": "energy.state_of_charge",
+          "source_unit": "1",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "thermal_temp_c",
+          "semantic_channel_id": "asset.thermal.payload_0.temperature",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "state.temperature",
+          "quantity_kind_id": "thermal.temperature",
+          "source_unit": "degC",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "attitude_error_deg",
+          "semantic_channel_id": "asset.adcs.actuator_0.pointing_error",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "performance.angular_error",
+          "quantity_kind_id": "angle.angular_deviation",
+          "source_unit": "deg",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "payload_generated_bps",
+          "semantic_channel_id": "asset.comm.queue_0.ingress_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "flow.exchange",
+          "quantity_kind_id": "information.data_rate",
+          "source_unit": "bit/s",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "downlink_delivered_bps",
+          "semantic_channel_id": "asset.comm.queue_0.egress_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "flow.exchange",
+          "quantity_kind_id": "information.data_rate",
+          "source_unit": "bit/s",
+          "direction": -1,
+          "required": false
+        },
+        {
+          "source_field": "data_storage_bits",
+          "semantic_channel_id": "asset.comm.queue_0.occupied_amount",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "state.occupied_amount",
+          "quantity_kind_id": "information.data_amount",
+          "source_unit": "bit",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "propellant_remaining_kg",
+          "semantic_channel_id": "asset.propulsion.tank_0.remaining_mass",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "state.occupied_amount",
+          "quantity_kind_id": "mass.amount",
+          "source_unit": "kg",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.imu.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "adcs.imu.gyro_x_rad_s",
+          "semantic_channel_id": "asset.adcs.imu_0.angular_rate_x",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "mechanical.angular_rate",
+          "source_unit": "rad/s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "adcs.imu.gyro_y_rad_s",
+          "semantic_channel_id": "asset.adcs.imu_0.angular_rate_y",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "mechanical.angular_rate",
+          "source_unit": "rad/s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "adcs.imu.gyro_z_rad_s",
+          "semantic_channel_id": "asset.adcs.imu_0.angular_rate_z",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "mechanical.angular_rate",
+          "source_unit": "rad/s",
+          "direction": 1,
+          "required": true
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.pdu.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "eps.pdu.requested_power_w",
+          "semantic_channel_id": "asset.eps.pdu_0.input_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "converter.power",
+          "port_role_id": "power.input",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "eps.pdu.delivered_power_w",
+          "semantic_channel_id": "asset.eps.pdu_0.output_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "converter.power",
+          "port_role_id": "power.output",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "eps.pdu.shed_count",
+          "semantic_channel_id": "asset.eps.converter_0.shed_events",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "converter.power",
+          "port_role_id": "state.event_count",
+          "quantity_kind_id": "inventory.event_count",
+          "source_unit": "1",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.data-queue-link.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "comm.data_queue.generated_bps",
+          "semantic_channel_id": "asset.comm.queue_0.ingress_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "flow.exchange",
+          "quantity_kind_id": "information.data_rate",
+          "source_unit": "bit/s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "comm.data_queue.downlink_bps",
+          "semantic_channel_id": "asset.comm.queue_0.egress_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "flow.exchange",
+          "quantity_kind_id": "information.data_rate",
+          "source_unit": "bit/s",
+          "direction": -1,
+          "required": true
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.onboard-storage.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "comm.storage.fill_ratio",
+          "semantic_channel_id": "asset.comm.queue_0.fill_fraction",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "state.fill_fraction",
+          "quantity_kind_id": "inventory.fill_fraction",
+          "source_unit": "1",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "comm.storage.generated_bps",
+          "semantic_channel_id": "asset.comm.queue_0.arrival_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "flow.exchange",
+          "quantity_kind_id": "information.data_rate",
+          "source_unit": "bit/s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "comm.storage.downlink_bps",
+          "semantic_channel_id": "asset.comm.queue_0.service_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "flow.exchange",
+          "quantity_kind_id": "information.data_rate",
+          "source_unit": "bit/s",
+          "direction": -1,
+          "required": true
+        },
+        {
+          "source_field": "comm.storage.stored_bits",
+          "semantic_channel_id": "asset.comm.queue_0.stored_amount",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "state.occupied_amount",
+          "quantity_kind_id": "information.data_amount",
+          "source_unit": "bit",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.cmg.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "adcs.cmg.wheel_speed_rad_s",
+          "semantic_channel_id": "asset.adcs.cmg_0.wheel_angular_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "state.rate",
+          "quantity_kind_id": "mechanical.angular_rate",
+          "source_unit": "rad/s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "adcs.cmg.gimbal_angle_rad",
+          "semantic_channel_id": "asset.adcs.cmg_0.gimbal_angle",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "state.gimbal_angle",
+          "quantity_kind_id": "mechanical.angular_position",
+          "source_unit": "rad",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.cmg.wheel_momentum_nms",
+          "semantic_channel_id": "asset.adcs.cmg_0.wheel_momentum",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "state.angular_momentum",
+          "quantity_kind_id": "mechanical.angular_momentum",
+          "source_unit": "N*m*s",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.mtb.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "adcs.mtb.command_dipole_am2_0",
+          "semantic_channel_id": "asset.adcs.mtb_0.command_dipole_x",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "command.magnetic_dipole",
+          "quantity_kind_id": "magnetic.dipole_moment",
+          "source_unit": "A*m^2",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "adcs.mtb.command_dipole_am2_1",
+          "semantic_channel_id": "asset.adcs.mtb_0.command_dipole_y",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "command.magnetic_dipole",
+          "quantity_kind_id": "magnetic.dipole_moment",
+          "source_unit": "A*m^2",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.command_dipole_am2_2",
+          "semantic_channel_id": "asset.adcs.mtb_0.command_dipole_z",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "command.magnetic_dipole",
+          "quantity_kind_id": "magnetic.dipole_moment",
+          "source_unit": "A*m^2",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.actual_dipole_am2_0",
+          "semantic_channel_id": "asset.adcs.mtb_0.actual_dipole_x",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "response.magnetic_dipole",
+          "quantity_kind_id": "magnetic.dipole_moment",
+          "source_unit": "A*m^2",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.actual_dipole_am2_1",
+          "semantic_channel_id": "asset.adcs.mtb_0.actual_dipole_y",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "response.magnetic_dipole",
+          "quantity_kind_id": "magnetic.dipole_moment",
+          "source_unit": "A*m^2",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.actual_dipole_am2_2",
+          "semantic_channel_id": "asset.adcs.mtb_0.actual_dipole_z",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "response.magnetic_dipole",
+          "quantity_kind_id": "magnetic.dipole_moment",
+          "source_unit": "A*m^2",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.torque_nm_0",
+          "semantic_channel_id": "asset.adcs.mtb_0.torque_x",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "response.effort",
+          "quantity_kind_id": "mechanical.torque",
+          "source_unit": "N*m",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.torque_nm_1",
+          "semantic_channel_id": "asset.adcs.mtb_0.torque_y",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "response.effort",
+          "quantity_kind_id": "mechanical.torque",
+          "source_unit": "N*m",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.torque_nm_2",
+          "semantic_channel_id": "asset.adcs.mtb_0.torque_z",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "response.effort",
+          "quantity_kind_id": "mechanical.torque",
+          "source_unit": "N*m",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.torque_norm_nm",
+          "semantic_channel_id": "asset.adcs.mtb_0.torque_norm",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "response.effort",
+          "quantity_kind_id": "mechanical.torque",
+          "source_unit": "N*m",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.magnetic_field_t_0",
+          "semantic_channel_id": "asset.adcs.mtb_0.field_x",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "context.magnetic_field",
+          "quantity_kind_id": "magnetic.field",
+          "source_unit": "T",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.magnetic_field_t_1",
+          "semantic_channel_id": "asset.adcs.mtb_0.field_y",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "context.magnetic_field",
+          "quantity_kind_id": "magnetic.field",
+          "source_unit": "T",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.mtb.magnetic_field_t_2",
+          "semantic_channel_id": "asset.adcs.mtb_0.field_z",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.controlled_effort",
+          "port_role_id": "context.magnetic_field",
+          "quantity_kind_id": "magnetic.field",
+          "source_unit": "T",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.star_tracker.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "adcs.star_tracker.sigma_x",
+          "semantic_channel_id": "asset.adcs.star_tracker_0.attitude_mrp_x",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "attitude.mrp",
+          "source_unit": "MRP",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "adcs.star_tracker.sigma_y",
+          "semantic_channel_id": "asset.adcs.star_tracker_0.attitude_mrp_y",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "attitude.mrp",
+          "source_unit": "MRP",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.star_tracker.sigma_z",
+          "semantic_channel_id": "asset.adcs.star_tracker_0.attitude_mrp_z",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "attitude.mrp",
+          "source_unit": "MRP",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.sun_sensor.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "adcs.sun_sensor.intensity",
+          "semantic_channel_id": "asset.adcs.sun_sensor_0.intensity",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "optical.sun_intensity",
+          "source_unit": "1",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "adcs.sun_sensor.direction_x",
+          "semantic_channel_id": "asset.adcs.sun_sensor_0.direction_x",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "direction.unit_vector_component",
+          "source_unit": "1",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.sun_sensor.direction_y",
+          "semantic_channel_id": "asset.adcs.sun_sensor_0.direction_y",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "direction.unit_vector_component",
+          "source_unit": "1",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.sun_sensor.direction_z",
+          "semantic_channel_id": "asset.adcs.sun_sensor_0.direction_z",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "direction.unit_vector_component",
+          "source_unit": "1",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.magnetometer.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "adcs.magnetometer.field_x_t",
+          "semantic_channel_id": "asset.adcs.magnetometer_0.field_x",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "magnetic.field",
+          "source_unit": "T",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "adcs.magnetometer.field_y_t",
+          "semantic_channel_id": "asset.adcs.magnetometer_0.field_y",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "magnetic.field",
+          "source_unit": "T",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.magnetometer.field_z_t",
+          "semantic_channel_id": "asset.adcs.magnetometer_0.field_z",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "magnetic.field",
+          "source_unit": "T",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "adcs.magnetometer.field_norm_t",
+          "semantic_channel_id": "asset.adcs.magnetometer_0.field_norm",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "magnetic.field",
+          "source_unit": "T",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.heater.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "thermal.heater.node_temp_k",
+          "semantic_channel_id": "asset.thermal.heater_0.temperature",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "state.temperature",
+          "quantity_kind_id": "thermal.temperature",
+          "source_unit": "K",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "thermal.heater.power_w",
+          "semantic_channel_id": "asset.thermal.heater_0.heat_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "heat.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": true
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.radiator.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "thermal.radiator.node_temp_k",
+          "semantic_channel_id": "asset.thermal.radiator_0.temperature",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "state.temperature",
+          "quantity_kind_id": "thermal.temperature",
+          "source_unit": "K",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "thermal.radiator.heat_load_w",
+          "semantic_channel_id": "asset.thermal.radiator_0.heat_load",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "heat.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "thermal.radiator.rejected_heat_w",
+          "semantic_channel_id": "asset.thermal.radiator_0.rejected_heat",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "heat.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "thermal.radiator.margin_w",
+          "semantic_channel_id": "asset.thermal.radiator_0.rejection_margin",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "thermal.lumped_capacity",
+          "port_role_id": "heat.exchange",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.transmitter.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "comm.transmitter.requested_rate_bps",
+          "semantic_channel_id": "asset.comm.transmitter_0.requested_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "flow.input",
+          "quantity_kind_id": "information.data_rate",
+          "source_unit": "bit/s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "comm.transmitter.tx_power_w",
+          "semantic_channel_id": "asset.comm.transmitter_0.tx_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "flow.output",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "comm.transmitter.power_draw_w",
+          "semantic_channel_id": "asset.comm.transmitter_0.power_draw",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "flow.input",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.link_budget.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "comm.link_budget.ebn0_db",
+          "semantic_channel_id": "asset.comm.link_0.signal_to_noise_ratio",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "performance.signal_to_noise_ratio",
+          "quantity_kind_id": "signal.signal_to_noise_ratio",
+          "source_unit": "dB",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "comm.link_budget.ber",
+          "semantic_channel_id": "asset.comm.link_0.bit_error_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "performance.bit_error_rate",
+          "quantity_kind_id": "signal.bit_error_rate",
+          "source_unit": "1",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "comm.link_budget.slant_range_m",
+          "semantic_channel_id": "asset.comm.link_0.slant_range",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "context.slant_range",
+          "quantity_kind_id": "length.distance",
+          "source_unit": "m",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.solar_panel.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "eps.solar.array_power_w",
+          "semantic_channel_id": "asset.eps.solar_0.array_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "converter.power",
+          "port_role_id": "power.output",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "eps.solar.panel_power_w",
+          "semantic_channel_id": "asset.eps.solar_0.panel_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "converter.power",
+          "port_role_id": "power.output",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "eps.solar.efficiency",
+          "semantic_channel_id": "asset.eps.solar_0.conversion_efficiency",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "converter.power",
+          "port_role_id": "performance.efficiency",
+          "quantity_kind_id": "energy.conversion_efficiency",
+          "source_unit": "1",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.power_sink.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "eps.power_sink.demand_w",
+          "semantic_channel_id": "asset.eps.power_sink_0.demand_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "converter.power",
+          "port_role_id": "power.input",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": true
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.antenna.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "comm.antenna.gain_dbi",
+          "semantic_channel_id": "asset.comm.antenna_0.gain",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "context.antenna_gain",
+          "quantity_kind_id": "communication.antenna_gain",
+          "source_unit": "dBi",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "comm.antenna.off_boresight_deg",
+          "semantic_channel_id": "asset.comm.antenna_0.off_boresight_angle",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "context.pointing_angle",
+          "quantity_kind_id": "angle.angular_deviation",
+          "source_unit": "deg",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.ground_station.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "ground_station.slant_range_m",
+          "semantic_channel_id": "asset.comm.ground_station_0.slant_range",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "context.slant_range",
+          "quantity_kind_id": "length.distance",
+          "source_unit": "m",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "ground_station.elevation_deg",
+          "semantic_channel_id": "asset.comm.ground_station_0.elevation_angle",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "context.elevation_angle",
+          "quantity_kind_id": "angle.angular_deviation",
+          "source_unit": "deg",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.fuel_tank.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "propulsion.fuel_tank.propellant_mass_kg",
+          "semantic_channel_id": "asset.propulsion.fuel_tank_0.propellant_mass",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "state.occupied_amount",
+          "quantity_kind_id": "mass.amount",
+          "source_unit": "kg",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "propulsion.fuel_tank.commanded_mass_flow_kg_s",
+          "semantic_channel_id": "asset.propulsion.fuel_tank_0.mass_flow_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "flow.exchange",
+          "quantity_kind_id": "mass.mass_flow_rate",
+          "source_unit": "kg/s",
+          "direction": -1,
+          "required": true
+        },
+        {
+          "source_field": "propulsion.fuel_tank.pressure_pa",
+          "semantic_channel_id": "asset.propulsion.fuel_tank_0.pressure",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "queue.bounded_inventory",
+          "port_role_id": "state.pressure",
+          "quantity_kind_id": "pressure.pressure",
+          "source_unit": "Pa",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.payload.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "payload.instrument.power_w",
+          "semantic_channel_id": "asset.payload.instrument_0.power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "flow.input",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "payload.instrument.heat_w",
+          "semantic_channel_id": "asset.payload.instrument_0.heat_power",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "flow.output",
+          "quantity_kind_id": "electrical.active_power",
+          "source_unit": "W",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "payload.instrument.generated_bps",
+          "semantic_channel_id": "asset.payload.instrument_0.generated_rate",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "flow.output",
+          "quantity_kind_id": "information.data_rate",
+          "source_unit": "bit/s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "payload.instrument.cumulative_data_bits",
+          "semantic_channel_id": "asset.payload.instrument_0.cumulative_data_amount",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "link.transport",
+          "port_role_id": "flow.output",
+          "quantity_kind_id": "information.data_amount",
+          "source_unit": "bit",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.payload_sensor.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "payload.sensor.pointing_error_deg",
+          "semantic_channel_id": "asset.payload.sensor_0.pointing_error",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "angle.angular_deviation",
+          "source_unit": "deg",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "payload.sensor.cloud_fraction",
+          "semantic_channel_id": "asset.payload.sensor_0.cloud_fraction",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "atmosphere.cloud_fraction",
+          "source_unit": "1",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "payload.sensor.quality_score",
+          "semantic_channel_id": "asset.payload.sensor_0.quality_score",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "quality.measurement_score",
+          "source_unit": "1",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "payload.sensor.generated_bits",
+          "semantic_channel_id": "asset.payload.sensor_0.generated_bits",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "information.data_amount",
+          "source_unit": "bit",
+          "direction": 1,
+          "required": false
+        },
+        {
+          "source_field": "payload.sensor.cumulative_generated_bits",
+          "semantic_channel_id": "asset.payload.sensor_0.cumulative_generated_bits",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "sensor.measurement",
+          "port_role_id": "measurement.output",
+          "quantity_kind_id": "information.data_amount",
+          "source_unit": "bit",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent-platform.component.thruster.v1",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent-platform.p018.s0",
+      "source_schema_sha256": "959ed6b9dd619eab8432f94d796645288d980b5b4c3bdc291f7d88fe1ac54f95",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {
+        "source_field": "time_s",
+        "source_unit": "s"
+      },
+      "entries": [
+        {
+          "source_field": "propulsion.thruster.cumulative_impulse_ns",
+          "semantic_channel_id": "asset.propulsion.thruster_0.cumulative_impulse",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.thrust_impulse",
+          "port_role_id": "state.linear_impulse",
+          "quantity_kind_id": "mechanical.linear_impulse",
+          "source_unit": "N*s",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "propulsion.thruster.cumulative_propellant_kg",
+          "semantic_channel_id": "asset.propulsion.thruster_0.propellant_consumed",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.thrust_impulse",
+          "port_role_id": "state.propellant_consumed",
+          "quantity_kind_id": "mass.amount",
+          "source_unit": "kg",
+          "direction": 1,
+          "required": true
+        },
+        {
+          "source_field": "propulsion.thruster.on_time_s",
+          "semantic_channel_id": "asset.propulsion.thruster_0.on_time",
+          "asset_instance_id": "asset-under-test",
+          "component_archetype_id": "actuator.thrust_impulse",
+          "port_role_id": "state.on_time",
+          "quantity_kind_id": "time.duration",
+          "source_unit": "s",
+          "direction": 1,
+          "required": false
+        }
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 1e-06
+    }
+  ]
+}

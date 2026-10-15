@@ -1,0 +1,316 @@
+{
+  "$defs": {
+    "AcceptanceCriterion": {
+      "additionalProperties": false,
+      "properties": {
+        "criterion_id": {
+          "minLength": 1,
+          "title": "Criterion Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/GateSeverity",
+          "default": "HARD"
+        },
+        "expected_status": {
+          "$ref": "#/$defs/CheckStatus",
+          "default": "PASS"
+        },
+        "evaluator": {
+          "minLength": 1,
+          "title": "Evaluator",
+          "type": "string"
+        },
+        "claim_boundary": {
+          "minLength": 1,
+          "title": "Claim Boundary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "criterion_id",
+        "description",
+        "evaluator",
+        "claim_boundary"
+      ],
+      "title": "AcceptanceCriterion",
+      "type": "object"
+    },
+    "CheckStatus": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_RUN",
+        "TIMEOUT",
+        "ERROR"
+      ],
+      "title": "CheckStatus",
+      "type": "string"
+    },
+    "ContractStatus": {
+      "enum": [
+        "DRAFT",
+        "FROZEN",
+        "SUPERSEDED"
+      ],
+      "title": "ContractStatus",
+      "type": "string"
+    },
+    "FrozenArtifact": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "role": {
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "immutable_during_candidate": {
+          "default": true,
+          "title": "Immutable During Candidate",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "role"
+      ],
+      "title": "FrozenArtifact",
+      "type": "object"
+    },
+    "GateSeverity": {
+      "enum": [
+        "HARD",
+        "SOFT"
+      ],
+      "title": "GateSeverity",
+      "type": "string"
+    },
+    "ResourceBudget": {
+      "additionalProperties": false,
+      "properties": {
+        "max_candidates": {
+          "default": 5,
+          "minimum": 1,
+          "title": "Max Candidates",
+          "type": "integer"
+        },
+        "max_formal_gate_queries": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Max Formal Gate Queries",
+          "type": "integer"
+        },
+        "max_runtime_seconds": {
+          "default": 300,
+          "minimum": 1,
+          "title": "Max Runtime Seconds",
+          "type": "integer"
+        },
+        "max_retries_per_error": {
+          "default": 2,
+          "minimum": 0,
+          "title": "Max Retries Per Error",
+          "type": "integer"
+        },
+        "max_storage_growth_bytes": {
+          "default": 268435456,
+          "minimum": 0,
+          "title": "Max Storage Growth Bytes",
+          "type": "integer"
+        },
+        "max_sat_agent_files_changed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Max Sat Agent Files Changed",
+          "type": "integer"
+        }
+      },
+      "title": "ResourceBudget",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-improvement-contract.v2",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/ContractStatus",
+      "default": "FROZEN"
+    },
+    "baseline_version": {
+      "minLength": 1,
+      "title": "Baseline Version",
+      "type": "string"
+    },
+    "target_version": {
+      "minLength": 1,
+      "title": "Target Version",
+      "type": "string"
+    },
+    "baseline_archive_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Baseline Archive Sha256",
+      "type": "string"
+    },
+    "baseline_manifest_path": {
+      "minLength": 1,
+      "title": "Baseline Manifest Path",
+      "type": "string"
+    },
+    "baseline_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Baseline Manifest Sha256",
+      "type": "string"
+    },
+    "baseline_test_count": {
+      "minimum": 1,
+      "title": "Baseline Test Count",
+      "type": "integer"
+    },
+    "baseline_test_inventory_path": {
+      "default": "",
+      "title": "Baseline Test Inventory Path",
+      "type": "string"
+    },
+    "baseline_test_inventory_sha256": {
+      "default": "",
+      "title": "Baseline Test Inventory Sha256",
+      "type": "string"
+    },
+    "baseline_tree_size_bytes": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Baseline Tree Size Bytes",
+      "type": "integer"
+    },
+    "objective": {
+      "minLength": 1,
+      "title": "Objective",
+      "type": "string"
+    },
+    "in_scope": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "In Scope",
+      "type": "array"
+    },
+    "out_of_scope": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Out Of Scope",
+      "type": "array"
+    },
+    "sat_agent_allowed_changes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Sat Agent Allowed Changes",
+      "type": "array"
+    },
+    "required_deliverables": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Required Deliverables",
+      "type": "array"
+    },
+    "prohibited_actions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Prohibited Actions",
+      "type": "array"
+    },
+    "protected_paths": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Protected Paths",
+      "type": "array"
+    },
+    "frozen_artifacts": {
+      "items": {
+        "$ref": "#/$defs/FrozenArtifact"
+      },
+      "title": "Frozen Artifacts",
+      "type": "array"
+    },
+    "acceptance_criteria": {
+      "items": {
+        "$ref": "#/$defs/AcceptanceCriterion"
+      },
+      "minItems": 1,
+      "title": "Acceptance Criteria",
+      "type": "array"
+    },
+    "resource_budget": {
+      "$ref": "#/$defs/ResourceBudget"
+    },
+    "stop_conditions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Stop Conditions",
+      "type": "array"
+    },
+    "claim_boundary": {
+      "minLength": 1,
+      "title": "Claim Boundary",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_id",
+    "baseline_version",
+    "target_version",
+    "baseline_archive_sha256",
+    "baseline_manifest_path",
+    "baseline_manifest_sha256",
+    "baseline_test_count",
+    "objective",
+    "in_scope",
+    "out_of_scope",
+    "required_deliverables",
+    "prohibited_actions",
+    "acceptance_criteria",
+    "stop_conditions",
+    "claim_boundary"
+  ],
+  "title": "ImprovementContract",
+  "type": "object"
+}

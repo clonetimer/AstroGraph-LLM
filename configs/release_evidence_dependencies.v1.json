@@ -1,0 +1,90 @@
+{
+  "schema_version": "astrograph-release-evidence-dependencies.v1",
+  "registry_id": "post49-current-source-historical-evidence-dependencies-r1",
+  "dependencies": [
+    {
+      "dependency_id": "HIST-AI-NATIVE-MATURITY-MATRIX",
+      "path": "governance/evidence/ai_native/ai_native_maturity_matrix.json",
+      "classification": "HISTORICAL_FROZEN_EVIDENCE",
+      "delivery_policy": "ARCHIVE_EXTERNAL_ALLOWED",
+      "consumers": [
+        "scripts/ai_native/validate_ai_native_matrix.py",
+        "tests/test_ai_native_llm_hybrid_ci.py::test_ai_native_matrix_and_baseline_are_valid"
+      ],
+      "rationale": "Historical AI-native maturity evidence is intentionally excluded from CURRENT_SOURCE_ONLY deliveries; current runtime governance is represented by DELIVERY_PROFILE.json and CURRENT_RUNTIME_ASSETS.json."
+    },
+    {
+      "dependency_id": "HIST-REVIEWED-TBOX-RETRIEVAL-GRAPH",
+      "path": "governance/evidence/research/document_corpus/reviewed_tbox_retrieval_r001/reviewed_tbox_retrieval_graph.json",
+      "classification": "HISTORICAL_FROZEN_EVIDENCE",
+      "delivery_policy": "ARCHIVE_EXTERNAL_ALLOWED",
+      "consumers": [
+        "tests/test_pre_reasoning_retrieval.py::test_evidence_aware_builder_can_add_reviewed_tbox_paths_without_voting"
+      ],
+      "rationale": "Frozen reviewed TBox projection is a historical research replay artifact, not a current runtime asset in the source-only delivery."
+    },
+    {
+      "dependency_id": "HIST-PAPERSEEK-LLM-DIAGNOSTIC-ANNOTATIONS",
+      "path": "governance/evidence/ai_native/paperseek_llm_diagnostic_loop_20260903/literature_annotations.json",
+      "classification": "HISTORICAL_FROZEN_EVIDENCE",
+      "delivery_policy": "ARCHIVE_EXTERNAL_ALLOWED",
+      "consumers": [
+        "tests/test_pre_reasoning_retrieval.py::test_checked_in_paperseek_annotations_are_schema_valid_and_non_runtime"
+      ],
+      "rationale": "PaperSeek annotations are frozen historical method-review evidence and are intentionally not reconstructed in a current-source-only package."
+    },
+    {
+      "dependency_id": "HIST-LLM-METHOD-ABLATION-ORIGINAL-REPORT",
+      "path": "governance/evidence/research/llm_method_ablation_20260903/report.json",
+      "classification": "HISTORICAL_FROZEN_EVIDENCE",
+      "delivery_policy": "ARCHIVE_EXTERNAL_ALLOWED",
+      "consumers": [
+        "configs/release_claims/engineering_candidate.json#post33-llm-method-ablation",
+        "tests/test_llm_method_ablation.py::test_live_pilot_preserves_failed_attempt_and_disclosed_correction"
+      ],
+      "rationale": "The failed original pilot report is historical frozen evidence. It must never be regenerated from the corrected run; source-only delivery may reference its archive location explicitly."
+    },
+    {
+      "dependency_id": "HIST-AI-NATIVE-FEEDBACK-BASELINE",
+      "path": "governance/evidence/ai_native/feedback_loop_baseline.json",
+      "classification": "HISTORICAL_FROZEN_EVIDENCE",
+      "delivery_policy": "ARCHIVE_EXTERNAL_ALLOWED",
+      "consumers": [
+        "scripts/ai_native/validate_ai_native_matrix.py",
+        "tests/test_ai_native_llm_hybrid_ci.py::test_ai_native_matrix_and_baseline_are_valid"
+      ],
+      "rationale": "Historical feedback-loop baseline paired with the AI-native maturity matrix; current-source-only delivery uses current runtime governance assets instead."
+    },
+    {
+      "dependency_id": "HIST-REVIEWED-TBOX-RETRIEVAL-RECEIPT",
+      "path": "governance/evidence/research/document_corpus/reviewed_tbox_retrieval_r001/build_receipt.json",
+      "classification": "HISTORICAL_FROZEN_EVIDENCE",
+      "delivery_policy": "ARCHIVE_EXTERNAL_ALLOWED",
+      "consumers": [
+        "tests/test_pre_reasoning_retrieval.py::test_evidence_aware_builder_can_add_reviewed_tbox_paths_without_voting"
+      ],
+      "rationale": "Build receipt is required to replay the historical reviewed TBox projection and is intentionally external to CURRENT_SOURCE_ONLY delivery."
+    },
+    {
+      "dependency_id": "HIST-LLM-METHOD-ABLATION-CORRECTED-REPORT",
+      "path": "governance/evidence/research/llm_method_ablation_20260903/report_after_constraint_fix.json",
+      "classification": "HISTORICAL_FROZEN_EVIDENCE",
+      "delivery_policy": "ARCHIVE_EXTERNAL_ALLOWED",
+      "consumers": [
+        "tests/test_llm_method_ablation.py::test_live_pilot_preserves_failed_attempt_and_disclosed_correction"
+      ],
+      "rationale": "Corrected historical pilot report must remain paired with the original failed report and correction protocol; it is not reconstructed in source-only delivery."
+    },
+    {
+      "dependency_id": "HIST-LLM-METHOD-ABLATION-CORRECTION-PROTOCOL",
+      "path": "governance/evidence/research/llm_method_ablation_20260903/posthoc_correction_protocol.json",
+      "classification": "HISTORICAL_FROZEN_EVIDENCE",
+      "delivery_policy": "ARCHIVE_EXTERNAL_ALLOWED",
+      "consumers": [
+        "tests/test_llm_method_ablation.py::test_live_pilot_preserves_failed_attempt_and_disclosed_correction"
+      ],
+      "rationale": "Frozen post-hoc correction protocol is needed to audit the historical pilot correction and is intentionally archive-only in source-only delivery."
+    }
+  ],
+  "policy_boundary": "Only dependencies listed here may be absent from CURRENT_SOURCE_ONLY packages. Missing unregistered evidence remains a failure. Qualified/replayable deliveries must require all registered dependencies to be bundled."
+}

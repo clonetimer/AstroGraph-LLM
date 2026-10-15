@@ -1,0 +1,47 @@
+{
+  "queries": [
+    {
+      "query_id": "Q-RW-FRICTION-REQUIRED",
+      "question": "反作用轮摩擦增大需要哪些关键可执行证据？",
+      "start_node_id": "ADCS_RW_FRICTION_INCREASE",
+      "expected_relation": "REQUIRES_EVIDENCE",
+      "expected_target_ids": [
+        "ED-RW-FRIC-AVAILABLE-V1",
+        "ED-RW-FRIC-CURRENT-V1",
+        "ED-RW-FRIC-DIRECT-V1",
+        "ED-RW-FRIC-DRIVER-OK-V1",
+        "ED-RW-FRIC-SPEED-V1"
+      ]
+    },
+    {
+      "query_id": "Q-RW-TORQUE-REQUIRED",
+      "question": "反作用轮力矩能力丧失需要哪些关键可执行证据？",
+      "start_node_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "expected_relation": "REQUIRES_EVIDENCE",
+      "expected_target_ids": [
+        "ED-RW-TORQUE-AVAILABLE-DROP-V1",
+        "ED-RW-TORQUE-DRIVER-V1"
+      ]
+    },
+    {
+      "query_id": "Q-RW-FRICTION-SUPPORT",
+      "question": "反作用轮摩擦增大有哪些非关键支持证据？",
+      "start_node_id": "ADCS_RW_FRICTION_INCREASE",
+      "expected_relation": "SUPPORTED_BY",
+      "expected_target_ids": [
+        "ED-RW-FRIC-TEMP-SUPPORT-V1"
+      ]
+    },
+    {
+      "query_id": "Q-RW-TORQUE-SUPPORT",
+      "question": "反作用轮力矩能力丧失有哪些非关键支持证据？",
+      "start_node_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "expected_relation": "SUPPORTED_BY",
+      "expected_target_ids": [
+        "ED-RW-TORQUE-ACTUAL-V1",
+        "ED-RW-TORQUE-CURRENT-V1",
+        "ED-RW-TORQUE-SPEED-V1"
+      ]
+    }
+  ]
+}

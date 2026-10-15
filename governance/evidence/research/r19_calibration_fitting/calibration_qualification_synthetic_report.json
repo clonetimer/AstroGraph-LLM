@@ -1,0 +1,2213 @@
+{
+  "admission_bundle_sha256": "544d3358146b94c96b549d8e2318c1544d3c90572dddbcedbe9e953e3b7fc8f5",
+  "calibrated_calibration_transfer_report": {
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20310918,
+    "calibration_qualification_status": "EVALUATION_ONLY_NOT_CALIBRATION_RECEIPT",
+    "claim_boundary": "Offline calibration-transfer evaluation on frozen predictions and independent groups. ECE is estimator- and binning-dependent; bootstrap intervals are descriptive. This report does not fit a calibrator, authorize a probability threshold, prove OOD calibration, or grant release qualification.",
+    "confirmatory_strata": {
+      "fault_severity": {
+        "LOW": {
+          "classwise_one_vs_rest": {
+            "A": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.1564822362665519,
+                "group_count": 8,
+                "lower": 0.02444179887508665,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20323018,
+                "upper": 0.3545428923537497
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.30309732048488935,
+                "group_count": 8,
+                "lower": 0.15633873120595118,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20323019,
+                "upper": 0.4516903921298042
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            },
+            "B": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.15648223626655192,
+                "group_count": 8,
+                "lower": 0.02444179887508668,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20323020,
+                "upper": 0.35454289235374975
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.3030973204848894,
+                "group_count": 8,
+                "lower": 0.15633873120595126,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20323021,
+                "upper": 0.5232352044032966
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            }
+          },
+          "delta_vs_declared_baseline_equal_group_macro": {
+            "accuracy": 0.0,
+            "brier": 0.0,
+            "ece": 0.0,
+            "nll": 0.0
+          },
+          "equal_group_macro_with_interval": {
+            "accuracy": {
+              "confidence": 0.95,
+              "estimate": 0.75,
+              "group_count": 8,
+              "lower": 0.375,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20322918,
+              "upper": 1.0
+            },
+            "brier": {
+              "confidence": 0.95,
+              "estimate": 0.3129644725331038,
+              "group_count": 8,
+              "lower": 0.04888359775017333,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20322920,
+              "upper": 0.5803463582508029
+            },
+            "ece": {
+              "confidence": 0.95,
+              "estimate": 0.30309732048488935,
+              "group_count": 8,
+              "lower": 0.15633873120595118,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20322921,
+              "upper": 0.44985590976382756
+            },
+            "nll": {
+              "confidence": 0.95,
+              "estimate": 0.46753614251817677,
+              "group_count": 8,
+              "lower": 0.17000420523616103,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20322919,
+              "upper": 0.7650680798001926
+            }
+          },
+          "group_count": 8,
+          "sample_count": 8,
+          "sample_global": {
+            "accuracy": 0.75,
+            "aurc": 0.03125,
+            "brier": 0.3129644725331038,
+            "ece": 0.30309732048488935,
+            "ece_bins": 10,
+            "nll": 0.46753614251817677
+          },
+          "status": "EVALUATED"
+        },
+        "_interpretation": {
+          "claim_boundary": "Per-dimension deltas are descriptive strata contrasts, not causal effects of one shift axis.",
+          "confounded_with_dimensions": [],
+          "declared_baseline_value": "LOW",
+          "single_dimension_isolation_status": "NO_DECLARED_DIMENSION_CONFOUNDING_DETECTED"
+        }
+      },
+      "mission_mode": {
+        "MODE_A": {
+          "classwise_one_vs_rest": {
+            "A": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.1564822362665519,
+                "group_count": 8,
+                "lower": 0.02444179887508665,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20322018,
+                "upper": 0.28852267365801715
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.30309732048488935,
+                "group_count": 8,
+                "lower": 0.15633873120595118,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20322019,
+                "upper": 0.5232352044032965
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            },
+            "B": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.15648223626655192,
+                "group_count": 8,
+                "lower": 0.02444179887508668,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20322020,
+                "upper": 0.35454289235374975
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.3030973204848894,
+                "group_count": 8,
+                "lower": 0.15633873120595126,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20322021,
+                "upper": 0.44985590976382756
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            }
+          },
+          "delta_vs_declared_baseline_equal_group_macro": {
+            "accuracy": 0.0,
+            "brier": 0.0,
+            "ece": 0.0,
+            "nll": 0.0
+          },
+          "equal_group_macro_with_interval": {
+            "accuracy": {
+              "confidence": 0.95,
+              "estimate": 0.75,
+              "group_count": 8,
+              "lower": 0.5,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20321918,
+              "upper": 1.0
+            },
+            "brier": {
+              "confidence": 0.95,
+              "estimate": 0.3129644725331038,
+              "group_count": 8,
+              "lower": 0.04888359775017333,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20321920,
+              "upper": 0.7090857847074994
+            },
+            "ece": {
+              "confidence": 0.95,
+              "estimate": 0.30309732048488935,
+              "group_count": 8,
+              "lower": 0.15633873120595118,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20321921,
+              "upper": 0.44985590976382756
+            },
+            "nll": {
+              "confidence": 0.95,
+              "estimate": 0.46753614251817677,
+              "group_count": 8,
+              "lower": 0.17000420523616103,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20321919,
+              "upper": 0.7650680798001925
+            }
+          },
+          "group_count": 8,
+          "sample_count": 8,
+          "sample_global": {
+            "accuracy": 0.75,
+            "aurc": 0.03125,
+            "brier": 0.3129644725331038,
+            "ece": 0.30309732048488935,
+            "ece_bins": 10,
+            "nll": 0.46753614251817677
+          },
+          "status": "EVALUATED"
+        },
+        "_interpretation": {
+          "claim_boundary": "Per-dimension deltas are descriptive strata contrasts, not causal effects of one shift axis.",
+          "confounded_with_dimensions": [],
+          "declared_baseline_value": "MODE_A",
+          "single_dimension_isolation_status": "NO_DECLARED_DIMENSION_CONFOUNDING_DETECTED"
+        }
+      },
+      "noise_condition": {
+        "CLEAN": {
+          "classwise_one_vs_rest": {
+            "A": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.1564822362665519,
+                "group_count": 8,
+                "lower": 0.02444179887508665,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20324018,
+                "upper": 0.3545428923537497
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.30309732048488935,
+                "group_count": 8,
+                "lower": 0.15633873120595118,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20324019,
+                "upper": 0.5232352044032965
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            },
+            "B": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.15648223626655192,
+                "group_count": 8,
+                "lower": 0.02444179887508668,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20324020,
+                "upper": 0.28852267365801715
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.3030973204848894,
+                "group_count": 8,
+                "lower": 0.15633873120595126,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20324021,
+                "upper": 0.5232352044032966
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            }
+          },
+          "delta_vs_declared_baseline_equal_group_macro": {
+            "accuracy": 0.0,
+            "brier": 0.0,
+            "ece": 0.0,
+            "nll": 0.0
+          },
+          "equal_group_macro_with_interval": {
+            "accuracy": {
+              "confidence": 0.95,
+              "estimate": 0.75,
+              "group_count": 8,
+              "lower": 0.5,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20323918,
+              "upper": 1.0
+            },
+            "brier": {
+              "confidence": 0.95,
+              "estimate": 0.3129644725331038,
+              "group_count": 8,
+              "lower": 0.04888359775017333,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20323920,
+              "upper": 0.7090857847074994
+            },
+            "ece": {
+              "confidence": 0.95,
+              "estimate": 0.30309732048488935,
+              "group_count": 8,
+              "lower": 0.15633873120595118,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20323921,
+              "upper": 0.5232352044032965
+            },
+            "nll": {
+              "confidence": 0.95,
+              "estimate": 0.46753614251817677,
+              "group_count": 8,
+              "lower": 0.17000420523616103,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20323919,
+              "upper": 0.9138340484412003
+            }
+          },
+          "group_count": 8,
+          "sample_count": 8,
+          "sample_global": {
+            "accuracy": 0.75,
+            "aurc": 0.03125,
+            "brier": 0.3129644725331038,
+            "ece": 0.30309732048488935,
+            "ece_bins": 10,
+            "nll": 0.46753614251817677
+          },
+          "status": "EVALUATED"
+        },
+        "_interpretation": {
+          "claim_boundary": "Per-dimension deltas are descriptive strata contrasts, not causal effects of one shift axis.",
+          "confounded_with_dimensions": [],
+          "declared_baseline_value": "CLEAN",
+          "single_dimension_isolation_status": "NO_DECLARED_DIMENSION_CONFOUNDING_DETECTED"
+        }
+      },
+      "simulator_version": {
+        "_interpretation": {
+          "claim_boundary": "Per-dimension deltas are descriptive strata contrasts, not causal effects of one shift axis.",
+          "confounded_with_dimensions": [],
+          "declared_baseline_value": "sim1",
+          "single_dimension_isolation_status": "NO_DECLARED_DIMENSION_CONFOUNDING_DETECTED"
+        },
+        "sim1": {
+          "classwise_one_vs_rest": {
+            "A": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.1564822362665519,
+                "group_count": 8,
+                "lower": 0.02444179887508665,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20321018,
+                "upper": 0.3545428923537497
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.30309732048488935,
+                "group_count": 8,
+                "lower": 0.15633873120595118,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20321019,
+                "upper": 0.5232352044032965
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            },
+            "B": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.15648223626655192,
+                "group_count": 8,
+                "lower": 0.02444179887508668,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20321020,
+                "upper": 0.35454289235374975
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.3030973204848894,
+                "group_count": 8,
+                "lower": 0.15633873120595126,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20321021,
+                "upper": 0.5232352044032966
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            }
+          },
+          "delta_vs_declared_baseline_equal_group_macro": {
+            "accuracy": 0.0,
+            "brier": 0.0,
+            "ece": 0.0,
+            "nll": 0.0
+          },
+          "equal_group_macro_with_interval": {
+            "accuracy": {
+              "confidence": 0.95,
+              "estimate": 0.75,
+              "group_count": 8,
+              "lower": 0.375,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20320918,
+              "upper": 1.0
+            },
+            "brier": {
+              "confidence": 0.95,
+              "estimate": 0.3129644725331038,
+              "group_count": 8,
+              "lower": 0.04888359775017333,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20320920,
+              "upper": 0.5770453473160343
+            },
+            "ece": {
+              "confidence": 0.95,
+              "estimate": 0.30309732048488935,
+              "group_count": 8,
+              "lower": 0.15633873120595118,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20320921,
+              "upper": 0.5232352044032965
+            },
+            "nll": {
+              "confidence": 0.95,
+              "estimate": 0.46753614251817677,
+              "group_count": 8,
+              "lower": 0.17000420523616103,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20320919,
+              "upper": 0.9138340484412003
+            }
+          },
+          "group_count": 8,
+          "sample_count": 8,
+          "sample_global": {
+            "accuracy": 0.75,
+            "aurc": 0.03125,
+            "brier": 0.3129644725331038,
+            "ece": 0.30309732048488935,
+            "ece_bins": 10,
+            "nll": 0.46753614251817677
+          },
+          "status": "EVALUATED"
+        }
+      }
+    },
+    "declared_baseline_values": {
+      "fault_severity": "LOW",
+      "mission_mode": "MODE_A",
+      "noise_condition": "CLEAN",
+      "simulator_version": "sim1"
+    },
+    "ece_estimator": "EQUAL_WIDTH_10_BIN_ECE",
+    "independent_group_count": 28,
+    "input_identity": {
+      "context_set_sha256": "3b464146f6df6a286ba575e63ef873984401b140a894134427bf6948dc4c6b7d",
+      "prediction_set_sha256": "acda20bc8727f0e1d0b0a8d4cc31f8e494ebe0390cbdacd8ef7f0636ca81712c",
+      "truth_set_sha256": "af1800b976e397c9ca38c984f32f8ca21c6d2309aaefefc709dd796c851424c7"
+    },
+    "partitions": {
+      "CALIBRATION_FIT": {
+        "classwise_one_vs_rest": {
+          "A": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.1564822362665519,
+              "group_count": 8,
+              "lower": 0.02444179887508665,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20311018,
+              "upper": 0.3545428923537497
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.30309732048488935,
+              "group_count": 8,
+              "lower": 0.15633873120595118,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20311019,
+              "upper": 0.5232352044032965
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          },
+          "B": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.15648223626655192,
+              "group_count": 8,
+              "lower": 0.02444179887508668,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20311020,
+              "upper": 0.28852267365801715
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.3030973204848894,
+              "group_count": 8,
+              "lower": 0.15633873120595126,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20311021,
+              "upper": 0.44985590976382756
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          }
+        },
+        "equal_group_macro_with_interval": {
+          "accuracy": {
+            "confidence": 0.95,
+            "estimate": 0.75,
+            "group_count": 8,
+            "lower": 0.375,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20310918,
+            "upper": 1.0
+          },
+          "brier": {
+            "confidence": 0.95,
+            "estimate": 0.3129644725331038,
+            "group_count": 8,
+            "lower": 0.04888359775017333,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20310920,
+            "upper": 0.7090857847074994
+          },
+          "ece": {
+            "confidence": 0.95,
+            "estimate": 0.30309732048488935,
+            "group_count": 8,
+            "lower": 0.15633873120595118,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20310921,
+            "upper": 0.4516903921298043
+          },
+          "nll": {
+            "confidence": 0.95,
+            "estimate": 0.46753614251817677,
+            "group_count": 8,
+            "lower": 0.17000420523616103,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20310919,
+            "upper": 0.7687872290161976
+          }
+        },
+        "group_count": 8,
+        "sample_count": 8,
+        "sample_global": {
+          "accuracy": 0.75,
+          "aurc": 0.03125,
+          "brier": 0.3129644725331038,
+          "ece": 0.30309732048488935,
+          "ece_bins": 10,
+          "nll": 0.46753614251817677
+        },
+        "status": "EVALUATED"
+      },
+      "CONFIRMATORY_EVALUATION": {
+        "classwise_one_vs_rest": {
+          "A": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.1564822362665519,
+              "group_count": 8,
+              "lower": 0.02444179887508665,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20312018,
+              "upper": 0.3545428923537497
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.30309732048488935,
+              "group_count": 8,
+              "lower": 0.15633873120595118,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20312019,
+              "upper": 0.5232352044032965
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          },
+          "B": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.15648223626655192,
+              "group_count": 8,
+              "lower": 0.02444179887508668,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20312020,
+              "upper": 0.35454289235374975
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.3030973204848894,
+              "group_count": 8,
+              "lower": 0.15633873120595126,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20312021,
+              "upper": 0.5232352044032966
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          }
+        },
+        "equal_group_macro_with_interval": {
+          "accuracy": {
+            "confidence": 0.95,
+            "estimate": 0.75,
+            "group_count": 8,
+            "lower": 0.5,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20311918,
+            "upper": 1.0
+          },
+          "brier": {
+            "confidence": 0.95,
+            "estimate": 0.3129644725331038,
+            "group_count": 8,
+            "lower": 0.04888359775017333,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20311920,
+            "upper": 0.5770453473160343
+          },
+          "ece": {
+            "confidence": 0.95,
+            "estimate": 0.30309732048488935,
+            "group_count": 8,
+            "lower": 0.15633873120595118,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20311921,
+            "upper": 0.44985590976382756
+          },
+          "nll": {
+            "confidence": 0.95,
+            "estimate": 0.46753614251817677,
+            "group_count": 8,
+            "lower": 0.17000420523616103,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20311919,
+            "upper": 0.9138340484412003
+          }
+        },
+        "group_count": 8,
+        "sample_count": 8,
+        "sample_global": {
+          "accuracy": 0.75,
+          "aurc": 0.03125,
+          "brier": 0.3129644725331038,
+          "ece": 0.30309732048488935,
+          "ece_bins": 10,
+          "nll": 0.46753614251817677
+        },
+        "status": "EVALUATED"
+      },
+      "DEVELOPMENT_SELECTION": {
+        "classwise_one_vs_rest": {
+          "A": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.1564822362665519,
+              "group_count": 4,
+              "lower": 0.02444179887508663,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20313018,
+              "upper": 0.42056311104948235
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.3030973204848893,
+              "group_count": 4,
+              "lower": 0.1563387312059511,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20313019,
+              "upper": 0.5966144990427656
+            },
+            "positive_group_count": 2,
+            "positive_sample_count": 2
+          },
+          "B": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.15648223626655192,
+              "group_count": 4,
+              "lower": 0.02444179887508667,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20313020,
+              "upper": 0.42056311104948235
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.3030973204848894,
+              "group_count": 4,
+              "lower": 0.15633873120595124,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20313021,
+              "upper": 0.5966144990427656
+            },
+            "positive_group_count": 2,
+            "positive_sample_count": 2
+          }
+        },
+        "equal_group_macro_with_interval": {
+          "accuracy": {
+            "confidence": 0.95,
+            "estimate": 0.75,
+            "group_count": 4,
+            "lower": 0.25,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20312918,
+            "upper": 1.0
+          },
+          "brier": {
+            "confidence": 0.95,
+            "estimate": 0.3129644725331038,
+            "group_count": 4,
+            "lower": 0.0488835977501733,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20312920,
+            "upper": 0.8411262220989647
+          },
+          "ece": {
+            "confidence": 0.95,
+            "estimate": 0.30309732048488935,
+            "group_count": 4,
+            "lower": 0.1563387312059511,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20312921,
+            "upper": 0.5966144990427656
+          },
+          "nll": {
+            "confidence": 0.95,
+            "estimate": 0.46753614251817677,
+            "group_count": 4,
+            "lower": 0.17000420523616094,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20312919,
+            "upper": 1.0626000170822083
+          }
+        },
+        "group_count": 4,
+        "sample_count": 4,
+        "sample_global": {
+          "accuracy": 0.75,
+          "aurc": 0.03125,
+          "brier": 0.31296447253310383,
+          "ece": 0.30309732048488935,
+          "ece_bins": 10,
+          "nll": 0.4675361425181768
+        },
+        "status": "EVALUATED"
+      },
+      "EXTERNAL_VALIDATION": {
+        "classwise_one_vs_rest": {
+          "A": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.1564822362665519,
+              "group_count": 8,
+              "lower": 0.02444179887508665,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20314018,
+              "upper": 0.3545428923537497
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.30309732048488935,
+              "group_count": 8,
+              "lower": 0.15633873120595118,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20314019,
+              "upper": 0.4498559097638275
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          },
+          "B": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.15648223626655192,
+              "group_count": 8,
+              "lower": 0.02444179887508668,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20314020,
+              "upper": 0.35454289235374975
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.3030973204848894,
+              "group_count": 8,
+              "lower": 0.15633873120595126,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20314021,
+              "upper": 0.44985590976382756
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          }
+        },
+        "equal_group_macro_with_interval": {
+          "accuracy": {
+            "confidence": 0.95,
+            "estimate": 0.75,
+            "group_count": 8,
+            "lower": 0.375,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20313918,
+            "upper": 1.0
+          },
+          "brier": {
+            "confidence": 0.95,
+            "estimate": 0.3129644725331038,
+            "group_count": 8,
+            "lower": 0.04888359775017333,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20313920,
+            "upper": 0.7090857847074994
+          },
+          "ece": {
+            "confidence": 0.95,
+            "estimate": 0.30309732048488935,
+            "group_count": 8,
+            "lower": 0.15633873120595118,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20313921,
+            "upper": 0.5232352044032965
+          },
+          "nll": {
+            "confidence": 0.95,
+            "estimate": 0.46753614251817677,
+            "group_count": 8,
+            "lower": 0.17000420523616103,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20313919,
+            "upper": 0.9138340484412003
+          }
+        },
+        "group_count": 8,
+        "sample_count": 8,
+        "sample_global": {
+          "accuracy": 0.75,
+          "aurc": 0.03125,
+          "brier": 0.3129644725331038,
+          "ece": 0.30309732048488935,
+          "ece_bins": 10,
+          "nll": 0.46753614251817677
+        },
+        "status": "EVALUATED"
+      }
+    },
+    "report_sha256": "1edb12d37ee6c9d93e47a49b9b068edb292d31e8d2fcda27581a02eb206a9a29",
+    "required_dimensions": [
+      "simulator_version",
+      "mission_mode",
+      "fault_severity",
+      "noise_condition"
+    ],
+    "sample_count": 28,
+    "schema_version": "astrograph-calibration-transfer-campaign-report.v1",
+    "uncertainty_method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE"
+  },
+  "calibrated_calibration_transfer_report_sha256": "1edb12d37ee6c9d93e47a49b9b068edb292d31e8d2fcda27581a02eb206a9a29",
+  "calibration_id": "temp-r19",
+  "claim_boundary": "External-validation calibration qualification is an engineering review gate on frozen independent groups. It does not prove calibration under arbitrary distribution shift, causal robustness, HIL/flight qualification, or release safety.",
+  "classwise_degradation_guardrails": {
+    "CONFIRMATORY_EVALUATION:A": {
+      "brier_delta": -0.01101776373344815,
+      "brier_passed": true,
+      "ece_delta": 0.028097320484889332,
+      "ece_passed": true,
+      "maximum_brier_increase": 0.05,
+      "maximum_ece_increase": 0.1
+    },
+    "CONFIRMATORY_EVALUATION:B": {
+      "brier_delta": -0.011017763733448122,
+      "brier_passed": true,
+      "ece_delta": 0.028097320484889388,
+      "ece_passed": true,
+      "maximum_brier_increase": 0.05,
+      "maximum_ece_increase": 0.1
+    },
+    "EXTERNAL_VALIDATION:A": {
+      "brier_delta": -0.01101776373344815,
+      "brier_passed": true,
+      "ece_delta": 0.028097320484889332,
+      "ece_passed": true,
+      "maximum_brier_increase": 0.05,
+      "maximum_ece_increase": 0.1
+    },
+    "EXTERNAL_VALIDATION:B": {
+      "brier_delta": -0.011017763733448122,
+      "brier_passed": true,
+      "ece_delta": 0.028097320484889388,
+      "ece_passed": true,
+      "maximum_brier_increase": 0.05,
+      "maximum_ece_increase": 0.1
+    }
+  },
+  "confirmatory_threshold_transfer": {
+    "by_stratum": {
+      "fault_severity": {
+        "LOW": {
+          "coverage": 0.75,
+          "equal_group_macro_coverage": 0.75,
+          "equal_group_macro_selective_risk_retained_groups": 0.0,
+          "group_count": 8,
+          "retained_group_count": 6,
+          "sample_count": 8,
+          "selective_risk": 0.0
+        }
+      },
+      "mission_mode": {
+        "MODE_A": {
+          "coverage": 0.75,
+          "equal_group_macro_coverage": 0.75,
+          "equal_group_macro_selective_risk_retained_groups": 0.0,
+          "group_count": 8,
+          "retained_group_count": 6,
+          "sample_count": 8,
+          "selective_risk": 0.0
+        }
+      },
+      "noise_condition": {
+        "CLEAN": {
+          "coverage": 0.75,
+          "equal_group_macro_coverage": 0.75,
+          "equal_group_macro_selective_risk_retained_groups": 0.0,
+          "group_count": 8,
+          "retained_group_count": 6,
+          "sample_count": 8,
+          "selective_risk": 0.0
+        }
+      },
+      "simulator_version": {
+        "sim1": {
+          "coverage": 0.75,
+          "equal_group_macro_coverage": 0.75,
+          "equal_group_macro_selective_risk_retained_groups": 0.0,
+          "group_count": 8,
+          "retained_group_count": 6,
+          "sample_count": 8,
+          "selective_risk": 0.0
+        }
+      }
+    },
+    "claim_boundary": "Applies one development-selected threshold to disjoint CONFIRMATORY_EVALUATION groups. It does not retune the threshold on target data and does not establish OOD guarantees or release qualification.",
+    "confirmatory_group_count": 8,
+    "overall": {
+      "coverage": 0.75,
+      "equal_group_macro_coverage": 0.75,
+      "equal_group_macro_selective_risk_retained_groups": 0.0,
+      "group_count": 8,
+      "retained_group_count": 6,
+      "sample_count": 8,
+      "selective_risk": 0.0
+    },
+    "report_sha256": "ccc7f6485ab71286468b2b392efd2578e44ad5f01d8dcee8203717d3c5457f5d",
+    "schema_version": "astrograph-selective-threshold-transfer-report.v1",
+    "selected_on_groups": [
+      "dev-g0",
+      "dev-g1",
+      "dev-g2",
+      "dev-g3"
+    ],
+    "selected_predictions_are_calibrated": true,
+    "status": "EVALUATED_FIXED_DEVELOPMENT_THRESHOLD",
+    "target_group_count": 8,
+    "target_partition": "CONFIRMATORY_EVALUATION",
+    "threshold": 0.8436612687940487
+  },
+  "design_sha256": "955ba1e989730e370b09ab67bc9a125bdfa3f34c258fdabe1af3a670006bdc49",
+  "external_selective_risk_degradation_guardrail": {
+    "calibrated_coverage": 0.75,
+    "calibrated_selective_risk": 0.0,
+    "comparison": "CALIBRATED_POLICY_VS_RAW_POLICY_EACH_SELECTED_ON_THE_SAME_DEVELOPMENT_GROUPS",
+    "coverage_decrease": 0.0,
+    "maximum_allowed_coverage_decrease": 0.1,
+    "maximum_allowed_selective_risk_increase": 0.02,
+    "passed": true,
+    "raw_coverage": 0.75,
+    "raw_selective_risk": 0.0,
+    "selective_risk_delta": 0.0,
+    "status": "EVALUATED"
+  },
+  "external_threshold_transfer": {
+    "by_stratum": {
+      "fault_severity": {
+        "LOW": {
+          "coverage": 0.75,
+          "equal_group_macro_coverage": 0.75,
+          "equal_group_macro_selective_risk_retained_groups": 0.0,
+          "group_count": 8,
+          "retained_group_count": 6,
+          "sample_count": 8,
+          "selective_risk": 0.0
+        }
+      },
+      "mission_mode": {
+        "MODE_A": {
+          "coverage": 0.75,
+          "equal_group_macro_coverage": 0.75,
+          "equal_group_macro_selective_risk_retained_groups": 0.0,
+          "group_count": 8,
+          "retained_group_count": 6,
+          "sample_count": 8,
+          "selective_risk": 0.0
+        }
+      },
+      "noise_condition": {
+        "CLEAN": {
+          "coverage": 0.75,
+          "equal_group_macro_coverage": 0.75,
+          "equal_group_macro_selective_risk_retained_groups": 0.0,
+          "group_count": 8,
+          "retained_group_count": 6,
+          "sample_count": 8,
+          "selective_risk": 0.0
+        }
+      },
+      "simulator_version": {
+        "sim1": {
+          "coverage": 0.75,
+          "equal_group_macro_coverage": 0.75,
+          "equal_group_macro_selective_risk_retained_groups": 0.0,
+          "group_count": 8,
+          "retained_group_count": 6,
+          "sample_count": 8,
+          "selective_risk": 0.0
+        }
+      }
+    },
+    "claim_boundary": "Applies one development-selected threshold to disjoint EXTERNAL_VALIDATION groups. It does not retune the threshold on target data and does not establish OOD guarantees or release qualification.",
+    "confirmatory_group_count": null,
+    "overall": {
+      "coverage": 0.75,
+      "equal_group_macro_coverage": 0.75,
+      "equal_group_macro_selective_risk_retained_groups": 0.0,
+      "group_count": 8,
+      "retained_group_count": 6,
+      "sample_count": 8,
+      "selective_risk": 0.0
+    },
+    "report_sha256": "e3ace7e1bf52353942c61daa7c2f1d20ac370fa69647d532ca2d5d020421b318",
+    "schema_version": "astrograph-selective-threshold-transfer-report.v1",
+    "selected_on_groups": [
+      "dev-g0",
+      "dev-g1",
+      "dev-g2",
+      "dev-g3"
+    ],
+    "selected_predictions_are_calibrated": true,
+    "status": "EVALUATED_FIXED_DEVELOPMENT_THRESHOLD",
+    "target_group_count": 8,
+    "target_partition": "EXTERNAL_VALIDATION",
+    "threshold": 0.8436612687940487
+  },
+  "external_validation_dataset_id": "external-r19",
+  "external_validation_dataset_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+  "external_validation_identity_sha256": "f5d041467c19db1873d4e62d2a7221007de698ee823660193886aa04af17d04e",
+  "fit_receipt_sha256": "93c83722941d6f4aac0c0a3bc85df6d532e8d82805c05176685b2562adb96f1e",
+  "guardrails": {
+    "CONFIRMATORY_EVALUATION:brier": {
+      "calibrated": 0.3129644725331038,
+      "delta": -0.0220355274668963,
+      "direction": "LOWER_IS_BETTER",
+      "maximum_allowed_increase": 0.0,
+      "passed": true,
+      "raw": 0.3350000000000001
+    },
+    "CONFIRMATORY_EVALUATION:ece": {
+      "calibrated": 0.30309732048488935,
+      "delta": 0.028097320484889332,
+      "direction": "LOWER_IS_BETTER",
+      "maximum_allowed_increase": 0.05,
+      "passed": true,
+      "raw": 0.275
+    },
+    "CONFIRMATORY_EVALUATION:nll": {
+      "calibrated": 0.46753614251817677,
+      "delta": -0.013843722333718056,
+      "direction": "LOWER_IS_BETTER",
+      "maximum_allowed_increase": 0.0,
+      "passed": true,
+      "raw": 0.4813798648518948
+    },
+    "EXTERNAL_VALIDATION:brier": {
+      "calibrated": 0.3129644725331038,
+      "delta": -0.0220355274668963,
+      "direction": "LOWER_IS_BETTER",
+      "maximum_allowed_increase": 0.02,
+      "passed": true,
+      "raw": 0.3350000000000001
+    },
+    "EXTERNAL_VALIDATION:ece": {
+      "calibrated": 0.30309732048488935,
+      "delta": 0.028097320484889332,
+      "direction": "LOWER_IS_BETTER",
+      "maximum_allowed_increase": 0.05,
+      "passed": true,
+      "raw": 0.275
+    },
+    "EXTERNAL_VALIDATION:nll": {
+      "calibrated": 0.46753614251817677,
+      "delta": -0.013843722333718056,
+      "direction": "LOWER_IS_BETTER",
+      "maximum_allowed_increase": 0.02,
+      "passed": true,
+      "raw": 0.4813798648518948
+    }
+  },
+  "minimum_positive_groups_per_class": 2,
+  "model_id": "model-r19",
+  "model_version": "1",
+  "partition_group_counts": {
+    "CALIBRATION_FIT": 8,
+    "CONFIRMATORY_EVALUATION": 8,
+    "DEVELOPMENT_SELECTION": 4,
+    "EXTERNAL_VALIDATION": 8
+  },
+  "positive_group_count_by_class": {
+    "CONFIRMATORY_EVALUATION": {
+      "A": 4,
+      "B": 4
+    },
+    "EXTERNAL_VALIDATION": {
+      "A": 4,
+      "B": 4
+    }
+  },
+  "qualification_status": "PASS_FOR_ENGINEERING_CALIBRATION_REVIEW",
+  "raw_baseline_selective_threshold_receipt": {
+    "coverage": 0.75,
+    "forbidden_groups": [
+      "conf-g0",
+      "conf-g1",
+      "conf-g2",
+      "conf-g3",
+      "conf-g4",
+      "conf-g5",
+      "conf-g6",
+      "conf-g7",
+      "ext-g0",
+      "ext-g1",
+      "ext-g2",
+      "ext-g3",
+      "ext-g4",
+      "ext-g5",
+      "ext-g6",
+      "ext-g7",
+      "fit-g0",
+      "fit-g1",
+      "fit-g2",
+      "fit-g3",
+      "fit-g4",
+      "fit-g5",
+      "fit-g6",
+      "fit-g7"
+    ],
+    "max_selective_risk": 0.1,
+    "receipt_sha256": "bc1eeb81eddbd0a3bc84906eae9cb5a2770a266888b7d6df3086278d42ae4564",
+    "risk": 0.0,
+    "schema_version": "astrograph-selective-threshold-receipt.v1",
+    "selected_on_groups": [
+      "dev-g0",
+      "dev-g1",
+      "dev-g2",
+      "dev-g3"
+    ],
+    "threshold": 0.9
+  },
+  "raw_calibration_transfer_report": {
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20260918,
+    "calibration_qualification_status": "EVALUATION_ONLY_NOT_CALIBRATION_RECEIPT",
+    "claim_boundary": "Offline calibration-transfer evaluation on frozen predictions and independent groups. ECE is estimator- and binning-dependent; bootstrap intervals are descriptive. This report does not fit a calibrator, authorize a probability threshold, prove OOD calibration, or grant release qualification.",
+    "confirmatory_strata": {
+      "fault_severity": {
+        "LOW": {
+          "classwise_one_vs_rest": {
+            "A": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.16750000000000004,
+                "group_count": 8,
+                "lower": 0.009999999999999998,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20273018,
+                "upper": 0.40375000000000005
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.275,
+                "group_count": 8,
+                "lower": 0.09999999999999999,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20273019,
+                "upper": 0.5375
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            },
+            "B": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.16750000000000004,
+                "group_count": 8,
+                "lower": 0.009999999999999995,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20273020,
+                "upper": 0.40375000000000005
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.275,
+                "group_count": 8,
+                "lower": 0.09999999999999998,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20273021,
+                "upper": 0.5375
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            }
+          },
+          "delta_vs_declared_baseline_equal_group_macro": {
+            "accuracy": 0.0,
+            "brier": 0.0,
+            "ece": 0.0,
+            "nll": 0.0
+          },
+          "equal_group_macro_with_interval": {
+            "accuracy": {
+              "confidence": 0.95,
+              "estimate": 0.75,
+              "group_count": 8,
+              "lower": 0.4968750000000055,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20272918,
+              "upper": 1.0
+            },
+            "brier": {
+              "confidence": 0.95,
+              "estimate": 0.3350000000000001,
+              "group_count": 8,
+              "lower": 0.019999999999999993,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20272920,
+              "upper": 0.8075000000000001
+            },
+            "ece": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20272921,
+              "upper": 0.5375
+            },
+            "nll": {
+              "confidence": 0.95,
+              "estimate": 0.4813798648518948,
+              "group_count": 8,
+              "lower": 0.10536051565782628,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20272919,
+              "upper": 1.0454088886429975
+            }
+          },
+          "group_count": 8,
+          "sample_count": 8,
+          "sample_global": {
+            "accuracy": 0.75,
+            "aurc": 0.03125,
+            "brier": 0.3350000000000001,
+            "ece": 0.275,
+            "ece_bins": 10,
+            "nll": 0.4813798648518948
+          },
+          "status": "EVALUATED"
+        },
+        "_interpretation": {
+          "claim_boundary": "Per-dimension deltas are descriptive strata contrasts, not causal effects of one shift axis.",
+          "confounded_with_dimensions": [],
+          "declared_baseline_value": "LOW",
+          "single_dimension_isolation_status": "NO_DECLARED_DIMENSION_CONFOUNDING_DETECTED"
+        }
+      },
+      "mission_mode": {
+        "MODE_A": {
+          "classwise_one_vs_rest": {
+            "A": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.16750000000000004,
+                "group_count": 8,
+                "lower": 0.009999999999999998,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20272018,
+                "upper": 0.40375000000000005
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.275,
+                "group_count": 8,
+                "lower": 0.09999999999999999,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20272019,
+                "upper": 0.4521874999999881
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            },
+            "B": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.16750000000000004,
+                "group_count": 8,
+                "lower": 0.009999999999999995,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20272020,
+                "upper": 0.40375000000000005
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.275,
+                "group_count": 8,
+                "lower": 0.09999999999999998,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20272021,
+                "upper": 0.5375
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            }
+          },
+          "delta_vs_declared_baseline_equal_group_macro": {
+            "accuracy": 0.0,
+            "brier": 0.0,
+            "ece": 0.0,
+            "nll": 0.0
+          },
+          "equal_group_macro_with_interval": {
+            "accuracy": {
+              "confidence": 0.95,
+              "estimate": 0.75,
+              "group_count": 8,
+              "lower": 0.375,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20271918,
+              "upper": 1.0
+            },
+            "brier": {
+              "confidence": 0.95,
+              "estimate": 0.3350000000000001,
+              "group_count": 8,
+              "lower": 0.019999999999999993,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20271920,
+              "upper": 0.6500000000000001
+            },
+            "ece": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20271921,
+              "upper": 0.5375
+            },
+            "nll": {
+              "confidence": 0.95,
+              "estimate": 0.4813798648518948,
+              "group_count": 8,
+              "lower": 0.10536051565782628,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20271919,
+              "upper": 1.0454088886429975
+            }
+          },
+          "group_count": 8,
+          "sample_count": 8,
+          "sample_global": {
+            "accuracy": 0.75,
+            "aurc": 0.03125,
+            "brier": 0.3350000000000001,
+            "ece": 0.275,
+            "ece_bins": 10,
+            "nll": 0.4813798648518948
+          },
+          "status": "EVALUATED"
+        },
+        "_interpretation": {
+          "claim_boundary": "Per-dimension deltas are descriptive strata contrasts, not causal effects of one shift axis.",
+          "confounded_with_dimensions": [],
+          "declared_baseline_value": "MODE_A",
+          "single_dimension_isolation_status": "NO_DECLARED_DIMENSION_CONFOUNDING_DETECTED"
+        }
+      },
+      "noise_condition": {
+        "CLEAN": {
+          "classwise_one_vs_rest": {
+            "A": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.16750000000000004,
+                "group_count": 8,
+                "lower": 0.009999999999999998,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20274018,
+                "upper": 0.40375000000000005
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.275,
+                "group_count": 8,
+                "lower": 0.09999999999999999,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20274019,
+                "upper": 0.5375
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            },
+            "B": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.16750000000000004,
+                "group_count": 8,
+                "lower": 0.009999999999999995,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20274020,
+                "upper": 0.40375000000000005
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.275,
+                "group_count": 8,
+                "lower": 0.09999999999999998,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20274021,
+                "upper": 0.5375
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            }
+          },
+          "delta_vs_declared_baseline_equal_group_macro": {
+            "accuracy": 0.0,
+            "brier": 0.0,
+            "ece": 0.0,
+            "nll": 0.0
+          },
+          "equal_group_macro_with_interval": {
+            "accuracy": {
+              "confidence": 0.95,
+              "estimate": 0.75,
+              "group_count": 8,
+              "lower": 0.375,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20273918,
+              "upper": 1.0
+            },
+            "brier": {
+              "confidence": 0.95,
+              "estimate": 0.3350000000000001,
+              "group_count": 8,
+              "lower": 0.019999999999999993,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20273920,
+              "upper": 0.8075000000000001
+            },
+            "ece": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20273921,
+              "upper": 0.45
+            },
+            "nll": {
+              "confidence": 0.95,
+              "estimate": 0.4813798648518948,
+              "group_count": 8,
+              "lower": 0.10536051565782628,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20273919,
+              "upper": 1.0454088886429975
+            }
+          },
+          "group_count": 8,
+          "sample_count": 8,
+          "sample_global": {
+            "accuracy": 0.75,
+            "aurc": 0.03125,
+            "brier": 0.3350000000000001,
+            "ece": 0.275,
+            "ece_bins": 10,
+            "nll": 0.4813798648518948
+          },
+          "status": "EVALUATED"
+        },
+        "_interpretation": {
+          "claim_boundary": "Per-dimension deltas are descriptive strata contrasts, not causal effects of one shift axis.",
+          "confounded_with_dimensions": [],
+          "declared_baseline_value": "CLEAN",
+          "single_dimension_isolation_status": "NO_DECLARED_DIMENSION_CONFOUNDING_DETECTED"
+        }
+      },
+      "simulator_version": {
+        "_interpretation": {
+          "claim_boundary": "Per-dimension deltas are descriptive strata contrasts, not causal effects of one shift axis.",
+          "confounded_with_dimensions": [],
+          "declared_baseline_value": "sim1",
+          "single_dimension_isolation_status": "NO_DECLARED_DIMENSION_CONFOUNDING_DETECTED"
+        },
+        "sim1": {
+          "classwise_one_vs_rest": {
+            "A": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.16750000000000004,
+                "group_count": 8,
+                "lower": 0.009999999999999998,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20271018,
+                "upper": 0.32500000000000007
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.275,
+                "group_count": 8,
+                "lower": 0.09999999999999999,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20271019,
+                "upper": 0.45
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            },
+            "B": {
+              "group_macro_brier_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.16750000000000004,
+                "group_count": 8,
+                "lower": 0.009999999999999995,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20271020,
+                "upper": 0.40375000000000005
+              },
+              "group_macro_ece_ovr": {
+                "confidence": 0.95,
+                "estimate": 0.275,
+                "group_count": 8,
+                "lower": 0.09999999999999998,
+                "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+                "resamples": 2000,
+                "seed": 20271021,
+                "upper": 0.5375
+              },
+              "positive_group_count": 4,
+              "positive_sample_count": 4
+            }
+          },
+          "delta_vs_declared_baseline_equal_group_macro": {
+            "accuracy": 0.0,
+            "brier": 0.0,
+            "ece": 0.0,
+            "nll": 0.0
+          },
+          "equal_group_macro_with_interval": {
+            "accuracy": {
+              "confidence": 0.95,
+              "estimate": 0.75,
+              "group_count": 8,
+              "lower": 0.4968750000000055,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20270918,
+              "upper": 1.0
+            },
+            "brier": {
+              "confidence": 0.95,
+              "estimate": 0.3350000000000001,
+              "group_count": 8,
+              "lower": 0.019999999999999993,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20270920,
+              "upper": 0.8075000000000001
+            },
+            "ece": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20270921,
+              "upper": 0.5375
+            },
+            "nll": {
+              "confidence": 0.95,
+              "estimate": 0.4813798648518948,
+              "group_count": 8,
+              "lower": 0.10536051565782628,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20270919,
+              "upper": 1.0454088886429975
+            }
+          },
+          "group_count": 8,
+          "sample_count": 8,
+          "sample_global": {
+            "accuracy": 0.75,
+            "aurc": 0.03125,
+            "brier": 0.3350000000000001,
+            "ece": 0.275,
+            "ece_bins": 10,
+            "nll": 0.4813798648518948
+          },
+          "status": "EVALUATED"
+        }
+      }
+    },
+    "declared_baseline_values": {
+      "fault_severity": "LOW",
+      "mission_mode": "MODE_A",
+      "noise_condition": "CLEAN",
+      "simulator_version": "sim1"
+    },
+    "ece_estimator": "EQUAL_WIDTH_10_BIN_ECE",
+    "independent_group_count": 28,
+    "input_identity": {
+      "context_set_sha256": "3b464146f6df6a286ba575e63ef873984401b140a894134427bf6948dc4c6b7d",
+      "prediction_set_sha256": "d62c39dd27519d61ae72a90bd9dcc6e83ef4dcf791af075260b7f1dd8b14c36a",
+      "truth_set_sha256": "af1800b976e397c9ca38c984f32f8ca21c6d2309aaefefc709dd796c851424c7"
+    },
+    "partitions": {
+      "CALIBRATION_FIT": {
+        "classwise_one_vs_rest": {
+          "A": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.16750000000000004,
+              "group_count": 8,
+              "lower": 0.009999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20261018,
+              "upper": 0.40375000000000005
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999999,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20261019,
+              "upper": 0.45
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          },
+          "B": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.16750000000000004,
+              "group_count": 8,
+              "lower": 0.009999999999999995,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20261020,
+              "upper": 0.40375000000000005
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20261021,
+              "upper": 0.5375
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          }
+        },
+        "equal_group_macro_with_interval": {
+          "accuracy": {
+            "confidence": 0.95,
+            "estimate": 0.75,
+            "group_count": 8,
+            "lower": 0.5,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20260918,
+            "upper": 1.0
+          },
+          "brier": {
+            "confidence": 0.95,
+            "estimate": 0.3350000000000001,
+            "group_count": 8,
+            "lower": 0.019999999999999993,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20260920,
+            "upper": 0.8075000000000001
+          },
+          "ece": {
+            "confidence": 0.95,
+            "estimate": 0.275,
+            "group_count": 8,
+            "lower": 0.09999999999999998,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20260921,
+            "upper": 0.45
+          },
+          "nll": {
+            "confidence": 0.95,
+            "estimate": 0.4813798648518948,
+            "group_count": 8,
+            "lower": 0.10536051565782628,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20260919,
+            "upper": 1.0454088886429975
+          }
+        },
+        "group_count": 8,
+        "sample_count": 8,
+        "sample_global": {
+          "accuracy": 0.75,
+          "aurc": 0.03125,
+          "brier": 0.3350000000000001,
+          "ece": 0.275,
+          "ece_bins": 10,
+          "nll": 0.4813798648518948
+        },
+        "status": "EVALUATED"
+      },
+      "CONFIRMATORY_EVALUATION": {
+        "classwise_one_vs_rest": {
+          "A": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.16750000000000004,
+              "group_count": 8,
+              "lower": 0.009999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20262018,
+              "upper": 0.40375000000000005
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999999,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20262019,
+              "upper": 0.5375
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          },
+          "B": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.16750000000000004,
+              "group_count": 8,
+              "lower": 0.009999999999999995,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20262020,
+              "upper": 0.32500000000000007
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20262021,
+              "upper": 0.5375
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          }
+        },
+        "equal_group_macro_with_interval": {
+          "accuracy": {
+            "confidence": 0.95,
+            "estimate": 0.75,
+            "group_count": 8,
+            "lower": 0.375,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20261918,
+            "upper": 1.0
+          },
+          "brier": {
+            "confidence": 0.95,
+            "estimate": 0.3350000000000001,
+            "group_count": 8,
+            "lower": 0.019999999999999993,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20261920,
+            "upper": 0.8075000000000001
+          },
+          "ece": {
+            "confidence": 0.95,
+            "estimate": 0.275,
+            "group_count": 8,
+            "lower": 0.09999999999999998,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20261921,
+            "upper": 0.5375
+          },
+          "nll": {
+            "confidence": 0.95,
+            "estimate": 0.4813798648518948,
+            "group_count": 8,
+            "lower": 0.10536051565782628,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20261919,
+            "upper": 1.0454088886429975
+          }
+        },
+        "group_count": 8,
+        "sample_count": 8,
+        "sample_global": {
+          "accuracy": 0.75,
+          "aurc": 0.03125,
+          "brier": 0.3350000000000001,
+          "ece": 0.275,
+          "ece_bins": 10,
+          "nll": 0.4813798648518948
+        },
+        "status": "EVALUATED"
+      },
+      "DEVELOPMENT_SELECTION": {
+        "classwise_one_vs_rest": {
+          "A": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.16750000000000004,
+              "group_count": 4,
+              "lower": 0.009999999999999995,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20263018,
+              "upper": 0.4825000000000001
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 4,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20263019,
+              "upper": 0.625
+            },
+            "positive_group_count": 2,
+            "positive_sample_count": 2
+          },
+          "B": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.16750000000000004,
+              "group_count": 4,
+              "lower": 0.009999999999999995,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20263020,
+              "upper": 0.4825000000000001
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 4,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20263021,
+              "upper": 0.625
+            },
+            "positive_group_count": 2,
+            "positive_sample_count": 2
+          }
+        },
+        "equal_group_macro_with_interval": {
+          "accuracy": {
+            "confidence": 0.95,
+            "estimate": 0.75,
+            "group_count": 4,
+            "lower": 0.25,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20262918,
+            "upper": 1.0
+          },
+          "brier": {
+            "confidence": 0.95,
+            "estimate": 0.3350000000000001,
+            "group_count": 4,
+            "lower": 0.01999999999999999,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20262920,
+            "upper": 0.9650000000000002
+          },
+          "ece": {
+            "confidence": 0.95,
+            "estimate": 0.275,
+            "group_count": 4,
+            "lower": 0.09999999999999998,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20262921,
+            "upper": 0.625
+          },
+          "nll": {
+            "confidence": 0.95,
+            "estimate": 0.4813798648518948,
+            "group_count": 4,
+            "lower": 0.10536051565782628,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20262919,
+            "upper": 1.2334185632400319
+          }
+        },
+        "group_count": 4,
+        "sample_count": 4,
+        "sample_global": {
+          "accuracy": 0.75,
+          "aurc": 0.03125,
+          "brier": 0.3350000000000001,
+          "ece": 0.275,
+          "ece_bins": 10,
+          "nll": 0.4813798648518949
+        },
+        "status": "EVALUATED"
+      },
+      "EXTERNAL_VALIDATION": {
+        "classwise_one_vs_rest": {
+          "A": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.16750000000000004,
+              "group_count": 8,
+              "lower": 0.009999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20264018,
+              "upper": 0.40375000000000005
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999999,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20264019,
+              "upper": 0.5375
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          },
+          "B": {
+            "group_macro_brier_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.16750000000000004,
+              "group_count": 8,
+              "lower": 0.009999999999999995,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20264020,
+              "upper": 0.40375000000000005
+            },
+            "group_macro_ece_ovr": {
+              "confidence": 0.95,
+              "estimate": 0.275,
+              "group_count": 8,
+              "lower": 0.09999999999999998,
+              "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+              "resamples": 2000,
+              "seed": 20264021,
+              "upper": 0.45
+            },
+            "positive_group_count": 4,
+            "positive_sample_count": 4
+          }
+        },
+        "equal_group_macro_with_interval": {
+          "accuracy": {
+            "confidence": 0.95,
+            "estimate": 0.75,
+            "group_count": 8,
+            "lower": 0.5,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20263918,
+            "upper": 1.0
+          },
+          "brier": {
+            "confidence": 0.95,
+            "estimate": 0.3350000000000001,
+            "group_count": 8,
+            "lower": 0.019999999999999993,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20263920,
+            "upper": 0.8075000000000001
+          },
+          "ece": {
+            "confidence": 0.95,
+            "estimate": 0.275,
+            "group_count": 8,
+            "lower": 0.09999999999999998,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20263921,
+            "upper": 0.45
+          },
+          "nll": {
+            "confidence": 0.95,
+            "estimate": 0.4813798648518948,
+            "group_count": 8,
+            "lower": 0.10536051565782628,
+            "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+            "resamples": 2000,
+            "seed": 20263919,
+            "upper": 1.0454088886429975
+          }
+        },
+        "group_count": 8,
+        "sample_count": 8,
+        "sample_global": {
+          "accuracy": 0.75,
+          "aurc": 0.03125,
+          "brier": 0.3350000000000001,
+          "ece": 0.275,
+          "ece_bins": 10,
+          "nll": 0.4813798648518948
+        },
+        "status": "EVALUATED"
+      }
+    },
+    "report_sha256": "5bc3408852bc30776f9abe249d6fd271c43eae66bbab629216c77ab6abc8a94d",
+    "required_dimensions": [
+      "simulator_version",
+      "mission_mode",
+      "fault_severity",
+      "noise_condition"
+    ],
+    "sample_count": 28,
+    "schema_version": "astrograph-calibration-transfer-campaign-report.v1",
+    "uncertainty_method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE"
+  },
+  "raw_calibration_transfer_report_sha256": "5bc3408852bc30776f9abe249d6fd271c43eae66bbab629216c77ab6abc8a94d",
+  "report_sha256": "9c6af8342d87103620cbb50644169fc4649576895ce769a0decf8f3a40157405",
+  "schema_version": "astrograph-probability-calibration-qualification-report.v1",
+  "selective_threshold_receipt": {
+    "coverage": 0.75,
+    "forbidden_groups": [
+      "conf-g0",
+      "conf-g1",
+      "conf-g2",
+      "conf-g3",
+      "conf-g4",
+      "conf-g5",
+      "conf-g6",
+      "conf-g7",
+      "ext-g0",
+      "ext-g1",
+      "ext-g2",
+      "ext-g3",
+      "ext-g4",
+      "ext-g5",
+      "ext-g6",
+      "ext-g7",
+      "fit-g0",
+      "fit-g1",
+      "fit-g2",
+      "fit-g3",
+      "fit-g4",
+      "fit-g5",
+      "fit-g6",
+      "fit-g7"
+    ],
+    "max_selective_risk": 0.1,
+    "receipt_sha256": "187214e5bb00d05d81867941d542b21ebdeb4d495a274940657fc80054b08bce",
+    "risk": 0.0,
+    "schema_version": "astrograph-selective-threshold-receipt.v1",
+    "selected_on_groups": [
+      "dev-g0",
+      "dev-g1",
+      "dev-g2",
+      "dev-g3"
+    ],
+    "threshold": 0.8436612687940487
+  }
+}

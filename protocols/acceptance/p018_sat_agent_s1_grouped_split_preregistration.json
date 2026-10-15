@@ -1,0 +1,146 @@
+{
+  "schema_version": "astrograph.p018.sat-agent-s1-grouped-split-preregistration.v1",
+  "protocol_id": "P018-SAT-AGENT-S1-GROUPED-SPLIT-DESIGN-001",
+  "problem_id": "P-018",
+  "recorded_on": "2026-08-02",
+  "status": "S0_DESIGN_PREREGISTERED_AWAITING_TIMER_FREEZE",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "source_count": 1,
+  "authority_boundary": {
+    "s0_design_authorized": true,
+    "timer_s1_freeze_obtained": false,
+    "split_materialization_authorized": false,
+    "development_or_calibration_seed_authorized": false,
+    "technical_validation_seed_authorized": false,
+    "model_fit_authorized": false,
+    "interpretation": "This artifact freezes the leakage-prevention design to be reviewed by Timer. It creates no assignment, seed, dataset, model or performance result."
+  },
+  "bindings": {
+    "s0_scope": {
+      "path": "protocols/acceptance/p018_sat_agent_only_s0_scope.json",
+      "sha256": "b43beb37c04d7402064f828d7e30a2a848f4016c8527a3d44251c85e4b7a9ee7"
+    },
+    "same_source_evaluation_protocol": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_same_source_cross_component_evaluation_protocol.v1.json",
+      "sha256": "fa16a5e3c38d3e0660d2a479718364d868410ad601d24a9746604ba014431ae7"
+    },
+    "task_suitability_matrix": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_task_suitability_matrix.v1.json",
+      "sha256": "095429d238cd6df0f7d24cc3565009079b8cef6ca223e37e46a42408c7d7e476"
+    }
+  },
+  "atomic_group": {
+    "group_id_name": "episode_lineage_group_id",
+    "required_fields": [
+      "generator_commit_or_effective_source_identity",
+      "capability_revision",
+      "backend_family",
+      "campaign_template_family",
+      "satellite_configuration_family",
+      "component_archetype",
+      "component_type",
+      "component_instance",
+      "fault_injection_template",
+      "nominal_fault_pair_id",
+      "base_seed_when_authorized",
+      "initial_condition_id",
+      "operating_condition_trajectory_id",
+      "severity_draw_id",
+      "fault_onset_draw_id",
+      "noise_draw_id"
+    ],
+    "co_location_rules": [
+      "All rows and windows from one run remain in one split.",
+      "All augmented, resampled or channel-masked derivatives remain with their parent run.",
+      "Paired nominal and fault cases remain in one split.",
+      "All cases derived from one initial-condition trajectory remain in one split.",
+      "Component, subsystem and whole-spacecraft views of one causal episode remain in one split.",
+      "Repeated exports, aliases and duplicate content hashes remain in one split."
+    ],
+    "prohibited_units": [
+      "random telemetry rows",
+      "random overlapping windows",
+      "random augmented samples",
+      "case IDs without lineage grouping",
+      "seed-only groups that split a shared latent episode"
+    ]
+  },
+  "preregistered_holdout_axes": [
+    {
+      "axis_id": "LEAVE_ONE_OBJECT_INSTANCE_OUT",
+      "current_material_eligibility": "NOT_ESTABLISHED_FROM_CURRENT_GOVERNED_EVIDENCE"
+    },
+    {
+      "axis_id": "LEAVE_ONE_CONFIGURATION_FAMILY_OUT",
+      "current_material_eligibility": "NOT_ESTABLISHED_FROM_CURRENT_GOVERNED_EVIDENCE"
+    },
+    {
+      "axis_id": "LEAVE_ONE_SCENARIO_OR_CAMPAIGN_FAMILY_OUT",
+      "current_material_eligibility": "CATALOG_ONLY_EPISODE_LINEAGE_NOT_ESTABLISHED"
+    },
+    {
+      "axis_id": "OPERATING_CONDITION_OUT",
+      "current_material_eligibility": "NOT_ESTABLISHED_FROM_CURRENT_GOVERNED_EVIDENCE"
+    },
+    {
+      "axis_id": "GROUPED_SEVERITY_ONSET_DURATION_TIME_AND_SEED",
+      "current_material_eligibility": "NOT_MATERIALIZED_NOT_AUTHORIZED"
+    },
+    {
+      "axis_id": "LEAVE_ONE_ARCHETYPE_OUT_REJECTION_OR_ADAPTATION_ONLY",
+      "current_material_eligibility": "STRUCTURAL_PROFILE_ONLY_DENOMINATORS_NOT_MATERIALIZED",
+      "prohibited_interpretation": "Not default zero-shot exact diagnosis and not a replacement for BIAS, INTERMITTENT or STUCK."
+    }
+  ],
+  "s0_materialization_audit_summary": {
+    "audited_holdout_axis_count": 6,
+    "active_holdout_axis_count": 0,
+    "formal_catalog_join": "PASS_31_OBJECTS_93_SCENARIOS_145_EFFECT_OCCURRENCES",
+    "formal_episode_lineage_materialized": false,
+    "interpretation": "These statuses record the S0 evidence audit and do not alter the preregistered split rules. NOT_ESTABLISHED does not mean the source can never supply the axis; it means no current governed episode inventory proves it."
+  },
+  "future_split_roles": {
+    "development": "Fit only Timer-frozen preprocessing and finite candidate models.",
+    "calibration": "Select only Timer-frozen calibration and conformal rules; never refit encoders or heads.",
+    "locked_evaluation": "Unavailable in Stage S1; requires a later Stage B approval and genuinely untouched validation seed."
+  },
+  "mandatory_leakage_checks_before_any_fit": [
+    "No telemetry-content hash crosses a split.",
+    "No nominal_fault_pair_id crosses a split.",
+    "No parent-child episode lineage crosses a split.",
+    "No overlapping window lineage crosses a split.",
+    "No scaler, imputer, feature selector, vocabulary or graph statistic is fitted outside development.",
+    "No threshold or conformal rule is selected outside calibration.",
+    "No case, scenario, campaign, source, path, seed or split identity is used as a learned input.",
+    "All failed, missing or timed-out scheduled cases remain in their original denominator and group."
+  ],
+  "frozen_invariants": {
+    "g1_1_artifacts_unchanged": true,
+    "fault_classes_unchanged": true,
+    "thresholds_unchanged": true,
+    "denominators_unchanged": true,
+    "runtime_budget_seconds": 600,
+    "unknown_or_ood_policy_unchanged": true,
+    "exhausted_validation_seeds": [20280820, 20290820, 20300820]
+  },
+  "materialization_receipt": {
+    "episode_assignment_count": 0,
+    "split_count": 0,
+    "development_seed": null,
+    "calibration_seed": null,
+    "technical_validation_seed": null,
+    "model_candidate_count": 0,
+    "feature_selection_count": 0,
+    "fit_count": 0,
+    "performance_result_count": 0
+  },
+  "timer_freeze_required_before_materialization": [
+    "Exact eligible materialized episode-lineage inventory and every NOT_TESTABLE panel.",
+    "Exact development and calibration assignments or new seeds.",
+    "Exact task-head model counts, archetype feature contracts, dimensions and preprocessing.",
+    "Exact regularization, dynamic-gate rule, conformal rule, finite candidate budget and selection order.",
+    "Exact worst-group cells, minimum denominators, confidence-interval rule and runtime accounting."
+  ],
+  "decision": "DESIGN_PREREGISTERED_NO_SPLIT_MATERIALIZED_NOT_READY_FOR_S1_FIT",
+  "claim_boundary": "Single-source grouped-split design only. source_count=1. No split, seed, truth-informed selection, fit, calibration, validation or performance result exists. Timer must freeze the complete finite Stage S1 protocol before materialization; Stage B and technical validation remain separately unauthorized."
+}

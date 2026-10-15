@@ -1,0 +1,95 @@
+{
+  "schema_version": "astrograph-generic-method-readiness-protocol.v1",
+  "protocol_id": "astrograph.generic-heads.p017.method-readiness",
+  "protocol_version": "1.0.0",
+  "authorization": {
+    "path": "protocols/acceptance/p017_method_readiness_timer_attestation.json",
+    "sha256": "1349678bfa607423340c1942b3c14bb31d272281067884c3f68d11dd18c01bc2",
+    "required_status": "APPROVED_METHOD_READINESS_ONLY"
+  },
+  "literature_review": {
+    "path": "governance/evidence/0.7.1-extension/p017_method_literature_review.v1.json",
+    "sha256": "c25b4eab47ec2ac6196b676db299e4ff6ccec3c4ce804ae161ad3193476398f3",
+    "changes_frozen_model": false
+  },
+  "frozen_data_generator": {
+    "implementation": "scripts/acceptance/research_thermal_observability_intervention.py",
+    "sha256": "9e7b767f17e6544b7a75fcd248338dc2317d430b034f6dea0e14573f870726eb",
+    "thermal_arm": "PASSIVE_LONG",
+    "thermal_horizon_seconds": 3600.0,
+    "storage_arm": "UNCHANGED_STAGE_A_CONTROL"
+  },
+  "development_seed": 20330818,
+  "calibration_seed": 20330819,
+  "technical_validation_seed": null,
+  "permanently_exhausted_validation_seeds": [20280820, 20290820, 20300820],
+  "classes": ["NORMAL", "CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+  "formal_open_set_classes_generated": [],
+  "case_counts": {
+    "development_per_archetype_per_class": 160,
+    "calibration_per_archetype_per_class": 80,
+    "development_total": 1280,
+    "calibration_total": 640
+  },
+  "feature_mapping": {
+    "base_segmented_features": 22,
+    "archetype_indicator": {"storage.energy_buffer": 0.0, "thermal.lumped_capacity": 1.0},
+    "mapping": "[x_1..x_22, thermal_indicator, thermal_indicator*x_1..thermal_indicator*x_22]",
+    "total_dimension": 45,
+    "normalization": "DEVELOPMENT_MEAN_AND_STANDARD_DEVIATION",
+    "standard_deviation_floor": 1e-9,
+    "labels_or_truth_used_at_runtime": false
+  },
+  "single_model": {
+    "model_count": 1,
+    "family": "L2_REGULARIZED_MULTINOMIAL_LOGISTIC_REGRESSION",
+    "solver": "lbfgs",
+    "penalty": "l2",
+    "C": 1.0,
+    "fit_intercept": true,
+    "class_weight": null,
+    "maximum_iterations": 2000,
+    "tolerance": 1e-6,
+    "random_state": 20330818,
+    "production_role": false
+  },
+  "conformal_rule": {
+    "grouping": "CLASS_AND_ARCHETYPE_CONDITIONAL",
+    "score_fit_split": "DEVELOPMENT",
+    "evaluation_split": "CALIBRATION",
+    "score_calibration": "SQUARED_MAHALANOBIS_DISTANCE_TO_THE_CANDIDATE_CLASS_AND_ARCHETYPE_CENTER",
+    "score_runtime": "SQUARED_MAHALANOBIS_DISTANCE_TO_THE_CANDIDATE_CLASS_AND_ARCHETYPE_CENTER",
+    "covariance_shrinkage_to_diagonal": 0.2,
+    "covariance_eigenvalue_floor": 0.001,
+    "alpha": 0.02,
+    "quantile": "rank=ceil((n+1)*(1-alpha)), clipped to n",
+    "prediction_set": "Include each class whose class-and-archetype score is at or below its development threshold.",
+    "known_decision": "Choose the highest logistic probability inside the nonempty prediction set.",
+    "ood": "Prediction set is empty.",
+    "reachability": "For each archetype, one deterministic mapped stress vector must exceed all finite class thresholds.",
+    "formal_open_set_performance_claimed": false
+  },
+  "exit_checks": {
+    "known_classification_accuracy": 0.9,
+    "normal_detection_accuracy": 0.98,
+    "storage_known_classification_accuracy": 0.9,
+    "thermal_known_classification_accuracy": 0.9,
+    "known_retention": 0.98,
+    "open_set_rule_reachable_for_each_archetype": true,
+    "development_calibration_gap_each_archetype_maximum": 0.1,
+    "failed_case_count": 0,
+    "maximum_runtime_seconds": 600
+  },
+  "result_rule": "PASS only if every exit check passes. PASS permits a separately reviewed Stage-B proposal only; it does not authorize Stage B, production fitting or a validation seed.",
+  "stage_b_authorized": false,
+  "prohibited_actions": [
+    "Fit a second model or alter the 45-dimensional mapping after seeing results",
+    "Generate BIAS, INTERMITTENT or STUCK",
+    "Create or reserve a technical-validation seed",
+    "Read, regenerate or reuse 20280820, 20290820 or 20300820",
+    "Write or bind a production model",
+    "Modify G1.1 artifacts, classes, thresholds, denominators, fault severity, noise or case counts",
+    "Delete failures, remove hard configurations or call the research Stage B"
+  ],
+  "claim_boundary": "Development/calibration method-readiness evidence only; no production, formal open-set, technical-validation, Stage-B, G3 or real-spacecraft claim."
+}

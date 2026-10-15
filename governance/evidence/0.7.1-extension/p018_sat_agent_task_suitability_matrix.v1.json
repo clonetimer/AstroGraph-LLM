@@ -1,0 +1,186 @@
+{
+  "schema_version": "astrograph.p018.sat-agent-task-suitability-matrix.v1",
+  "recorded_on": "2026-08-02",
+  "stage": "P018_S0_ZERO_FIT",
+  "status": "STRUCTURAL_INTERFACE_PASS_DIAGNOSIS_TASK_QUALIFICATION_BLOCKED",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "source_count": 1,
+  "evidence_bindings": {
+    "s0_scope": {
+      "path": "protocols/acceptance/p018_sat_agent_only_s0_scope.json",
+      "sha256": "b43beb37c04d7402064f828d7e30a2a848f4016c8527a3d44251c85e4b7a9ee7"
+    },
+    "source_environment_receipt": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_source_environment_receipt.v1.json",
+      "sha256": "7a8e988f080f97c45486c177ac813b256932f6bad3157d21f76c53cda7058f90"
+    },
+    "post_repair_semantic_validation": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_semantic_contract_validation.post_repair.v1.json",
+      "sha256": "337c7344d239d1033d30b805925c3f07cbe72110dc44b0ea4d15eccf105fc57c"
+    },
+    "post_repair_inventory": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_inventory.post_repair.v1.json",
+      "sha256": "0be027c8b09beeec80ee9219e6befd54d2f8c97b317fec6788681e1c4274503c"
+    },
+    "report_matrix": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_report_matrix.v1.json",
+      "sha256": "44c1e213c8395fde52a4c39747051f04978da4b345c0df826bd541e042c54331"
+    },
+    "test_only_replay": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_test_only_replay.v1.json",
+      "sha256": "632a11aa2925f40fe2b82a4864a2c672a77fde5516a42bef571f40c3ab2c8c76"
+    },
+    "formal_scope_lineage_audit": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_formal_scope_lineage_audit.v1.json",
+      "sha256": "d98e1f9bd35be4753877d26f8c1009d1cb997620b8a0e1ce28955b4e0e564d7b"
+    },
+    "semantic_profile_gap_audit": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_semantic_profile_gap_audit.v1.json",
+      "sha256": "1794ed6b80f13b8c68cb1bf2682a9d4662792cc54fe6da6fa8ee97b597e68c16"
+    }
+  },
+  "structural_evidence": {
+    "public_semantic_projection_denominator": 237,
+    "public_semantic_projection_passed": 237,
+    "public_semantic_projection_failed": 0,
+    "component_archetype_count": 7,
+    "hierarchy_level_count": 3,
+    "sampled_test_only_replay_archetype_count": 7,
+    "sampled_test_only_replay_exact_match_count": 7,
+    "sampled_test_only_replay_denominator": 7,
+    "source_environment_status": "PASS",
+    "formal_catalog_object_join": "PASS_31_OF_31",
+    "formal_catalog_scenario_join": "PASS_93_OF_93",
+    "formal_catalog_fault_effect_occurrence_join": "PASS_145_OF_145",
+    "exact_semantic_profile_bound_formal_objects": 7,
+    "formal_object_denominator": 31,
+    "semantic_profile_associated_catalog_rows": 21,
+    "formal_scenario_row_denominator": 93,
+    "semantic_profile_associated_fault_effect_occurrences": 32,
+    "formal_fault_effect_occurrence_denominator": 145,
+    "materialized_formal_episode_count": 0,
+    "missing_exact_formal_capability_profile_count": 24,
+    "missing_profiles_with_safe_common_public_fields": 21,
+    "missing_profiles_blocked_by_incomplete_explicit_time": 3,
+    "additional_missing_explicit_time_entity_count": 14,
+    "interpretation": "The public time, field, unit-role and archetype projection interface is structurally executable, and the formal engineering catalog joins exactly. Only 7/31 formal objects have an exact passing public semantic profile binding; the associated 21 scenario rows and 32 effect occurrences remain catalog associations, not materialized diagnosis episodes or generalization panels."
+  },
+  "task_matrix": [
+    {
+      "task_id": "DATA_QUALITY",
+      "current_status": "STRUCTURAL_INPUT_CONTRACT_ELIGIBLE",
+      "applicable_structural_denominator": 237,
+      "structural_pass_count": 237,
+      "what_is_supported": "Explicit finite strictly increasing time axes, declared public channel mapping, fail-closed missing-field handling and truth-blind archetype projection.",
+      "what_is_not_supported": "Formal acceptance of physical validity, distribution coverage or diagnosis performance.",
+      "fit_or_truth_used": false
+    },
+    {
+      "task_id": "ANOMALY_DETECTION",
+      "current_status": "NOT_YET_DATA_QUALIFIED",
+      "reason_codes": [
+        "NORMAL_FAULT_EPISODE_LINEAGE_NOT_FROZEN",
+        "OPERATING_CONDITION_HOLDOUT_NOT_MATERIALIZED",
+        "DUPLICATE_AND_EMPTY_HISTORICAL_REPORT_ASSETS_REMAIN"
+      ],
+      "required_next_evidence": "A Timer-frozen S1 development/calibration campaign with auditable normal/fault lineage groups and no row- or window-level leakage.",
+      "fit_or_truth_used": false
+    },
+    {
+      "task_id": "MECHANISM_CLASSIFICATION",
+      "current_status": "NOT_YET_DATA_QUALIFIED",
+      "reason_codes": [
+        "G1_1_TAXONOMY_TO_MATERIALIZED_EPISODE_MAPPING_NOT_FROZEN",
+        "MECHANISM_BY_ARCHETYPE_DENOMINATORS_NOT_ESTABLISHED",
+        "LABEL_OR_TRUTH_USE_REQUIRES_TIMER_STAGE_S1_FREEZE"
+      ],
+      "required_next_evidence": "Freeze the mapping of materialized known-fault episodes to CAPACITY_LOSS, DRIFT and LEAKAGE and retain every applicable case in its unconditional denominator.",
+      "fit_or_truth_used": false
+    },
+    {
+      "task_id": "OPEN_SET_REJECTION",
+      "current_status": "NOT_AUTHORIZED_IN_S0",
+      "reason_codes": [
+        "FORMAL_OPEN_SET_GENERATION_NOT_AUTHORIZED",
+        "BIAS_INTERMITTENT_STUCK_DENOMINATORS_NOT_MATERIALIZED"
+      ],
+      "required_next_evidence": "Separate Timer authorization and freeze for formal BIAS, INTERMITTENT and STUCK cases without adding, merging or widening UNKNOWN.",
+      "fit_or_truth_used": false
+    },
+    {
+      "task_id": "HIERARCHICAL_LOCALIZATION",
+      "current_status": "NOT_YET_DATA_QUALIFIED",
+      "reason_codes": [
+        "EPISODE_LEVEL_COMPONENT_SUBSYSTEM_SPACECRAFT_LINEAGE_NOT_FROZEN",
+        "DEEPEST_IDENTIFIABLE_TARGET_DENOMINATOR_NOT_ESTABLISHED",
+        "TARGET_IDENTITY_MUST_REMAIN_EVALUATOR_ONLY"
+      ],
+      "required_next_evidence": "Materialize topology-linked episodes, freeze the deepest identifiable exact-match target per case and keep target identities out of model inputs.",
+      "fit_or_truth_used": false
+    },
+    {
+      "task_id": "EVIDENCE_REASONING",
+      "current_status": "NOT_YET_DATA_QUALIFIED",
+      "reason_codes": [
+        "RUBRIC_REQUIRED_EVIDENCE_CHAINS_NOT_MATERIALIZED",
+        "KNOWLEDGE_CLAIMS_NOT_BOUND_TO_EPISODE_LINEAGE",
+        "INDEPENDENT_REASONING_SCORING_NOT_AUTHORIZED_IN_S0"
+      ],
+      "required_next_evidence": "Bind truth-blind evidence tokens and knowledge edges to the frozen reasoning rubric without using simulator answer proxies.",
+      "fit_or_truth_used": false
+    }
+  ],
+  "remaining_data_qualification_blockers": [
+    {
+      "blocker_id": "B01",
+      "description": "The formal Sat-Agent catalog join is exact at 31 objects, 93 scenarios and 145 fault/effect occurrences, but public semantic binding is only 7/31 objects, 21/93 associated catalog rows and 32/145 associated effect occurrences; 24 objects remain without an exact frozen-primary-capability semantic profile and no formal episode lineage is materialized.",
+      "no_shortcut_rule": "Catalog coverage, discovered entities, semantic-profile associations or schema-compatible traces may not be counted as qualified diagnosis episodes, and taxonomy effects may not be inferred into G1 mechanism classes."
+    },
+    {
+      "blocker_id": "B02",
+      "description": "The historical report inventory retains 47 empty traces, 176 duplicate physical traces and four cross-annotation conflicts.",
+      "no_shortcut_rule": "These records remain visible; none may be deleted, skipped, silently deduplicated across a frozen denominator or treated as independent observations."
+    },
+    {
+      "blocker_id": "B03",
+      "description": "The grouped-holdout audit establishes zero active preregistered holdout axes in current governed evidence: object-instance, configuration-family, material campaign-family, operating-condition, grouped draw/seed and episode-level archetype prerequisites all remain unmaterialized or unproven.",
+      "no_shortcut_rule": "Renamed IDs, seeds, aliases or multiple Sat-Agent backends do not create a new source or a valid holdout."
+    },
+    {
+      "blocker_id": "B04",
+      "description": "The seven deterministic replays are nominal TEST_ONLY smoke fixtures, permanently excluded from every later split.",
+      "no_shortcut_rule": "Their exact replay result cannot be used as training, calibration, validation, acceptance or diagnosis-performance evidence."
+    },
+    {
+      "blocker_id": "B05",
+      "description": "A formal-capability header audit found that 21 of the 24 missing exact profiles have safe common public fields awaiting manual semantic review, while three profile gaps include 14 newly discovered missing-time entities across four formal capabilities. These 14 records were outside the completed 57-file repair target set.",
+      "no_shortcut_rule": "Do not auto-infer quantity/port/archetype meaning from names, synthesize time, reuse the prior 57-file authorization or exclude the 14 new failures. Additional Sat-Agent writes require new project-owner approval."
+    }
+  ],
+  "decision": {
+    "source_environment_identity": "PASS",
+    "public_semantic_structure": "PASS_237_OF_237",
+    "formal_catalog_join": "PASS_31_OBJECTS_93_SCENARIOS_145_EFFECT_OCCURRENCES",
+    "formal_semantic_binding": "PARTIAL_7_OF_31_OBJECTS",
+    "materialized_formal_episode_count": 0,
+    "active_grouped_holdout_axis_count": 0,
+    "semantic_profile_gap_disposition": "21_MANUAL_MAP_FEASIBLE_3_TIME_AXIS_BLOCKED",
+    "sampled_test_only_replay": "PASS_7_OF_7",
+    "diagnosis_task_data_qualification": "BLOCKED",
+    "s0_overall": "IN_PROGRESS",
+    "stage_s1_fit_authorized": false,
+    "stage_b_authorized": false,
+    "g2_pass": false,
+    "g3_pass": false
+  },
+  "execution_receipt": {
+    "model_fit_count": 0,
+    "threshold_selection_count": 0,
+    "split_materialization_count": 0,
+    "seed_creation_or_reservation_count": 0,
+    "formal_open_set_generation_count": 0,
+    "hidden_acceptance_truth_accessed": false,
+    "formal_denominator_changed": false
+  },
+  "claim_boundary": "S0 task-suitability audit only. The Sat-Agent source, independent environment, public semantic structure and sampled TEST_ONLY replay are verified, but diagnosis-task data qualification remains blocked. No fit, seed, split, performance, Stage S1, Stage B, G2, G3, cross-source or flight claim is authorized."
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "astrograph-readonly-dag-config.v1",
+  "fixture_only": true,
+  "approved_artifact_sha256": [
+    "eabf9a58179c3596ed179afee8552d6dcd2da913f1e5289df4dc77e327f7ea5a"
+  ],
+  "approved_descriptor_sha256": [
+    "1f72958a565b2938282552794c844638a57b9ca9c0e6925a20452fe68a57c5fa",
+    "8e831a4db5ca21e05b455451abd6aa1df3fb3ae5d457b3829ec90c93cb4d29c1",
+    "ee6547456702a5f54700f1f5f9077dcb77aa4ca429199b84fe9cebacb45122f0"
+  ],
+  "data_tool": "synthetic.data",
+  "knowledge_tool": "synthetic.knowledge",
+  "investigation_tools": [
+    "synthetic.inspect"
+  ],
+  "investigation_contracts": {
+    "synthetic.inspect": {
+      "fixture.constant": "1"
+    }
+  },
+  "fault_universe": [
+    "FIXTURE_F1",
+    "FIXTURE_F2"
+  ],
+  "max_rounds": 2,
+  "max_tool_calls": 6
+}

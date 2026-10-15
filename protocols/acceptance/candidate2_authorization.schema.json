@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "astrograph-candidate-authorization-request.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "problem_id",
+    "requested_reviewer",
+    "bound_artifacts",
+    "candidate",
+    "unchanged_thresholds",
+    "denominators",
+    "prohibited_actions",
+    "requested_attestation_text_zh",
+    "approval",
+    "claim_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "astrograph-candidate-authorization-request.v1"},
+    "request_id": {"type": "string", "minLength": 1},
+    "problem_id": {"const": "P-015"},
+    "requested_reviewer": {"const": "Timer"},
+    "bound_artifacts": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "candidate": {"type": "object"},
+    "unchanged_thresholds": {"type": "object"},
+    "denominators": {"type": "object"},
+    "prohibited_actions": {"type": "array", "minItems": 8, "items": {"type": "string"}},
+    "requested_attestation_text_zh": {"type": "string", "minLength": 100},
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewer",
+        "reviewed_at_utc",
+        "attestation_text_zh",
+        "source_attestation_path",
+        "source_attestation_sha256"
+      ],
+      "properties": {
+        "status": {"enum": ["PENDING", "APPROVED", "REJECTED"]},
+        "reviewer": {"const": "Timer"},
+        "reviewed_at_utc": {"type": ["string", "null"]},
+        "attestation_text_zh": {"type": "string"},
+        "source_attestation_path": {"type": "string", "minLength": 1},
+        "source_attestation_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "claim_boundary": {"type": "string", "minLength": 1}
+  }
+}

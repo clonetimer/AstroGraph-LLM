@@ -1,0 +1,13 @@
+{
+  "accuracy": 1.0,
+  "case_count": 80,
+  "claim_boundary": "Predictions are frozen before hidden synthetic pump-mode truth is joined. The transition time is host-admitted, so this evaluates fault-mode classification conditional on an event, not detection. Generator dynamics intentionally differ from the diagnosis model. This is not DXC external validation, calibrated probability, HIL evidence, SOTA evidence, or flight qualification.",
+  "failed_off_recall": 1.0,
+  "flow_blocked_recall": 1.0,
+  "macro_f1": 1.0,
+  "prediction_set_sha256": "8f7ef4641e4230bfed87d7885fd445b44d071f06fec70ab7e6dffde9e6575dfb",
+  "schema_version": "astrograph-r31-pump-blind-simulation-campaign.v1",
+  "seed": 3101,
+  "status": "SYNTHETIC_BLIND_EVENT_CONDITIONAL_PROTOCOL_EVIDENCE_NOT_EXTERNAL_VALIDATION",
+  "truth_set_sha256": "b8556a28795111c552da69abf05575176ee8ab6200195bb7ac13f399cac4bec6"
+}

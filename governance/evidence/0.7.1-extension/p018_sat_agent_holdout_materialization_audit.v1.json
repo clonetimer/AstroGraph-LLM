@@ -1,0 +1,118 @@
+{
+  "schema_version": "astrograph.p018.sat-agent-holdout-materialization-audit.v1",
+  "generated_at": "2026-08-02T14:56:20.260854+00:00",
+  "stage": "P018_S0_ZERO_FIT",
+  "status": "HOLDOUT_PREREQUISITES_NOT_ESTABLISHED",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "source_count": 1,
+  "input_bindings": {
+    "semantic_validation": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_semantic_contract_validation.post_repair.v1.json",
+      "sha256": "337c7344d239d1033d30b805925c3f07cbe72110dc44b0ea4d15eccf105fc57c"
+    },
+    "post_repair_inventory": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_inventory.post_repair.v1.json",
+      "sha256": "0be027c8b09beeec80ee9219e6befd54d2f8c97b317fec6788681e1c4274503c"
+    },
+    "report_matrix": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_report_matrix.v1.json",
+      "sha256": "44c1e213c8395fde52a4c39747051f04978da4b345c0df826bd541e042c54331"
+    },
+    "split_preregistration": {
+      "path": "protocols/acceptance/p018_sat_agent_s1_grouped_split_preregistration.json",
+      "sha256": "be05c522f3d7718b9b5667ee475336d0d61a01fdb346e7ea04bd29ccf679903b"
+    },
+    "formal_scope_lineage_audit": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_formal_scope_lineage_audit.v1.json",
+      "sha256": "d98e1f9bd35be4753877d26f8c1009d1cb997620b8a0e1ce28955b4e0e564d7b"
+    }
+  },
+  "observed_aggregate_evidence": {
+    "discovered_readable_entity_count": 689,
+    "qualified_independent_observation_count": null,
+    "inventory_component_archetype_counts": {
+      "UNDECLARED": 689
+    },
+    "inventory_backend_family_count": 6,
+    "inventory_hierarchy_level_count": 3,
+    "report_manifest_count": 368,
+    "report_unique_physical_trace_count": 145,
+    "report_duplicate_physical_trace_count": 176,
+    "report_cross_annotation_conflict_count": 4,
+    "structurally_exercised_archetype_count": 7,
+    "formal_catalog_join_status": "PASS"
+  },
+  "holdout_axis_denominator": 6,
+  "active_holdout_axis_count": 0,
+  "axis_results": [
+    {
+      "axis_id": "LEAVE_ONE_OBJECT_INSTANCE_OUT",
+      "status": "NOT_ESTABLISHED_FROM_CURRENT_GOVERNED_EVIDENCE",
+      "observed": "Aggregate entity counts only; entity/case IDs are intentionally not emitted.",
+      "missing_material_prerequisite": "A stable component_instance lineage field with at least two materially distinct instances in every evaluated group."
+    },
+    {
+      "axis_id": "LEAVE_ONE_CONFIGURATION_FAMILY_OUT",
+      "status": "NOT_ESTABLISHED_FROM_CURRENT_GOVERNED_EVIDENCE",
+      "observed": "No governed satellite_configuration_family assignment or topology provenance is emitted.",
+      "missing_material_prerequisite": "Frozen configuration-family identity backed by materially different parameters or topology, not an alias or signal value."
+    },
+    {
+      "axis_id": "LEAVE_ONE_SCENARIO_OR_CAMPAIGN_FAMILY_OUT",
+      "status": "CATALOG_IDS_PRESENT_MATERIAL_EPISODE_LINEAGE_NOT_ESTABLISHED",
+      "observed": "The formal 93-row scenario catalog joins exactly, but no governed campaign_template_family-to-episode assignment exists.",
+      "missing_material_prerequisite": "Frozen episode-level campaign template family and parent lineage for every materialized run."
+    },
+    {
+      "axis_id": "OPERATING_CONDITION_OUT",
+      "status": "NOT_ESTABLISHED_FROM_CURRENT_GOVERNED_EVIDENCE",
+      "observed": "Physical traces exist, but no frozen operating_condition_trajectory_id grouping or coverage denominator is emitted.",
+      "missing_material_prerequisite": "Auditable operating-condition trajectory groups with non-overlapping material ranges and complete denominators."
+    },
+    {
+      "axis_id": "GROUPED_SEVERITY_ONSET_DURATION_TIME_AND_SEED",
+      "status": "NOT_MATERIALIZED_NOT_AUTHORIZED",
+      "observed": "The preregistration contains no assignment or seed and current evidence emits no run seed values.",
+      "missing_material_prerequisite": "Timer-frozen lineage groups and authorized development/calibration seeds before any split or fit."
+    },
+    {
+      "axis_id": "LEAVE_ONE_ARCHETYPE_OUT_REJECTION_OR_ADAPTATION_ONLY",
+      "status": "STRUCTURAL_PROFILE_CATALOG_ONLY_DENOMINATORS_NOT_MATERIALIZED",
+      "observed": "Seven archetype profiles are structurally exercised, while the 689-entity inventory declares archetype as UNDECLARED and no episode denominator exists.",
+      "missing_material_prerequisite": "Episode-level archetype assignments and frozen rejection/adaptation denominators; this axis cannot become default exact zero-shot diagnosis."
+    }
+  ],
+  "supplemental_non_substitutable_axes": [
+    {
+      "axis_id": "BACKEND_FAMILY",
+      "status": "DISTINCT_VALUES_OBSERVED_PAIRED_LINEAGE_NOT_ESTABLISHED",
+      "rule": "Multiple backends remain one Sat-Agent source and cannot substitute for instance, configuration, campaign or operating-condition holdouts."
+    },
+    {
+      "axis_id": "HIERARCHY_LEVEL",
+      "status": "DISTINCT_LEVELS_OBSERVED_CAUSAL_EPISODE_LINEAGE_NOT_ESTABLISHED",
+      "rule": "Component/subsystem/spacecraft aggregates cannot establish localization until their views are tied to one causal episode lineage."
+    }
+  ],
+  "decision": {
+    "material_episode_inventory_frozen": false,
+    "any_preregistered_holdout_axis_active": false,
+    "split_materialization_authorized": false,
+    "stage_s1_fit_ready": false,
+    "timer_freeze_still_required": true,
+    "next_source_write_authorized": false
+  },
+  "execution_receipt": {
+    "aggregate_governed_evidence_only": true,
+    "telemetry_row_read_count": 0,
+    "label_or_truth_value_read_count": 0,
+    "episode_assignment_count": 0,
+    "split_count": 0,
+    "seed_creation_or_reservation_count": 0,
+    "model_fit_count": 0,
+    "threshold_selection_count": 0,
+    "formal_hidden_acceptance_truth_accessed": false,
+    "formal_denominator_changed": false
+  },
+  "claim_boundary": "S0 materialization-prerequisite audit only. NOT_ESTABLISHED means the current governed evidence cannot prove an active holdout; it does not claim the Sat-Agent source can never provide that axis. No new Sat-Agent source write, split, seed, fit, Stage S1 or Stage B is authorized."
+}

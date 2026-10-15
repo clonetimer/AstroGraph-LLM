@@ -1,0 +1,12 @@
+{
+  "schema_version": "astrograph-mission-request.v1",
+  "task_id": "phm-v60-replay-example",
+  "task": "replay",
+  "work_mode": "normal",
+  "goal": "Replay the frozen PHM v6 retrospective benchmark. Do not represent it as online diagnosis.",
+  "artifacts": {
+    "replay_manifest": "examples/p1_p4/phm-replay.manifest.json",
+    "dataset_root": "/REPLACE/WITH/whole_spacecraft_phm_dataset_v6_0"
+  },
+  "documents": []
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": "astrograph-fault-confusion-groups.v1",
+  "configuration_id": "adcs-v522-phm-v60-confusion-groups-r001",
+  "review_state": "HUMAN_REVIEW_REQUIRED",
+  "groups": [
+    {
+      "group_id": "adcs-control-actuation",
+      "dataset_id": "adcs.v5_2_2",
+      "fault_classes": ["adcs_control_loop_failure", "adcs_rw_jamming", "adcs_rw_torque_path_open"],
+      "discriminator_questions": ["Is commanded torque produced at the actuator interface?", "Is wheel motion absent because of mechanical restraint or because torque delivery is lost?", "Does the control-loop residual affect several actuators coherently?"]
+    },
+    {
+      "group_id": "adcs-imu-output",
+      "dataset_id": "adcs.v5_2_2",
+      "fault_classes": ["adcs_gyro_bias_step", "adcs_imu_axis_dropout", "adcs_imu_gyro_noise_amplification", "adcs_imu_total_output_zero"],
+      "discriminator_questions": ["Is the disturbance axis-selective or common to all IMU outputs?", "Is the signature a persistent offset, increased variance, missing samples, or a zero output?", "Does an independent attitude reference contradict the IMU measurement?"]
+    },
+    {
+      "group_id": "adcs-reaction-wheel-sensing",
+      "dataset_id": "adcs.v5_2_2",
+      "fault_classes": ["adcs_rw_speed_sensor_fault", "adcs_rw_jamming", "adcs_rw_torque_path_open"],
+      "discriminator_questions": ["Do current and delivered-torque channels indicate actuation while only measured speed is inconsistent?", "Is the speed response physically absent or merely reported incorrectly?", "Are speed validity flags degraded independently of command-execution residuals?"]
+    },
+    {
+      "group_id": "adcs-star-tracker-solution",
+      "dataset_id": "adcs.v5_2_2",
+      "fault_classes": ["adcs_star_solution_constant_bias", "adcs_star_solution_unavailable", "adcs_star_tracker_stuck_at_last"],
+      "discriminator_questions": ["Is a solution present and fresh?", "Does the reported attitude change with vehicle motion?", "Is disagreement with propagated attitude approximately constant or time-frozen?"]
+    },
+    {
+      "group_id": "adcs-sun-vector",
+      "dataset_id": "adcs.v5_2_2",
+      "fault_classes": ["adcs_sun_sensor_cell_failure", "adcs_sun_sensor_saturation", "adcs_sun_vector_unavailable"],
+      "discriminator_questions": ["Is the whole vector unavailable or only one sensing cell degraded?", "Are outputs clipped at a limit while validity remains asserted?", "Is the observed vector norm/direction physically consistent with illumination geometry?"]
+    },
+    {
+      "group_id": "phm-eps-power-delivery",
+      "dataset_id": "phm.v6_0",
+      "fault_classes": ["eps_battery_capacity_loss", "eps_battery_open_circuit", "eps_load_overload", "eps_pdu_channel_trip", "eps_solar_string_open"],
+      "discriminator_questions": ["Is generation reduced, storage unavailable, or demand increased?", "Does the loss affect the whole bus or a commanded PDU branch?", "Do SOC, net-power and command-execution residuals agree on the same mechanism?"]
+    },
+    {
+      "group_id": "phm-thermal-control",
+      "dataset_id": "phm.v6_0",
+      "fault_classes": ["thermal_heater_stuck_off", "thermal_heater_stuck_on", "thermal_node_heat_bias", "thermal_radiator_rejection_loss"],
+      "discriminator_questions": ["Does heater command disagree with actual heater state?", "Is unexpected heat input localized to a node?", "Is heat rejection reduced despite radiator command and suitable boundary conditions?"]
+    },
+    {
+      "group_id": "phm-data-service",
+      "dataset_id": "phm.v6_0",
+      "fault_classes": ["comm_data_downlink_link_loss", "comm_data_storage_capacity_loss", "comm_data_transmitter_rate_loss", "payload_instrument_off", "payload_instrument_rate_loss"],
+      "discriminator_questions": ["Is data absent at generation, storage, transmission, or link delivery?", "Are commands asserted and permitted at the affected boundary?", "Do buffer-flow and requested-versus-delivered rates localize the loss?"]
+    },
+    {
+      "group_id": "phm-propulsion-delivery",
+      "dataset_id": "phm.v6_0",
+      "fault_classes": ["propulsion_fuel_leak", "propulsion_thruster_ignition_failure", "propulsion_thruster_nozzle_blockage"],
+      "discriminator_questions": ["Is propellant loss present outside commanded burns?", "Does a commanded burn produce zero thrust or reduced thrust?", "Do fuel-flow and delivered-thrust residuals distinguish ignition from nozzle restriction?"]
+    }
+  ],
+  "claim_boundary": "Confusion sets and discriminator questions are review-required engineering candidates derived from the synthetic dataset taxonomy. They are not confirmed causal rules, calibrated thresholds, or runtime voting evidence."
+}

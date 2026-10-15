@@ -1,0 +1,43 @@
+schema_version: phm.fault_contract.v1
+fault_id: ADCS_STAR_TRACKER_DROPOUT
+name_zh: 星敏感器失锁/数据中断
+subsystem: ADCS
+component: star_tracker
+fault_type: fault
+mechanism: 失锁期间融合器拒绝星敏姿态更新，转为陀螺递推；重捕获后恢复星敏校正。
+injection_target: AdcsSensorFusion.star_tracker_dropout
+parameters:
+  dropout_drift_rad_s:
+    unit: rad/s
+    nominal: [0.00005, -0.00003, 0.00002]
+    source: engineering_assumption
+direct_channels:
+  - status.adcs.star_tracker_valid
+  - status.adcs.star_tracker_locked
+  - sensor.adcs.star_tracker_data_age_s
+component_response_channels:
+  - status.adcs.sensor_fusion_mode_code
+  - estimate.adcs.pointing_error_deg
+subsystem_propagation_channels:
+  - sensor.adcs.gyro_rate_rad_s_x
+  - sensor.adcs.rw.speed_rad_s_0
+confusable_faults:
+  - ADCS_RW_JAM
+  - ADCS_RW_FRICTION_INCREASE
+  - ADCS_GYRO_BIAS_DRIFT
+supported_conditions:
+  - attitude_maneuver
+  - steady_pointing
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  valid_and_locked_false_required: true
+  gyro_propagation_mode_code: 2
+  minimum_data_age_s: 30.0
+  minimum_pointing_error_delta_deg: 0.02
+  reaction_wheel_availability_must_remain_true: true
+known_limits:
+  - 等效陀螺漂移率未经过目标硬件或飞行数据标定。
+  - 当前融合器是确定性星敏/陀螺工程模型，不是飞行级 MEKF。
+  - 未建模星图识别、杂光、角速度捕获范围和重捕获概率。
+  - 结论仅适用于工程合成数据和确定性诊断接口验证。

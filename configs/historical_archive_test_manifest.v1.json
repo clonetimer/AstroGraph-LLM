@@ -1,0 +1,623 @@
+{
+  "schema_version": "astrograph-historical-archive-test-manifest.v1",
+  "manifest_id": "post49-source-only-archival-replay-tests-r1",
+  "default_resolution": "AUTO_FROM_DELIVERY_PROFILE",
+  "profiles": {
+    "source-only": "Run current-source tests and skip only registered replay tests whose declared archive inputs are absent.",
+    "archival-replay": "Require every registered replay dependency to exist before test execution; missing archive content is a session-level failure."
+  },
+  "tests": [
+    {
+      "nodeid": "tests/test_tbox_structured_output_trace_artifact.py::test_tbox_path_survives_into_hash_bound_structured_output",
+      "required_paths": [
+        "governance/evidence/research/document_corpus/tbox_structured_output_trace_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_post6_typed_stage_artifacts.py::test_online_runtime_rebuilds_real_document_graph_claims_as_zero_vote_shadow",
+      "required_paths": [
+        "governance/evidence/research/document_corpus/document_graph_retrieval_bridge_r001/document_claim_admission_trace.json",
+        "governance/evidence/research/document_corpus/document_claim_fusion_adapter_r001/reviewed_mapping_bundle.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_document_corpus_readiness.py::test_readiness_v3_accepts_only_scoped_source_bound_tbox_claims",
+      "required_paths": [
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/candidate_graph.json",
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/construction_bundle.json",
+        "governance/evidence/ai_native/tbox_vocabulary_approval_20260902/approval.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_reusable_knowledge_construction.py::test_current_tbox_rebuild_is_deterministic_traced_and_review_bounded",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831/supplemental_review_refreeze_20260901.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_reusable_knowledge_construction.py::test_bundle_hash_tampering_is_rejected",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831/supplemental_review_refreeze_20260901.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_reusable_knowledge_construction.py::test_new_extraction_cannot_weaken_causal_gate_or_compile_active",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831/supplemental_review_refreeze_20260901.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_fair_three_task_comparison.py::test_governed_comparison_reports_all_tasks_without_suppressing_methods",
+      "required_paths": [
+        "governance/evidence/research/data_driven_runs/fair_three_task_comparison_20260831"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_fair_three_task_comparison.py::test_unequal_method_budget_is_rejected",
+      "required_paths": [
+        "governance/evidence/research/data_driven_runs/fair_three_task_comparison_20260831"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_dataset_kg_coverage_review.py::test_generated_review_package_closes_the_declared_31_class_inventory",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_dataset_kg_coverage_review.py::test_mapping_candidates_and_replay_set_are_content_addressed",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_dataset_kg_coverage_review.py::test_review_package_rejects_artifact_and_embedded_content_tampering",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_dataset_kg_coverage_review.py::test_returned_supplemental_review_is_frozen_without_manufactured_approval",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_dataset_kg_coverage_review.py::test_governed_supplemental_review_freeze_is_current",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_dataset_kg_coverage_review.py::test_review_unfreeze_rejects_unverified_comparison_audit",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831",
+        "governance/evidence/research/data_driven_runs/domain_sota_group_cv_20260901/fairness_audit.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_dataset_kg_coverage_review.py::test_governed_source_adjudication_and_unfreeze_are_current",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831",
+        "governance/evidence/research/data_driven_runs/domain_sota_group_cv_20260901/fairness_audit.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_dataset_kg_coverage_review.py::test_source_adjudicated_branch_is_refrozen_before_graph_refactor",
+      "required_paths": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831",
+        "governance/evidence/research/data_driven_runs/domain_sota_group_cv_20260901/fairness_audit.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_sota_comparison_audit.py::test_governed_domain_sota_audit_is_current",
+      "required_paths": [
+        "governance/evidence/research/data_driven_runs/domain_sota_group_cv_20260901/fairness_audit.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_tbox_claim_release.py::test_owner_approved_tbox_claims_are_source_bound_and_deterministic",
+      "required_paths": [
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/candidate_graph.json",
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/construction_bundle.json",
+        "governance/evidence/ai_native/tbox_vocabulary_approval_20260902/approval.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_tbox_claim_release.py::test_tbox_claim_compiler_rejects_graph_not_bound_by_approval",
+      "required_paths": [
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/candidate_graph.json",
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/construction_bundle.json",
+        "governance/evidence/ai_native/tbox_vocabulary_approval_20260902/approval.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_reviewed_tbox_retrieval_projection.py::test_owner_approved_tbox_projects_to_retrieval_only_oag_assets",
+      "required_paths": [
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/candidate_graph.json",
+        "governance/evidence/ai_native/tbox_vocabulary_approval_20260902/approval.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_reviewed_tbox_retrieval_projection.py::test_projection_receipt_tampering_is_rejected",
+      "required_paths": [
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/candidate_graph.json",
+        "governance/evidence/ai_native/tbox_vocabulary_approval_20260902/approval.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_tbox_vocabulary_approval.py::test_project_owner_decision_is_tbox_only_and_does_not_unfreeze_other_review",
+      "required_paths": [
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/candidate_graph.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_tbox_vocabulary_approval.py::test_tbox_approval_fails_closed_if_inventory_drifts",
+      "required_paths": [
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/candidate_graph.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_failed_frozen_candidate_is_retained_but_not_bound_to_production",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_head_technical_validation.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_segmented_candidate_fit_is_reproducibly_bound_but_not_promoted",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_mechanism_fit_calibration.v2.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_segmented_candidate_single_use_validation_failure_is_retained",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_head_technical_validation.v2.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_final_candidate_open_set_rule_is_retained_as_structurally_unreachable",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_head_technical_validation.v3.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_stage_a_v2_oracle_is_nonproduction_and_retains_v1_failure",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_stage_a_v3_failure_blocks_stage_b_and_preserves_seed_isolation",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a.v3.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_observability_intervention_failure_is_complete_and_blocks_stage_b",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_thermal_observability_intervention.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_observability_root_cause_retains_storage_generalization_correction",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/p017_observability_root_cause_analysis.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_method_literature_review_does_not_preapprove_result",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/p017_method_literature_review.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_method_readiness_failure_retains_denominators_and_blocks_stage_b",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_method_readiness.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_project_gate_status_does_not_claim_prior_gates_complete",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/project_gate_status_2026-08-02.v2.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_p018_landscape_requires_heterogeneous_features_and_external_sources",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/p018_cross_component_data_method_landscape.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_gray_box_state_estimation.py::test_failed_conformal_conservation_experiment_remains_non_passing",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/gray_box_uncertainty_calibration_validation.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_gray_box_state_estimation.py::test_frozen_gls_calibration_passes_noise_aware_gate_without_erasing_raw_failures",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/gray_box_conservation_gls_validation.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_pre_reasoning_retrieval.py::test_evidence_aware_builder_can_add_reviewed_tbox_paths_without_voting",
+      "required_paths": [
+        "governance/evidence/research/document_corpus/reviewed_tbox_retrieval_r001/reviewed_tbox_retrieval_graph.json",
+        "governance/evidence/research/document_corpus/reviewed_tbox_retrieval_r001/build_receipt.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_pre_reasoning_retrieval.py::test_checked_in_paperseek_annotations_are_schema_valid_and_non_runtime",
+      "required_paths": [
+        "governance/evidence/ai_native/paperseek_llm_diagnostic_loop_20260903/literature_annotations.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_llm_method_ablation.py::test_live_pilot_preserves_failed_attempt_and_disclosed_correction",
+      "required_paths": [
+        "governance/evidence/research/llm_method_ablation_20260903/report.json",
+        "governance/evidence/research/llm_method_ablation_20260903/report_after_constraint_fix.json",
+        "governance/evidence/research/llm_method_ablation_20260903/posthoc_correction_protocol.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_ai_native_llm_hybrid_ci.py::test_ai_native_matrix_and_baseline_are_valid",
+      "required_paths": [
+        "governance/evidence/ai_native/ai_native_maturity_matrix.json",
+        "governance/evidence/ai_native/feedback_loop_baseline.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_model_independent_temporal_receipts.py::test_frozen_development_policy_receipt_keeps_claim_boundary",
+      "required_paths": [
+        "research/model_independent_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_model_independent_temporal_receipts.py::test_trace_index_receipt_is_label_free_and_deterministic",
+      "required_paths": [
+        "research/model_independent_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_model_independent_temporal_receipts.py::test_trace_replay_is_byte_deterministic",
+      "required_paths": [
+        "research/model_independent_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_model_independent_temporal_receipts.py::test_thesis_assessment_does_not_overclaim",
+      "required_paths": [
+        "research/model_independent_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_alignment_contract_is_prefix_only_and_invalidates_edges",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_candidate_grid_discloses_development_iteration",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_selected_policy_is_bounded_and_not_confirmatory",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_development_result_reports_bounded_success_and_cross_reference_failure_boundary",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_trace_index_is_label_free_and_not_full_trajectory_warped",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_prefix_truth_audit_is_offline_and_has_no_development_overlap",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_candidate_selection_summary_discloses_search_and_ties",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_replay_and_label_isolation_receipts_are_pass",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_mismatch_tolerant_temporal_receipts.py::test_failure_analysis_keeps_the_noise_miss_visible",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/agentization/test_model_independent_temporal_capability.py::test_model_independent_route_is_visible_but_bounded",
+      "required_paths": [
+        "research/model_independent_temporal_r001/thesis_contribution_assessment.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/agentization/test_model_independent_temporal_capability.py::test_mismatch_tolerant_route_is_visible_but_cross_reference_claim_is_frozen",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001/thesis_contribution_assessment.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/agentization/test_model_independent_temporal_capability.py::test_mismatch_trace_index_verifier_accepts_frozen_source_receipt",
+      "required_paths": [
+        "research/mismatch_tolerant_temporal_r001/trace_index_receipt.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_phm_v60.py::test_phm_soft_calibration_candidate_is_auditable_but_not_profile_bound",
+      "required_paths": [
+        "research/evidence/phm_v6_0_soft_calibration_r001"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_early_design_drift_artifact.py::test_design_drift_candidates_remain_source_and_code_traced",
+      "required_paths": [
+        "governance/evidence/research/document_corpus/early_design_report_r001/design_drift_candidates.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_final_candidate_failure_and_single_use_seed_are_retained",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_head_technical_validation.v3.json",
+        "governance/evidence/0.7.1-extension/generic_head_technical_validation_query.v3.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_new_research_phase_is_fail_closed_pending_timer_approval",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_diagnosis_failure_root_cause.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_stage_a_v2_failure_and_engineering_retry_are_retained",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a.v2.attempt1_error.json",
+        "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a.v2.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_observability_intervention_is_pending_and_has_no_validation_seed",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a_summary.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_method_readiness_request_is_single_model_and_pending",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/p017_observability_root_cause_analysis.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_generic_diagnosis_heads.py::test_p018_stage_x0_request_is_zero_fit_and_preserves_g11",
+      "required_paths": [
+        "governance/evidence/0.7.1-extension/p018_cross_component_data_method_landscape.v1.json",
+        "governance/evidence/0.7.1-extension/generic_method_readiness.v1.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_unified_diagnosis_runtime.py::test_frozen_unified_runtime_gate_is_pass",
+      "required_paths": [
+        "governance/evidence/0.7.0/unified_runtime_gate_decision.json"
+      ],
+      "rationale": "Frozen historical evidence content is required for this replay assertion."
+    },
+    {
+      "nodeid": "tests/test_unified_platform.py::test_preregistration_doc_is_present",
+      "required_paths": [
+        "docs/AI_NATIVE_UNIFIED_BASELINE_PREREGISTRATION.md"
+      ],
+      "rationale": "Historical unified-baseline preregistration document is intentionally external to the current-source-only delivery."
+    },
+    {
+      "nodeid": "tests/test_governance_release_assets.py::test_frozen_round1_contract_and_candidate_scope_are_valid",
+      "required_paths": [
+        "governance/contracts/0.6.6.sha256"
+      ],
+      "rationale": "Round-1 0.6.6 frozen contract replay requires archive-only governance records."
+    },
+    {
+      "nodeid": "tests/test_governance_release_assets.py::test_round1_change_request_exactly_matches_actual_diff",
+      "required_paths": [
+        "governance/baselines/0.6.5-source-manifest.json",
+        "governance/baselines/0.6.6-source-manifest.json"
+      ],
+      "rationale": "Round-1 baseline diff replay requires archive-only source manifests."
+    },
+    {
+      "nodeid": "tests/test_governance_release_assets.py::test_round1_task_board_evidence_and_rollback_manifest_are_complete",
+      "required_paths": [
+        "governance/contracts/0.6.6.sha256"
+      ],
+      "rationale": "Round-1 task-board/rollback replay requires archive-only governance records."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_post49_stable_release.py::test_post49_preserves_dev63_protected_assets_and_diagnostic_source",
+      "required_paths": [
+        "governance/baselines/post48-dev63-rc-source-manifest.json"
+      ],
+      "rationale": "Original post48-dev63 stable-release byte replay requires the excluded historical baseline manifest."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_post49_stable_release.py::test_post49_readiness_inherits_scenario_boundaries_without_promotion",
+      "required_paths": [
+        "governance/implementation/post48_dev63/RELEASE_READINESS.json"
+      ],
+      "rationale": "Original post48-dev63 release-readiness comparison requires excluded historical release evidence."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_post49_stable_release.py::test_post49_baseline_is_content_bound_to_uploaded_dev63_rc",
+      "required_paths": [
+        "governance/implementation/post49/stable_release_frozen/CONTRACT.yaml"
+      ],
+      "rationale": "Original post49 frozen stable-release contract is historical archive material in current-source delivery."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_adcs_metric_protocol_dev23.py::test_stage91_metric_ledger_separates_protocols_and_verifies_sources",
+      "required_paths": ["governance/implementation/post48_dev23/ADCS_METRIC_PROTOCOL_LEDGER.json"],
+      "rationale": "Post48-dev23 metric-ledger replay requires governance evidence excluded from the current-source delivery."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_adcs_metric_protocol_dev23.py::test_stage92_current_v2_status_keeps_metrics_denominators_and_reuse_boundary",
+      "required_paths": ["governance/implementation/post48_dev23/ADCS_CURRENT_V2_STATUS.json"],
+      "rationale": "Post48-dev23 status replay requires governance evidence excluded from the current-source delivery."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_adcs_metric_protocol_dev23.py::test_stage93_uploaded_dataset_is_not_relabelled_as_new_independent_confirmation",
+      "required_paths": ["governance/implementation/post48_dev23/ADCS_INDEPENDENT_CONFIRMATION_STATUS.json"],
+      "rationale": "Post48-dev23 confirmation-status replay requires governance evidence excluded from the current-source delivery."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_adcs_metric_protocol_dev23.py::test_stage94_calibration_ood_is_bounded_and_does_not_change_three_task_baseline",
+      "required_paths": ["governance/implementation/post48_dev23/ADCS_CALIBRATION_OOD_QUALIFICATION.json"],
+      "rationale": "Post48-dev23 calibration replay requires governance evidence excluded from the current-source delivery."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_adcs_metric_protocol_dev23.py::test_dev23_model_file_remains_the_current_mission_binding",
+      "required_paths": ["models/adcs_v5_2_2/p2_innovation_v2.pt"],
+      "rationale": "The frozen post48 ADCS model binary is not bundled in this current-source delivery."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_dev63_source_continuity_and_release.py::test_dev63_exact_33_channel_adcs_profile_executes_frozen_native_three_task_provider",
+      "required_paths": ["models/adcs_v5_2_2/p2_innovation_v2.pt"],
+      "rationale": "The frozen post48 ADCS model binary is required for exact provider replay."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_dev63_source_continuity_and_release.py::test_dev63_release_readiness_matrix_is_explicit_about_partial_and_external_boundaries",
+      "required_paths": ["governance/implementation/post48_dev63/RELEASE_READINESS.json"],
+      "rationale": "Post48-dev63 release evidence is excluded from the current-source delivery."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_generic_dev19_stages.py::test_stage83_three_task_contract_is_explicit_about_affected_component",
+      "required_paths": ["tests/fixtures/mission_three_task_candidate/weights.pt"],
+      "rationale": "The frozen candidate fixture binary is required for historical model-execution replay."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_generic_dev19_stages.py::test_stage84_generic_model_rejoins_birrf_only_in_shadow",
+      "required_paths": ["tests/fixtures/mission_three_task_candidate/weights.pt"],
+      "rationale": "The frozen candidate fixture binary is required for historical model-execution replay."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_generic_dev19_stages.py::test_stage85_uncalibrated_or_unassessed_model_abstains",
+      "required_paths": ["tests/fixtures/mission_three_task_candidate/weights.pt"],
+      "rationale": "The frozen candidate fixture binary is required for historical model-execution replay."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_mission_integration.py::test_replay_mission_binds_offline_scope_and_host_bound_capability",
+      "required_paths": ["models/phm_v6_0/promoted_extra_trees_v1/detection.joblib"],
+      "rationale": "The frozen PHM model bundle is required for historical mission replay."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_model_execution_bridge_dev18.py::test_compatible_capability_executes_only_through_strict_admission",
+      "required_paths": ["tests/fixtures/mission_three_task_candidate/weights.pt"],
+      "rationale": "The frozen candidate fixture binary is required for historical execution-bridge replay."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_model_execution_bridge_dev18.py::test_compatible_but_unadmitted_package_fails_closed",
+      "required_paths": ["tests/fixtures/mission_three_task_candidate/weights.pt"],
+      "rationale": "The frozen candidate fixture binary is required for historical execution-bridge replay."
+    },
+    {
+      "nodeid": "tests/implementation/p1_p4/test_model_execution_bridge_dev18.py::test_no_execution_binding_does_not_turn_discovery_into_authorization",
+      "required_paths": ["tests/fixtures/mission_three_task_candidate/weights.pt"],
+      "rationale": "The frozen candidate fixture binary is required for historical execution-bridge replay."
+    },
+    {
+      "nodeid": "tests/test_adcs_production_qualification.py::test_adcs_p2_production_gate_uses_complete_repository_evidence",
+      "required_paths": ["models/adcs_v5_2_2/p2_innovation_v2.pt"],
+      "rationale": "The original ADCS production-qualification replay depends on the excluded frozen model and its post48 evidence."
+    },
+    {
+      "nodeid": "tests/test_phm_v60_promotion.py::test_promoted_phm_bundle_is_hash_pinned_and_loadable",
+      "required_paths": ["models/phm_v6_0/promoted_extra_trees_v1/detection.joblib"],
+      "rationale": "The frozen PHM model binary is not bundled in this current-source delivery."
+    }
+  ],
+  "claim_boundary": "This manifest controls test replay only. It does not recreate historical evidence, change runtime algorithms, or turn archive availability into a qualification claim."
+}

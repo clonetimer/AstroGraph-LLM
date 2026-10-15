@@ -1,0 +1,23 @@
+{
+  "schema_version": "astrograph-anomaly-screening-recomputation-config.v1",
+  "audit_id": "paired-corpus-anomaly-screening-r001",
+  "source_manifest_sha256": "95851e1aed21ec8b7fcbcba3d32326430756c380d024ebd73a4bbe2756b64b28",
+  "production_builder_sha256": "c7688cfbcbd7e12abcc7e8b111b2fa564521dfe719fd021412bc193e15bb7bc8",
+  "dataset_index_sha256": {
+    "adcs-v522": "de65de31087bb828e3149fab543677137964912629310b0d14c5cca376d5c4b1",
+    "phm-v60": "8363824e515084e695c0a715854b4e3b0489cac3353a9cb82c6bf63c2fd77b08"
+  },
+  "algorithm": {
+    "baseline_end_s": 30.0,
+    "minimum_rows_per_window": 3,
+    "scale": "max(population_std,abs(baseline_mean)*0.01,1e-9)",
+    "score": "abs(later_mean-baseline_mean)/scale",
+    "top_k": 12,
+    "tie_break": "channel_name_ascending",
+    "number_format": ".9g",
+    "canonical_bytes": 4096
+  },
+  "accessed_sample_index_fields": ["sample_id", "telemetry_file"],
+  "forbidden_inputs": ["labels_file", "diagnostic_class", "condition_id", "event_parameters"],
+  "claim_boundary": "Independent deterministic recomputation of generated anomaly-screening documents only; no calibration, diagnosis accuracy, causal truth or external validity claim."
+}

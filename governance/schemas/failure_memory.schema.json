@@ -1,0 +1,96 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-failure-memory-entry.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "failure_id": {
+      "minLength": 1,
+      "title": "Failure Id",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "candidate_id": {
+      "minLength": 1,
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "signature": {
+      "minLength": 1,
+      "title": "Signature",
+      "type": "string"
+    },
+    "error_code": {
+      "minLength": 1,
+      "title": "Error Code",
+      "type": "string"
+    },
+    "root_cause": {
+      "minLength": 1,
+      "title": "Root Cause",
+      "type": "string"
+    },
+    "failed_approach": {
+      "minLength": 1,
+      "title": "Failed Approach",
+      "type": "string"
+    },
+    "affected_scope": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Affected Scope",
+      "type": "array"
+    },
+    "evidence_paths": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Paths",
+      "type": "array"
+    },
+    "do_not_repeat": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Do Not Repeat",
+      "type": "array"
+    },
+    "recoverable": {
+      "title": "Recoverable",
+      "type": "boolean"
+    },
+    "recommended_next_action": {
+      "minLength": 1,
+      "title": "Recommended Next Action",
+      "type": "string"
+    },
+    "recorded_at": {
+      "title": "Recorded At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "failure_id",
+    "contract_id",
+    "candidate_id",
+    "signature",
+    "error_code",
+    "root_cause",
+    "failed_approach",
+    "affected_scope",
+    "do_not_repeat",
+    "recoverable",
+    "recommended_next_action"
+  ],
+  "title": "FailureMemoryEntry",
+  "type": "object"
+}

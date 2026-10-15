@@ -1,0 +1,2 @@
+langchain==1.4.0
+langgraph==1.2.11

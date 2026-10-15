@@ -1,0 +1,19 @@
+{
+  "schema_version": "phm.d3_campaign_validation.v1",
+  "planned_runs": 90,
+  "complete_runs": 90,
+  "failed_runs": 0,
+  "raw_schema_matches_contract": true,
+  "raw_forbidden_fields": [],
+  "raw_label_record_id_bijection": true,
+  "raw_empty_cell_count": 0,
+  "split_run_id_disjoint": true,
+  "class_present_in_train_validation_test": true,
+  "three_severity_levels": true,
+  "three_wheel_indices": true,
+  "severity_wheel_cross_coverage": true,
+  "paired_nominal_complete": true,
+  "fault_physical_and_three_tier_gate": true,
+  "status_semantics_gate": true,
+  "passed": true
+}

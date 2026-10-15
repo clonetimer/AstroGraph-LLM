@@ -1,0 +1,195 @@
+{
+  "claim_boundary": "Internal engineering simulation diagnosis only; no flight or safety qualification.",
+  "object_count": 31,
+  "objects": [
+    {
+      "capability_id": "whole_spacecraft.unified_native.v1",
+      "domain": "whole_spacecraft",
+      "level": "whole_spacecraft",
+      "object_id": "whole_spacecraft"
+    },
+    {
+      "capability_id": "subsystem.adcs_unified_native.v1",
+      "domain": "adcs",
+      "level": "subsystem",
+      "object_id": "subsystem.adcs"
+    },
+    {
+      "capability_id": "subsystem.propulsion.unified_native.v1",
+      "domain": "propulsion",
+      "level": "subsystem",
+      "object_id": "subsystem.propulsion"
+    },
+    {
+      "capability_id": "subsystem.eps.unified_native.v1",
+      "domain": "eps",
+      "level": "subsystem",
+      "object_id": "subsystem.eps"
+    },
+    {
+      "capability_id": "subsystem.thermal.basic_lumped.v1",
+      "domain": "thermal",
+      "level": "subsystem",
+      "object_id": "subsystem.thermal"
+    },
+    {
+      "capability_id": "subsystem.payload.source_native.v1",
+      "domain": "payload",
+      "level": "subsystem",
+      "object_id": "subsystem.payload"
+    },
+    {
+      "capability_id": "subsystem.comm_data.unified_native.v1",
+      "domain": "comm_data",
+      "level": "subsystem",
+      "object_id": "subsystem.comm_data"
+    },
+    {
+      "capability_id": "component.antenna.v1",
+      "domain": "comm_data",
+      "level": "component",
+      "object_id": "component.antenna"
+    },
+    {
+      "capability_id": "component.battery.v1",
+      "domain": "eps",
+      "level": "component",
+      "object_id": "component.battery"
+    },
+    {
+      "capability_id": "component.cmg.v1",
+      "domain": "adcs",
+      "level": "component",
+      "object_id": "component.cmg"
+    },
+    {
+      "capability_id": "component.data_queue.v1",
+      "domain": "comm_data",
+      "level": "component",
+      "object_id": "component.data_queue"
+    },
+    {
+      "capability_id": "component.fuel_tank.v1",
+      "domain": "propulsion",
+      "level": "component",
+      "object_id": "component.fuel_tank"
+    },
+    {
+      "capability_id": "component.ground_station.v1",
+      "domain": "comm_data",
+      "level": "component",
+      "object_id": "component.ground_station"
+    },
+    {
+      "capability_id": "component.heater.v1",
+      "domain": "thermal",
+      "level": "component",
+      "object_id": "component.heater"
+    },
+    {
+      "capability_id": "component.imu.v1",
+      "domain": "adcs",
+      "level": "component",
+      "object_id": "component.imu"
+    },
+    {
+      "capability_id": "component.link_budget.v1",
+      "domain": "comm_data",
+      "level": "component",
+      "object_id": "component.link_budget"
+    },
+    {
+      "capability_id": "component.magnetometer.v1",
+      "domain": "adcs",
+      "level": "component",
+      "object_id": "component.magnetometer"
+    },
+    {
+      "capability_id": "component.mtb.v1",
+      "domain": "adcs",
+      "level": "component",
+      "object_id": "component.mtb"
+    },
+    {
+      "capability_id": "component.onboard_storage.v1",
+      "domain": "comm_data",
+      "level": "component",
+      "object_id": "component.onboard_storage"
+    },
+    {
+      "capability_id": "component.payload.v1",
+      "domain": "payload",
+      "level": "component",
+      "object_id": "component.payload"
+    },
+    {
+      "capability_id": "component.payload_sensor.v1",
+      "domain": "payload",
+      "level": "component",
+      "object_id": "component.payload_sensor"
+    },
+    {
+      "capability_id": "component.pdu.v1",
+      "domain": "eps",
+      "level": "component",
+      "object_id": "component.pdu"
+    },
+    {
+      "capability_id": "component.power_sink.v1",
+      "domain": "eps",
+      "level": "component",
+      "object_id": "component.power_sink"
+    },
+    {
+      "capability_id": "component.radiator.v1",
+      "domain": "thermal",
+      "level": "component",
+      "object_id": "component.radiator"
+    },
+    {
+      "capability_id": "component.reaction_wheel.v1",
+      "domain": "adcs",
+      "level": "component",
+      "object_id": "component.reaction_wheel"
+    },
+    {
+      "capability_id": "component.solar_panel.v1",
+      "domain": "eps",
+      "level": "component",
+      "object_id": "component.solar_panel"
+    },
+    {
+      "capability_id": "component.star_tracker.v1",
+      "domain": "adcs",
+      "level": "component",
+      "object_id": "component.star_tracker"
+    },
+    {
+      "capability_id": "component.sun_sensor.v1",
+      "domain": "adcs",
+      "level": "component",
+      "object_id": "component.sun_sensor"
+    },
+    {
+      "capability_id": "component.thermal_node.v1",
+      "domain": "thermal",
+      "level": "component",
+      "object_id": "component.thermal_node"
+    },
+    {
+      "capability_id": "component.thruster.v1",
+      "domain": "propulsion",
+      "level": "component",
+      "object_id": "component.thruster"
+    },
+    {
+      "capability_id": "component.transmitter.v1",
+      "domain": "comm_data",
+      "level": "component",
+      "object_id": "component.transmitter"
+    }
+  ],
+  "protocol_version": "G1.1",
+  "schema_version": "astrograph-diagnosis-scope.v1",
+  "status": "FROZEN_TECHNICAL"
+}

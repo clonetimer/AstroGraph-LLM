@@ -1,0 +1,38 @@
+{
+  "schema_version": "astrograph-phm-v6-knowledge-coverage.v2",
+  "dataset_fault_count": 17,
+  "generic_tbox_binding_count": 17,
+  "generic_tbox_binding_path": "configs/datasets/phm_v6_0/fault_ontology_bindings.json",
+  "generic_tbox_ontology_path": "configs/knowledge/generic_fault_ontology.json",
+  "strict_registered_mapping_count": 5,
+  "runtime_evidence_candidate_count": 5,
+  "strict_registered_classes": [
+    "comm_data_downlink_link_loss",
+    "eps_battery_capacity_loss",
+    "eps_solar_string_open",
+    "thermal_heater_stuck_on",
+    "thermal_radiator_rejection_loss"
+  ],
+  "formal_fault_registration_or_runtime_evidence_required": [
+    "comm_data_storage_capacity_loss",
+    "comm_data_transmitter_rate_loss",
+    "eps_battery_open_circuit",
+    "eps_load_overload",
+    "eps_pdu_channel_trip",
+    "payload_instrument_off",
+    "payload_instrument_rate_loss",
+    "propulsion_fuel_leak",
+    "propulsion_thruster_ignition_failure",
+    "propulsion_thruster_nozzle_blockage",
+    "thermal_heater_stuck_off",
+    "thermal_node_heat_bias"
+  ],
+  "recommendation": "The cross-domain TBox provides abstract mechanism/effect bindings for all 17 classes, and every one of the five strict mappings now has executable paired E0 evidence. The remaining 12 classes still require reviewed formal fault IDs and runtime evidence definitions before they may cast BiRRF votes; TBox coverage alone is not production knowledge coverage.",
+  "coverage_boundary": "17/17 is dataset-label to generic mechanism/effect semantic coverage; 5/17 is strict formal fault mapping and executable configured runtime evidence coverage.",
+  "reference_basis": [
+    "generate_whole_spacecraft_phm_dataset_v6.py",
+    "reference/knowledge/sat_sim_fault_catalog.json",
+    "astrograph-improvement-refs/10-P1-G3-ontokg-schema-first.md",
+    "astrograph-improvement-refs/29-P0-G3G4-oag-ontology-augmented-generation.md"
+  ]
+}

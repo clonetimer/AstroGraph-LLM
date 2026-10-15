@@ -1,0 +1,111 @@
+{
+  "schema_version": "astrograph-sat-agent-only-zero-fit-scope.v1",
+  "scope_id": "P018-SAT-AGENT-ONLY-S0-001",
+  "problem_id": "P-018",
+  "recorded_on": "2026-08-02",
+  "status": "AUTHORIZED_BY_PROJECT_OWNER_ZERO_FIT_ONLY",
+  "authority_boundary": {
+    "project_owner_scope_decision": true,
+    "independent_timer_model_approval": false,
+    "timer_approval_required_for_s0": false,
+    "interpretation": "The project owner may constrain the active data source and authorize non-model engineering. This record is not independent approval for method selection, fitting, calibration, validation or promotion."
+  },
+  "supersession_binding": {
+    "path": "protocols/acceptance/p018_cross_component_data_readiness_withdrawal.json",
+    "sha256": "bf82ab119b39ec88b7f778091dcee7e0ab5c604375e1f70f673e42386d8b2890",
+    "superseded_request_id": "P018-CROSS-COMPONENT-DATA-READINESS-001"
+  },
+  "active_data_source": {
+    "source_id": "SAT_AGENT_PLATFORM",
+    "source_count": 1,
+    "source_type": "SYNTHETIC_ENGINEERING_SIMULATION",
+    "runtime_location_policy": "Injected by CLI or configuration; no machine-specific path is part of the AstroGraph core contract.",
+    "environment_policy": "Sat-Agent and AstroGraph retain independent interpreters and communicate only through versioned file or API contracts.",
+    "external_source_acquisition_authorized": false,
+    "multiple_objects_instances_archetypes_and_levels_are_distinct_sources": false
+  },
+  "s0_goal": "Inventory and contract-test component, subsystem and whole-spacecraft evidence within the single Sat-Agent source before requesting any new diagnosis-method experiment.",
+  "allowed_zero_fit_actions": [
+    "Inventory the frozen 31 objects, 93 scenario rows and 145 effects by subsystem, object instance, component archetype, system level, observable quantity, physical validity, identifiability and usable diagnosis task.",
+    "Record injected Sat-Agent source, archive or revision, environment, generator, schema, configuration and input hashes without importing Sat-Agent Python objects into AstroGraph.",
+    "Inspect public telemetry schemas, channel dictionaries, units, sampling metadata and provenance while keeping hidden-acceptance truth inaccessible to AstroGraph runtime code.",
+    "Build declarative SourceAdapter, ChannelMap, SemanticTelemetryFrame and archetype-specific feature-contract schemas with one common truth-blind evidence-token output contract.",
+    "Implement non-fitting schema, unit-conversion, field-renaming, sampling-rate, channel-order, missing-data, source-hash, truth-isolation and answer-proxy leakage tests.",
+    "Use deterministic TEST_ONLY fixtures or smoke cases that are permanently disqualified from training, calibration, validation, acceptance and model selection.",
+    "Document gaps and return BLOCKED when Sat-Agent lacks the observation, physical activation or component coverage required by a frozen task."
+  ],
+  "s0_inventory_axes": [
+    "source_id_constant",
+    "generator_or_schema_version",
+    "spacecraft_or_configuration",
+    "system_level",
+    "subsystem",
+    "object_instance",
+    "component_archetype",
+    "scenario_or_effect",
+    "fault_mechanism_mapping",
+    "observable_quantities",
+    "physical_and_data_quality",
+    "identifiability",
+    "task_suitability",
+    "usage_grade"
+  ],
+  "within_source_holdout_design_only": [
+    "leave-one-object-instance-out",
+    "leave-one-configuration-out",
+    "leave-one-scenario-family-out",
+    "operating-condition-out",
+    "severity-onset-duration-time-and-seed grouping",
+    "leave-one-archetype rejection-or-adaptation boundary only"
+  ],
+  "test_only_policy": {
+    "development_seed": null,
+    "calibration_seed": null,
+    "technical_validation_seed": null,
+    "model_candidate_count": 0,
+    "label_or_truth_based_feature_selection": false,
+    "performance_thresholding": false,
+    "test_fixture_use_in_later_modeling": "PERMANENTLY_PROHIBITED"
+  },
+  "timer_approval_required_before": [
+    "Using labels, simulator truth or outcome metrics to select features, architectures, experts, gates, thresholds, regularization or conformal rules",
+    "Training, pretraining, fitting or calibrating any anomaly detector, encoder, mechanism classifier, open-set model, localizer, reasoner or dynamic gate",
+    "Creating or reserving development, calibration or technical-validation seeds for a diagnosis-method study",
+    "Generating a campaign whose purpose is separability measurement, model comparison, threshold selection or candidate evaluation",
+    "Changing any frozen G1.1 artifact, the formal 31/93/145 scope, fault classes, target granularity, thresholds, denominators or UNKNOWN/OOD policy",
+    "Generating formal open-set cases or accessing hidden-acceptance truth",
+    "Binding a production artifact, creating a technical-validation seed or starting Stage B"
+  ],
+  "future_approval_ladder": {
+    "stage_s1": "A separate finite development/calibration-only request must freeze every task-head model count, archetype feature contract, dimensions, regularization, gating rule, within-source grouped split, new seeds, resource budget and candidate budget before fit. It does not authorize technical validation.",
+    "stage_b": "Only after Stage S1 readiness evidence is independently reviewed may a separate request propose one exact production path and a genuinely untouched technical-validation seed."
+  },
+  "g1_1_preserved": {
+    "approval_path": "protocols/acceptance/approvals.json",
+    "approval_sha256": "79b0588cc3b791cfc292c317553fe2a9a4010bca848142a722c432ef1ef7331e",
+    "diagnosis_scope_sha256": "cf917a9e8529811cf07cb59548bf3ea5461546a99c42f742d4dc0e0510aa06bc",
+    "fault_taxonomy_sha256": "3f966c58a813fdb70e26711647a44d6ea854d06c3c725dd9aa2d16c3be0ef413",
+    "coverage_matrix_sha256": "9bc0cebda74852c27149cededb99df087b35872f3bfdf47c075dae8bb487d7c0",
+    "metric_policy_sha256": "4ceb52f6c1892cd8b416c2a62500f1ca14adec209ba69d53eef655e0583e94e1",
+    "reasoning_rubric_sha256": "c930b9f8c4f6fd8cce84b145126f47abd80f803dab3333ce7770f5baf45b7fc3",
+    "thresholds_and_denominators_unchanged": true,
+    "maximum_runtime_seconds_for_any_future_candidate": 600,
+    "exhausted_validation_seeds": [20280820, 20290820, 20300820]
+  },
+  "preserved_model_boundary": {
+    "p017_status": "FAIL",
+    "current_45d_logistic_role": "RETAINED_FAILED_BASELINE_ONLY",
+    "unique_production_estimator_manifest_preserved": true,
+    "estimator_ensemble_fallback_or_second_slot_authorized": false,
+    "dynamic_gating_status": "UNFITTED_DESIGN_CHALLENGER_REQUIRING_STAGE_S1_TIMER_APPROVAL",
+    "stage_b_authorized": false
+  },
+  "prohibited_claims": [
+    "More than one data source",
+    "Cross-source, cross-simulator, external-domain or real-spacecraft generalization",
+    "In-orbit validity, flight qualification or safety certification",
+    "Model, method-readiness, P-018, T-310, T-311, G2, G3 or G4 PASS",
+    "Stage B eligibility or authorization"
+  ],
+  "claim_boundary": "Project-owner-authorized Sat-Agent-only zero-fit engineering scope. source_count=1. No model fitting, label-driven selection, development/calibration/validation seed, formal open set, hidden truth access, production candidate, Stage B or cross-source/real-spacecraft claim is authorized."
+}

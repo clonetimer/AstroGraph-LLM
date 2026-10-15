@@ -1,0 +1,1458 @@
+{
+  "$defs": {
+    "BiRRFConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-birrf-config.v2",
+          "enum": [
+            "astrograph-birrf-config.v1",
+            "astrograph-birrf-config.v2"
+          ],
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "data_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Data Weight",
+          "type": "number"
+        },
+        "forward_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Forward Weight",
+          "type": "number"
+        },
+        "backward_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Backward Weight",
+          "type": "number"
+        },
+        "data_smoothing": {
+          "default": 60.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Data Smoothing",
+          "type": "number"
+        },
+        "forward_smoothing": {
+          "default": 60.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Forward Smoothing",
+          "type": "number"
+        },
+        "backward_smoothing": {
+          "default": 60.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Backward Smoothing",
+          "type": "number"
+        },
+        "normal_class_id": {
+          "default": "NORMAL",
+          "title": "Normal Class Id",
+          "type": "string"
+        },
+        "data_conflict_probability": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Data Conflict Probability",
+          "type": "number"
+        },
+        "backward_conflict_coverage": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Backward Conflict Coverage",
+          "type": "number"
+        },
+        "collapse_identical_kg_rankings": {
+          "default": true,
+          "title": "Collapse Identical Kg Rankings",
+          "type": "boolean"
+        },
+        "collapse_highly_correlated_kg_rankings": {
+          "default": true,
+          "title": "Collapse Highly Correlated Kg Rankings",
+          "type": "boolean"
+        },
+        "kg_redundancy_correlation_threshold": {
+          "default": 0.95,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Kg Redundancy Correlation Threshold",
+          "type": "number"
+        },
+        "kg_redundancy_min_overlap": {
+          "default": 0.9,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Kg Redundancy Min Overlap",
+          "type": "number"
+        },
+        "collapse_shared_correlation_groups": {
+          "default": true,
+          "title": "Collapse Shared Correlation Groups",
+          "type": "boolean"
+        },
+        "warn_on_incomplete_evidence_lineage": {
+          "default": true,
+          "title": "Warn On Incomplete Evidence Lineage",
+          "type": "boolean"
+        },
+        "require_complete_evidence_lineage": {
+          "default": false,
+          "title": "Require Complete Evidence Lineage",
+          "type": "boolean"
+        },
+        "enforce_kg_fault_universe_coverage": {
+          "default": false,
+          "title": "Enforce Kg Fault Universe Coverage",
+          "type": "boolean"
+        },
+        "kg_fault_coverage_semantics_version": {
+          "const": "astrograph-executable-kg-coverage.v1",
+          "default": "astrograph-executable-kg-coverage.v1",
+          "title": "Kg Fault Coverage Semantics Version",
+          "type": "string"
+        },
+        "expected_fault_universe": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Expected Fault Universe",
+          "type": "array"
+        },
+        "minimum_kg_fault_universe_coverage": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Minimum Kg Fault Universe Coverage",
+          "type": "number"
+        },
+        "kg_partial_coverage_action": {
+          "$ref": "#/$defs/KGPartialCoverageAction",
+          "default": "SUPPRESS_BRANCH"
+        },
+        "claim_boundary": {
+          "default": "Default BiRRF weights and smoothing are engineering defaults copied from rank-fusion practice. Identical or highly correlated, substantially overlapping KG rank orders are collapsed to one effective vote to prevent duplicate evidence counting. Candidate-level branches that declare a shared correlation group are also capped to one effective vote; missing lineage remains explicit and may be configured as a blocking conflict. When an expected fault universe is explicitly frozen, the coverage guard consumes a content-addressed executable-evidence declaration rather than an episode candidate list. Incomplete capability may suppress a KG branch or, only under an explicit experimental policy, attenuate its weight by structural coverage. This prevents sparse knowledge from asymmetrically overriding unsupported data-branch faults without discarding the possibility of development-validated partial-coverage fusion. These controls are not calibrated for flight diagnosis.",
+          "title": "Claim Boundary",
+          "type": "string"
+        }
+      },
+      "title": "BiRRFConfig",
+      "type": "object"
+    },
+    "ClaimType": {
+      "enum": [
+        "OBSERVED",
+        "DERIVED",
+        "INFERRED",
+        "HYPOTHETICAL",
+        "UNKNOWN"
+      ],
+      "title": "ClaimType",
+      "type": "string"
+    },
+    "ComparisonOperator": {
+      "enum": [
+        "GREATER_THAN",
+        "GREATER_OR_EQUAL",
+        "LESS_THAN",
+        "LESS_OR_EQUAL",
+        "EQUAL",
+        "NOT_EQUAL"
+      ],
+      "title": "ComparisonOperator",
+      "type": "string"
+    },
+    "ConjunctiveFeatureCondition": {
+      "additionalProperties": false,
+      "description": "An additional (AND) feature condition on the same evidence definition.\n\nLets a single evidence definition express e.g. \"star-gyro innovation in band\nAND RW command residual low\", which is needed to disambiguate faults whose\nprimary feature ranges overlap (GYRO_BIAS_DRIFT vs ADCS_RW_JAM). The main\ncondition (comparison + threshold) must be satisfied first; every conjunct\nmust then also be satisfied. Empty list keeps the historical single-feature\nbehaviour exactly.",
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-conjunctive-feature-condition.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "feature_definition_id": {
+          "minLength": 1,
+          "title": "Feature Definition Id",
+          "type": "string"
+        },
+        "comparison": {
+          "$ref": "#/$defs/ComparisonOperator"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "number"
+        },
+        "threshold_unit": {
+          "minLength": 1,
+          "title": "Threshold Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "feature_definition_id",
+        "comparison",
+        "threshold",
+        "threshold_unit"
+      ],
+      "title": "ConjunctiveFeatureCondition",
+      "type": "object"
+    },
+    "EpisodeEvidenceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-episode-evidence-bundle.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "episode": {
+          "$ref": "#/$defs/EpisodeWindow"
+        },
+        "response_window": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EpisodeWindow"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "domain_id": {
+          "default": "D3_RW",
+          "minLength": 1,
+          "title": "Domain Id",
+          "type": "string"
+        },
+        "analysis_wheel_index": {
+          "anyOf": [
+            {
+              "maximum": 2,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Analysis Wheel Index"
+        },
+        "analysis_component_instance": {
+          "minLength": 1,
+          "title": "Analysis Component Instance",
+          "type": "string"
+        },
+        "selected_wheel_index": {
+          "anyOf": [
+            {
+              "maximum": 2,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selected Wheel Index"
+        },
+        "selected_component_instance": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selected Component Instance"
+        },
+        "wheel_selection_status": {
+          "default": "NOT_APPLICABLE",
+          "pattern": "^(MECHANISM_DETECTED|NO_MECHANISM_DETECTED|NOT_APPLICABLE)$",
+          "title": "Wheel Selection Status",
+          "type": "string"
+        },
+        "component_selection_status": {
+          "default": "MECHANISM_DETECTED",
+          "pattern": "^(MECHANISM_DETECTED|NO_MECHANISM_DETECTED|NOT_APPLICABLE)$",
+          "title": "Component Selection Status",
+          "type": "string"
+        },
+        "analysis_metadata": {
+          "additionalProperties": true,
+          "title": "Analysis Metadata",
+          "type": "object"
+        },
+        "feature_definitions": {
+          "items": {
+            "$ref": "#/$defs/FeatureDefinition"
+          },
+          "title": "Feature Definitions",
+          "type": "array"
+        },
+        "feature_results": {
+          "items": {
+            "$ref": "#/$defs/FeatureResult"
+          },
+          "title": "Feature Results",
+          "type": "array"
+        },
+        "evidence_definitions": {
+          "items": {
+            "$ref": "#/$defs/EvidenceDefinition"
+          },
+          "title": "Evidence Definitions",
+          "type": "array"
+        },
+        "evidence_facts": {
+          "items": {
+            "$ref": "#/$defs/EvidenceFact"
+          },
+          "title": "Evidence Facts",
+          "type": "array"
+        },
+        "source_protocol_hashes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Source Protocol Hashes",
+          "type": "object"
+        },
+        "evaluation_metadata": {
+          "additionalProperties": true,
+          "title": "Evaluation Metadata",
+          "type": "object"
+        },
+        "claim_boundary": {
+          "default": "Evidence bundle is generated from E0 synthetic telemetry and paired nominal runs; evaluation labels remain isolated.",
+          "title": "Claim Boundary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "episode",
+        "analysis_component_instance",
+        "feature_definitions",
+        "feature_results",
+        "evidence_definitions",
+        "evidence_facts"
+      ],
+      "title": "EpisodeEvidenceBundle",
+      "type": "object"
+    },
+    "EpisodeWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "episode_id": {
+          "minLength": 1,
+          "title": "Episode Id",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "paired_nominal_run_id": {
+          "minLength": 1,
+          "title": "Paired Nominal Run Id",
+          "type": "string"
+        },
+        "start_s": {
+          "minimum": 0.0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "minimum": 0.0,
+          "title": "End S",
+          "type": "number"
+        },
+        "interval": {
+          "default": "closed",
+          "pattern": "^closed$",
+          "title": "Interval",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "source_is_label_free": {
+          "default": true,
+          "title": "Source Is Label Free",
+          "type": "boolean"
+        },
+        "operating_condition": {
+          "additionalProperties": true,
+          "title": "Operating Condition",
+          "type": "object"
+        }
+      },
+      "required": [
+        "episode_id",
+        "run_id",
+        "paired_nominal_run_id",
+        "start_s",
+        "end_s",
+        "source"
+      ],
+      "title": "EpisodeWindow",
+      "type": "object"
+    },
+    "EvidenceDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-evidence-definition.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "evidence_definition_id": {
+          "minLength": 1,
+          "title": "Evidence Definition Id",
+          "type": "string"
+        },
+        "target_fault_id": {
+          "minLength": 1,
+          "title": "Target Fault Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "feature_definition_id": {
+          "minLength": 1,
+          "title": "Feature Definition Id",
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/EvidenceRole"
+        },
+        "comparison": {
+          "$ref": "#/$defs/ComparisonOperator"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "number"
+        },
+        "threshold_unit": {
+          "minLength": 1,
+          "title": "Threshold Unit",
+          "type": "string"
+        },
+        "critical": {
+          "default": false,
+          "title": "Critical",
+          "type": "boolean"
+        },
+        "evidence_level": {
+          "default": "E0",
+          "pattern": "^E[0-4]$",
+          "title": "Evidence Level",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "applicable_condition_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applicable Condition Ids",
+          "type": "array"
+        },
+        "and_feature_conditions": {
+          "items": {
+            "$ref": "#/$defs/ConjunctiveFeatureCondition"
+          },
+          "title": "And Feature Conditions",
+          "type": "array"
+        },
+        "claim_boundary": {
+          "default": "E0 synthetic engineering threshold; not a flight-certified limit.",
+          "title": "Claim Boundary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_definition_id",
+        "target_fault_id",
+        "name",
+        "feature_definition_id",
+        "role",
+        "comparison",
+        "threshold",
+        "threshold_unit"
+      ],
+      "title": "EvidenceDefinition",
+      "type": "object"
+    },
+    "EvidenceFact": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-evidence-fact.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "evidence_fact_id": {
+          "minLength": 1,
+          "title": "Evidence Fact Id",
+          "type": "string"
+        },
+        "evidence_definition_id": {
+          "minLength": 1,
+          "title": "Evidence Definition Id",
+          "type": "string"
+        },
+        "target_fault_id": {
+          "minLength": 1,
+          "title": "Target Fault Id",
+          "type": "string"
+        },
+        "feature_result_id": {
+          "minLength": 1,
+          "title": "Feature Result Id",
+          "type": "string"
+        },
+        "episode_id": {
+          "minLength": 1,
+          "title": "Episode Id",
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/EvidenceRole"
+        },
+        "status": {
+          "$ref": "#/$defs/EvidenceFactStatus"
+        },
+        "observed_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed Value"
+        },
+        "threshold_value": {
+          "title": "Threshold Value",
+          "type": "number"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "comparison": {
+          "$ref": "#/$defs/ComparisonOperator"
+        },
+        "explanation": {
+          "default": "",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "claim_type": {
+          "$ref": "#/$defs/ClaimType",
+          "default": "DERIVED"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_fact_id",
+        "evidence_definition_id",
+        "target_fault_id",
+        "feature_result_id",
+        "episode_id",
+        "role",
+        "status",
+        "threshold_value",
+        "unit",
+        "comparison"
+      ],
+      "title": "EvidenceFact",
+      "type": "object"
+    },
+    "EvidenceFactStatus": {
+      "enum": [
+        "SATISFIED",
+        "NOT_SATISFIED",
+        "CONTRADICTED",
+        "MISSING_DATA",
+        "NOT_APPLICABLE",
+        "INVALID_DATA",
+        "UNKNOWN"
+      ],
+      "title": "EvidenceFactStatus",
+      "type": "string"
+    },
+    "EvidenceProjectionReceipt": {
+      "additionalProperties": false,
+      "description": "Hash bindings emitted by the native paired-frame bridge, not a signature.",
+      "properties": {
+        "schema_version": {
+          "const": "astrograph-native-projection.v1",
+          "default": "astrograph-native-projection.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "source_window_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Window Sha256",
+          "type": "string"
+        },
+        "nominal_window_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Nominal Window Sha256",
+          "type": "string"
+        },
+        "model_input_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Model Input Sha256",
+          "type": "string"
+        },
+        "evidence_bundle_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Bundle Sha256",
+          "type": "string"
+        },
+        "feature_input_hashes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Feature Input Hashes",
+          "type": "object"
+        },
+        "model_artifact_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Model Artifact Sha256",
+          "type": "string"
+        },
+        "evidence_package_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Package Sha256",
+          "type": "string"
+        },
+        "window_start_s": {
+          "title": "Window Start S",
+          "type": "number"
+        },
+        "window_end_s": {
+          "title": "Window End S",
+          "type": "number"
+        },
+        "construction": {
+          "const": "NATIVE_PAIRED_FRAME_PROJECTIONS",
+          "default": "NATIVE_PAIRED_FRAME_PROJECTIONS",
+          "title": "Construction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_window_sha256",
+        "nominal_window_sha256",
+        "model_input_sha256",
+        "evidence_bundle_sha256",
+        "feature_input_hashes",
+        "model_artifact_sha256",
+        "evidence_package_sha256",
+        "window_start_s",
+        "window_end_s"
+      ],
+      "title": "EvidenceProjectionReceipt",
+      "type": "object"
+    },
+    "EvidenceRole": {
+      "enum": [
+        "REQUIRED",
+        "SUPPORTING",
+        "COUNTER",
+        "EXCLUSION"
+      ],
+      "title": "EvidenceRole",
+      "type": "string"
+    },
+    "FaultRanking": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-fault-ranking.v2",
+          "enum": [
+            "astrograph-fault-ranking.v1",
+            "astrograph-fault-ranking.v2"
+          ],
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "ranking_id": {
+          "minLength": 1,
+          "title": "Ranking Id",
+          "type": "string"
+        },
+        "episode_id": {
+          "minLength": 1,
+          "title": "Episode Id",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/RankingSource"
+        },
+        "score_semantics": {
+          "$ref": "#/$defs/ScoreSemantics",
+          "default": "RANKING_SCORE"
+        },
+        "calibration_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Calibration Id"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/RankedFault"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "producer_id": {
+          "minLength": 1,
+          "title": "Producer Id",
+          "type": "string"
+        },
+        "producer_version": {
+          "minLength": 1,
+          "title": "Producer Version",
+          "type": "string"
+        },
+        "claim_boundary": {
+          "default": "Engineering candidate ranking; scores are not calibrated flight probabilities.",
+          "title": "Claim Boundary",
+          "type": "string"
+        },
+        "kg_fault_coverage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/KGFaultCoverageDeclaration"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "title": "Metadata",
+          "type": "object"
+        }
+      },
+      "required": [
+        "ranking_id",
+        "episode_id",
+        "source",
+        "producer_id",
+        "producer_version"
+      ],
+      "title": "FaultRanking",
+      "type": "object"
+    },
+    "FeatureAggregation": {
+      "enum": [
+        "MAX_ABS_PAIRED_RESIDUAL",
+        "MEAN_ABS_PAIRED_RESIDUAL",
+        "MEAN_PAIRED_RESIDUAL",
+        "LINEAR_SLOPE",
+        "LAST_PAIRED_RESIDUAL",
+        "AVAILABILITY_DROP_FRACTION",
+        "MAX_ABS_STATUS_RESIDUAL",
+        "MAX_VALUE",
+        "MIN_VALUE",
+        "MEAN_VALUE",
+        "TRUE_FRACTION",
+        "FALSE_FRACTION"
+      ],
+      "title": "FeatureAggregation",
+      "type": "string"
+    },
+    "FeatureDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-feature-definition.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "feature_definition_id": {
+          "minLength": 1,
+          "title": "Feature Definition Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "source_field_template": {
+          "minLength": 1,
+          "title": "Source Field Template",
+          "type": "string"
+        },
+        "aggregation": {
+          "$ref": "#/$defs/FeatureAggregation"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "window_scope": {
+          "default": "episode",
+          "pattern": "^(episode|full_run)$",
+          "title": "Window Scope",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "minLength": 1,
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "required_semantics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Semantics",
+          "type": "array"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "claim_boundary": {
+          "default": "E0 synthetic paired-run feature; not a flight-calibrated health metric.",
+          "title": "Claim Boundary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "feature_definition_id",
+        "name",
+        "source_field_template",
+        "aggregation",
+        "unit",
+        "algorithm_version"
+      ],
+      "title": "FeatureDefinition",
+      "type": "object"
+    },
+    "FeatureResult": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-feature-result.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "feature_result_id": {
+          "minLength": 1,
+          "title": "Feature Result Id",
+          "type": "string"
+        },
+        "feature_definition_id": {
+          "minLength": 1,
+          "title": "Feature Definition Id",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "paired_nominal_run_id": {
+          "minLength": 1,
+          "title": "Paired Nominal Run Id",
+          "type": "string"
+        },
+        "episode_id": {
+          "minLength": 1,
+          "title": "Episode Id",
+          "type": "string"
+        },
+        "resolved_field": {
+          "minLength": 1,
+          "title": "Resolved Field",
+          "type": "string"
+        },
+        "component_instance": {
+          "minLength": 1,
+          "title": "Component Instance",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "window_start_s": {
+          "minimum": 0.0,
+          "title": "Window Start S",
+          "type": "number"
+        },
+        "window_end_s": {
+          "minimum": 0.0,
+          "title": "Window End S",
+          "type": "number"
+        },
+        "sample_count": {
+          "minimum": 0,
+          "title": "Sample Count",
+          "type": "integer"
+        },
+        "algorithm_version": {
+          "minLength": 1,
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "input_data_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Input Data Sha256",
+          "type": "string"
+        },
+        "quality_flags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        },
+        "claim_type": {
+          "$ref": "#/$defs/ClaimType",
+          "default": "DERIVED"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "feature_result_id",
+        "feature_definition_id",
+        "run_id",
+        "paired_nominal_run_id",
+        "episode_id",
+        "resolved_field",
+        "component_instance",
+        "value",
+        "unit",
+        "window_start_s",
+        "window_end_s",
+        "sample_count",
+        "algorithm_version",
+        "input_data_sha256"
+      ],
+      "title": "FeatureResult",
+      "type": "object"
+    },
+    "KGFaultCoverageDeclaration": {
+      "additionalProperties": false,
+      "description": "Content-addressable declaration of executable KG/rule capability.\n\nThis is intentionally distinct from the candidates emitted for one episode.\nA top-k ranking may be short while the underlying evidence package supports a\nbroad fault universe; conversely, a ranker may enumerate zero-score candidates\nthat have no executable evidence.  Only this declaration is admissible for the\nfault-universe coverage guard.",
+      "properties": {
+        "schema_version": {
+          "const": "astrograph-kg-fault-coverage-declaration.v1",
+          "default": "astrograph-kg-fault-coverage-declaration.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "coverage_basis": {
+          "default": "EXECUTABLE_POSITIVE_EVIDENCE_DEFINITIONS",
+          "enum": [
+            "EXECUTABLE_POSITIVE_EVIDENCE_DEFINITIONS",
+            "REVIEWED_CALIBRATED_DOCUMENT_CLAIM_MAPPINGS"
+          ],
+          "title": "Coverage Basis",
+          "type": "string"
+        },
+        "source_artifact_id": {
+          "minLength": 1,
+          "title": "Source Artifact Id",
+          "type": "string"
+        },
+        "source_artifact_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Artifact Sha256",
+          "type": "string"
+        },
+        "supported_fault_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Fault Ids",
+          "type": "array"
+        },
+        "evidence_definition_ids_by_fault": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Evidence Definition Ids By Fault",
+          "type": "object"
+        },
+        "claim_boundary": {
+          "default": "Declares executable positive-vote evidence-schema capability only. It does not assert that evidence is present or satisfied in a particular episode, and it is not a performance, causal, or qualification claim.",
+          "title": "Claim Boundary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_artifact_id",
+        "source_artifact_sha256"
+      ],
+      "title": "KGFaultCoverageDeclaration",
+      "type": "object"
+    },
+    "KGPartialCoverageAction": {
+      "description": "Deterministic action when explicit KG capability coverage is incomplete.\n\n``SUPPRESS_BRANCH`` remains the safe engineering default.\n``SCALE_BY_COVERAGE`` is an experimental, label-free candidate policy whose\nempirical selection must use development evidence only.",
+      "enum": [
+        "SUPPRESS_BRANCH",
+        "SCALE_BY_COVERAGE"
+      ],
+      "title": "KGPartialCoverageAction",
+      "type": "string"
+    },
+    "RankedFault": {
+      "additionalProperties": false,
+      "properties": {
+        "fault_id": {
+          "minLength": 1,
+          "title": "Fault Id",
+          "type": "string"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "source": {
+          "$ref": "#/$defs/RankingSource"
+        },
+        "evidence_fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Fact Ids",
+          "type": "array"
+        },
+        "source_evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Evidence Ids",
+          "type": "array"
+        },
+        "correlation_group_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Correlation Group Ids",
+          "type": "array"
+        },
+        "lineage_complete": {
+          "default": false,
+          "title": "Lineage Complete",
+          "type": "boolean"
+        },
+        "contributes_to_fusion": {
+          "default": true,
+          "title": "Contributes To Fusion",
+          "type": "boolean"
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "title": "Metadata",
+          "type": "object"
+        }
+      },
+      "required": [
+        "fault_id",
+        "rank",
+        "score",
+        "source"
+      ],
+      "title": "RankedFault",
+      "type": "object"
+    },
+    "RankingSource": {
+      "enum": [
+        "DATA_DRIVEN",
+        "KG_FORWARD",
+        "KG_BACKWARD"
+      ],
+      "title": "RankingSource",
+      "type": "string"
+    },
+    "ScoreSemantics": {
+      "description": "Meaning of the numeric ``score`` carried by one source ranking.",
+      "enum": [
+        "RANKING_SCORE",
+        "UNCALIBRATED_CLASS_PROBABILITY",
+        "CALIBRATED_CLASS_PROBABILITY",
+        "EVIDENCE_STRENGTH",
+        "EVIDENCE_COVERAGE"
+      ],
+      "title": "ScoreSemantics",
+      "type": "string"
+    },
+    "ThreeTaskHeadTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "classification_policy": {
+          "enum": [
+            "hard_component",
+            "unmasked",
+            "soft_component"
+          ],
+          "title": "Classification Policy",
+          "type": "string"
+        },
+        "raw_class_probabilities": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Raw Class Probabilities",
+          "type": "object"
+        },
+        "direct_component_probabilities": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Direct Component Probabilities",
+          "type": "object"
+        },
+        "derived_component_probabilities": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Derived Component Probabilities",
+          "type": "object"
+        },
+        "raw_top_class": {
+          "title": "Raw Top Class",
+          "type": "string"
+        },
+        "discarded_class_mass": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Discarded Class Mass",
+          "type": "number"
+        },
+        "class_to_runtime_fault": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Class To Runtime Fault",
+          "type": "object"
+        },
+        "score_semantics": {
+          "const": "UNCALIBRATED_MODEL_OUTPUT_SHARED_EVIDENCE",
+          "title": "Score Semantics",
+          "type": "string"
+        }
+      },
+      "required": [
+        "classification_policy",
+        "raw_class_probabilities",
+        "direct_component_probabilities",
+        "derived_component_probabilities",
+        "raw_top_class",
+        "discarded_class_mass",
+        "class_to_runtime_fault",
+        "score_semantics"
+      ],
+      "title": "ThreeTaskHeadTrace",
+      "type": "object"
+    },
+    "ThreeTaskResult": {
+      "additionalProperties": false,
+      "description": "Predictions are model output, never substituted for observed evidence.",
+      "properties": {
+        "schema_version": {
+          "const": "astrograph-three-task-context.v1",
+          "default": "astrograph-three-task-context.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "episode_id": {
+          "minLength": 1,
+          "title": "Episode Id",
+          "type": "string"
+        },
+        "prediction_id": {
+          "minLength": 1,
+          "title": "Prediction Id",
+          "type": "string"
+        },
+        "model_id": {
+          "minLength": 1,
+          "title": "Model Id",
+          "type": "string"
+        },
+        "model_version": {
+          "minLength": 1,
+          "title": "Model Version",
+          "type": "string"
+        },
+        "input_data_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Input Data Sha256",
+          "type": "string"
+        },
+        "window_start_s": {
+          "title": "Window Start S",
+          "type": "number"
+        },
+        "window_end_s": {
+          "title": "Window End S",
+          "type": "number"
+        },
+        "detection_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Detection Probability",
+          "type": "number"
+        },
+        "detection_threshold": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Detection Threshold",
+          "type": "number"
+        },
+        "detected": {
+          "title": "Detected",
+          "type": "boolean"
+        },
+        "component_probabilities": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Component Probabilities",
+          "type": "object"
+        },
+        "predicted_component": {
+          "minLength": 1,
+          "title": "Predicted Component",
+          "type": "string"
+        },
+        "classification_ranking": {
+          "$ref": "#/$defs/FaultRanking"
+        },
+        "evidence_projection": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EvidenceProjectionReceipt"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "head_trace": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ThreeTaskHeadTrace"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "interpretation": {
+          "const": "MODEL_OUTPUT_NOT_OBSERVATION",
+          "default": "MODEL_OUTPUT_NOT_OBSERVATION",
+          "title": "Interpretation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "episode_id",
+        "prediction_id",
+        "model_id",
+        "model_version",
+        "input_data_sha256",
+        "window_start_s",
+        "window_end_s",
+        "detection_probability",
+        "detection_threshold",
+        "detected",
+        "component_probabilities",
+        "predicted_component",
+        "classification_ranking"
+      ],
+      "title": "ThreeTaskResult",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "astrograph-oag-input.v1",
+      "default": "astrograph-oag-input.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "bundle": {
+      "$ref": "#/$defs/EpisodeEvidenceBundle"
+    },
+    "diagnostic_ranking": {
+      "$ref": "#/$defs/FaultRanking"
+    },
+    "fusion_config": {
+      "$ref": "#/$defs/BiRRFConfig"
+    },
+    "top_k": {
+      "default": 5,
+      "maximum": 50,
+      "minimum": 1,
+      "title": "Top K",
+      "type": "integer"
+    },
+    "require_paperseek": {
+      "default": false,
+      "title": "Require Paperseek",
+      "type": "boolean"
+    },
+    "require_ontology_extraction": {
+      "default": false,
+      "title": "Require Ontology Extraction",
+      "type": "boolean"
+    },
+    "require_llm": {
+      "default": false,
+      "title": "Require Llm",
+      "type": "boolean"
+    },
+    "three_task_result": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ThreeTaskResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "review_evidence": {
+      "default": false,
+      "title": "Review Evidence",
+      "type": "boolean"
+    },
+    "resolve_supported_ties": {
+      "default": false,
+      "title": "Resolve Supported Ties",
+      "type": "boolean"
+    },
+    "resolve_unsupported_top": {
+      "default": false,
+      "title": "Resolve Unsupported Top",
+      "type": "boolean"
+    },
+    "complementary_diagnosis_enabled": {
+      "default": false,
+      "title": "Complementary Diagnosis Enabled",
+      "type": "boolean"
+    },
+    "mechanism_confirmation_enabled": {
+      "default": false,
+      "title": "Mechanism Confirmation Enabled",
+      "type": "boolean"
+    },
+    "maximum_diagnostic_candidates": {
+      "default": 3,
+      "maximum": 10,
+      "minimum": 2,
+      "title": "Maximum Diagnostic Candidates",
+      "type": "integer"
+    },
+    "registered_fault_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Registered Fault Ids"
+    }
+  },
+  "required": [
+    "bundle",
+    "diagnostic_ranking"
+  ],
+  "title": "OAGInput",
+  "type": "object"
+}

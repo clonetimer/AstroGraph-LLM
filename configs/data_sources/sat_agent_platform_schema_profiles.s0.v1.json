@@ -1,0 +1,746 @@
+{
+  "schema_version": "astrograph-sat-agent-schema-profile-catalog.v1",
+  "catalog_id": "astrograph.p018.sat-agent.schema-profiles.s0",
+  "version": "1.0.0",
+  "stage": "P018_S0_ZERO_FIT",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "adapter_key": "sat_agent_platform",
+  "source_count": 1,
+  "profiles": [
+    {
+      "profile_id": "sat-agent.component.battery.trace.v1",
+      "capability_id": "component.battery.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "eps.battery.soc",
+          "unit": "1"
+        },
+        {
+          "name": "eps.battery.net_power_w",
+          "unit": "W"
+        },
+        {
+          "name": "eps.battery.applied_power_w",
+          "unit": "W"
+        },
+        {
+          "name": "eps.battery.storage_wh",
+          "unit": "Wh"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.subsystem.adcs-rw.astrograph-5ch.v2",
+      "capability_id": "subsystem.adcs_unified_native.v1",
+      "hierarchy_level": "subsystem",
+      "usage_grade": "SOURCE_CONTRACT_ALLOWLIST_PRESENT_VALIDATION_ONLY",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "sensor.adcs.rw.speed_rad_s_0",
+          "unit": "rad/s"
+        },
+        {
+          "name": "command.adcs.rw.motor_torque_nm_0",
+          "unit": "N*m"
+        },
+        {
+          "name": "sensor.adcs.rw.motor_current_a_0",
+          "unit": "A"
+        },
+        {
+          "name": "estimate.adcs.rw.actual_torque_nm_0",
+          "unit": "N*m"
+        },
+        {
+          "name": "estimate.adcs.pointing_error_deg",
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.subsystem.thermal.source-native.v1",
+      "capability_id": "subsystem.thermal.source_native.v1",
+      "hierarchy_level": "subsystem",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "thermal.source_native.battery_temp_k",
+          "unit": "K"
+        },
+        {
+          "name": "thermal.source_native.electronics_temp_k",
+          "unit": "K"
+        },
+        {
+          "name": "thermal.source_native.payload_temp_k",
+          "unit": "K"
+        },
+        {
+          "name": "thermal.source_native.heater_power_w",
+          "unit": "W"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.subsystem.eps.unified-native.v1",
+      "capability_id": "subsystem.eps.unified_native.v1",
+      "hierarchy_level": "subsystem",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "eps.battery_soc",
+          "unit": "1"
+        },
+        {
+          "name": "eps.net_power_w",
+          "unit": "W"
+        },
+        {
+          "name": "eps.solar_power_w",
+          "unit": "W"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.whole-spacecraft.composite.v1",
+      "capability_id": "whole_spacecraft.composite_digital_twin.v1",
+      "hierarchy_level": "whole_spacecraft",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "battery_soc",
+          "unit": "1"
+        },
+        {
+          "name": "thermal_temp_c",
+          "unit": "degC"
+        },
+        {
+          "name": "payload_generated_bps",
+          "unit": "bit/s"
+        },
+        {
+          "name": "downlink_delivered_bps",
+          "unit": "bit/s"
+        },
+        {
+          "name": "data_storage_bits",
+          "unit": "bit"
+        },
+        {
+          "name": "propellant_remaining_kg",
+          "unit": "kg"
+        },
+        {
+          "name": "attitude_error_deg",
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.imu.trace.v1",
+      "capability_id": "component.imu.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "adcs.imu.gyro_x_rad_s",
+          "unit": "rad/s"
+        },
+        {
+          "name": "adcs.imu.gyro_y_rad_s",
+          "unit": "rad/s"
+        },
+        {
+          "name": "adcs.imu.gyro_z_rad_s",
+          "unit": "rad/s"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.pdu.trace.v1",
+      "capability_id": "component.pdu.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "eps.pdu.requested_power_w",
+          "unit": "W"
+        },
+        {
+          "name": "eps.pdu.delivered_power_w",
+          "unit": "W"
+        },
+        {
+          "name": "eps.pdu.shed_count",
+          "unit": "1"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.data-queue.trace.v1",
+      "capability_id": "component.data_queue.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "comm.data_queue.generated_bps",
+          "unit": "bit/s"
+        },
+        {
+          "name": "comm.data_queue.downlink_bps",
+          "unit": "bit/s"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.onboard-storage.trace.v1",
+      "capability_id": "component.onboard_storage.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "comm.storage.fill_ratio",
+          "unit": "1"
+        },
+        {
+          "name": "comm.storage.generated_bps",
+          "unit": "bit/s"
+        },
+        {
+          "name": "comm.storage.downlink_bps",
+          "unit": "bit/s"
+        },
+        {
+          "name": "comm.storage.stored_bits",
+          "unit": "bit"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.cmg.trace.v1",
+      "capability_id": "component.cmg.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "adcs.cmg.wheel_speed_rad_s",
+          "unit": "rad/s"
+        },
+        {
+          "name": "adcs.cmg.gimbal_angle_rad",
+          "unit": "rad"
+        },
+        {
+          "name": "adcs.cmg.wheel_momentum_nms",
+          "unit": "N*m*s"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.mtb.trace.v1",
+      "capability_id": "component.mtb.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "adcs.mtb.command_dipole_am2_0",
+          "unit": "A*m^2"
+        },
+        {
+          "name": "adcs.mtb.command_dipole_am2_1",
+          "unit": "A*m^2"
+        },
+        {
+          "name": "adcs.mtb.command_dipole_am2_2",
+          "unit": "A*m^2"
+        },
+        {
+          "name": "adcs.mtb.actual_dipole_am2_0",
+          "unit": "A*m^2"
+        },
+        {
+          "name": "adcs.mtb.actual_dipole_am2_1",
+          "unit": "A*m^2"
+        },
+        {
+          "name": "adcs.mtb.actual_dipole_am2_2",
+          "unit": "A*m^2"
+        },
+        {
+          "name": "adcs.mtb.torque_nm_0",
+          "unit": "N*m"
+        },
+        {
+          "name": "adcs.mtb.torque_nm_1",
+          "unit": "N*m"
+        },
+        {
+          "name": "adcs.mtb.torque_nm_2",
+          "unit": "N*m"
+        },
+        {
+          "name": "adcs.mtb.torque_norm_nm",
+          "unit": "N*m"
+        },
+        {
+          "name": "adcs.mtb.magnetic_field_t_0",
+          "unit": "T"
+        },
+        {
+          "name": "adcs.mtb.magnetic_field_t_1",
+          "unit": "T"
+        },
+        {
+          "name": "adcs.mtb.magnetic_field_t_2",
+          "unit": "T"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.star-tracker.trace.v1",
+      "capability_id": "component.star_tracker.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "adcs.star_tracker.sigma_x",
+          "unit": "MRP"
+        },
+        {
+          "name": "adcs.star_tracker.sigma_y",
+          "unit": "MRP"
+        },
+        {
+          "name": "adcs.star_tracker.sigma_z",
+          "unit": "MRP"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.sun-sensor.trace.v1",
+      "capability_id": "component.sun_sensor.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "adcs.sun_sensor.intensity",
+          "unit": "1"
+        },
+        {
+          "name": "adcs.sun_sensor.direction_x",
+          "unit": "1"
+        },
+        {
+          "name": "adcs.sun_sensor.direction_y",
+          "unit": "1"
+        },
+        {
+          "name": "adcs.sun_sensor.direction_z",
+          "unit": "1"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.magnetometer.trace.v1",
+      "capability_id": "component.magnetometer.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "adcs.magnetometer.field_x_t",
+          "unit": "T"
+        },
+        {
+          "name": "adcs.magnetometer.field_y_t",
+          "unit": "T"
+        },
+        {
+          "name": "adcs.magnetometer.field_z_t",
+          "unit": "T"
+        },
+        {
+          "name": "adcs.magnetometer.field_norm_t",
+          "unit": "T"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.heater.trace.v1",
+      "capability_id": "component.heater.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "thermal.heater.node_temp_k",
+          "unit": "K"
+        },
+        {
+          "name": "thermal.heater.power_w",
+          "unit": "W"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.radiator.trace.v1",
+      "capability_id": "component.radiator.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "thermal.radiator.node_temp_k",
+          "unit": "K"
+        },
+        {
+          "name": "thermal.radiator.heat_load_w",
+          "unit": "W"
+        },
+        {
+          "name": "thermal.radiator.rejected_heat_w",
+          "unit": "W"
+        },
+        {
+          "name": "thermal.radiator.margin_w",
+          "unit": "W"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.transmitter.trace.v1",
+      "capability_id": "component.transmitter.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "comm.transmitter.requested_rate_bps",
+          "unit": "bit/s"
+        },
+        {
+          "name": "comm.transmitter.tx_power_w",
+          "unit": "W"
+        },
+        {
+          "name": "comm.transmitter.power_draw_w",
+          "unit": "W"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.link-budget.trace.v1",
+      "capability_id": "component.link_budget.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "comm.link_budget.ebn0_db",
+          "unit": "dB"
+        },
+        {
+          "name": "comm.link_budget.ber",
+          "unit": "1"
+        },
+        {
+          "name": "comm.link_budget.slant_range_m",
+          "unit": "m"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.solar-panel.trace.v1",
+      "capability_id": "component.solar_panel.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "eps.solar.array_power_w",
+          "unit": "W"
+        },
+        {
+          "name": "eps.solar.panel_power_w",
+          "unit": "W"
+        },
+        {
+          "name": "eps.solar.efficiency",
+          "unit": "1"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.power-sink.trace.v1",
+      "capability_id": "component.power_sink.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "eps.power_sink.demand_w",
+          "unit": "W"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.antenna.trace.v1",
+      "capability_id": "component.antenna.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "comm.antenna.gain_dbi",
+          "unit": "dBi"
+        },
+        {
+          "name": "comm.antenna.off_boresight_deg",
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.ground-station.trace.v1",
+      "capability_id": "component.ground_station.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "ground_station.slant_range_m",
+          "unit": "m"
+        },
+        {
+          "name": "ground_station.elevation_deg",
+          "unit": "deg"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.fuel-tank.trace.v1",
+      "capability_id": "component.fuel_tank.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "propulsion.fuel_tank.propellant_mass_kg",
+          "unit": "kg"
+        },
+        {
+          "name": "propulsion.fuel_tank.pressure_pa",
+          "unit": "Pa"
+        },
+        {
+          "name": "propulsion.fuel_tank.commanded_mass_flow_kg_s",
+          "unit": "kg/s"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.payload.trace.v1",
+      "capability_id": "component.payload.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "payload.instrument.power_w",
+          "unit": "W"
+        },
+        {
+          "name": "payload.instrument.heat_w",
+          "unit": "W"
+        },
+        {
+          "name": "payload.instrument.generated_bps",
+          "unit": "bit/s"
+        },
+        {
+          "name": "payload.instrument.generated_bits",
+          "unit": "bit"
+        },
+        {
+          "name": "payload.instrument.cumulative_data_bits",
+          "unit": "bit"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.payload-sensor.trace.v1",
+      "capability_id": "component.payload_sensor.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "payload.sensor.pointing_error_deg",
+          "unit": "deg"
+        },
+        {
+          "name": "payload.sensor.cloud_fraction",
+          "unit": "1"
+        },
+        {
+          "name": "payload.sensor.generated_bits",
+          "unit": "bit"
+        },
+        {
+          "name": "payload.sensor.quality_score",
+          "unit": "1"
+        },
+        {
+          "name": "payload.sensor.cumulative_generated_bits",
+          "unit": "bit"
+        }
+      ]
+    },
+    {
+      "profile_id": "sat-agent.component.thruster.trace.v1",
+      "capability_id": "component.thruster.v1",
+      "hierarchy_level": "component",
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "time_field": {
+        "name": "time_s",
+        "unit": "s"
+      },
+      "public_observation_fields": [
+        {
+          "name": "propulsion.thruster.cumulative_impulse_ns",
+          "unit": "N*s"
+        },
+        {
+          "name": "propulsion.thruster.cumulative_propellant_kg",
+          "unit": "kg"
+        },
+        {
+          "name": "propulsion.thruster.on_time_s",
+          "unit": "s"
+        }
+      ]
+    }
+  ],
+  "global_model_input_deny_rules": [
+    "label.*",
+    "truth.*",
+    "ground_truth.*",
+    "effect.*",
+    "event.*",
+    "modifier.*",
+    "object.*",
+    "status.*",
+    "task_id",
+    "case_id",
+    "dataset_id",
+    "scenario_id",
+    "pair_id",
+    "run_id",
+    "seed",
+    "split",
+    "mode",
+    "target_level",
+    "target_name",
+    "*fault*",
+    "*bias*",
+    "*degradation*",
+    "*drift*",
+    "*dropout*",
+    "*effective_*",
+    "*injected*",
+    "*nominal_*",
+    "*stuck*"
+  ],
+  "qualification_boundary": "A profile records observed schema only. Except for the exact five-channel RW source allowlist, fields remain structurally mapped but not training-qualified; no model fit is authorized."
+}

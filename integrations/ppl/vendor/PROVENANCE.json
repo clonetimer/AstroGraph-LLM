@@ -1,0 +1,26 @@
+[
+  {
+    "file": "ppl-profile-core-0.2.0.tgz",
+    "sha256": "e7e6209073ed315e4c529ddeb20ddc6a6213563f1bc4dc2ba5032b78d043703c",
+    "upstream": "PPL Stable 2026-08-27 / Profiles 0.2.0",
+    "modified": false
+  },
+  {
+    "file": "ppl-profile-research-0.2.0.tgz",
+    "sha256": "204c0a6c80c0eba78ca157f4deb91f3164a52e81af08a68976c783211b7e3522",
+    "upstream": "PPL Stable 2026-08-27 / Profiles 0.2.0",
+    "modified": false
+  },
+  {
+    "file": "ppl-profile-runtime-0.2.0.tgz",
+    "sha256": "3b82e5598dfa3c53aef47f9ac792920a947b69cf7e4d4f95b80b21d4b8caccdc",
+    "upstream": "PPL Stable 2026-08-27 / Profiles 0.2.0",
+    "modified": false
+  },
+  {
+    "file": "ppl-profile-tutor-0.2.0.tgz",
+    "sha256": "ae6dedee5c131f78fe1da826817a15699372127d13df92c1c9587f102cde7799",
+    "upstream": "PPL Stable 2026-08-27 / Profiles 0.2.0",
+    "modified": false
+  }
+]

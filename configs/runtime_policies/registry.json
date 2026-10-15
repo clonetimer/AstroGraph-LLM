@@ -1,0 +1,32 @@
+{
+  "schema_version": "astrograph-runtime-policy-registry.v1",
+  "registry_id": "astrograph.runtime-policies.reviewed",
+  "version": "1.1.0",
+  "asset_root": "../..",
+  "profiles": [
+    {
+      "profile_type": "GRAPH_QUERY",
+      "profile_id": "graph-query.read-only.v1",
+      "path": "configs/runtime_policies/graph_query_read_only.v1.json",
+      "sha256": "8195b8bb1f13c3e1755fbab774cb7670a1b3fb2dc68cca720850cd9fda087764"
+    },
+    {
+      "profile_type": "FUSION",
+      "profile_id": "birrf.engineering-default.v1",
+      "path": "configs/runtime_policies/birrf_engineering_default.v1.json",
+      "sha256": "fcfb89fc61243ea3b0a344e9fc0e37d7b581a5e057090bcf85b1985daf597ee9"
+    },
+    {
+      "profile_type": "FUSION",
+      "profile_id": "birrf.production-strict.adcs-v5_2_2.v1",
+      "path": "configs/runtime_policies/birrf_production_strict_adcs_v5_2_2.v1.json",
+      "sha256": "2fa67a374b151491218e20ae64c28a86083bd9a08f7ee9b74ee9898a6243709e"
+    },
+    {
+      "profile_type": "FUSION",
+      "profile_id": "birrf.production-strict.phm-v6_0.v1",
+      "path": "configs/runtime_policies/birrf_production_strict_phm_v6_0.v1.json",
+      "sha256": "e4f23f5f2b70b5910c22072e96aa01660301fa6cbd3d3792438cccd0c646ce5b"
+    }
+  ]
+}

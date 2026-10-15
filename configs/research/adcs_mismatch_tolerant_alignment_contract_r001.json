@@ -1,0 +1,37 @@
+{
+  "alignment_channel_quantile": 0.75,
+  "alignment_time_aggregation": "MEDIAN",
+  "candidate_lags": [
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "claim_boundary": "Development-only bounded integer-lag alignment using the initial label-free prefix. It is not unconstrained warping and does not establish arbitrary cross-Monte-Carlo, external, HIL, safety, flight, fault-identification, or confirmatory validity.",
+  "contract_id": "ADCS-MT-ALIGN-R001",
+  "contract_sha256": "3401562b77d06153df153bce79fcf67d1d7d3a9d8ed99dcd1097b243a05e56c9",
+  "dataset_archive_sha256": "86d6f0cca1436d51a882e5b9bcd8e5073c7930fcffc167d26787b9a8e220e4da",
+  "development_groups": [
+    3,
+    8
+  ],
+  "excluded_groups": [
+    4,
+    9
+  ],
+  "lag_tie_break": "LOWEST_FIT_THEN_MIN_ABS_LAG_THEN_SIGNED_LAG",
+  "maximum_absolute_lag_points": 3,
+  "notification_buffer_points": 3,
+  "online_reference_mode": "PRECOMPUTED_REFERENCE_OR_BOUNDED_BUFFER",
+  "padded_edge_action": "INVALIDATE",
+  "prefix_baseline_quantile": 0.99,
+  "prefix_points": 31,
+  "runtime_ground_truth_access": false,
+  "sample_period_s": 1.0,
+  "scale_contract_sha256": "08841507643ce16bc488b4cb10c52f5e94edfbd68f86c8dbe0059ed3bf83735b",
+  "schema_version": "astrograph-mismatch-tolerant-alignment-contract.v1",
+  "score_channel_quantile": 0.99
+}

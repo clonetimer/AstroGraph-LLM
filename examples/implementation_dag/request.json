@@ -1,0 +1,55 @@
+{
+  "schema_version": "astrograph-online-request.v1",
+  "request_id": "SYNTHETIC_FIXTURE",
+  "asset_id": "fixture_asset",
+  "operating_mode": "fixture",
+  "cutoff_at": "2026-09-13T00:00:00Z",
+  "observation": {
+    "schema_version": "astrograph-observation-frame.v1",
+    "artifact_id": "fixture_obs",
+    "channels": [
+      {
+        "channel_id": "sensor",
+        "semantic_id": "fixture.sensor",
+        "unit": "1"
+      }
+    ],
+    "observed_at": [
+      "2026-09-13T00:00:00Z"
+    ],
+    "available_at": [
+      "2026-09-13T00:00:00Z"
+    ],
+    "values": [
+      [
+        1.0
+      ]
+    ],
+    "observed_mask": [
+      [
+        true
+      ]
+    ],
+    "payload_sha256": "308e44bc72450c8db71b497480bfbd7bb611838743c7b0f879f432140af05925"
+  },
+  "reference": null,
+  "reference_applicability": "ABSENT",
+  "reference_qualification": null,
+  "semantic_release": {
+    "release_id": "SYNTHETIC_FIXTURE",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "model_release": {
+    "release_id": "SYNTHETIC_FIXTURE",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "knowledge_release": {
+    "release_id": "SYNTHETIC_FIXTURE",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "plugin_release": {
+    "release_id": "fixture_plugins",
+    "sha256": "338802f441f6ba67cfafbf323939379076011e66895d1668ef9c8b38d49b7a96"
+  },
+  "memory_policy_release": null
+}

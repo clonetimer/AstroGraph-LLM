@@ -1,0 +1,63 @@
+{
+  "schema_version": "astrograph-document-corpus-access-policy.v1",
+  "policy_id": "document-corpus-access-policy-r001",
+  "status": "FROZEN_FOR_P0_P05_DEVELOPMENT",
+  "purpose": "Prevent episode truth, future observations, and same-group closure reports from entering runtime diagnosis while enabling design, causal log, and historical case research.",
+  "visibility_classes": {
+    "DESIGN_PUBLIC": {
+      "runtime_access": "HUMAN_REVIEW_REQUIRED",
+      "runtime_vote": "SEPARATE_EVIDENCE_ADMISSION_REQUIRED",
+      "notes": "The same candidate design corpus must be available independently of episode truth."
+    },
+    "OBSERVATION_CAUSAL": {
+      "runtime_access": "SAME_EPISODE_AND_CUTOFF_ONLY",
+      "runtime_vote": "SEPARATE_EVIDENCE_ADMISSION_REQUIRED",
+      "notes": "No event, log, or summary after the diagnosis observation time is visible."
+    },
+    "RESOLVED_CASE_TRAIN_ONLY": {
+      "runtime_access": "ALLOWLISTED_HISTORICAL_PROVENANCE_GROUPS_ONLY",
+      "runtime_vote": "NO_DIRECT_VOTE",
+      "notes": "The current provenance group can never retrieve its own closure report."
+    },
+    "TRUTH_QUARANTINED": {
+      "runtime_access": "DENY_UNCONDITIONALLY",
+      "runtime_vote": "DENY_UNCONDITIONALLY",
+      "notes": "Only an offline evaluator may access current labels, injection truth, future logs, and closure truth."
+    }
+  },
+  "forbidden_runtime_fields": [
+    "condition_id",
+    "diagnostic_class",
+    "fault_injection_phase",
+    "event_parameters",
+    "active_effects",
+    "ground_truth",
+    "split",
+    "seed",
+    "truth-bearing path segments",
+    "current episode closure conclusion"
+  ],
+  "epistemic_status_runtime_vote_policy": {
+    "SOURCE_FACT": "ELIGIBLE_ONLY_AFTER_SEPARATE_EVIDENCE_ADMISSION",
+    "HISTORICAL_RESOLUTION": "ANALOGY_ONLY_NO_DIRECT_VOTE",
+    "DESIGN_PROPOSAL": "DENY",
+    "ENGINEERING_ESTIMATE": "DENY",
+    "MODEL_INFERENCE": "DENY_AS_SOURCE_FACT",
+    "ONTOLOGY_ASSOCIATION": "DENY_AS_EPISODE_EVIDENCE",
+    "ILLUSTRATIVE": "DENY"
+  },
+  "split_rules": {
+    "unit": "episode_or_provenance_group",
+    "overlapping_windows_are_independent": false,
+    "historical_case_retrieval_must_exclude_current_group": true,
+    "test_and_confirmation_truth_index_exists_in_runtime": false
+  },
+  "p0_acceptance": [
+    "Contract models reject incoherent visibility and truth declarations.",
+    "Runtime access cannot be granted to TRUTH_QUARANTINED via caller tags.",
+    "Future observations are rejected by observation-time comparison.",
+    "Current-group closure reports are rejected before retrieval scoring.",
+    "Every rejection produces a stable reason code."
+  ],
+  "claim_boundary": "This policy freezes document visibility and leakage prevention for development. It does not approve any document claim as runtime diagnostic evidence."
+}

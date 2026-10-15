@@ -1,0 +1,25 @@
+{
+  "preflight_can_start": true,
+  "run_status": "SUCCEEDED",
+  "review_status": "REVIEW_REQUIRED",
+  "top_fault_id": "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE",
+  "candidate_count": 1,
+  "candidate_status_by_fault": {
+    "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE": "PROVISIONAL_LOG_CUE"
+  },
+  "minimum_evidence_roles": [
+    "diagnosis_results",
+    "log_reports",
+    "references"
+  ],
+  "must_have_hypotheses": true,
+  "case_id": "TC02_EPS_电池内阻",
+  "description": "电源故障 + CSV 日志 + Markdown 表格",
+  "upload_files": [
+    "diagnosis_result.json",
+    "operations.csv",
+    "reference.md"
+  ],
+  "equipment_scope": "LAB_EPS_V1",
+  "manifest": "analysis_input.json"
+}

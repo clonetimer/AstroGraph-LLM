@@ -1,0 +1,32 @@
+{
+  "schema_version": "astrograph-document-severity-contract.v1",
+  "contract_id": "phm-v60-generator-relative-severity-r001",
+  "dataset_id": "phm-v60",
+  "source_generator_sha256": "956f07dabfaf600729aa61385dc1901504d33e137912288020f3253538020252",
+  "normalized_bands": [
+    {"band": "weak", "lower_inclusive": 0.0, "upper_exclusive": 0.3333333333333333},
+    {"band": "moderate", "lower_inclusive": 0.3333333333333333, "upper_exclusive": 0.6666666666666666},
+    {"band": "severe", "lower_inclusive": 0.6666666666666666, "upper_inclusive": 1.0}
+  ],
+  "rules": {
+    "nominal": {"mode": "FIXED", "band": "nominal"},
+    "eps_battery_capacity_loss": {"mode": "PARAMETER", "parameter": "remaining_capacity_ratio", "minimum": 0.45, "maximum": 0.7, "severity_increases": "LOWER"},
+    "eps_battery_open_circuit": {"mode": "FIXED", "band": "hard_failure"},
+    "eps_solar_string_open": {"mode": "PARAMETER", "parameter": "remaining_efficiency_ratio", "minimum": 0.25, "maximum": 0.6, "severity_increases": "LOWER"},
+    "eps_pdu_channel_trip": {"mode": "FIXED", "band": "hard_failure"},
+    "eps_load_overload": {"mode": "PARAMETER", "parameter": "load_multiplier", "minimum": 1.8, "maximum": 3.0, "severity_increases": "HIGHER"},
+    "thermal_heater_stuck_off": {"mode": "FIXED", "band": "hard_failure"},
+    "thermal_heater_stuck_on": {"mode": "FIXED", "band": "hard_failure"},
+    "thermal_radiator_rejection_loss": {"mode": "PARAMETER", "parameter": "remaining_rejection_ratio", "minimum": 0.25, "maximum": 0.6, "severity_increases": "LOWER"},
+    "thermal_node_heat_bias": {"mode": "PARAMETER", "parameter": "heat_bias_w", "minimum": 12.0, "maximum": 25.0, "severity_increases": "HIGHER"},
+    "comm_data_downlink_link_loss": {"mode": "FIXED", "band": "hard_failure"},
+    "comm_data_transmitter_rate_loss": {"mode": "PARAMETER", "parameter": "remaining_ratio", "minimum": 0.2, "maximum": 0.6, "severity_increases": "LOWER"},
+    "comm_data_storage_capacity_loss": {"mode": "PARAMETER", "parameter": "remaining_ratio", "minimum": 0.35, "maximum": 0.65, "severity_increases": "LOWER"},
+    "payload_instrument_off": {"mode": "FIXED", "band": "hard_failure"},
+    "payload_instrument_rate_loss": {"mode": "PARAMETER", "parameter": "remaining_ratio", "minimum": 0.25, "maximum": 0.65, "severity_increases": "LOWER"},
+    "propulsion_thruster_ignition_failure": {"mode": "FIXED", "band": "hard_failure"},
+    "propulsion_thruster_nozzle_blockage": {"mode": "PARAMETER", "parameter": "remaining_ratio", "minimum": 0.15, "maximum": 0.45, "severity_increases": "LOWER"},
+    "propulsion_fuel_leak": {"mode": "PARAMETER", "parameter": "leak_rate_kg_s", "minimum": 0.00005, "maximum": 0.0002, "severity_increases": "HIGHER"}
+  },
+  "claim_boundary": "These bands are deterministic positions inside simulator parameter ranges. They support corpus stratification only and are not calibrated physical severity, operational criticality, runtime evidence, or flight thresholds."
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "astrograph-r28-prepackage-gate.v1",
+  "patch_id": "PATCH-R28",
+  "business_logic_frozen": true,
+  "base_identity_finding": "BASE-R28-01_INHERITED_PACKAGING_IDENTITY_MISMATCH",
+  "cross_version_affected_regression": {
+    "passed": 79,
+    "failed": 0
+  },
+  "r28_direct_protocol_core_regression": {
+    "passed": 18,
+    "failed": 0
+  },
+  "full_collect_only": {
+    "tests_collected": 3559,
+    "collection_errors": 0
+  },
+  "source_integrity_before_gate": {
+    "verified_files": 2772,
+    "errors": 0,
+    "status": "PASS"
+  },
+  "documentation_freshness": "PASS",
+  "distribution_inventory_cleanup_evidence_tests": {
+    "passed": 20,
+    "failed": 0
+  },
+  "production_js_modules": {
+    "passed": 10,
+    "failed": 0
+  },
+  "chromium_behavior": {
+    "passed": 3,
+    "failed": 0
+  },
+  "delivery_evidence_source_only": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+  "delivery_evidence_strict": "FAIL_AS_DESIGNED_8_HISTORICAL_EXTERNAL_ARCHIVES",
+  "competition_or_rematch_regenerated": false,
+  "new_holdout_supplied": false,
+  "esa_seen_external_regenerated": false,
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R28 prepackage gates validate source/test/governance behavior only. Development performance remains post-contact and promotion requires genuinely new holdout evidence.",
+  "receipt_sha256": "24205ed2c9318bab013d85224fce2bcc890ed2c3dcfef859f1d8bef6ddf03759"
+}

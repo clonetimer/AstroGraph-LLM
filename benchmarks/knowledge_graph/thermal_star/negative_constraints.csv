@@ -1,0 +1,4 @@
+﻿constraint_id,source_id,relation_type,target_id,reason
+NEG-001,THERMAL_HEATER_STUCK_ON,EQUIVALENT_TO,NORMAL_HEATER_COMMAND_ON,正常受控开启不能等同于加热器常开故障。
+NEG-002,ADCS_STAR_TRACKER_DROPOUT,IMPLIES,RW_UNAVAILABLE,星敏失锁协议要求反作用轮保持可用。
+NEG-003,estimate.adcs.pointing_error_deg,IS_FLIGHT_TRUTH,TRUE,该字段是E0合成估计，不是飞行真值。

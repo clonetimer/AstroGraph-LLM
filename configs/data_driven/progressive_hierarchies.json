@@ -1,0 +1,72 @@
+{
+  "schema_version": "astrograph-progressive-diagnosis-hierarchy.v1",
+  "graphs": {
+    "adcs_v5_2_2": {
+      "parameters": [
+        "pointing_error", "gyro_measurement", "imu_validity",
+        "rw_speed", "rw_torque_command", "rw_current",
+        "rw_execution_residual", "rw_speed_residual", "rw_sensor_validity",
+        "star_validity", "sun_validity"
+      ],
+      "parts": [
+        "attitude_error_signal", "gyro_triad", "imu_health_logic",
+        "wheel_rotor_sensor", "wheel_drive", "wheel_residual_monitor",
+        "star_tracker_head", "sun_sensor_head"
+      ],
+      "components": ["control_loop", "imu", "reaction_wheel", "star_tracker", "sun_sensor"],
+      "functional_modules": ["attitude_control", "inertial_sensing", "actuation", "optical_sensing"],
+      "subsystems": ["adcs"],
+      "spacecraft": "whole_spacecraft",
+      "parameter_channel_patterns": {
+        "pointing_error": ["^adcs\\.pointing_error_deg$"],
+        "gyro_measurement": ["^adcs\\.sensor\\.gyro_measured_rad_s_.+$"],
+        "imu_validity": ["^adcs\\.sensor\\.(?:imu\\.valid|gyro_axis_valid_.+|gyro_invalid_axis_count)$"],
+        "rw_speed": ["^adcs\\.rw\\.measured_speed_rad_s_.+$"],
+        "rw_torque_command": ["^adcs\\.rw\\.command_torque_nm_.+$"],
+        "rw_current": ["^adcs\\.rw\\.motor_current_a_.+$"],
+        "rw_execution_residual": ["^adcs\\.rw\\.command_execution_residual_norm_nm$"],
+        "rw_speed_residual": ["^adcs\\.rw\\.speed_response_residual_norm_nm$"],
+        "rw_sensor_validity": ["^adcs\\.rw\\.speed_sensor_invalid_count$"],
+        "star_validity": ["^adcs\\.star_tracker\\.(?:valid|solution_fresh)$"],
+        "sun_validity": ["^adcs\\.sun_sensor\\.(?:valid|saturated|cell_healthy)$"]
+      },
+      "parameter_to_part": {
+        "pointing_error": "attitude_error_signal",
+        "gyro_measurement": "gyro_triad",
+        "imu_validity": "imu_health_logic",
+        "rw_speed": "wheel_rotor_sensor",
+        "rw_torque_command": "wheel_drive",
+        "rw_current": "wheel_drive",
+        "rw_execution_residual": "wheel_residual_monitor",
+        "rw_speed_residual": "wheel_residual_monitor",
+        "rw_sensor_validity": "wheel_rotor_sensor",
+        "star_validity": "star_tracker_head",
+        "sun_validity": "sun_sensor_head"
+      },
+      "part_to_component": {
+        "attitude_error_signal": "control_loop",
+        "gyro_triad": "imu",
+        "imu_health_logic": "imu",
+        "wheel_rotor_sensor": "reaction_wheel",
+        "wheel_drive": "reaction_wheel",
+        "wheel_residual_monitor": "reaction_wheel",
+        "star_tracker_head": "star_tracker",
+        "sun_sensor_head": "sun_sensor"
+      },
+      "component_to_functional_module": {
+        "control_loop": "attitude_control",
+        "imu": "inertial_sensing",
+        "reaction_wheel": "actuation",
+        "star_tracker": "optical_sensing",
+        "sun_sensor": "optical_sensing"
+      },
+      "functional_module_to_subsystem": {
+        "attitude_control": "adcs",
+        "inertial_sensing": "adcs",
+        "actuation": "adcs",
+        "optical_sensing": "adcs"
+      },
+      "claim_boundary": "Synthetic ADCS engineering hierarchy used as a reviewed routing prior. It is neither learned causality nor evidence of flight-level topology."
+    }
+  }
+}

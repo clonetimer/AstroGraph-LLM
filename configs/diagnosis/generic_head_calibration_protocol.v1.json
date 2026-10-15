@@ -1,0 +1,145 @@
+{
+  "schema_version": "astrograph-generic-head-calibration-protocol.v1",
+  "protocol_id": "astrograph.generic-heads.synthetic-technical.v1",
+  "protocol_version": "1.0.2",
+  "frozen_at": "2026-08-02T00:00:00+08:00",
+  "protocol_basis": "G1.1",
+  "formal_hidden_truth_used": false,
+  "synthetic_controlled_reference_used": true,
+  "runtime_labels_used": false,
+  "runtime_truth_used": false,
+  "production_candidate": {
+    "model_family": "L2_REGULARIZED_MULTINOMIAL_LOGISTIC_REGRESSION",
+    "candidate_count": 1,
+    "ensemble_allowed": false,
+    "fallback_model_allowed": false,
+    "feature_source": "STATE_ESTIMATE_PHYSICS_RESIDUALS_ONLY",
+    "probability_calibration": "HELD_OUT_TEMPERATURE_SCALING",
+    "open_set_method": "CLASS_CONDITIONAL_SPLIT_CONFORMAL_DISTANCE",
+    "classification_abstention_outside_ood": false,
+    "optimizer": {
+      "solver": "lbfgs",
+      "l2_inverse_regularization": 1.0,
+      "maximum_iterations": 1000,
+      "tolerance": 1e-08,
+      "class_weight": "NONE",
+      "random_seed": 20260820
+    },
+    "temperature_scaling": {
+      "selection_metric": "NEGATIVE_LOG_LIKELIHOOD",
+      "minimum_temperature": 0.25,
+      "maximum_temperature": 4.0,
+      "grid_point_count": 256
+    },
+    "conformal_quantile_rule": "rank=ceil((n+1)*(1-alpha)), clipped to n",
+    "open_set_distance": "EUCLIDEAN_TO_PREDICTED_CLASS_CENTROID_IN_GLOBAL_STANDARDIZED_FEATURES",
+    "calibration_nonconformity": "DISTANCE_TO_TRUE_CLASS_CENTROID_WITH_ALL_DECLARED_CALIBRATION_CASES_RETAINED",
+    "feature_scale_floor": 1e-12
+  },
+  "known_mechanisms": [
+    "CAPACITY_LOSS",
+    "DRIFT",
+    "LEAKAGE"
+  ],
+  "open_set_mechanisms": [
+    "BIAS",
+    "INTERMITTENT",
+    "STUCK"
+  ],
+  "component_archetypes": [
+    "storage.energy_buffer",
+    "thermal.lumped_capacity"
+  ],
+  "feature_schema": [
+    "raw_signed_mean_over_rms",
+    "raw_late_early_shift_over_rms",
+    "raw_linear_slope_over_rms",
+    "raw_lag1_correlation",
+    "raw_peak_over_rms",
+    "raw_positive_fraction",
+    "whitened_signed_mean_over_rms",
+    "whitened_late_early_shift_over_rms",
+    "whitened_linear_slope_over_rms",
+    "whitened_lag1_correlation",
+    "whitened_peak_over_rms",
+    "whitened_positive_fraction"
+  ],
+  "split": {
+    "group_keys": [
+      "asset_instance",
+      "configuration_family",
+      "mechanism",
+      "severity",
+      "onset_fraction",
+      "simulation_seed"
+    ],
+    "development_seed": 20260820,
+    "calibration_seed": 20270820,
+    "technical_validation_seed": 20280820,
+    "development_count_per_archetype_per_known_mechanism": 120,
+    "calibration_count_per_archetype_per_known_mechanism": 60,
+    "technical_validation_count_per_archetype_per_mechanism": 120,
+    "split_overlap_allowed": false,
+    "validation_run_count": 1
+  },
+  "synthetic_generator": {
+    "development_and_calibration_configuration_domain": "calibrate_gray_box_uncertainty._configurations(validation=false)",
+    "technical_validation_configuration_domain": "calibrate_gray_box_uncertainty._configurations(validation=true)",
+    "onset_fraction_range": [0.3, 0.6],
+    "capacity_remaining_fraction_range": [0.5, 0.75],
+    "storage_leakage_rate_per_s_range": [-0.00025, -0.00015],
+    "thermal_leakage_heat_w_range": [-12.0, -5.0],
+    "storage_drift_final_rate_per_s_range": [-0.0006, -0.0003],
+    "thermal_drift_final_heat_w_range": [-25.0, -10.0],
+    "storage_bias_step_range": [-0.06, -0.02],
+    "thermal_bias_step_k_range": [-3.0, -1.0],
+    "intermittent_active_fraction_range": [0.2, 0.4],
+    "intermittent_period_samples_range": [8, 20],
+    "stuck_duration_fraction_range": [0.15, 0.35],
+    "severity_endpoints_inclusive": true,
+    "mechanism_sign_is_fixed": "LOSS_DIRECTION",
+    "normal_count_per_archetype_in_technical_validation": 120
+  },
+  "localization_evidence_requirements": {
+    "boundary_inputs_observed": true,
+    "state_channel_integrity_verified": true,
+    "input_channel_integrity_verified": true,
+    "time_alignment_verified": true,
+    "independent_repetitions_minimum": 2,
+    "affected_component_alone_is_root_cause": false
+  },
+  "thresholds": {
+    "detection_accuracy": 0.98,
+    "classification_accuracy": 0.9,
+    "localization_accuracy": 0.95,
+    "reasoning_correctness": 0.9,
+    "known_class_retention": 0.98,
+    "open_set_rejection": 0.98,
+    "open_set_alpha": 0.02
+  },
+  "reporting": {
+    "macro_and_micro_required": true,
+    "per_archetype_required": true,
+    "per_mechanism_required": true,
+    "worst_declared_group_required": true,
+    "normal_known_and_open_set_denominators_preserved": true,
+    "failed_runs_count_as_failures": true
+  },
+  "resource_budget": {
+    "max_model_candidates": 3,
+    "production_model_candidates_used": 1,
+    "max_runtime_seconds": 600,
+    "max_retries_per_error": 2
+  },
+  "prohibited_actions": [
+    "Delete, skip or xfail a validation case",
+    "Change a denominator after observing results",
+    "Merge a mechanism class after observing results",
+    "Add mechanisms to UNKNOWN or OOD after observing results",
+    "Lower any frozen threshold",
+    "Use case IDs, file paths, labels or truth at runtime",
+    "Reuse a legacy exact source-specific fault router",
+    "Use validation output for fitting, threshold selection or feature selection"
+  ],
+  "claim_boundary": "Synthetic controlled technical calibration only. It does not use formal hidden-acceptance truth and cannot establish independent-source validation, G3, G4, flight validity or safety qualification."
+}

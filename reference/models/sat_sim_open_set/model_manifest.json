@@ -1,0 +1,41 @@
+{
+  "schema_version": "astrograph-sat-sim-open-set-model-manifest.v1",
+  "artifact_version": "sat-sim-open-set-v2",
+  "model_file": "sat_sim_open_set.joblib",
+  "model_sha256": "513bebb8b3447a63abfcbfe510265f84e80299f42fd1968d228cc815d71d9e3c",
+  "base_model_sha256": "ab6792058e7f956f1dfbf63a028aa5e76f189f8e490b492178c6bf3ae7afee32",
+  "training_sources": [
+    "dataset://sat-sim/catalog/development",
+    "dataset://sat-sim/catalog/holdout"
+  ],
+  "known_calibration_source": "dataset://sat-sim/catalog/post-freeze-validation",
+  "unknown_calibration_source": "dataset://sat-sim/open-set/calibration",
+  "unknown_calibration_effects": [
+    "star_tracker_dropout",
+    "gyro_bias_drift",
+    "temperature_sensor_bias",
+    "transmitter_output_power_loss"
+  ],
+  "backend_calibration": {
+    "composite": {
+      "knownness_threshold": 0.0,
+      "threshold_strategy": "NO_TWO_CLASS_CALIBRATION",
+      "calibration_known_probability_min": 0.0,
+      "calibration_unknown_probability_max": 0.0,
+      "calibration_count_known": 38,
+      "calibration_count_unknown": 0
+    },
+    "unified": {
+      "knownness_threshold": 0.37775531940167134,
+      "threshold_strategy": "LOGIT_MIDPOINT_OF_CALIBRATION_SEPARATION_GAP",
+      "calibration_known_probability_min": 0.9998410269330915,
+      "calibration_unknown_probability_max": 5.8595726437055906e-05,
+      "calibration_count_known": 24,
+      "calibration_count_unknown": 4
+    }
+  },
+  "score_semantics": "CATALOG_MEMBERSHIP_CONFIDENCE_CALIBRATED_ON_BASILISK_LAB_DATA; MODEL_VOTE_SHARE_NOT_CALIBRATED_CLASS_PROBABILITY",
+  "diagnostic_confidence_available": false,
+  "claim_boundary": "Open-set screening is calibrated on limited Basilisk laboratory known/unknown examples. It is not flight confidence, causal proof, or a guarantee for arbitrary unknown faults.",
+  "provenance_note": "Portable source identifiers replace development-machine paths; source datasets and immutable evidence remain in the external evidence archive."
+}

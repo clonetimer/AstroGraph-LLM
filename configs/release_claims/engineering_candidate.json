@@ -1,0 +1,216 @@
+{
+  "schema_version": "astrograph-release-claim-manifest.v1",
+  "release_id": "AstroGraph-v0.7.1.post49-engineering-candidate",
+  "claims": [
+    {
+      "claim_id": "trusted-data-gate",
+      "claim_type": "TRUSTED_DATA_ACCEPTANCE",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post1 trusted-data gate passed on a regenerated native Basilisk 2.11.0 minimum campaign: 12/12 acceptance-valid runs, six nominal/effect pairs, zero public truth leakage, and reproduction_ready=true. Evidence preserved under 0.7.1.post13 without expanding its original claim boundary.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/0.6.7/trusted_dataset_audit.json",
+        "governance/evidence/0.6.7/trusted_data_unlock_gate_decision.json",
+        "governance/evidence/0.6.7/basilisk_runtime_receipt.json"
+      ]
+    },
+    {
+      "claim_id": "unified-runtime-minimum-campaign",
+      "claim_type": "UNIFIED_RUNTIME_INTEROPERABILITY",
+      "disposition": "SUPPORTED",
+      "statement": "The unified runtime provides deterministic Python API, CLI and batch equivalence on the frozen six-case trusted minimum campaign, with four exact diagnoses, two fail-closed conflict results, zero data errors and zero false diagnoses. Evidence preserved under 0.7.1.post13 without expanding its original claim boundary.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/0.7.0/unified_runtime_evaluation.json",
+        "governance/evidence/0.7.0/unified_runtime_gate_decision.json"
+      ]
+    },
+    {
+      "claim_id": "trusted-single-fault-six-mode-campaign",
+      "claim_type": "TRUSTED_SINGLE_FAULT_DIAGNOSIS",
+      "disposition": "SUPPORTED",
+      "statement": "On the frozen six-mode trusted paired Basilisk campaign, AstroGraph 0.7.1.post1 records 24/24 exact fault-mode diagnoses, 24/24 subsystem and component localizations, holdout 6/6, zero false diagnoses, and zero public truth use. Evidence preserved under 0.7.1.post13 without expanding its original claim boundary.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/0.7.1/trusted_single_fault_evaluation.json",
+        "governance/evidence/0.7.1/trusted_single_fault_gate_decision.json"
+      ]
+    },
+    {
+      "claim_id": "expanded-single-fault-observation-classes",
+      "claim_type": "EXPANDED_SINGLE_FAULT_DIAGNOSIS",
+      "disposition": "SUPPORTED",
+      "statement": "On the frozen expanded paired campaign, AstroGraph 0.7.1.post1 returns the correct observation class for 132/132 formal cases and 69/69 holdout cases. It gives exact mode diagnoses only for the 40 telemetry-identifiable physical modes; the remaining 29 modes fail closed into seven frozen candidate groups. Evidence preserved under 0.7.1.post13 without expanding its original claim boundary.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/0.7.1-extension/expanded_single_fault_evaluation.json",
+        "governance/evidence/0.7.1-extension/expanded_single_fault_gate_decision.json",
+        "governance/evidence/0.7.1-extension/expanded_single_fault_dataset_identity.json"
+      ]
+    },
+    {
+      "claim_id": "governed-pre-reasoning-retrieval",
+      "claim_type": "GOVERNED_RETRIEVAL_CONTRACT",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post13 places governed local/OAG context after BiRRF and before structured generation, with access, review, safety, hash, prompt-trust and offline PaperSeek publication boundaries. This is a contract/source-regression claim, not a retrieval-quality or diagnosis-performance claim.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/retrieval/pre_reasoning_retrieval_contract_20260821.json",
+        "docs/history/root/OAG_RAG_BIRRF_UPDATE_LEDGER_20260821.md"
+      ]
+    },
+    {
+      "claim_id": "trusted-reference-cross-domain-contract-promotion",
+      "claim_type": "TRUSTED_REFERENCE_CONTRACT_PROMOTION",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post13 promotes generic TrustedReference, independent CalibrationTransferAudit and EvidenceReferenceUse claim-strength contracts after spacecraft-EPS hardware evidence plus an independent PRONOSTIA healthy-start cross-domain gate. This is a contract-level promotion only; it does not promote an Event-State detector, adaptive reference updates, domain models, diagnosis performance, flight or safety qualification.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/application/trusted_reference_cross_domain_promotion_20260822.json",
+        "docs/history/root/TRUSTED_REFERENCE_CROSS_DOMAIN_PROMOTION_20260822.md"
+      ]
+    },
+    {
+      "claim_id": "source-distribution-seed-regression",
+      "claim_type": "SEED_REGRESSION_RESULT",
+      "disposition": "NOT_CLAIMED",
+      "statement": "AstroGraph 0.7.1.post14 source distribution retains the stopped P4 and ALDM-inspired Validation experiments but does not publish either as a production benchmark or Test claim.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "TESTING.md"
+      ]
+    },
+    {
+      "claim_id": "aldm-inspired-validation-stop",
+      "claim_type": "RESEARCH_STOP_GATE_RESULT",
+      "disposition": "SUPPORTED",
+      "statement": "The independent ALDM-inspired detector failed its predeclared ADCS and PHM Validation promotion gates. AstroGraph stopped before Test, extra seeds, Group CV or Runtime binding; this records a negative research result and does not claim model reproduction or diagnostic improvement.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/research/data_driven_runs/aldm_detector_validation_20260822/report.json",
+        "docs/history/root/ALDM_DETECTOR_VALIDATION_20260822.md"
+      ]
+    },
+    {
+      "claim_id": "cross-condition-generalization",
+      "claim_type": "CROSS_CONDITION_GENERALIZATION",
+      "disposition": "NOT_CLAIMED",
+      "statement": "AstroGraph 0.7.1.post14 does not claim cross-condition generalization.",
+      "required_model_ids": [],
+      "source_artifacts": []
+    },
+    {
+      "claim_id": "cross-satellite-generalization",
+      "claim_type": "CROSS_SATELLITE_GENERALIZATION",
+      "disposition": "NOT_CLAIMED",
+      "statement": "AstroGraph 0.7.1.post14 does not claim cross-satellite generalization.",
+      "required_model_ids": [],
+      "source_artifacts": []
+    },
+    {
+      "claim_id": "flight-validation",
+      "claim_type": "FLIGHT_VALIDATION",
+      "disposition": "NOT_CLAIMED",
+      "statement": "AstroGraph 0.7.1.post14 does not claim flight validation or safety qualification.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "release.json"
+      ]
+    },
+    {
+      "claim_id": "post28-temporal-diagnosis-and-fair-comparison",
+      "claim_type": "RESEARCH_DIAGNOSIS_EVIDENCE",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post28 preserves the returned supplemental KG review as advisory-only, exposes B010-B013 temporal diagnosis artifacts as non-voting development capabilities, keeps B014 sealed and unexecuted, and audits detection, localization, classification and E2E comparisons only within equal-information regimes. No KG approval, Runtime promotion, confirmation, flight or safety claim is made.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/ai_native/kg_coverage_review_20260831/supplemental_review_temporary_freeze.json",
+        "docs/history/root/B010_B014_DIAGNOSIS_SOURCE_MERGE_LEDGER_20260901.md",
+        "governance/evidence/research/data_driven_runs/fair_three_task_comparison_20260831/fairness_audit.json",
+        "docs/history/root/DATA_DRIVEN_FAIR_COMPARISON_LEDGER_20260901.md"
+      ]
+    },
+    {
+      "claim_id": "post29-domain-strong-comparison-and-source-adjudication",
+      "claim_type": "RESEARCH_DIAGNOSIS_EVIDENCE",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post29 compares its current ADCS/PHM families with local InceptionTime, TimesNet and ModernTCN adaptations under five-fold CUDA and machine-audited equal protocols, then advances the frozen supplemental review into source adjudication with zero formal decisions. This is local E0 research evidence, not exact author-code reproduction, universal SOTA, model promotion, KG approval, production, flight or safety qualification.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/research/data_driven_runs/domain_sota_group_cv_20260901/fairness_audit.json",
+        "docs/history/root/DATA_DRIVEN_DOMAIN_SOTA_COMPARISON_LEDGER_20260901.md",
+        "governance/evidence/ai_native/kg_coverage_review_20260831/source_adjudication_20260901.json",
+        "governance/evidence/ai_native/kg_coverage_review_20260831/supplemental_review_unfreeze_20260901.json",
+        "governance/evidence/ai_native/kg_coverage_review_20260831/human_review_decisions_source_adjudicated_20260901.csv"
+      ]
+    },
+    {
+      "claim_id": "post30-reusable-kg-construction",
+      "claim_type": "GOVERNED_KNOWLEDGE_CONSTRUCTION_CONTRACT",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post30 refactors the current cross-domain TBox into a source-structured, definition-aware and content-addressed V3 candidate build, while refreezing all 22 undecided review candidates and preserving manual KnowledgePatch publication. This is a reproducible software construction claim, not new causal truth, LLM extraction quality, executable evidence expansion, Active KG publication, production, flight or safety qualification.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "docs/history/root/REUSABLE_KG_CONSTRUCTION_IMPLEMENTATION_LEDGER_20260901.md",
+        "governance/evidence/ai_native/reusable_kg_construction_20260901/build_receipt.json",
+        "governance/evidence/ai_native/kg_coverage_review_20260831/supplemental_review_refreeze_20260901.json"
+      ]
+    },
+    {
+      "claim_id": "post33-llm-method-ablation",
+      "claim_type": "RESEARCH_METHOD_ABLATION",
+      "disposition": "SUPPORTED_WITH_LIMITATIONS",
+      "statement": "AstroGraph 0.7.1.post33 preserves a failed initial live-model pilot and a disclosed post-hoc constraint correction. The corrected controlled loop produced observation-conditioned trajectories in 2/2 frozen cases, while removing observation feedback produced 0/2 substantive paths. All seven arms diagnosed both easy cases correctly, so no accuracy benefit, statistical superiority, deep qualitative-quantitative fusion, real-time, HIL, flight or safety claim is made.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/research/llm_method_ablation_20260903/preregistration.json",
+        "governance/evidence/research/llm_method_ablation_20260903/report.json",
+        "governance/evidence/research/llm_method_ablation_20260903/posthoc_correction_protocol.json",
+        "governance/evidence/research/llm_method_ablation_20260903/report_after_constraint_fix.json",
+        "docs/history/root/LLM_METHOD_ABLATION_LEDGER_20260903.md"
+      ]
+    },
+    {
+      "claim_id": "local-upload-to-report-platform",
+      "claim_type": "SOFTWARE_WORKFLOW_INTEROPERABILITY",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post35 adds a local upload-to-report workbench that routes two already-supported simulation artifact families through their existing governed workflows, while keeping user prose and supplemental text out of candidate generation. This is a software workflow claim only, not a diagnosis-accuracy, live-service, flight, or control-authorization claim.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "docs/history/root/AUTOMATED_UPLOAD_TO_REPORT_PLATFORM.md",
+        "tests/test_upload_report_platform.py"
+      ]
+    },
+    {
+      "claim_id": "post-diagnosis-platform-knowledge-enrichment",
+      "claim_type": "SOFTWARE_WORKFLOW_INTEROPERABILITY",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post36 adds session-scoped post-diagnosis document retrieval and administrator-configured PaperSeek, Anything2Ontology and OpenAI-compatible explanation adapters. Uploaded knowledge cannot vote in BiRRF or modify the frozen diagnosis/Active KG. This is a software integration claim only; live external-service quality, flight performance and control authorization are not claimed.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "docs/history/root/PLATFORM_KNOWLEDGE_ENRICHMENT.md",
+        "tests/test_platform_knowledge_enrichment.py"
+      ]
+    },
+    {
+      "claim_id": "post37-autonomous-knowledge-tool-routing",
+      "claim_type": "SOFTWARE_WORKFLOW_INTEROPERABILITY",
+      "disposition": "SUPPORTED_WITH_LIMITATIONS",
+      "statement": "AstroGraph 0.7.1.post37 adds source-tree-aware PaperSeek and Anything2Ontology routing, mixed Chinese/Latin local retrieval, retrieval-quality receipts, deterministic citation-preserving synthesis when no LLM is configured, and readiness probes. These facilities run after the frozen diagnosis and cannot vote in BiRRF or modify Active KG. Local retrieval sanity and process/client behavior are software claims only; live PaperSeek retrieval quality, full Anything2Ontology extraction quality, Qwen/DeepSeek semantic quality, flight performance and control authorization remain unqualified.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "docs/history/root/PLATFORM_AUTONOMY_AND_QUALITY.md",
+        "tests/test_platform_autonomy_post37.py",
+        "scripts/benchmark_platform_knowledge.py"
+      ]
+    }
+  ],
+  "compatibility_role": "LEGACY_ENGINEERING_CANDIDATE_ALIAS_FOR_STABLE_POST49",
+  "interpretation_policy": {
+    "current_release_truth": "governance/implementation/post49/RELEASE_READINESS.json",
+    "current_metrics": "docs/CURRENT_DATA_DRIVEN_METRICS.md",
+    "historical_docs_root": "docs/history/",
+    "historical_claims_may_override_current": false,
+    "research_may_override_current": false
+  }
+}

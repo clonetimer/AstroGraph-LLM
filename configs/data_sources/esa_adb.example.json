@@ -1,0 +1,24 @@
+{
+  "source_type": "esa_adb",
+  "root": "${ASTROGRAPH_ESA_ADB_ROOT}",
+  "read_only": true,
+  "lazy": true,
+  "recursive": true,
+  "timestamp_column": null,
+  "label_columns": [],
+  "include_globs": [
+    "**/*.csv",
+    "**/*.json",
+    "**/*.jsonl",
+    "**/*.parquet",
+    "**/*.feather"
+  ],
+  "exclude_globs": [],
+  "profile_path": null,
+  "metadata": {
+    "trusted_pickle": false,
+    "max_pickle_uncompressed_bytes": 8589934592,
+    "max_pickle_compression_ratio": 1000.0,
+    "note": "For a trusted official raw Mission directory, set trusted_pickle=true or pass --trust-local-pickle. Generic tabular mode does not require pickle trust."
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "claim_scope": "DEVELOPMENT_INPUT_VERIFICATION_AND_ROUTE_A_GATE_GROUPS_3_8_ONLY",
+  "edges": [
+    {
+      "from": "verify_inputs",
+      "to": "inspect_research_artifact"
+    },
+    {
+      "from": "inspect_research_artifact",
+      "to": "selection_gate"
+    }
+  ],
+  "nodes": [
+    {
+      "capability": "artifact.verify",
+      "id": "verify_inputs"
+    },
+    {
+      "capability": "research.artifact.verify_json",
+      "id": "inspect_research_artifact"
+    },
+    {
+      "capability": "research.route_a.selection_gate",
+      "id": "selection_gate"
+    }
+  ],
+  "profile": "DEVELOPMENT",
+  "project_status": "B009_WIP_DEVELOPMENT_EVIDENCE",
+  "schema_version": "astrograph-agent-workflow.v1",
+  "workflow_status": "BOUNDED_EXECUTABLE_SUBFLOW",
+  "excluded_future_steps": ["prediction.freeze", "evaluator.join_truth", "metrics.compute", "statistics.cluster_bootstrap", "claim.register"],
+  "structural_validation_not_scientific_validation": true,
+  "workflow_id": "astrograph-development-v1"
+}

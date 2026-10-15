@@ -1,0 +1,10 @@
+{
+  "schema_version": "astrograph-documentation-state.v1",
+  "release": "0.7.1.post49",
+  "package_profile": "post49-current-delivery-source-r1",
+  "status": "CURRENT_ONLY_DELIVERY",
+  "current_index": "docs/CURRENT_DOCS.json",
+  "history_included": false,
+  "historical_records_policy": "Not bundled. Obtain archival/audit packages separately when historical reproduction is required.",
+  "history_may_override_current": false
+}

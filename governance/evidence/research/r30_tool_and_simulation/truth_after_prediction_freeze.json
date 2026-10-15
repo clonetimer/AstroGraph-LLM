@@ -1,0 +1,366 @@
+{
+  "cases": [
+    {
+      "case_id": "R30-00-000",
+      "case_sha256": "3299bb091d0685cb3311e261453447cea79e724285f043318652291b5d5aaa8c",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-00-001",
+      "case_sha256": "e66c69c369217555f3520e67a49e4620d95f0d26fc75a563b068f6e589e0cd2d",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-00-002",
+      "case_sha256": "83a0b3e1c6cce8d9e7a799a6fbf40519a8e897df3ace108ee24a18111504758c",
+      "hidden_fault_ids": [
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-00-003",
+      "case_sha256": "b15d1a974f7e335e342dfb45e70b71cdd32a2c88b2bcde03ee39309e06b7c534",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-00-004",
+      "case_sha256": "8e3fdd973c3c6e2a5bd889d86695e9a60c3870b0e003c110981e043a519d563c",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-00-005",
+      "case_sha256": "41aa068eb29a1702dc8d01bd9a58f1c1c788f12778f43bad16dc6a2a029ec5d8",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-01-006",
+      "case_sha256": "1600af7bdd1fd80204fd155b36d55a5e5a8011910adea33c1147d361a4904314",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-01-007",
+      "case_sha256": "0a85b3d51d1bebe0d0ba088355ce838089ea075520823f1ecc7e71f3ed1f2f0f",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-01-008",
+      "case_sha256": "8ee62f1409991578c060a8cb861fc53df56f30763c8104ff31b8db259bea642b",
+      "hidden_fault_ids": [
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-01-009",
+      "case_sha256": "9441c41fea4f9f957248c36cb3e9dd6cb0df9b232c3795126032e5641f1e6eab",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-01-010",
+      "case_sha256": "9e0eea7cf362dee4f4f5e1a3f696a4196943ea0186267b95366aef34ba11a781",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-01-011",
+      "case_sha256": "ffe792d168aaa10faf748d97dee6d133605fcad6bae1b9b174f4433623272436",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-02-012",
+      "case_sha256": "0dd6e1ac3df2eb111cd41a0f54c54c969d2d21f41ca83f24cdc433cdde314757",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-02-013",
+      "case_sha256": "b12b01387176683735a0d6536c42988beeafbcd0637ba29a439fa10715dab605",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-02-014",
+      "case_sha256": "5a1a423783709b872179ed8a3701c0670c3c153ecc74286b2c0bfd50605dc741",
+      "hidden_fault_ids": [
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-02-015",
+      "case_sha256": "c15c9be706aee5a8647447fb058e5c735544ea1ce24c9f160d5843f7b9134e0f",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-02-016",
+      "case_sha256": "a41fdd9c48609569d84983e2b7475254f8a1bb5f0c150344989ade88d64cf969",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-02-017",
+      "case_sha256": "a5564809f8631afaa14dd1dc5ebfa3b1b9511129350db6c10a5a182e6dded3ed",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-03-018",
+      "case_sha256": "bcae34cf648f128cb73c9c3c79ce0d07522b031b6f11221156780f1713688ae4",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-03-019",
+      "case_sha256": "0a902e1f5f428c6d1f0e327cdf0cf36e86f693951c18966e231d390a02b1793d",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-03-020",
+      "case_sha256": "89a0188dae35cc17e4c54ce4dc6be2689feb28612b168423358b71ea6da1e50e",
+      "hidden_fault_ids": [
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-03-021",
+      "case_sha256": "a9d9ba52743685e3c61d89b67b0120c441e0fcc41b08ed3d4a1957bd01a2c6b2",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-03-022",
+      "case_sha256": "a77f0a41490815ab08d39f2835875c0b03a8f14d69a1b926af65680e34eedc5e",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-03-023",
+      "case_sha256": "55561a9f23f80688ec47078ac8b9c3aa44e2ec9f3b4350c163a61373b9d23447",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-04-024",
+      "case_sha256": "e47847a0d058e25c825652d0864d9d7bec84d31ae4a6db64b2d1243a8b6a6cbd",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-04-025",
+      "case_sha256": "caa7b878abcdf38905196e1f4bbcb536e1a96c85078c9160b1bf123305385e07",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-04-026",
+      "case_sha256": "62638ae0fa7cea932a0863d9d2565a0276dc41c82de2d1009bc2dadd7f36372b",
+      "hidden_fault_ids": [
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-04-027",
+      "case_sha256": "1775c04ae2c100528f6d85861b07d784a32f2492842239b2d8663d9b4d015860",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-04-028",
+      "case_sha256": "edd49ef88a1bbc8126f87311c212178243e1aa914201340961d25b908390cee5",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-04-029",
+      "case_sha256": "d97daa32283daa8dd1f800f2fad4967656c4bdd3588e9cdb18ad7e4bc839fc2f",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-05-030",
+      "case_sha256": "8c0f3126eca844e618fcceb4f72ae5af42de0eecf49ed89bebaa4f97e0407cc2",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-05-031",
+      "case_sha256": "9033ff537890ed1fbea2bfee1dafbcfafeea69e9fede0a2cd0f750bfbbfd1a9b",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-05-032",
+      "case_sha256": "cd1c1a8a79f95af3af29a6193dd355b43121e595a7b7671e9777e300218ea4ff",
+      "hidden_fault_ids": [
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-05-033",
+      "case_sha256": "a183aada14a135108e99a760d4c3b337a48fc767048ce5aada31353cd02a15d3",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-05-034",
+      "case_sha256": "8be8a2578c91d08513333318a57fab5f8085c63c0462bcd4f843c85473b860c7",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-05-035",
+      "case_sha256": "252a032e1c040e34dce13d42497d9c736cd2a2a4d038f57b909e7a9ac5b81383",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-06-036",
+      "case_sha256": "8f12fc7291a9fb70a5128bc8e9faa721926c7a54d85e612c8206feff3070f419",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-06-037",
+      "case_sha256": "7abf1db51b5c6b3d01e829575e588bdab58dbdec7d5d0f53a4cef9dc573692c5",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-06-038",
+      "case_sha256": "9e5b4c057c5724fd09f4fdc41a5b80408819f00d09f80168c7fa9ee1a18250ab",
+      "hidden_fault_ids": [
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-06-039",
+      "case_sha256": "b25c28d95e724480e4c0801d5b59c740a7ec86db90f4a08d920f15ec7728125d",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-06-040",
+      "case_sha256": "33622af45bd880ea294c6bd645b63b257d2ac1564aee1fe62cf481232fa5bd8e",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-06-041",
+      "case_sha256": "6735a18aadc4277a8a1f81231ca0adfaba328ff075663f625fa3fd77ccc66527",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-07-042",
+      "case_sha256": "b99e647609d36553468365e6920b339c1a8664f8f1dc0f9663f045aeddb9bed5",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-07-043",
+      "case_sha256": "fa751d11435e6c1bb37ed6a3457169d9e165866af3a96970a1efa15bc20e3b81",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-07-044",
+      "case_sha256": "19a2c450ace33053afa1d9c5de4e8377170217b71ba0a61e8a50dee5ec188e57",
+      "hidden_fault_ids": [
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-07-045",
+      "case_sha256": "7fb841a6c4c98fada0c656419acb812a258228e9a72b1473b3e0522cb2f4086b",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-07-046",
+      "case_sha256": "506931867eea7c1b6730ca09a03c2851637afcfc84ca42e68d79d6abef6646be",
+      "hidden_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    },
+    {
+      "case_id": "R30-07-047",
+      "case_sha256": "fef4d6ed892089a44df191bdbf795edca280681caefdda0850c801ee09553a15",
+      "hidden_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ]
+    }
+  ],
+  "schema_version": "astrograph-r30-blind-truth.v1",
+  "seed": 3001
+}

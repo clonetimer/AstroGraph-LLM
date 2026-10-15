@@ -1,0 +1,6 @@
+{
+  "schema_version": "astrograph-replay-manifest.v1",
+  "dataset_kind": "phm_v6_retrospective",
+  "model_strategy": "promoted_extra_trees",
+  "skip_llm": true
+}

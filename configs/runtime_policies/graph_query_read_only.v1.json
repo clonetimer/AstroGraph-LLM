@@ -1,0 +1,16 @@
+{
+  "schema_version": "astrograph-graph-query-policy-profile.v1",
+  "profile_id": "graph-query.read-only.v1",
+  "version": "1.0.0",
+  "policy": {
+    "schema_version": "astrograph-read-only-graph-query-policy.v1",
+    "policy_id": "astrograph-evidence-graph-read-only-v1",
+    "allowed_node_labels": ["FaultMode", "EvidenceDefinition", "FeatureDefinition", "EvidenceSource", "ComponentInstance", "TelemetryField", "TelemetryFieldTemplate", "TelemetryChannel", "CompositeResearchTemplate"],
+    "allowed_relation_types": ["REQUIRES_EVIDENCE", "SUPPORTED_BY", "CONTRADICTED_BY", "EXCLUDES", "USES_FEATURE", "DOCUMENTED_IN", "AFFECTS", "USES_TELEMETRY_FIELD", "HAS_MEMBER_CANDIDATE"],
+    "allowed_property_filter_keys": ["knowledge_version", "object_id", "component_instance_id", "operating_condition_id", "evidence_level", "review_status"],
+    "maximum_depth": 4,
+    "maximum_results": 500
+  },
+  "allowed_query_kinds": ["FORWARD_EVIDENCE_TO_FAULT", "BACKWARD_FAULT_TO_EVIDENCE", "GENERAL_READ_ONLY_PATH"],
+  "claim_boundary": "Read-only template compiler policy. It does not authorize model-generated Cypher or graph mutation."
+}

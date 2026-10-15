@@ -1,0 +1,103 @@
+{
+  "schema_version": "astrograph-structured-entity-linking-benchmark.v1",
+  "benchmark_id": "astrograph.knowledge.structured-candidate-linking.v1",
+  "ontology_id": "astrograph.core.cross-domain-fault-mechanisms",
+  "ontology_version": "1.0.0",
+  "ontology_sha256": "9ee63040bbacdc5ac9dd7224d642ce51584e309045e47836ff2cc1c59c4fa747",
+  "input_stage": "POST_LLM_STRUCTURED_OUTPUT",
+  "usage": "DEVELOPMENT_GATE_ONLY",
+  "label_review_status": "MACHINE_DRAFT",
+  "human_label_review_required": true,
+  "frozen": true,
+  "cases": [
+    {
+      "case_id": "link-case:mechanism-exact-authority-loss",
+      "structured_candidate": {
+        "node_type": "FailureMechanism",
+        "canonical_name": "Actuation authority loss",
+        "description": "Delivered effort is insufficient relative to an available command."
+      },
+      "expected_action": "LINK",
+      "expected_node_id": "mechanism:actuation-authority-loss",
+      "label_basis": "generic_fault_ontology.json failure_mechanisms[mechanism:actuation-authority-loss]"
+    },
+    {
+      "case_id": "link-case:mechanism-paraphrase-signal-loss",
+      "structured_candidate": {
+        "node_type": "FailureMechanism",
+        "canonical_name": "Loss of measurement availability",
+        "description": "An information-producing boundary no longer provides usable observations."
+      },
+      "expected_action": "LINK",
+      "expected_node_id": "mechanism:signal-availability-loss",
+      "label_basis": "Meaning-preserving paraphrase of the governed mechanism description."
+    },
+    {
+      "case_id": "link-case:mechanism-paraphrase-bias",
+      "structured_candidate": {
+        "node_type": "FailureMechanism",
+        "canonical_name": "Persistent additive offset",
+        "description": "A measured value shifts from its declared baseline by an additive term."
+      },
+      "expected_action": "LINK",
+      "expected_node_id": "mechanism:additive-bias-shift",
+      "label_basis": "Meaning-preserving paraphrase of the governed mechanism description."
+    },
+    {
+      "case_id": "link-case:effect-exact-command-residual",
+      "structured_candidate": {
+        "node_type": "EffectPattern",
+        "canonical_name": "Command-response residual growth",
+        "description": "Observed response departs increasingly from the available command."
+      },
+      "expected_action": "LINK",
+      "expected_node_id": "effect:command-response-residual-growth",
+      "label_basis": "generic_fault_ontology.json effect_patterns[effect:command-response-residual-growth]"
+    },
+    {
+      "case_id": "link-case:effect-paraphrase-depletion",
+      "structured_candidate": {
+        "node_type": "EffectPattern",
+        "canonical_name": "Stored inventory depletion",
+        "description": "The stored state declines under comparable operating conditions."
+      },
+      "expected_action": "LINK",
+      "expected_node_id": "effect:stored-state-depletion",
+      "label_basis": "Meaning-preserving paraphrase of the governed effect name and associated mechanism descriptions."
+    },
+    {
+      "case_id": "link-case:effect-paraphrase-thermal-trend",
+      "structured_candidate": {
+        "node_type": "EffectPattern",
+        "canonical_name": "Unexpected thermal trend",
+        "description": "Temperature evolution departs from the declared thermal dynamics contract."
+      },
+      "expected_action": "LINK",
+      "expected_node_id": "effect:thermal-trend-deviation",
+      "label_basis": "Meaning-preserving paraphrase of the governed effect and mechanism descriptions."
+    },
+    {
+      "case_id": "link-case:abstain-unsupported-software-race",
+      "structured_candidate": {
+        "node_type": "FailureMechanism",
+        "canonical_name": "Flight-software race condition",
+        "description": "Concurrent tasks corrupt an actuator command buffer."
+      },
+      "expected_action": "ABSTAIN",
+      "expected_node_id": null,
+      "label_basis": "Synthetic negative absent from generic_fault_ontology.json; the linker must not force a nearest mechanism."
+    },
+    {
+      "case_id": "link-case:abstain-wrong-abstraction-layer",
+      "structured_candidate": {
+        "node_type": "EffectPattern",
+        "canonical_name": "Reaction wheel 2 failed at 118 seconds",
+        "description": "Episode-specific component identity and event time."
+      },
+      "expected_action": "ABSTAIN",
+      "expected_node_id": null,
+      "label_basis": "Synthetic negative belongs to the episode/ABox layer, not the governed generic EffectPattern vocabulary."
+    }
+  ],
+  "claim_boundary": "Frozen machine-draft contract cases for deterministic post-processing of an LLM structured candidate. Human label review is still required; this is not a raw-text, retrieval, diagnostic-Test or model-quality benchmark."
+}

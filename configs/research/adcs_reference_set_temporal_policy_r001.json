@@ -1,0 +1,36 @@
+{
+  "candidate_grid_sha256": "e2244ef2649e21128061d9350b1b6018f18596ab87b6429a47c7aed21a2a94d4",
+  "claim_boundary": "Frozen from groups 3/8 development traces only. The reference-set method and candidate grid were informed by groups-3/8 exploration; this receipt is not preregistered confirmation.",
+  "config_sha256": "b0bd2bef4831bf98e72fffa517160a9cf356f7f7d822543c6cc4f1af6fd6476b",
+  "development_groups": [
+    3,
+    8
+  ],
+  "excluded_groups": [
+    4,
+    9
+  ],
+  "groups_4_9_read": false,
+  "new_confirmatory_evidence": "NONE",
+  "reference_library_sha256": "62b125d5ad311c2403a5aceb4a31359923a23ecffcace1cc14ec6fbbad47d89c",
+  "scale_contract_sha256": "08841507643ce16bc488b4cb10c52f5e94edfbd68f86c8dbe0059ed3bf83735b",
+  "schema_version": "astrograph-adcs-reference-set-temporal-policy-config.v1",
+  "selected_policy": {
+    "claim_boundary": "Development-selected reference-set temporal policy using groups 3/8 only. It is not confirmatory and cannot be tuned on groups 4/9.",
+    "gradient_weight": 1.0,
+    "maximum_source_missing_fraction": 1.0,
+    "no_alarm_action": "ABSTAIN",
+    "notification_buffer_points": 3,
+    "out_of_envelope_action": "ABSTAIN",
+    "policy_id": "ADCS-RS-R001-F0.08-T0.001-P4-G1",
+    "policy_sha256": "1cfb6363b0e2e852a67b826ec3ed42f81fbf398ba6a10b3fd91e1f10d71f0aab",
+    "reference_fit_max": 0.08,
+    "schema_version": "astrograph-reference-set-temporal-policy.v1",
+    "score_combination": "MAX",
+    "trigger_persistence_points": 4,
+    "trigger_threshold": 0.001,
+    "warmup_points": 31
+  },
+  "selected_policy_receipt_sha256": "392cd31f886d98d7fbc269fd47fc667163aeebcf75ebc2c619effdde53cbf0c8",
+  "snapshot": "B010_WIP_DEVELOPMENT_EVIDENCE"
+}

@@ -1,0 +1,435 @@
+{
+  "schema_version": "astrograph-r22-replication-preregistration.v1",
+  "frozen_before_new_holdout": true,
+  "status": "READY_FOR_NEW_HOLDOUT_BLOCKED_DATASET",
+  "r21_source_sha256": "6e3d1e7b35a718f32d06ee34ae9b49d6c8b562533fda3d17ae22e75757ed64ec",
+  "r21_evidence_archive_sha256": "b7ea88f13ae1cd122e4e62fa9a8df4ca485142c467e860dcf7795b4f6b77aa45",
+  "r21_preregistration_sha256": "4d2738b2df92152f6e6cd74731297b9a0c1b7308dc5e018d14d167c9a89e834d",
+  "implementation_source": {
+    "relative_path": "src/astrograph/evaluation/replication_r22.py",
+    "size": 37888,
+    "sha256": "2ee50e6e341135f4b05eacfc9889372ca8d92666ac6a3e0491a2193dfae6a34f"
+  },
+  "known_dataset_ids": [
+    "DXC09_COMPETITION",
+    "DXC09_REMATCH",
+    "DXC09_SAMPLE",
+    "DXC10_DPI",
+    "DXC10_DPII",
+    "ESA_MISSION1_LIGHTWEIGHT_SIX_CHANNELS_V1",
+    "OPS_SAT_USER_SUPPLIED_CSV_V1"
+  ],
+  "known_source_artifact_sha256s": [
+    "0527a200448a79bac7842ae6591714701d1e0000d61952e22d85ccff816f88ae",
+    "0a7ee6164da31db67d4e090410e631216298bcaa40ec54f845162f19e1fb52d9",
+    "2ddd1a11cbbc65ea7f591de2e93cdbd6828a727116f1181ebd3be75fc53cc03b",
+    "78fcdd74a419b7bcfe6280aae2f90b84a95217631ed0fc46eec4dc0c69ef23e2",
+    "811c7cc12d90ccaa3ac06dde8c97af7d1e03b6d633ec3ee6a507a7013117a887",
+    "a33035b2f9f7966a8f24501335348d770f9e181d7ab51f3eb4ee12a8ce2e0ba8",
+    "eb4e99e598ea3205ff18114999c1f61f855f6b740e6c0dfb1eed308a4cffb169"
+  ],
+  "known_member_sha256s_by_family": {
+    "OPS-SAT": [
+      "b524177da6f516d5c9f63c7acbc385341f0ad42046ef20c1bed2d25e51b98f02",
+      "d5201e9e751eb2a53a0ff7c11567dc4239f594ea4b479b2aa66fe67ddcbcb9ba"
+    ],
+    "ESA": [
+      "eb4e99e598ea3205ff18114999c1f61f855f6b740e6c0dfb1eed308a4cffb169"
+    ]
+  },
+  "families": {
+    "OPS-SAT": {
+      "evaluation_task_id": "OPS_SAT_TELEMETRY_SEGMENT_ANOMALY_DETECTION_V1",
+      "label_semantics_sha256": "7ae88c4c27d2e7346cccb61611f6a0f185f7093dd228f14e6aa9c2949380bd65",
+      "target_universe_sha256": "b041dd9e8816374ed8cc4ac347244716dc5f33b0eb231bdcddb9c13fcf8dcb20",
+      "r21_registry_datasets": [
+        "OPS_SAT"
+      ],
+      "replication_semantics": "PAIRED_FROZEN_BASELINE_VS_R21_REMEDIATION_ON_SAME_NEW_HOLDOUT",
+      "primary_endpoint": "coverage * covered F0.5",
+      "secondary_endpoints": [
+        "coverage",
+        "covered F0.5",
+        "false_positive_segment_count",
+        "false_negative_segment_count",
+        "paired corrected/induced counts"
+      ],
+      "retuning_allowed": false,
+      "baseline": {
+        "name": "R20_RAW_SEGMENT_SCORE",
+        "threshold": 100,
+        "expected_block_errors": [
+          "SEGMENT_BASELINE_OR_WINDOW_INSUFFICIENT",
+          "SEGMENT_WINDOW_INSUFFICIENT"
+        ],
+        "implementation_source": {
+          "relative_path": "src/astrograph/evaluation/ops_sat_adapter.py",
+          "size": 6381,
+          "sha256": "433c10ab09ebc1d28fdbe440674eefc6d8b699cdb5b6ce0451efab7c902a9203"
+        },
+        "r20_external_threshold": 100,
+        "implementation_identity_sha256": "98ff8c756adade2e7112c97446319935e84f46b9d24544a836682f8e8588b293"
+      },
+      "remediation": {
+        "candidate_family": "LENGTH_AWARE_FALLBACK_FEATURE_SET",
+        "r21_selected_threshold": 12,
+        "short_fallback_threshold": 12,
+        "long_path_threshold": 100,
+        "fallback_on_errors": [
+          "SEGMENT_BASELINE_OR_WINDOW_INSUFFICIENT",
+          "SEGMENT_WINDOW_INSUFFICIENT"
+        ],
+        "short_score": "MAX_ABS_ROBUST_Z_OVER_AVAILABLE_MEAN_SPAN_SAMPLE_STD_INDEX_TREND",
+        "operator_minimum_samples": {
+          "mean": 1,
+          "std": 2,
+          "span": 1,
+          "trend": 2
+        },
+        "reference_sha256": "0b2e13f50bb4175054a95f27431f5ec8ae5ce632ecc42430deef91e9669031cd",
+        "reference": {
+          "CADC0872": {
+            "mean": {
+              "center": 1.6604319984882417e-06,
+              "scale": 5.405260035293964e-06
+            },
+            "span": {
+              "center": 6.347455e-05,
+              "scale": 1.9726141259999988e-05
+            },
+            "std": {
+              "center": 2.1440651589659017e-05,
+              "scale": 6.1217409355254875e-06
+            },
+            "trend": {
+              "center": 1.3946616611141546e-08,
+              "scale": 1.522577319444633e-07
+            }
+          },
+          "CADC0892": {
+            "mean": {
+              "center": 0.27221674240925536,
+              "scale": 0.09231514744120713
+            },
+            "span": {
+              "center": 0.9677415,
+              "scale": 0.2882300421
+            },
+            "std": {
+              "center": 0.3482112828833789,
+              "scale": 0.09219438886340564
+            },
+            "trend": {
+              "center": -0.0001989325945104623,
+              "scale": 0.0007405911145868184
+            }
+          },
+          "CADC0873": {
+            "mean": {
+              "center": -1.3290167647058832e-07,
+              "scale": 3.492737729064706e-06
+            },
+            "span": {
+              "center": 6.13119e-05,
+              "scale": 1.9653345600000003e-05
+            },
+            "std": {
+              "center": 2.0519520001528922e-05,
+              "scale": 7.257603287965859e-06
+            },
+            "trend": {
+              "center": 5.365916838526833e-09,
+              "scale": 2.1054232857694273e-07
+            }
+          },
+          "CADC0888": {
+            "mean": {
+              "center": 0.27648112367612293,
+              "scale": 0.10049567881804657
+            },
+            "span": {
+              "center": 0.849095,
+              "scale": 0.3146607229499999
+            },
+            "std": {
+              "center": 0.2971088180639624,
+              "scale": 0.1270459107004836
+            },
+            "trend": {
+              "center": 0.00040727671421663444,
+              "scale": 0.003956868503422146
+            }
+          },
+          "CADC0894": {
+            "mean": {
+              "center": 0.162649494429123,
+              "scale": 0.1367523851978928
+            },
+            "span": {
+              "center": 0.5243935,
+              "scale": 0.3769807019999999
+            },
+            "std": {
+              "center": 0.20298365786936412,
+              "scale": 0.150939917515083
+            },
+            "trend": {
+              "center": 1.4624575338549386e-05,
+              "scale": 0.00031731092373518097
+            }
+          },
+          "CADC0890": {
+            "mean": {
+              "center": 0.358554337254902,
+              "scale": 0.026397188552617665
+            },
+            "span": {
+              "center": 1.15261,
+              "scale": 0.01707955200000029
+            },
+            "std": {
+              "center": 0.3902320714238022,
+              "scale": 0.018238137912468682
+            },
+            "trend": {
+              "center": 0.001531238552036199,
+              "scale": 0.001035836958341574
+            }
+          },
+          "CADC0874": {
+            "mean": {
+              "center": -5.447440816326536e-08,
+              "scale": 7.98113177145299e-06
+            },
+            "span": {
+              "center": 5.331437e-05,
+              "scale": 1.5673646898e-05
+            },
+            "std": {
+              "center": 1.7254279869693658e-05,
+              "scale": 5.382279056742494e-06
+            },
+            "trend": {
+              "center": 2.664943242597774e-08,
+              "scale": 1.7506270092797765e-07
+            }
+          },
+          "CADC0884": {
+            "mean": {
+              "center": 0.4301770739803922,
+              "scale": 0.2928940189031627
+            },
+            "span": {
+              "center": 0.9137105,
+              "scale": 0.3401550677699999
+            },
+            "std": {
+              "center": 0.32176141868013125,
+              "scale": 0.13346703802123064
+            },
+            "trend": {
+              "center": -7.320988485969833e-05,
+              "scale": 0.0011043640351393069
+            }
+          },
+          "CADC0886": {
+            "mean": {
+              "center": 0.16716645940401942,
+              "scale": 0.026187391026957493
+            },
+            "span": {
+              "center": 0.5815675,
+              "scale": 0.08603601930000002
+            },
+            "std": {
+              "center": 0.21505422631155577,
+              "scale": 0.035678971736435375
+            },
+            "trend": {
+              "center": 0.001055851259711128,
+              "scale": 0.0013192261015972206
+            }
+          }
+        },
+        "r21_selected_candidate": {
+          "candidate_family": "LENGTH_AWARE_FALLBACK_FEATURE_SET",
+          "threshold": 12,
+          "family_index": 2,
+          "threshold_index": 2,
+          "eligible_count": 227,
+          "scored_count": 227,
+          "blocked_count": 0,
+          "coverage": 1.0,
+          "selective_01_risk": 0.5286343612334802,
+          "covered_metrics": {
+            "evaluated_count": 227,
+            "TP": 45,
+            "FP": 116,
+            "TN": 62,
+            "FN": 4,
+            "precision": 0.2795031055900621,
+            "recall": 0.9183673469387755,
+            "F0.5": 0.3246753246753247,
+            "F1": 0.42857142857142855,
+            "balanced_accuracy": 0.6333409768401743,
+            "false_positive_segment_count": 116,
+            "false_negative_segment_count": 4,
+            "AUROC": 0.6333409768401743,
+            "AUPRC_average_precision": 0.2743076709163431
+          },
+          "selection_objective": 0.3246753246753247
+        },
+        "r21_development_report_receipt_sha256": "5896d71e7bf6b997313d66d750ae879763aa3c30c4f16edef2b4f0203346cc4a",
+        "r21_development_report_file_sha256": "02883ca18775a530c51768087ab238fb0e59486a75b1f98096c6503f919b74b2",
+        "implementation_sources": [
+          {
+            "relative_path": "src/astrograph/evaluation/ops_sat_adapter.py",
+            "size": 6381,
+            "sha256": "433c10ab09ebc1d28fdbe440674eefc6d8b699cdb5b6ce0451efab7c902a9203"
+          },
+          {
+            "relative_path": "src/astrograph/evaluation/replication_r22.py",
+            "size": 37888,
+            "sha256": "2ee50e6e341135f4b05eacfc9889372ca8d92666ac6a3e0491a2193dfae6a34f"
+          }
+        ],
+        "implementation_identity_sha256": "aabdbe6b12cd48003d5d11c3baebac3e4e95e6b8b3fbcd88eb56039b8a8a8997"
+      }
+    },
+    "ESA": {
+      "evaluation_task_id": "ESA_MISSION1_ANOMALY_EVENT_DETECTION_V1",
+      "label_semantics_sha256": "98909ebb0c2e49bc43769e3aa178ade960d82418c2aeb2bd77cec384189443d1",
+      "target_universe_sha256": "bdae188d0941d16c805fff25922ef2317e11c2fdb23b1d3f63438d50e80c5825",
+      "r21_registry_datasets": [
+        "ESA_MISSION1"
+      ],
+      "comparison_semantics": "TRANSPORT_ONLY_IDENTICAL_BASELINE_AND_R21_SELECTION",
+      "channels": [
+        "channel_41",
+        "channel_42",
+        "channel_43",
+        "channel_44",
+        "channel_45",
+        "channel_46"
+      ],
+      "required_preprocessing_transform": "retrospective nonoverlapping 5min median; bin prediction begins at bin END; missing bins no extrapolated alarm",
+      "aggregation": "OR across supplied six channels on common 5min grid",
+      "threshold": 6,
+      "reference": {
+        "channel_41": {
+          "center": 0.8117930293083191,
+          "scale": 0.005818535792827606
+        },
+        "channel_42": {
+          "center": 0.7851393222808838,
+          "scale": 0.007741728758811951
+        },
+        "channel_43": {
+          "center": 0.7726908326148987,
+          "scale": 0.005865636920928955
+        },
+        "channel_44": {
+          "center": 0.7976043820381165,
+          "scale": 0.007001189446449279
+        },
+        "channel_45": {
+          "center": 0.8134634494781494,
+          "scale": 0.006913173079490661
+        },
+        "channel_46": {
+          "center": 0.769094705581665,
+          "scale": 0.00813665360212326
+        }
+      },
+      "reference_receipt_sha256": "d8705409e197811840ce13fbcb44fe20ccb42fa9845aa6f0cf074002ec5b5888",
+      "r20_plan_receipt_sha256": "313e54ee6da487ecd60f1f790f21d851fbdf55e23d19565e34ccba45d242105b",
+      "r21_selected_candidate": {
+        "candidate_family": "MEDIAN_5MIN_THRESHOLD_6",
+        "family_index": 0,
+        "selection_metric": 0.9999770720752996,
+        "metrics": {
+          "TP_events": 3,
+          "FP_events": 0,
+          "FN_events": 0,
+          "redundant_detections": 7,
+          "raw_event_precision": 1.0,
+          "event_precision": 0.9999713402584016,
+          "event_recall": 1.0,
+          "corrected_eventwise_F0.5": 0.9999770720752996,
+          "duration_true_negative_rate": 0.9999713402584016,
+          "false_alarm_event_count": 0,
+          "false_alarm_duration_s": 944.67,
+          "nominal_duration_s": 32961567.247799937,
+          "rare_nominal_false_positive_count": 0,
+          "communication_gap_false_positive_count": 0,
+          "event_detection_delays": {
+            "id_101": {
+              "first_detection_delay_s": 397.887,
+              "confirmed_detection_delay_s": 997.887
+            },
+            "id_102": {
+              "first_detection_delay_s": 268.89,
+              "confirmed_detection_delay_s": 868.89
+            },
+            "id_103": {
+              "first_detection_delay_s": 397.893,
+              "confirmed_detection_delay_s": 997.893
+            }
+          },
+          "confirmed_detection_policy": "continuous alarm for 600s; custom auxiliary metric, not ESA EW scorer",
+          "definition": "ESA ESAScores EW correction; Category=Anomaly; rare/gap excluded from event FP per official reference and separately counted"
+        },
+        "observed_development_decision_count": 110455,
+        "alarm_count": 10
+      },
+      "r21_development_report_receipt_sha256": "98215ae02a7a4c91b23a9934e450a8fce16e1433c679f5d0c70f328f8936b9b0",
+      "r21_development_report_file_sha256": "724079a067464e2d4c69bb8286c68027a90d848b8db4c05efcfd48631564d292",
+      "predictor_source": {
+        "relative_path": "src/astrograph/evaluation/esa_statistical_predictor.py",
+        "size": 1760,
+        "sha256": "521e203bb542d47459da42eeb2b02dd252d7c17dad15c7c4df361d1f97ab1679"
+      },
+      "replication_input_boundary": "Governed preprocessed nonoverlapping 5min-median channel payloads. Raw-to-preprocessed equivalence requires a separate upstream preprocessing receipt and is not inferred by R22.",
+      "implementation_identity_sha256": "1074733fb3aa9fca5760293c0ca7d279963ede2b1a49efdd4decfde6cda3716c",
+      "primary_endpoint": "corrected_eventwise_F0.5 transport replication",
+      "secondary_endpoints": [
+        "event precision",
+        "event recall",
+        "false alarm duration",
+        "first/confirmed detection delay",
+        "rare nominal/gap false alarms"
+      ],
+      "retuning_allowed": false,
+      "confirmation_duration_s": 600.0,
+      "implementation_sources": [
+        {
+          "relative_path": "src/astrograph/evaluation/replication_r22.py",
+          "size": 37888,
+          "sha256": "2ee50e6e341135f4b05eacfc9889372ca8d92666ac6a3e0491a2193dfae6a34f"
+        },
+        {
+          "relative_path": "src/astrograph/evaluation/esa_statistical_predictor.py",
+          "size": 1760,
+          "sha256": "521e203bb542d47459da42eeb2b02dd252d7c17dad15c7c4df361d1f97ab1679"
+        },
+        {
+          "relative_path": "src/astrograph/evaluation/esa_event_metrics.py",
+          "size": 4667,
+          "sha256": "01dbe1956ac00d3b2691073a716b2af64fe1d22f41b8a7e4eec3efaa47d12f0e"
+        }
+      ]
+    }
+  },
+  "new_holdout_requirements": {
+    "source_artifact_identity_novel": true,
+    "source_member_identity_novel": true,
+    "intake_before_truth_attestation_required": true,
+    "group_identity_novelty_required": true,
+    "statistical_independence_not_implied_by_identity": true,
+    "truth_join_after_prediction_freeze": true,
+    "no_new_external_validation_receipt_in_prepare_stage": true
+  },
+  "claim_boundary": "R22 preparation/replication is not flight qualification. OPS comparison is descriptive unless an independent grouping design justifies inference. ESA selected R21 candidate is identical to the R20 baseline, so superiority claims are forbidden; only transport replication is meaningful.",
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "f3fb9db86150b49037575843eedc4720b2d9c446324b623a93d6a84987c4ae62"
+}

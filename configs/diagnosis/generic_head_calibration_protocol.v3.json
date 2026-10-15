@@ -1,0 +1,110 @@
+{
+  "schema_version": "astrograph-generic-head-calibration-protocol.v3",
+  "protocol_id": "astrograph.generic-heads.synthetic-technical.candidate-3-final",
+  "protocol_version": "3.0.0",
+  "frozen_at": "2026-08-02T14:14:20+08:00",
+  "protocol_basis": "G1.1",
+  "candidate_ordinal": 3,
+  "maximum_candidates": 3,
+  "timer_attestation_path": "protocols/acceptance/p016_candidate3_timer_attestation.json",
+  "timer_attestation_sha256": "740ca855d09adaf6e7a524abb7617ac8d70b292fd59e433a7b1b734556bc9a1d",
+  "formal_hidden_truth_used": false,
+  "runtime_labels_used": false,
+  "runtime_truth_used": false,
+  "known_mechanisms": ["CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+  "open_set_mechanisms": ["BIAS", "INTERMITTENT", "STUCK"],
+  "output_classes": ["NORMAL", "CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+  "normal_is_fault_mechanism": false,
+  "component_archetypes": ["storage.energy_buffer", "thermal.lumped_capacity"],
+  "base_feature_protocol_path": "configs/diagnosis/generic_head_calibration_protocol.v2.json",
+  "base_feature_protocol_sha256": "a59d58526b2afd8f2c2a04d4197a0a8a007d41fe2593cc2367c20205702dfa4e",
+  "base_feature_schema": [
+    "selected_split_fraction", "pre_fit_r2", "post_decomposition_r2",
+    "parameter_shift_norm", "parameter_shift_alignment",
+    "parameter_shift_primary_signed", "constant_disturbance_signed",
+    "ramp_disturbance_signed", "post_residual_rms_ratio",
+    "post_residual_mean_over_scale", "post_residual_slope_over_scale",
+    "impulse_l1_concentration", "onset_window_energy_fraction",
+    "lag1_autocorrelation", "max_periodic_autocorrelation_lag_2_20",
+    "sign_change_fraction", "active_fraction_two_mad",
+    "longest_active_run_fraction", "state_plateau_fraction",
+    "state_jump_over_pre_scale", "input_residual_correlation",
+    "selected_change_score_log1p"
+  ],
+  "fixed_nonlinear_mapping": {
+    "method": "RANDOM_FOURIER_FEATURES_FOR_RBF_KERNEL",
+    "input_dimension": 22,
+    "output_dimension": 128,
+    "gamma": 0.022727272727272728,
+    "gamma_rule": "FIXED_1_DIVIDED_BY_2_TIMES_INPUT_DIMENSION",
+    "random_seed": 20260820,
+    "weight_distribution": "NORMAL_MEAN_0_VARIANCE_2_GAMMA",
+    "phase_distribution": "UNIFORM_0_TO_2PI",
+    "output_formula": "SQRT_2_OVER_128_TIMES_COS_STANDARDIZED_INPUT_DOT_WEIGHT_PLUS_PHASE",
+    "mapping_trainable": false
+  },
+  "single_head": {
+    "model_family": "L2_REGULARIZED_MULTINOMIAL_LOGISTIC_REGRESSION",
+    "head_count": 1,
+    "solver": "lbfgs",
+    "l2_inverse_regularization": 1.0,
+    "maximum_iterations": 1000,
+    "tolerance": 1e-08,
+    "class_weight": "NONE",
+    "random_seed": 20260820,
+    "temperature_scaling": {
+      "minimum_temperature": 0.25,
+      "maximum_temperature": 4.0,
+      "grid_point_count": 256,
+      "selection_metric": "NEGATIVE_LOG_LIKELIHOOD"
+    }
+  },
+  "decision_rules": {
+    "anomalous": "PREDICTED_CLASS_IS_NOT_NORMAL_OR_PREDICTED_CLASS_CONFORMAL_DECISION_IS_OOD",
+    "known_classification": "ARGMAX_SINGLE_LOGISTIC_HEAD_IF_IN_DISTRIBUTION_AND_NON_NORMAL",
+    "open_set_method": "CLASS_CONDITIONAL_SPLIT_CONFORMAL_NEGATIVE_LOG_TRUE_CLASS_PROBABILITY",
+    "runtime_nonconformity": "NEGATIVE_LOG_MAXIMUM_TEMPERATURE_SCALED_CLASS_PROBABILITY",
+    "conformal_quantile_rule": "rank=ceil((n+1)*(1-alpha)), clipped to n",
+    "classification_abstention_outside_ood": false
+  },
+  "split": {
+    "development_seed": 20260820,
+    "calibration_seed": 20270820,
+    "exhausted_validation_seeds": [20280820, 20290820],
+    "technical_validation_seed": 20300820,
+    "development_count_per_archetype_per_output_class": 120,
+    "calibration_count_per_archetype_per_output_class": 60,
+    "technical_validation_count_per_archetype_per_mechanism": 120,
+    "normal_count_per_archetype_in_technical_validation": 120,
+    "split_overlap_allowed": false,
+    "technical_validation_run_count": 1
+  },
+  "thresholds": {
+    "detection_accuracy": 0.98,
+    "classification_accuracy": 0.9,
+    "localization_accuracy": 0.95,
+    "reasoning_correctness": 0.9,
+    "known_class_retention": 0.98,
+    "open_set_rejection": 0.98,
+    "open_set_alpha": 0.02
+  },
+  "denominators": {"normal": 240, "known": 720, "open_set": 720, "total": 1680},
+  "resource_budget": {
+    "max_model_candidates": 3,
+    "production_model_candidates_used_after_fit": 3,
+    "max_runtime_seconds": 600,
+    "max_retries_per_error": 2
+  },
+  "prohibited_actions": [
+    "Use candidate-2 validation results for features, model or threshold selection",
+    "Read or regenerate validation seeds 20280820 or 20290820",
+    "Read validation seed 20300820 before the candidate-3 artifact is frozen",
+    "Run validation seed 20300820 more than once",
+    "Delete, skip or xfail any case",
+    "Change denominators, merge classes, expand UNKNOWN/OOD or lower thresholds",
+    "Use labels, truth, case IDs or paths at runtime",
+    "Use an ensemble, fallback, legacy exact router or second implicit model",
+    "Bind candidate 3 before independent Timer review"
+  ],
+  "claim_boundary": "Final synthetic technical candidate only. Protocol freeze, fit or validation cannot itself establish promotion, P-014, P-015, P-016, T-310, T-311, G3 or G4."
+}

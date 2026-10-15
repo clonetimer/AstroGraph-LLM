@@ -1,0 +1,10 @@
+{
+  "task_id": "diagnostic-thinking-001",
+  "goal": "Resolve the competing sensor fault hypotheses.",
+  "artifacts": {
+    "input": "examples/core_diagnosis/input.json",
+    "graph_dir": "examples/core_diagnosis/graph",
+    "measurements": "examples/core_diagnosis/measurements.json"
+  },
+  "work_mode": "thinking"
+}

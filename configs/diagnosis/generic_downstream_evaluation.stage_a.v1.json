@@ -1,0 +1,46 @@
+{
+  "schema_version": "astrograph-generic-downstream-evaluation.stage-a.v1",
+  "protocol_id": "astrograph.generic-heads.p017.stage-a.downstream-independent-scoring",
+  "authorization_sha256": "478570c6363c500bfcd21b07417244c31e2c5a977841caa81795534cdf066633",
+  "purpose": "Prevent localization and reasoning metrics from aliasing mechanism classification.",
+  "localization": {
+    "denominator": "Every frozen known-mechanism case, including upstream execution failures.",
+    "correctness_fields": [
+      "predicted_component_instance_id",
+      "predicted_asset_path",
+      "predicted_role",
+      "root_cause_supported",
+      "root_cause_evidence_ids"
+    ],
+    "correct_if": "The component instance and complete asset path match the frozen case target; ROOT_CAUSE requires independent boundary-causal evidence, otherwise only AFFECTED_COMPONENT may be credited.",
+    "forbidden_aliases": ["classification_correct", "mechanism_correct"]
+  },
+  "reasoning": {
+    "denominator": "Every frozen known-mechanism case, including upstream execution failures.",
+    "required_fields": [
+      "supported_hypothesis",
+      "supporting_evidence_ids",
+      "contradicting_evidence_ids",
+      "propagation_path",
+      "uncertainty_statement",
+      "falsification_checks",
+      "next_inspection"
+    ],
+    "correct_if": "All frozen reasoning-rubric elements are correct and traceable; a correct mechanism label alone receives no reasoning credit.",
+    "llm_formal_gate_allowed": false,
+    "forbidden_aliases": ["classification_correct", "localization_correct"]
+  },
+  "topology_perturbations": [
+    "Swap an upstream and affected component while preserving the observed residual.",
+    "Remove one boundary observation required for causal isolation.",
+    "Inject a contradictory upstream observation.",
+    "Provide two observationally compatible component paths."
+  ],
+  "fail_closed_rules": [
+    "Missing root-cause evidence cannot be credited as root-cause localization.",
+    "Missing contradicting evidence, uncertainty or next inspection fails reasoning correctness.",
+    "An upstream classification failure remains in every downstream denominator."
+  ],
+  "stage_b_authorized": false,
+  "claim_boundary": "Stage-A evaluator design only; it does not establish localization or reasoning performance."
+}

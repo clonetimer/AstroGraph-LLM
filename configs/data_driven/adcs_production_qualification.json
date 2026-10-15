@@ -1,0 +1,23 @@
+{
+  "schema_version": "astrograph-adcs-production-qualification-policy.v1",
+  "policy_id": "adcs-v5.2.2-p2-engineering-production-gate",
+  "dataset_id": "whole_spacecraft_adcs_paired_dataset_v5_2_2",
+  "candidate_id": "adcs-p2-innovation-residual-tcn",
+  "metrics_evidence_path": "governance/evidence/research/data_driven_runs/adcs_p2_production_group_cv_20260827/report.json",
+  "metric_gates": {
+    "minimum_fold_count": 5,
+    "minimum_detection_macro_f1": 0.95,
+    "minimum_localization_macro_f1": 0.95,
+    "minimum_classification_macro_f1": 0.95,
+    "minimum_e2e_macro_f1": 0.90
+  },
+  "runtime_gates": {
+    "provider_path": "src/astrograph/integrations/adcs_three_task_torch.py",
+    "model_package_path": "models/adcs_v5_2_2/p2_innovation.pt",
+    "model_receipt_path": "models/adcs_v5_2_2/p2_innovation.receipt.json",
+    "required_exact_mapping_coverage": 1.0,
+    "runtime_chain_evidence_path": "governance/evidence/research/data_driven_runs/adcs_p2_runtime_qualification/report.json",
+    "required_chain_statuses": ["rule", "llm"]
+  },
+  "claim_boundary": "Engineering production qualification only. Flight, safety, real-hardware and cross-satellite qualification remain out of scope."
+}

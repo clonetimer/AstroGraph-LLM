@@ -1,0 +1,227 @@
+{
+  "schema_version": "astrograph-small-brb-trial.v1",
+  "models": {
+    "SOFT_REPAIRED": {
+      "method": "SOFT",
+      "coefficients": [
+        2.965997265002704,
+        -1.2742219653413733,
+        2.7682399102821535,
+        -2.578883859943503,
+        1.0955883535311763
+      ],
+      "intercept": -3.0830791740588657,
+      "parameter_note": "Five coefficients plus intercept; L2 C=1; score calibration not established.",
+      "repair_specificity": true,
+      "threshold": 0.2,
+      "margin": 0.0
+    },
+    "BRB_RAW": {
+      "method": "BRB",
+      "rules": [
+        [
+          0.008767199984956828,
+          0.9825570412193643
+        ],
+        [
+          0.19377104596085218,
+          0.4482972988019416
+        ],
+        [
+          0.20897175478934954,
+          0.6941053283897936
+        ],
+        [
+          0.18649950647122734,
+          0.7452433719225758
+        ],
+        [
+          0.15190092574590838,
+          0.10034065406892465
+        ],
+        [
+          0.886615897510817,
+          0.03578762998116513
+        ],
+        [
+          0.0019004461627175407,
+          0.9942841038532669
+        ],
+        [
+          0.05873198776081624,
+          0.8053229867668882
+        ],
+        [
+          0.07132609864223947,
+          0.7563136466810668
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "training_rule_effective_counts": [
+        228.527386376409,
+        3.5876589028555532,
+        18.63495472073555,
+        27.300971868383446,
+        0.6746606203441229,
+        23.77436751127243,
+        522.1845675814839,
+        12.711829234292818,
+        9.603603184223175,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rule_weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "attribute_weights": [
+        1.0,
+        1.0
+      ],
+      "parameter_note": "12 support proportions and 12 completeness estimates; fixed grid/weights; Laplace smoothing strength 2, not claimed optimal.",
+      "repair_specificity": false,
+      "threshold": 0.3,
+      "margin": 0.0
+    },
+    "BRB_REPAIRED": {
+      "method": "BRB",
+      "rules": [
+        [
+          0.008767199984956828,
+          0.9825570412193643
+        ],
+        [
+          0.19377104596085218,
+          0.4482972988019416
+        ],
+        [
+          0.20897175478934954,
+          0.6941053283897936
+        ],
+        [
+          0.45575844844081415,
+          0.14934569844412726
+        ],
+        [
+          0.09662248998576241,
+          0.0691439709808951
+        ],
+        [
+          0.8479382116701016,
+          0.04700853403032237
+        ],
+        [
+          0.0019004461627175407,
+          0.9942841038532669
+        ],
+        [
+          0.05873198776081624,
+          0.8053229867668882
+        ],
+        [
+          0.07132609864223947,
+          0.7563136466810668
+        ],
+        [
+          0.10740018773090632,
+          0.8163696829789944
+        ],
+        [
+          0.06486526668526016,
+          0.05688261545318823
+        ],
+        [
+          0.6828131120433306,
+          0.08825975136248582
+        ]
+      ],
+      "training_rule_effective_counts": [
+        228.527386376409,
+        3.5876589028555532,
+        18.63495472073555,
+        3.0646264938550045,
+        0.39741020520162085,
+        17.037963300943375,
+        522.1845675814839,
+        12.711829234292818,
+        9.603603184223175,
+        24.23634537452844,
+        0.27725041514250204,
+        6.736404210329056
+      ],
+      "rule_weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "attribute_weights": [
+        1.0,
+        1.0
+      ],
+      "parameter_note": "12 support proportions and 12 completeness estimates; fixed grid/weights; Laplace smoothing strength 2, not claimed optimal.",
+      "repair_specificity": true,
+      "threshold": 0.3,
+      "margin": 0.0
+    }
+  },
+  "training_families": [
+    20260921,
+    20260922,
+    20260923,
+    20260924,
+    20260925,
+    20260926
+  ],
+  "validation_families": [
+    20260927,
+    20260928,
+    20260929,
+    20260930
+  ],
+  "development_source": "../run_artifacts/diagnosis-enhancement-post44/development-confirmation",
+  "fresh_seed": 20261219,
+  "endpoints": [
+    40,
+    120,
+    200,
+    300
+  ],
+  "source_sha256": {
+    "scripts/evaluate_brb_trial.py": "40f2ec6814916dcce28dac3a884c7ceeb9c04ca532653c090ca72fad9e5c7de4",
+    "src/astrograph/fusion/belief_rules.py": "1980102a2c7e460da4a490201268f57643b551d773f003e79049eecd8495a588",
+    "src/astrograph/integrations/brb_diagnosis_trial.py": "d205fc9175d484de352197de00f820c25e7d16cc336a51f7dca397d15629e90e"
+  },
+  "adoption_criterion": "At selected frozen operating points, no fewer correct/hits or more wrong/normal alerts than baseline, specificity repair, and simple soft fusion; strict improvement; no per-mission baseline regression. Descriptive pilot gate, not universal or flight qualification.",
+  "claim_boundary": "Offline only, no runtime/default changes. Same original model, same raw observations, no LLM. Mechanism correction means demoting a non-identifying residual envelope, not adding a sensor."
+}

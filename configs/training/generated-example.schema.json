@@ -1,0 +1,119 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "example_id": {
+      "minLength": 1,
+      "title": "Example Id",
+      "type": "string"
+    },
+    "task_id": {
+      "minLength": 1,
+      "title": "Task Id",
+      "type": "string"
+    },
+    "task": {
+      "enum": [
+        "ONTOLOGY_EXTRACTION",
+        "RETRIEVAL_QUERY"
+      ],
+      "title": "Task",
+      "type": "string"
+    },
+    "instruction": {
+      "maxLength": 1200,
+      "minLength": 10,
+      "title": "Instruction",
+      "type": "string"
+    },
+    "source_group": {
+      "minLength": 1,
+      "title": "Source Group",
+      "type": "string"
+    },
+    "source_artifact_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Artifact Sha256",
+      "type": "string"
+    },
+    "source_path": {
+      "minLength": 1,
+      "title": "Source Path",
+      "type": "string"
+    },
+    "source_excerpt": {
+      "minLength": 1,
+      "title": "Source Excerpt",
+      "type": "string"
+    },
+    "split": {
+      "enum": [
+        "train",
+        "validation",
+        "test"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "input": {
+      "additionalProperties": true,
+      "title": "Input",
+      "type": "object"
+    },
+    "expected": {
+      "additionalProperties": true,
+      "title": "Expected",
+      "type": "object"
+    },
+    "teacher": {
+      "minLength": 1,
+      "title": "Teacher",
+      "type": "string"
+    },
+    "generation_round": {
+      "minimum": 1,
+      "title": "Generation Round",
+      "type": "integer"
+    },
+    "origin": {
+      "const": "MODEL_GENERATED_SOURCE_GROUNDED",
+      "default": "MODEL_GENERATED_SOURCE_GROUNDED",
+      "title": "Origin",
+      "type": "string"
+    },
+    "review_status": {
+      "const": "AUTOMATED_CHECKS_ONLY",
+      "default": "AUTOMATED_CHECKS_ONLY",
+      "title": "Review Status",
+      "type": "string"
+    },
+    "human_reviewed": {
+      "const": false,
+      "default": false,
+      "title": "Human Reviewed",
+      "type": "boolean"
+    },
+    "training_authorization": {
+      "const": "USER_AUTHORIZED_SELF_INSTRUCT",
+      "default": "USER_AUTHORIZED_SELF_INSTRUCT",
+      "title": "Training Authorization",
+      "type": "string"
+    }
+  },
+  "required": [
+    "example_id",
+    "task_id",
+    "task",
+    "instruction",
+    "source_group",
+    "source_artifact_sha256",
+    "source_path",
+    "source_excerpt",
+    "split",
+    "input",
+    "expected",
+    "teacher",
+    "generation_round"
+  ],
+  "title": "GeneratedExample",
+  "type": "object"
+}

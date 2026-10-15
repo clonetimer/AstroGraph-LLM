@@ -1,0 +1,26 @@
+{
+  "schema_version": "astrograph-candidate-authorization-attestation.v1",
+  "request_id": "P016-CANDIDATE-3-AUTHORIZATION-001",
+  "reviewer": "Timer",
+  "status": "APPROVED",
+  "recorded_at_utc": "2026-08-02T06:14:20Z",
+  "verbatim_attestation_text_zh": "我已审阅候选 2 的冻结协议、拟合证据、一次性验证收据和完整失败结果。我授权在 P-016 下启动最终第 3/3 个候选。G1.1 五项制品、CAPACITY_LOSS/DRIFT/LEAKAGE 已知机制、BIAS/INTERMITTENT/STUCK 开放集、全部指标阈值、分母和 600 秒预算保持不变。20280820 和 20290820 永久只保留为失败证据，不得用于训练、调参、特征选择、阈值选择或再次验证；授权预冻结 20300820 为候选 3 唯一的新技术验证种子。候选 3 允许使用分段灰盒物理证据、固定非线性特征映射和单一 L2 多项逻辑回归头；NORMAL 只能作为非故障检测状态，不得改变故障分类体系。禁止集成、回退、旧精确故障路由或第二套隐式生产模型。候选 3 的具体特征映射、维数、正则化和共形规则必须在拟合前提交冻结，且不得使用候选 2 验证结果进行特征或阈值选择。本审批不预认定候选 3、P-014、P-015、P-016、T-310、T-311 或 G3 PASS，最终结果仍须由 Timer 独立审阅。",
+  "bound_candidate2_evidence": {
+    "protocol_sha256": "a59d58526b2afd8f2c2a04d4197a0a8a007d41fe2593cc2367c20205702dfa4e",
+    "fit_evidence_sha256": "863c49f0387a9eb5151c2db519275601616818f027ebbd021b0a6ab19b2bf45d",
+    "query_receipt_sha256": "ce6e01cd076d60df2b58ca632498ba959d1e26f85f119030c07ec18d19267462",
+    "validation_evidence_sha256": "a0f8229ec7b369ea772ae0ba56cecfe43865e29cc2cb1c4122d6ed23e41a476a"
+  },
+  "candidate": {
+    "ordinal": 3,
+    "maximum_candidates": 3,
+    "development_seed": 20260820,
+    "calibration_seed": 20270820,
+    "exhausted_validation_seeds": [20280820, 20290820],
+    "new_single_use_validation_seed": 20300820,
+    "maximum_runtime_seconds": 600,
+    "formal_hidden_truth_used": false,
+    "ensemble_fallback_legacy_router_or_second_model_allowed": false
+  },
+  "claim_boundary": "Authorizes final candidate implementation under a pre-fit frozen protocol only; it does not promote candidate 3 or establish P-014, P-015, P-016, T-310, T-311, G3 or G4."
+}

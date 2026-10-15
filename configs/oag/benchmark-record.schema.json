@@ -1,0 +1,144 @@
+{
+  "$defs": {
+    "ClaimAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_id": {
+          "minLength": 1,
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "support": {
+          "enum": [
+            "SUPPORTED",
+            "UNSUPPORTED",
+            "UNASSESSED"
+          ],
+          "title": "Support",
+          "type": "string"
+        },
+        "assessor_id": {
+          "minLength": 1,
+          "title": "Assessor Id",
+          "type": "string"
+        },
+        "assessment_basis": {
+          "minLength": 1,
+          "title": "Assessment Basis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "claim_id",
+        "support",
+        "assessor_id",
+        "assessment_basis"
+      ],
+      "title": "ClaimAssessment",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "dataset_id": {
+      "minLength": 1,
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "group_id": {
+      "minLength": 1,
+      "title": "Group Id",
+      "type": "string"
+    },
+    "true_fault_id": {
+      "minLength": 1,
+      "title": "True Fault Id",
+      "type": "string"
+    },
+    "predicted_fault_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Predicted Fault Id"
+    },
+    "ranked_fault_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Ranked Fault Ids",
+      "type": "array"
+    },
+    "cited_evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Cited Evidence Ids",
+      "type": "array"
+    },
+    "expected_evidence_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expected Evidence Ids"
+    },
+    "claim_assessments": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ClaimAssessment"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Claim Assessments"
+    },
+    "latency_s": {
+      "minimum": 0,
+      "title": "Latency S",
+      "type": "number"
+    },
+    "latency_scope": {
+      "default": "END_TO_END",
+      "enum": [
+        "END_TO_END",
+        "CORE_ONLY",
+        "REPLAY"
+      ],
+      "title": "Latency Scope",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "dataset_id",
+    "group_id",
+    "true_fault_id",
+    "latency_s"
+  ],
+  "title": "BenchmarkRecord",
+  "type": "object"
+}

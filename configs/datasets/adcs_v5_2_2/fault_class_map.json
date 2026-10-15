@@ -1,0 +1,22 @@
+{
+  "schema_version": "astrograph-data-driven-fault-class-map.v1",
+  "mapping_id": "whole-spacecraft-adcs-v5.2.2-to-astrograph-faults",
+  "version": "2.0.0",
+  "mappings": {
+    "adcs_control_loop_failure": "ADCS_CONTROL_LOOP_AUTHORITY_LOSS",
+    "adcs_rw_jamming": "ADCS_RW_JAM",
+    "adcs_rw_torque_path_open": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+    "adcs_star_solution_unavailable": "ADCS_STAR_TRACKER_DROPOUT",
+    "adcs_gyro_bias_step": "ADCS_GYRO_BIAS_DRIFT",
+    "adcs_imu_axis_dropout": "ADCS_IMU_AXIS_DROPOUT",
+    "adcs_imu_gyro_noise_amplification": "ADCS_IMU_GYRO_NOISE_AMPLIFICATION",
+    "adcs_imu_total_output_zero": "ADCS_IMU_OUTPUT_ZERO",
+    "adcs_rw_speed_sensor_fault": "ADCS_RW_SPEED_SENSOR_BIAS",
+    "adcs_star_solution_constant_bias": "ADCS_STAR_SOLUTION_BIAS",
+    "adcs_star_tracker_stuck_at_last": "ADCS_STAR_TRACKER_STUCK_AT_LAST",
+    "adcs_sun_sensor_cell_failure": "ADCS_SUN_SENSOR_CELL_DEGRADATION",
+    "adcs_sun_sensor_saturation": "ADCS_SUN_SENSOR_SATURATION",
+    "adcs_sun_vector_unavailable": "ADCS_SUN_VECTOR_UNAVAILABLE"
+  },
+  "claim_boundary": "All fourteen mappings are exact dataset-label to stable runtime fault identifiers for data-driven attribution. Only the separately listed rule-evidence subset has calibrated configured evidence; mapping does not manufacture rule thresholds or causal proof."
+}

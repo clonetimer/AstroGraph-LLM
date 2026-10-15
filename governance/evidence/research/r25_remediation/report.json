@@ -1,0 +1,117 @@
+{
+  "schema_version": "astrograph-r25-dxc-esa-remediation-report.v1",
+  "patch_id": "PATCH-R25",
+  "protocol_receipt_sha256": "80d09d002a17b1b9d921177abc9daa74dc56dcf32b79ad3e6c8df46e6fcd86df",
+  "esa": {
+    "development_receipt_sha256": "f3267ca7de06ed1a96b364991c07cd725a7dc23bf468ee9249f6ccae2959ab55",
+    "selected_candidate": {
+      "robust_z_threshold": 8.0,
+      "minimum_coincident_channels": 2,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 30,
+      "positive_alarm_group_count": 27,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.9,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9183673469387754,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 5,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    "raw_visibility_audit_receipt_sha256": "03a0d899f0782c48641cf987a4c21292c5ea81975a4fe47b31e1c269a91502b9",
+    "frozen_seen_confirmatory_result": {
+      "decision_points": 73641,
+      "alarm_points": 0,
+      "true_anomaly_events": 4,
+      "tp": 0,
+      "fn": 4,
+      "status": "PRESERVED_R20_R21_NEGATIVE_RESULT_NOT_REGENERATED"
+    },
+    "interpretation": "High-resolution raw-grid remediation is promising in development; seen confirmatory predictions remain frozen and are not used to claim repair."
+  },
+  "dxc": {
+    "development_receipt_sha256": "0bec83a247a02d37f4919ca3e9f01a25754f0eee79d270a25459cc16fbcbb56a",
+    "split_counts": {
+      "TRAIN": 49,
+      "SELECTION": 11,
+      "INTERNAL_REPLAY": 14
+    },
+    "selection_metrics": {
+      "case_count": 11,
+      "fault_element_precision_micro": 0.4,
+      "fault_element_recall_micro": 0.4444444444444444,
+      "fault_element_f1_micro": 0.4210526315789474,
+      "component_precision_micro": 0.4,
+      "component_recall_micro": 0.4444444444444444,
+      "component_f1_micro": 0.4210526315789474,
+      "exact_fault_set_rate": 0.09090909090909091,
+      "faulty_case_any_fault_element_overlap_rate": 0.6363636363636364,
+      "early_first_alarm_case_count": 2,
+      "post_injection_first_alarm_case_count": 8,
+      "no_alarm_case_count": 1,
+      "post_injection_first_alarm_rate": 0.7272727272727273,
+      "median_post_injection_delay_s": 0.4725000000000037,
+      "minimal_diagnosis_case_count": 11,
+      "minimal_diagnosis_any_truth_overlap_case_rate": 0.8181818181818182,
+      "minimal_diagnosis_exact_truth_candidate_case_rate": 0.09090909090909091
+    },
+    "internal_replay_metrics": {
+      "case_count": 14,
+      "fault_element_precision_micro": 0.07692307692307693,
+      "fault_element_recall_micro": 0.125,
+      "fault_element_f1_micro": 0.09523809523809525,
+      "component_precision_micro": 0.15384615384615385,
+      "component_recall_micro": 0.25,
+      "component_f1_micro": 0.1904761904761905,
+      "exact_fault_set_rate": 0.0,
+      "faulty_case_any_fault_element_overlap_rate": 0.14285714285714285,
+      "early_first_alarm_case_count": 1,
+      "post_injection_first_alarm_case_count": 12,
+      "no_alarm_case_count": 1,
+      "post_injection_first_alarm_rate": 0.8571428571428571,
+      "median_post_injection_delay_s": 0.4454999999999991,
+      "minimal_diagnosis_case_count": 14,
+      "minimal_diagnosis_any_truth_overlap_case_rate": 0.35714285714285715,
+      "minimal_diagnosis_exact_truth_candidate_case_rate": 0.14285714285714285
+    },
+    "baseline_same_replay_metrics": {
+      "case_count": 14,
+      "fault_element_precision_micro": 0.013227513227513227,
+      "fault_element_recall_micro": 0.3125,
+      "fault_element_f1_micro": 0.025380710659898473,
+      "component_precision_micro": 0.013227513227513227,
+      "component_recall_micro": 0.3125,
+      "component_f1_micro": 0.025380710659898473,
+      "exact_fault_set_rate": 0.0,
+      "faulty_case_any_fault_element_overlap_rate": 0.35714285714285715,
+      "early_first_alarm_case_count": 14,
+      "post_injection_first_alarm_case_count": 0,
+      "no_alarm_case_count": 0,
+      "post_injection_first_alarm_rate": 0.0,
+      "median_post_injection_delay_s": null,
+      "minimal_diagnosis_case_count": 0,
+      "minimal_diagnosis_any_truth_overlap_case_rate": null,
+      "minimal_diagnosis_exact_truth_candidate_case_rate": null
+    },
+    "interpretation": "Command-aware residual substantially repairs premature alarm timing and improves precision/F1 on internal replay, but fault isolation remains weak and unstable; exact fault-set remains zero."
+  },
+  "algorithm_authority": {
+    "agent_required_for_primary_detection": false,
+    "formal_evidence_generated": false,
+    "score_probability_claim": false
+  },
+  "next_gate": [
+    "Freeze ESA high-resolution configuration before genuinely new holdout contact and define official event/false-alarm metric contract.",
+    "Replace DXC topology-only graph support ranking with component-mode transition / expected-response consistency scoring; use minimal-diagnosis candidates as explanations, not automatic winners.",
+    "Do not regenerate R20/R21 seen external partitions for model selection."
+  ],
+  "qualification": "DEVELOPMENT_REMEDIATION_ONLY_NOT_EXTERNAL_VALIDATION_NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "ab91312fa98760c9ddfbfc724c5f77289147b0a3aeda7c86c4c11917762c7e2e"
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": "astrograph-r28-remediation-protocol.v1",
+  "patch_id": "PATCH-R28",
+  "base_artifact": "AstroGraph_0.7.1_post49_working_patch27_unified_source.zip",
+  "base_artifact_observed_sha256": "8a4f3c52c0f7f8448c3cf7c29ed919650912d7fc45f9fdeeb1072195f3879a45",
+  "base_artifact_declared_r27_record_sha256": "db7175b99a674ed1d229a73feeb94d595039611f880e706f942103bf9643931b",
+  "base_zip_byte_identity_matches_artifact_record": false,
+  "base_identity_finding": "BASE-R28-01_INHERITED_PACKAGING_IDENTITY_MISMATCH",
+  "base_source_internal_integrity": {
+    "verified_files": 2760,
+    "errors": 0,
+    "status": "PASS"
+  },
+  "architecture": "LEGACY_RETAINED_PLUS_R27_DETERMINISTIC_BRANCH_PLUS_R28_FORWARD_MODEL_REFINEMENT_PLUS_OPTIONAL_AGENT_SHADOW_REVIEW",
+  "dxc09_sample": {
+    "dataset_use": "POST_CONTACT_DEVELOPMENT_ONLY",
+    "development_receipt_sha256": "9dc4e37c327e1d51ba368a1e702c5b986a0fd9c2f53376e54c258b39eaaa64db",
+    "architecture_receipt_sha256": "89484e52772453d37d5f630dd6e9eb63582f3bc0cf62a48b978efea61b6c2e5b",
+    "r28_role": "PRIMARY_CAPABLE_DEVELOPMENT_CANDIDATE",
+    "agent_required": false,
+    "runtime_default_changed": false,
+    "competition_or_rematch_regenerated": false,
+    "new_holdout_supplied": false,
+    "diagnostic_resolution_rate": 0.96,
+    "promotion_status": "BLOCKED_PENDING_GENUINELY_NEW_HOLDOUT"
+  },
+  "esa": {
+    "r26_fast_branch": "FROZEN_CANDIDATE_WAITING_NEW_HOLDOUT",
+    "r28_retuning_performed": false,
+    "new_holdout_supplied": false
+  },
+  "agent": {
+    "forward_simulation_review_kind": "DXC_FORWARD_SIMULATION_REVIEW",
+    "diagnostic_authority": false,
+    "may_rerun_or_reconfigure_forward_model": false,
+    "formal_evidence_eligible": false,
+    "core_prediction_dependency": "NONE"
+  },
+  "stop_rule": "STOP_AFTER_FIXED_R28_MODEL_AUDIT_NO_FURTHER_CASE_SPECIFIC_RULE_OPTIMIZATION",
+  "source_bindings": {
+    "src/astrograph/diagnosis/dxc_forward_response.py": {
+      "size": 23889,
+      "sha256": "d083a552f5e0abf95f87f4f79702c2db88f838b9e476604aae28164744165ee8"
+    },
+    "src/astrograph/evaluation/dxc_r28_forward_simulation.py": {
+      "size": 4383,
+      "sha256": "d474b20f0b03dd91b8ecdc578f5429c91c7e1bfe89502b8de480f703bceed04d"
+    },
+    "src/astrograph/investigation/diagnostic_probes.py": {
+      "size": 28085,
+      "sha256": "a482442c3a162a1f7c4844c4fd40e07f0eb353bdbacc0c00e0a3b4294a41d0e7"
+    },
+    "scripts/experiments/run_r28_dxc_forward_simulation_development.py": {
+      "size": 9117,
+      "sha256": "82a28c9e4566e82d401e912b409e60bf0e0412f55246b718dbf70c18324e241a"
+    },
+    "configs/evaluation/r28_dxc_forward_model.v1.json": {
+      "size": 1035,
+      "sha256": "85e8d47870d8f9119d648c02b68446df05e2ade22fda72f47c4d07d0b819161a"
+    },
+    "configs/evaluation/r28_dxc_algorithm_policy.v1.json": {
+      "size": 1750,
+      "sha256": "24bfaaa18a23beeffdd29dfad9fd502edd0ae777ea063a90600878d6dc27a6a0"
+    },
+    "governance/evidence/research/r28_forward_simulation/dxc_forward_simulation_development.json": {
+      "size": 61438,
+      "sha256": "d067bf19523f92f6f976be086fdf88f787a32e5bbd85ee9b72c81204ba8248c2"
+    },
+    "governance/evidence/research/r28_forward_simulation/r28_algorithm_architecture_receipt.json": {
+      "size": 4144,
+      "sha256": "efeef435f88454afdfb4125adbc6414d7f7b68413348096b80e938ce733e370b"
+    }
+  },
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R28 is a deterministic forward-model refinement over R27 using already-contacted DXC09 Sample development cases. No Competition/Rematch or new external holdout is consumed. Agent review is read-only and non-authoritative.",
+  "receipt_sha256": "9a18dbec6f69373703dee0cdac0206408bc2905f22f5fbd1c9e772bb8c5af4aa"
+}

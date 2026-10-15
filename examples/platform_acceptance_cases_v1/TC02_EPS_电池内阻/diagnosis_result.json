@@ -1,0 +1,6 @@
+{
+  "case_id": "SYNTH-EPS-002",
+  "candidate_fault_id": "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE",
+  "diagnostic_summary": "电池内阻增大为上游候选；尚未排除负载突变与测量偏置。",
+  "review_status": "UNVERIFIED"
+}

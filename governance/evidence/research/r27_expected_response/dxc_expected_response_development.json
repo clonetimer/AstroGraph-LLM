@@ -1,0 +1,1437 @@
+{
+  "schema_version": "astrograph-r27-dxc-expected-response-development-report.v1",
+  "dataset_id": "DXC09_SAMPLE",
+  "partition": "DEVELOPMENT",
+  "source_system_xml_sha256": "71e5ee01746192f4c7e3fc7784f11f084b73d7fe387df079a97d31ff12adcccf",
+  "source_r26_receipt_sha256": "0f9d23bc42f41074c959a3f870661087c1e742d42441781b0c477c3d2c7cbef6",
+  "continuous_model_sha256": "74d34216f0aee45fd78ae7910abd010321be698c9e0e50ceaa40d674c4fcbafb",
+  "r26_detection_policy_retained": "DISCRETE_FIRST_SINGLE_CONTINUOUS",
+  "r27_expected_response_config": {
+    "startup_s": 30.0,
+    "discrete_topology_hops": 3,
+    "discrete_corroboration_z": 4.0,
+    "discrete_corroboration_relative_change": 0.01,
+    "discrete_required_corroborating_sensors": 2,
+    "discrete_secondary_plateau_window_s": 0.75,
+    "response_window_s": 5.0,
+    "plateau_previous_samples": 12,
+    "plateau_min_suffix_samples": 20,
+    "plateau_absolute_range_floor": 0.005,
+    "plateau_relative_tolerance": 1e-06,
+    "offset_shift_z": 8.0,
+    "fan_overspeed_relative": 0.08,
+    "fan_failed_off_relative": 0.7,
+    "fan_underspeed_relative": 0.08,
+    "pump_failed_off_final_ratio": 0.2,
+    "pump_flow_blocked_final_ratio": 0.8,
+    "inverter_drop_relative": 0.5,
+    "max_supported_sensor_faults": 2
+  },
+  "algorithm_source_sha256": "90f796dcff21c4f19cb782b29c5515c1abe75efd7a6d8fd9b45ee21f9dc7571a",
+  "integration_adapter_sha256": "16f9201882a885ec190d478112893fee7ee4deeb1915d629ae30874f34c0a12a",
+  "algorithm_policy_sha256": "24b1e0b56460ab31a41681b32798bb4faf99372f645068e1e7f95a26094911fe",
+  "split_policy": "R25/R26 frozen hash split: 0/1/2 TRAIN, 3 SELECTION, 4 INTERNAL_REPLAY",
+  "partitions": {
+    "SELECTION": {
+      "r26_metrics": {
+        "case_count": 11,
+        "fault_element_precision_micro": 0.5,
+        "fault_element_recall_micro": 0.3333333333333333,
+        "fault_element_f1_micro": 0.4,
+        "component_precision_micro": 0.5,
+        "component_recall_micro": 0.3333333333333333,
+        "component_f1_micro": 0.4,
+        "exact_fault_set_rate": 0.2727272727272727,
+        "faulty_case_any_fault_element_overlap_rate": 0.45454545454545453,
+        "mean_predicted_fault_count": 1.0909090909090908,
+        "early_first_alarm_case_count": 2,
+        "post_injection_first_alarm_case_count": 8,
+        "no_alarm_case_count": 1,
+        "post_injection_first_alarm_rate": 0.7272727272727273,
+        "median_post_injection_delay_s": 0.3539999999999992
+      },
+      "r27_metrics": {
+        "case_count": 11,
+        "fault_element_precision_micro": 0.9375,
+        "fault_element_recall_micro": 0.8333333333333334,
+        "fault_element_f1_micro": 0.8823529411764706,
+        "component_precision_micro": 0.9375,
+        "component_recall_micro": 0.8333333333333334,
+        "component_f1_micro": 0.8823529411764706,
+        "exact_fault_set_rate": 0.8181818181818182,
+        "faulty_case_any_fault_element_overlap_rate": 0.9090909090909091,
+        "mean_predicted_fault_count": 1.4545454545454546,
+        "early_first_alarm_case_count": 2,
+        "post_injection_first_alarm_case_count": 8,
+        "no_alarm_case_count": 1,
+        "post_injection_first_alarm_rate": 0.7272727272727273,
+        "median_post_injection_delay_s": 0.3539999999999992
+      },
+      "r26_case_rows": [
+        {
+          "case_id": "Exp_627_pb_t2f",
+          "group_id": "cd2f34c76df70f012fefd0fd1d56fdbb1310cb6e6520fd96078a4e6f476fd968",
+          "true_fault_ids": [
+            "E242:Offset"
+          ],
+          "injection_time_s": 115.156,
+          "predicted_fault_ids": [
+            "E242:Offset"
+          ],
+          "first_alarm_time_s": 115.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.34499999999999886
+        },
+        {
+          "case_id": "Exp_628_pb_t2f",
+          "group_id": "3f29bcb05b2c0ed2a24ec82ca594cef8b44275d8d0f73c34b193196966409669",
+          "true_fault_ids": [
+            "E265:Stuck"
+          ],
+          "injection_time_s": 176.68,
+          "predicted_fault_ids": [],
+          "first_alarm_time_s": null,
+          "detection_timing_status": "NO_ALARM",
+          "post_injection_delay_s": null
+        },
+        {
+          "case_id": "Exp_628_pb_t2ff",
+          "group_id": "d4260c382e6442a9a685e5513055d1495c19d4151637347d8c166432d976cb51",
+          "true_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "injection_time_s": 83.0,
+          "predicted_fault_ids": [
+            "EY170:StuckOpen"
+          ],
+          "first_alarm_time_s": 83.001,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.0010000000000047748
+        },
+        {
+          "case_id": "Exp_630_pb_t2ff",
+          "group_id": "fea940ec32d0b1e9fb992f0b5ed0f3e1b8f93e321b272f607bb6b4711d41b871",
+          "true_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "injection_time_s": 70.0,
+          "predicted_fault_ids": [
+            "EY141:StuckClosed",
+            "EY144:StuckOpen"
+          ],
+          "first_alarm_time_s": 70.001,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.0010000000000047748
+        },
+        {
+          "case_id": "Exp_636_pb_t2f",
+          "group_id": "dc8ceb67c7e4980aee8ea6e37e17be734014b5c2465110fcfa084167950abe24",
+          "true_fault_ids": [
+            "E261:Stuck"
+          ],
+          "injection_time_s": 47.092,
+          "predicted_fault_ids": [
+            "E261:Stuck"
+          ],
+          "first_alarm_time_s": 47.5,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.40800000000000125
+        },
+        {
+          "case_id": "Exp_653_pb_t2",
+          "group_id": "3c80ba18d3e330efbcf52190cb8720f15f285201a81208cee4e36527d484019d",
+          "true_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "injection_time_s": 169.147,
+          "predicted_fault_ids": [
+            "TE507:Offset"
+          ],
+          "first_alarm_time_s": 203.003,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 33.855999999999995
+        },
+        {
+          "case_id": "Exp_659_pb_t2",
+          "group_id": "b242cda4cef72a6ec5532649da0152852b1d31f2aa0079478eb79ab41873d471",
+          "true_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "injection_time_s": 92.964,
+          "predicted_fault_ids": [
+            "ST265:Offset"
+          ],
+          "first_alarm_time_s": 93.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.5370000000000061
+        },
+        {
+          "case_id": "Exp_665_pb_t2ff",
+          "group_id": "ce7d881fbca210793160bd6222c0e49336a7ab28a2945f3dc1eb4b4204623144",
+          "true_fault_ids": [
+            "E281:Stuck",
+            "ST265:Offset"
+          ],
+          "injection_time_s": 124.0,
+          "predicted_fault_ids": [
+            "E281:Stuck"
+          ],
+          "first_alarm_time_s": 66.001,
+          "detection_timing_status": "EARLY_BEFORE_INJECTION",
+          "post_injection_delay_s": null
+        },
+        {
+          "case_id": "Exp_667_pb_t2ff",
+          "group_id": "67ea98f4628cd4b40587cebbb4aa7b221fe23d52af8b54ff398cc2e2b9078fbe",
+          "true_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "injection_time_s": 95.0,
+          "predicted_fault_ids": [
+            "TE502:Stuck"
+          ],
+          "first_alarm_time_s": 73.0,
+          "detection_timing_status": "EARLY_BEFORE_INJECTION",
+          "post_injection_delay_s": null
+        },
+        {
+          "case_id": "Exp_676_pb_t2",
+          "group_id": "a10d050ef27eb380509a684f08dd6899262a7e44b7d4143a936baa6107864fb7",
+          "true_fault_ids": [
+            "LGT400:FailedOff",
+            "LGT402:FailedOff"
+          ],
+          "injection_time_s": 158.639,
+          "predicted_fault_ids": [
+            "TE501:Offset"
+          ],
+          "first_alarm_time_s": 159.002,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.36299999999999955
+        },
+        {
+          "case_id": "Exp_682_pb_t2",
+          "group_id": "cb95078148dda06ddafd4592f3cb8fa3d9ec1b3f6fc51e7b3ba8a5bcde873bde",
+          "true_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "injection_time_s": 102.888,
+          "predicted_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "first_alarm_time_s": 103.001,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.11299999999999955
+        }
+      ],
+      "r27_case_rows": [
+        {
+          "case_id": "Exp_627_pb_t2f",
+          "group_id": "cd2f34c76df70f012fefd0fd1d56fdbb1310cb6e6520fd96078a4e6f476fd968",
+          "true_fault_ids": [
+            "E242:Offset"
+          ],
+          "injection_time_s": 115.156,
+          "predicted_fault_ids": [
+            "E242:Offset"
+          ],
+          "first_alarm_time_s": 115.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.34499999999999886,
+          "expected_response_result_sha256": "da5600fe0e625ae3bc42351456d9917307475c50bec904bf5991fd77cd36de6b",
+          "expected_response_candidates": [
+            {
+              "fault_id": "E242:Offset",
+              "score": 20.179658019876978,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "E242"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_628_pb_t2f",
+          "group_id": "3f29bcb05b2c0ed2a24ec82ca594cef8b44275d8d0f73c34b193196966409669",
+          "true_fault_ids": [
+            "E265:Stuck"
+          ],
+          "injection_time_s": 176.68,
+          "predicted_fault_ids": [
+            "E265:Stuck"
+          ],
+          "first_alarm_time_s": null,
+          "detection_timing_status": "NO_ALARM",
+          "post_injection_delay_s": null,
+          "expected_response_result_sha256": "ebb05fce3726faef75d7784ea4eb20b3272d83377c82ea7988cabdf97356ac88",
+          "expected_response_candidates": [
+            {
+              "fault_id": "E265:Stuck",
+              "score": 18.0,
+              "source": "UNIQUE_PERSISTENT_SUFFIX_PLATEAU",
+              "reason_codes": [
+                "UNIQUE_EARLY_SUFFIX_PLATEAU_WITH_NO_CONTINUOUS_CANDIDATE"
+              ],
+              "source_component_ids": [
+                "E265"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_628_pb_t2ff",
+          "group_id": "d4260c382e6442a9a685e5513055d1495c19d4151637347d8c166432d976cb51",
+          "true_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "injection_time_s": 83.0,
+          "predicted_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "first_alarm_time_s": 83.001,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.0010000000000047748,
+          "expected_response_result_sha256": "7cd5d6feac2445e629dac7e355732859fcb2e133ddac77f494477d85ee45ebb6",
+          "expected_response_candidates": [
+            {
+              "fault_id": "ESH170:Stuck",
+              "score": 40.0,
+              "source": "DISCRETE_SENSOR_RECLASSIFICATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_NOT_PHYSICALLY_CORROBORATED"
+              ],
+              "source_component_ids": [
+                "ESH170",
+                "EY170"
+              ]
+            },
+            {
+              "fault_id": "FT520:Offset",
+              "score": 25.0,
+              "source": "CONTINUOUS_SECONDARY_AFTER_POSITION_RECLASSIFICATION",
+              "reason_codes": [
+                "INDEPENDENT_CONTINUOUS_HYPOTHESIS_RETAINED"
+              ],
+              "source_component_ids": [
+                "FT520"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 1
+        },
+        {
+          "case_id": "Exp_630_pb_t2ff",
+          "group_id": "fea940ec32d0b1e9fb992f0b5ed0f3e1b8f93e321b272f607bb6b4711d41b871",
+          "true_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "injection_time_s": 70.0,
+          "predicted_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "first_alarm_time_s": 70.001,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.0010000000000047748,
+          "expected_response_result_sha256": "97f29b7f98286d14d8d98bfd695c48aa9747f72e50006e2e6c5e02127a81f7c8",
+          "expected_response_candidates": [
+            {
+              "fault_id": "ESH141A:Stuck",
+              "score": 40.0,
+              "source": "DISCRETE_SENSOR_RECLASSIFICATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_NOT_PHYSICALLY_CORROBORATED"
+              ],
+              "source_component_ids": [
+                "ESH141A",
+                "EY141"
+              ]
+            },
+            {
+              "fault_id": "ESH144A:Stuck",
+              "score": 40.0,
+              "source": "DISCRETE_SENSOR_RECLASSIFICATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_NOT_PHYSICALLY_CORROBORATED"
+              ],
+              "source_component_ids": [
+                "ESH144A",
+                "EY144"
+              ]
+            },
+            {
+              "fault_id": "E140:Stuck",
+              "score": 25.0,
+              "source": "CONTINUOUS_SECONDARY_AFTER_POSITION_RECLASSIFICATION",
+              "reason_codes": [
+                "INDEPENDENT_CONTINUOUS_HYPOTHESIS_RETAINED"
+              ],
+              "source_component_ids": [
+                "E140"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 2
+        },
+        {
+          "case_id": "Exp_636_pb_t2f",
+          "group_id": "dc8ceb67c7e4980aee8ea6e37e17be734014b5c2465110fcfa084167950abe24",
+          "true_fault_ids": [
+            "E261:Stuck"
+          ],
+          "injection_time_s": 47.092,
+          "predicted_fault_ids": [
+            "E261:Stuck"
+          ],
+          "first_alarm_time_s": 47.5,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.40800000000000125,
+          "expected_response_result_sha256": "017efedb1fbef9e53a114cb992be545e0184471856fe51f0c8610b8763338b35",
+          "expected_response_candidates": [
+            {
+              "fault_id": "E261:Stuck",
+              "score": 25.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "E261"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_653_pb_t2",
+          "group_id": "3c80ba18d3e330efbcf52190cb8720f15f285201a81208cee4e36527d484019d",
+          "true_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "injection_time_s": 169.147,
+          "predicted_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "first_alarm_time_s": 203.003,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 33.855999999999995,
+          "expected_response_result_sha256": "c701a2d3a775d0522fbe02b5c0b167fcd43259091ebe2d8191f5810e3fb6ea05",
+          "expected_response_candidates": [
+            {
+              "fault_id": "LGT407:FailedOff",
+              "score": 30.0,
+              "source": "EXISTING_PHYSICAL_COMPONENT_CANDIDATE",
+              "reason_codes": [
+                "PHYSICAL_LOAD_CANDIDATE_PREFERRED_OVER_SENSOR_OFFSET"
+              ],
+              "source_component_ids": [
+                "LGT407"
+              ]
+            },
+            {
+              "fault_id": "TE507:Offset",
+              "score": 20.825081400725864,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "TE507"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_659_pb_t2",
+          "group_id": "b242cda4cef72a6ec5532649da0152852b1d31f2aa0079478eb79ab41873d471",
+          "true_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "injection_time_s": 92.964,
+          "predicted_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "first_alarm_time_s": 93.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.5370000000000061,
+          "expected_response_result_sha256": "01fae2bae09e087b7ddce13c6735edcd0f5fc82c58a7bf6dba94bf6704c9d1af",
+          "expected_response_candidates": [
+            {
+              "fault_id": "PMP420:FailedOff",
+              "score": 36.0,
+              "source": "DIRECT_EXPECTED_RESPONSE",
+              "reason_codes": [
+                "FLOW_TRANSMITTER_OPERATING_TO_FINAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "FT520",
+                "PMP420"
+              ]
+            },
+            {
+              "fault_id": "FT520:Stuck",
+              "score": 25.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "FT520"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_665_pb_t2ff",
+          "group_id": "ce7d881fbca210793160bd6222c0e49336a7ab28a2945f3dc1eb4b4204623144",
+          "true_fault_ids": [
+            "E281:Stuck",
+            "ST265:Offset"
+          ],
+          "injection_time_s": 124.0,
+          "predicted_fault_ids": [
+            "E281:Stuck"
+          ],
+          "first_alarm_time_s": 66.001,
+          "detection_timing_status": "EARLY_BEFORE_INJECTION",
+          "post_injection_delay_s": null,
+          "expected_response_result_sha256": "01ed657c9d7eaf3c20d594755b0766d3cdb75c8ffb3b8f492a92868c5a8470e5",
+          "expected_response_candidates": [
+            {
+              "fault_id": "E281:Stuck",
+              "score": 25.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "E281"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_667_pb_t2ff",
+          "group_id": "67ea98f4628cd4b40587cebbb4aa7b221fe23d52af8b54ff398cc2e2b9078fbe",
+          "true_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "injection_time_s": 95.0,
+          "predicted_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "first_alarm_time_s": 73.0,
+          "detection_timing_status": "EARLY_BEFORE_INJECTION",
+          "post_injection_delay_s": null,
+          "expected_response_result_sha256": "e7edcecd3346072fe9328bb202f98692c4345be27df8eb6e4ebea776d8e99e10",
+          "expected_response_candidates": [
+            {
+              "fault_id": "TE502:Stuck",
+              "score": 25.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "TE502"
+              ]
+            },
+            {
+              "fault_id": "IT167:Offset",
+              "score": 21.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "IT167"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_676_pb_t2",
+          "group_id": "a10d050ef27eb380509a684f08dd6899262a7e44b7d4143a936baa6107864fb7",
+          "true_fault_ids": [
+            "LGT400:FailedOff",
+            "LGT402:FailedOff"
+          ],
+          "injection_time_s": 158.639,
+          "predicted_fault_ids": [
+            "LGT401:FailedOff"
+          ],
+          "first_alarm_time_s": 159.002,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.36299999999999955,
+          "expected_response_result_sha256": "c8dbc31f751e1bdc43cec71ef774ae6fcd7d6e48041c9581cabdc37754a97f80",
+          "expected_response_candidates": [
+            {
+              "fault_id": "LGT401:FailedOff",
+              "score": 30.0,
+              "source": "EXISTING_PHYSICAL_COMPONENT_CANDIDATE",
+              "reason_codes": [
+                "PHYSICAL_LOAD_CANDIDATE_PREFERRED_OVER_SENSOR_OFFSET"
+              ],
+              "source_component_ids": [
+                "LGT401"
+              ]
+            },
+            {
+              "fault_id": "TE501:Offset",
+              "score": 20.79867437347252,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "TE501"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_682_pb_t2",
+          "group_id": "cb95078148dda06ddafd4592f3cb8fa3d9ec1b3f6fc51e7b3ba8a5bcde873bde",
+          "true_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "injection_time_s": 102.888,
+          "predicted_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "first_alarm_time_s": 103.001,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.11299999999999955,
+          "expected_response_result_sha256": "c2621bbc07defe71cfe3ab05dfc03e47eb6ae7dbe1349a6dac2ed7289aa21f34",
+          "expected_response_candidates": [
+            {
+              "fault_id": "EY172:StuckOpen",
+              "score": 42.0,
+              "source": "DISCRETE_PHYSICAL_CORROBORATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_WITH_MULTI_SENSOR_PHYSICAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "ESH172",
+                "EY172",
+                "IT167",
+                "XT167"
+              ]
+            },
+            {
+              "fault_id": "EY173:StuckOpen",
+              "score": 42.0,
+              "source": "DISCRETE_PHYSICAL_CORROBORATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_WITH_MULTI_SENSOR_PHYSICAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "ESH173",
+                "EY173",
+                "IT167",
+                "XT167"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        }
+      ]
+    },
+    "INTERNAL_REPLAY": {
+      "r26_metrics": {
+        "case_count": 14,
+        "fault_element_precision_micro": 0.5,
+        "fault_element_recall_micro": 0.4375,
+        "fault_element_f1_micro": 0.4666666666666667,
+        "component_precision_micro": 0.5714285714285714,
+        "component_recall_micro": 0.5,
+        "component_f1_micro": 0.5333333333333333,
+        "exact_fault_set_rate": 0.42857142857142855,
+        "faulty_case_any_fault_element_overlap_rate": 0.5,
+        "mean_predicted_fault_count": 1.0,
+        "early_first_alarm_case_count": 1,
+        "post_injection_first_alarm_case_count": 13,
+        "no_alarm_case_count": 0,
+        "post_injection_first_alarm_rate": 0.9285714285714286,
+        "median_post_injection_delay_s": 0.32800000000000296
+      },
+      "r27_metrics": {
+        "case_count": 14,
+        "fault_element_precision_micro": 0.75,
+        "fault_element_recall_micro": 0.75,
+        "fault_element_f1_micro": 0.75,
+        "component_precision_micro": 0.75,
+        "component_recall_micro": 0.75,
+        "component_f1_micro": 0.75,
+        "exact_fault_set_rate": 0.7857142857142857,
+        "faulty_case_any_fault_element_overlap_rate": 0.7857142857142857,
+        "mean_predicted_fault_count": 1.1428571428571428,
+        "early_first_alarm_case_count": 1,
+        "post_injection_first_alarm_case_count": 13,
+        "no_alarm_case_count": 0,
+        "post_injection_first_alarm_rate": 0.9285714285714286,
+        "median_post_injection_delay_s": 0.32800000000000296
+      },
+      "r26_case_rows": [
+        {
+          "case_id": "Exp_605_pb_fix_t2",
+          "group_id": "79b739c1ebe762282f2c0be9463f7f80acb4b15ad2b5dd4a3e67a89ced5edc11",
+          "true_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "injection_time_s": 37.438,
+          "predicted_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "first_alarm_time_s": 37.5,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.06199999999999761
+        },
+        {
+          "case_id": "Exp_606_pb_fix_t2",
+          "group_id": "b6de9e93cffed4daccf9b099c9c9a53fc87f2761b61a5aa7ed57f7d9d7d4a2b2",
+          "true_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "injection_time_s": 202.985,
+          "predicted_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "first_alarm_time_s": 203.003,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.01799999999997226
+        },
+        {
+          "case_id": "Exp_610_pb_fix_t2",
+          "group_id": "2c172172529dbe22d357a21d7ca7251bc96e0fd080532674100b7a9bfab5bf5a",
+          "true_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "injection_time_s": 95.243,
+          "predicted_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "first_alarm_time_s": 95.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.2580000000000098
+        },
+        {
+          "case_id": "Exp_614_pb_fix_t2",
+          "group_id": "38384661cbf6d2b2c74e227cb32864495e71fa0f4ba2078828602117441b81a5",
+          "true_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "injection_time_s": 63.06,
+          "predicted_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "first_alarm_time_s": 63.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.4409999999999954
+        },
+        {
+          "case_id": "Exp_616_pb_t2",
+          "group_id": "3c3c2afcbee18abb73d0566339542cfd597975e8ee7b2bb6862ebcde77ade16d",
+          "true_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "injection_time_s": 126.051,
+          "predicted_fault_ids": [
+            "E267:Offset"
+          ],
+          "first_alarm_time_s": 126.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.45000000000000284
+        },
+        {
+          "case_id": "Exp_620_pb_t2",
+          "group_id": "8c536fb9933fdbf05cbb2bb0d5c889108c69c46bc5a88acad6c179e1aec9601d",
+          "true_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "injection_time_s": 196.449,
+          "predicted_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "first_alarm_time_s": 196.502,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.05299999999999727
+        },
+        {
+          "case_id": "Exp_637_pb_t2f",
+          "group_id": "e83e016dd302e603546514121b025f33def54645b414256dee0dfd65437b071e",
+          "true_fault_ids": [
+            "E240:Stuck"
+          ],
+          "injection_time_s": 145.774,
+          "predicted_fault_ids": [
+            "E240:Stuck"
+          ],
+          "first_alarm_time_s": 146.002,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.22800000000000864
+        },
+        {
+          "case_id": "Exp_644_pb_t2f",
+          "group_id": "e969fbc3560dc61ed8ddf0c5a1a8f3e50f3c69473daecd33f3f92f07dce5a884",
+          "true_fault_ids": [
+            "IT267:Stuck"
+          ],
+          "injection_time_s": 142.52,
+          "predicted_fault_ids": [
+            "ST265:Offset"
+          ],
+          "first_alarm_time_s": 33.0,
+          "detection_timing_status": "EARLY_BEFORE_INJECTION",
+          "post_injection_delay_s": null
+        },
+        {
+          "case_id": "Exp_645_pb_t2f",
+          "group_id": "54e4a2b46fec6f070ea149c35ea9a13482435a84bb69f465b1a5d3c505d60ccc",
+          "true_fault_ids": [
+            "E265:Offset"
+          ],
+          "injection_time_s": 167.674,
+          "predicted_fault_ids": [
+            "E265:Stuck"
+          ],
+          "first_alarm_time_s": 168.002,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.32800000000000296
+        },
+        {
+          "case_id": "Exp_649_pb_t2f",
+          "group_id": "eeb81c09d12a5d32e33762a371af579171a072c31f89679d839b228fdf789ccd",
+          "true_fault_ids": [
+            "E235:Stuck"
+          ],
+          "injection_time_s": 157.104,
+          "predicted_fault_ids": [
+            "E240:Offset"
+          ],
+          "first_alarm_time_s": 157.502,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.39799999999999613
+        },
+        {
+          "case_id": "Exp_656_pb_t2",
+          "group_id": "8b2e5d88e3bfecd5e1af282321875dbaee8e41cdfb478b97b42ce6ea40808255",
+          "true_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "injection_time_s": 76.857,
+          "predicted_fault_ids": [
+            "ST515:Offset"
+          ],
+          "first_alarm_time_s": 77.001,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.14400000000000546
+        },
+        {
+          "case_id": "Exp_658_pb_t2",
+          "group_id": "99b794b999ea87a177cb5a78bb0350b4177e388f905cbb9d4fdca7df0c3baf25",
+          "true_fault_ids": [
+            "LGT481:FailedOff"
+          ],
+          "injection_time_s": 115.03,
+          "predicted_fault_ids": [
+            "IT167:Offset"
+          ],
+          "first_alarm_time_s": 115.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.47100000000000364
+        },
+        {
+          "case_id": "Exp_692_pb_t2",
+          "group_id": "80ca0220514d04d6fd6c7abeeb8d4d28c18fe5cf54088ad8528054463017199c",
+          "true_fault_ids": [
+            "LGT405:FailedOff",
+            "LGT406:FailedOff"
+          ],
+          "injection_time_s": 130.807,
+          "predicted_fault_ids": [
+            "TE507:Offset"
+          ],
+          "first_alarm_time_s": 131.502,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.6950000000000216
+        },
+        {
+          "case_id": "Exp_696_pb_t2",
+          "group_id": "86be81ece91737401bd5b030cecacf6c7f579f1c15f2fbaf0bff02ce46bf5f6c",
+          "true_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "injection_time_s": 118.039,
+          "predicted_fault_ids": [
+            "CB266:FailedOpen"
+          ],
+          "first_alarm_time_s": 118.502,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.46299999999999386
+        }
+      ],
+      "r27_case_rows": [
+        {
+          "case_id": "Exp_605_pb_fix_t2",
+          "group_id": "79b739c1ebe762282f2c0be9463f7f80acb4b15ad2b5dd4a3e67a89ced5edc11",
+          "true_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "injection_time_s": 37.438,
+          "predicted_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "first_alarm_time_s": 37.5,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.06199999999999761,
+          "expected_response_result_sha256": "2a9175f615646d95a2fcbc53d669fc9e33190a8816e98f13ec8bcce85a8c4f4a",
+          "expected_response_candidates": [
+            {
+              "fault_id": "EY175:StuckOpen",
+              "score": 42.0,
+              "source": "DISCRETE_PHYSICAL_CORROBORATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_WITH_MULTI_SENSOR_PHYSICAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "ESH175",
+                "EY175",
+                "IT167",
+                "XT167"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_606_pb_fix_t2",
+          "group_id": "b6de9e93cffed4daccf9b099c9c9a53fc87f2761b61a5aa7ed57f7d9d7d4a2b2",
+          "true_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "injection_time_s": 202.985,
+          "predicted_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "first_alarm_time_s": 203.003,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.01799999999997226,
+          "expected_response_result_sha256": "7fd1fbeeceb01712f24b408e1718bb270cc90fed5bfc6b6921f8044370384ecc",
+          "expected_response_candidates": [
+            {
+              "fault_id": "EY272:StuckOpen",
+              "score": 42.0,
+              "source": "DISCRETE_PHYSICAL_CORROBORATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_WITH_MULTI_SENSOR_PHYSICAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "ESH272",
+                "EY272",
+                "IT267",
+                "XT267"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_610_pb_fix_t2",
+          "group_id": "2c172172529dbe22d357a21d7ca7251bc96e0fd080532674100b7a9bfab5bf5a",
+          "true_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "injection_time_s": 95.243,
+          "predicted_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "first_alarm_time_s": 95.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.2580000000000098,
+          "expected_response_result_sha256": "64f10240625663045e73084632c14fee4056e6c2de00727b82475f0d59f876b8",
+          "expected_response_candidates": [
+            {
+              "fault_id": "CB262:FailedOpen",
+              "score": 42.0,
+              "source": "DISCRETE_PHYSICAL_CORROBORATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_WITH_MULTI_SENSOR_PHYSICAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "CB262",
+                "E261",
+                "ISH262",
+                "IT261"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_614_pb_fix_t2",
+          "group_id": "38384661cbf6d2b2c74e227cb32864495e71fa0f4ba2078828602117441b81a5",
+          "true_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "injection_time_s": 63.06,
+          "predicted_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "first_alarm_time_s": 63.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.4409999999999954,
+          "expected_response_result_sha256": "852189cdb79e2b540c380a885bcb7d9363db57acecfd19728c4e556611c2643d",
+          "expected_response_candidates": [
+            {
+              "fault_id": "CB280:FailedOpen",
+              "score": 43.0,
+              "source": "DISCRETE_PHYSICAL_CORROBORATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_WITH_MULTI_SENSOR_PHYSICAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "CB280",
+                "E281",
+                "ISH280",
+                "IT261",
+                "IT281"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_616_pb_t2",
+          "group_id": "3c3c2afcbee18abb73d0566339542cfd597975e8ee7b2bb6862ebcde77ade16d",
+          "true_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "injection_time_s": 126.051,
+          "predicted_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "first_alarm_time_s": 126.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.45000000000000284,
+          "expected_response_result_sha256": "92a5e5827d881b5915a1cefc91a4df7a0a5027a0417e9bd7e4c26de3d1316795",
+          "expected_response_candidates": [
+            {
+              "fault_id": "INV2:FailedOff",
+              "score": 27.0,
+              "source": "INVERTER_EXPECTED_RESPONSE",
+              "reason_codes": [
+                "INVERTER_ADJACENT_AC_COLLAPSE"
+              ],
+              "source_component_ids": [
+                "INV2",
+                "E265",
+                "ST265"
+              ]
+            },
+            {
+              "fault_id": "IT267:Offset",
+              "score": 21.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "IT267"
+              ]
+            },
+            {
+              "fault_id": "E267:Offset",
+              "score": 20.99909138355583,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "E267"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_620_pb_t2",
+          "group_id": "8c536fb9933fdbf05cbb2bb0d5c889108c69c46bc5a88acad6c179e1aec9601d",
+          "true_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "injection_time_s": 196.449,
+          "predicted_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "first_alarm_time_s": 196.502,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.05299999999999727,
+          "expected_response_result_sha256": "fed770f4b1ee70b6996d00c5a0ddd67a249687eb7102a4462afecc0b312ec3fa",
+          "expected_response_candidates": [
+            {
+              "fault_id": "EY341:StuckOpen",
+              "score": 43.0,
+              "source": "DISCRETE_PHYSICAL_CORROBORATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_WITH_MULTI_SENSOR_PHYSICAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "E142",
+                "E340",
+                "ESH341A",
+                "EY341",
+                "IT340"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_637_pb_t2f",
+          "group_id": "e83e016dd302e603546514121b025f33def54645b414256dee0dfd65437b071e",
+          "true_fault_ids": [
+            "E240:Stuck"
+          ],
+          "injection_time_s": 145.774,
+          "predicted_fault_ids": [
+            "E240:Stuck"
+          ],
+          "first_alarm_time_s": 146.002,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.22800000000000864,
+          "expected_response_result_sha256": "9eb2521fcebda946472bdbac2be939e34410359b14be484f12401f46d8aaf925",
+          "expected_response_candidates": [
+            {
+              "fault_id": "E240:Stuck",
+              "score": 25.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "E240"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_644_pb_t2f",
+          "group_id": "e969fbc3560dc61ed8ddf0c5a1a8f3e50f3c69473daecd33f3f92f07dce5a884",
+          "true_fault_ids": [
+            "IT267:Stuck"
+          ],
+          "injection_time_s": 142.52,
+          "predicted_fault_ids": [
+            "E265:Offset",
+            "ST265:Offset"
+          ],
+          "first_alarm_time_s": 33.0,
+          "detection_timing_status": "EARLY_BEFORE_INJECTION",
+          "post_injection_delay_s": null,
+          "expected_response_result_sha256": "85fd24625eb2acfdf6a945754ffb3592187617e4d297e39bac8ea8343a3a267c",
+          "expected_response_candidates": [
+            {
+              "fault_id": "E265:Offset",
+              "score": 21.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "E265"
+              ]
+            },
+            {
+              "fault_id": "ST265:Offset",
+              "score": 21.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "ST265"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_645_pb_t2f",
+          "group_id": "54e4a2b46fec6f070ea149c35ea9a13482435a84bb69f465b1a5d3c505d60ccc",
+          "true_fault_ids": [
+            "E265:Offset"
+          ],
+          "injection_time_s": 167.674,
+          "predicted_fault_ids": [
+            "E265:Offset"
+          ],
+          "first_alarm_time_s": 168.002,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.32800000000000296,
+          "expected_response_result_sha256": "f6571bbc393b94c46fe9796bc3b13bdf7d477e20d78f1f15317650b84c3e1a7f",
+          "expected_response_candidates": [
+            {
+              "fault_id": "E265:Offset",
+              "score": 21.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "E265"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_649_pb_t2f",
+          "group_id": "eeb81c09d12a5d32e33762a371af579171a072c31f89679d839b228fdf789ccd",
+          "true_fault_ids": [
+            "E235:Stuck"
+          ],
+          "injection_time_s": 157.104,
+          "predicted_fault_ids": [
+            "E235:Stuck"
+          ],
+          "first_alarm_time_s": 157.502,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.39799999999999613,
+          "expected_response_result_sha256": "33283c119c6bddab14158291edf094e928f5099218e1b3dd9cacca6423071a2b",
+          "expected_response_candidates": [
+            {
+              "fault_id": "E235:Stuck",
+              "score": 25.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "E235"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_656_pb_t2",
+          "group_id": "8b2e5d88e3bfecd5e1af282321875dbaee8e41cdfb478b97b42ce6ea40808255",
+          "true_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "injection_time_s": 76.857,
+          "predicted_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "first_alarm_time_s": 77.001,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.14400000000000546,
+          "expected_response_result_sha256": "74d78b1411fdae2098c458d956b6c42084108599ebfc052c1c95298556e20c44",
+          "expected_response_candidates": [
+            {
+              "fault_id": "FAN415:OverSpeed",
+              "score": 30.523809523809526,
+              "source": "DIRECT_EXPECTED_RESPONSE",
+              "reason_codes": [
+                "SPEED_TRANSMITTER_DIRECTIONAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "ST515",
+                "FAN415"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_658_pb_t2",
+          "group_id": "99b794b999ea87a177cb5a78bb0350b4177e388f905cbb9d4fdca7df0c3baf25",
+          "true_fault_ids": [
+            "LGT481:FailedOff"
+          ],
+          "injection_time_s": 115.03,
+          "predicted_fault_ids": [
+            "IT161:Offset"
+          ],
+          "first_alarm_time_s": 115.501,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.47100000000000364,
+          "expected_response_result_sha256": "d203d06a6a93f3d06b891dda2d4e564e9cfee38596b28ffc0d1120f7b08f1514",
+          "expected_response_candidates": [
+            {
+              "fault_id": "IT161:Offset",
+              "score": 20.507388765203906,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "IT161"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_692_pb_t2",
+          "group_id": "80ca0220514d04d6fd6c7abeeb8d4d28c18fe5cf54088ad8528054463017199c",
+          "true_fault_ids": [
+            "LGT405:FailedOff",
+            "LGT406:FailedOff"
+          ],
+          "injection_time_s": 130.807,
+          "predicted_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "first_alarm_time_s": 131.502,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.6950000000000216,
+          "expected_response_result_sha256": "62fb953dc043a433597e1e0c8b4cb13675ecd8fde0baad89f7308b54331815c6",
+          "expected_response_candidates": [
+            {
+              "fault_id": "LGT407:FailedOff",
+              "score": 30.0,
+              "source": "EXISTING_PHYSICAL_COMPONENT_CANDIDATE",
+              "reason_codes": [
+                "PHYSICAL_LOAD_CANDIDATE_PREFERRED_OVER_SENSOR_OFFSET"
+              ],
+              "source_component_ids": [
+                "LGT407"
+              ]
+            },
+            {
+              "fault_id": "TE507:Offset",
+              "score": 21.0,
+              "source": "CONTINUOUS_SENSOR_MODE_CONSISTENCY",
+              "reason_codes": [
+                "PERSISTENT_SHIFT_WITHOUT_SUFFIX_PLATEAU"
+              ],
+              "source_component_ids": [
+                "TE507"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        },
+        {
+          "case_id": "Exp_696_pb_t2",
+          "group_id": "86be81ece91737401bd5b030cecacf6c7f579f1c15f2fbaf0bff02ce46bf5f6c",
+          "true_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "injection_time_s": 118.039,
+          "predicted_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "first_alarm_time_s": 118.502,
+          "detection_timing_status": "POST_INJECTION_FIRST_ALARM",
+          "post_injection_delay_s": 0.46299999999999386,
+          "expected_response_result_sha256": "d8a8f0fb6f0556569dc1e441878699ef89ef369f077a2c2cf3b356aada21112c",
+          "expected_response_candidates": [
+            {
+              "fault_id": "CB266:FailedOpen",
+              "score": 43.0,
+              "source": "DISCRETE_PHYSICAL_CORROBORATION",
+              "reason_codes": [
+                "POSITION_STATE_CHANGE_WITH_MULTI_SENSOR_PHYSICAL_RESPONSE"
+              ],
+              "source_component_ids": [
+                "CB266",
+                "E267",
+                "ISH266",
+                "IT267",
+                "XT267"
+              ]
+            },
+            {
+              "fault_id": "ST516:Stuck",
+              "score": 24.0,
+              "source": "COINCIDENT_SECONDARY_STUCK_RESPONSE",
+              "reason_codes": [
+                "SUFFIX_PLATEAU_COINCIDENT_WITH_DISCRETE_EVENT"
+              ],
+              "source_component_ids": [
+                "ST516"
+              ]
+            }
+          ],
+          "reclassified_position_sensor_count": 0
+        }
+      ]
+    }
+  },
+  "combined_post_contact_development": {
+    "r26_metrics": {
+      "case_count": 25,
+      "fault_element_precision_micro": 0.5,
+      "fault_element_recall_micro": 0.38235294117647056,
+      "fault_element_f1_micro": 0.4333333333333333,
+      "component_precision_micro": 0.5384615384615384,
+      "component_recall_micro": 0.4117647058823529,
+      "component_f1_micro": 0.4666666666666667,
+      "exact_fault_set_rate": 0.36,
+      "faulty_case_any_fault_element_overlap_rate": 0.48,
+      "mean_predicted_fault_count": 1.04,
+      "early_first_alarm_case_count": 3,
+      "post_injection_first_alarm_case_count": 21,
+      "no_alarm_case_count": 1,
+      "post_injection_first_alarm_rate": 0.84,
+      "median_post_injection_delay_s": 0.34499999999999886
+    },
+    "r27_metrics": {
+      "case_count": 25,
+      "fault_element_precision_micro": 0.84375,
+      "fault_element_recall_micro": 0.7941176470588235,
+      "fault_element_f1_micro": 0.8181818181818182,
+      "component_precision_micro": 0.84375,
+      "component_recall_micro": 0.7941176470588235,
+      "component_f1_micro": 0.8181818181818182,
+      "exact_fault_set_rate": 0.8,
+      "faulty_case_any_fault_element_overlap_rate": 0.84,
+      "mean_predicted_fault_count": 1.28,
+      "early_first_alarm_case_count": 3,
+      "post_injection_first_alarm_case_count": 21,
+      "no_alarm_case_count": 1,
+      "post_injection_first_alarm_rate": 0.84,
+      "median_post_injection_delay_s": 0.34499999999999886
+    }
+  },
+  "seen_competition_or_rematch_regenerated": false,
+  "agent_required": false,
+  "legacy_algorithm_retained": true,
+  "runtime_default_changed": false,
+  "status": "POST_CONTACT_DEVELOPMENT_ALGORITHM_AUDIT_ONLY",
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R27 rules were developed after seeing DXC09 Sample development outcomes, including the prior INTERNAL_REPLAY. Metrics are remediation evidence only. Competition/Rematch are not consumed and the legacy diagnostic branch remains available.",
+  "receipt_sha256": "f4b96e55aa519007c2d6e278e6a12ab6aa8cd6b7a2744118e3739f7f936e8549"
+}

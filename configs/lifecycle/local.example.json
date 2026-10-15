@@ -1,0 +1,5 @@
+{
+  "schema_version": "astrograph-lifecycle-policy.v1",
+  "approved_reviewers": ["REPLACE_WITH_EXPERT_ID"],
+  "permitted_document_roots": ["/absolute/path/to/reviewed-document-library"]
+}

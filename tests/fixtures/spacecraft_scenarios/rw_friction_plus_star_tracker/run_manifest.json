@@ -1,0 +1,36 @@
+{
+  "schema_version": "phm.minimal_runtime.run.v1",
+  "scenario": "rw_friction_plus_star_tracker",
+  "duration_s": 120.0,
+  "integration_step_s": 1.0,
+  "seed": 20260719,
+  "event_count": 2,
+  "active_event_rows": 79,
+  "row_count": 121,
+  "events": [
+    {
+      "id": "reaction_wheel_friction_increase",
+      "category": "degradation",
+      "effect": "rw_friction_degradation",
+      "target": "reaction_wheel",
+      "start_s": 24.0,
+      "duration_s": 66.0,
+      "parameters": {
+        "wheel_index": 0,
+        "drag_nms": 0.015
+      }
+    },
+    {
+      "id": "star_tracker_dropout",
+      "category": "fault",
+      "effect": "star_tracker_dropout",
+      "target": "star_tracker",
+      "start_s": 36.0,
+      "duration_s": 66.0,
+      "parameters": {}
+    }
+  ],
+  "runtime": "Basilisk official modules + project-native SysModel in one scheduler",
+  "context_of_use": "E0 engineering synthetic whole-spacecraft PHM simulation",
+  "claim_boundary": "Not flight calibrated; no RUL or flight-grade diagnostic claim"
+}

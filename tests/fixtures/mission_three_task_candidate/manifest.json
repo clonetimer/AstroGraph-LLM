@@ -1,0 +1,42 @@
+{
+  "schema_version": "astrograph-agent-tcn-candidate.v1",
+  "architecture": "existing_shared_residual_tcn",
+  "width": 4,
+  "window_size": 8,
+  "channel_names": [
+    "sensor.x",
+    "sensor.y"
+  ],
+  "channel_units": [
+    "1",
+    "1"
+  ],
+  "fault_ids": [
+    "F1",
+    "F2"
+  ],
+  "component_ids": [
+    "C1",
+    "C2"
+  ],
+  "fault_to_component": {
+    "F1": "C1",
+    "F2": "C2"
+  },
+  "mean": [
+    0.6547225713729858,
+    -0.6762296557426453
+  ],
+  "scale": [
+    0.9245975017547607,
+    0.9505452513694763
+  ],
+  "weights_sha256": "4a75410727d6ca095ea028612f23914484b832c305162c3abc1726f7ba9fcbdc",
+  "training_manifest_sha256": "5deb2cb9d153772c1b82cd3931a9a01bd55c83e1f790f9298349fbf249495ede",
+  "training_data_sha256": "0dbacc39312ccea11b4e14bcf32bc1e3883d811efceef4cec0ef364d39b94d6e",
+  "status": "REVIEW_REQUIRED",
+  "calibrated": false,
+  "production_admitted": false,
+  "initial_state_sha256": "a0703e91633b9a56857254be0726a73d6cc093552da4969720cca0cc2634fd4d",
+  "final_state_sha256": "8b3944ce2c26d9e19c01fc0ec37b2c511a7a6bccd5acdd495973468a54a130ac"
+}

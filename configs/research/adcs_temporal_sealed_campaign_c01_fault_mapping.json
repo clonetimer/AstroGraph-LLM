@@ -1,0 +1,108 @@
+{
+  "campaign_id": "ADCS-SEALED-TEMPORAL-C01-20260831",
+  "claim_boundary": "One-to-one temporal evaluation mapping. MECHANISM_EQUIVALENT mappings do not establish ontology identity outside this campaign.",
+  "fault_universe_size": 14,
+  "mapping_sha256": "f74121e024be59606ad38e266be714131d0f53772d878e35268eb417a18caf1a",
+  "mappings": [
+    {
+      "diagnostic_class": "adcs_control_loop_failure",
+      "generator_condition_id": "adcs_control_loop_failure",
+      "rationale": "Subsystem control-command authority loss.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_gyro_bias_step",
+      "generator_condition_id": "adcs_gyro_bias_step",
+      "rationale": "One-axis gyro step bias.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_imu_axis_dropout",
+      "generator_condition_id": "adcs_imu_axis_dropout",
+      "rationale": "Per-axis IMU dropout.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_imu_gyro_noise_amplification",
+      "generator_condition_id": "adcs_gyro_noise_increase",
+      "rationale": "Gyro noise scale amplification.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_imu_total_output_zero",
+      "generator_condition_id": "adcs_imu_signal_loss",
+      "rationale": "Generator signal loss forces all IMU outputs to zero.",
+      "runtime_exposed": false,
+      "semantic_relation": "MECHANISM_EQUIVALENT"
+    },
+    {
+      "diagnostic_class": "adcs_rw_jamming",
+      "generator_condition_id": "adcs_rw_jamming",
+      "rationale": "Reaction-wheel braking/jamming.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_rw_speed_sensor_fault",
+      "generator_condition_id": "adcs_rw_speed_sensor_fault",
+      "rationale": "Tachometer bias fault.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_rw_torque_path_open",
+      "generator_condition_id": "adcs_rw_motor_failure",
+      "rationale": "Motor-open condition removes wheel torque authority.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_star_solution_constant_bias",
+      "generator_condition_id": "adcs_star_tracker_misalignment",
+      "rationale": "Fixed star-tracker mounting misalignment induces a constant attitude-solution bias.",
+      "runtime_exposed": false,
+      "semantic_relation": "MECHANISM_EQUIVALENT"
+    },
+    {
+      "diagnostic_class": "adcs_star_solution_unavailable",
+      "generator_condition_id": "adcs_star_tracker_signal_loss",
+      "rationale": "Star solution unavailable through signal loss.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_star_tracker_stuck_at_last",
+      "generator_condition_id": "adcs_star_tracker_stuck_at_last",
+      "rationale": "Last valid star solution is held.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_sun_sensor_cell_failure",
+      "generator_condition_id": "adcs_sun_sensor_cell_failure",
+      "rationale": "Cell-level sun-sensor failure.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_sun_sensor_saturation",
+      "generator_condition_id": "adcs_sun_sensor_saturation",
+      "rationale": "Sun-sensor output saturation.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    },
+    {
+      "diagnostic_class": "adcs_sun_vector_unavailable",
+      "generator_condition_id": "adcs_sun_sensor_signal_loss",
+      "rationale": "Sun vector unavailable through signal loss.",
+      "runtime_exposed": false,
+      "semantic_relation": "EXACT"
+    }
+  ],
+  "runtime_exposed": false,
+  "schema_version": "astrograph-adcs-sealed-generator-fault-mapping.v1"
+}

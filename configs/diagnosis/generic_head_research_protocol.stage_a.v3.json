@@ -1,0 +1,82 @@
+{
+  "schema_version": "astrograph-generic-head-research-protocol.stage-a.v3",
+  "protocol_id": "astrograph.generic-heads.p017.stage-a.switching-physics",
+  "protocol_version": "3.0.0",
+  "authorization": {
+    "path": "protocols/acceptance/p017_stage_a_timer_attestation.json",
+    "sha256": "478570c6363c500bfcd21b07417244c31e2c5a977841caa81795534cdf066633"
+  },
+  "retained_stage_a_failures": [
+    {
+      "research_id": "STAGE_A_V1_GAUSSIAN_DENSITY",
+      "evidence_sha256": "c4d78e01264016d6e39adeb38bb646b5e07b3902d99b80264ebb502c7beda413",
+      "status": "FAIL"
+    },
+    {
+      "research_id": "STAGE_A_V2_NONLINEAR_SEPARABILITY",
+      "implementation_sha256": "2af2a28f0569fc30ab92c8167a116976a5e4a3898467c5f0a40b1ee9ae73fb1c",
+      "evidence_sha256": "85c3ccc1bf10d93781542f554a480f42da843c5bb12694e86d0c0d94c5afcda8",
+      "status": "FAIL"
+    }
+  ],
+  "research_question": "Can direct physical-hypothesis evidence distinguish NORMAL, CAPACITY_LOSS, DRIFT and LEAKAGE without the failed 22-dimensional classifier representation?",
+  "method_role": "DEVELOPMENT_CALIBRATION_SWITCHING_PHYSICS_RESEARCH_NOT_A_PRODUCTION_CANDIDATE",
+  "development_seed": 20310818,
+  "calibration_seed": 20310819,
+  "technical_validation_seed": null,
+  "permanently_exhausted_validation_seeds": [20280820, 20290820, 20300820],
+  "formal_open_set_classes_generated": [],
+  "hypotheses": {
+    "NORMAL": "One global physical coefficient vector.",
+    "CAPACITY_LOSS": "Global physical coefficients plus a positive post-change coefficient shift for every physical design column.",
+    "LEAKAGE": "Global physical coefficients plus one negative post-change constant disturbance.",
+    "DRIFT": "Global physical coefficients plus one negative post-change linear-ramp disturbance."
+  },
+  "equation_inputs": {
+    "storage.energy_buffer": "d(state.energy_fraction)/dt = beta_power * midpoint(power.exchange) + disturbance",
+    "thermal.lumped_capacity": "d(state.temperature)/dt = beta_heat * midpoint(heat.exchange) + beta_loss * -(midpoint(state)-midpoint(ambient)) + disturbance"
+  },
+  "change_point_grid": [0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8],
+  "fit": {
+    "solver": "NUMPY_LINEAR_LEAST_SQUARES",
+    "classification_score": "BIC_EQUALS_N_LOG_SSE_OVER_N_PLUS_K_LOG_N",
+    "selection": "MINIMUM_BIC_ACROSS_HYPOTHESES_AND_ALLOWED_CHANGE_POINTS",
+    "sse_floor": 1e-18,
+    "sign_constraints": {
+      "CAPACITY_LOSS_POST_PARAMETER_SHIFT": "ALL_STRICTLY_POSITIVE",
+      "LEAKAGE_POST_CONSTANT": "STRICTLY_NEGATIVE",
+      "DRIFT_POST_RAMP": "STRICTLY_NEGATIVE"
+    },
+    "invalid_constraint_score": "POSITIVE_INFINITY"
+  },
+  "adequacy_and_open_set_design": {
+    "score_calibration": "LOG_OF_RESIDUAL_MEAN_SQUARE_FOR_THE_SAME_HYPOTHESIS",
+    "score_runtime": "LOG_OF_RESIDUAL_MEAN_SQUARE_FOR_THE_SAME_HYPOTHESIS",
+    "alpha": 0.02,
+    "threshold_fit_split": "DEVELOPMENT",
+    "evaluation_split": "CALIBRATION",
+    "prediction_set": "Include each hypothesis whose adequacy score is at or below its class-and-archetype development quantile.",
+    "ood": "Prediction set is empty.",
+    "reachability_test": "A deterministic alternating derivative stress sequence with amplitude 1000 must exceed every finite class threshold for both archetypes.",
+    "formal_open_set_performance_claimed_in_stage_a": false
+  },
+  "exit_checks": {
+    "known_classification_accuracy": 0.9,
+    "normal_detection_accuracy": 0.98,
+    "each_archetype_known_classification_accuracy": 0.9,
+    "known_retention": 0.98,
+    "open_set_rule_reachable_for_each_archetype": true,
+    "failed_case_count": 0,
+    "maximum_runtime_seconds": 600
+  },
+  "prohibited_actions": [
+    "Use Stage-A v2 validation-like results to lower any threshold",
+    "Generate BIAS, INTERMITTENT or STUCK",
+    "Read or regenerate exhausted validation seeds",
+    "Create a technical-validation seed",
+    "Write or bind a production artifact",
+    "Call this research candidate 4",
+    "Claim open-set rejection performance from the algebraic reachability test"
+  ],
+  "claim_boundary": "Stage-A physical identifiability and rule-reachability evidence only; no production fit, open-set performance, validation, Stage B or G3 claim."
+}

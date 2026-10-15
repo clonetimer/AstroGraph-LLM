@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AstroGraph 故障分析与知识工程平台</title>
+<link rel="stylesheet" href="/platform/assets/v0.21.1/platform_ui.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v8l-7 4-7-4V7l7-4z" stroke="#79baff" stroke-width="1.5"/><circle cx="12" cy="11" r="3" stroke="#cfe6ff" stroke-width="1.5"/><path d="M12 14v3" stroke="#cfe6ff" stroke-width="1.5"/></svg></div><div><div class="brand-title">AstroGraph</div><div class="brand-sub">故障分析与知识工程平台</div></div></div>
+    <div class="nav-section">日常工作</div>
+    <nav class="nav">
+      <button class="nav-btn" data-view="dashboard"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13h6V4H4v9zm10 7h6V11h-6v9zM4 20h6v-3H4v3zm10-13h6V4h-6v3z" stroke="currentColor" stroke-width="1.5"/></svg>分析总览</button>
+      <button class="nav-btn" data-view="new"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>新建故障分析</button>
+      <button class="nav-btn" data-view="result"><svg viewBox="0 0 24 24" fill="none"><path d="M4 17l4-4 3 2 5-7 4 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 5v14h16" stroke="currentColor" stroke-width="1.5"/></svg>原因与处置报告</button>
+      <button class="nav-btn" data-view="history"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>任务记录</button>
+    </nav>
+    <div class="nav-section">知识中心</div>
+    <nav class="nav">
+      <button class="nav-btn" data-view="knowledge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4.5h10.5L19 8v11.5H5v-15zM15.5 4.5V8H19" stroke="currentColor" stroke-width="1.6"/></svg>内置知识图谱</button>
+      <button class="nav-btn" data-view="graph-build"><svg viewBox="0 0 24 24" fill="none"><circle cx="6" cy="7" r="2" stroke="currentColor"/><circle cx="18" cy="7" r="2" stroke="currentColor"/><circle cx="12" cy="18" r="2" stroke="currentColor"/><path d="M8 7h8M7 9l4 7m6-7-4 7" stroke="currentColor" stroke-width="1.5"/></svg>文献图谱构建</button>
+    </nav>
+    <details class="nav-more" id="nav-knowledge-more"><summary>专家管理 <span>审核 / 发布</span></summary><nav class="nav nav-nested">
+      <button class="nav-btn" data-view="graph-review">人工复核与知识审核</button>
+      <button class="nav-btn" data-view="graph-release">知识版本与发布</button>
+    </nav></details>
+    <div class="nav-section">系统设置</div>
+    <nav class="nav">
+      <button class="nav-btn" data-view="system"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.6"/></svg>大模型配置</button>
+      <button class="nav-btn" data-view="engine"><svg viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 16h18M8 4v8M16 12v8" stroke="currentColor" stroke-width="1.6"/></svg>检索与多模态配置</button>
+    </nav>
+    <details class="nav-more" id="nav-advanced-more"><summary>高级工具 <span>Agent / Bench</span></summary><nav class="nav nav-nested">
+      <button class="nav-btn" data-view="agent">Agent 调查</button>
+      <button class="nav-btn" data-view="bench">Bench · 工程验证</button>
+    </nav></details>
+    <div class="sidebar-foot"><div><span class="online-dot"></span><strong id="side-runtime">平台连接中</strong></div></div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <div class="top-title" id="top-title">工作台</div>
+      <div class="top-actions">
+        <a class="btn small" href="/platform/mission" style="text-decoration:none">新版中文智能工作台 →</a>
+        <button class="btn small command-btn" type="button" id="command-open" aria-haspopup="dialog">命令 / 搜索 <span class="mono">Ctrl K</span></button>
+        <div class="font-control" aria-label="字体大小">
+          <button type="button" id="font-dec" aria-label="减小字体">A−</button>
+          <input id="font-range" type="range" min="90" max="160" step="5" value="110" aria-label="字体大小百分比">
+          <output id="font-output" for="font-range">110%</output>
+          <button type="button" id="font-inc" aria-label="增大字体">A+</button>
+          <button type="button" id="font-reset" aria-label="重置字体">重置</button>
+        </div>
+        <div class="top-meta"><span id="current-job">尚未选择任务</span><span><span class="online-dot"></span>本地服务</span></div>
+      </div>
+    </header>
+    <main class="main">
+      <section class="view" id="view-dashboard">
+        <div class="ops-screen" id="ops-screen">
+          <div class="ops-header">
+            <div class="ops-header-side"><span class="ops-system-dot"></span><span>AstroGraph PHM</span><span class="ops-muted" id="dashboard-filter-note">全部任务</span></div>
+            <div class="ops-title-wrap"><div class="ops-title">航天器故障原因分析与知识决策中心</div><div class="ops-title-line"></div></div>
+            <div class="ops-header-actions"><span class="ops-clock" id="dashboard-clock">--:--:--</span><select class="ops-select" id="dashboard-auto" aria-label="自动刷新频率"><option value="0">手动刷新</option><option value="15">15 秒刷新</option><option value="30">30 秒刷新</option><option value="60">60 秒刷新</option></select><button class="ops-button hidden" id="dashboard-clear-filter" type="button">清除筛选</button><button class="ops-button" id="refresh-dashboard" type="button">刷新</button><button class="ops-button accent" id="dashboard-bigscreen" type="button">大屏模式</button></div>
+          </div>
+
+          <div class="ops-kpis" aria-label="按任务状态筛选">
+            <button type="button" class="ops-kpi active" data-dash-status="all"><span>近期任务</span><strong id="kpi-total">—</strong><small>最近 100 个任务窗口</small></button>
+            <button type="button" class="ops-kpi" data-dash-status="REVIEW"><span>需复核</span><strong id="kpi-review">—</strong><small>证据不足 / 拒判 / 未决</small></button>
+            <button type="button" class="ops-kpi" data-dash-status="ACTIVE"><span>执行中</span><strong id="kpi-active">—</strong><small>排队 + 执行</small></button>
+            <button type="button" class="ops-kpi" data-dash-status="SUCCEEDED"><span>执行完成</span><strong id="kpi-success">—</strong><small>不等于已形成诊断</small></button>
+            <button type="button" class="ops-kpi" data-dash-status="FAILED"><span>执行失败</span><strong id="kpi-failed">—</strong><small>需要检查任务错误</small></button>
+          </div>
+
+          <div class="ops-grid">
+            <section class="ops-panel ops-attention-panel">
+              <div class="ops-panel-head"><div><strong>当前需处理</strong><span>人工复核、证据未决与执行失败</span></div><span class="ops-live">优先</span></div>
+              <div id="dashboard-attention" class="ops-task-stream"><div class="ops-empty">正在读取待处理任务…</div></div>
+            </section>
+
+            <section class="ops-panel ops-latest-panel">
+              <div class="ops-panel-head"><div><strong>最近分析</strong><span>最近完成的分析任务</span></div><span class="ops-live">实时</span></div>
+              <div id="dashboard-latest" class="ops-latest"><div class="ops-empty">尚无已完成诊断任务</div></div>
+            </section>
+
+            <section class="ops-panel ops-active-panel">
+              <div class="ops-panel-head"><div><strong>执行中任务</strong><span>排队与后台执行</span></div></div>
+              <div id="dashboard-active" class="ops-task-stream"><div class="ops-empty">当前没有执行中任务</div></div>
+            </section>
+
+            <section class="ops-panel ops-recent-panel">
+              <div class="ops-panel-head"><div><strong>最近任务</strong><span>执行状态与诊断处置分开显示</span></div><input class="ops-search" id="dashboard-search" placeholder="任务号 / 故障 / 说明" aria-label="筛选最近任务"></div>
+              <div class="ops-task-stream" id="dashboard-recent"><div class="ops-empty">正在读取任务…</div></div>
+            </section>
+
+            <section class="ops-panel ops-service-panel">
+              <div class="ops-panel-head"><div><strong>平台态势</strong><span>服务与增强能力</span></div><button class="ops-button" type="button" data-view-jump="system">配置</button></div>
+              <div class="ops-service-list" id="dashboard-services"><div class="ops-empty">正在读取服务状态…</div></div>
+              <div class="ops-panel-foot"><button class="ops-button accent wide" type="button" data-view-jump="new">发起故障分析</button></div>
+            </section>
+          </div>
+
+          <details class="ops-secondary-details">
+            <summary>平台统计与工程监控</summary>
+            <div class="ops-secondary-grid">
+              <section class="ops-panel ops-trend-panel">
+                <div class="ops-panel-head"><div><strong>任务趋势</strong><span>近 7 日实际任务</span></div></div>
+                <div class="ops-chart" id="dashboard-trend"></div>
+              </section>
+              <section class="ops-panel ops-mode-panel">
+                <div class="ops-panel-head"><div><strong>策略使用分布</strong><span>近期任务工作模式</span></div></div>
+                <div class="ops-mode-wrap"><div class="donut" id="mode-donut"><div class="donut-center"><span id="mode-donut-total">0<br>任务</span></div></div><div class="mode-legend" id="mode-legend"></div></div>
+              </section>
+              <section class="ops-panel ops-fault-panel">
+                <div class="ops-panel-head"><div><strong>候选出现次数</strong><span>任务结果统计，不代表真实故障发生率</span></div></div>
+                <div id="dashboard-faults" class="ops-bars"><div class="ops-empty">尚无候选统计</div></div>
+              </section>
+            </div>
+          </details>
+          <div class="ops-footer"><span>数据时间 <strong id="dashboard-generated-at">—</strong></span><span>所有指标来自平台任务存储；不填充模拟健康度。</span></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-new">
+        <div class="page-heading"><div><h1>新建故障分析</h1></div></div>
+        <div class="ops-workflow ops-wizard" id="ops-wizard" aria-label="新建诊断步骤"><div class="ops-workflow-step active" data-ops-step="1"><strong>1</strong><span>材料</span></div><div class="ops-workflow-step" data-ops-step="2"><strong>2</strong><span>输入检查</span></div><div class="ops-workflow-step" data-ops-step="3"><strong>3</strong><span>生成分析</span></div></div>
+        <div class="grid-2 new-task-grid">
+          <div class="card card-pad new-task-primary">
+            <label class="field-group task-box"><span style="display:block;font-weight:690;margin-bottom:6px">任务目标</span><textarea id="task">根据已有诊断结果、运行日志和参考文献，分析可能的故障原因，提供处置建议、验证步骤和可追溯引用。</textarea></label>
+            <div class="field-group" style="margin-bottom:12px"><label for="input-flow">分析入口</label><select class="field" id="input-flow"><option value="review" selected>诊断结果 + 日志 + 参考文献（新需求）</option><option value="legacy">原始遥测 / 旧版结构化诊断（兼容入口）</option></select><small class="card-sub">新入口不需要原始遥测；每类至少上传一份，并在下方确认文件角色。是否可执行以后端预检为准。</small></div>
+            <div class="field-group" style="margin-bottom:12px"><label for="equipment-scope">设备型号/构型标识（可选）</label><input class="field" id="equipment-scope" placeholder="例如 SAT-A_ADCS_V2（需与已审案例完全一致）" maxlength="80"><small class="card-sub">仅用于同型号已审核知识检索；留空则不跨型号检索历史案例和文献，不影响本次分析。</small></div>
+            <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="上传诊断结果、运行日志和参考文献"><strong>拖入诊断结果、日志报告、参考文献</strong><span>JSON / CSV / LOG / TXT / MD / PDF / DOCX；旧版支持 ZIP / YAML</span><input class="file-input" id="file-input" type="file" multiple accept=".json,.csv,.zip,.log,.pdf,.docx,.txt,.md,.yaml,.yml"></div>
+            <div class="file-list" id="file-list"></div>
+            <div class="ops-section"><div class="card-title">诊断模式</div><div class="ops-mode-aliases" id="ops-mode-aliases"><div class="ops-empty">等待服务器返回可用诊断模式。</div></div></div>
+            <details class="advanced-settings">
+              <summary id="new-advanced-summary">高级诊断设置</summary>
+              <div class="advanced-settings-body"><div class="cap-action"><div class="card-title">手动指定调查策略</div><button class="btn small" type="button" id="mode-help">查看模式差异</button></div><div class="mode-segment" id="new-mode-segment"><div class="empty">正在读取模式…</div></div></div>
+            </details>
+            <div class="run-bar"><div class="run-note" id="run-note">请上传诊断结果、日志报告与参考文献，各至少一份。</div><div class="page-actions"><button class="btn" id="preflight-btn">校验输入</button><button class="btn primary" id="start-btn" disabled>开始分析</button></div></div>
+          </div>
+          <div class="card card-pad new-task-side">
+            <div class="card-title">输入与执行状态</div>
+            <div class="actual-checks" id="input-checks"></div>
+            <div class="divider"></div><div class="card-title">服务器识别结果</div><div id="ops-recognized-inputs" class="ops-recognized-inputs"><div class="ops-empty">等待服务器识别输入；浏览器不会猜测数据类型。</div></div>
+            <div class="divider"></div>
+            <div class="card-title">诊断可执行性预检</div>
+            <div class="card-sub">后端校验三类材料的文件角色、完整性、可解析文本和支持能力；不会从文件名猜测故障原因。</div>
+            <div class="preflight-box" id="preflight-result"><div class="empty">尚未校验输入。</div></div>
+            <details class="advanced-settings">
+              <summary>高级 · 当前策略允许的工具</summary>
+              <div class="advanced-settings-body"><div class="cap-action"><div class="card-title">受控工具</div><button class="btn small" type="button" data-view-jump="agent">管理工具</button></div><div class="tool-chips" id="selected-mode-tools" style="margin-top:12px"></div></div>
+            </details>
+          </div>
+        </div>
+        <div class="card card-pad job-runtime-panel" id="active-job-panel" hidden>
+          <div class="cap-action"><div><div class="card-title">当前任务执行状态</div><div class="card-sub mono" id="active-job-id">—</div></div><div class="job-runtime-actions"><button class="btn small" type="button" id="refresh-job-diagnostics">刷新状态</button><button class="btn small" type="button" id="retry-job" hidden>重试当前任务</button><button class="btn small" type="button" id="open-job-result" hidden>打开结果</button></div></div>
+          <div class="job-runtime-grid"><div class="job-runtime-cell"><span>执行状态</span><strong id="jobdiag-status">—</strong></div><div class="job-runtime-cell"><span>执行阶段</span><strong id="jobdiag-stage">—</strong></div><div class="job-runtime-cell"><span>后台执行器</span><strong id="jobdiag-executor">—</strong></div><div class="job-runtime-cell"><span>调查增强</span><strong id="jobdiag-llm">—</strong></div></div>
+          <div class="ops-workflow" id="ops-runtime-workflow"><div class="ops-empty">后端尚未返回执行阶段。</div></div>
+          <div class="job-error" id="jobdiag-error" hidden></div><pre class="job-log" id="jobdiag-log" hidden></pre>
+        </div>
+      </section>
+
+      <section class="view" id="view-progress">
+        <div class="card progress-shell"><div class="spinner" id="progress-spinner"></div><div class="progress-title" id="progress-title">正在准备任务</div><div class="progress-sub" id="progress-sub">校验并上传输入</div><div class="upload-progress"><div id="progress-bar" style="width:8%"></div></div><div class="status-log" id="status-log"></div><div class="progress-actions" id="progress-actions" hidden><button class="btn" type="button" id="progress-back">查看任务详情</button><button class="btn primary" type="button" id="progress-retry">重试任务</button></div></div>
+      </section>
+
+      <section class="view" id="view-result">
+        <div class="page-heading"><div><h1>原因与处置报告</h1><p id="result-subtitle">尚未选择分析任务。</p></div><div class="page-actions"><button class="btn" id="copy-job">复制任务号</button><a class="btn" id="md-link" target="_blank" rel="noreferrer">导出报告</a><button class="btn primary" data-view-jump="new">新建分析</button></div></div>
+        <div id="result-content"><div class="empty">尚无诊断报告。请先发起诊断或从任务记录打开历史任务。</div></div>
+        <details class="trace card card-pad" style="margin-top:18px"><summary>高级追溯 · 完整结构化报告</summary><pre id="raw-json">尚无报告</pre></details>
+      </section>
+
+      <section class="view" id="view-history">
+        <div class="page-heading"><div><h1>历史分析任务</h1></div><button class="btn" id="refresh-history">刷新</button></div>
+        <div class="card card-pad"><div class="history-list" id="history-list"><div class="empty">正在读取任务…</div></div></div>
+      </section>
+
+      <section class="view" id="view-agent">
+        <div class="page-heading"><div><h1>Agent 调查</h1><p>调用受批准的调查工具；Probe 结果不改变正式 Evidence、诊断或发布状态。</p></div><div class="page-actions"><button class="btn" id="refresh-agent">刷新</button></div></div>
+        <div class="card card-pad">
+          <div class="mode-toolbar"><div class="card-title">下一任务模式</div><div class="mode-segment" id="mode-grid"><div class="empty">正在读取 Agent…</div></div><button class="btn small mode-help" type="button" id="agent-mode-help">模式详情</button></div>
+          <details class="advanced-settings"><summary>高级诊断设置</summary><div class="advanced-settings-body"><div class="card-sub">扩展排查属于高级模式，仅在明确需要探索性调查时选择。</div><div class="mode-segment" id="agent-advanced-mode-segment"></div></div></details>
+        </div>
+        <div class="card card-pad" style="margin-top:16px">
+          <div class="cap-action"><div class="card-title">工具</div><div class="quick-status"><span class="badge info" id="tool-count">0</span></div></div>
+          <div class="tool-workspace" style="margin-top:14px">
+            <div class="tool-sidebar"><div class="tool-search"><input class="field" id="tool-search" placeholder="搜索工具名称或用途" aria-label="搜索 Agent 工具"></div><div class="tool-categories" id="tool-categories"></div><div class="plugin-bar"><div class="plugin-status" id="plugin-status">插件状态读取中…</div><div class="plugin-actions"><button class="btn small" type="button" id="plugin-manage">插件管理</button><button class="btn small" type="button" id="plugin-reload">热加载</button></div></div></div>
+            <div class="tool-list" id="agent-tools"><div class="empty">正在读取工具…</div></div>
+          </div>
+        </div>
+        <div id="agent-live-panels" class="execution-shell dynamic-panel" hidden>
+          <div class="grid-even">
+            <div class="card card-pad" id="agent-execution-card"><div class="cap-action"><div class="card-title">最近执行</div><span class="badge info" id="agent-execution-summary"></span></div><div id="agent-execution" style="margin-top:10px"></div></div>
+            <div class="card card-pad" id="agent-investigation-card"><div class="card-title">调查 / 探索</div><div id="agent-investigation" style="margin-top:10px"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-knowledge">
+        <div class="page-heading"><div><h1>内置知识图谱</h1><p>开箱即用的公开航天器故障知识浏览器</p></div><div class="page-actions"><span class="badge review">通用参考 · 待审核</span><button type="button" class="btn" id="seed-refresh">刷新图谱</button></div></div>
+        <div class="seed-overview card card-pad" id="seed-overview" aria-live="polite"><div class="empty">正在加载内置知识图谱…</div></div>
+        <div class="seed-browser-grid">
+          <section class="card card-pad seed-browser-filters"><div class="card-title">故障主题</div>
+            <div class="field-group"><label for="seed-domain">分系统</label><select class="field" id="seed-domain"><option value="">全部分系统</option><option value="ADCS">姿态控制 ADCS</option><option value="EPS">电源 EPS</option><option value="THERMAL">热控 THERMAL</option><option value="PROP">推进 PROP</option><option value="COMM">通信 COMM</option><option value="CDH">星载计算 CDH</option><option value="PAYLOAD">有效载荷 PAYLOAD</option></select></div>
+            <div class="field-group"><label for="seed-search">名称、编码或术语</label><input id="seed-search" class="field" placeholder="例如：飞轮、欠压、失锁" autocomplete="off"></div>
+            <div id="seed-fault-list" class="seed-fault-list" aria-label="公开故障主题列表"><div class="empty">图谱载入后可选故障主题。</div></div>
+          </section>
+          <section class="card card-pad seed-browser-detail"><div id="seed-topic-detail" aria-live="polite"><div class="empty">从左侧选择故障主题，查看部件、机理、症状、核查与处置之间的关系。</div></div></section>
+        </div>
+        <details class="card card-pad knowledge-optional"><summary>当前任务参考文献与兼容资料</summary><div class="card-title">任务引用文档</div><div id="knowledge-library"><div class="empty">当前任务暂无参考文献。</div></div><details><summary>原有诊断图谱与仿真</summary><div id="knowledge-operations"><div class="empty">选择历史任务后查看。</div></div></details></details>
+      </section>
+
+      <section class="view" id="view-graph-build">
+        <div class="page-heading"><div><h1>文献知识图谱构建</h1><p>独立于故障分析任务，从技术手册和参考文献提取有出处的候选实体与关系。</p></div><button class="btn" type="button" data-view-jump="graph-review">进入专家审核 →</button></div>
+        <div class="graph-workflow-steps" aria-label="图谱知识构建流程"><span>01 导入文献</span><span>02 大模型结构化抽取</span><span>03 本体与引句校验</span><span>04 候选图谱</span><span>05 专家审批后生效</span></div>
+        <div class="graph-workbench-grid">
+          <form class="card card-pad graph-build-form" id="graph-build-form">
+            <div class="card-title">新建文献建图任务</div>
+            <p class="card-sub">支持 PDF、DOCX、TXT、MD；至多 8 份，单份不超过 16 MiB，总大小不超过 64 MiB。必须具备专家会话。</p>
+            <div class="field-group"><label for="graph-equipment-scope">设备型号 / 构型（必填）</label><input class="field" id="graph-equipment-scope" name="equipment_scope" placeholder="SAT-A_ADCS_V2" required maxlength="80"><small>用于审核适用范围，不能跨构型自动合并。</small></div>
+            <div class="field-group"><label for="graph-files">参考文献 / 技术手册</label><input class="field" id="graph-files" type="file" accept=".pdf,.docx,.md,.txt" multiple required><small id="graph-files-note">尚未选择文件</small></div>
+            <div class="field-group"><label for="graph-max-chunks">最大抽取片段数</label><input class="field" type="number" min="1" max="12" value="8" id="graph-max-chunks"><small>防止一次提交产生过量模型请求。</small></div>
+            <div class="settings-actions"><button class="btn primary" type="submit" id="graph-build-submit">开始构建候选图谱</button></div>
+            <p class="graph-disclaimer">模型输出未经证实，不直接写入正式图谱，也不授权设备控制。</p>
+          </form>
+          <div class="graph-build-side">
+            <div class="card card-pad"><div class="card-title">构建能力与权限</div><div id="graph-build-readiness" class="graph-status-list" aria-live="polite">正在读取配置…</div><button class="btn small" data-view-jump="graph-review" type="button">专家登录 / 检查权限</button></div>
+            <div class="card card-pad"><div class="card-title">最近一次构建结果</div><div id="graph-build-result" aria-live="polite" class="graph-result-box"><div class="empty">上传文献并执行抽取后，这里展示真实的提案数量、失败原因和原文证据。</div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-graph-review">
+        <div class="page-heading"><div><h1>人工复核与知识审核</h1><p>材料分析复核与知识图谱审核分开办理，全部保留独立审核记录。</p></div><button class="btn" id="graph-refresh-review" type="button">刷新审核队列</button></div>
+        <div class="card card-pad" id="graph-auth-card">
+          <div class="cap-action"><div><div class="card-title">审核身份与会话</div><div class="card-sub" id="graph-auth-status">正在检查专家审核是否启用…</div></div><button class="btn small hidden" type="button" id="graph-logout">安全退出</button></div>
+          <form id="graph-login-form" class="graph-login-row" autocomplete="off"><label for="graph-review-credential">专家登录凭据（通过服务端验证，不保存在浏览器）</label><input class="field" type="password" id="graph-review-credential" autocomplete="off" required><button class="btn primary" type="submit">登录审核台</button></form>
+        </div>
+        <div class="graph-review-summary" id="graph-review-counts" aria-live="polite"></div>
+        <div class="graph-tabbar" id="graph-review-tabs"><button class="graph-tab active" type="button" data-review-kind="manual">分析报告复核</button><button class="graph-tab" type="button" data-review-kind="graph">候选图谱关系</button><button class="graph-tab" type="button" data-review-kind="documents">参考文献</button><button class="graph-tab" type="button" data-review-kind="cases">故障案例</button><button class="graph-tab" type="button" data-review-kind="reasoning_gaps">知识缺口 / 拒答复核</button></div>
+        <div id="graph-review-list" class="graph-review-list"><div class="empty">专家登录后加载待审核资料。</div></div>
+      </section>
+
+      <section class="view" id="view-graph-release">
+        <div class="page-heading"><div><h1>知识版本与发布</h1><p>浏览同构型已审核关系、知识冲突和撤销记录；管理员手动导出签名快照并按授权发布到隔离 Neo4j 空间。</p></div><button class="btn" data-view-jump="graph-review" type="button">专家审核入口</button></div>
+        <div class="card card-pad"><div class="graph-release-toolbar"><div class="field-group"><label for="graph-release-scope">设备构型</label><input class="field" id="graph-release-scope" placeholder="SAT-A_ADCS_V2" maxlength="80"></div><button class="btn" type="button" id="graph-load-reviewed">查询已审图谱</button></div><div id="graph-release-stats" class="graph-review-summary" aria-live="polite"></div><div id="graph-reviewed-list" class="graph-review-list"><div class="empty">输入设备构型后查询已审核的图谱关系。</div></div></div>
+        <div class="card card-pad" style="margin-top:16px"><div class="card-title">版本快照与管理员发布</div><p class="card-sub">快照导出仅允许指定发布管理员；Neo4j 写入需服务端发布开关、独立签名密钥、隔离数据库与明确确认。所有操作均以当前已审快照为准。</p><div class="graph-release-toolbar"><button class="btn" type="button" id="graph-export" disabled>导出签名快照</button><label class="check-row"><input type="checkbox" id="graph-publish-confirm">我确认发布到受控 Neo4j 隔离空间</label><button class="btn primary" type="button" id="graph-publish" disabled>发布当前快照</button></div><div id="graph-publish-result" class="graph-result-box" aria-live="polite"></div></div>
+      </section>
+
+      <section class="view" id="view-bench">
+        <div class="page-heading"><div><h1>Bench · 工程验证</h1><p>用于工程验证与回归检查，不作为操作首页或外部资格声明。</p></div></div>
+        <div class="card card-pad"><div class="card-title">工程验证入口</div><div class="card-sub">R33 Phase 1 保留二级入口。诊断任务、正式证据和发布状态仍以受治理的任务工件为准。</div></div>
+      </section>
+
+      <section class="view" id="view-engine">
+        <div class="page-heading"><div><h1>检索与多模态配置</h1><p>配置 RAG、图谱推理、OCR 和视觉模型</p></div><div class="page-actions"><button class="btn" data-view-jump="system" type="button">大模型连接设置 →</button><button class="btn" type="button" id="engine-refresh">刷新配置</button></div></div>
+        <div class="card card-pad" style="margin-bottom:16px">
+          <div class="cap-action"><div><div class="card-title">当前生效版本 <span class="badge info" id="engine-revision-label">未读取</span></div><div class="card-sub">变更和回滚会创建新版本。配置保存在平台目录的受限文件中；Qdrant 密钥仅通过主机安全存储保存。</div></div></div>
+          <div class="form-grid" style="margin-top:12px"><div class="field-group full"><label for="engine-admin-token">管理员 API Token（仅 Bearer 模式需要，本页内存临时使用，不持久化）</label><input type="password" autocomplete="off" class="field" id="engine-admin-token" placeholder="本机 local 模式无需填写，生产需输入管理员令牌"></div></div>
+        </div>
+        <form id="engine-form" autocomplete="off">
+          <div class="card card-pad"><div class="card-title">检索引擎与向量存储</div><div class="card-sub">关键词 / 字符检索始终可用；本地 Embedding 模型需预安装，不会自动联网下载。</div>
+            <div class="form-grid" style="margin-top:12px">
+              <div class="field-group full"><label for="engine-embedding-model">Embedding 本地模型绝对路径</label><input class="field" id="engine-embedding-model" placeholder="/srv/models/bge-m3"><small>仅允许本机目录，可通过服务端 ASTROGRAPH_ENGINE_MODEL_ROOT 限定路径根目录。</small></div>
+              <div class="field-group"><label for="engine-vector-backend">向量后端</label><select class="field" id="engine-vector-backend"><option value="sqlite">SQLite 持久向量缓存</option><option value="qdrant">Qdrant ANN（受控服务）</option></select></div>
+              <div class="field-group"><label for="engine-qdrant-collection">Qdrant 集合</label><input class="field" id="engine-qdrant-collection" value="astrograph_material_embeddings"></div>
+              <div class="field-group full"><label for="engine-qdrant-url">Qdrant 地址</label><input class="field" id="engine-qdrant-url" placeholder="http://127.0.0.1:6333"><small>默认仅本机；远端 HTTPS 需运维预先配置主机白名单。</small></div>
+              <div class="field-group full"><label for="engine-qdrant-key">Qdrant API Key（写入后不回显）</label><input class="field" type="password" id="engine-qdrant-key" placeholder="留空保持原密钥，使用操作系统 keyring 保存"><small id="engine-key-indicator">密钥状态读取中…</small></div>
+              <div class="field-group"><label for="engine-rag-docs">文档筛选上限</label><input class="field" id="engine-rag-docs" type="number" min="1" max="40" value="8"></div>
+              <div class="field-group"><label for="engine-rag-sections">章节筛选上限</label><input class="field" id="engine-rag-sections" type="number" min="1" max="80" value="16"></div>
+              <div class="field-group"><label for="engine-rag-hits">最终引用片段上限</label><input class="field" id="engine-rag-hits" type="number" min="1" max="20" value="5"></div>
+            </div>
+          </div>
+          <div class="card card-pad" style="margin-top:16px"><div class="card-title">GraphRAG 与知识构建</div><div class="card-sub">社区摘要只基于正式已审核的图谱快照；图谱抽取结果仍进入待审队列，不能自动发布。</div>
+            <div class="form-grid" style="margin-top:12px">
+              <div class="field-group"><label class="check-row"><input id="engine-community-llm" type="checkbox"> 启用受控 LLM 社区摘要</label></div>
+              <div class="field-group"><label class="check-row"><input id="engine-graph-build" type="checkbox"> 启用文献大模型候选建图</label></div>
+              <div class="field-group full"><label for="engine-graph-model">图谱抽取模型 ID（留空复用通用 LLM）</label><input class="field" id="engine-graph-model" placeholder="本地已配置模型 ID"></div>
+            </div>
+          </div>
+          <div class="card card-pad" style="margin-top:16px"><div class="card-title">文档 OCR 与视觉模型</div><div class="card-sub">OCR、Docling、VLM 输出均保持机器候选状态，必须独立审核，不能用作已证实根因证据。</div>
+            <div class="form-grid" style="margin-top:12px">
+              <div class="field-group"><label for="engine-ocr">扫描文档引擎</label><select class="field" id="engine-ocr"><option value="disabled">不启用（保留扫描件审核提示）</option><option value="tesseract">Tesseract（离线 OCR）</option><option value="docling">Docling（可选结构化解析）</option></select></div>
+              <div class="field-group"><label for="engine-ocr-langs">OCR 语言包</label><input class="field" id="engine-ocr-langs" value="chi_sim+eng"></div>
+              <div class="field-group full"><label class="check-row"><input id="engine-vision-enabled" type="checkbox"> 启用本地视觉候选模型配置（仅离线审阅流程，不自动确诊）</label></div>
+              <div class="field-group full"><label for="engine-vision-endpoint">本地 VLM Chat Completions 地址</label><input class="field" id="engine-vision-endpoint" placeholder="http://127.0.0.1:8001/v1/chat/completions"></div>
+              <div class="field-group"><label for="engine-vision-model">VLM 模型 ID</label><input class="field" id="engine-vision-model" placeholder="vision-model"></div>
+              <div class="field-group"><label for="engine-vision-pages">最多处理页数</label><input class="field" id="engine-vision-pages" type="number" min="0" max="5" value="0"></div>
+            </div>
+          </div>
+          <div class="card card-pad" style="margin-top:16px"><div class="settings-actions"><button class="btn" type="button" id="engine-probe">检查本地依赖</button><button class="btn" type="button" id="engine-probe-network">检测 Qdrant 连通性</button><button class="btn primary" type="submit" id="engine-save">保存并应用新版本</button></div><div id="engine-probe-result" class="llm-probe hidden" aria-live="polite"></div></div>
+        </form>
+        <div class="card card-pad" style="margin-top:16px"><div class="card-title">历史版本及回滚</div><div class="card-sub">回滚也会生成新的审计版本，需管理员确认。不自动撤销已完成任务。</div><div class="profile-strip" style="margin-top:12px"><select class="field" id="engine-revision-select" aria-label="历史知识引擎配置"><option value="">历史版本加载中…</option></select><button class="btn" type="button" id="engine-rollback">恢复所选版本</button></div></div>
+      </section>
+
+      <section class="view" id="view-system">
+        <div class="page-heading"><div><h1>大模型配置</h1><p>选择推理服务、模型 ID，检测连接并保存模型配置</p></div><div class="page-actions"><button class="btn" data-view-jump="engine" type="button">检索与多模态设置 →</button><button class="btn" id="show-capabilities">支持能力</button><button class="btn" id="refresh-cap">刷新</button></div></div>
+        <div class="settings-layout">
+          <div class="card card-pad">
+            <div class="card-title">大模型服务 <span class="badge audit" id="llm-status-badge">读取中</span></div>
+            <div class="profile-strip"><select class="field" id="llm-profile-select" aria-label="已保存的大模型配置"><option value="">已保存配置…</option></select><input class="field" id="llm-profile-name" placeholder="配置名称，例如：本机 LM Studio"><button class="btn" type="button" id="save-llm-profile">保存配置</button><button class="btn" type="button" id="activate-llm-profile">使用所选</button></div>
+            <form id="llm-form" autocomplete="off"><div class="form-grid">
+              <div class="field-group"><label for="llm-provider">服务类型</label><select class="field" id="llm-provider"><option value="local-openai-compatible">OpenAI 兼容服务</option><option value="vllm">vLLM</option><option value="ollama">Ollama OpenAI 兼容接口</option><option value="lmstudio">LM Studio</option><option value="other">其他 OpenAI 兼容服务</option></select></div>
+              <div class="field-group"><label for="llm-model">模型名称 / ID</label><input class="field" id="llm-model" list="llm-model-options" placeholder="例如 Qwen2.5-7B-Instruct"><datalist id="llm-model-options"></datalist></div>
+              <div class="field-group full"><label for="llm-base-url">服务地址</label><input class="field" id="llm-base-url" placeholder="http://127.0.0.1:8001/v1"></div>
+              <div class="field-group"><label for="llm-api-key">API Key</label><input class="field" type="password" id="llm-api-key" placeholder="留空保持当前密钥"></div>
+              <div class="field-group"><label for="llm-timeout">总超时（秒）</label><input class="field" id="llm-timeout" type="number" min="1" max="3600" step="1" value="120"></div>
+              <div class="field-group"><label for="llm-structured-strategy">结构化输出策略</label><select class="field" id="llm-structured-strategy"><option value="auto">自动兼容（LM Studio 推荐）</option><option value="json_object">JSON Object + 主机 Schema 校验</option><option value="json_schema">严格 JSON Schema</option><option value="plain_json">纯 JSON + 主机校验</option></select></div>
+              <div class="field-group"><label for="llm-max-tokens">结构化最大 Tokens</label><input class="field" id="llm-max-tokens" type="number" min="64" max="8192" step="64" value="1200"></div>
+            </div><div class="settings-actions"><button class="btn" type="button" id="test-llm">检测服务</button><button class="btn primary" type="submit">应用配置</button><button class="btn" type="button" id="clear-llm">清除配置</button></div><div id="llm-probe-result" class="llm-probe hidden" aria-live="polite"></div></form>
+          </div>
+          <div class="card card-pad"><div class="card-title">运行时状态</div><div class="status-list" id="llm-status-list"></div><div class="divider"></div></div>
+        </div>
+        <details class="card card-pad system-advanced" style="margin-top:16px"><summary class="card-title">知识图谱数据库连接（Neo4j）</summary><div class="system-advanced-content">
+          <div class="card-title">知识图谱服务 <span class="badge audit" id="neo4j-status-badge">读取中</span></div>
+          <div class="card-sub">用于故障机理追溯和按现象查找相关故障。维护 Agent 只调用受限的只读领域工具，不开放任意 Cypher。</div>
+          <div class="profile-strip" style="margin-top:12px"><select class="field" id="neo4j-profile-select"><option value="">已保存配置…</option></select><input class="field" id="neo4j-profile-name" placeholder="配置名称，例如：本机知识图谱"><button class="btn" type="button" id="save-neo4j-profile">保存配置</button><button class="btn" type="button" id="activate-neo4j-profile">使用所选</button></div>
+          <form id="neo4j-form" autocomplete="off"><div class="form-grid" style="margin-top:12px"><div class="field-group full"><label>Neo4j 地址</label><input class="field" id="neo4j-uri" placeholder="bolt://127.0.0.1:7687"></div><div class="field-group"><label>用户</label><input class="field" id="neo4j-user" value="neo4j"></div><div class="field-group"><label>数据库</label><input class="field" id="neo4j-database" placeholder="neo4j"></div><div class="field-group"><label>密码</label><input class="field" type="password" id="neo4j-password" placeholder="留空保持当前密钥"></div></div><div class="settings-actions"><button class="btn" type="button" id="test-neo4j">检测服务</button><button class="btn primary" type="submit">应用配置</button></div><div id="neo4j-probe-result" class="llm-probe hidden"></div></form>
+        </div></details>
+        <details class="card card-pad system-advanced" style="margin-top:16px"><summary class="card-title">外部工具服务（MCP）</summary><div class="system-advanced-content">
+          <div class="cap-action"><div><div class="card-title">外部工具服务（MCP） <span class="badge info" id="mcp-provider-count">0</span></div><div class="card-sub">连接独立工具服务；当前只有只读 Provider 会进入后续 Agent 任务。</div></div><button class="btn small" type="button" id="refresh-mcp-providers">刷新</button></div>
+          <div class="profile-strip" style="margin-top:12px"><select class="field" id="mcp-provider-select"><option value="">已注册 Provider…</option></select><button class="btn" type="button" id="load-mcp-provider">载入所选</button><button class="btn" type="button" id="delete-mcp-provider">删除所选</button></div>
+          <form id="mcp-provider-form" autocomplete="off"><div class="form-grid" style="margin-top:12px">
+            <div class="field-group"><label>Provider ID</label><input class="field" id="mcp-provider-id" placeholder="neo4j-local"></div>
+            <div class="field-group"><label>名称</label><input class="field" id="mcp-provider-name" placeholder="本机 Neo4j MCP"></div>
+            <div class="field-group full"><label>Streamable HTTP 地址</label><input class="field" id="mcp-provider-url" placeholder="http://127.0.0.1:9000/mcp"></div>
+            <div class="field-group"><label>超时（秒）</label><input class="field" id="mcp-provider-timeout" type="number" min="1" max="300" value="30"></div>
+            <div class="field-group"><label>任务接入</label><label class="check-row"><input type="checkbox" id="mcp-provider-readonly" checked> 只读 Provider</label></div>
+            <div class="field-group full"><label>允许工具（可选，每行一个；留空表示服务端全部工具）</label><textarea class="field" id="mcp-provider-allowlist" rows="3" placeholder="knowledge_graph_query
+search_documents"></textarea></div>
+          </div><div class="settings-actions"><button class="btn" type="button" id="test-mcp-provider">检测服务</button><button class="btn primary" type="submit">保存 Provider</button></div><div id="mcp-provider-result" class="llm-probe hidden"></div></form>
+        </div></details>
+      </section>
+    </main>
+  </div>
+</div>
+<dialog class="command-dialog" id="command-dialog">
+  <div class="dialog-head"><h2>命令 / 搜索</h2><button class="dialog-close" type="button" data-dialog-close="command-dialog" aria-label="关闭">×</button></div>
+  <div class="dialog-body"><input class="command-input" id="command-input" placeholder="输入：新建诊断、Agent、字体 130、任务号…" autocomplete="off"><div class="command-list" id="command-list"></div></div>
+</dialog>
+<dialog class="detail-dialog" id="tool-dialog">
+  <div class="dialog-head"><h2 id="tool-dialog-title">工具详情</h2><button class="dialog-close" type="button" data-dialog-close="tool-dialog" aria-label="关闭">×</button></div>
+  <div class="dialog-body" id="tool-dialog-body"></div>
+</dialog>
+<dialog class="detail-dialog" id="plugin-dialog">
+  <div class="dialog-head"><h2>插件管理</h2><button class="dialog-close" type="button" data-dialog-close="plugin-dialog" aria-label="关闭">×</button></div>
+  <div class="dialog-body">
+    <div class="plugin-manager-summary" id="plugin-manager-summary"></div>
+    <div class="plugin-list" id="plugin-manager-list"><div class="empty">正在读取插件…</div></div>
+    <div class="plugin-errors" id="plugin-manager-errors"></div>
+    <div class="divider"></div>
+    <div class="card-title">安装 / 更新受信任插件</div>
+    <div class="card-sub">选择单个 Python 插件文件。宿主会先编译和校验合同，成功后才提交；失败会回滚到上一健康版本。</div>
+    <div class="plugin-install-box" style="margin-top:12px"><input class="plugin-file" id="plugin-file" type="file" accept=".py"><button class="btn primary" type="button" id="plugin-install">安装 / 更新</button></div>
+  </div>
+</dialog>
+<dialog class="detail-dialog" id="mode-dialog">
+  <div class="dialog-head"><h2>Agent 模式</h2><button class="dialog-close" type="button" data-dialog-close="mode-dialog" aria-label="关闭">×</button></div>
+  <div class="dialog-body" id="mode-dialog-body"></div>
+</dialog>
+<dialog class="detail-dialog" id="cap-dialog">
+  <div class="dialog-head"><h2>平台支持能力</h2><button class="dialog-close" type="button" data-dialog-close="cap-dialog" aria-label="关闭">×</button></div>
+  <div class="dialog-body" id="cap-dialog-body"></div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="/platform/assets/v0.21.1/platform_ui.js"></script>
+</body>
+</html>

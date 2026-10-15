@@ -1,0 +1,199 @@
+{
+  "schema_version": "astrograph-independent-run-campaign-spec.v1",
+  "campaign_id": "WHOLE-SPACECRAFT-KNOWN-FAULTS-V0516-SEED-ONLY",
+  "runtime_script_name": "run_whole_spacecraft_all_faults.py",
+  "normal_scenario_id": "nominal",
+  "normal_class_id": "NORMAL",
+  "scenarios": [
+    {
+      "scenario_id": "battery_capacity_loss",
+      "class_ids": [
+        "EPS_BATTERY_CAPACITY_LOSS"
+      ],
+      "object_id": "BATTERY_PACK",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "battery_internal_resistance_increase",
+      "class_ids": [
+        "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE"
+      ],
+      "object_id": "BATTERY_PACK",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "downlink_service_loss",
+      "class_ids": [
+        "COMM_DOWNLINK_SERVICE_LOSS"
+      ],
+      "object_id": "COMM_DOWNLINK",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "gyro_bias_drift",
+      "class_ids": [
+        "ADCS_GYRO_BIAS_DRIFT"
+      ],
+      "object_id": "GYRO_TRIAD",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "heater_stuck_on",
+      "class_ids": [
+        "THERMAL_HEATER_STUCK_ON"
+      ],
+      "object_id": "THERMAL_HEATER",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "radiator_rejection_loss",
+      "class_ids": [
+        "THERMAL_RADIATOR_REJECTION_LOSS"
+      ],
+      "object_id": "THERMAL_RADIATOR",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "reaction_wheel_friction_increase",
+      "class_ids": [
+        "ADCS_RW_FRICTION_INCREASE"
+      ],
+      "object_id": "RW_SELECTED",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "reaction_wheel_jam",
+      "class_ids": [
+        "ADCS_RW_JAM"
+      ],
+      "object_id": "RW_SELECTED",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "reaction_wheel_torque_authority_loss",
+      "class_ids": [
+        "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+      ],
+      "object_id": "RW_SELECTED",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "solar_array_string_failure",
+      "class_ids": [
+        "EPS_SOLAR_ARRAY_STRING_FAILURE"
+      ],
+      "object_id": "SOLAR_ARRAY",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "solar_efficiency_loss",
+      "class_ids": [
+        "EPS_SOLAR_ARRAY_EFFICIENCY_LOSS"
+      ],
+      "object_id": "SOLAR_ARRAY",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "star_tracker_dropout",
+      "class_ids": [
+        "ADCS_STAR_TRACKER_DROPOUT"
+      ],
+      "object_id": "STAR_TRACKER",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "storage_write_failure",
+      "class_ids": [
+        "DATA_STORAGE_WRITE_FAILURE"
+      ],
+      "object_id": "DATA_STORAGE",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "temperature_sensor_bias",
+      "class_ids": [
+        "THERMAL_TEMPERATURE_SENSOR_BIAS"
+      ],
+      "object_id": "PAYLOAD_TEMPERATURE_SENSOR",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "temperature_sensor_drift",
+      "class_ids": [
+        "THERMAL_TEMPERATURE_SENSOR_DRIFT"
+      ],
+      "object_id": "PAYLOAD_TEMPERATURE_SENSOR",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    },
+    {
+      "scenario_id": "transmitter_output_power_loss",
+      "class_ids": [
+        "COMM_TRANSMITTER_OUTPUT_POWER_LOSS"
+      ],
+      "object_id": "COMM_TRANSMITTER",
+      "metadata": {
+        "diagnostic_scope": "KNOWN_SINGLE_FAULT"
+      }
+    }
+  ],
+  "seeds": [
+    20260721,
+    20260722,
+    20260723
+  ],
+  "variants": [
+    {
+      "variant_id": "CURRENT-RUNTIME-DEFAULT",
+      "cli_args": [],
+      "initial_state_id": "CURRENT-DEFAULT",
+      "operating_condition_id": "CURRENT-DEFAULT",
+      "fault_severity_id": "CURRENT-SCENARIO-DEFAULT",
+      "satellite_instance_id": "SIM-SAT-BASELINE",
+      "metadata": {
+        "limitation": "Only random seed varies because no additional verified runtime CLI flags were supplied.",
+        "required_follow_up": "Add only real runtime-supported initial-state, operating-condition, noise, and severity arguments."
+      }
+    }
+  ],
+  "duration_s": 120.0,
+  "split_counts": {
+    "train": 1,
+    "validation": 1,
+    "test": 1
+  },
+  "python_executable": "python",
+  "output_layout": "runs/{run_id}",
+  "metadata": {
+    "claim_boundary": "Minimum structurally independent seed campaign; not sufficient for full operating-condition/severity generalization."
+  }
+}

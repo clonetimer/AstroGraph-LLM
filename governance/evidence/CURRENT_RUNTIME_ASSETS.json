@@ -1,0 +1,13 @@
+{
+  "schema_version": "astrograph-current-runtime-governance-assets.v1",
+  "release": "0.7.1.post49",
+  "package_profile": "CURRENT_DELIVERY_SOURCE",
+  "historical_records_included": false,
+  "assets": [
+    "governance/evidence/0.6.7/trusted_data_unlock_gate_decision.json",
+    "governance/evidence/0.7.0/unified_runtime_evaluation.json",
+    "governance/evidence/0.7.1/trusted_single_fault_evaluation.json",
+    "governance/evidence/0.7.1-extension/expanded_single_fault_dataset_identity.json"
+  ],
+  "role": "Minimal frozen inputs required by the current isolated governance gate implementation; no historical ledgers, experiment reports, or prior release receipts are included."
+}

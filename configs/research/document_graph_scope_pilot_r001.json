@@ -1,0 +1,35 @@
+{
+  "schema_version": "astrograph-document-graph-scope-pilot.v1",
+  "pilot_id": "paired-corpus-four-scope-r001",
+  "source_corpus_id": "astrograph-paired-document-development-r002",
+  "datasets": {
+    "adcs-v522": {
+      "episode_split_role": "DEVELOPMENT",
+      "episode_provenance_group_id": "adcs-v522:mc-group:3",
+      "historical_split_role": "TRAIN",
+      "historical_provenance_group_id": "adcs-v522:mc-group:0"
+    },
+    "phm-v60": {
+      "episode_split_role": "DEVELOPMENT",
+      "episode_provenance_group_id": "phm-v60:mc-group:3",
+      "historical_split_role": "TRAIN",
+      "historical_provenance_group_id": "phm-v60:mc-group:0"
+    }
+  },
+  "selection": {
+    "episode_selector": "lexicographically_lowest_opaque_episode_id",
+    "historical_selector": "lexicographically_lowest_opaque_episode_id_with_closure",
+    "causal_cutoff_seconds": 120,
+    "episode_document_types": ["TEST_LOG", "ANOMALY_REPORT"],
+    "historical_document_type": "CLOSURE_REPORT",
+    "quarantine_document_type": "CAMPAIGN_REPORT"
+  },
+  "execution": {
+    "temperature": 0.0,
+    "minimum_independent_causal_sources": 2,
+    "human_review_required": true,
+    "publication_allowed": false,
+    "runtime_vote_allowed": false
+  },
+  "claim_boundary": "This pilot validates graph-scope isolation and auditable document extraction. It is not a diagnostic accuracy experiment, does not select fusion parameters, and cannot publish or expose evaluator truth to Runtime."
+}

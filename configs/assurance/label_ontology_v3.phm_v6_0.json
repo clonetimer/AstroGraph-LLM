@@ -1,0 +1,516 @@
+{
+  "fault_universe_id": "PHM_V6_0_17",
+  "records": [
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "downlink",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "comm_data_downlink_link_loss",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:transport-degradation",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "onboard_storage",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "comm_data_storage_capacity_loss",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:storage-capacity-loss",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "transmitter",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "comm_data_transmitter_rate_loss",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:transport-degradation",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "battery",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "eps_battery_capacity_loss",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:storage-capacity-loss",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "battery",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "eps_battery_open_circuit",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:flow-restriction",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "bus_load",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "eps_load_overload",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:excess-demand",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "pdu",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "eps_pdu_channel_trip",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:actuation-authority-loss",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "solar_array",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "eps_solar_string_open",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:actuation-authority-loss",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "payload_instrument",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "payload_instrument_off",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:actuation-authority-loss",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "payload_instrument",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "payload_instrument_rate_loss",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:transport-degradation",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "fuel_tank",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "propulsion_fuel_leak",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:uncommanded-inventory-loss",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "thruster",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "propulsion_thruster_ignition_failure",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:actuation-authority-loss",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "thruster",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "propulsion_thruster_nozzle_blockage",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:flow-restriction",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "heater",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "thermal_heater_stuck_off",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:output-stagnation",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "heater",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "thermal_heater_stuck_on",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:uncommanded-energy-input",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "thermal_node",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "thermal_node_heat_bias",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:uncommanded-energy-input",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "radiator",
+      "downstream_effects": [],
+      "fault_universe_id": "PHM_V6_0_17",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "thermal_radiator_rejection_loss",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "PHM_V6_0_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "sat(1).zip::whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "source_sha256": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:thermal-exchange-degradation",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    }
+  ],
+  "schema_version": "astrograph-label-ontology-bundle.v3"
+}

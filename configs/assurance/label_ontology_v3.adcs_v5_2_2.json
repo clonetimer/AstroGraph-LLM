@@ -1,0 +1,440 @@
+{
+  "fault_universe_id": "ADCS_V5_2_2_14",
+  "records": [
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "control_loop",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_control_loop_failure",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:actuation-authority-loss",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "imu",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_gyro_bias_step",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:additive-bias-shift",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "imu",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_imu_axis_dropout",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:signal-availability-loss",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "imu",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_imu_gyro_noise_amplification",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:dispersion-increase",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "imu",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_imu_total_output_zero",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:output-stagnation",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "reaction_wheel",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_rw_jamming",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:output-stagnation",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "reaction_wheel",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_rw_speed_sensor_fault",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:signal-availability-loss",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "reaction_wheel",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_rw_torque_path_open",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:actuation-authority-loss",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "star_tracker",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_star_solution_constant_bias",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:additive-bias-shift",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "star_tracker",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_star_solution_unavailable",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:signal-availability-loss",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "star_tracker",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_star_tracker_stuck_at_last",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:output-stagnation",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "sun_sensor",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_sun_sensor_cell_failure",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:signal-availability-loss",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "sun_sensor",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_sun_sensor_saturation",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:output-stagnation",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    },
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "sun_sensor",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_V5_2_2_14",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "adcs_sun_vector_unavailable",
+      "label_source": {
+        "review_status": "SOURCE_PINNED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "ADCS_V5_2_2_DATASET_MANIFEST",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "ADCS.zip::whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json",
+        "source_sha256": "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "mechanism:signal-availability-loss",
+      "multiplicity": "SINGLE",
+      "notes": [
+        "Mechanism/component are source-bound mappings; unresolved RCA fields were not inferred from class names.",
+        "Temporal intervals are trajectory-specific and must be joined evaluator-side, not stored in the class ontology."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    }
+  ],
+  "schema_version": "astrograph-label-ontology-bundle.v3"
+}

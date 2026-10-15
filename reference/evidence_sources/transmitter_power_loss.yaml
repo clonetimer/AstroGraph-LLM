@@ -1,0 +1,33 @@
+schema_version: phm.fault_contract.v1
+fault_id: COMM_TRANSMITTER_OUTPUT_POWER_LOSS
+name_zh: 发射机输出功率下降
+subsystem: communications
+component: transmitter_power_amplifier
+fault_type: degradation_or_fault
+mechanism: 射频输出能力下降，同时降低官方发射机数据速率和下行功率负载，并通过工程链路观测模型增加误包率。
+injection_target: TransmitterOutputPowerFaultController
+parameters:
+  rf_power_scale: {unit: "1", nominal: 0.5, range: [0.2, 0.8], source: engineering_assumption}
+direct_channels:
+  - sensor.comm.rf_output_power_w
+  - sensor.comm.pa_current_a
+component_response_channels:
+  - comm.downlink_rate_bps
+  - estimate.comm.packet_error_rate
+subsystem_propagation_channels:
+  - data.storage_bits
+  - sensor.eps.battery_current_a
+confusable_faults:
+  - COMM_DOWNLINK_SERVICE_LOSS
+  - COMM_ACCESS_LOSS
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  minimum_rf_power_drop_w: 1.0
+  minimum_downlink_rate_drop_bps: 100000
+  packet_error_rate_must_increase: true
+  eps_load_must_change: true
+known_limits:
+  - 射频功率、误包率和功放电流是未标定的项目虚拟传感器结果。
+  - 当前没有完整天线、传播、接收机和编码调制链路预算。
+

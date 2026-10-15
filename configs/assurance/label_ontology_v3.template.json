@@ -1,0 +1,36 @@
+{
+  "fault_universe_id": "ADCS_RUNTIME_14_V1",
+  "records": [
+    {
+      "active_interval": null,
+      "causal_role": "UNKNOWN",
+      "component": "UNRESOLVED",
+      "downstream_effects": [],
+      "fault_universe_id": "ADCS_RUNTIME_14_V1",
+      "injection_location": "UNRESOLVED",
+      "label_confidence": null,
+      "label_id": "TEMPLATE_FAULT_ID",
+      "label_source": {
+        "review_status": "UNREVIEWED",
+        "schema_version": "astrograph-label-source.v1",
+        "source_id": "REPLACE_WITH_SOURCE_ID",
+        "source_kind": "SIMULATOR_DEFINITION",
+        "source_location": "REPLACE_WITH_SOURCE_LOCATION",
+        "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "manifestation": "UNRESOLVED",
+      "mechanism": "UNRESOLVED",
+      "multiplicity": "UNKNOWN",
+      "notes": [
+        "Template only; unresolved fields must not be inferred from the label name."
+      ],
+      "onset_interval": null,
+      "onset_uncertainty": null,
+      "schema_version": "astrograph-label-ontology.v3",
+      "severity": "UNRESOLVED",
+      "supporting_evidence_ids": [],
+      "upstream_causes": []
+    }
+  ],
+  "schema_version": "astrograph-label-ontology-bundle.v3"
+}

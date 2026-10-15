@@ -1,0 +1,10 @@
+{
+  "task_id": "diagnostic-adcs-existing-slice-001",
+  "task": "diagnose",
+  "goal": "Diagnose this already-used ADCS telemetry slice; acquire registered sensor checks when needed.",
+  "artifacts": {
+    "source": "governance/implementation/post48_dev3/cli_real/source.csv",
+    "nominal": "governance/implementation/post48_dev3/cli_real/nominal.csv",
+    "model": "models/adcs_v5_2_2/p2_innovation_v2.pt"
+  }
+}

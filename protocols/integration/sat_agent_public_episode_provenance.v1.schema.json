@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "astrograph://schemas/sat_agent_public_episode_provenance.v1",
+  "title": "Sat-Agent public truth-blind episode provenance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "episode_lineage_group_id",
+    "effective_source_identity_sha256",
+    "capability_id",
+    "capability_revision",
+    "export_family_id",
+    "backend_family",
+    "campaign_template_family_id",
+    "spacecraft_configuration_family_id",
+    "component_archetype_id",
+    "component_type_id",
+    "component_instance_id",
+    "physical_configuration_signature_sha256",
+    "operating_condition_family_id",
+    "operating_condition_trajectory_signature_sha256",
+    "causal_episode_family_id",
+    "hierarchy_view_group_id",
+    "model_input_eligible",
+    "split_grouping_only"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "sat_agent_public_episode_provenance.v1"
+    },
+    "episode_lineage_group_id": {"$ref": "#/$defs/opaque_id"},
+    "effective_source_identity_sha256": {"$ref": "#/$defs/sha256"},
+    "capability_id": {"type": "string", "minLength": 1, "maxLength": 160},
+    "capability_revision": {"type": "string", "minLength": 1, "maxLength": 80},
+    "export_family_id": {"$ref": "#/$defs/opaque_id"},
+    "backend_family": {"type": "string", "minLength": 1, "maxLength": 80},
+    "campaign_template_family_id": {"$ref": "#/$defs/opaque_id"},
+    "spacecraft_configuration_family_id": {"$ref": "#/$defs/opaque_id"},
+    "component_archetype_id": {"type": "string", "minLength": 1, "maxLength": 120},
+    "component_type_id": {"type": "string", "minLength": 1, "maxLength": 120},
+    "component_instance_id": {"$ref": "#/$defs/opaque_id"},
+    "physical_configuration_signature_sha256": {"$ref": "#/$defs/sha256"},
+    "operating_condition_family_id": {"$ref": "#/$defs/opaque_id"},
+    "operating_condition_trajectory_signature_sha256": {"$ref": "#/$defs/sha256"},
+    "causal_episode_family_id": {"$ref": "#/$defs/opaque_id"},
+    "hierarchy_view_group_id": {"$ref": "#/$defs/opaque_id"},
+    "nominal_fault_pair_group_id": {
+      "anyOf": [{"$ref": "#/$defs/opaque_id"}, {"type": "null"}],
+      "default": null
+    },
+    "model_input_eligible": {"const": false},
+    "split_grouping_only": {"const": true}
+  },
+  "$defs": {
+    "opaque_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "description": "The allowlisted fields are public structural lineage only. Labels, truth, fault/effect identity, severity, onset, seed, split, target, case/path identity, simulator answers and outcome-derived values are intentionally absent. Every field is denied as a learned model input and may be used only for audit and grouped-split co-location after separate Timer authorization."
+}

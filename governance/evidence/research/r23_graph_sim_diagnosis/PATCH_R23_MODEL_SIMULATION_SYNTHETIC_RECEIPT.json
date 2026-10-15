@@ -1,0 +1,107 @@
+{
+  "claim_boundary": "Protocol executable smoke only; synthetic values are not accuracy, calibration, external validation, HIL, target-hardware, or flight evidence.",
+  "conflicts": [
+    {
+      "conflict_id": "M1",
+      "explanation": "Structural neighborhood conflict generated from an admitted inconsistent observation.",
+      "fault_ids": [
+        "A1:Failed",
+        "B1:Offset"
+      ],
+      "source_ids": [
+        "SYNTHETIC_OBS"
+      ]
+    }
+  ],
+  "counterfactual_best_diagnosis_id": "MBD-033EEE8C1DF0348A",
+  "counterfactual_comparisons": [
+    {
+      "aggregate_normalized_mae": 0.03749999999999992,
+      "aggregate_normalized_rmse": 0.04330127018922184,
+      "diagnosis_id": "MBD-033EEE8C1DF0348A",
+      "fault_ids": [
+        "A1:Failed"
+      ],
+      "per_channel": {
+        "sensor_v": {
+          "normalized_mae": 0.03749999999999992,
+          "normalized_rmse": 0.04330127018922184,
+          "scale": 1.0
+        }
+      },
+      "sample_count": 4,
+      "score_semantics": "DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY",
+      "simulation_trace_sha256": "f3e18bca40219a082c3d30833f012a5b5ab92dbeb0ac8c9fc784ba3b57b0d2ea"
+    },
+    {
+      "aggregate_normalized_mae": 2.25,
+      "aggregate_normalized_rmse": 2.598076211353316,
+      "diagnosis_id": "MBD-3BE2DB4F5D0842D4",
+      "fault_ids": [
+        "B1:Offset"
+      ],
+      "per_channel": {
+        "sensor_v": {
+          "normalized_mae": 2.25,
+          "normalized_rmse": 2.598076211353316,
+          "scale": 1.0
+        }
+      },
+      "sample_count": 4,
+      "score_semantics": "DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY",
+      "simulation_trace_sha256": "3e1fa9413985f74fb4cc855b1447951153af9f2329432f5beb30969d3820b12a"
+    }
+  ],
+  "diagnostic_performance_claim_eligible": false,
+  "formal_evidence_eligible": false,
+  "minimum_cardinality_diagnoses": [
+    {
+      "cardinality": 1,
+      "diagnosis_id": "MBD-033EEE8C1DF0348A",
+      "fault_ids": [
+        "A1:Failed"
+      ],
+      "hits_all_conflicts": true,
+      "minimum_cardinality": true,
+      "subset_minimal": true
+    },
+    {
+      "cardinality": 1,
+      "diagnosis_id": "MBD-3BE2DB4F5D0842D4",
+      "fault_ids": [
+        "B1:Offset"
+      ],
+      "hits_all_conflicts": true,
+      "minimum_cardinality": true,
+      "subset_minimal": true
+    }
+  ],
+  "receipt_sha256": "6f1a40c7ce0ca6be8f7dc03aff10d0c67072a1e253bdc0db02b79e7ad3b1aaff",
+  "result_sha256": "3cf9f77d931c479b3f8361149b57bc249f7ffa214787a19f6128bc78235e8ad8",
+  "schema_version": "astrograph-r23-integrated-model-simulation-synthetic-receipt.v1",
+  "scope": "SYNTHETIC_PROTOCOL_ONLY",
+  "status": "MODEL_DIAGNOSIS_COMPLETE_WITH_COUNTERFACTUAL_REVIEW",
+  "subset_minimal_diagnoses": [
+    {
+      "cardinality": 1,
+      "diagnosis_id": "MBD-033EEE8C1DF0348A",
+      "fault_ids": [
+        "A1:Failed"
+      ],
+      "hits_all_conflicts": true,
+      "minimum_cardinality": true,
+      "subset_minimal": true
+    },
+    {
+      "cardinality": 1,
+      "diagnosis_id": "MBD-3BE2DB4F5D0842D4",
+      "fault_ids": [
+        "B1:Offset"
+      ],
+      "hits_all_conflicts": true,
+      "minimum_cardinality": true,
+      "subset_minimal": true
+    }
+  ],
+  "system_graph_sha256": "9b7d278bbb97be584dd401a391e8055f3a829ae7e4d98b69e12cd267c6709bc9"
+}

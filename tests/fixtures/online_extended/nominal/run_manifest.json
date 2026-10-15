@@ -1,0 +1,14 @@
+{
+  "schema_version": "phm.minimal_runtime.run.v1",
+  "scenario": "nominal",
+  "duration_s": 120.0,
+  "integration_step_s": 1.0,
+  "seed": 20260719,
+  "event_count": 0,
+  "active_event_rows": 0,
+  "row_count": 121,
+  "events": [],
+  "runtime": "Basilisk official modules + project-native SysModel in one scheduler",
+  "context_of_use": "E0 engineering synthetic whole-spacecraft PHM simulation",
+  "claim_boundary": "Not flight calibrated; no RUL or flight-grade diagnostic claim"
+}

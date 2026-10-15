@@ -1,0 +1,14 @@
+{
+  "schema_version":"astrograph-r20-dxc-statistical-diagnostic-plan.v1",
+  "baseline_duration_s":30,
+  "window_samples":16,
+  "decision_stride_s":5,
+  "score_threshold":85,
+  "minimum_reference_samples":5,
+  "sensor_mode_policy":"exactly constant shifted window => XML Stuck; highest trend => XML Drift if admitted; otherwise XML Offset if admitted",
+  "hardware_policy":"current drops below 5 percent of nonzero baseline => adjacent XML component FailedOff candidate when that mode is declared",
+  "current_drop_fraction":0.05,
+  "scope":"simple independent engineering diagnostic baseline; unknown units do not become formal evidence; no training on sample truth",
+  "qualification":"NOT_FLIGHT_QUALIFIED",
+  "score_semantics":"UNCALIBRATED_ENGINEERING_STRENGTH"
+}

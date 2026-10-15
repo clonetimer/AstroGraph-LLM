@@ -1,0 +1,315 @@
+{
+  "baseline_config": {
+    "backward_conflict_coverage": 0.5,
+    "backward_smoothing": 60.0,
+    "backward_weight": 1.0,
+    "claim_boundary": "Default BiRRF weights and smoothing are engineering defaults copied from rank-fusion practice. Identical or highly correlated, substantially overlapping KG rank orders are collapsed to one effective vote to prevent duplicate evidence counting. Candidate-level branches that declare a shared correlation group are also capped to one effective vote; missing lineage remains explicit and may be configured as a blocking conflict. When an expected fault universe is explicitly frozen, the coverage guard consumes a content-addressed executable-evidence declaration rather than an episode candidate list. Incomplete capability may suppress a KG branch or, only under an explicit experimental policy, attenuate its weight by structural coverage. This prevents sparse knowledge from asymmetrically overriding unsupported data-branch faults without discarding the possibility of development-validated partial-coverage fusion. These controls are not calibrated for flight diagnosis.",
+    "collapse_highly_correlated_kg_rankings": true,
+    "collapse_identical_kg_rankings": true,
+    "collapse_shared_correlation_groups": true,
+    "data_conflict_probability": 0.5,
+    "data_smoothing": 60.0,
+    "data_weight": 1.0,
+    "enforce_kg_fault_universe_coverage": false,
+    "expected_fault_universe": [],
+    "forward_smoothing": 60.0,
+    "forward_weight": 1.0,
+    "kg_fault_coverage_semantics_version": "astrograph-executable-kg-coverage.v1",
+    "kg_partial_coverage_action": "SUPPRESS_BRANCH",
+    "kg_redundancy_correlation_threshold": 0.95,
+    "kg_redundancy_min_overlap": 0.9,
+    "minimum_kg_fault_universe_coverage": 1.0,
+    "normal_class_id": "NORMAL",
+    "require_complete_evidence_lineage": false,
+    "schema_version": "astrograph-birrf-config.v2",
+    "warn_on_incomplete_evidence_lineage": true
+  },
+  "branch_pair_dependence_descriptive": {
+    "DATA_ONLY__BACKWARD_ONLY": {
+      "equal_group_macro_double_wrong": {
+        "confidence": 0.95,
+        "estimate": 0.0,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261121,
+        "upper": 0.0
+      },
+      "equal_group_macro_top1_disagreement": {
+        "confidence": 0.95,
+        "estimate": 0.5,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261120,
+        "upper": 1.0
+      },
+      "interpretation": "Descriptive branch dependence only; no independence or causal-value claim."
+    },
+    "DATA_ONLY__FORWARD_ONLY": {
+      "equal_group_macro_double_wrong": {
+        "confidence": 0.95,
+        "estimate": 0.0,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261119,
+        "upper": 0.0
+      },
+      "equal_group_macro_top1_disagreement": {
+        "confidence": 0.95,
+        "estimate": 0.5,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261118,
+        "upper": 1.0
+      },
+      "interpretation": "Descriptive branch dependence only; no independence or causal-value claim."
+    },
+    "FORWARD_ONLY__BACKWARD_ONLY": {
+      "equal_group_macro_double_wrong": {
+        "confidence": 0.95,
+        "estimate": 0.3333333333333333,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261123,
+        "upper": 0.5
+      },
+      "equal_group_macro_top1_disagreement": {
+        "confidence": 0.95,
+        "estimate": 0.3333333333333333,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261122,
+        "upper": 0.5
+      },
+      "interpretation": "Descriptive branch dependence only; no independence or causal-value claim."
+    }
+  },
+  "calibration_status": "NOT_PROBABILITY_CALIBRATION",
+  "case_count": 6,
+  "case_identity_sha256": "fee32f518be0f6eaaf28cffd0886688cfd10ba191fec1f2d306fa746c07b5552",
+  "claim_boundary": "Offline leave-branch-out sensitivity on frozen independent groups. Removing a branch changes the fusion system and may change redundancy/correlation handling; deltas are not causal source values, posterior probability contributions, or flight qualification evidence.",
+  "full_vs_variants": {
+    "BACKWARD_ONLY": {
+      "case_level_full_unique_corrections_descriptive": 1,
+      "case_level_full_unique_harms_descriptive": 0,
+      "exact_group_direction_sign_p": 1.0,
+      "full_minus_variant_equal_group_accuracy_delta": {
+        "confidence": 0.95,
+        "estimate": 0.16666666666666666,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261020,
+        "upper": 0.5
+      },
+      "negative_group_count": 0,
+      "positive_group_count": 1,
+      "tie_group_count": 2,
+      "top1_disagreement_case_count": 3
+    },
+    "DATA_ONLY": {
+      "case_level_full_unique_corrections_descriptive": 0,
+      "case_level_full_unique_harms_descriptive": 2,
+      "exact_group_direction_sign_p": 0.5,
+      "full_minus_variant_equal_group_accuracy_delta": {
+        "confidence": 0.95,
+        "estimate": -0.3333333333333333,
+        "group_count": 3,
+        "lower": -0.5,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261018,
+        "upper": 0.0
+      },
+      "negative_group_count": 2,
+      "positive_group_count": 0,
+      "tie_group_count": 1,
+      "top1_disagreement_case_count": 2
+    },
+    "FORWARD_ONLY": {
+      "case_level_full_unique_corrections_descriptive": 1,
+      "case_level_full_unique_harms_descriptive": 0,
+      "exact_group_direction_sign_p": 1.0,
+      "full_minus_variant_equal_group_accuracy_delta": {
+        "confidence": 0.95,
+        "estimate": 0.16666666666666666,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261019,
+        "upper": 0.5
+      },
+      "negative_group_count": 0,
+      "positive_group_count": 1,
+      "tie_group_count": 2,
+      "top1_disagreement_case_count": 3
+    },
+    "NO_BACKWARD": {
+      "case_level_full_unique_corrections_descriptive": 1,
+      "case_level_full_unique_harms_descriptive": 0,
+      "exact_group_direction_sign_p": 1.0,
+      "full_minus_variant_equal_group_accuracy_delta": {
+        "confidence": 0.95,
+        "estimate": 0.16666666666666666,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261023,
+        "upper": 0.5
+      },
+      "negative_group_count": 0,
+      "positive_group_count": 1,
+      "tie_group_count": 2,
+      "top1_disagreement_case_count": 1
+    },
+    "NO_DATA": {
+      "case_level_full_unique_corrections_descriptive": 2,
+      "case_level_full_unique_harms_descriptive": 0,
+      "exact_group_direction_sign_p": 0.5,
+      "full_minus_variant_equal_group_accuracy_delta": {
+        "confidence": 0.95,
+        "estimate": 0.3333333333333333,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261021,
+        "upper": 0.5
+      },
+      "negative_group_count": 0,
+      "positive_group_count": 2,
+      "tie_group_count": 1,
+      "top1_disagreement_case_count": 4
+    },
+    "NO_FORWARD": {
+      "case_level_full_unique_corrections_descriptive": 1,
+      "case_level_full_unique_harms_descriptive": 0,
+      "exact_group_direction_sign_p": 1.0,
+      "full_minus_variant_equal_group_accuracy_delta": {
+        "confidence": 0.95,
+        "estimate": 0.16666666666666666,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20261022,
+        "upper": 0.5
+      },
+      "negative_group_count": 0,
+      "positive_group_count": 1,
+      "tie_group_count": 2,
+      "top1_disagreement_case_count": 1
+    }
+  },
+  "independent_group_count": 3,
+  "policies": {
+    "BACKWARD_ONLY": {
+      "case_accuracy": 0.5,
+      "equal_group_macro_accuracy": {
+        "confidence": 0.95,
+        "estimate": 0.5,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20260918,
+        "upper": 1.0
+      }
+    },
+    "DATA_ONLY": {
+      "case_accuracy": 1.0,
+      "equal_group_macro_accuracy": {
+        "confidence": 0.95,
+        "estimate": 1.0,
+        "group_count": 3,
+        "lower": 1.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20260919,
+        "upper": 1.0
+      }
+    },
+    "FORWARD_ONLY": {
+      "case_accuracy": 0.5,
+      "equal_group_macro_accuracy": {
+        "confidence": 0.95,
+        "estimate": 0.5,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20260920,
+        "upper": 1.0
+      }
+    },
+    "FULL": {
+      "case_accuracy": 0.6666666666666666,
+      "equal_group_macro_accuracy": {
+        "confidence": 0.95,
+        "estimate": 0.6666666666666666,
+        "group_count": 3,
+        "lower": 0.5,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20260921,
+        "upper": 1.0
+      }
+    },
+    "NO_BACKWARD": {
+      "case_accuracy": 0.5,
+      "equal_group_macro_accuracy": {
+        "confidence": 0.95,
+        "estimate": 0.5,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20260922,
+        "upper": 1.0
+      }
+    },
+    "NO_DATA": {
+      "case_accuracy": 0.3333333333333333,
+      "equal_group_macro_accuracy": {
+        "confidence": 0.95,
+        "estimate": 0.3333333333333333,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20260923,
+        "upper": 1.0
+      }
+    },
+    "NO_FORWARD": {
+      "case_accuracy": 0.5,
+      "equal_group_macro_accuracy": {
+        "confidence": 0.95,
+        "estimate": 0.5,
+        "group_count": 3,
+        "lower": 0.0,
+        "method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+        "resamples": 2000,
+        "seed": 20260924,
+        "upper": 1.0
+      }
+    }
+  },
+  "report_sha256": "da14bd4c9b605365c4e4b3a5613f46265c2954d13b987b040ba7b032cc0ce4f2",
+  "schema_version": "astrograph-birrf-leave-branch-out-audit.v1",
+  "source_dependence_status": "STRUCTURAL_SENSITIVITY_NOT_CAUSAL_ATTRIBUTION"
+}

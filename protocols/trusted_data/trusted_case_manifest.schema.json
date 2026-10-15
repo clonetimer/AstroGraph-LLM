@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrograph.local/schemas/trusted_case_manifest.v1.json",
+  "title": "AstroGraph Trusted Case Manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "case_id",
+    "split",
+    "variant",
+    "full_gate_status",
+    "effect_evidence_status",
+    "public_trace_leakage",
+    "source_evidence_level",
+    "acceptance_level",
+    "allowed_uses",
+    "classification_reasons",
+    "source_summary_sha256",
+    "source_manifest_sha256",
+    "public_trace_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "astrograph-trusted-case-manifest.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "split": {
+      "enum": [
+        "development",
+        "holdout",
+        "final"
+      ]
+    },
+    "variant": {
+      "enum": [
+        "nominal",
+        "effect"
+      ]
+    },
+    "full_gate_status": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "effect_evidence_status": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "public_trace_leakage": {
+      "type": "boolean"
+    },
+    "acceptance_level": {
+      "enum": [
+        "ACCEPTANCE_VALID",
+        "EFFECT_VALID_RESEARCH_ONLY",
+        "INVALID"
+      ]
+    },
+    "allowed_uses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "classification_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_summary_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "public_trace_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_evidence_level": {
+      "enum": [
+        "ACCEPTANCE_VALID",
+        "EFFECT_VALID_RESEARCH_ONLY",
+        "INVALID"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

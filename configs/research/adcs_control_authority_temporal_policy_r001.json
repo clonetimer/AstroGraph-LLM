@@ -1,0 +1,54 @@
+{
+  "calibration_groups": [
+    0,
+    1,
+    2,
+    5,
+    6,
+    7
+  ],
+  "candidate_bundle_sha256": "d2dc3c0175ece3a142f8fcaeefc105c4232849b91a70f6edb811e05557510fff",
+  "dataset_archive_sha256": "86d6f0cca1436d51a882e5b9bcd8e5073c7930fcffc167d26787b9a8e220e4da",
+  "development_groups": [
+    3,
+    8
+  ],
+  "excluded_groups": [
+    4,
+    9
+  ],
+  "groups_4_9_read": false,
+  "new_confirmatory_evidence": "NONE",
+  "policy_config_sha256": "62418d35939b8d019ef6468dc8771215521de630fcc1666358eff10be814a1d5",
+  "policy_receipt_sha256": "b060db49436a9130a9872e7c6c4a0d4fb2a6899d948de50c32ffe490641615d9",
+  "project_status": "B013_WIP_DEVELOPMENT_EVIDENCE",
+  "schema_version": "astrograph-b013-frozen-development-policy.v1",
+  "selected_policy": {
+    "calibration_groups": [
+      0,
+      1,
+      2,
+      5,
+      6,
+      7
+    ],
+    "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+    "development_groups": [
+      3,
+      8
+    ],
+    "evidence_window_points": 5,
+    "excluded_groups": [
+      4,
+      9
+    ],
+    "minimum_hits": 4,
+    "notification_buffer_points": 3,
+    "policy_id": "CAP-757B2B4F8CACDFBC03AC",
+    "policy_sha256": "259b943fd98b580802781c24e2ea98f2fbf974fda176101e23ef09bb948f9177",
+    "runtime_ground_truth_access": false,
+    "schema_version": "astrograph-control-authority-policy.v1",
+    "threshold": 0.9,
+    "warmup_points": 31
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "astrograph-llm-method-acceptance-campaign.v1",
+  "campaign_id": "llm-method-acceptance-v1",
+  "qualification_status": "TEMPLATE_NOT_PREREGISTERED",
+  "arm_order": [
+    "A0_ALGORITHM_ONLY",
+    "A1_LATE_LLM",
+    "A2_CONTROLLED_FULL",
+    "A3_NO_KG_OBSERVATION",
+    "A4_NO_RAG_OAG_CONTEXT",
+    "A5_NO_EXPERIENCE_CONTEXT",
+    "A6_NO_OBSERVATION_FEEDBACK",
+    "A7_NO_ACTIVE_PROBE"
+  ],
+  "required_case_dimensions": [
+    "fault_class",
+    "subsystem",
+    "difficulty",
+    "evidence_completeness",
+    "contradictory_evidence",
+    "kg_degradation",
+    "retrieval_noise",
+    "deterministic_unknown_or_ambiguous",
+    "open_set",
+    "candidate_topk_miss_stress"
+  ],
+  "required_metrics": [
+    "accuracy",
+    "macro_f1",
+    "balanced_accuracy",
+    "coverage",
+    "selective_risk",
+    "failure_to_abstain_rate",
+    "true_fault_in_candidate_set_rate",
+    "probe_execution_count",
+    "new_observation_count",
+    "new_raw_observation_count",
+    "formal_evidence_generated_count",
+    "resolved_gap_count",
+    "corrected_case_count",
+    "induced_error_count",
+    "net_diagnostic_gain"
+  ],
+  "promotion_thresholds": null,
+  "case_manifest": null,
+  "claim_boundary": "Campaign structure only. Case manifest, sample size, multiplicity plan and promotion thresholds must be frozen before confirmatory execution; this file contains no acceptance result or flight-qualification claim."
+}

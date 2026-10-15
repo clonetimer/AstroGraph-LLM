@@ -1,0 +1,29 @@
+{
+  "schema_version": "astrograph-soft-kg-new-mc-campaign.v1",
+  "campaign_id": "soft-kg-new-mc-20260831-r001",
+  "frozen_before_generation": true,
+  "seed": 20260831,
+  "purpose": "INTERNAL_CONFIRMATION_WITHOUT_RESELECTION",
+  "development_selection_receipt": "research/evidence/soft_kg_p0_p4_r001/p3_selection_receipt.json",
+  "adcs": {
+    "generator": "/mnt/PRO6000_disk/Timer/sat/scripts/generate_whole_spacecraft_adcs_eps_dataset_v522.py",
+    "generator_sha256": "a4ed91360cf90bc09f81e395076e6790785db73d1c55e78f4e69c03b92456e90",
+    "output": "/mnt/PRO6000_disk/Timer/sat/data/generated/astrograph_soft_kg_new_mc_adcs_r001",
+    "missions": ["attitude_acquisition"],
+    "scenarios": ["attitude_acquisition_transient"],
+    "conditions": ["nominal", "adcs_gyro_bias_step", "adcs_rw_jamming", "adcs_rw_motor_failure", "adcs_star_tracker_dropout"],
+    "samples_per_combination": 10,
+    "expected_runs": 50
+  },
+  "phm": {
+    "generator": "/mnt/PRO6000_disk/Timer/sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py",
+    "generator_sha256": "956f07dabfaf600729aa61385dc1901504d33e137912288020f3253538020252",
+    "output": "/mnt/PRO6000_disk/Timer/sat/data/generated/astrograph_soft_kg_new_mc_phm_r001",
+    "subsystems": ["eps", "thermal", "comm_data"],
+    "conditions": ["eps_battery_capacity_loss", "eps_solar_string_open", "thermal_heater_stuck_on", "thermal_radiator_rejection_loss", "comm_data_downlink_link_loss"],
+    "samples_per_combination": 2,
+    "expected_runs": 36
+  },
+  "forbidden_actions": ["reselect_method", "retune_threshold", "read_legacy_groups_4_9_for_selection"],
+  "independence_boundary": "New seed and Monte Carlo draws use the same Sat-Sim generator family; this can support internal confirmation but cannot establish independent-generator, external-simulator, HIL, or flight qualification."
+}

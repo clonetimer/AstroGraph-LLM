@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "completed": 21,
+  "scenarios": [
+    "nominal",
+    "battery_capacity_loss",
+    "solar_efficiency_loss",
+    "radiator_rejection_loss",
+    "reaction_wheel_jam",
+    "downlink_service_loss",
+    "battery_internal_resistance_increase",
+    "solar_array_string_failure",
+    "heater_stuck_on",
+    "temperature_sensor_bias",
+    "temperature_sensor_drift",
+    "reaction_wheel_friction_increase",
+    "reaction_wheel_torque_authority_loss",
+    "star_tracker_dropout",
+    "gyro_bias_drift",
+    "transmitter_output_power_loss",
+    "storage_write_failure",
+    "eps_capacity_plus_solar",
+    "radiator_plus_heater",
+    "rw_friction_plus_star_tracker",
+    "transmitter_plus_storage_write"
+  ]
+}

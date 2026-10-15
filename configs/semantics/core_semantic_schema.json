@@ -1,0 +1,238 @@
+{
+  "schema_version": "astrograph-semantic-schema.v1",
+  "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+  "version": "1.0.0",
+  "quantity_kinds": [
+    {
+      "quantity_kind_id": "electrical.active_power",
+      "dimension": {"mass": 1, "length": 2, "time": -3, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "W",
+      "value_semantics": "CONTINUOUS",
+      "description": "Signed active power crossing a declared component port."
+    },
+    {
+      "quantity_kind_id": "energy.state_of_charge",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "CONTINUOUS",
+      "description": "Dimensionless stored-energy fraction."
+    },
+    {
+      "quantity_kind_id": "energy.stored_energy",
+      "dimension": {"mass": 1, "length": 2, "time": -2, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "J",
+      "value_semantics": "CONTINUOUS",
+      "description": "Amount of energy stored in a bounded buffer (canonical joule; source may export watt-hours)."
+    },
+    {
+      "quantity_kind_id": "mechanical.angular_rate",
+      "dimension": {"mass": 0, "length": 0, "time": -1, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "rad/s",
+      "value_semantics": "CONTINUOUS",
+      "description": "Angular rate around a declared axis."
+    },
+    {
+      "quantity_kind_id": "mechanical.torque",
+      "dimension": {"mass": 1, "length": 2, "time": -2, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "N*m",
+      "value_semantics": "CONTINUOUS",
+      "description": "Signed mechanical torque at a declared port."
+    },
+    {
+      "quantity_kind_id": "thermal.temperature",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 1, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "K",
+      "value_semantics": "CONTINUOUS",
+      "description": "Thermodynamic temperature."
+    },
+    {
+      "quantity_kind_id": "inventory.fill_fraction",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "CONTINUOUS",
+      "description": "Dimensionless occupied fraction of a bounded queue or storage inventory."
+    },
+    {
+      "quantity_kind_id": "inventory.fractional_flow_rate",
+      "dimension": {"mass": 0, "length": 0, "time": -1, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1/s",
+      "value_semantics": "CONTINUOUS",
+      "description": "Signed rate of change of a normalized bounded inventory."
+    },
+    {
+      "quantity_kind_id": "information.data_rate",
+      "dimension": {"mass": 0, "length": 0, "time": -1, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "bit/s",
+      "value_semantics": "CONTINUOUS",
+      "description": "Signed information flow crossing a declared transport or queue boundary."
+    },
+    {
+      "quantity_kind_id": "electrical.current",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 1, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "A",
+      "value_semantics": "CONTINUOUS",
+      "description": "Electrical current through a conductor or motor winding (canonical ampere)."
+    },
+    {
+      "quantity_kind_id": "angle.angular_deviation",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "rad",
+      "value_semantics": "CONTINUOUS",
+      "description": "Angular displacement or deviation from a reference axis (canonical radian; source may export degrees)."
+    },
+    {
+      "quantity_kind_id": "inventory.event_count",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "DISCRETE",
+      "description": "Count of discrete operational events (load-shed, switch, saturation) within an observation window."
+    },
+    {
+      "quantity_kind_id": "mechanical.angular_momentum",
+      "dimension": {"mass": 1, "length": 2, "time": -1, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "N*m*s",
+      "value_semantics": "CONTINUOUS",
+      "description": "Stored rotational momentum about a declared axis (e.g. CMG wheel momentum)."
+    },
+    {
+      "quantity_kind_id": "mechanical.angular_position",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "rad",
+      "value_semantics": "CONTINUOUS",
+      "description": "Angular position (kinematic state) about a declared axis (canonical radian; source may export degrees)."
+    },
+    {
+      "quantity_kind_id": "magnetic.field",
+      "dimension": {"mass": 1, "length": 0, "time": -2, "current": -1, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "T",
+      "value_semantics": "CONTINUOUS",
+      "description": "Magnetic flux density (B) at a declared point (canonical tesla; source may export nanotesla)."
+    },
+    {
+      "quantity_kind_id": "magnetic.dipole_moment",
+      "dimension": {"mass": 0, "length": 2, "time": 0, "current": 1, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "A*m^2",
+      "value_semantics": "CONTINUOUS",
+      "description": "Magnetic dipole moment commanded or delivered by a magnetorquer actuator."
+    },
+    {
+      "quantity_kind_id": "attitude.mrp",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "MRP",
+      "value_semantics": "CONTINUOUS",
+      "description": "Modified Rodrigues Parameter attitude representation vector."
+    },
+    {
+      "quantity_kind_id": "optical.sun_intensity",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "CONTINUOUS",
+      "description": "Normalized solar intensity ratio seen by a sun sensor (0..1)."
+    },
+    {
+      "quantity_kind_id": "direction.unit_vector_component",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "CONTINUOUS",
+      "description": "Component of a dimensionless unit direction vector."
+    },
+    {
+      "quantity_kind_id": "signal.signal_to_noise_ratio",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "dB",
+      "value_semantics": "CONTINUOUS",
+      "description": "Ratio of signal power to noise power on a logarithmic decibel scale (e.g. link Eb/N0)."
+    },
+    {
+      "quantity_kind_id": "signal.bit_error_rate",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "CONTINUOUS",
+      "description": "Dimensionless bit error probability observed at a transport boundary."
+    },
+    {
+      "quantity_kind_id": "information.data_amount",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "bit",
+      "value_semantics": "CONTINUOUS",
+      "description": "Absolute amount of information stored in a bounded inventory (canonical bit)."
+    },
+    {
+      "quantity_kind_id": "length.distance",
+      "dimension": {"mass": 0, "length": 1, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "m",
+      "value_semantics": "CONTINUOUS",
+      "description": "Geometric distance between two declared points (canonical metre)."
+    },
+    {
+      "quantity_kind_id": "communication.antenna_gain",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "dBi",
+      "value_semantics": "CONTINUOUS",
+      "description": "Antenna gain relative to an isotropic radiator on a decibel scale (canonical dBi; source may export dB)."
+    },
+    {
+      "quantity_kind_id": "energy.conversion_efficiency",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "CONTINUOUS",
+      "description": "Dimensionless ratio of useful output energy/power to input energy/power of a conversion process (e.g. solar-array efficiency)."
+    },
+    {
+      "quantity_kind_id": "mass.amount",
+      "dimension": {"mass": 1, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "kg",
+      "value_semantics": "CONTINUOUS",
+      "description": "Amount of stored mass in a propellant or consumable inventory (canonical kilogram)."
+    },
+    {
+      "quantity_kind_id": "mass.mass_flow_rate",
+      "dimension": {"mass": 1, "length": 0, "time": -1, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "kg/s",
+      "value_semantics": "CONTINUOUS",
+      "description": "Signed rate of mass flow crossing a declared inventory boundary (canonical kg/s)."
+    },
+    {
+      "quantity_kind_id": "pressure.pressure",
+      "dimension": {"mass": 1, "length": -1, "time": -2, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "Pa",
+      "value_semantics": "CONTINUOUS",
+      "description": "Engineering pressure of a fluid or consumable volume (canonical pascal)."
+    },
+    {
+      "quantity_kind_id": "atmosphere.cloud_fraction",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "CONTINUOUS",
+      "description": "Normalized atmospheric cloud-cover fraction observed by a payload sensor (0..1)."
+    },
+    {
+      "quantity_kind_id": "quality.measurement_score",
+      "dimension": {"mass": 0, "length": 0, "time": 0, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "1",
+      "value_semantics": "CONTINUOUS",
+      "description": "Dimensionless quality score of a payload observation (0..1)."
+    },
+    {
+      "quantity_kind_id": "mechanical.thrust",
+      "dimension": {"mass": 1, "length": 1, "time": -2, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "N",
+      "value_semantics": "CONTINUOUS",
+      "description": "Linear thrust force generated by a propulsion actuator (canonical newton)."
+    },
+    {
+      "quantity_kind_id": "mechanical.linear_impulse",
+      "dimension": {"mass": 1, "length": 1, "time": -1, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "N*s",
+      "value_semantics": "CONTINUOUS",
+      "description": "Cumulative linear impulse delivered by a thrust actuator (canonical newton-second)."
+    },
+    {
+      "quantity_kind_id": "time.duration",
+      "dimension": {"mass": 0, "length": 0, "time": 1, "current": 0, "temperature": 0, "amount": 0, "luminous_intensity": 0},
+      "canonical_unit": "s",
+      "value_semantics": "CONTINUOUS",
+      "description": "Elapsed time interval or pulse duration (canonical second)."
+    }
+  ]
+}

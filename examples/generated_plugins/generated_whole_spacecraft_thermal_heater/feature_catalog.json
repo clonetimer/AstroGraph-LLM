@@ -1,0 +1,105 @@
+{
+  "schema_version": "astrograph-generated-feature-catalog.v1",
+  "features": [
+    {
+      "feature_id": "FD-HEATER-CMD-ACTUAL-MISMATCH-FRACTION-V1",
+      "name": "Heater command/actual mismatch fraction",
+      "output_unit": "1",
+      "input_bindings": {
+        "actual": "heater_on",
+        "command": "heater_command_on"
+      },
+      "operator_id": null,
+      "operator_pipeline": [],
+      "operator_graph": {
+        "graph_version": "astrograph-operator-graph.v1",
+        "nodes": [
+          {
+            "node_id": "mismatch_fraction",
+            "operator_id": "JOINT_THRESHOLD_FRACTION",
+            "current_inputs": [
+              {
+                "source": "CURRENT_SIGNAL",
+                "ref": "heater_on"
+              }
+            ],
+            "baseline_inputs": [
+              {
+                "source": "CURRENT_SIGNAL",
+                "ref": "heater_command_on"
+              }
+            ],
+            "time_input": null,
+            "parameters": {
+              "current_comparison": "GREATER_THAN",
+              "current_threshold": 0.5,
+              "baseline_comparison": "LESS_OR_EQUAL",
+              "baseline_threshold": 0.5
+            }
+          }
+        ],
+        "output_node_id": "mismatch_fraction"
+      },
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "configs/thermal_star_evidence.json",
+        "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+      ],
+      "claim_boundary": "E0 synthetic command/actual mismatch evidence."
+    },
+    {
+      "feature_id": "FD-HEATER-CURRENT-MEAN-V1",
+      "name": "Heater current mean",
+      "output_unit": "A",
+      "input_bindings": {
+        "current": "heater_current"
+      },
+      "operator_id": "MEAN_VALUE",
+      "operator_pipeline": [],
+      "operator_graph": null,
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+      ],
+      "claim_boundary": "E0 synthetic direct-effect feature."
+    },
+    {
+      "feature_id": "FD-PAYLOAD-TEMP-PAIRED-MAX-V1",
+      "name": "Payload temperature paired maximum residual",
+      "output_unit": "degC",
+      "input_bindings": {
+        "current": "payload_temperature",
+        "baseline": "payload_temperature"
+      },
+      "operator_id": "MAX_ABS_PAIRED_RESIDUAL",
+      "operator_pipeline": [],
+      "operator_graph": null,
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+      ],
+      "claim_boundary": "E0 synthetic thermal-response feature."
+    },
+    {
+      "feature_id": "FD-BATTERY-CURRENT-PAIRED-MAX-V1",
+      "name": "Battery current paired maximum residual",
+      "output_unit": "A",
+      "input_bindings": {
+        "current": "battery_current",
+        "baseline": "battery_current"
+      },
+      "operator_id": "MAX_ABS_PAIRED_RESIDUAL",
+      "operator_pipeline": [],
+      "operator_graph": null,
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+      ],
+      "claim_boundary": "E0 synthetic power-response feature."
+    }
+  ]
+}

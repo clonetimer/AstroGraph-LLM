@@ -1,0 +1,93 @@
+{
+  "schema_version": "astrograph-r25-remediation-protocol.v1",
+  "patch_id": "PATCH-R25",
+  "base_artifact": "AstroGraph_0.7.1_post49_working_patch24_unified_source.zip",
+  "base_artifact_sha256": "569e319877c4ed91d97239b5c883bdeb7f53f85194c6800afbe3084571df5e71",
+  "status": "EXPLORATORY_DEVELOPMENT_AFTER_R24_BENCHMARK",
+  "selection_timing": "NOT_PREREGISTERED_BEFORE_ALL_R25_DEVELOPMENT_CONTACT",
+  "esa": {
+    "allowed_partitions": [
+      "MODEL_TRAIN",
+      "DEVELOPMENT_SELECTION"
+    ],
+    "read_only_audit_partition": [
+      "CONFIRMATORY_EVALUATION"
+    ],
+    "forbidden_prediction_regeneration_partitions": [
+      "CONFIRMATORY_EVALUATION",
+      "EXTERNAL_VALIDATION"
+    ],
+    "channels": [
+      "channel_41",
+      "channel_42",
+      "channel_43",
+      "channel_44",
+      "channel_45",
+      "channel_46"
+    ],
+    "reference_policy": {
+      "pre_event_hours": 2,
+      "gap_before_event_minutes": 10
+    },
+    "candidate_grid": {
+      "robust_z_threshold": [
+        6,
+        8,
+        10,
+        12
+      ],
+      "minimum_coincident_channels": [
+        2,
+        3,
+        4
+      ],
+      "alarm_group_gap_s": 40
+    },
+    "selection_key": [
+      "max engineering_f0_5",
+      "min false_alarm_group_count",
+      "min robust_z_threshold",
+      "min minimum_coincident_channels"
+    ],
+    "metric_boundary": "development engineering alarm-group precision + anomaly-ID recall; not ESA-ADB corrected event-wise metric"
+  },
+  "dxc09_sample": {
+    "allowed_partition": "DEVELOPMENT",
+    "forbidden_datasets": [
+      "DXC09_COMPETITION",
+      "DXC09_REMATCH"
+    ],
+    "split_policy": "int(first_8_hex_chars_of_registered_scn_sha256,16)%5; 0/1/2 TRAIN, 3 SELECTION, 4 INTERNAL_REPLAY",
+    "selected_configuration": {
+      "ridge_alpha": 10.0,
+      "startup_calibration_s": 30.0,
+      "residual_z_threshold": 8.0,
+      "persistence_decisions": 1,
+      "top_residual_sensors": 4,
+      "support_topology_hops": 3,
+      "conflict_topology_hops": 1,
+      "top_components": 2,
+      "command_context_s": 10.0,
+      "include_recent_command_in_structural_conflict": false,
+      "max_diagnosis_cardinality": 4,
+      "max_diagnosis_candidates": 64,
+      "max_search_nodes": 5000
+    },
+    "configuration_status": "EXPLORATORY_POST_R24_DEVELOPMENT_CONFIGURATION_NOT_PREREGISTERED",
+    "command_conflict_policy": "recent command transition is preserved as residual/model context and source lineage; it is not automatically expanded into every structural conflict"
+  },
+  "source_bindings": {
+    "esa_high_resolution.py": "27f32d579df5a5ec6ec1c6ffa1fa6ea6f6f9670f50f0519e7efebc8d5a191628",
+    "dxc_hybrid_model_based.py": "db7edbd6f527eae67310ef431f82ff0ba59ccab4d19929eddca0a234a08e8363",
+    "esa_runner.py": "24dcd0baf1006b9a045cc04b9154ed079f3e01e7eb4c585abee04d3bf07feffe",
+    "dxc_runner.py": "891a61ce7066fcaa52db3738e12126d9c2e7c97ffe55fee7068beb48e12d0343"
+  },
+  "development_result_receipts": {
+    "esa": "f3267ca7de06ed1a96b364991c07cd725a7dc23bf468ee9249f6ccae2959ab55",
+    "dxc": "0bec83a247a02d37f4919ca3e9f01a25754f0eee79d270a25459cc16fbcbb56a",
+    "esa_confirmatory_raw_visibility_audit": "03a0d899f0782c48641cf987a4c21292c5ea81975a4fe47b31e1c269a91502b9"
+  },
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R25 supports remediation implementation, development evidence and read-only failure-mechanism audit only. It cannot replace frozen R20/R21 external failures or create external-validation evidence from seen partitions.",
+  "receipt_sha256": "80d09d002a17b1b9d921177abc9daa74dc56dcf32b79ad3e6c8df46e6fcd86df"
+}

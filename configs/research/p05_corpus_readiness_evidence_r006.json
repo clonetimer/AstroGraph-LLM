@@ -1,0 +1,20 @@
+{
+  "schema_version": "astrograph-p05-corpus-readiness-evidence.v3",
+  "assessment_id": "p05-document-corpus-readiness-r006-timer-human-review",
+  "evidence": {
+    "coverage": {"path": "governance/evidence/research/document_corpus/coverage_r001/audit_receipt.json", "sha256": "bd6399f582c01d6a8d183fe96473fa0645eb19c0db2eaeaefb34a84040d7701f"},
+    "corpus_build": {"path": "governance/evidence/research/document_corpus/development_r003/build_receipt.json", "sha256": "6cf8512636fb44642682f8dfcf1cfc0df7cf5b4494902e7b98690f9b7a0199a4"},
+    "corpus_audit": {"path": "governance/evidence/research/document_corpus/development_r003/audit_receipt.json", "sha256": "fcdc4b5516c510584b7db26aaeefb41e9cb15c0f15ec7cfa168770d133fd4d5b"},
+    "rebuild": {"path": "governance/evidence/research/document_corpus/development_r003/rebuild_verification.json", "sha256": "13699083bf8ba3494904ba8d3ecf962cf2012f020a3582e809d313bae0551424"},
+    "sidechannel": {"path": "governance/evidence/research/document_corpus/label_sidechannel_r001/report_after_mitigation.json", "sha256": "73adc590f37f251113aa9952aecf892826c77b19d6c3f5f8abddcd7c7866e9ab"},
+    "multimodal": {"path": ".astrograph-state/research/document_corpus/multimodal_gold_review_freeze_timer_revalidated_r001.json", "sha256": "b5fb40905fdead1c034ff3fe0bac5c5c9f8c28c8fcbfc10463d2c162d493ddcd"},
+    "chunking": {"path": ".astrograph-state/research/document_corpus/chunking_gold_review_freeze_timer_revalidated_r001.json", "sha256": "6d1a45db2e6a0a79fff67e2b7517fcaf851f3364957563d1b32b8a79a280ecab"},
+    "early_design_gold": {"path": ".astrograph-state/research/document_corpus/early_design_gold_review_freeze_timer_revalidated_r001.json", "sha256": "d30ffaa8ae3e09c3ddd314e67d043d8922d3d3d3eaf7e74c6a814286c653a28c"},
+    "scan_review": {"path": ".astrograph-state/research/document_corpus/vlm_scan_transcription_review_freeze_timer_revalidated_r001/freeze_receipt.json", "sha256": "45fc6b7ca90af23ba871d5c752dbcef57ced40612fcbe8bc549c92d2f645fe97"},
+    "corpus_manifest": {"path": ".astrograph-state/research/document_corpus/development_r003/manifest.json", "sha256": "3c2c9481d9a686ae1bff78ed9288a85246851ea47db9c7bda2197f3a7e356889"},
+    "controlled_rewrite": {"path": ".astrograph-state/research/document_corpus/confusion_controlled_rewrites_human_corrected_timer_r001/receipt.json", "sha256": "952cc3ecd3392bf90cd36594e0e8bc1afc2a17e4142e7d62f453e160020d6291"},
+    "controlled_rewrite_review": {"path": ".astrograph-state/research/document_corpus/confusion_controlled_rewrites_human_corrected_timer_r001/review_freeze_revalidated_r001.json", "sha256": "4f449b2ea725df223da5d12af0c57b6312dea8c29bd9784bede95782d238146e"},
+    "approved_claims": {"path": "governance/evidence/research/document_corpus/approved_tbox_claim_release_r001/claim_release.json", "sha256": "f70733deb5ee065e1291626353d3ba706a058f95e63f208118310fc90224ba33"}
+  },
+  "claim_boundary": "Timer named human review was revalidated by the current project freeze implementations. P05-06 and P05-08 may pass. P05-07 remains a frozen no-promotion result because the preregistered paired superiority thresholds were not met; P05-09 therefore remains blocked."
+}

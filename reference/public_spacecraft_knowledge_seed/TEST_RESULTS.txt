@@ -1,0 +1,6 @@
+Selected AstroGraph regression: 28 passed (graph seed + material graph construction + workbench web).
+Reference seed standalone schema/CSV/GraphML/CLI/dry-run validation: PASS.
+Offline viewer JS syntax: node --check PASS.
+Live browser interaction: NOT RUN (browser executable unavailable).
+Live Neo4j ingestion: NOT RUN (dedicated Neo4j not provided).
+Real spacecraft fault diagnosis accuracy: NOT EVALUATED (expert-labeled cases required).

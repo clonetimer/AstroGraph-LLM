@@ -1,0 +1,140 @@
+{
+  "schema_version": "astrograph-component-archetype-catalog.v1",
+  "catalog_id": "astrograph.core.component-archetypes",
+  "version": "1.0.0",
+  "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+  "archetypes": [
+    {
+      "archetype_id": "storage.energy_buffer",
+      "version": "1.0.0",
+      "family": "STORAGE",
+      "functional_role_ids": ["store.energy", "exchange.power"],
+      "state_quantity_kind_ids": ["energy.state_of_charge"],
+      "port_roles": [
+        {"port_role_id": "state.energy_fraction", "direction": "OBSERVATION", "quantity_kind_ids": ["energy.state_of_charge"], "required": true, "description": "Observable normalized storage state."},
+        {"port_role_id": "state.energy_reserve", "direction": "OBSERVATION", "quantity_kind_ids": ["energy.stored_energy"], "required": false, "description": "Observable stored energy content of the buffer."},
+        {"port_role_id": "power.exchange", "direction": "BIDIRECTIONAL", "quantity_kind_ids": ["electrical.active_power"], "required": false, "description": "Signed charging or discharging power."}
+      ],
+      "description": "Generic bounded energy-storage component."
+    },
+    {
+      "archetype_id": "actuator.controlled_effort",
+      "version": "1.0.0",
+      "family": "ACTUATOR",
+      "functional_role_ids": ["receive.command", "produce.effort"],
+      "state_quantity_kind_ids": ["mechanical.angular_rate"],
+      "port_roles": [
+        {"port_role_id": "command.effort", "direction": "INPUT", "quantity_kind_ids": ["mechanical.torque"], "required": true, "description": "Requested actuator effort."},
+        {"port_role_id": "response.effort", "direction": "OUTPUT", "quantity_kind_ids": ["mechanical.torque"], "required": false, "description": "Estimated delivered actuator effort."},
+        {"port_role_id": "state.rate", "direction": "OBSERVATION", "quantity_kind_ids": ["mechanical.angular_rate"], "required": true, "description": "Observable actuator rate state."},
+        {"port_role_id": "state.electrical_current", "direction": "OBSERVATION", "quantity_kind_ids": ["electrical.current"], "required": false, "description": "Current draw of the actuator motor or drive electronics."},
+        {"port_role_id": "performance.angular_error", "direction": "OBSERVATION", "quantity_kind_ids": ["angle.angular_deviation"], "required": false, "description": "Angular deviation from the commanded or reference orientation."},
+        {"port_role_id": "state.angular_momentum", "direction": "OBSERVATION", "quantity_kind_ids": ["mechanical.angular_momentum"], "required": false, "description": "Observable stored rotational momentum (e.g. CMG wheel momentum)."},
+        {"port_role_id": "state.gimbal_angle", "direction": "OBSERVATION", "quantity_kind_ids": ["mechanical.angular_position"], "required": false, "description": "Observable gimbal axis angle of a single-gimbal CMG."},
+        {"port_role_id": "command.magnetic_dipole", "direction": "INPUT", "quantity_kind_ids": ["magnetic.dipole_moment"], "required": false, "description": "Requested magnetic dipole command of a magnetorquer actuator."},
+        {"port_role_id": "response.magnetic_dipole", "direction": "OUTPUT", "quantity_kind_ids": ["magnetic.dipole_moment"], "required": false, "description": "Delivered magnetic dipole response of a magnetorquer actuator."},
+        {"port_role_id": "context.magnetic_field", "direction": "INPUT", "quantity_kind_ids": ["magnetic.field"], "required": false, "description": "Ambient magnetic flux density at the actuator boundary (used by m x B models)."}
+      ],
+      "description": "Generic commanded actuator with effort and rate state."
+    },
+    {
+      "archetype_id": "actuator.spinning_rotor",
+      "version": "1.0.0",
+      "family": "ACTUATOR",
+      "functional_role_ids": ["receive.command", "store.momentum", "produce.angular_momentum"],
+      "state_quantity_kind_ids": ["mechanical.angular_rate"],
+      "port_roles": [
+        {"port_role_id": "command.effort", "direction": "INPUT", "quantity_kind_ids": ["mechanical.torque"], "required": true, "description": "Requested rotor torque command."},
+        {"port_role_id": "response.effort", "direction": "OUTPUT", "quantity_kind_ids": ["mechanical.torque"], "required": false, "description": "Delivered rotor torque response (actual motor torque)."},
+        {"port_role_id": "state.rate", "direction": "OBSERVATION", "quantity_kind_ids": ["mechanical.angular_rate"], "required": true, "description": "Observable rotor spin rate."},
+        {"port_role_id": "state.angular_momentum", "direction": "OBSERVATION", "quantity_kind_ids": ["mechanical.angular_momentum"], "required": false, "description": "Observable stored rotational momentum of the spinning rotor."},
+        {"port_role_id": "state.electrical_current", "direction": "OBSERVATION", "quantity_kind_ids": ["electrical.current"], "required": false, "description": "Current draw of the rotor motor or drive electronics."}
+      ],
+      "description": "Generic spinning-rotor actuator with a rate state and an inertial spin-balance dynamics contract."
+    },
+    {
+      "archetype_id": "thermal.lumped_capacity",
+      "version": "1.0.0",
+      "family": "THERMAL_CAPACITY",
+      "functional_role_ids": ["store.thermal_energy", "exchange.heat"],
+      "state_quantity_kind_ids": ["thermal.temperature"],
+      "port_roles": [
+        {"port_role_id": "state.temperature", "direction": "OBSERVATION", "quantity_kind_ids": ["thermal.temperature"], "required": true, "description": "Observable lumped temperature state."},
+        {"port_role_id": "heat.exchange", "direction": "BIDIRECTIONAL", "quantity_kind_ids": ["electrical.active_power"], "required": false, "description": "Equivalent signed heat-flow power."},
+        {"port_role_id": "context.ambient_temperature", "direction": "INPUT", "quantity_kind_ids": ["thermal.temperature"], "required": false, "description": "Ambient boundary temperature used by the declared thermal balance."}
+      ],
+      "description": "Generic lumped thermal-capacity component."
+    },
+    {
+      "archetype_id": "sensor.measurement",
+      "version": "1.0.0",
+      "family": "SENSOR",
+      "functional_role_ids": ["observe.quantity", "emit.measurement"],
+      "state_quantity_kind_ids": [],
+      "port_roles": [
+        {"port_role_id": "observation.input", "direction": "INPUT", "quantity_kind_ids": ["electrical.active_power", "energy.state_of_charge", "mechanical.angular_rate", "mechanical.torque", "thermal.temperature", "inventory.fill_fraction", "inventory.fractional_flow_rate", "information.data_rate", "information.data_amount", "magnetic.field", "attitude.mrp", "optical.sun_intensity", "direction.unit_vector_component", "angle.angular_deviation", "atmosphere.cloud_fraction", "quality.measurement_score"], "required": true, "description": "Physical quantity presented to the sensing boundary."},
+        {"port_role_id": "measurement.output", "direction": "OBSERVATION", "quantity_kind_ids": ["electrical.active_power", "energy.state_of_charge", "mechanical.angular_rate", "mechanical.torque", "thermal.temperature", "inventory.fill_fraction", "inventory.fractional_flow_rate", "information.data_rate", "information.data_amount", "magnetic.field", "attitude.mrp", "optical.sun_intensity", "direction.unit_vector_component", "angle.angular_deviation", "atmosphere.cloud_fraction", "quality.measurement_score"], "required": true, "description": "Observed quantity with an explicit measurement contract."}
+      ],
+      "description": "Generic measurement component independent of the observed physical dimension."
+    },
+    {
+      "archetype_id": "converter.power",
+      "version": "1.0.0",
+      "family": "CONVERTER",
+      "functional_role_ids": ["receive.energy", "convert.energy", "emit.energy"],
+      "state_quantity_kind_ids": [],
+      "port_roles": [
+        {"port_role_id": "power.input", "direction": "INPUT", "quantity_kind_ids": ["electrical.active_power"], "required": true, "description": "Input power before conversion."},
+        {"port_role_id": "power.output", "direction": "OUTPUT", "quantity_kind_ids": ["electrical.active_power"], "required": true, "description": "Output power after conversion."},
+        {"port_role_id": "state.event_count", "direction": "OBSERVATION", "quantity_kind_ids": ["inventory.event_count"], "required": false, "description": "Count of discrete operational events (shed, trip, overload)."},
+        {"port_role_id": "performance.efficiency", "direction": "OBSERVATION", "quantity_kind_ids": ["energy.conversion_efficiency"], "required": false, "description": "Observed conversion efficiency of the energy converter."}
+      ],
+      "description": "Generic energy conversion component with auditable input-output balance."
+    },
+    {
+      "archetype_id": "link.transport",
+      "version": "1.0.0",
+      "family": "TRANSPORT_LINK",
+      "functional_role_ids": ["receive.flow", "transport.flow", "emit.flow"],
+      "state_quantity_kind_ids": [],
+      "port_roles": [
+        {"port_role_id": "flow.input", "direction": "INPUT", "quantity_kind_ids": ["electrical.active_power", "inventory.fractional_flow_rate", "information.data_rate"], "required": true, "description": "Flow entering a declared transport boundary."},
+        {"port_role_id": "flow.output", "direction": "OUTPUT", "quantity_kind_ids": ["electrical.active_power", "inventory.fractional_flow_rate", "information.data_rate", "information.data_amount"], "required": true, "description": "Flow leaving a declared transport boundary (power, data rate, or emitted data amount)."},
+        {"port_role_id": "performance.signal_to_noise_ratio", "direction": "OBSERVATION", "quantity_kind_ids": ["signal.signal_to_noise_ratio"], "required": false, "description": "Observed link signal-to-noise ratio expressed in decibels."},
+        {"port_role_id": "performance.bit_error_rate", "direction": "OBSERVATION", "quantity_kind_ids": ["signal.bit_error_rate"], "required": false, "description": "Observed bit error probability at the transport boundary."},
+        {"port_role_id": "context.slant_range", "direction": "INPUT", "quantity_kind_ids": ["length.distance"], "required": false, "description": "Geometric slant range between the transmitter and receiver."},
+        {"port_role_id": "context.antenna_gain", "direction": "INPUT", "quantity_kind_ids": ["communication.antenna_gain"], "required": false, "description": "Declared antenna gain used by the transport-link gain model."},
+        {"port_role_id": "context.pointing_angle", "direction": "INPUT", "quantity_kind_ids": ["angle.angular_deviation"], "required": false, "description": "Angular pointing offset of the link aperture relative to its boresight."},
+        {"port_role_id": "context.elevation_angle", "direction": "INPUT", "quantity_kind_ids": ["angle.angular_deviation"], "required": false, "description": "Elevation angle of the remote node above the local horizon at the link boundary."}
+      ],
+      "description": "Generic directed transport link with delay and loss modeled by a dynamics contract."
+    },
+    {
+      "archetype_id": "queue.bounded_inventory",
+      "version": "1.0.0",
+      "family": "QUEUE_STORAGE",
+      "functional_role_ids": ["store.inventory", "receive.flow", "emit.flow"],
+      "state_quantity_kind_ids": ["inventory.fill_fraction"],
+      "port_roles": [
+        {"port_role_id": "state.fill_fraction", "direction": "OBSERVATION", "quantity_kind_ids": ["inventory.fill_fraction"], "required": true, "description": "Normalized occupied inventory."},
+        {"port_role_id": "state.occupied_amount", "direction": "OBSERVATION", "quantity_kind_ids": ["information.data_amount", "mass.amount"], "required": false, "description": "Absolute stored amount (information bits or mass) in the bounded inventory."},
+        {"port_role_id": "flow.exchange", "direction": "BIDIRECTIONAL", "quantity_kind_ids": ["inventory.fractional_flow_rate", "information.data_rate", "mass.mass_flow_rate"], "required": true, "description": "Signed normalized, information or mass flow rate crossing the inventory boundary."},
+        {"port_role_id": "state.pressure", "direction": "OBSERVATION", "quantity_kind_ids": ["pressure.pressure"], "required": false, "description": "Engineering pressure state of a pressurized inventory (e.g. propellant tank)."}
+      ],
+      "description": "Generic bounded queue or storage inventory with explicit saturation events."
+    },
+    {
+      "archetype_id": "actuator.thrust_impulse",
+      "version": "1.0.0",
+      "family": "ACTUATOR",
+      "functional_role_ids": ["receive.command", "produce.thrust_impulse"],
+      "state_quantity_kind_ids": ["mechanical.linear_impulse"],
+      "port_roles": [
+        {"port_role_id": "state.linear_impulse", "direction": "OBSERVATION", "quantity_kind_ids": ["mechanical.linear_impulse"], "required": true, "description": "Cumulative linear impulse delivered by the thrust actuator."},
+        {"port_role_id": "state.propellant_consumed", "direction": "OBSERVATION", "quantity_kind_ids": ["mass.amount"], "required": true, "description": "Cumulative propellant mass consumed by the thrust actuator."},
+        {"port_role_id": "state.on_time", "direction": "OBSERVATION", "quantity_kind_ids": ["time.duration"], "required": false, "description": "Observed pulse on-time duration of the thrust actuation."}
+      ],
+      "description": "Generic linear thrust/impulse propulsion actuator with propellant-consumption state."
+    }
+  ]
+}

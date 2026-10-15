@@ -1,0 +1,38 @@
+{
+  "schema_version": "phm.d3_dataset_manifest.v1",
+  "dataset_id": "phm_d3_rw_production_v2_20260718",
+  "campaign_stage": "D3_RW_PRODUCTION",
+  "status": "COMPLETE",
+  "planned_run_count": 90,
+  "complete_run_count": 90,
+  "independent_run_counts": {
+    "nominal": 30,
+    "rw_friction_increase": 30,
+    "rw_torque_authority_loss": 30
+  },
+  "duration_s": 600.0,
+  "aggregate_rows": {
+    "telemetry_raw.csv": 1890,
+    "telemetry_labels.csv": 1890,
+    "simulation_internal_evidence.csv": 54090,
+    "telemetry_adcs_raw.csv": 54090,
+    "telemetry_eps_raw.csv": 10890,
+    "telemetry_comm_raw.csv": 5490,
+    "telemetry_thermal_raw.csv": 1890,
+    "telemetry_multirate_labels.csv": 72360
+  },
+  "field_contract_sha256": "52ac434f835fd183a94caa2613f61756ce8e1ff312764da3cb5f15efba9e0758",
+  "registry_sha256": "b1c7c1ebc604e331cbefcc229ab1978bc7ae9c2cef82a0d002c95a7fd38a1dc5",
+  "source_revision": {
+    "git_commit": "UNAVAILABLE_NOT_A_GIT_WORKTREE",
+    "source_package_sha256": "21e0e1865df9468a231a71bbed23d9305fd61a346830ec4ce1259cb73ee9476a"
+  },
+  "runtime_versions": {
+    "python": "3.12.12",
+    "operating_system": "Windows-11-10.0.26200-SP0",
+    "bsk": "2.11.0",
+    "numpy": "2.3.5",
+    "pandas": "3.0.3"
+  },
+  "claim_boundary": "E0 engineering assumptions; not measured population distributions or flight-calibrated limits"
+}

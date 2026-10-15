@@ -1,0 +1,19 @@
+{
+  "schema_version": "astrograph-r14-deterministic-audit-reproduction.v1",
+  "date": "2026-09-18",
+  "results": [
+    {
+      "issue_id": "R14-GOV-001",
+      "input": "FeatureResult(value=NaN, quality_flags=[NONFINITE_INPUT]); REQUIRED GREATER_THAN 1 A",
+      "observed": "EvidenceFact.status=NOT_SATISFIED; explanation reports Observed nan A",
+      "expected_policy_direction": "invalid/nonfinite input must fail closed before threshold truth semantics"
+    },
+    {
+      "issue_id": "R14-GND-001",
+      "input": "E1=0.2 A; visible K1; Agent paragraph 900 A citations=[E1,K1]",
+      "observed": "_validate_narrative accepted mixed-citation paragraph",
+      "expected_policy_direction": "knowledge citation must not disable evidence numeric grounding"
+    }
+  ],
+  "claim_boundary": "Deterministic counterexamples demonstrate code-path behavior only; they do not measure field incidence or LLM generation frequency."
+}

@@ -1,0 +1,1 @@
+原样保留本轮补包，不自动安装。31 个 wheel 标签适配当前环境，9 个是 Windows CPython 3.10 二进制轮子，与当前 Linux CPython 3.13 不兼容；项目要求 Python>=3.11，也不能直接以这些 cp310 轮子形成项目环境。详见 governance/implementation/post48_dev2/receipts/dependencies.json。DOR/LangGraph 非新核心入口依赖。

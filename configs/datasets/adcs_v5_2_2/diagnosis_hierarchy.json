@@ -1,0 +1,33 @@
+{
+  "schema_version": "astrograph-adcs-diagnosis-hierarchy.v1",
+  "hierarchy_id": "whole-spacecraft-adcs-v5.2.2-five-component-fourteen-mode",
+  "version": "1.0.0",
+  "components": [
+    "control_loop",
+    "imu",
+    "reaction_wheel",
+    "star_tracker",
+    "sun_sensor"
+  ],
+  "fault_to_component": {
+    "adcs_control_loop_failure": "control_loop",
+    "adcs_gyro_bias_step": "imu",
+    "adcs_imu_axis_dropout": "imu",
+    "adcs_imu_gyro_noise_amplification": "imu",
+    "adcs_imu_total_output_zero": "imu",
+    "adcs_rw_jamming": "reaction_wheel",
+    "adcs_rw_speed_sensor_fault": "reaction_wheel",
+    "adcs_rw_torque_path_open": "reaction_wheel",
+    "adcs_star_solution_constant_bias": "star_tracker",
+    "adcs_star_solution_unavailable": "star_tracker",
+    "adcs_star_tracker_stuck_at_last": "star_tracker",
+    "adcs_sun_sensor_cell_failure": "sun_sensor",
+    "adcs_sun_sensor_saturation": "sun_sensor",
+    "adcs_sun_vector_unavailable": "sun_sensor"
+  },
+  "source_evidence": {
+    "primary": "whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json conditions[].component_source",
+    "normalized_aliases": "whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json fault_taxonomy and sample_index.csv diagnostic_class"
+  },
+  "claim_boundary": "Evaluator-side hierarchy for source-component supervision and metrics. It is never included in telemetry model inputs. The dataset contains single-source faults, so multi-label localization is not evaluated in this regression."
+}

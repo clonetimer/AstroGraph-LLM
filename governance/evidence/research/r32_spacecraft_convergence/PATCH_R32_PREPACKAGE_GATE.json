@@ -1,0 +1,41 @@
+{
+  "schema_version": "astrograph-r32-prepackage-gate.v1",
+  "patch_id": "PATCH-R32",
+  "status": "SPACECRAFT_ENGINEERING_STABLE_CANDIDATE_FEATURE_FREEZE_PASS",
+  "spacecraft_convergence_decision_sha256": "39fdb6774c3c15468f3e4d092ebb6de937bcc738cc7b9a6aa2c2057fd99e6a66",
+  "software_feature_freeze": "PASS",
+  "stable_engineering_candidate": "PASS",
+  "diagnostic_external_qualification": "BLOCKED",
+  "next_phase": "ASTROGRAPH_BENCH_UI",
+  "gates": {
+    "source_integrity": {
+      "verified_files": 2837,
+      "errors": 0
+    },
+    "documentation_freshness": "PASS",
+    "r20_r32_research_chain": "177 passed / 1 skipped",
+    "stable_governance_group": "26 passed / 6 exact archival-replay skips",
+    "distribution_inventory_cleanup_evidence": "23 passed",
+    "full_collect_only": "3598 tests / 0 collection errors",
+    "production_js": "10 PASS",
+    "chromium": "3 passed",
+    "source_only_delivery_evidence": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+    "strict_bundled": "FAIL_AS_DESIGNED_8_HISTORICAL_EXTERNAL_DEPENDENCIES"
+  },
+  "content_bindings": {
+    "convergence_config_sha256": "c4ddcbc76ce318257aeb20d6fb05f4c2851e0ba7109d72eb8b5eb84e5e7af338",
+    "spacecraft_profile_sha256": "b86b0ee2131fb916718f41e95dcbec989374acb2214ea3d6ba5a5e02ff86ecd2",
+    "diagnostic_claim_manifest_sha256": "daa788ca0912d327e541b2fde95722d3f2083260e105a6ba78f46d1581269eb4",
+    "r24_snapshot_sha256": "87af9c594c3d2f41dc32fc482db19776e4f57272996431bc502c075714eb8ce1",
+    "convergence_doc_sha256": "60217ba7a0bd4de37b93ac58dcbca37081cbb6da478e82e69cfcf2fccb968325",
+    "roadmap_doc_sha256": "004650538af9bff415ef597873f68f1753162352a0c36226e10f2b769915fc2d"
+  },
+  "claim_boundary": [
+    "R32 freezes spacecraft core feature expansion because implemented functions are sufficient for the declared engineering scope.",
+    "Broad independent external diagnostic qualification remains blocked and is not inferred from software stability.",
+    "No seen external partition is regenerated for model selection or qualification.",
+    "Flight, HIL, safety, autonomous-control and Probe formal-evidence authority are not claimed.",
+    "Active product development transitions to AstroGraph-Bench/UI and independent validation support."
+  ],
+  "receipt_sha256": "9b993c26fb85db4510e44304e032cd8a25ff025dea9a3447faeb37998fffce47"
+}

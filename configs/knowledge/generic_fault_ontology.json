@@ -1,0 +1,172 @@
+{
+  "schema_version": "astrograph-generic-fault-ontology.v1",
+  "ontology_id": "astrograph.core.cross-domain-fault-mechanisms",
+  "version": "1.0.0",
+  "component_catalog_id": "astrograph.core.component-archetypes",
+  "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+  "robustness_contract": {
+    "dataset_fields_belong_to": "channel_binding_layer",
+    "units_belong_to": "semantic_quantity_layer",
+    "numeric_limits_belong_to": "versioned_asset_or_operating-regime_calibration",
+    "evidence_values_belong_to": "observation_episode_layer",
+    "supported_feature_families": [
+      "robust_baseline_deviation",
+      "command_response_residual",
+      "availability_fraction",
+      "persistence_fraction",
+      "robust_trend",
+      "dispersion_ratio",
+      "balance_residual"
+    ],
+    "missing_or_out_of_distribution_policy": "UNKNOWN_OR_ABSTAIN"
+  },
+  "failure_mechanisms": [
+    {
+      "mechanism_id": "mechanism:signal-availability-loss",
+      "name": "Signal availability loss",
+      "description": "A measurement or information-producing boundary ceases to provide usable observations.",
+      "applicable_archetype_ids": ["sensor.measurement", "link.transport"],
+      "effect_pattern_ids": ["effect:availability-decrease", "effect:command-response-residual-growth"]
+    },
+    {
+      "mechanism_id": "mechanism:additive-bias-shift",
+      "name": "Additive bias shift",
+      "description": "An observed quantity acquires a persistent additive offset relative to a declared baseline or reference.",
+      "applicable_archetype_ids": ["sensor.measurement"],
+      "effect_pattern_ids": ["effect:baseline-deviation-growth"]
+    },
+    {
+      "mechanism_id": "mechanism:dispersion-increase",
+      "name": "Dispersion increase",
+      "description": "Observation or response variability rises relative to a regime-conditioned baseline.",
+      "applicable_archetype_ids": ["sensor.measurement", "actuator.controlled_effort", "actuator.spinning_rotor"],
+      "effect_pattern_ids": ["effect:dispersion-ratio-growth"]
+    },
+    {
+      "mechanism_id": "mechanism:output-stagnation",
+      "name": "Output stagnation",
+      "description": "A commanded or observed output remains locally invariant despite expected excitation or state evolution.",
+      "applicable_archetype_ids": ["sensor.measurement", "actuator.controlled_effort", "actuator.spinning_rotor", "converter.power"],
+      "effect_pattern_ids": ["effect:response-stagnation", "effect:command-response-residual-growth"]
+    },
+    {
+      "mechanism_id": "mechanism:actuation-authority-loss",
+      "name": "Actuation authority loss",
+      "description": "Delivered effort, flow or conversion response becomes insufficient relative to an available command.",
+      "applicable_archetype_ids": ["actuator.controlled_effort", "actuator.spinning_rotor", "actuator.thrust_impulse", "converter.power"],
+      "effect_pattern_ids": ["effect:command-response-residual-growth", "effect:flow-deficit"]
+    },
+    {
+      "mechanism_id": "mechanism:storage-capacity-loss",
+      "name": "Storage capacity loss",
+      "description": "A bounded storage element retains less usable inventory or energy under comparable operating conditions.",
+      "applicable_archetype_ids": ["storage.energy_buffer", "queue.bounded_inventory"],
+      "effect_pattern_ids": ["effect:stored-state-depletion", "effect:balance-residual-growth"]
+    },
+    {
+      "mechanism_id": "mechanism:transport-degradation",
+      "name": "Transport degradation",
+      "description": "Delivered flow or information falls below the amount admitted at a transport boundary.",
+      "applicable_archetype_ids": ["link.transport"],
+      "effect_pattern_ids": ["effect:flow-deficit", "effect:quality-degradation"]
+    },
+    {
+      "mechanism_id": "mechanism:uncommanded-inventory-loss",
+      "name": "Uncommanded inventory loss",
+      "description": "Stored mass, information or energy declines without a matching commanded or accounted outflow.",
+      "applicable_archetype_ids": ["storage.energy_buffer", "queue.bounded_inventory"],
+      "effect_pattern_ids": ["effect:stored-state-depletion", "effect:balance-residual-growth"]
+    },
+    {
+      "mechanism_id": "mechanism:flow-restriction",
+      "name": "Flow restriction",
+      "description": "Delivered material, energy or information flow is persistently lower than its commanded or expected counterpart.",
+      "applicable_archetype_ids": ["link.transport", "actuator.thrust_impulse", "converter.power"],
+      "effect_pattern_ids": ["effect:flow-deficit", "effect:command-response-residual-growth"]
+    },
+    {
+      "mechanism_id": "mechanism:thermal-exchange-degradation",
+      "name": "Thermal exchange degradation",
+      "description": "Heat input, rejection or storage balance departs from the declared thermal dynamics contract.",
+      "applicable_archetype_ids": ["thermal.lumped_capacity", "converter.power"],
+      "effect_pattern_ids": ["effect:thermal-trend-deviation", "effect:balance-residual-growth"]
+    },
+    {
+      "mechanism_id": "mechanism:excess-demand",
+      "name": "Excess demand",
+      "description": "Requested consumption or loading persistently exceeds the declared source, conversion or transport envelope.",
+      "applicable_archetype_ids": ["converter.power", "storage.energy_buffer", "link.transport"],
+      "effect_pattern_ids": ["effect:balance-residual-growth", "effect:stored-state-depletion"]
+    },
+    {
+      "mechanism_id": "mechanism:uncommanded-energy-input",
+      "name": "Uncommanded energy input",
+      "description": "Energy is delivered to a component without a matching command or expected environmental input.",
+      "applicable_archetype_ids": ["thermal.lumped_capacity", "converter.power"],
+      "effect_pattern_ids": ["effect:thermal-trend-deviation", "effect:command-response-residual-growth"]
+    }
+  ],
+  "effect_patterns": [
+    {
+      "effect_pattern_id": "effect:availability-decrease",
+      "name": "Availability decrease",
+      "quantity_kind_ids": ["inventory.event_count"],
+      "feature_family_ids": ["availability_fraction", "persistence_fraction"]
+    },
+    {
+      "effect_pattern_id": "effect:baseline-deviation-growth",
+      "name": "Baseline deviation growth",
+      "quantity_kind_ids": ["mechanical.angular_rate", "angle.angular_deviation", "thermal.temperature", "electrical.current", "magnetic.field"],
+      "feature_family_ids": ["robust_baseline_deviation", "persistence_fraction"]
+    },
+    {
+      "effect_pattern_id": "effect:dispersion-ratio-growth",
+      "name": "Dispersion ratio growth",
+      "quantity_kind_ids": ["mechanical.angular_rate", "angle.angular_deviation", "electrical.current", "signal.signal_to_noise_ratio"],
+      "feature_family_ids": ["dispersion_ratio", "persistence_fraction"]
+    },
+    {
+      "effect_pattern_id": "effect:response-stagnation",
+      "name": "Response stagnation",
+      "quantity_kind_ids": ["mechanical.angular_rate", "mechanical.torque", "electrical.active_power", "information.data_rate"],
+      "feature_family_ids": ["robust_trend", "command_response_residual"]
+    },
+    {
+      "effect_pattern_id": "effect:command-response-residual-growth",
+      "name": "Command-response residual growth",
+      "quantity_kind_ids": ["mechanical.torque", "mechanical.thrust", "electrical.active_power", "information.data_rate", "magnetic.dipole_moment"],
+      "feature_family_ids": ["command_response_residual", "persistence_fraction"]
+    },
+    {
+      "effect_pattern_id": "effect:stored-state-depletion",
+      "name": "Stored-state depletion",
+      "quantity_kind_ids": ["energy.state_of_charge", "energy.stored_energy", "inventory.fill_fraction", "information.data_amount", "mass.amount"],
+      "feature_family_ids": ["robust_baseline_deviation", "robust_trend"]
+    },
+    {
+      "effect_pattern_id": "effect:flow-deficit",
+      "name": "Flow deficit",
+      "quantity_kind_ids": ["information.data_rate", "mass.mass_flow_rate", "inventory.fractional_flow_rate", "mechanical.thrust", "electrical.active_power"],
+      "feature_family_ids": ["command_response_residual", "balance_residual"]
+    },
+    {
+      "effect_pattern_id": "effect:quality-degradation",
+      "name": "Quality degradation",
+      "quantity_kind_ids": ["signal.signal_to_noise_ratio", "signal.bit_error_rate", "quality.measurement_score"],
+      "feature_family_ids": ["robust_baseline_deviation", "persistence_fraction"]
+    },
+    {
+      "effect_pattern_id": "effect:thermal-trend-deviation",
+      "name": "Thermal trend deviation",
+      "quantity_kind_ids": ["thermal.temperature", "electrical.active_power"],
+      "feature_family_ids": ["robust_trend", "balance_residual", "persistence_fraction"]
+    },
+    {
+      "effect_pattern_id": "effect:balance-residual-growth",
+      "name": "Balance residual growth",
+      "quantity_kind_ids": ["electrical.active_power", "energy.stored_energy", "information.data_rate", "mass.mass_flow_rate", "thermal.temperature"],
+      "feature_family_ids": ["balance_residual", "persistence_fraction"]
+    }
+  ],
+  "claim_boundary": "Cross-domain TBox vocabulary only. Dataset columns, absolute thresholds, calibrated severity, episode evidence and causal propagation claims are excluded."
+}

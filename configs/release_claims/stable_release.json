@@ -1,0 +1,57 @@
+{
+  "schema_version": "astrograph-release-claim-manifest.v1",
+  "release_id": "AstroGraph-v0.7.1.post49-stable",
+  "release_class": "STABLE_SOFTWARE_RELEASE",
+  "qualification_boundary": "Stable current-source delivery. Historical result evidence is not bundled; diagnostic/profile/provider/flight qualification remains independently governed.",
+  "claims": [
+    {
+      "claim_id": "post49-current-source-runtime",
+      "claim_type": "SOFTWARE_RUNTIME_DELIVERY",
+      "disposition": "SUPPORTED",
+      "statement": "AstroGraph 0.7.1.post49 current Runtime/API/CLI, models, data assets, knowledge assets and governed Agent functionality are included in the current-source delivery package.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "release.json",
+        "DELIVERY_PROFILE.json",
+        "governance/implementation/post49/RELEASE_READINESS.json"
+      ]
+    },
+    {
+      "claim_id": "scenario-boundary-freeze",
+      "claim_type": "CAPABILITY_BOUNDARY",
+      "disposition": "SUPPORTED_WITH_LIMITATIONS",
+      "statement": "Scenario (1)-(8) capability status and external qualification dependencies are defined only by the current post49 RELEASE_READINESS matrix.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/implementation/post49/RELEASE_READINESS.json"
+      ]
+    },
+    {
+      "claim_id": "history-excluded",
+      "claim_type": "DELIVERY_PROVENANCE_POLICY",
+      "disposition": "SUPPORTED",
+      "statement": "Historical reports, receipts, dev/post ledgers and prior release evidence are intentionally excluded from this source package and cannot be interpreted as current results.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "DELIVERY_PROFILE.json",
+        "docs/DOCUMENT_STATUS_POLICY.md"
+      ]
+    },
+    {
+      "claim_id": "flight-validation",
+      "claim_type": "FLIGHT_VALIDATION",
+      "disposition": "NOT_CLAIMED",
+      "statement": "AstroGraph 0.7.1.post49 does not claim flight validation or safety qualification.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "release.json"
+      ]
+    }
+  ],
+  "interpretation_policy": {
+    "current_release_truth": "governance/implementation/post49/RELEASE_READINESS.json",
+    "current_metrics": "docs/CURRENT_DATA_DRIVEN_METRICS.md",
+    "historical_records_included": false,
+    "research_may_override_current": false
+  }
+}

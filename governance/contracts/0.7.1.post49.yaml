@@ -1,0 +1,114 @@
+{
+  "schema_version": "astrograph-improvement-contract.v2",
+  "contract_id": "ASTROGRAPH-POST49-CURRENT-DELIVERY-SOURCE-R1",
+  "status": "FROZEN",
+  "baseline_version": "0.7.1.post49",
+  "target_version": "0.7.1.post49",
+  "baseline_archive_sha256": "5bd2f77204285f951113acda287014d6651990185f0162bd3e3fb8e2319d4e93",
+  "baseline_manifest_path": "governance/baselines/post49-current-delivery-baseline.json",
+  "baseline_manifest_sha256": "fa3202ef8ec05851914a71b77e0f35237eed363fb038b4e45ce60c61f1e8b303",
+  "baseline_test_count": 158,
+  "baseline_test_inventory_path": "",
+  "baseline_test_inventory_sha256": "",
+  "baseline_tree_size_bytes": 165767269,
+  "objective": "Deliver the current AstroGraph-Agent post49 source without historical reports/receipts/ledgers while preserving current runtime, Agent, replay, data-driven, document, knowledge, continuous-diagnosis and controlled-evolution functionality.",
+  "in_scope": [
+    "DELIVERY_PROFILE.json",
+    "release.json",
+    "docs/",
+    "governance/",
+    "scripts/",
+    "tests/fixtures/",
+    "tests/implementation/p1_p4/",
+    "configs/research/",
+    "configs/release_claims/",
+    "src/astrograph/governance/health_check.py",
+    "FILELIST.txt",
+    "SHA256SUMS.txt",
+    "SOURCE_MANIFEST.json"
+  ],
+  "out_of_scope": [
+    "models/",
+    "data/",
+    "reference/",
+    "benchmarks/",
+    "diagnostic algorithm changes",
+    "Active KG",
+    "confirmed memory"
+  ],
+  "required_deliverables": [
+    "DELIVERY_PROFILE.json",
+    "docs/CURRENT_DELIVERY_SOURCE.md",
+    "docs/CURRENT_DOCS.json",
+    "governance/implementation/post49/RELEASE_READINESS.json",
+    "governance/implementation/post49/DELIVERY_VALIDATION.json",
+    "governance/evidence/CURRENT_RUNTIME_ASSETS.json",
+    "governance/contracts/0.7.1.post49.yaml",
+    "governance/change_requests/0.7.1.post49.json",
+    "governance/task_boards/0.7.1.post49.json",
+    "governance/rollback/0.7.1.post49.json"
+  ],
+  "prohibited_actions": [
+    "Do not modify production model weights, protected data/reference/benchmark assets, Active KG, confirmed memory, diagnostic thresholds or BiRRF weights.",
+    "Do not include historical dev/post ledgers, prior experiment reports, receipts, archived documentation or prior release contracts.",
+    "Do not broaden diagnostic, production, flight or safety qualification claims.",
+    "Do not alter a hash-pinned current runtime/evidence package merely to remove an embedded provenance URI."
+  ],
+  "protected_paths": [
+    "models/",
+    "data/",
+    "reference/",
+    "benchmarks/"
+  ],
+  "frozen_artifacts": [],
+  "acceptance_criteria": [
+    {
+      "criterion_id": "STABLE_SOURCE_VALIDATION",
+      "description": "Current delivery source passes stable distribution/runtime validation.",
+      "severity": "HARD",
+      "expected_status": "PASS",
+      "evaluator": "python scripts/release/validate_stable_source.py --root .",
+      "claim_boundary": "Source/runtime integrity only."
+    },
+    {
+      "criterion_id": "SCENARIO_FUNCTION_PARITY",
+      "description": "Scenario-oriented replay/generic/document/continuous/feedback/evolution regression set passes.",
+      "severity": "HARD",
+      "expected_status": "PASS",
+      "evaluator": "139-test current scenario regression set",
+      "claim_boundary": "Software functional regression only; not new accuracy evidence."
+    },
+    {
+      "criterion_id": "FRESH_SMOKE",
+      "description": "Runtime/governance/model/API smoke tests pass.",
+      "severity": "HARD",
+      "expected_status": "PASS",
+      "evaluator": "19-test stable smoke set",
+      "claim_boundary": "Software functionality smoke only."
+    },
+    {
+      "criterion_id": "HISTORY_EXCLUSION",
+      "description": "Historical archive/dev ledger/receipt/release-contract roots are absent; only explicitly enumerated current gate inputs remain.",
+      "severity": "HARD",
+      "expected_status": "PASS",
+      "evaluator": "delivery package audit",
+      "claim_boundary": "Packaging information architecture only."
+    }
+  ],
+  "resource_budget": {
+    "max_candidates": 1,
+    "max_formal_gate_queries": 1,
+    "max_runtime_seconds": 7200,
+    "max_retries_per_error": 2,
+    "max_storage_growth_bytes": 1073741824,
+    "max_sat_agent_files_changed": 0
+  },
+  "stop_conditions": [
+    "Any protected runtime asset change.",
+    "Any runtime/API/model/scenario regression.",
+    "Any historical record root reintroduced into the delivery source.",
+    "Any current hash-pinned evidence/config package changed without requalification."
+  ],
+  "claim_boundary": "Current-source delivery packaging only. Software version remains 0.7.1.post49 and diagnostic/profile/provider qualification boundaries remain those in RELEASE_READINESS.",
+  "created_at": "2026-09-16T17:40:00+08:00"
+}

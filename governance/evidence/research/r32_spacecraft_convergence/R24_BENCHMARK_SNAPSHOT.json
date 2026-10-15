@@ -1,0 +1,957 @@
+{
+  "schema_version": "astrograph-r32-r24-benchmark-snapshot.v1",
+  "source_file_sha256": "bf4632b3a3fd5c69893ad70c893c15f8e8edb2e57b83fd7f57d8f54402f5dbe5",
+  "source_report_sha256": "e5cd5b5792de202d47613c4f5608017163ef04f79574adc0acbc36d18ec73a03",
+  "source_schema_version": "astrograph-r24-dataset-diagnostic-benchmark-report.v1",
+  "datasets": {
+    "ADCS_V5_2_2": {
+      "status": "COMPLETE_R24_TEST_EVALUATION",
+      "test_scope": {
+        "trajectories": 182,
+        "fault_trajectories": 176,
+        "nominal_trajectories": 6,
+        "windows": 51324,
+        "fault_windows": 37504,
+        "healthy_windows": 13820
+      },
+      "astrograph_current_frozen": {
+        "family": "frozen_p2_innovation_v2",
+        "detection": {
+          "accuracy": 0.940437222352116,
+          "balanced_accuracy": 0.9229624556400429,
+          "macro_f1": 0.9241150455233861
+        },
+        "localization": {
+          "accuracy": 0.9824285409556314,
+          "balanced_accuracy": 0.98444421472791,
+          "macro_f1": 0.9774252494027138
+        },
+        "classification_oracle_component": {
+          "accuracy": 0.9815752986348123,
+          "balanced_accuracy": 0.9740641543106937,
+          "macro_f1": 0.9755007595227586
+        },
+        "classification_predicted_component": {
+          "accuracy": 0.9674968003412969,
+          "balanced_accuracy": 0.9549187016958738,
+          "macro_f1": 0.9558407619663842
+        },
+        "end_to_end_15_class": {
+          "accuracy": 0.925531914893617,
+          "balanced_accuracy": 0.9143797088885144,
+          "macro_f1": 0.9159497891156329
+        },
+        "failure_attribution": {
+          "fault_windows": 37504,
+          "first_wrong_stage_detection": 1469,
+          "first_wrong_stage_localization": 246,
+          "first_wrong_stage_classification": 519,
+          "fully_correct_fault_windows": 35270
+        },
+        "alarm_event_metrics": {
+          "eligible_fault_events": 176,
+          "detected_fault_events": 176,
+          "fault_event_recall": 1.0,
+          "mean_detection_delay_s": 2.772727272727273,
+          "median_detection_delay_s": 0.0,
+          "p95_detection_delay_s": 9.0,
+          "healthy_windows": 13820,
+          "false_alarm_windows": 1588,
+          "false_alarm_window_rate": 0.11490593342981187,
+          "healthy_exposure_hours": 3.837222222222222,
+          "false_alarm_episodes": 304,
+          "false_alarm_episodes_per_hour": 79.22397567684958
+        },
+        "mechanism": "frozen residual_tcn innovation v2",
+        "model_sha256": "39062457c1ed6d68c1478afa1d125ba54b80a6e07936de0a4078dca865852732"
+      },
+      "baselines": {
+        "fixed_logistic_regression": {
+          "family": "machine_learning",
+          "detection": {
+            "accuracy": 0.9236809290000779,
+            "balanced_accuracy": 0.9026550144347363,
+            "macro_f1": 0.9029587818033306
+          },
+          "localization": {
+            "accuracy": 0.9131559300341296,
+            "balanced_accuracy": 0.9167024684430716,
+            "macro_f1": 0.9127908934924136
+          },
+          "classification_oracle_component": {
+            "accuracy": 0.9765891638225256,
+            "balanced_accuracy": 0.9800274736652621,
+            "macro_f1": 0.9736270119780082
+          },
+          "classification_predicted_component": {
+            "accuracy": 0.9007305887372014,
+            "balanced_accuracy": 0.8645091969538929,
+            "macro_f1": 0.8572680008611924
+          },
+          "end_to_end_15_class": {
+            "accuracy": 0.8731977242615541,
+            "balanced_accuracy": 0.8408524767309186,
+            "macro_f1": 0.8374768194051344
+          },
+          "failure_attribution": {
+            "fault_windows": 37504,
+            "first_wrong_stage_detection": 1942,
+            "first_wrong_stage_localization": 2210,
+            "first_wrong_stage_classification": 381,
+            "fully_correct_fault_windows": 32971
+          },
+          "alarm_event_metrics": {
+            "eligible_fault_events": 176,
+            "detected_fault_events": 176,
+            "fault_event_recall": 1.0,
+            "mean_detection_delay_s": 6.903409090909091,
+            "median_detection_delay_s": 2.0,
+            "p95_detection_delay_s": 34.0,
+            "healthy_windows": 13820,
+            "false_alarm_windows": 1975,
+            "false_alarm_window_rate": 0.14290882778581765,
+            "healthy_exposure_hours": 3.837222222222222,
+            "false_alarm_episodes": 373,
+            "false_alarm_episodes_per_hour": 97.20573331402925
+          },
+          "mechanism": "balanced logistic detection + balanced multinomial component localization + per-component balanced logistic fault classifiers",
+          "model_sha256": null
+        },
+        "small_causal_cnn_3epoch": {
+          "family": "deep_learning",
+          "detection": {
+            "accuracy": 0.8761398176291794,
+            "balanced_accuracy": 0.7947054253431491,
+            "macro_f1": 0.8242963275955324
+          },
+          "localization": {
+            "accuracy": 0.8084470989761092,
+            "balanced_accuracy": 0.7030384929261138,
+            "macro_f1": 0.7234783262573528
+          },
+          "classification_oracle_component": {
+            "accuracy": 0.9433393771331058,
+            "balanced_accuracy": 0.9342987488291224,
+            "macro_f1": 0.9313127167086258
+          },
+          "classification_predicted_component": {
+            "accuracy": 0.7634918941979523,
+            "balanced_accuracy": 0.7218973970816794,
+            "macro_f1": 0.7007997155295695
+          },
+          "end_to_end_15_class": {
+            "accuracy": 0.7204231938274491,
+            "balanced_accuracy": 0.7085430896159043,
+            "macro_f1": 0.690561460315955
+          },
+          "failure_attribution": {
+            "fault_windows": 37504,
+            "first_wrong_stage_detection": 1081,
+            "first_wrong_stage_localization": 6517,
+            "first_wrong_stage_classification": 1475,
+            "fully_correct_fault_windows": 28431
+          },
+          "alarm_event_metrics": {
+            "eligible_fault_events": 176,
+            "detected_fault_events": 176,
+            "fault_event_recall": 1.0,
+            "mean_detection_delay_s": 5.488636363636363,
+            "median_detection_delay_s": 0.0,
+            "p95_detection_delay_s": 56.0,
+            "healthy_windows": 13820,
+            "false_alarm_windows": 5276,
+            "false_alarm_window_rate": 0.3817655571635311,
+            "healthy_exposure_hours": 3.837222222222222,
+            "false_alarm_episodes": 192,
+            "false_alarm_episodes_per_hour": 50.036195164326045
+          },
+          "mechanism": "past-only 20 s window CNN encoder + binary detector + five-component localizer + component-specific fault heads",
+          "model_sha256": null
+        },
+        "statistical_centroid": {
+          "family": "statistical",
+          "detection": {
+            "accuracy": 0.27316654976229443,
+            "balanced_accuracy": 0.49373299457802167,
+            "macro_f1": 0.2246545720160032
+          },
+          "localization": {
+            "accuracy": 0.6758212457337884,
+            "balanced_accuracy": 0.6980858495106059,
+            "macro_f1": 0.623837247572671
+          },
+          "classification_oracle_component": {
+            "accuracy": 0.929954138225256,
+            "balanced_accuracy": 0.937831145180265,
+            "macro_f1": 0.9201063278380003
+          },
+          "classification_predicted_component": {
+            "accuracy": 0.6745413822525598,
+            "balanced_accuracy": 0.6026016481500092,
+            "macro_f1": 0.5688762545217587
+          },
+          "end_to_end_15_class": {
+            "accuracy": 0.27164679292338867,
+            "balanced_accuracy": 0.08237067170093301,
+            "macro_f1": 0.05777313624226511
+          },
+          "failure_attribution": {
+            "fault_windows": 37504,
+            "first_wrong_stage_detection": 36913,
+            "first_wrong_stage_localization": 70,
+            "first_wrong_stage_classification": 8,
+            "fully_correct_fault_windows": 513
+          },
+          "alarm_event_metrics": {
+            "eligible_fault_events": 176,
+            "detected_fault_events": 76,
+            "fault_event_recall": 0.4318181818181818,
+            "mean_detection_delay_s": 61.05263157894737,
+            "median_detection_delay_s": 57.0,
+            "p95_detection_delay_s": 136.0,
+            "healthy_windows": 13820,
+            "false_alarm_windows": 391,
+            "false_alarm_window_rate": 0.02829232995658466,
+            "healthy_exposure_hours": 3.837222222222222,
+            "false_alarm_episodes": 142,
+            "false_alarm_episodes_per_hour": 37.005936006949476
+          },
+          "mechanism": "algorithm-equivalent fast centroid distance evaluation",
+          "model_sha256": null
+        }
+      },
+      "sota_execution": {
+        "attempted": [
+          "InceptionTime",
+          "TimesNet",
+          "ModernTCN",
+          "Residual-TCN"
+        ],
+        "status": "NOT_COMPLETED_IN_CURRENT_CPU_ENVIRONMENT",
+        "reason": "No CUDA available; preregistered 8-epoch residual-TCN run exceeded 300 s after epoch 1. No test metrics emitted before full fit, so incomplete training is not reported as SOTA.",
+        "external_exact_dataset_sota": "NOT_FOUND_PUBLICLY_BY_EXACT_DATASET_ID"
+      },
+      "dataset_embedded_reference": {
+        "full_telemetry_grouped_separability_accuracy": 0.992,
+        "macro_accuracy": 0.9875,
+        "minimum_class_accuracy": 0.825,
+        "comparability": "DATASET_COMPLETION_CHECK_DIFFERENT_PROTOCOL_NOT_ASTROGRAPH_E2E"
+      }
+    },
+    "PHM_V6_0": {
+      "status": "COMPLETE_R24_TEST_EVALUATION",
+      "test_scope": {
+        "traces": 112,
+        "fault_traces": 102,
+        "nominal_traces": 10,
+        "fault_classes": 17
+      },
+      "astrograph_current_frozen": {
+        "detection": {
+          "sample_count": 112,
+          "accuracy": 0.9642857142857143,
+          "balanced_accuracy": 0.9352941176470588,
+          "macro_f1": 0.8991899189918993,
+          "per_class_recall": {
+            "nominal": 0.9,
+            "fault": 0.9705882352941176
+          },
+          "support": {
+            "nominal": 10,
+            "fault": 102
+          }
+        },
+        "localization": {
+          "sample_count": 102,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_class_recall": {
+            "battery": 1.0,
+            "bus_load": 1.0,
+            "downlink": 1.0,
+            "fuel_tank": 1.0,
+            "heater": 1.0,
+            "onboard_storage": 1.0,
+            "payload_instrument": 1.0,
+            "pdu": 1.0,
+            "radiator": 1.0,
+            "solar_array": 1.0,
+            "thermal_node": 1.0,
+            "thruster": 1.0,
+            "transmitter": 1.0
+          },
+          "support": {
+            "battery": 12,
+            "bus_load": 6,
+            "downlink": 6,
+            "fuel_tank": 6,
+            "heater": 12,
+            "onboard_storage": 6,
+            "payload_instrument": 12,
+            "pdu": 6,
+            "radiator": 6,
+            "solar_array": 6,
+            "thermal_node": 6,
+            "thruster": 12,
+            "transmitter": 6
+          }
+        },
+        "classification_oracle_unconditioned": {
+          "sample_count": 102,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_class_recall": {
+            "comm_data_downlink_link_loss": 1.0,
+            "comm_data_storage_capacity_loss": 1.0,
+            "comm_data_transmitter_rate_loss": 1.0,
+            "eps_battery_capacity_loss": 1.0,
+            "eps_battery_open_circuit": 1.0,
+            "eps_load_overload": 1.0,
+            "eps_pdu_channel_trip": 1.0,
+            "eps_solar_string_open": 1.0,
+            "payload_instrument_off": 1.0,
+            "payload_instrument_rate_loss": 1.0,
+            "propulsion_fuel_leak": 1.0,
+            "propulsion_thruster_ignition_failure": 1.0,
+            "propulsion_thruster_nozzle_blockage": 1.0,
+            "thermal_heater_stuck_off": 1.0,
+            "thermal_heater_stuck_on": 1.0,
+            "thermal_node_heat_bias": 1.0,
+            "thermal_radiator_rejection_loss": 1.0
+          },
+          "support": {
+            "comm_data_downlink_link_loss": 6,
+            "comm_data_storage_capacity_loss": 6,
+            "comm_data_transmitter_rate_loss": 6,
+            "eps_battery_capacity_loss": 6,
+            "eps_battery_open_circuit": 6,
+            "eps_load_overload": 6,
+            "eps_pdu_channel_trip": 6,
+            "eps_solar_string_open": 6,
+            "payload_instrument_off": 6,
+            "payload_instrument_rate_loss": 6,
+            "propulsion_fuel_leak": 6,
+            "propulsion_thruster_ignition_failure": 6,
+            "propulsion_thruster_nozzle_blockage": 6,
+            "thermal_heater_stuck_off": 6,
+            "thermal_heater_stuck_on": 6,
+            "thermal_node_heat_bias": 6,
+            "thermal_radiator_rejection_loss": 6
+          }
+        },
+        "classification_predicted_component": {
+          "sample_count": 102,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "macro_f1": 1.0,
+          "per_class_recall": {
+            "comm_data_downlink_link_loss": 1.0,
+            "comm_data_storage_capacity_loss": 1.0,
+            "comm_data_transmitter_rate_loss": 1.0,
+            "eps_battery_capacity_loss": 1.0,
+            "eps_battery_open_circuit": 1.0,
+            "eps_load_overload": 1.0,
+            "eps_pdu_channel_trip": 1.0,
+            "eps_solar_string_open": 1.0,
+            "payload_instrument_off": 1.0,
+            "payload_instrument_rate_loss": 1.0,
+            "propulsion_fuel_leak": 1.0,
+            "propulsion_thruster_ignition_failure": 1.0,
+            "propulsion_thruster_nozzle_blockage": 1.0,
+            "thermal_heater_stuck_off": 1.0,
+            "thermal_heater_stuck_on": 1.0,
+            "thermal_node_heat_bias": 1.0,
+            "thermal_radiator_rejection_loss": 1.0
+          },
+          "support": {
+            "comm_data_downlink_link_loss": 6,
+            "comm_data_storage_capacity_loss": 6,
+            "comm_data_transmitter_rate_loss": 6,
+            "eps_battery_capacity_loss": 6,
+            "eps_battery_open_circuit": 6,
+            "eps_load_overload": 6,
+            "eps_pdu_channel_trip": 6,
+            "eps_solar_string_open": 6,
+            "payload_instrument_off": 6,
+            "payload_instrument_rate_loss": 6,
+            "propulsion_fuel_leak": 6,
+            "propulsion_thruster_ignition_failure": 6,
+            "propulsion_thruster_nozzle_blockage": 6,
+            "thermal_heater_stuck_off": 6,
+            "thermal_heater_stuck_on": 6,
+            "thermal_node_heat_bias": 6,
+            "thermal_radiator_rejection_loss": 6
+          }
+        },
+        "end_to_end_18_class": {
+          "sample_count": 112,
+          "accuracy": 0.9642857142857143,
+          "balanced_accuracy": 0.9666666666666666,
+          "macro_f1": 0.9671069671069671,
+          "per_class_recall": {
+            "nominal": 0.9,
+            "comm_data_downlink_link_loss": 1.0,
+            "comm_data_storage_capacity_loss": 1.0,
+            "comm_data_transmitter_rate_loss": 1.0,
+            "eps_battery_capacity_loss": 1.0,
+            "eps_battery_open_circuit": 1.0,
+            "eps_load_overload": 1.0,
+            "eps_pdu_channel_trip": 1.0,
+            "eps_solar_string_open": 1.0,
+            "payload_instrument_off": 1.0,
+            "payload_instrument_rate_loss": 1.0,
+            "propulsion_fuel_leak": 0.5,
+            "propulsion_thruster_ignition_failure": 1.0,
+            "propulsion_thruster_nozzle_blockage": 1.0,
+            "thermal_heater_stuck_off": 1.0,
+            "thermal_heater_stuck_on": 1.0,
+            "thermal_node_heat_bias": 1.0,
+            "thermal_radiator_rejection_loss": 1.0
+          },
+          "support": {
+            "nominal": 10,
+            "comm_data_downlink_link_loss": 6,
+            "comm_data_storage_capacity_loss": 6,
+            "comm_data_transmitter_rate_loss": 6,
+            "eps_battery_capacity_loss": 6,
+            "eps_battery_open_circuit": 6,
+            "eps_load_overload": 6,
+            "eps_pdu_channel_trip": 6,
+            "eps_solar_string_open": 6,
+            "payload_instrument_off": 6,
+            "payload_instrument_rate_loss": 6,
+            "propulsion_fuel_leak": 6,
+            "propulsion_thruster_ignition_failure": 6,
+            "propulsion_thruster_nozzle_blockage": 6,
+            "thermal_heater_stuck_off": 6,
+            "thermal_heater_stuck_on": 6,
+            "thermal_node_heat_bias": 6,
+            "thermal_radiator_rejection_loss": 6
+          }
+        },
+        "failure_attribution": {
+          "fault_traces": 102,
+          "first_wrong_stage_detection": 3,
+          "first_wrong_stage_localization": 0,
+          "fully_correct_fault_traces": 99
+        }
+      },
+      "baseline_fixed_train_only_logistic_regression": {
+        "detection": {
+          "sample_count": 112,
+          "accuracy": 0.6517857142857143,
+          "balanced_accuracy": 0.7186274509803922,
+          "macro_f1": 0.5300699300699301,
+          "per_class_recall": {
+            "nominal": 0.8,
+            "fault": 0.6372549019607843
+          },
+          "support": {
+            "nominal": 10,
+            "fault": 102
+          }
+        },
+        "localization": {
+          "sample_count": 102,
+          "accuracy": 0.7254901960784313,
+          "balanced_accuracy": 0.7564102564102563,
+          "macro_f1": 0.7119630369630371,
+          "per_class_recall": {
+            "battery": 0.5,
+            "bus_load": 1.0,
+            "downlink": 1.0,
+            "fuel_tank": 0.0,
+            "heater": 1.0,
+            "onboard_storage": 1.0,
+            "payload_instrument": 1.0,
+            "pdu": 0.5,
+            "radiator": 1.0,
+            "solar_array": 0.8333333333333334,
+            "thermal_node": 1.0,
+            "thruster": 0.0,
+            "transmitter": 1.0
+          },
+          "support": {
+            "battery": 12,
+            "bus_load": 6,
+            "downlink": 6,
+            "fuel_tank": 6,
+            "heater": 12,
+            "onboard_storage": 6,
+            "payload_instrument": 12,
+            "pdu": 6,
+            "radiator": 6,
+            "solar_array": 6,
+            "thermal_node": 6,
+            "thruster": 12,
+            "transmitter": 6
+          }
+        },
+        "classification_oracle_unconditioned": {
+          "sample_count": 102,
+          "accuracy": 0.696078431372549,
+          "balanced_accuracy": 0.6960784313725491,
+          "macro_f1": 0.6732606918365432,
+          "per_class_recall": {
+            "comm_data_downlink_link_loss": 1.0,
+            "comm_data_storage_capacity_loss": 1.0,
+            "comm_data_transmitter_rate_loss": 1.0,
+            "eps_battery_capacity_loss": 0.0,
+            "eps_battery_open_circuit": 1.0,
+            "eps_load_overload": 1.0,
+            "eps_pdu_channel_trip": 0.0,
+            "eps_solar_string_open": 0.5,
+            "payload_instrument_off": 0.0,
+            "payload_instrument_rate_loss": 0.5,
+            "propulsion_fuel_leak": 0.5,
+            "propulsion_thruster_ignition_failure": 0.8333333333333334,
+            "propulsion_thruster_nozzle_blockage": 0.5,
+            "thermal_heater_stuck_off": 1.0,
+            "thermal_heater_stuck_on": 1.0,
+            "thermal_node_heat_bias": 1.0,
+            "thermal_radiator_rejection_loss": 1.0
+          },
+          "support": {
+            "comm_data_downlink_link_loss": 6,
+            "comm_data_storage_capacity_loss": 6,
+            "comm_data_transmitter_rate_loss": 6,
+            "eps_battery_capacity_loss": 6,
+            "eps_battery_open_circuit": 6,
+            "eps_load_overload": 6,
+            "eps_pdu_channel_trip": 6,
+            "eps_solar_string_open": 6,
+            "payload_instrument_off": 6,
+            "payload_instrument_rate_loss": 6,
+            "propulsion_fuel_leak": 6,
+            "propulsion_thruster_ignition_failure": 6,
+            "propulsion_thruster_nozzle_blockage": 6,
+            "thermal_heater_stuck_off": 6,
+            "thermal_heater_stuck_on": 6,
+            "thermal_node_heat_bias": 6,
+            "thermal_radiator_rejection_loss": 6
+          }
+        },
+        "classification_predicted_component": {
+          "sample_count": 102,
+          "accuracy": 0.6666666666666666,
+          "balanced_accuracy": 0.6666666666666667,
+          "macro_f1": 0.6186720142602495,
+          "per_class_recall": {
+            "comm_data_downlink_link_loss": 1.0,
+            "comm_data_storage_capacity_loss": 1.0,
+            "comm_data_transmitter_rate_loss": 1.0,
+            "eps_battery_capacity_loss": 0.5,
+            "eps_battery_open_circuit": 0.5,
+            "eps_load_overload": 1.0,
+            "eps_pdu_channel_trip": 0.5,
+            "eps_solar_string_open": 0.8333333333333334,
+            "payload_instrument_off": 0.0,
+            "payload_instrument_rate_loss": 1.0,
+            "propulsion_fuel_leak": 0.0,
+            "propulsion_thruster_ignition_failure": 0.0,
+            "propulsion_thruster_nozzle_blockage": 0.0,
+            "thermal_heater_stuck_off": 1.0,
+            "thermal_heater_stuck_on": 1.0,
+            "thermal_node_heat_bias": 1.0,
+            "thermal_radiator_rejection_loss": 1.0
+          },
+          "support": {
+            "comm_data_downlink_link_loss": 6,
+            "comm_data_storage_capacity_loss": 6,
+            "comm_data_transmitter_rate_loss": 6,
+            "eps_battery_capacity_loss": 6,
+            "eps_battery_open_circuit": 6,
+            "eps_load_overload": 6,
+            "eps_pdu_channel_trip": 6,
+            "eps_solar_string_open": 6,
+            "payload_instrument_off": 6,
+            "payload_instrument_rate_loss": 6,
+            "propulsion_fuel_leak": 6,
+            "propulsion_thruster_ignition_failure": 6,
+            "propulsion_thruster_nozzle_blockage": 6,
+            "thermal_heater_stuck_off": 6,
+            "thermal_heater_stuck_on": 6,
+            "thermal_node_heat_bias": 6,
+            "thermal_radiator_rejection_loss": 6
+          }
+        },
+        "end_to_end_18_class": {
+          "sample_count": 112,
+          "accuracy": 0.5446428571428571,
+          "balanced_accuracy": 0.5351851851851852,
+          "macro_f1": 0.5147173489278752,
+          "per_class_recall": {
+            "nominal": 0.8,
+            "comm_data_downlink_link_loss": 1.0,
+            "comm_data_storage_capacity_loss": 0.5,
+            "comm_data_transmitter_rate_loss": 0.8333333333333334,
+            "eps_battery_capacity_loss": 0.0,
+            "eps_battery_open_circuit": 0.5,
+            "eps_load_overload": 1.0,
+            "eps_pdu_channel_trip": 0.5,
+            "eps_solar_string_open": 0.0,
+            "payload_instrument_off": 0.0,
+            "payload_instrument_rate_loss": 1.0,
+            "propulsion_fuel_leak": 0.0,
+            "propulsion_thruster_ignition_failure": 0.0,
+            "propulsion_thruster_nozzle_blockage": 0.0,
+            "thermal_heater_stuck_off": 1.0,
+            "thermal_heater_stuck_on": 0.5,
+            "thermal_node_heat_bias": 1.0,
+            "thermal_radiator_rejection_loss": 1.0
+          },
+          "support": {
+            "nominal": 10,
+            "comm_data_downlink_link_loss": 6,
+            "comm_data_storage_capacity_loss": 6,
+            "comm_data_transmitter_rate_loss": 6,
+            "eps_battery_capacity_loss": 6,
+            "eps_battery_open_circuit": 6,
+            "eps_load_overload": 6,
+            "eps_pdu_channel_trip": 6,
+            "eps_solar_string_open": 6,
+            "payload_instrument_off": 6,
+            "payload_instrument_rate_loss": 6,
+            "propulsion_fuel_leak": 6,
+            "propulsion_thruster_ignition_failure": 6,
+            "propulsion_thruster_nozzle_blockage": 6,
+            "thermal_heater_stuck_off": 6,
+            "thermal_heater_stuck_on": 6,
+            "thermal_node_heat_bias": 6,
+            "thermal_radiator_rejection_loss": 6
+          }
+        },
+        "failure_attribution": {
+          "fault_traces": 102,
+          "first_wrong_stage_detection": 37,
+          "first_wrong_stage_localization": 6,
+          "fully_correct_fault_traces": 53
+        }
+      },
+      "claim_boundary": "Research/engineering promotion for frozen PHM v6.0 post-activation trace-summary replay only. All ten Monte-Carlo groups have already participated in research evaluation; this is not an independent confirmation or flight/safety qualification.",
+      "sota_execution": {
+        "attempted": [
+          "MLP raw-summary",
+          "Residual-MLP raw-summary",
+          "MLP paired-residual",
+          "Residual-MLP paired-residual"
+        ],
+        "status": "NOT_COMPLETED_IN_CURRENT_CPU_ENVIRONMENT",
+        "reason": "Frozen 80-epoch x 3-seed comparison exceeded the execution window during training; no completed test metrics were emitted.",
+        "external_exact_dataset_sota": "NOT_FOUND_PUBLICLY_BY_EXACT_DATASET_ID"
+      },
+      "dataset_embedded_reference": {
+        "raw_global_17_fault": {
+          "accuracy": 0.7294,
+          "macro_f1": 0.7259
+        },
+        "paired_residual_global_17_fault": {
+          "accuracy": 0.8549,
+          "macro_f1": 0.8556
+        },
+        "comparability": "DATASET_SUPPLIED_CLASSICAL_BASELINES; paired residual is a counterfactual/paired-nominal upper-bound style feature path, not unconditional online deployment."
+      }
+    },
+    "OPS_SAT": {
+      "status": "R24_DEVELOPMENT_AND_CONFIRMATORY_ONLY_PLUS_FROZEN_EXTERNAL_AUDIT",
+      "r24_comparison": {
+        "schema_version": "astrograph-r24-ops-comparison.v1",
+        "partition_counts": {
+          "MODEL_TRAIN": 956,
+          "CALIBRATION_FIT": 253,
+          "DEVELOPMENT_SELECTION": 227,
+          "CONFIRMATORY_EVALUATION": 158,
+          "EXTERNAL_VALIDATION": 529
+        },
+        "feature_models": {
+          "DEVELOPMENT_SELECTION": {
+            "RF100": {
+              "n": 227,
+              "anomaly_n": 49,
+              "accuracy": 0.9559471365638766,
+              "precision": 0.975609756097561,
+              "recall": 0.8163265306122449,
+              "f0_5": 0.9389671361502347,
+              "mcc": 0.8670105769406101,
+              "auroc": 0.9832607200183444,
+              "aupr": 0.955119300378117,
+              "tp": 40,
+              "fp": 1,
+              "tn": 177,
+              "fn": 9
+            },
+            "LinearL2": {
+              "n": 227,
+              "anomaly_n": 49,
+              "accuracy": 0.920704845814978,
+              "precision": 0.9696969696969697,
+              "recall": 0.6530612244897959,
+              "f0_5": 0.8839779005524862,
+              "mcc": 0.7557043318072686,
+              "auroc": 0.9517312542994726,
+              "aupr": 0.8992304258290755,
+              "tp": 32,
+              "fp": 1,
+              "tn": 177,
+              "fn": 17
+            },
+            "KNN5": {
+              "n": 227,
+              "anomaly_n": 49,
+              "accuracy": 0.9427312775330396,
+              "precision": 0.9736842105263158,
+              "recall": 0.7551020408163265,
+              "f0_5": 0.9203980099502488,
+              "mcc": 0.8259385623230553,
+              "auroc": 0.9379156156844761,
+              "aupr": 0.8865681959399259,
+              "tp": 37,
+              "fp": 1,
+              "tn": 177,
+              "fn": 12
+            }
+          },
+          "CONFIRMATORY_EVALUATION": {
+            "RF100": {
+              "n": 158,
+              "anomaly_n": 26,
+              "accuracy": 0.9620253164556962,
+              "precision": 0.9166666666666666,
+              "recall": 0.8461538461538461,
+              "f0_5": 0.9016393442622951,
+              "mcc": 0.8584556465075666,
+              "auroc": 0.988490675990676,
+              "aupr": 0.9429145931467914,
+              "tp": 22,
+              "fp": 2,
+              "tn": 130,
+              "fn": 4
+            },
+            "LinearL2": {
+              "n": 158,
+              "anomaly_n": 26,
+              "accuracy": 0.9430379746835443,
+              "precision": 0.9473684210526315,
+              "recall": 0.6923076923076923,
+              "f0_5": 0.8823529411764706,
+              "mcc": 0.7805667041557173,
+              "auroc": 0.9723193473193474,
+              "aupr": 0.9146351902702016,
+              "tp": 18,
+              "fp": 1,
+              "tn": 131,
+              "fn": 8
+            },
+            "KNN5": {
+              "n": 158,
+              "anomaly_n": 26,
+              "accuracy": 0.9240506329113924,
+              "precision": 0.9375,
+              "recall": 0.5769230769230769,
+              "f0_5": 0.8333333333333334,
+              "mcc": 0.6997562018871407,
+              "auroc": 0.9187062937062936,
+              "aupr": 0.7983959594702432,
+              "tp": 15,
+              "fp": 1,
+              "tn": 131,
+              "fn": 11
+            }
+          }
+        },
+        "r22_frozen_remediation": {
+          "DEVELOPMENT_SELECTION": {
+            "coverage": 1.0,
+            "scored_n": 227,
+            "blocked_n": 0,
+            "elapsed_s": 0.7374286651611328,
+            "covered_metrics": {
+              "n": 227,
+              "anomaly_n": 49,
+              "accuracy": 0.4713656387665198,
+              "precision": 0.2795031055900621,
+              "recall": 0.9183673469387755,
+              "f0_5": 0.3246753246753247,
+              "mcc": 0.24161103371160156,
+              "auroc": 0.6428571428571428,
+              "aupr": 0.2790252380520491,
+              "tp": 45,
+              "fp": 116,
+              "tn": 62,
+              "fn": 4
+            }
+          },
+          "CONFIRMATORY_EVALUATION": {
+            "coverage": 1.0,
+            "scored_n": 158,
+            "blocked_n": 0,
+            "elapsed_s": 0.4924020767211914,
+            "covered_metrics": {
+              "n": 158,
+              "anomaly_n": 26,
+              "accuracy": 0.37341772151898733,
+              "precision": 0.18803418803418803,
+              "recall": 0.8461538461538461,
+              "f0_5": 0.22267206477732793,
+              "mcc": 0.10696242258949229,
+              "auroc": 0.5801282051282051,
+              "aupr": 0.18961308413596223,
+              "tp": 22,
+              "fp": 95,
+              "tn": 37,
+              "fn": 4
+            }
+          }
+        }
+      },
+      "frozen_external_from_r20_r21": {
+        "coverage": {
+          "scorable": 422,
+          "total": 529,
+          "rate": 0.7977315689981096,
+          "blocked": 107
+        },
+        "policy": "No R24 fitting/selection or new prediction on the seen 529 external segments."
+      },
+      "public_official_benchmark": {
+        "universal_FCNN": {
+          "AUPR": 0.979,
+          "AUROC": 0.989,
+          "accuracy": 0.977,
+          "F1": 0.946,
+          "precision": 0.963,
+          "recall": 0.929,
+          "MCC": 0.932,
+          "FP": 4,
+          "FN": 8
+        },
+        "specialized_models": {
+          "best_linear_AUPR": 0.946,
+          "best_linear_AUROC": 0.974,
+          "best_FCNN_accuracy": 0.97,
+          "best_FCNN_F1": 0.929,
+          "best_FCNN_MCC": 0.912
+        },
+        "comparability": "Official public test=529 segments. R24 RF/LR/KNN results intentionally do not use this seen external set, so no head-to-head SOTA claim is made."
+      }
+    },
+    "ESA_MISSION1_LIGHTWEIGHT": {
+      "status": "FROZEN_EXTERNAL_NEGATIVE_ONLY_NO_RETUNING",
+      "astrograph_frozen": {
+        "decision_points": 73641,
+        "observable_decision_points": 73641,
+        "alarm_points": 0,
+        "true_anomaly_events": 4,
+        "TP_events": 0,
+        "FN_events": 4,
+        "event_recall": 0.0
+      },
+      "public_comparators": {
+        "ESA_ADB_Telemanom_ESA_Pruned_lightweight_all_events": {
+          "event_precision": 0.999,
+          "event_recall": 0.424,
+          "event_F0_5": 0.786
+        },
+        "PSTG_lightweight_channels_41_46": {
+          "event_precision": 0.932,
+          "event_recall": 0.862,
+          "event_F0_5": 0.917,
+          "affiliation_precision": 0.905,
+          "affiliation_recall": 0.844,
+          "affiliation_F0_5": 0.892
+        },
+        "comparability": "Public methods use published ESA benchmark protocols. AstroGraph R20/R21 confirmatory slice has only four annotated events and current 5-min representation; do not treat numeric differences as a single common leaderboard without protocol alignment."
+      }
+    },
+    "DXC09": {
+      "status": "FROZEN_EXTERNAL_FAILURE_PLUS_R24_SAMPLE_DEVELOPMENT_AUDIT",
+      "frozen_external": {
+        "competition_exact_full_set_accuracy": 0.0,
+        "rematch_exact_full_set_accuracy": 0.0,
+        "scored_cases": 158,
+        "fault_element_micro_recall": 0.331551,
+        "faulty_case_any_overlap": 0.463636
+      },
+      "sample_development": {
+        "scored_injected_fault_cases": 74,
+        "excluded_no_injection_scn_cases": 39,
+        "exact_fault_set_match": 0,
+        "component_localization_micro": {
+          "tp": 41,
+          "fp": 2079,
+          "fn": 54,
+          "precision": 0.019339622641509433,
+          "recall": 0.43157894736842106,
+          "f1": 0.03702031602708804,
+          "exact_component_set_match": 0.0
+        },
+        "fault_element_classification_micro": {
+          "tp": 40,
+          "fp": 2080,
+          "fn": 55,
+          "precision": 0.018867924528301886,
+          "recall": 0.42105263157894735,
+          "f1": 0.03611738148984198
+        },
+        "faulty_case_any_overlap": 0.47297297297297297,
+        "macro_set_precision": 0.018384698022361153,
+        "macro_set_recall": 0.4099099099099099,
+        "macro_set_f1": 0.03496844839743481,
+        "first_positive_detection": {
+          "counts": {
+            "TP": 0,
+            "FP": 74,
+            "TN": 0,
+            "FN": 0
+          },
+          "false_positive_rate": 1.0,
+          "false_negative_rate": 0.0,
+          "detection_accuracy": 0.0,
+          "definition_source": "NASA DXC09_Framework-1.1.zip DAResult.java; early faulty alarm is FP, not TP",
+          "diagnostic_utility": null,
+          "diagnostic_utility_status": "NOT_ENABLED_IN_OFFICIAL_INDUSTRIAL_CONFIG"
+        },
+        "mean_inference_wall_s": 0.14826466536484642,
+        "claim_boundary": "Development-permitted sample SCN injected-fault cases only. SCN injection records are evaluator truth separated from online model input. Nominal cases are excluded because SCN absence is not asserted nominal; no external-validation claim; frozen R20 detector/config used without tuning."
+      },
+      "public_comparators": {
+        "DXC09_Tier2_ProADAPT_official": {
+          "FP_rate": 0.0732,
+          "FN_rate": 0.1392,
+          "detection_accuracy": 0.8833,
+          "classification_errors": 76,
+          "mean_time_detect_ms": 5981,
+          "mean_time_isolate_ms": 12486,
+          "score": 83.2
+        },
+        "ProADAPT2_later_same_DXC09_scenarios": {
+          "FP_rate": 0.0,
+          "FN_rate": 0.0125,
+          "detection_accuracy": 0.9917,
+          "classification_errors": 20,
+          "mean_time_detect_ms": 2096,
+          "mean_time_isolate_ms": 10961
+        },
+        "comparability": "DXC official classification-error metric is not the same as AstroGraph exact fault-set / micro element metrics; ProADAPT2 is later research on the same competition scenarios, not the original official competition entry."
+      }
+    },
+    "DXC10_DPI_DPII_SAMPLE": {
+      "status": "NOT_EXECUTED_R24",
+      "reason": "The uploaded sample archives are not safely evaluable with the DXC09 system catalog. DXC10 uses its own ADAPT system package/oracle contract; the correct catalog was not in the uploaded set used by the runner. No metric is manufactured.",
+      "public_context": "DXC10 was a seven-algorithm competition across two diagnostic problems; public results exist, but the uploaded archives are sample/example scenarios rather than a frozen same-protocol AstroGraph evaluation campaign."
+    },
+    "SAT_ENGINEERING_ASSET": {
+      "status": "NOT_A_LABELED_DIAGNOSTIC_BENCHMARK",
+      "r23_graph_construction": {
+        "nodes": 186,
+        "edges": 133,
+        "fault_component_exact_links": "54/61",
+        "signal_exact_links": "67/106"
+      },
+      "metrics": "Detection/localization/classification N/A. Use graph-construction coverage, schema validity and unresolved-link rates instead."
+    }
+  },
+  "claim_boundary": "Content-bound R24 benchmark snapshot for R32 convergence review. It does not upgrade any development/seen-external result to independent validation."
+}

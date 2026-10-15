@@ -1,0 +1,76 @@
+{
+  "schema_version": "astrograph-dataset-profile.v3",
+  "profile_id": "phm.v6_0",
+  "version": "4.0.0",
+  "dataset_id": "whole_spacecraft_phm_dataset_v6_0",
+  "source_layout": {
+    "source_adapter_id": "simulation.completed_run.v1",
+    "telemetry_filename": "telemetry.csv",
+    "nominal_required": true,
+    "time_axis_field": "time_s"
+  },
+  "protocol_root_path": "protocols/phm_project_a",
+  "runtime_evidence_builder_id": "configured.package.v1",
+  "reference_scope": {
+    "kind": "ASSET_LOCAL",
+    "identity_basis": "SYNTHETIC_DATASET_DOMAIN",
+    "asset_id": "simulated-spacecraft.phm-v6_0",
+    "fleet_group_id": null,
+    "member_asset_ids": [],
+    "commissioning_receipt_asset_role": null,
+    "claim_boundary": "Calibration and statistical references are local to the PHM v6.0 synthetic dataset domain; no physical-asset or cross-dataset exchangeability is claimed."
+  },
+  "assets": {
+    "runtime_evidence": {
+      "path": "configs/datasets/phm_v6_0/runtime_evidence.json",
+      "sha256": "d18e91666135437b7dbf2921427e6216c7b7f6d938a827acd8cabda72b8e51be"
+    },
+    "candidate_universe": {
+      "path": "configs/datasets/phm_v6_0/candidate_universe.json",
+      "sha256": "4019fb288efd3a52533be13bee88e6f1641fc45027af97338306671edfdcc8e6"
+    },
+    "fault_class_map": {
+      "path": "configs/datasets/phm_v6_0/fault_class_map.json",
+      "sha256": "51d7da9c3a95c23166a402433f691d32c57406141b90f569f0f3d9f2bd411e89"
+    },
+    "diagnosis_hierarchy": {
+      "path": "configs/datasets/phm_v6_0/diagnosis_hierarchy.json",
+      "sha256": "0d981a5827dacb371aa2bccfb8b7723dfa641b88089ff78ad6f09fb08d4d7a24"
+    },
+    "fault_ontology_bindings": {
+      "path": "configs/datasets/phm_v6_0/fault_ontology_bindings.json",
+      "sha256": "3edf5e5f8dec9137aded347dc5f1220a7775861fa43e4809efb9794235127982"
+    },
+    "generic_fault_ontology": {
+      "path": "configs/knowledge/generic_fault_ontology.json",
+      "sha256": "9ee63040bbacdc5ac9dd7224d642ce51584e309045e47836ff2cc1c59c4fa747"
+    },
+    "component_archetypes": {
+      "path": "configs/semantics/core_component_archetypes.json",
+      "sha256": "5ff38da7af14870d0f526fa7e583a3783ac88e2ad2cb3c47dc8c69dabb0f291d"
+    },
+    "semantic_schema": {
+      "path": "configs/semantics/core_semantic_schema.json",
+      "sha256": "94bdbeb1f6d18bf3da3dbb6863eab53709a8bb470d36d1f5c83e0628d14877a3"
+    },
+    "protocol_contract": {
+      "path": "protocols/phm_project_a/dataset_contract.json",
+      "sha256": "81c945b27d1e6ee83d5d01fa3d71d5ac585777cb1f187be8a0323fd22ed8f570"
+    },
+    "fault_catalog": {
+      "path": "configs/fault_modes/lab_fault_catalog.json",
+      "sha256": "0ef824775ff371d8505c265732a98572621e388e9441545b78af4fca12eff7dc"
+    },
+    "evidence_calibration_receipt": {
+      "path": "configs/datasets/phm_v6_0/evidence_calibration_receipt.json",
+      "sha256": "7c389be07a83a302e3173c4bf77bf73dc2a0eb39d4914b802e78a7f7d937681f"
+    }
+  },
+  "model_binding": {
+    "selection_mode": "caller_prediction",
+    "model_id": null,
+    "model_version": null
+  },
+  "claim_boundary": "E0 synthetic PHM v6.0 profile; v4.0.0 pins five-fault runtime evidence, its development/holdout calibration receipt, and the fault catalog used for evidence-aware pre-generation retrieval. Retrieved context remains non-evidentiary. Profile verification does not establish model, knowledge, flight, or release qualification.",
+  "fusion_policy_profile_id": "birrf.engineering-default.v1"
+}

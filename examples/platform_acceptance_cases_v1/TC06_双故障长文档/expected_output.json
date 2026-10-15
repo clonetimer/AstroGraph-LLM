@@ -1,0 +1,26 @@
+{
+  "preflight_can_start": true,
+  "run_status": "SUCCEEDED",
+  "review_status": "REVIEW_REQUIRED",
+  "top_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+  "candidate_count": 2,
+  "candidate_fault_ids": [
+    "ADCS_STAR_TRACKER_DROPOUT",
+    "COMM_TRANSMITTER_OUTPUT_POWER_LOSS"
+  ],
+  "candidate_status_by_fault": {
+    "ADCS_STAR_TRACKER_DROPOUT": "PROVISIONAL_LOG_CUE",
+    "COMM_TRANSMITTER_OUTPUT_POWER_LOSS": "PROVISIONAL_LOG_CUE"
+  },
+  "must_have_hypotheses": true,
+  "expect_hierarchical_retrieval": true,
+  "case_id": "TC06_双故障长文档",
+  "description": "两个故障候选 + 两组日志 + 较长的 Markdown 文献",
+  "upload_files": [
+    "diagnosis_result.json",
+    "operations.log",
+    "reference.md"
+  ],
+  "equipment_scope": "LAB_MULTI_V1",
+  "manifest": "analysis_input.json"
+}

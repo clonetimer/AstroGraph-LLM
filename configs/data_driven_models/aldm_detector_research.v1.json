@@ -1,0 +1,71 @@
+{
+  "schema_version": "astrograph-aldm-inspired-experiment.v1",
+  "status": "RESEARCH_ONLY_NOT_REGISTERED",
+  "paper": {
+    "title": "Adaptive Latent Distribution Modeling for Industrial Time Series Anomaly Detection",
+    "doi": "10.1109/TASE.2026.3674236",
+    "local_source": "../refs/Adaptive_Latent_Distribution_Modeling_for_Industrial_Time_Series_Anomaly_Detection.pdf"
+  },
+  "implementation": {
+    "kind": "INDEPENDENT_ALDM_INSPIRED_NOT_OFFICIAL_REPRODUCTION",
+    "task": "DETECTION_ONLY",
+    "window_size": 20,
+    "latent_size": 32,
+    "context_size": 32,
+    "hidden_size": 64,
+    "flow_layers": 4,
+    "contrastive_weight": 0.5,
+    "contrastive_temperature": 0.2,
+    "assignment_temperature": 1.0,
+    "mask_fraction": 0.15
+  },
+  "training": {
+    "fit_scope": "TRAIN_WINDOWS_ONLY_LABEL_FREE",
+    "validation_only_screen": true,
+    "epochs": 40,
+    "batch_size": 768,
+    "learning_rate": 0.002,
+    "seeds": [20260822]
+  },
+  "calibration": {
+    "candidate": "TRAIN_SCORE_IQR_Q3_PLUS_1_5_IQR",
+    "final_policy_selection": "VALIDATION_ONLY_CAUSAL_HYSTERESIS",
+    "production_requirement": "TRUSTED_REFERENCE_AND_INDEPENDENT_CALIBRATION_TRANSFER_AUDIT"
+  },
+  "datasets": {
+    "adcs_v5_2_2": {
+      "group_key": "trajectory_pair_id",
+      "feature_profile": "full",
+      "test_access": "PROHIBITED_DURING_SCREEN"
+    },
+    "phm_v6_0": {
+      "group_key": "sample_index",
+      "channel_policy": "CONFIGURED_MECHANISM_RESIDUALS_THEN_STABLE_ALLOWED_CHANNEL_ORDER",
+      "channel_limit": 96,
+      "test_access": "PROHIBITED_DURING_SCREEN"
+    }
+  },
+  "required_metrics": [
+    "detection_macro_f1",
+    "detection_aupr",
+    "fault_event_recall",
+    "false_alarm_episodes_per_hour",
+    "p95_detection_delay_s"
+  ],
+  "promotion_gate": {
+    "minimum_validation_macro_f1_gain": 0.01,
+    "require_no_event_recall_regression": true,
+    "require_no_false_alarm_rate_regression": true,
+    "require_no_p95_delay_regression": true,
+    "failure_action": "STOP_WITHOUT_TEST_OR_RUNTIME_BINDING"
+  },
+  "out_of_scope": [
+    "fault localization",
+    "fault classification",
+    "knowledge-graph edge creation",
+    "BiRRF changes",
+    "RAG/OAG changes",
+    "Runtime provider registration"
+  ],
+  "claim_boundary": "E0 synthetic Validation-only detector screening. Learned attention is correlation evidence, not a causal or knowledge-graph edge."
+}

@@ -1,0 +1,567 @@
+{
+  "predictions": [
+    {
+      "case_id": "R31-00-FailedOff",
+      "failed_off_rmse": 0.5865854776304237,
+      "flow_blocked_rmse": 2.2327877691566993,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-00-FlowBlocked",
+      "failed_off_rmse": 2.757002506945515,
+      "flow_blocked_rmse": 0.19414760033253659,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-01-FailedOff",
+      "failed_off_rmse": 1.016185898048571,
+      "flow_blocked_rmse": 1.859044334714573,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-01-FlowBlocked",
+      "failed_off_rmse": 2.6441645051728138,
+      "flow_blocked_rmse": 0.15627379540110792,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-02-FailedOff",
+      "failed_off_rmse": 0.9035549255615445,
+      "flow_blocked_rmse": 2.3323669267434655,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-02-FlowBlocked",
+      "failed_off_rmse": 4.15058973749375,
+      "flow_blocked_rmse": 0.161651250825972,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-03-FailedOff",
+      "failed_off_rmse": 0.6581600308375947,
+      "flow_blocked_rmse": 1.6564820031356458,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-03-FlowBlocked",
+      "failed_off_rmse": 3.652359476144718,
+      "flow_blocked_rmse": 0.23473445391614292,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-04-FailedOff",
+      "failed_off_rmse": 0.7049025935371188,
+      "flow_blocked_rmse": 2.303252195574518,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-04-FlowBlocked",
+      "failed_off_rmse": 2.9427536609339686,
+      "flow_blocked_rmse": 0.1961077921144734,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-05-FailedOff",
+      "failed_off_rmse": 0.6969375720408176,
+      "flow_blocked_rmse": 1.729779133367387,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-05-FlowBlocked",
+      "failed_off_rmse": 2.8501819135395787,
+      "flow_blocked_rmse": 0.1288153833481734,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-06-FailedOff",
+      "failed_off_rmse": 0.8805578725211953,
+      "flow_blocked_rmse": 2.0931714522102083,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-06-FlowBlocked",
+      "failed_off_rmse": 3.207106223780067,
+      "flow_blocked_rmse": 0.1966193260191909,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-07-FailedOff",
+      "failed_off_rmse": 0.7419659200828347,
+      "flow_blocked_rmse": 1.8825800248199378,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-07-FlowBlocked",
+      "failed_off_rmse": 3.1589242909095825,
+      "flow_blocked_rmse": 0.2237574441002924,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-08-FailedOff",
+      "failed_off_rmse": 0.8583644837294686,
+      "flow_blocked_rmse": 1.8367275789950284,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-08-FlowBlocked",
+      "failed_off_rmse": 3.309106158040634,
+      "flow_blocked_rmse": 0.2388421202816021,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-09-FailedOff",
+      "failed_off_rmse": 0.8416539706973969,
+      "flow_blocked_rmse": 2.0286565312209133,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-09-FlowBlocked",
+      "failed_off_rmse": 2.513058797864991,
+      "flow_blocked_rmse": 0.2638839649711839,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-10-FailedOff",
+      "failed_off_rmse": 0.7955170889553347,
+      "flow_blocked_rmse": 1.9273490229332726,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-10-FlowBlocked",
+      "failed_off_rmse": 2.53156126278709,
+      "flow_blocked_rmse": 0.18595216525510838,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-11-FailedOff",
+      "failed_off_rmse": 0.7860599943649679,
+      "flow_blocked_rmse": 1.9767414891677881,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-11-FlowBlocked",
+      "failed_off_rmse": 2.518020551977675,
+      "flow_blocked_rmse": 0.37083095342749617,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-12-FailedOff",
+      "failed_off_rmse": 0.9863490853414155,
+      "flow_blocked_rmse": 1.8385368788502803,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-12-FlowBlocked",
+      "failed_off_rmse": 4.126529481422305,
+      "flow_blocked_rmse": 0.15095954736893902,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-13-FailedOff",
+      "failed_off_rmse": 1.0245631452559836,
+      "flow_blocked_rmse": 1.8414713314613897,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-13-FlowBlocked",
+      "failed_off_rmse": 3.026985822000807,
+      "flow_blocked_rmse": 0.21541090780083658,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-14-FailedOff",
+      "failed_off_rmse": 0.9817110336051211,
+      "flow_blocked_rmse": 2.0054273423291917,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-14-FlowBlocked",
+      "failed_off_rmse": 4.291184539715243,
+      "flow_blocked_rmse": 0.11511236860154658,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-15-FailedOff",
+      "failed_off_rmse": 0.6920781221496101,
+      "flow_blocked_rmse": 2.1271351638346068,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-15-FlowBlocked",
+      "failed_off_rmse": 3.1872947888855094,
+      "flow_blocked_rmse": 0.2002847078121193,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-16-FailedOff",
+      "failed_off_rmse": 0.7212971034471253,
+      "flow_blocked_rmse": 2.0634631645510817,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-16-FlowBlocked",
+      "failed_off_rmse": 2.703597481764311,
+      "flow_blocked_rmse": 0.19571705489381572,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-17-FailedOff",
+      "failed_off_rmse": 0.9715284426658948,
+      "flow_blocked_rmse": 2.360245469328284,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-17-FlowBlocked",
+      "failed_off_rmse": 2.7581799995441623,
+      "flow_blocked_rmse": 0.19543620488980956,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-18-FailedOff",
+      "failed_off_rmse": 0.7070764804571109,
+      "flow_blocked_rmse": 1.684502934167619,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-18-FlowBlocked",
+      "failed_off_rmse": 2.5764806590646985,
+      "flow_blocked_rmse": 0.21596566030068917,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-19-FailedOff",
+      "failed_off_rmse": 0.7919941013022531,
+      "flow_blocked_rmse": 1.9239148585702381,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-19-FlowBlocked",
+      "failed_off_rmse": 2.866703882386185,
+      "flow_blocked_rmse": 0.2286413422319848,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-20-FailedOff",
+      "failed_off_rmse": 0.6708363926089678,
+      "flow_blocked_rmse": 1.7128515688228376,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-20-FlowBlocked",
+      "failed_off_rmse": 2.50867111076339,
+      "flow_blocked_rmse": 0.3038399660475709,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-21-FailedOff",
+      "failed_off_rmse": 0.8266673304276613,
+      "flow_blocked_rmse": 2.1226989029673162,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-21-FlowBlocked",
+      "failed_off_rmse": 4.083971847893606,
+      "flow_blocked_rmse": 0.21224534214546942,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-22-FailedOff",
+      "failed_off_rmse": 0.9651817935233273,
+      "flow_blocked_rmse": 2.165804723472984,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-22-FlowBlocked",
+      "failed_off_rmse": 2.7494687562595295,
+      "flow_blocked_rmse": 0.22411092211600908,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-23-FailedOff",
+      "failed_off_rmse": 0.9024759586228286,
+      "flow_blocked_rmse": 2.185593981068379,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-23-FlowBlocked",
+      "failed_off_rmse": 3.9124526589656576,
+      "flow_blocked_rmse": 0.18959894791541407,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-24-FailedOff",
+      "failed_off_rmse": 0.8998792305011472,
+      "flow_blocked_rmse": 2.2068160137397665,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-24-FlowBlocked",
+      "failed_off_rmse": 3.9216252204821913,
+      "flow_blocked_rmse": 0.14284132124809854,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-25-FailedOff",
+      "failed_off_rmse": 0.6797820472185367,
+      "flow_blocked_rmse": 1.9577225127131688,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-25-FlowBlocked",
+      "failed_off_rmse": 3.361254943786708,
+      "flow_blocked_rmse": 0.25562556988824725,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-26-FailedOff",
+      "failed_off_rmse": 1.0562000075606899,
+      "flow_blocked_rmse": 2.35887016886811,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-26-FlowBlocked",
+      "failed_off_rmse": 4.215028399194361,
+      "flow_blocked_rmse": 0.16831025433612112,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-27-FailedOff",
+      "failed_off_rmse": 0.6446646224009891,
+      "flow_blocked_rmse": 2.1908376182129863,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-27-FlowBlocked",
+      "failed_off_rmse": 3.3354505401387335,
+      "flow_blocked_rmse": 0.1371060845007647,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-28-FailedOff",
+      "failed_off_rmse": 0.9011236568961001,
+      "flow_blocked_rmse": 1.8114510789137117,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-28-FlowBlocked",
+      "failed_off_rmse": 2.455449334459463,
+      "flow_blocked_rmse": 0.21441336974302527,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-29-FailedOff",
+      "failed_off_rmse": 0.6991759438363152,
+      "flow_blocked_rmse": 1.8886934315665704,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-29-FlowBlocked",
+      "failed_off_rmse": 3.582415660042078,
+      "flow_blocked_rmse": 0.12008247312530457,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-30-FailedOff",
+      "failed_off_rmse": 0.9400295562374679,
+      "flow_blocked_rmse": 2.060157265258082,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-30-FlowBlocked",
+      "failed_off_rmse": 2.35087817750551,
+      "flow_blocked_rmse": 0.15584715856204112,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-31-FailedOff",
+      "failed_off_rmse": 0.5598702809246087,
+      "flow_blocked_rmse": 1.986935120318893,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-31-FlowBlocked",
+      "failed_off_rmse": 3.2912069092312457,
+      "flow_blocked_rmse": 0.26100280379295926,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-32-FailedOff",
+      "failed_off_rmse": 0.8484052373588753,
+      "flow_blocked_rmse": 1.9664689698699966,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-32-FlowBlocked",
+      "failed_off_rmse": 2.404188764234423,
+      "flow_blocked_rmse": 0.18301610387700157,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-33-FailedOff",
+      "failed_off_rmse": 0.7275403546890006,
+      "flow_blocked_rmse": 1.9053440587380523,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-33-FlowBlocked",
+      "failed_off_rmse": 3.128688019135484,
+      "flow_blocked_rmse": 0.17172641664244243,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-34-FailedOff",
+      "failed_off_rmse": 0.5568595961777676,
+      "flow_blocked_rmse": 2.1789172132109487,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-34-FlowBlocked",
+      "failed_off_rmse": 2.810285449980851,
+      "flow_blocked_rmse": 0.20855859499560775,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-35-FailedOff",
+      "failed_off_rmse": 0.5923752187855956,
+      "flow_blocked_rmse": 2.001463195179644,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-35-FlowBlocked",
+      "failed_off_rmse": 2.5377094130479794,
+      "flow_blocked_rmse": 0.16254415547354029,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-36-FailedOff",
+      "failed_off_rmse": 0.5984616544779207,
+      "flow_blocked_rmse": 1.8690447500941758,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-36-FlowBlocked",
+      "failed_off_rmse": 3.9161943684795073,
+      "flow_blocked_rmse": 0.15384368464501255,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-37-FailedOff",
+      "failed_off_rmse": 0.6502331801592263,
+      "flow_blocked_rmse": 2.0287008426659128,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-37-FlowBlocked",
+      "failed_off_rmse": 3.708634200050226,
+      "flow_blocked_rmse": 0.30295178915074844,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-38-FailedOff",
+      "failed_off_rmse": 0.6743018778850393,
+      "flow_blocked_rmse": 1.8810464277102772,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-38-FlowBlocked",
+      "failed_off_rmse": 2.575917471363638,
+      "flow_blocked_rmse": 0.35920014840488124,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-39-FailedOff",
+      "failed_off_rmse": 0.6662712591019881,
+      "flow_blocked_rmse": 2.1930843531726336,
+      "predicted_fault_id": "PUMP:FailedOff",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    },
+    {
+      "case_id": "R31-39-FlowBlocked",
+      "failed_off_rmse": 2.3412839868945707,
+      "flow_blocked_rmse": 0.25719624158785165,
+      "predicted_fault_id": "PUMP:FlowBlocked",
+      "prediction_semantics": "TRUTH_FREE_EVENT_CONDITIONAL_PUMP_MODE_CLASSIFICATION"
+    }
+  ],
+  "repetitions_per_mode": 40,
+  "schema_version": "astrograph-r31-pump-blind-predictions.v1",
+  "seed": 3101
+}

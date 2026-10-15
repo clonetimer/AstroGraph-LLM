@@ -1,0 +1,69 @@
+{
+  "schema_version": "astrograph-contextual-chunking-confirmation-preregistration.v1",
+  "benchmark_id": "contextual-chunking-confirmation-early-design-r001",
+  "status": "FROZEN_BEFORE_EXECUTION",
+  "frozen_date": "2026-09-07",
+  "development_evidence_not_reused_as_confirmation": "chunking_gold_review_freeze_timer_revalidated_r001",
+  "source": {
+    "kind": "REAL_EARLY_DESIGN_DOCX_GOVERNED_INGESTION",
+    "retrieval_ingestion_file_sha256": "e3c8d6f735520c740378f7734ebd7862d88c524e9f31d06cf93eb4480041c940",
+    "ingestion_sha256": "373efcb2b999a43f13dfca73ff89efff9cd6a5be2b4cc0b486b4dbc772178c9c",
+    "source_document_sha256": "3c36e1f563d1790217068b51d6e26d133f69b09c5bf8a370bd4bc68fc64d4ee0",
+    "source_is_independent_of_r004_handbook": true,
+    "source_is_non_normative": true
+  },
+  "query_construction": {
+    "status": "FROZEN_WITH_SOURCE_BEFORE_RETRIEVAL_EXECUTION",
+    "fault_label_or_condition_id_used": false,
+    "query_count": 10,
+    "queries": [
+      {"query_id": "EDOC-Q01", "text": "姿控分系统和测控分系统的方案为何引入大语言模型，主要对象是什么？"},
+      {"query_id": "EDOC-Q02", "text": "互惠排序融合的正向检索和反向检索分别使用什么输入？"},
+      {"query_id": "EDOC-Q03", "text": "实时监测、异常触发、大模型唤起、查询构造和诊断输出阶段的模块状态如何变化？"},
+      {"query_id": "EDOC-Q04", "text": "训练阶段包含哪些工作，异常检测模块沿用报告哪一部分？"},
+      {"query_id": "EDOC-Q05", "text": "结构化数据集为什么同时服务微调和RAG，需要收集哪些资料？"},
+      {"query_id": "EDOC-Q06", "text": "如何从知识图谱构造种子指令并扩展微调训练集？"},
+      {"query_id": "EDOC-Q07", "text": "为什么星端不直接用大模型处理高频时序数据，异常信息如何摘要？"},
+      {"query_id": "EDOC-Q08", "text": "RAG如何把异常摘要映射为节点关系并检索历史案例、故障树和处置预案？"},
+      {"query_id": "EDOC-Q09", "text": "vLLM、TensorRT-LLM和IxRT在星载部署中的适用性与挑战分别是什么？"},
+      {"query_id": "EDOC-Q10", "text": "应用阶段中异常检测、大模型和RAG如何触发、组装输入并输出结构化诊断？"}
+    ]
+  },
+  "systems": {
+    "section_context_aware": {
+      "source": "frozen_governed_section_chunks",
+      "include_section_path_in_lexical_index": true,
+      "citation_text_includes_injected_heading": false
+    },
+    "fixed_character": {
+      "source": "same_frozen_ingestion_elements_linearized_in_document_order",
+      "chunk_characters": 1200,
+      "overlap_characters": 0
+    }
+  },
+  "retrieval": {
+    "top_k": 5,
+    "bm25_weight": 0.7,
+    "term_coverage_weight": 0.3,
+    "dense_weight": 0.0,
+    "minimum_local_score": 0.0001,
+    "require_local_and_ontology": false
+  },
+  "human_gold": {
+    "system_identity_blinded": true,
+    "relevance_grades": {"0": "IRRELEVANT", "1": "PARTIAL_SUPPORT", "2": "DIRECT_SUPPORT"},
+    "citation_locator_decision": ["PASS", "FAIL"],
+    "named_reviewer_and_comment_required": true
+  },
+  "promotion": {
+    "minimum_section_recall_at_k": 0.9,
+    "minimum_section_ndcg_at_k": 0.85,
+    "minimum_section_mrr": 0.9,
+    "minimum_citation_locator_validity": 1.0,
+    "minimum_ndcg_delta": 0.05,
+    "bootstrap_confidence": 0.95,
+    "bootstrap_iterations": 10000,
+    "bootstrap_seed": 20260907
+  },
+  "claim_boundary": "Independent confirmation on a real but non-normative early design DOCX. Queries, source identity, systems, metrics and unchanged promotion thresholds are frozen before retrieval execution. Passing would support this lexical section-context policy on this document only, not diagnosis gain, causal correctness, Active-KG publication or runtime voting."
+}

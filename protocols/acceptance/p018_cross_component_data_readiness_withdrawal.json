@@ -1,0 +1,45 @@
+{
+  "schema_version": "astrograph-authorization-request-withdrawal.v1",
+  "withdrawal_id": "P018-CROSS-COMPONENT-DATA-READINESS-WITHDRAWAL-001",
+  "problem_id": "P-018",
+  "recorded_on": "2026-08-02",
+  "authority": {
+    "role": "PROJECT_OWNER",
+    "basis": "The project owner froze sat-agent-platform as the sole active data source and directed work to continue within that boundary."
+  },
+  "status": "WITHDRAWN_BY_PROJECT_OWNER_BEFORE_TIMER_APPROVAL",
+  "withdrawn_request": {
+    "path": "protocols/acceptance/p018_cross_component_data_readiness_authorization_request.json",
+    "sha256": "1a104e81c4151961e57de816463c6d395e2728d00d163bf7a9a9140216e380d6",
+    "request_id": "P018-CROSS-COMPONENT-DATA-READINESS-001",
+    "recorded_status": "PENDING_EXTERNAL_APPROVAL"
+  },
+  "timer_attestation": {
+    "present_in_repository_at_withdrawal": false,
+    "approval_or_revocation_claimed": false,
+    "interpretation": "No independent approval had been recorded, so this withdrawal cancels a pending request and does not revoke an approved protocol."
+  },
+  "scope_effect": {
+    "active_source_id": "SAT_AGENT_PLATFORM",
+    "source_count": 1,
+    "external_raw_data_acquisition": false,
+    "cross_source_stage_x0": "NO_LONGER_ACTIVE",
+    "historical_landscape_and_adr_preserved": true,
+    "replacement_scope_path": "protocols/acceptance/p018_sat_agent_only_s0_scope.json"
+  },
+  "preserved_without_change": {
+    "p017_status": "FAIL",
+    "g1_1_artifacts": true,
+    "thresholds_and_denominators": true,
+    "exhausted_validation_seeds": [20280820, 20290820, 20300820],
+    "production_candidate_authorized": false,
+    "stage_b_authorized": false
+  },
+  "prohibited_claims": [
+    "Cross-source or external-domain generalization",
+    "Real-spacecraft or in-orbit validity",
+    "P-018, T-310, T-311, G2 or G3 PASS",
+    "Model readiness, production promotion or Stage B authority"
+  ],
+  "claim_boundary": "Withdrawal and source-scope record only. The superseded request, its design evidence and all P-017 failures remain immutable; no model, seed, external data, technical validation, production candidate or Stage B is authorized."
+}

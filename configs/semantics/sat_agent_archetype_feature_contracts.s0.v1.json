@@ -1,0 +1,564 @@
+{
+  "schema_version": "astrograph-archetype-feature-catalog.v1",
+  "catalog_id": "astrograph.p018.sat-agent.archetype-features.s0",
+  "version": "1.0.0-draft",
+  "stage": "P018_S1_FIT_AUTHORIZED",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "source_adapter_id": "sat-agent-platform.p018.s0",
+  "source_count": 1,
+  "evidence_token_contract": {
+    "contract_id": "astrograph.truth-blind-evidence-token.v1",
+    "schema_version": "astrograph-evidence-token.v1",
+    "model_input_fields": [
+      "component_archetype_id",
+      "functional_role_id",
+      "quantity_kind_id",
+      "port_role_id",
+      "operator_id",
+      "value",
+      "uncertainty",
+      "availability",
+      "window_descriptor",
+      "quality_flags"
+    ],
+    "audit_sidecar_fields": [
+      "provenance_hash"
+    ],
+    "variable_token_count": true,
+    "labels_used": false,
+    "truth_used": false,
+    "identity_fields_allowed": false
+  },
+  "archetype_contracts": [
+    {
+      "contract_id": "storage.energy-buffer.features.s0.v1",
+      "component_archetype_id": "storage.energy_buffer",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "state.energy_fraction"
+      ],
+      "optional_port_role_ids": [
+        "power.exchange"
+      ],
+      "primitives": [
+        {
+          "primitive_id": "storage.robust_level",
+          "operator_family": "ROBUST_LEVEL_DISTRIBUTION",
+          "input_port_role_ids": [
+            "state.energy_fraction"
+          ],
+          "output_token_type": "STATE_LEVEL",
+          "availability_policy": "REQUIRED",
+          "description": "Robust level and spread of normalized storage state."
+        },
+        {
+          "primitive_id": "storage.charge_discharge_slope",
+          "operator_family": "SIGNED_SLOPE_DISTRIBUTION",
+          "input_port_role_ids": [
+            "state.energy_fraction"
+          ],
+          "output_token_type": "STATE_TREND",
+          "availability_policy": "REQUIRED",
+          "description": "Signed temporal evolution without a dataset-specific threshold."
+        },
+        {
+          "primitive_id": "storage.energy_balance",
+          "operator_family": "INTEGRAL_BALANCE_RESIDUAL",
+          "input_port_role_ids": [
+            "state.energy_fraction",
+            "power.exchange"
+          ],
+          "output_token_type": "CONSERVATION_RESIDUAL",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Energy-state change versus integrated exchange power."
+        },
+        {
+          "primitive_id": "storage.saturation_dwell",
+          "operator_family": "BOUNDARY_DWELL_PROFILE",
+          "input_port_role_ids": [
+            "state.energy_fraction"
+          ],
+          "output_token_type": "SATURATION_BEHAVIOR",
+          "availability_policy": "REQUIRED",
+          "description": "Boundary occupancy profile; exact limits remain an S1 contract item."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": true
+    },
+    {
+      "contract_id": "actuator.controlled-effort.features.s0.v1",
+      "component_archetype_id": "actuator.controlled_effort",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "command.effort",
+        "state.rate"
+      ],
+      "optional_port_role_ids": [
+        "response.effort"
+      ],
+      "primitives": [
+        {
+          "primitive_id": "actuator.command_response_gain",
+          "operator_family": "ROBUST_COMMAND_RESPONSE_GAIN",
+          "input_port_role_ids": [
+            "command.effort",
+            "response.effort"
+          ],
+          "output_token_type": "ACTUATION_GAIN",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Delivered-versus-commanded effort relationship."
+        },
+        {
+          "primitive_id": "actuator.command_response_lag",
+          "operator_family": "LAGGED_COHERENCE",
+          "input_port_role_ids": [
+            "command.effort",
+            "response.effort"
+          ],
+          "output_token_type": "ACTUATION_LAG",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Time-lagged response coherence."
+        },
+        {
+          "primitive_id": "actuator.rate_dynamics",
+          "operator_family": "SIGNED_SLOPE_DISTRIBUTION",
+          "input_port_role_ids": [
+            "state.rate"
+          ],
+          "output_token_type": "STATE_TREND",
+          "availability_policy": "REQUIRED",
+          "description": "Rate acceleration and deceleration profile."
+        },
+        {
+          "primitive_id": "actuator.command_rate_consistency",
+          "operator_family": "DYNAMIC_CONSISTENCY_RESIDUAL",
+          "input_port_role_ids": [
+            "command.effort",
+            "state.rate"
+          ],
+          "output_token_type": "DYNAMICS_RESIDUAL",
+          "availability_policy": "REQUIRED",
+          "description": "Command-to-state dynamic consistency without exact fault routing."
+        },
+        {
+          "primitive_id": "actuator.change_profile",
+          "operator_family": "MULTISCALE_CHANGE_SCORE",
+          "input_port_role_ids": [
+            "command.effort",
+            "state.rate"
+          ],
+          "output_token_type": "CHANGE_EVIDENCE",
+          "availability_policy": "REQUIRED",
+          "description": "Multiscale nonstationarity evidence."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": true
+    },
+    {
+      "contract_id": "thermal.lumped-capacity.features.s0.v1",
+      "component_archetype_id": "thermal.lumped_capacity",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "state.temperature"
+      ],
+      "optional_port_role_ids": [
+        "heat.exchange",
+        "context.ambient_temperature"
+      ],
+      "primitives": [
+        {
+          "primitive_id": "thermal.heating_cooling_slope",
+          "operator_family": "REGIME_CONDITIONAL_SLOPE",
+          "input_port_role_ids": [
+            "state.temperature",
+            "heat.exchange"
+          ],
+          "output_token_type": "THERMAL_RESPONSE",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Heating and cooling response under declared heat input."
+        },
+        {
+          "primitive_id": "thermal.inertia_profile",
+          "operator_family": "AUTOCORRELATION_DECAY",
+          "input_port_role_ids": [
+            "state.temperature"
+          ],
+          "output_token_type": "THERMAL_INERTIA",
+          "availability_policy": "REQUIRED",
+          "description": "Thermal persistence and relaxation profile."
+        },
+        {
+          "primitive_id": "thermal.balance_residual",
+          "operator_family": "LUMPED_BALANCE_RESIDUAL",
+          "input_port_role_ids": [
+            "state.temperature",
+            "heat.exchange",
+            "context.ambient_temperature"
+          ],
+          "output_token_type": "CONSERVATION_RESIDUAL",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Lumped energy-balance evidence when boundary signals exist."
+        },
+        {
+          "primitive_id": "thermal.change_profile",
+          "operator_family": "MULTISCALE_CHANGE_SCORE",
+          "input_port_role_ids": [
+            "state.temperature"
+          ],
+          "output_token_type": "CHANGE_EVIDENCE",
+          "availability_policy": "REQUIRED",
+          "description": "Persistent and transient temperature changes."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": true
+    },
+    {
+      "contract_id": "sensor.measurement.features.s0.v1",
+      "component_archetype_id": "sensor.measurement",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "measurement.output"
+      ],
+      "optional_port_role_ids": [
+        "observation.input"
+      ],
+      "primitives": [
+        {
+          "primitive_id": "sensor.gap_runs",
+          "operator_family": "MISSING_RUN_LENGTH_PROFILE",
+          "input_port_role_ids": [
+            "measurement.output"
+          ],
+          "output_token_type": "AVAILABILITY_PATTERN",
+          "availability_policy": "REQUIRED",
+          "description": "Intermittent and sustained observation loss structure. Renamed from sensor.dropout_runs (loop-16 deny-surface reconciliation: *dropout* is a governed S0 deny pattern; the operator computes a measured missing-data statistic, so it carries a neutral contract id)."
+        },
+        {
+          "primitive_id": "sensor.innovation",
+          "operator_family": "REFERENCE_INNOVATION_RESIDUAL",
+          "input_port_role_ids": [
+            "observation.input",
+            "measurement.output"
+          ],
+          "output_token_type": "MEASUREMENT_RESIDUAL",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Observation innovation when a public reference is declared."
+        },
+        {
+          "primitive_id": "sensor.trend_profile",
+          "operator_family": "ROBUST_LOCAL_TREND",
+          "input_port_role_ids": [
+            "measurement.output"
+          ],
+          "output_token_type": "DRIFT_EVIDENCE",
+          "availability_policy": "REQUIRED",
+          "description": "Slow measurement trend independent of a fixed dataset expression. Renamed from sensor.drift_profile (loop-16 deny-surface reconciliation: *drift* is a governed S0 deny pattern; the operator computes a measured slow-trend statistic, so it carries a neutral contract id)."
+        },
+        {
+          "primitive_id": "sensor.noise_profile",
+          "operator_family": "MULTISCALE_VARIATION",
+          "input_port_role_ids": [
+            "measurement.output"
+          ],
+          "output_token_type": "NOISE_EVIDENCE",
+          "availability_policy": "REQUIRED",
+          "description": "Short- and long-scale variation profile."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": true
+    },
+    {
+      "contract_id": "converter.power.features.s0.v1",
+      "component_archetype_id": "converter.power",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "power.input",
+        "power.output"
+      ],
+      "optional_port_role_ids": [],
+      "primitives": [
+        {
+          "primitive_id": "converter.efficiency_profile",
+          "operator_family": "ROBUST_INPUT_OUTPUT_RATIO",
+          "input_port_role_ids": [
+            "power.input",
+            "power.output"
+          ],
+          "output_token_type": "CONVERSION_EFFICIENCY",
+          "availability_policy": "REQUIRED",
+          "description": "Load-conditioned conversion relationship."
+        },
+        {
+          "primitive_id": "converter.balance_residual",
+          "operator_family": "CONSERVATION_RESIDUAL",
+          "input_port_role_ids": [
+            "power.input",
+            "power.output"
+          ],
+          "output_token_type": "CONSERVATION_RESIDUAL",
+          "availability_policy": "REQUIRED",
+          "description": "Input-output power balance."
+        },
+        {
+          "primitive_id": "converter.saturation_profile",
+          "operator_family": "PLATEAU_AND_CLIPPING_PROFILE",
+          "input_port_role_ids": [
+            "power.input",
+            "power.output"
+          ],
+          "output_token_type": "SATURATION_BEHAVIOR",
+          "availability_policy": "REQUIRED",
+          "description": "Output limiting behavior across load regimes."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": true
+    },
+    {
+      "contract_id": "link.transport.features.s0.v1",
+      "component_archetype_id": "link.transport",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "flow.input",
+        "flow.output"
+      ],
+      "optional_port_role_ids": [],
+      "primitives": [
+        {
+          "primitive_id": "link.delivery_ratio",
+          "operator_family": "ROBUST_INPUT_OUTPUT_RATIO",
+          "input_port_role_ids": [
+            "flow.input",
+            "flow.output"
+          ],
+          "output_token_type": "DELIVERY_EFFICIENCY",
+          "availability_policy": "REQUIRED",
+          "description": "Delivered versus offered flow."
+        },
+        {
+          "primitive_id": "link.transport_lag",
+          "operator_family": "LAGGED_COHERENCE",
+          "input_port_role_ids": [
+            "flow.input",
+            "flow.output"
+          ],
+          "output_token_type": "TRANSPORT_LAG",
+          "availability_policy": "REQUIRED",
+          "description": "Delay between offered and delivered flow."
+        },
+        {
+          "primitive_id": "link.loss_burst_profile",
+          "operator_family": "BURST_LOSS_RUN_PROFILE",
+          "input_port_role_ids": [
+            "flow.input",
+            "flow.output"
+          ],
+          "output_token_type": "LOSS_PATTERN",
+          "availability_policy": "REQUIRED",
+          "description": "Burstiness and persistence of delivery deficits."
+        },
+        {
+          "primitive_id": "link.balance_residual",
+          "operator_family": "FLOW_CONSERVATION_RESIDUAL",
+          "input_port_role_ids": [
+            "flow.input",
+            "flow.output"
+          ],
+          "output_token_type": "CONSERVATION_RESIDUAL",
+          "availability_policy": "REQUIRED",
+          "description": "Transport flow balance."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": false
+    },
+    {
+      "contract_id": "queue.bounded-inventory.features.s0.v1",
+      "component_archetype_id": "queue.bounded_inventory",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "state.fill_fraction",
+        "flow.exchange"
+      ],
+      "optional_port_role_ids": [],
+      "primitives": [
+        {
+          "primitive_id": "queue.fill_profile",
+          "operator_family": "ROBUST_LEVEL_DISTRIBUTION",
+          "input_port_role_ids": [
+            "state.fill_fraction"
+          ],
+          "output_token_type": "STATE_LEVEL",
+          "availability_policy": "REQUIRED",
+          "description": "Inventory occupancy profile."
+        },
+        {
+          "primitive_id": "queue.flow_balance",
+          "operator_family": "INVENTORY_FLOW_BALANCE",
+          "input_port_role_ids": [
+            "state.fill_fraction",
+            "flow.exchange"
+          ],
+          "output_token_type": "CONSERVATION_RESIDUAL",
+          "availability_policy": "REQUIRED",
+          "description": "State change versus declared net flow."
+        },
+        {
+          "primitive_id": "queue.saturation_dwell",
+          "operator_family": "BOUNDARY_DWELL_PROFILE",
+          "input_port_role_ids": [
+            "state.fill_fraction"
+          ],
+          "output_token_type": "SATURATION_BEHAVIOR",
+          "availability_policy": "REQUIRED",
+          "description": "Full/empty dwell behavior without dataset-specific routing."
+        },
+        {
+          "primitive_id": "queue.service_regime",
+          "operator_family": "REGIME_CHANGE_PROFILE",
+          "input_port_role_ids": [
+            "flow.exchange"
+          ],
+          "output_token_type": "SERVICE_PATTERN",
+          "availability_policy": "REQUIRED",
+          "description": "Changes in arrival/service balance."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": true
+    },
+    {
+      "contract_id": "actuator.thrust-impulse.features.s0.v1",
+      "component_archetype_id": "actuator.thrust_impulse",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "state.linear_impulse",
+        "state.propellant_consumed"
+      ],
+      "optional_port_role_ids": [
+        "state.on_time"
+      ],
+      "primitives": [
+        {
+          "primitive_id": "propulsion.impulse_profile",
+          "operator_family": "ROBUST_LEVEL_DISTRIBUTION",
+          "input_port_role_ids": [
+            "state.linear_impulse"
+          ],
+          "output_token_type": "STATE_LEVEL",
+          "availability_policy": "REQUIRED",
+          "description": "Robust level and spread of cumulative linear impulse."
+        },
+        {
+          "primitive_id": "propulsion.propellant_slope",
+          "operator_family": "SIGNED_SLOPE_DISTRIBUTION",
+          "input_port_role_ids": [
+            "state.propellant_consumed"
+          ],
+          "output_token_type": "STATE_TREND",
+          "availability_policy": "REQUIRED",
+          "description": "Signed cumulative-propellant-consumption trend over the observation window."
+        },
+        {
+          "primitive_id": "propulsion.impulse_balance",
+          "operator_family": "INTEGRAL_BALANCE_RESIDUAL",
+          "input_port_role_ids": [
+            "state.linear_impulse",
+            "state.propellant_consumed"
+          ],
+          "output_token_type": "CONSERVATION_RESIDUAL",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Linear-impulse build-up versus cumulative propellant consumed balance."
+        },
+        {
+          "primitive_id": "propulsion.on_time_profile",
+          "operator_family": "ROBUST_LEVEL_DISTRIBUTION",
+          "input_port_role_ids": [
+            "state.on_time"
+          ],
+          "output_token_type": "STATE_LEVEL",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Pulse on-time duration profile when an on-time signal is present."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": false
+    },
+    {
+      "contract_id": "actuator.spinning-rotor.features.s0.v1",
+      "component_archetype_id": "actuator.spinning_rotor",
+      "version": "1.0.0-draft",
+      "required_port_role_ids": [
+        "state.rate"
+      ],
+      "optional_port_role_ids": [
+        "command.effort",
+        "response.effort"
+      ],
+      "primitives": [
+        {
+          "primitive_id": "spin.rate_dynamics",
+          "operator_family": "SIGNED_SLOPE_DISTRIBUTION",
+          "input_port_role_ids": [
+            "state.rate"
+          ],
+          "output_token_type": "STATE_TREND",
+          "availability_policy": "REQUIRED",
+          "description": "Spin-rate acceleration and deceleration profile."
+        },
+        {
+          "primitive_id": "spin.momentum_balance",
+          "operator_family": "INTEGRAL_BALANCE_RESIDUAL",
+          "input_port_role_ids": [
+            "state.rate",
+            "command.effort"
+          ],
+          "output_token_type": "CONSERVATION_RESIDUAL",
+          "availability_policy": "OPTIONAL_SKIP_WITH_MASK",
+          "description": "Spin-rate change versus integrated torque command."
+        },
+        {
+          "primitive_id": "spin.command_rate_consistency",
+          "operator_family": "DYNAMIC_CONSISTENCY_RESIDUAL",
+          "input_port_role_ids": [
+            "command.effort",
+            "state.rate"
+          ],
+          "output_token_type": "DYNAMICS_RESIDUAL",
+          "availability_policy": "REQUIRED",
+          "description": "Torque-to-rate dynamic consistency without exact fault routing."
+        },
+        {
+          "primitive_id": "spin.change_profile",
+          "operator_family": "MULTISCALE_CHANGE_SCORE",
+          "input_port_role_ids": [
+            "command.effort",
+            "state.rate"
+          ],
+          "output_token_type": "CHANGE_EVIDENCE",
+          "availability_policy": "REQUIRED",
+          "description": "Multiscale nonstationarity evidence in torque and rate."
+        }
+      ],
+      "output_contract_id": "astrograph.truth-blind-evidence-token.v1",
+      "output_shape_policy": "VARIABLE_BY_ARCHETYPE_FIXED_ONLY_AFTER_S1_FREEZE",
+      "fitted": true
+    }
+  ],
+  "feature_selection_evidence_used": false,
+  "fitted_model_count": 1,
+  "s1_fit_authorized": true,
+  "claim_boundary": "S1-authorized (2026-08-04) feature-contract catalog. One data-driven diagnosis baseline (105-dim shared backbone + detection/mechanism/localization heads) is fit under the S1 grouped-holdout discipline (seed 20260804, candidate budget 1, single-slot challenger). Loop-16 deny-surface reconciliation: no governed deny-pattern source column enters features and the full 28-rule deny scan is clean. No production capability, cross-source generalization, Stage B, G2/G3 completion, flight or real-spacecraft claim is made."
+}

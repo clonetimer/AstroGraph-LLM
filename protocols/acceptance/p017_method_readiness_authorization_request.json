@@ -1,0 +1,70 @@
+{
+  "schema_version": "astrograph-method-readiness-authorization-request.v1",
+  "request_id": "P017-METHOD-READINESS-001",
+  "problem_id": "P-017",
+  "requested_reviewer": "Timer",
+  "status": "PENDING_EXTERNAL_APPROVAL",
+  "bound_root_cause_analysis": {
+    "path": "governance/evidence/0.7.1-extension/p017_observability_root_cause_analysis.v1.json",
+    "sha256": "907fb925f6df7d79080424173d7b59a589ea69a5d5ec0694da0302f3a56d5b33"
+  },
+  "reason": "A 3600-second passive thermal record restores nonlinear thermal separability, but the governed switching-physics head remains below threshold and the nonlinear oracle shows a material storage calibration gap. Stage B is not yet justified.",
+  "requested_authority": {
+    "scope": "One development/calibration-only method-readiness study; not Stage B and not a production candidate.",
+    "proposed_development_seed": 20330818,
+    "proposed_calibration_seed": 20330819,
+    "technical_validation_seed": null,
+    "maximum_research_alternatives": 1,
+    "frozen_model_before_fit": {
+      "family": "L2_REGULARIZED_MULTINOMIAL_LOGISTIC_REGRESSION",
+      "single_head": true,
+      "base_features": 22,
+      "archetype_indicator_features": 1,
+      "archetype_interaction_features": 22,
+      "total_dimension": 45,
+      "mapping": "[x_1..x_22, thermal_indicator, thermal_indicator*x_1..thermal_indicator*x_22]",
+      "normalization": "development mean and standard deviation with 1e-9 floor",
+      "solver": "LBFGS",
+      "C": 1.0,
+      "maximum_iterations": 2000,
+      "class_weight": null,
+      "random_state": 20330818
+    },
+    "frozen_data_design": {
+      "thermal_profile": "PASSIVE_LONG",
+      "thermal_observation_horizon_seconds": 3600.0,
+      "storage_profile": "UNCHANGED_STAGE_A_CONTROL",
+      "same_fault_severity_noise_case_counts_and_channels": true
+    },
+    "frozen_open_set_rule": {
+      "score_calibration": "CLASS_AND_ARCHETYPE_CONDITIONAL_SQUARED_MAHALANOBIS_DISTANCE",
+      "score_runtime": "THE_SAME_CLASS_AND_ARCHETYPE_CONDITIONAL_SQUARED_MAHALANOBIS_DISTANCE",
+      "alpha": 0.02,
+      "prediction_set": "Include a class only when its score is at or below its frozen threshold.",
+      "ood": "Prediction set is empty.",
+      "reachability_required": true
+    },
+    "exit_checks": {
+      "known_classification_accuracy": 0.9,
+      "normal_detection_accuracy": 0.98,
+      "storage_known_classification_accuracy": 0.9,
+      "thermal_known_classification_accuracy": 0.9,
+      "known_retention": 0.98,
+      "open_set_rule_reachable_for_each_archetype": true,
+      "development_calibration_gap_each_archetype_maximum": 0.1,
+      "failed_case_count": 0,
+      "maximum_runtime_seconds": 600
+    }
+  },
+  "not_authorized": [
+    "Start Stage B or create a technical-validation seed",
+    "Fit or bind a production candidate",
+    "Try a second model or change the mapping after observing results",
+    "Generate BIAS, INTERMITTENT or STUCK",
+    "Modify G1.1 artifacts, thresholds, denominators or class membership",
+    "Change fault severity, noise, case counts or remove hard configurations",
+    "Reuse 20280820, 20290820 or 20300820"
+  ],
+  "approval_text_requested_zh": "Timer 审批：我已审阅 P-017 可观测性干预完整 FAIL 证据和仿真/诊断根因审计。我确认 Stage B 仍不成立，并授权一个仅开发/校准的方法就绪研究，使用开发种子 20330818 和校准种子 20330819；只允许一个预冻结的 45 维架构交互特征映射、单一 L2 多项逻辑回归头及同分数类与架构条件共形规则。热数据固定为 3600 秒被动记录，储能数据保持不变，故障严重度、噪声、案例数、类别、阈值、分母和 600 秒预算保持不变。本审批不授权第二模型、正式开放类、生产拟合、验证种子或 Stage B；20280820、20290820、20300820 继续永久禁止复用。",
+  "claim_boundary": "Pending request only. No new seed is generated or reserved and no method-readiness fitting is authorized until Timer signs."
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "astrograph-plugin-generation-plan.v1",
+  "plugin_id": "generated.whole_spacecraft.thermal_heater",
+  "plugin_version": "0.5.13",
+  "decisions": [
+    {
+      "feature_id": "FD-HEATER-CMD-ACTUAL-MISMATCH-FRACTION-V1",
+      "mode": "OPERATOR_COMPOSITION",
+      "resolved_operator_ids": [
+        "JOINT_THRESHOLD_FRACTION"
+      ],
+      "reason": "Feature can be expressed as an approved deterministic operator composition.",
+      "requires_human_review": false
+    },
+    {
+      "feature_id": "FD-HEATER-CURRENT-MEAN-V1",
+      "mode": "CONFIGURATION_ONLY",
+      "resolved_operator_ids": [
+        "MEAN_VALUE"
+      ],
+      "reason": "Existing deterministic operator can implement the feature directly.",
+      "requires_human_review": false
+    },
+    {
+      "feature_id": "FD-PAYLOAD-TEMP-PAIRED-MAX-V1",
+      "mode": "CONFIGURATION_ONLY",
+      "resolved_operator_ids": [
+        "MAX_ABS_PAIRED_RESIDUAL"
+      ],
+      "reason": "Existing deterministic operator can implement the feature directly.",
+      "requires_human_review": false
+    },
+    {
+      "feature_id": "FD-BATTERY-CURRENT-PAIRED-MAX-V1",
+      "mode": "CONFIGURATION_ONLY",
+      "resolved_operator_ids": [
+        "MAX_ABS_PAIRED_RESIDUAL"
+      ],
+      "reason": "Existing deterministic operator can implement the feature directly.",
+      "requires_human_review": false
+    }
+  ],
+  "required_operator_ids": [
+    "JOINT_THRESHOLD_FRACTION",
+    "MAX_ABS_PAIRED_RESIDUAL",
+    "MEAN_VALUE"
+  ],
+  "configuration_only_feature_count": 3,
+  "composition_feature_count": 1,
+  "custom_code_feature_count": 0,
+  "blocked_feature_count": 0,
+  "requires_human_review": false,
+  "online_registration_allowed": false
+}

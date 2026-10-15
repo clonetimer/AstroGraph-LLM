@@ -1,0 +1,22 @@
+{
+  "schema_version": "astrograph-r22-new-replication-readiness.v1",
+  "status": "READY_FOR_NEW_HOLDOUT_BLOCKED_DATASET",
+  "required_families": [
+    "OPS-SAT",
+    "ESA"
+  ],
+  "family_readiness": {
+    "OPS-SAT": false,
+    "ESA": false
+  },
+  "blockers": [
+    "NEW_HOLDOUT_NOT_ADMITTED:OPS-SAT",
+    "NEW_HOLDOUT_NOT_ADMITTED:ESA"
+  ],
+  "r21_source_sha256": "6e3d1e7b35a718f32d06ee34ae9b49d6c8b562533fda3d17ae22e75757ed64ec",
+  "replication_plan_sha256": "f3fb9db86150b49037575843eedc4720b2d9c446324b623a93d6a84987c4ae62",
+  "performance_result_generated": false,
+  "new_external_validation_receipt_generated": false,
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "4d988636cd0075a8643292f061460f6e4769f6c84d9d5fa69f3c794c984ad351"
+}

@@ -1,0 +1,75 @@
+{
+  "format": "isgn-mechanism-atlas-v1",
+  "system_id": "whole-spacecraft-adcs-v5.2.2",
+  "scopes": {
+    "adcs.reaction_wheel_actuation": {
+      "scope_id": "adcs.reaction_wheel_actuation",
+      "target_states": [
+        "rw_command_execution_residual",
+        "rw_speed_response_residual"
+      ],
+      "scope_kind": "dynamic",
+      "observed_drivers": [],
+      "latent_boundaries": [],
+      "graph": {},
+      "observation_status": "DECLARED_FROM_GENERATOR_AND_TELEMETRY",
+      "completion_status": "UNCERTIFIED",
+      "parameter_policy": {},
+      "phm_coverage": {
+        "evidence_kinds": ["THRESHOLD_EVENT"],
+        "phenomena": ["command_execution_residual", "speed_response_residual"]
+      },
+      "metadata": {
+        "source_refs": [
+          "source://sat-agent.adcs-v5_2_2-generator",
+          "configs/datasets/adcs_v5_2_2/runtime_evidence.json"
+        ],
+        "certification_note": "Structural scope only; no ISGN completion certificate has been produced."
+      }
+    },
+    "adcs.star_tracker_solution": {
+      "scope_id": "adcs.star_tracker_solution",
+      "target_states": ["star_solution_valid", "star_solution_fresh"],
+      "scope_kind": "algebraic",
+      "observed_drivers": [],
+      "latent_boundaries": [],
+      "graph": {},
+      "observation_status": "DECLARED_FROM_TELEMETRY_SEMANTICS",
+      "completion_status": "UNCERTIFIED",
+      "parameter_policy": {},
+      "phm_coverage": {
+        "evidence_kinds": ["THRESHOLD_EVENT"],
+        "phenomena": ["solution_invalid", "solution_stale"]
+      },
+      "metadata": {
+        "source_refs": ["configs/datasets/adcs_v5_2_2/runtime_evidence.json"],
+        "certification_note": "Status-channel scope only; not a certified physical mechanism."
+      }
+    },
+    "adcs.estimator_consistency": {
+      "scope_id": "adcs.estimator_consistency",
+      "target_states": ["star_gyro_rate_innovation"],
+      "scope_kind": "algebraic",
+      "observed_drivers": [],
+      "latent_boundaries": [],
+      "graph": {},
+      "observation_status": "DECLARED_FROM_TELEMETRY_SEMANTICS",
+      "completion_status": "UNCERTIFIED",
+      "parameter_policy": {},
+      "phm_coverage": {
+        "evidence_kinds": ["THRESHOLD_EVENT"],
+        "phenomena": ["cross_sensor_innovation"]
+      },
+      "metadata": {
+        "source_refs": ["configs/datasets/adcs_v5_2_2/runtime_evidence.json"],
+        "certification_note": "Consistency residual scope only; it does not identify the causal sensor."
+      }
+    }
+  },
+  "interfaces": [],
+  "uncovered_regions": [],
+  "metadata": {
+    "status": "DRAFT_UNCERTIFIED",
+    "claim_boundary": "Configuration-only routing scaffold. Generator code and telemetry semantics establish names and structural grouping, not ISGN mechanism completion or flight certification."
+  }
+}

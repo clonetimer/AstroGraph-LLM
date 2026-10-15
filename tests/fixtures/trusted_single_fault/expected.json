@@ -1,0 +1,44 @@
+{
+  "eps_capacity_4": {
+    "effect_id": "eps_battery_capacity_loss",
+    "subsystem": "EPS",
+    "component": "Battery",
+    "onset": 180.0,
+    "severity": 0.35
+  },
+  "rw_bearing_4": {
+    "effect_id": "adcs_rw_bearing_seizure",
+    "subsystem": "ADCS",
+    "component": "ReactionWheel",
+    "onset": 0.0,
+    "severity": 1.0
+  },
+  "thermal_heater_4": {
+    "effect_id": "thermal_heater_stuck_on",
+    "subsystem": "THERMAL",
+    "component": "Heater",
+    "onset": 180.0,
+    "severity": 1.0
+  },
+  "payload_off_4": {
+    "effect_id": "payload_instrument_off",
+    "subsystem": "PAYLOAD",
+    "component": "Instrument",
+    "onset": 180.0,
+    "severity": 1.0
+  },
+  "payload_degraded_4": {
+    "effect_id": "payload_instrument_degraded_rate",
+    "subsystem": "PAYLOAD",
+    "component": "Instrument",
+    "onset": 180.0,
+    "severity": 0.8
+  },
+  "comm_loss_4": {
+    "effect_id": "comm_data_downlink_link_loss",
+    "subsystem": "COMM_DATA",
+    "component": "Transmitter",
+    "onset": 180.0,
+    "severity": 1.0
+  }
+}

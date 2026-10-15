@@ -1,0 +1,282 @@
+{
+  "$defs": {
+    "CheckStatus": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_RUN",
+        "TIMEOUT",
+        "ERROR"
+      ],
+      "title": "CheckStatus",
+      "type": "string"
+    },
+    "GateCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "criterion_id": {
+          "minLength": 1,
+          "title": "Criterion Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/CheckStatus"
+        },
+        "severity": {
+          "$ref": "#/$defs/GateSeverity",
+          "default": "HARD"
+        },
+        "observed": {
+          "default": "",
+          "title": "Observed",
+          "type": "string"
+        },
+        "expected": {
+          "default": "PASS",
+          "title": "Expected",
+          "type": "string"
+        },
+        "evidence_paths": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Paths",
+          "type": "array"
+        },
+        "duration_seconds": {
+          "default": 0.0,
+          "minimum": 0.0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "error_code": {
+          "default": "",
+          "title": "Error Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "criterion_id",
+        "status"
+      ],
+      "title": "GateCheck",
+      "type": "object"
+    },
+    "GateSeverity": {
+      "enum": [
+        "HARD",
+        "SOFT"
+      ],
+      "title": "GateSeverity",
+      "type": "string"
+    },
+    "HiddenTruthAccessStatus": {
+      "enum": [
+        "NOT_APPLICABLE",
+        "ENFORCED_NO_ACCESS",
+        "VIOLATION",
+        "UNVERIFIED"
+      ],
+      "title": "HiddenTruthAccessStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-gate-evidence.v2",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "gate_run_id": {
+      "minLength": 1,
+      "title": "Gate Run Id",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Contract Sha256",
+      "type": "string"
+    },
+    "candidate_id": {
+      "minLength": 1,
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "candidate_tree_sha256_before": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Candidate Tree Sha256 Before",
+      "type": "string"
+    },
+    "candidate_tree_sha256_after": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Candidate Tree Sha256 After",
+      "type": "string"
+    },
+    "evaluator_id": {
+      "minLength": 1,
+      "title": "Evaluator Id",
+      "type": "string"
+    },
+    "evaluator_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Evaluator Sha256",
+      "type": "string"
+    },
+    "evaluator_module_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Evaluator Module Sha256",
+      "type": "string"
+    },
+    "gate_query_index": {
+      "minimum": 1,
+      "title": "Gate Query Index",
+      "type": "integer"
+    },
+    "gate_query_receipt_path": {
+      "minLength": 1,
+      "title": "Gate Query Receipt Path",
+      "type": "string"
+    },
+    "gate_query_receipt_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Gate Query Receipt Sha256",
+      "type": "string"
+    },
+    "started_at": {
+      "title": "Started At",
+      "type": "string"
+    },
+    "finished_at": {
+      "title": "Finished At",
+      "type": "string"
+    },
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/GateCheck"
+      },
+      "minItems": 1,
+      "title": "Checks",
+      "type": "array"
+    },
+    "evidence_artifacts": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Evidence Artifacts",
+      "type": "object"
+    },
+    "tests_collected": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Tests Collected",
+      "type": "integer"
+    },
+    "tests_passed": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Tests Passed",
+      "type": "integer"
+    },
+    "tests_failed": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Tests Failed",
+      "type": "integer"
+    },
+    "tests_skipped": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Tests Skipped",
+      "type": "integer"
+    },
+    "tests_errors": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Tests Errors",
+      "type": "integer"
+    },
+    "tests_timed_out": {
+      "default": false,
+      "title": "Tests Timed Out",
+      "type": "boolean"
+    },
+    "baseline_test_nodeids_total": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Baseline Test Nodeids Total",
+      "type": "integer"
+    },
+    "baseline_test_nodeids_missing": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Baseline Test Nodeids Missing",
+      "type": "array"
+    },
+    "hidden_truth_access_status": {
+      "$ref": "#/$defs/HiddenTruthAccessStatus",
+      "default": "UNVERIFIED"
+    },
+    "hidden_truth_accessed": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hidden Truth Accessed"
+    },
+    "modified_evaluator_paths": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Modified Evaluator Paths",
+      "type": "array"
+    },
+    "source_tree_clean": {
+      "title": "Source Tree Clean",
+      "type": "boolean"
+    },
+    "candidate_storage_growth_bytes": {
+      "default": 0,
+      "title": "Candidate Storage Growth Bytes",
+      "type": "integer"
+    },
+    "environment": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Environment",
+      "type": "object"
+    }
+  },
+  "required": [
+    "gate_run_id",
+    "contract_id",
+    "contract_sha256",
+    "candidate_id",
+    "candidate_tree_sha256_before",
+    "candidate_tree_sha256_after",
+    "evaluator_id",
+    "evaluator_sha256",
+    "evaluator_module_sha256",
+    "gate_query_index",
+    "gate_query_receipt_path",
+    "gate_query_receipt_sha256",
+    "started_at",
+    "finished_at",
+    "checks",
+    "source_tree_clean"
+  ],
+  "title": "GateEvidence",
+  "type": "object"
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "astrograph-mission-template-catalog.v1",
+  "executable_policy_source": "astrograph.agents.mission.service",
+  "default_task": "diagnose",
+  "diagnose": [
+    "model.infer",
+    "graph.reason",
+    "optional document.convert/document.clean",
+    "evidence-grounded optional retrieval planning",
+    "diagnosis.fuse with bounded eligible-check selection and recomputation",
+    "output.structured",
+    "pending case staging only"
+  ],
+  "build_knowledge": [
+    "document.convert",
+    "document.clean",
+    "graph.build",
+    "output.structured: REVIEW_REQUIRED"
+  ],
+  "train_model": [
+    "host exact-manifest approval",
+    "group-disjoint dataset validation",
+    "existing TCN training",
+    "validation heads report",
+    "review-only candidate"
+  ],
+  "research": [
+    "document/literature retrieval",
+    "source-bound structured report; no diagnosis without telemetry"
+  ]
+}

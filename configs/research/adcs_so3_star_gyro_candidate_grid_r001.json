@@ -1,0 +1,7008 @@
+{
+  "calibration_groups": [
+    0,
+    1,
+    2,
+    5,
+    6,
+    7
+  ],
+  "candidate_count": 224,
+  "contract": {
+    "anchor_estimator": "MAX_VALID_NOMINAL_AFTER_WARMUP",
+    "calibration_groups": [
+      0,
+      1,
+      2,
+      5,
+      6,
+      7
+    ],
+    "claim_boundary": "Development-only label-free attitude-consistency score. Nominal anchors are empirical maxima, not calibrated probabilities or conformal bounds.",
+    "contract_id": "ADCS-SO3-STAR-GYRO-R001",
+    "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+    "development_groups": [
+      3,
+      8
+    ],
+    "distance_metric": "SO3_GEODESIC_DEG_2_ACOS_ABS_DOT",
+    "excluded_groups": [
+      4,
+      9
+    ],
+    "horizons_points": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "integration_rule": "SEQUENTIAL_TRAPEZOIDAL_RATE",
+    "notification_buffer_points": 3,
+    "propagation_convention": "RIGHT_MULTIPLY_POSITIVE_BODY_RATE",
+    "quaternion_order": "SCALAR_FIRST_Q0_Q1_Q2_Q3",
+    "runtime_ground_truth_access": false,
+    "sample_period_s": 1.0,
+    "schema_version": "astrograph-so3-star-gyro-contract.v1",
+    "warmup_points": 31
+  },
+  "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+  "design_disclosure": "The SO(3) branch was designed after B011 failure analysis. It is development, not preregistration. The formal family contains only short causal horizons and empirical nominal anchors.",
+  "development_groups": [
+    3,
+    8
+  ],
+  "excluded_groups": [
+    4,
+    9
+  ],
+  "grid_sha256": "b72312bbcb8edddda9b6cb36feab05dea1e32033e26dc5cc9898bf2031be40e0",
+  "groups_4_9_read": false,
+  "policies": [
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-E8F393E3A31794F6FD69",
+      "policy_sha256": "3500c68daf543238969fbde7e7d243f12eec4eec50cc62add1bdcf2f501f6bca",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-63896C7B3A578BA3A72D",
+      "policy_sha256": "1a9166f44e5fe30c48793233b82fa5d406dc4a938c89a8f4970f66f83495671a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-EC67A9ABDFFCC4F11556",
+      "policy_sha256": "6fc213b78404aef8f2dd57bb27914ee76e35fa866a384a4c4b11c3c940375e67",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-16A9C4392FC3909C3931",
+      "policy_sha256": "62c6f8f1b5404754bd99782ce0224bcacec6228b673922912f833b89bfb4c4be",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-19B18F8AEB15AD167C19",
+      "policy_sha256": "b58bdcaf4c013394ce2ff79118a3884983eb8bce321797f47e4107762799151a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-9EEFD24D758E19CC27F1",
+      "policy_sha256": "b0955382c68b6a8af00634293171804f6998431bf32c50f6f8b9d7dc23e860e7",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-03849E374EBC88903F13",
+      "policy_sha256": "7286c6b91dcf177cffe622bb06e236b2a1eeac4a888f9366808bee208d9dcaf3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-795AF2786FA1FDD75DF0",
+      "policy_sha256": "c22cb12b2e46b7d5beeb8b99e95ef3e800edd1c8cab8cb06d8799305502c4dbd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-EE7F68A69C3179E0BA89",
+      "policy_sha256": "25eb84d7481a539ecfe9b86b810cc7f587185571563f4d8194fc7037b5a7741e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-D8E38148205B07CD7857",
+      "policy_sha256": "c3c59cd360ce41c49d38efbd04b0866024651dc8bb78995d1fcfde811f348819",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-138D3AA60E08AABBE0B8",
+      "policy_sha256": "2906e221cc3444e1cf9c3087118236042cc019d2ddfa7dbd86d2be06410969f4",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-2AFBA08B0D9B92A9EF7A",
+      "policy_sha256": "7bd7ea7ab4513a59df2b1c86ef8ec250356c8b17b31b72f28a2c4608ba45bba0",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-79A1117854ABBD1D86C5",
+      "policy_sha256": "695b3da13f00f4634e8ee8e229bee1421b2f88a1649370a74b8df402e500a9eb",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-F988BE49AD1C4CE89A67",
+      "policy_sha256": "260e3ebfaf43f2adecb72815176a8ff781f15a7535733424fd63b5bafc4dfa7e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-B1A279F0A45AA3B648D1",
+      "policy_sha256": "e58a221ce62ee4e977c8d87300b16436283dd32875b85182d14a2cccf2131990",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-2AD8C55CD4D179C02E68",
+      "policy_sha256": "888064ab58bab9ab23697573d4499ad4903a02667b6d57df47ba1b204c1bb236",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-791DA0C4F9EC3E73A5D8",
+      "policy_sha256": "b66b2b1bb6f689225d95bb34e4e1e643760b810a0189bd32dfdf9d8444c9bda8",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-3521DFC8CF142FBC0E8B",
+      "policy_sha256": "0ace98295beb58b060526a779f7a403b485b66d9378a39a9c614f549ee1949d2",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-B94FBE136DEC3DF33D97",
+      "policy_sha256": "8897fe0227cefd2b8804ff05158a8b6b68d4dd8a1210d2ce090462a362497a8a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-CF20628C7C519ECA7D8C",
+      "policy_sha256": "3ae1f063ad1c6779e43e693b46a92ab8d5aa794a3aaa27a55869f02611399335",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-E15BA267CEC2313E2B1A",
+      "policy_sha256": "b29bf123a59f899bf11be9476ba1f163f0810fbb06ab4395e8834e97523634d7",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-CE0654E16F2B9341BC68",
+      "policy_sha256": "4c5a8ee081b49749c7f0d411ee35c55550cb3c72d825bbc87b296eda55102276",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-40C95D53D4CA84125D17",
+      "policy_sha256": "664a35f9dffe983cd6a34920097e6d0f6e29eef08f0ebfd97132b03d485e1fa8",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-E78E511EBCB854B02CF4",
+      "policy_sha256": "11f34d02e00320a07ba815a8939f06777267c80868ec1b7afa494735ae9dc791",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-81FDD97A2E2DBD722222",
+      "policy_sha256": "84f829042e8997258cf5bc68d27f3766a8fbeaea99d94c9144cc743294f931db",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-9C861045CC0D38C3E4FD",
+      "policy_sha256": "b70c286bdf8b1619a7129ed9cb7164fe36b09d87c66d6be65880625ead5efc66",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-FE6024D2AA7A35B57534",
+      "policy_sha256": "cee8768236927f119f6b13ad00bb881db8177b797415f766b954296acbef65f3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-2916A6BF45EFA8886081",
+      "policy_sha256": "e07815c9f0300ae1d7adb4a417d656eeba81abd0ef618cc5012bcee58f1cbea2",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-895B382FA0276FBA59BD",
+      "policy_sha256": "1880d724cc3cec63bd70d3f617fd539c487b824865ce819a6e44077973f58eae",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-FDD68EF94C2E900BE286",
+      "policy_sha256": "05371aa03a5102ee4d4b18be5fbbdb6df70b0a86e9884931a70ed7e345484a65",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-3A2B357F6127401611CF",
+      "policy_sha256": "6b66eb5ba2413ed41caa38feac0eb2a14732831a957d44d6ea62d890635987cd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-42D7E4E15424C48039F2",
+      "policy_sha256": "7f7148b164be7977d5518ab5a35bb04ffdd36adf512bd0fed30f6f49146eede4",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-90D0CD1AC4D68F096762",
+      "policy_sha256": "c18f5fba1668cd6b638a3fdc8ee6f1a09284ac5c071234d57954975e620ffb18",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-D6DA559E3DE087297913",
+      "policy_sha256": "945dc6185b0d857a7049fd5b51e9277a5938b40bdf920255b68552c49ec88f03",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-D93CBCD9A36CB021303F",
+      "policy_sha256": "ca9e5091383d115e07edb4c0160ca2b8a4d286e164d619a77d2f0f9011da1a7c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-10200E5E0C60B11373BB",
+      "policy_sha256": "26da011cdc37f76c1698f42dd48ae22557d68e7d742a5a04e495790c385d8fcb",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-682C7297D3F2D94BFA57",
+      "policy_sha256": "fb2479c85fc5755024746c04e66928f4427bc342a0296b50a993d98c4a6d41da",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-65A8B12FA3A8EC7D6B2F",
+      "policy_sha256": "bd84433565723de046db512f63ce68d88e0cd9ce88c35b739df7b90a947c62d2",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-42B8257D0B28C5D7F795",
+      "policy_sha256": "0295a87020e1b4d07a988436b8b057021ccd5b53a180ab3de53a7d81398c3d5b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-1D77FCB90EFB2830A94C",
+      "policy_sha256": "b382774499da538279409c179c59a49d2cac3bc5a4c8081320b9280b334c23d9",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-A192E60E801C411BCE41",
+      "policy_sha256": "5e09e876bb34c5b723d1dd837d864621043cf3b3990e5b6650c351423bad7fe3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-69251437D6C8E9EA7664",
+      "policy_sha256": "096ac0d18f50b134af2d974111ac68959900a880189ffd3714cf0906eb7615ab",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-23B18F46E949FE53302A",
+      "policy_sha256": "59297d94db28e56a75739c89ef73f7c091040065799f8c3caaeedfec515ca8dd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-DA71D8BAFE78474B5D4E",
+      "policy_sha256": "70e82a44e6debf5226021aea18a3eeeeda8cc0f2f1e6b89c7469f9b659b7de01",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-CEF81688E82FA9E3C1E4",
+      "policy_sha256": "346a453ca69f9b44d49cae15e709b5d0d90783380745b6873882d28231277090",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-14B47B3E44A053C45056",
+      "policy_sha256": "0b0dcff2cbfbf9dc7bf3e2be667359daa6d7702dde962c51f8dc0c04d4440c12",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-F3C573648AB5D114A110",
+      "policy_sha256": "067465ae89700deeca83d44357aee85818caf0a6158be923cd54a70643274af3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-EEFD54573FA1C20B72A9",
+      "policy_sha256": "67abf448ee84ce28b6cd3710ffe2baaa46dbfc1c93690e6a714d2ae9ac7571bd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-53A85C223E27ADA1C0ED",
+      "policy_sha256": "c5910e80f7daffa91be1c311f5b3cd93837d838cbf7c031f76657ba613bb3ed4",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-C6DAF2A3F6F9776F3FBD",
+      "policy_sha256": "dde62d6d1a70767ab84c73db52327b0f0ba87be27a4d6cd19d7578d28cef150f",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-60B252FD6595DA97437E",
+      "policy_sha256": "da21c7acf55d54b6deab4de82ca902ed4c615d47bc489f8cda0ce9bc37945d3a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-D16DCE251C3D5E5FB46A",
+      "policy_sha256": "2a0e15188f906748c8e91a1f2aa7b38f68ae3b14d427a07e8b55e060c5742e44",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-038C6FDA35C98112B4D7",
+      "policy_sha256": "52f4e3f144f46a4c2fe36eced55e226e2af5bfb436f1258602a10d1c14e493f9",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-039A9CA3CC53474B4157",
+      "policy_sha256": "3e506cbf58cf9be00e16874d4a83ce7cca5505d1935e152ed78f3c9586388e6c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-16EC1C73ECDAFBDD38E3",
+      "policy_sha256": "9777a7c2b86eb875399476c3c5b731ac21826f3b2e7f685d940033f9365b4ba0",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-A83AF46C30A077924BB6",
+      "policy_sha256": "93fa3dbba0abe293548b472c149eeac4bfacf821721db3c0f2a173606ac48522",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-9FDAFB3B5E771F4B9E79",
+      "policy_sha256": "3cb183d73ae8b8e28df5e06565c04615531eb394c184cf7fc73e13ebd1c7dd7a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-9ECD3FC43DD8F41A4EFF",
+      "policy_sha256": "c689583c827d6e4ef24bb204c52c446205f13798e6aa1427d670b6cfb4b8b449",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-384EB8D5E8173E8D5A34",
+      "policy_sha256": "96647d1e2af1f09ffcc4e9bdd19dacfdcdef15268ffc2755614cbc029a53ec17",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-B9410B67A3009293AD78",
+      "policy_sha256": "f772440d92ab54cd6a65e1ae4bdf5974cd780afdd7aea03ee20495e349e15dec",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-FE3995A17BBC8282ED6D",
+      "policy_sha256": "b9c0b41b28a57b45ce93cdf61c1063f8114ae9d3bc17b9a3745832c0097a0960",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-DE5F395A1DF9C0074A24",
+      "policy_sha256": "8e55b0f646c4312699a4d1dbe416fd85651f27de5ad940240199275db8129c95",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-F91D1B32E284B57E086D",
+      "policy_sha256": "a84389d751553d6d4d8e7f26cd5fa4bf24ff1ce91945e576fb9cc3e0c8e50823",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-776497228B49074A4DDF",
+      "policy_sha256": "9a45e5267e3bd5f69ba1a431462eab1584a4408965f23cfafbfb0167bec2a7e5",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-404E4E2DBD9C595F010E",
+      "policy_sha256": "761cd9f97fa7d68b126aa31a432f197e7eaad69e84a3750ec21bb8f056856378",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-ED165A7AD6141333D653",
+      "policy_sha256": "24c7fca78a285f6fb5fd6fb233a9c1d1770b3f8a306f772937a3a83653fe5c52",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-8EB9B3A3461CA5BAB895",
+      "policy_sha256": "46ccc4e5e9b3d0750b51ecb4dc58cf6b9557dd157451152d2ecce7d5e9883be1",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-32AF39D4599173B9ED26",
+      "policy_sha256": "b7abe993ddd336f5a094d0a657dc31959701c9cc5a95a5eb5624b36817e77aaa",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-A98CD1E55F7CF28A98D2",
+      "policy_sha256": "874bf04957b1bd5fcb490d2afaa4540305efa6faf271cdca833d983320431010",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-4EE15C414033685C0B59",
+      "policy_sha256": "b1c1e9d3394d65e960cf8512db4dc777a4f3990de87ac4c6f3763629a9b4b24e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-780BDA5221D6350D15F2",
+      "policy_sha256": "104105073d549ebe12c46dae61efdc19d8e6260b01dc58b5480cd77021f51fa6",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-99C538A1AB089101DD7C",
+      "policy_sha256": "2a5b7b598ae9e8941ac386d111de8fdb33ff2174e5b8ae3e451a27d01decc3ce",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-22A5BD728147D153D852",
+      "policy_sha256": "752e2cbed7eb77eef6fd14fccb14a6910f33ce43e43b56943f674d6bf0b77a45",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-6939E62C9216F82CC5FC",
+      "policy_sha256": "db9c467c7783162f712d6bd228c8409e28150b1f6472b093faffce81ec933ea2",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-634414BFA2803CC91FAD",
+      "policy_sha256": "48c37fe5d274d53b62be41ba6a4e907763ca1cb5382761af057dbfe5021c8f64",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-C08BF5C759D8DBDD3E03",
+      "policy_sha256": "def93955b3967d809c504ea01048998ec3cfde66a344eaf89f083355ed184107",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-E96030A20FF4192C520A",
+      "policy_sha256": "8b6afd6bca8c3a759d219250100a6c7cb4c639adfd5eb7566a52272755054fca",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-6B6447FB2541CF17F07A",
+      "policy_sha256": "6fea4c027d78f96a6fbf6795bd673e81316e83430a100bb9f723b952612d77bd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-7F5A6F96197839247AB1",
+      "policy_sha256": "4908cb06ae87a71cc7771cf22024989eb32fc939088d104e84c4f32d11eaee64",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-D0370EBC95F7A5ACF17C",
+      "policy_sha256": "914648c9f93abb64c3e4f27f6c0040c5367e42af70f7ded10e6fc3c979a72306",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-308E9E06A3CB24EEF093",
+      "policy_sha256": "fbd2681c870c0522838cc4c5aba41bb16e3ef4da26900d0c330ddb435692ea05",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-64D1748597865D531EBF",
+      "policy_sha256": "92305e14953f640d0583aefe988c4ca51be589abe992fb562c5d05a1b54a77a6",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-EB77FB876E69D57D19E0",
+      "policy_sha256": "0919430acc4830ef19e01692d7c03043227470368cb4bc59d041538ac0907d3e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-C2E5BC93A690D4F7DA7A",
+      "policy_sha256": "91298cfd972d2cdf8415551774727bb7ceb0877e408a24f3f628f632d78af638",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-EE06BF3986F6C1D2177B",
+      "policy_sha256": "2e114776c70601b0b8cae93cda7546d79e47cd63aab6a02ff9c2e673fd1813e0",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-95957164506F4DE8225D",
+      "policy_sha256": "9db4706db4c03a65a3940b036b5fc7ab94876e0609940f63a4265d05351e6ede",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-3EFF4A1B33D1F40CB1D8",
+      "policy_sha256": "20b590a208175ae53b93b2d65fcc62542e48946a23a22bd289d32f2806359ad6",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-42ED53014382FB691B62",
+      "policy_sha256": "c77902c5dc6138e055edd83e7b90513db7e317a7c442992832527cd0b145ef3c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-E7095F02B88E07E2E87B",
+      "policy_sha256": "4e542c5d17b2c72f98e9e33ac4f3d163d7488176483f6c747bd31d4b043a23cd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-2224EA914F97F8960229",
+      "policy_sha256": "784f903937148a9703115cf492af9c91ce195b8c082b1a2b22420303fca5bd3f",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-AE29B951728CF76E4000",
+      "policy_sha256": "6ddb7a7369ba57d3146def3123a32f45f6ff0d9ee671a54adb34b4582e11f05e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-BDEDF69198896EF68772",
+      "policy_sha256": "fcb2f087a2fd294cdeaacf7e415be060e99185c0cf044acca12ba39774dfc0b8",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-2304EE1FBE7403432A7F",
+      "policy_sha256": "0c639e3c1e6135930417bc1b59ba9bed06bd7095cd7865f1db05ad8334c2f06b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-A9B2C6E6F748B87C3D20",
+      "policy_sha256": "174ab42ed7fbd45e107d1a7dcd55a0f99e66341dd46b97e1f1c4cb19290bcc71",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-E02FB2D85FA263A81D13",
+      "policy_sha256": "d05021b85580b036c307c4ae6d40ff2a64ed0ac46d8c857d5694a21cd601cc6c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-AD4F903527DFE51B003A",
+      "policy_sha256": "085fd1c617d85c19004eb4cf9a8ced87d6977b2755854822309686bcb2333eb0",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-62B88F684CD1BAE3A45C",
+      "policy_sha256": "5b3df8e5d696f1981c024a93cb7f429e99904fb23f8ce84b4584ac8dc7ecfb99",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-65650C6BD00055F72ADA",
+      "policy_sha256": "6772468cc428f5f19ea6c351aec6de7db82cbef2771baa6e0ce16bdd1d10722c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-1962CE15BB13FA12F02D",
+      "policy_sha256": "a7ee731672cf6876bee22e6a6dfb4e1a46eab425ec6407c90a54dd3b45a20f63",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-BF730D1CE992005EC410",
+      "policy_sha256": "be66680da519e13cf3a4d3beb1f9b3b214a5e9c503643a8ca812534ef4b95653",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-F5CA4C99B0E525320887",
+      "policy_sha256": "1fa516e2660d110ace8289edc81bf7d1eb16d3c556d4c3db2a3ddcafcd69da5f",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-F27FD14AB5A5C7CA7371",
+      "policy_sha256": "eb7f04b8258e8fd2641b3e9e66492b535b76daedae4512b7ccd145988794a011",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-9A5C93E93AC3B25C383B",
+      "policy_sha256": "3cd49d6417e46e6f27c90eab64b3f8d23025351704af99348af93acbe70b034e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-2B9BCE2C415C659A1C16",
+      "policy_sha256": "24dd8cafd4327946b174567906937e46a81d6bf31cae3ecf97b40545ec3d9325",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-B2C1EE73E27E4BD19CD8",
+      "policy_sha256": "a5d48c67aeee42af8542dd269efcb322da17d0f380424b6459cfd3263c3fa2e4",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-75A15A04F65519294747",
+      "policy_sha256": "b859c9cbe19c129405254178797c9a1fe714f16cb7f61e4d7c97b8b893a731d4",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-F461366F1D7B1D305128",
+      "policy_sha256": "36eb78f23d2e12dd3e044c0b6454bb8f965e0f487ca917745853ce15f6b7d2b8",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-66D951FCF69DA08FCA61",
+      "policy_sha256": "9a48c1f2a7597bda45ec47548dc0afb08a750d80441f7d75e190d358f7db512a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-76D12CAB21F417B30F16",
+      "policy_sha256": "9eaa36f307a4654792c0a3c896ee10b0d6c57bc2a6112f5bf86d03ee98d51b61",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-282973380083A082E5CE",
+      "policy_sha256": "3d96c635677665225e662c56ffa429961f6bedd93f0bec7d01f241ef9ebca1ce",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-21F83B14487EC9B7AB78",
+      "policy_sha256": "aa7375fd97c9ac21ab2ee513a4a61bf5f067ce2f7750f95e238759dc81e28cb7",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-A09C1E4B5228905B0705",
+      "policy_sha256": "5168b92de8e07c9661708f14fb807d451832f675766ea9eb4f615acff13c9146",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-8273930DA44023936316",
+      "policy_sha256": "efb37390d4cfbb8c738041ca06a9c1483e8cdb896143909c0fb6ea4ea9958ccd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-020CCD289AC958B4538A",
+      "policy_sha256": "f65929632690983f50315eed04d20851838ec81776a90adcfbe8f31cf1596d95",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-B9204F9639E083D6E6CC",
+      "policy_sha256": "fe0a5ba684d64866a7e34f51bdaa701473e80fdbb8cbf73bbacecb9cf4af953d",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-48228BE48FD22FC9865C",
+      "policy_sha256": "c4a7a3165eeff6c1a7a999d999b3ea6bda7bd6eb20c7581224bec454bf4f3f9e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-A73F8C4BE8EDD8EA38CA",
+      "policy_sha256": "94d57eb4d67f72d8f8ab582e552fd251d2cd0e95c79e99b97bbaf3a2adbb1bb2",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-2B6CA98303D75B2D3534",
+      "policy_sha256": "ef41d86d71f4f6b7659a37cd9a214ed876966c2b6bfb96e82748af2baa6be150",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-719479C1E76EDC88DFB7",
+      "policy_sha256": "ee4d37cb5f1583bc3c4f83c2eca599fcf6c78d2dc60f08de9b2b35c3653acf81",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-50AE3C43822D7FB27290",
+      "policy_sha256": "8344551c3e29ea25ec8f1b64f475e0053b18d5b0922740ee0a511a807278174a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-744B4AE991A7B6C06305",
+      "policy_sha256": "a50233745c6060d74e584482ba814f451bdcb81672cf2f014bcbbcb73aa8d411",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-4E07A68D5D180A6029A5",
+      "policy_sha256": "5c89d65d9a6b894081b2ca27cb203a243c18ba21afeafb80afaf534e218b74f0",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-7E8003912028F3539B2B",
+      "policy_sha256": "15e1f1a9f9ed0b0649bfb5a95f0ee400b613361e966ab573d855ee7a57fd1c98",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-410BCEC4DC77B3D5F628",
+      "policy_sha256": "4ebe060393a89c991c6582f309865b877fe097902a4825c038607c44e96edd3e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-0B9069B88FFA87C70B42",
+      "policy_sha256": "fd9bc38fb4b659b773f8c8686958acb69a2f1cd38279095431b06bbfa33b934e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-BC5DD8F15C64F83CFFDA",
+      "policy_sha256": "cb2d97577a9873d6299c4439b315215c8468f17b549108bb95f46f739d88486e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-0CD1B4BF8E2A4C264580",
+      "policy_sha256": "60a36d010db7d4790d33d56a191e3f5980372298deed777d54bb0c52f9aa9af3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-7D2F5D2D684E2D759E18",
+      "policy_sha256": "b1dab5738a59a2d995346b535973cc4b4b881682a3a592bc690cd538a6139b89",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-5E511A5B21F35182037F",
+      "policy_sha256": "1dc5590f5387dc9784392da7a63f5e06a228d5a02279a35e4c191a72fd655837",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-32F06CAD7B3779265B47",
+      "policy_sha256": "fd622e80a6c38896f4bfc02adc7d2612c84692484e8407736990d503363322c9",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-7773C4107D08059E01BE",
+      "policy_sha256": "02c32037f0ee4dc1879f19938d2d3a9463a159c77d916e77ff5a0276aa527072",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-E7DAEB983C76F7497479",
+      "policy_sha256": "640b2b333f8ccde35e00be905215597593ae0e0f0fc155b06663328a37829e35",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-5DB22F8CC071DA1FFE3D",
+      "policy_sha256": "0a5b7b1f2130ee83a2ecc2b393cb04a63aa70a942b70ea2931a11480410b4216",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-F51EBE4A7578365EEAA0",
+      "policy_sha256": "2e572052011e2a37214fbf8ae2f2df179ebadb7dd0f8a3fa5bc4410c7d867174",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-C5E95E4EBB1FC32ECA9D",
+      "policy_sha256": "1fc6ab151b0a39d4e9c1d394ce2606dbc9bbee77ea9161fa2efd043ede1cd229",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-903E1E972B0ED2A29605",
+      "policy_sha256": "e76f64af2d5c73bd3fe72d6322ad9bdfa4345b6664e332bf84e9b1441fbb693e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-815F8E7285870AC6AFC1",
+      "policy_sha256": "8b44f9481528d3b2cad6db79e76d9cddc5a4664e0af1b981ffca9e4128b3cc92",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-411376CBF1314D528305",
+      "policy_sha256": "f58cdb3c5451a177b869f30f0af2d2be8f6d807d6dbb3fdc5c809b766cec537b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-630D69FAC34CF6D835D6",
+      "policy_sha256": "162ca72239e370081459abdc7edfef71110666f44d472e8df4cbc90bcc67ef33",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-9597377D90F14BBF0BBD",
+      "policy_sha256": "5184832d94f9a7a3d41e8e2d7e2a1c74a77832d63558bd47bddcdaeb3867bd42",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-4D1146564EA597AA3867",
+      "policy_sha256": "43bd9d600f21c374a7fa8f027a84029502595380185c9d09c83cf6e6d48357f9",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-F9003B4E03C05C6973C8",
+      "policy_sha256": "22799a25cf32d80cb58270d1d8b155c2efd875d17a0dda6d70002b4794f881e8",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-36C31903030D6B73A2FF",
+      "policy_sha256": "837c664fc6a09201be3c1b4a23f87589daad58dfc0bf26b845c13360d1972c96",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-0F068620EFD1C6925396",
+      "policy_sha256": "b1d300834812820a14205cb19ea83774f884829e442e89a5c712cb70a589d875",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-D6D5E9F76DCDA5F6CF15",
+      "policy_sha256": "bfe7508420e16ae1b886d02de5b08b4bb22400f5ac3f9f12c4864640055f7531",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-FBA47B7E273164F08484",
+      "policy_sha256": "e2d6625290a981ab2cc5b6acb234fc6fc16455bac14f616e76c19bc942dcb511",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-B735AEB10A9DA5127C27",
+      "policy_sha256": "66acf8a77cd95dc6905b20edc67baeb86f67bfd74fbd10f2f0bac4e8e4c2ebd1",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-BFAFE5EC5F8103340017",
+      "policy_sha256": "5c63946cf937a23ab459c2d4c4357b3e3f1c602568a89e64f082114dc51aec1d",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-936F9C81C4786109EE17",
+      "policy_sha256": "a3fc5a469cf1810d91c776dc7aee76bf5ff759a6917d7cad1c45b090a6040362",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-A4092F81BBA4D22C260A",
+      "policy_sha256": "9d5de7cd98c5f84ce2b698923aef408395e6904b65b372ef091edc06ec8d5d99",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-369548712C2EA08503F9",
+      "policy_sha256": "915ff0925fd5d9da790a6037f3fdbda7f19f35bf1c72d5fb54699141c2f085df",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-C7AD6D9884502458B8A9",
+      "policy_sha256": "66fb338ccf8c0ef1cde9d606fea3d874ce0c8a9454f58db6cc196eda1d80a232",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-16A62396428DBD0D2133",
+      "policy_sha256": "dffaa0310c9d8b6f5618224ed5479595a945f46a5d5ef184ad4bb5df0122342f",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-7F74CFE9B90D530A23F2",
+      "policy_sha256": "ed51ded6896f6d2d0d4c698f5eff92af5b3d51445781a10a74297ccdd0dbd33d",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-90AEEE35CA08F0A39B34",
+      "policy_sha256": "b04415b5543fd1e0c06f75fd409e2ff979d58f5ab48838fcbce9db2541c5fc9b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-4BAEDDA732C637D3AC61",
+      "policy_sha256": "4989fd83cce8d21d1768c326cade1169eb88ea2541ff33e3c9bb6ff184ab3ed1",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-BB0372DF41DDA3AC6652",
+      "policy_sha256": "2170e076b3637408f6a2b2f9ada26d13c03aafe2ca98bc81179153236c4d827b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-E7CB10ACEE1F9C2E6890",
+      "policy_sha256": "9f7adb64799a7d09a12c074556b5b7c42287f71d1325f6e120113ea808de6326",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-40466A1DD7C11E143CDE",
+      "policy_sha256": "9daa764a02bec5db73252085c30992c98404648070f1d291622ddb4950936f40",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-010AAE7BC1CEEF87BFFB",
+      "policy_sha256": "64bc68c8d61779be679c8664a266de59860a8fc2139fb55a22fb740b959bb031",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-9134F58BEB4358EDCF6C",
+      "policy_sha256": "7c7e3a438b05d9709a90aab6843971613a5e5f7d4f8971a5fd0429a1490c0ddf",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-7086EAC76B2E14DCD04C",
+      "policy_sha256": "0fd72bd31885740397f84b58690c5632e2af2cb95549a3950540fabffcfb2548",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-42C05A5FA55C8FBF4348",
+      "policy_sha256": "58d73c65e5c73e07459803fa6023f99e86518bf44947ea4aa831037f800a9cea",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-F7C66484C5639F6CCB9B",
+      "policy_sha256": "fd55ce3943f6fede602ef827aae09125fec5ffed63f689d9934c4eabac0ebaf4",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-273411B9029344AD0D81",
+      "policy_sha256": "9ee9fb352fafa0bc4bf9044b6b855a1905467473ddd467251b55c076d5850f84",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-E28702E2D5367CB4E8E1",
+      "policy_sha256": "beb14e4cef9f4b51b059dc2c713939ee46309ad5f6bcb465c66f786d2a041e68",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-355A9738C51A3054C6EA",
+      "policy_sha256": "2f408890e1bb4134ebb94ec49a2b0982a176b32f2a018a894647a0409dcc73f0",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-BB08588E9E267F331887",
+      "policy_sha256": "92c99f6c410a6842978db04ecbe79a86db0169a9dbd8f9712e57282c6f89d05a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-47A7BFC69EC7D34210E5",
+      "policy_sha256": "7eb8c73ae42fb76eb32be7f4cd30343fa79b9e07bb33c4877dd888dd6ab56fc7",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-529EBF55DA94F3FA50F2",
+      "policy_sha256": "6ca567f0b9c577814a65ba1ba49496a8eed9ae5d32b46cac40f79c3f719c04d1",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-55AD20693EAD6A1DED26",
+      "policy_sha256": "21989808df215812ee6122b6fb8ca372da0edfc49e93c5a5ce588128614b0846",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-30FF5D89D6B938BCBC9F",
+      "policy_sha256": "1a842206f772dc8d21141848c55090f624d1757782303997dd1dc2423ce27bd2",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-74432726C86731410917",
+      "policy_sha256": "21064de43d3b7230f9f278b05a483f71738e2f037bd89814a0db33d221633684",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-C050CB7D18E44DA6E129",
+      "policy_sha256": "111e81cf5113973a1323b2837fa09f3a8d17e2a4623735c5635ddbcdbb47d5ba",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-4773ADC8CF7FCCB1B929",
+      "policy_sha256": "06c178ccb27eee0e93a78403f65379cada6d6020f2d6bb3485aa2b0db84e444b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-2F783843CAA0577E0A06",
+      "policy_sha256": "92a348630a605b50cbbe365432e439e73992ae426ec7ed314af5ecbc28e4d69e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-E14F6903B392C3212189",
+      "policy_sha256": "805cebeb8594ff2fda6870d0bfc28d27b0a7a4047259fc1deb52d6ac2e42d747",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-D3EB90F5DC02F47FA113",
+      "policy_sha256": "afb79784501f3958de7c1346c4d421d6638122199729bb0c9026a9bb2a616136",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-52EFCE41F11F599A2313",
+      "policy_sha256": "a9fc848659e2e7bef79b0dd8f67149e118cc2d54e9452379abdd1d5c1fc8c9ff",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-4334EF4608C63E228E4D",
+      "policy_sha256": "ffd6f4f41bd9b91037a06c0da5072618a5cb40439ecdafc459f89d9069bc5c53",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-D52043EB251DE6469F02",
+      "policy_sha256": "482f9fe4f68ee8cc3e4bd96202a9b7f49670a3d8be96ebb07aa9f29eccda73dc",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-06A50CE262A8218F1420",
+      "policy_sha256": "51f8233fe5d3b29177646fb9f59e7cc6a399f3f354ab0151ab63721f29dcb88a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-BCA7A88C2548FBD9B090",
+      "policy_sha256": "9ebdd1c03b9ea59c09898c6daf35f60228d052b557d196ea2017cdcb94b66dd8",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-84237FA15EEC206AFDB3",
+      "policy_sha256": "592c6e11821e10a48aaddc1341523154aedd40a3dcc30d7226abb9b2397ad687",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-C6E02187DC558793B715",
+      "policy_sha256": "5c40f4518713579e2a7ce792ec437ebc33bd5c95a9cab77f292e1b4dc0f66d99",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-78B1F37CC9EE890AD43F",
+      "policy_sha256": "701eea2538ca51c0b7e002af7a42549f3f545c4e56d77598baf4b00f38c123ad",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-80BA59395A7C2954859F",
+      "policy_sha256": "a6f918649ebcfaf92d69b2bbd234ee920c1bbdf2bb7a30b9f4fefe10dc305403",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-2B1B8E41E250DEE93D88",
+      "policy_sha256": "1767e2189109b2a67e8ab0387bd07af6ed0e11d3b30509edbe3798f28fbe05f3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-8F6812657AA841CEF212",
+      "policy_sha256": "19380afa8e46e2d029956a262a52267c62baeda2477d072a5838a1d9b2b43401",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-925DCA23128A30F3B8B4",
+      "policy_sha256": "170bbd52677800ffbc9f3fdb9f7e7886189e94d2434cc6fd6c0e162ab74416ae",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-74CD2AD1FE0CF226DF5E",
+      "policy_sha256": "763b182c46e2b8f381d1b0bfa638f0c950dd43cb22ce7c1a5bca6557af3111c1",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-DCBFE0AE1DF3F37A58B2",
+      "policy_sha256": "5c99c926dedb8ad7a7c1fd30bf70089ab52ca12c6cc1daebfaa8292de844f00b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-08BC0242AE5ADD2BE780",
+      "policy_sha256": "3ab8ca58a5f04071712f2bed78fb7a79e8724bc25bc4a4c39f2f74d5a85eabe2",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-F86F4421F2866D9B0455",
+      "policy_sha256": "d4d113195ae34fc00a4d6dcaa56d9faadfe57f5cd0d46fe5d6f88cc6741ba442",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-A7464F2B96068B2CF619",
+      "policy_sha256": "05a6dd873408175230311f0780a93a7fee9f15a70166efdc33bdb2e558cf6481",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-4BC0203965B61AFB7387",
+      "policy_sha256": "bb03fd39670cab2c69095ab3570bd9bb556d5fd1a7442b9499a917359d86b945",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-2C79AC3005710214C8BA",
+      "policy_sha256": "1e4a2d6b7b1d3187969a0fd4feb0f5405636e12d117fcc849ae141b1cf1893fe",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-68B1DD679923F40843EA",
+      "policy_sha256": "dac8849c4129a66501d59a840a31d8c57fd00422586e8ed10721a12b579ae9e6",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-349BCD515A3CFEE0AC7C",
+      "policy_sha256": "e52aff811e046d785d6ae0d474df190e7963eccbe1fa46bfa619395130b0395c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-462A221696FC59CE57FA",
+      "policy_sha256": "daad2e1f946804c2c549663fa994052d2c7754e2bee772ac3909fb580dda88b5",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.05,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-DE8F210E7A64FCE44C0A",
+      "policy_sha256": "e2df521e9695534064fcc1a1f597a9ae15c0fe91b3d66e2cb7c287e39ef4aa93",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-E07E298BE224B80A70D2",
+      "policy_sha256": "a378a1346634d6f7d94035049e1492dd9a49be449fe08af6be66c86eaa3f4271",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-26715C5BE1070F897C1A",
+      "policy_sha256": "70d7fda172e8b62ade5f9507db0bdac41596fb7a17ad8acacbe4df02ac240b18",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-208641C8F964D1F912A5",
+      "policy_sha256": "7fdc28f05a6d99a50873696c940b981e9be9267960a137d377e3b8268007e733",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.25,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-D3C9565E60C905E7DC99",
+      "policy_sha256": "7db53c75b1e122b892e2fcef9458f3d267a7139668d5dd139aac8a1632a164a6",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-D5B0B6AF038D84D9275B",
+      "policy_sha256": "c59a5209a01ed5812f17b2b4b74832c85aad6360e42001ed2b7642879d20036f",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-AEC36134DEBD39B68627",
+      "policy_sha256": "194edd16aa6142a496843aee5cc0356e79f5cce107fcb61c42a4510b5b5bf6b1",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-28AAB68BA7D7B279DC52",
+      "policy_sha256": "a9a4269cc53117823fd743e2ba52fcfbc238a411449df39a498c5578eb5dda66",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 1.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-9C875F2C4C8210B1BABD",
+      "policy_sha256": "14372f503020dfd17aa512ca49e5cba6a086d20ea1a62272b741dff65c600e65",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-F9D1994A2CB441070B9F",
+      "policy_sha256": "d08769e1e378e71cbd134e6ddd53435022b84bc78336e972eed8a8267b2455cd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-A41FFA8DEB24E6975E1A",
+      "policy_sha256": "deecb1f7197f9e29537c2a368d5aad7819c6a6e6dc10a44d53291478469ac2ea",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-058D2A2DF30DC863329B",
+      "policy_sha256": "0dadc1fa8009e1099fc0b519a402a403e9763c72b8c1a81505a11ebcdf0d2562",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 2.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-E858009A8EF38ECD3318",
+      "policy_sha256": "dbda82b0e1648491f1f23aa669d8b07ecf8f043b972df14da3999afb431e950e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-42DAA0CDAA2A5236BEFE",
+      "policy_sha256": "2d08750063c9ea0d15c153e01e969a54bf26b0bd5da6aab01b14711de34f55a8",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-0D8D993869C48F252A5E",
+      "policy_sha256": "73da436bc6fb7b09db2038cb5ce7b7cfd4b66e4c35a13560bf6e001c356c3784",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-2F47BDAFD337FEC937D3",
+      "policy_sha256": "ce1dfbfd1446da857e027b8942ace282153d83118a4c5905e225ba2c4040ed4d",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 3.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-B87868920B6E8EB5CE67",
+      "policy_sha256": "fd124bd981d6cfc4ac417de787dd632ab8ab1937a3d9deaad4033ca5b11c8e8b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-BC9B28E11624458BA4E2",
+      "policy_sha256": "fd5e99e5ea2b92dfc605cfeb25089f8b391b35b460b9639907afeeaa1429ba3b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-72FC881DF3EF16E14BB9",
+      "policy_sha256": "5a3e1390ec4b032270d7e8d58831c64b351683d4c3e8d6353e51f9edc22636e4",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-B59C554B36DBB409A12C",
+      "policy_sha256": "c92b637a976f9bc05b92885cc1ea380bcaad85271f0be17ad39ab6b209ff552b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 4.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 1,
+      "policy_id": "SO3P-4FFD911FC25FC50787BB",
+      "policy_sha256": "c2ae2a5e049c7e1914be6f2b37e1f7688086cbd957818c23560735ac5af18938",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 2,
+      "policy_id": "SO3P-56C444544398B9A26EF7",
+      "policy_sha256": "5706909c908f1d57da87db8c5f5202d50aaba0d996c2b32e5bd5115a5f0d0b6b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 3,
+      "policy_id": "SO3P-4E40F99558A23809F871",
+      "policy_sha256": "1aa9147940ea0dc614d3ce9dd3448ddc836093f931652a4b2e595ac88f912944",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+      "development_groups": [
+        3,
+        8
+      ],
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "horizon_points": [
+        2,
+        4,
+        8
+      ],
+      "notification_buffer_points": 3,
+      "persistence_points": 4,
+      "policy_id": "SO3P-670EA6392CAC744E385D",
+      "policy_sha256": "0540bd716511272192f77ca8dc121ee3e99602ad9da3143ee237a933aff231e2",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-so3-star-gyro-policy.v1",
+      "threshold_multiplier": 5.0,
+      "warmup_points": 31
+    }
+  ],
+  "project_status": "B012_WIP_DEVELOPMENT_EVIDENCE",
+  "schema_version": "astrograph-b012-so3-star-gyro-candidate-grid.v1"
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "astrograph-research-receipt.v1",
+  "study_id": "post51-adcs-multiseed-neural-benchmark",
+  "baseline_commit": "ad9ce95",
+  "evidence_class": "DEVELOPMENT",
+  "training_protocol": {
+    "seeds": [20260930, 20260931, 20260932],
+    "maximum_epochs": 30,
+    "minimum_epochs": 20,
+    "early_stop_patience": 7,
+    "batch_size": 512,
+    "feature_profile": "full",
+    "alarm_policy": "hysteresis"
+  },
+  "models_compared": [
+    "residual_tcn",
+    "gru",
+    "inception_time",
+    "modern_tcn",
+    "progressive_hierarchical_gat_tcn"
+  ],
+  "selected_candidate": "gru_inception_specialist",
+  "selected_candidate_metrics": {
+    "detection_accuracy_mean": 0.8688787571766295,
+    "detection_macro_recall_mean": 0.9102806811717861,
+    "detection_macro_f1_mean": 0.8528909732587827,
+    "detection_macro_f1_population_std": 0.011284109856683688,
+    "localization_accuracy_mean": 0.9692921643913539,
+    "localization_macro_recall_mean": 0.9676444527727061,
+    "localization_macro_f1_mean": 0.9698489167843681,
+    "classification_accuracy_mean": 0.9585644197952219,
+    "classification_macro_recall_mean": 0.9474101794913563,
+    "classification_macro_f1_mean": 0.9484730312833268,
+    "end_to_end_macro_f1_mean": 0.8213055349943823,
+    "end_to_end_macro_f1_population_std": 0.012183158778209345,
+    "end_to_end_macro_f1_minimum": 0.8063488878196764
+  },
+  "independent_nominal_confirmation": {
+    "dataset_seed": 20260926,
+    "trajectory_count": 30,
+    "window_count": 3060,
+    "trajectory_false_alarm_rate_mean": 0.022222222222222223,
+    "trajectory_false_alarm_rate_maximum": 0.03333333333333333,
+    "predeclared_limit": 0.05,
+    "all_seeds_meet_limit": true,
+    "selection_frozen_before_scoring": true
+  },
+  "artifact_sha256": {
+    "backbone_comparison_report": "6223a3751fbadf621d5d8aa22ac304531541e516738f71a3080913e24caeafaf",
+    "selected_candidate_report": "e3352756936bd97f0951d2be162aaf34be93775cc60174f4081455f0b8003fd4",
+    "development_nominal_manifest": "ef89fa91d9ea56ad9b95d27a4292282ae36dc330b245907357c2b59bd3e878c5",
+    "confirmation_nominal_manifest": "70489fdfb7ca8b22fc1d912abcf3998619ba73654cc2025657f8eeeae8889fee"
+  },
+  "decision": {
+    "default_research_candidate": "gru_inception_specialist",
+    "progressive_hierarchical_gat_role": "auxiliary hierarchy consistency and explanation prior",
+    "reason": "best mean and minimum end-to-end F1 with low seed variance under the strict causal-window protocol"
+  },
+  "claim_boundary": "Basilisk synthetic DEVELOPMENT evidence. Training-seed robustness only; no cross-spacecraft, cross-simulator, flight qualification, or unseen-fault confirmation claim."
+}

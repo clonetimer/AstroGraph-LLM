@@ -1,0 +1,878 @@
+{
+  "fault_count": 145,
+  "faults": [
+    {
+      "effect_id": "payload_instrument_off",
+      "fault_id": "whole_spacecraft:payload_instrument_off",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "adcs_rw_jamming",
+      "fault_id": "whole_spacecraft:adcs_rw_jamming",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "adcs_rw_motor_failure",
+      "fault_id": "whole_spacecraft:adcs_rw_motor_failure",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "gyro_bias_step",
+      "fault_id": "whole_spacecraft:gyro_bias_step",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "comm_data_downlink_link_loss",
+      "fault_id": "whole_spacecraft:comm_data_downlink_link_loss",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "eps_battery_capacity_loss",
+      "fault_id": "whole_spacecraft:eps_battery_capacity_loss",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "propulsion_thruster_ignition_failure",
+      "fault_id": "whole_spacecraft:propulsion_thruster_ignition_failure",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "solar_panel_efficiency_loss",
+      "fault_id": "whole_spacecraft:solar_panel_efficiency_loss",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "gyro_noise_increase",
+      "fault_id": "whole_spacecraft:gyro_noise_increase",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "rw_friction_degradation",
+      "fault_id": "whole_spacecraft:rw_friction_degradation",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "thermal_radiator_rejection_loss",
+      "fault_id": "whole_spacecraft:thermal_radiator_rejection_loss",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "propulsion_burn_impulse_loss",
+      "fault_id": "whole_spacecraft:propulsion_burn_impulse_loss",
+      "object_id": "whole_spacecraft",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "adcs_rw_jamming",
+      "fault_id": "subsystem.adcs:adcs_rw_jamming",
+      "object_id": "subsystem.adcs",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "adcs_rw_motor_failure",
+      "fault_id": "subsystem.adcs:adcs_rw_motor_failure",
+      "object_id": "subsystem.adcs",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "gyro_bias_step",
+      "fault_id": "subsystem.adcs:gyro_bias_step",
+      "object_id": "subsystem.adcs",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "gyro_noise_increase",
+      "fault_id": "subsystem.adcs:gyro_noise_increase",
+      "object_id": "subsystem.adcs",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "rw_friction_degradation",
+      "fault_id": "subsystem.adcs:rw_friction_degradation",
+      "object_id": "subsystem.adcs",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "adcs_rw_torque_authority_loss",
+      "fault_id": "subsystem.adcs:adcs_rw_torque_authority_loss",
+      "object_id": "subsystem.adcs",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "thrust_or_feed_failure",
+      "fault_id": "subsystem.propulsion:thrust_or_feed_failure",
+      "object_id": "subsystem.propulsion",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "performance_degradation",
+      "fault_id": "subsystem.propulsion:performance_degradation",
+      "object_id": "subsystem.propulsion",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "generation_storage_distribution_failure",
+      "fault_id": "subsystem.eps:generation_storage_distribution_failure",
+      "object_id": "subsystem.eps",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "energy_margin_degradation",
+      "fault_id": "subsystem.eps:energy_margin_degradation",
+      "object_id": "subsystem.eps",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "heating_or_rejection_failure",
+      "fault_id": "subsystem.thermal:heating_or_rejection_failure",
+      "object_id": "subsystem.thermal",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "radiator_degradation_factor",
+      "fault_id": "subsystem.thermal:radiator_degradation_factor",
+      "object_id": "subsystem.thermal",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "instrument_failure",
+      "fault_id": "subsystem.payload:instrument_failure",
+      "object_id": "subsystem.payload",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "quality_or_rate_degradation",
+      "fault_id": "subsystem.payload:quality_or_rate_degradation",
+      "object_id": "subsystem.payload",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "link_or_storage_failure",
+      "fault_id": "subsystem.comm_data:link_or_storage_failure",
+      "object_id": "subsystem.comm_data",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "margin_or_throughput_degradation",
+      "fault_id": "subsystem.comm_data:margin_or_throughput_degradation",
+      "object_id": "subsystem.comm_data",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "pointing_loss",
+      "fault_id": "component.antenna:pointing_loss",
+      "object_id": "component.antenna",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "feed_open",
+      "fault_id": "component.antenna:feed_open",
+      "object_id": "component.antenna",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "gain_drop",
+      "fault_id": "component.antenna:gain_drop",
+      "object_id": "component.antenna",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "surface_contamination",
+      "fault_id": "component.antenna:surface_contamination",
+      "object_id": "component.antenna",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "pointing_bias_drift",
+      "fault_id": "component.antenna:pointing_bias_drift",
+      "object_id": "component.antenna",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "open_circuit",
+      "fault_id": "component.battery:open_circuit",
+      "object_id": "component.battery",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "sudden_capacity_loss",
+      "fault_id": "component.battery:sudden_capacity_loss",
+      "object_id": "component.battery",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "capacity_loss_pct",
+      "fault_id": "component.battery:capacity_loss_pct",
+      "object_id": "component.battery",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "internal_resistance_increase_pct",
+      "fault_id": "component.battery:internal_resistance_increase_pct",
+      "object_id": "component.battery",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "gimbal_stuck",
+      "fault_id": "component.cmg:gimbal_stuck",
+      "object_id": "component.cmg",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "wheel_drive_fault",
+      "fault_id": "component.cmg:wheel_drive_fault",
+      "object_id": "component.cmg",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "rate_limit_fault",
+      "fault_id": "component.cmg:rate_limit_fault",
+      "object_id": "component.cmg",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "gimbal_friction_growth",
+      "fault_id": "component.cmg:gimbal_friction_growth",
+      "object_id": "component.cmg",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "momentum_loss",
+      "fault_id": "component.cmg:momentum_loss",
+      "object_id": "component.cmg",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "overflow",
+      "fault_id": "component.data_queue:overflow",
+      "object_id": "component.data_queue",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "read_stall",
+      "fault_id": "component.data_queue:read_stall",
+      "object_id": "component.data_queue",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "priority_inversion",
+      "fault_id": "component.data_queue:priority_inversion",
+      "object_id": "component.data_queue",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "throughput_decay",
+      "fault_id": "component.data_queue:throughput_decay",
+      "object_id": "component.data_queue",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "packet_error_growth",
+      "fault_id": "component.data_queue:packet_error_growth",
+      "object_id": "component.data_queue",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "leak",
+      "fault_id": "component.fuel_tank:leak",
+      "object_id": "component.fuel_tank",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "outlet_blockage",
+      "fault_id": "component.fuel_tank:outlet_blockage",
+      "object_id": "component.fuel_tank",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "pressure_sensor_fault",
+      "fault_id": "component.fuel_tank:pressure_sensor_fault",
+      "object_id": "component.fuel_tank",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "pressure_decay",
+      "fault_id": "component.fuel_tank:pressure_decay",
+      "object_id": "component.fuel_tank",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "outlet_aging",
+      "fault_id": "component.fuel_tank:outlet_aging",
+      "object_id": "component.fuel_tank",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "tracking_loss",
+      "fault_id": "component.ground_station:tracking_loss",
+      "object_id": "component.ground_station",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "weather_fade",
+      "fault_id": "component.ground_station:weather_fade",
+      "object_id": "component.ground_station",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "receiver_outage",
+      "fault_id": "component.ground_station:receiver_outage",
+      "object_id": "component.ground_station",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "gover_tdrift",
+      "fault_id": "component.ground_station:gover_tdrift",
+      "object_id": "component.ground_station",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "pointing_accuracy_drift",
+      "fault_id": "component.ground_station:pointing_accuracy_drift",
+      "object_id": "component.ground_station",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "stuck_off",
+      "fault_id": "component.heater:stuck_off",
+      "object_id": "component.heater",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "stuck_on",
+      "fault_id": "component.heater:stuck_on",
+      "object_id": "component.heater",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "relay_chatter",
+      "fault_id": "component.heater:relay_chatter",
+      "object_id": "component.heater",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "heating_efficiency_decay",
+      "fault_id": "component.heater:heating_efficiency_decay",
+      "object_id": "component.heater",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "resistance_drift",
+      "fault_id": "component.heater:resistance_drift",
+      "object_id": "component.heater",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "bias_step",
+      "fault_id": "component.imu:bias_step",
+      "object_id": "component.imu",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "axis_dropout",
+      "fault_id": "component.imu:axis_dropout",
+      "object_id": "component.imu",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "noise_burst",
+      "fault_id": "component.imu:noise_burst",
+      "object_id": "component.imu",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "bias_drift",
+      "fault_id": "component.imu:bias_drift",
+      "object_id": "component.imu",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "noise_density_growth",
+      "fault_id": "component.imu:noise_density_growth",
+      "object_id": "component.imu",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "jamming",
+      "fault_id": "component.link_budget:jamming",
+      "object_id": "component.link_budget",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "fade",
+      "fault_id": "component.link_budget:fade",
+      "object_id": "component.link_budget",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "antenna_mispointing",
+      "fault_id": "component.link_budget:antenna_mispointing",
+      "object_id": "component.link_budget",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "margin_erosion",
+      "fault_id": "component.link_budget:margin_erosion",
+      "object_id": "component.link_budget",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "noise_figure_growth",
+      "fault_id": "component.link_budget:noise_figure_growth",
+      "object_id": "component.link_budget",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "axis_bias",
+      "fault_id": "component.magnetometer:axis_bias",
+      "object_id": "component.magnetometer",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "axis_dropout",
+      "fault_id": "component.magnetometer:axis_dropout",
+      "object_id": "component.magnetometer",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "saturation",
+      "fault_id": "component.magnetometer:saturation",
+      "object_id": "component.magnetometer",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "bias_drift",
+      "fault_id": "component.magnetometer:bias_drift",
+      "object_id": "component.magnetometer",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "scale_factor_drift",
+      "fault_id": "component.magnetometer:scale_factor_drift",
+      "object_id": "component.magnetometer",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "mtb_coil_open",
+      "fault_id": "component.mtb:mtb_coil_open",
+      "object_id": "component.mtb",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "mtb_communication_loss",
+      "fault_id": "component.mtb:mtb_communication_loss",
+      "object_id": "component.mtb",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "mtb_coil_short",
+      "fault_id": "component.mtb:mtb_coil_short",
+      "object_id": "component.mtb",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "mtb_dipole_capacity_loss",
+      "fault_id": "component.mtb:mtb_dipole_capacity_loss",
+      "object_id": "component.mtb",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "mtb_response_lag_increase",
+      "fault_id": "component.mtb:mtb_response_lag_increase",
+      "object_id": "component.mtb",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "bad_block",
+      "fault_id": "component.onboard_storage:bad_block",
+      "object_id": "component.onboard_storage",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "read_only",
+      "fault_id": "component.onboard_storage:read_only",
+      "object_id": "component.onboard_storage",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "corruption",
+      "fault_id": "component.onboard_storage:corruption",
+      "object_id": "component.onboard_storage",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "capacity_loss",
+      "fault_id": "component.onboard_storage:capacity_loss",
+      "object_id": "component.onboard_storage",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "bit_error_growth",
+      "fault_id": "component.onboard_storage:bit_error_growth",
+      "object_id": "component.onboard_storage",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "instrument_off",
+      "fault_id": "component.payload:instrument_off",
+      "object_id": "component.payload",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "saturation",
+      "fault_id": "component.payload:saturation",
+      "object_id": "component.payload",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "pointing_limit",
+      "fault_id": "component.payload:pointing_limit",
+      "object_id": "component.payload",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "sensitivity_decay",
+      "fault_id": "component.payload:sensitivity_decay",
+      "object_id": "component.payload",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "dark_current_growth",
+      "fault_id": "component.payload:dark_current_growth",
+      "object_id": "component.payload",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "pixel_dropout",
+      "fault_id": "component.payload_sensor:pixel_dropout",
+      "object_id": "component.payload_sensor",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "blur",
+      "fault_id": "component.payload_sensor:blur",
+      "object_id": "component.payload_sensor",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "radiation_hit",
+      "fault_id": "component.payload_sensor:radiation_hit",
+      "object_id": "component.payload_sensor",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "responsivity_decay",
+      "fault_id": "component.payload_sensor:responsivity_decay",
+      "object_id": "component.payload_sensor",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "noise_growth",
+      "fault_id": "component.payload_sensor:noise_growth",
+      "object_id": "component.payload_sensor",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "channel_trip",
+      "fault_id": "component.pdu:channel_trip",
+      "object_id": "component.pdu",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "over_current",
+      "fault_id": "component.pdu:over_current",
+      "object_id": "component.pdu",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "switch_stuck",
+      "fault_id": "component.pdu:switch_stuck",
+      "object_id": "component.pdu",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "contact_resistance_growth",
+      "fault_id": "component.pdu:contact_resistance_growth",
+      "object_id": "component.pdu",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "voltage_regulation_drift",
+      "fault_id": "component.pdu:voltage_regulation_drift",
+      "object_id": "component.pdu",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "overload",
+      "fault_id": "component.power_sink:overload",
+      "object_id": "component.power_sink",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "intermittent_load",
+      "fault_id": "component.power_sink:intermittent_load",
+      "object_id": "component.power_sink",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "open_load",
+      "fault_id": "component.power_sink:open_load",
+      "object_id": "component.power_sink",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "load_drift",
+      "fault_id": "component.power_sink:load_drift",
+      "object_id": "component.power_sink",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "efficiency_decay",
+      "fault_id": "component.power_sink:efficiency_decay",
+      "object_id": "component.power_sink",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "radiator_rejection_loss",
+      "fault_id": "component.radiator:radiator_rejection_loss",
+      "object_id": "component.radiator",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "radiator_surface_contamination",
+      "fault_id": "component.radiator:radiator_surface_contamination",
+      "object_id": "component.radiator",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "radiator_emissivity_decay",
+      "fault_id": "component.radiator:radiator_emissivity_decay",
+      "object_id": "component.radiator",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "radiator_area_degradation",
+      "fault_id": "component.radiator:radiator_area_degradation",
+      "object_id": "component.radiator",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "rw_jamming",
+      "fault_id": "component.reaction_wheel:rw_jamming",
+      "object_id": "component.reaction_wheel",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "rw_motor_failure",
+      "fault_id": "component.reaction_wheel:rw_motor_failure",
+      "object_id": "component.reaction_wheel",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "friction_increase_pct",
+      "fault_id": "component.reaction_wheel:friction_increase_pct",
+      "object_id": "component.reaction_wheel",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "bearing_wear_factor",
+      "fault_id": "component.reaction_wheel:bearing_wear_factor",
+      "object_id": "component.reaction_wheel",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "solar_panel_failure",
+      "fault_id": "component.solar_panel:solar_panel_failure",
+      "object_id": "component.solar_panel",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "solar_panel_degradation",
+      "fault_id": "component.solar_panel:solar_panel_degradation",
+      "object_id": "component.solar_panel",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "deployment_failure",
+      "fault_id": "component.solar_panel:deployment_failure",
+      "object_id": "component.solar_panel",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "efficiency_loss_pct",
+      "fault_id": "component.solar_panel:efficiency_loss_pct",
+      "object_id": "component.solar_panel",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "radiation_damage_factor",
+      "fault_id": "component.solar_panel:radiation_damage_factor",
+      "object_id": "component.solar_panel",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "blinding",
+      "fault_id": "component.star_tracker:blinding",
+      "object_id": "component.star_tracker",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "dropout",
+      "fault_id": "component.star_tracker:dropout",
+      "object_id": "component.star_tracker",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "misalignment",
+      "fault_id": "component.star_tracker:misalignment",
+      "object_id": "component.star_tracker",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "centroid_noise_growth",
+      "fault_id": "component.star_tracker:centroid_noise_growth",
+      "object_id": "component.star_tracker",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "boresight_drift",
+      "fault_id": "component.star_tracker:boresight_drift",
+      "object_id": "component.star_tracker",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "false_eclipse",
+      "fault_id": "component.sun_sensor:false_eclipse",
+      "object_id": "component.sun_sensor",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "cell_failure",
+      "fault_id": "component.sun_sensor:cell_failure",
+      "object_id": "component.sun_sensor",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "contamination",
+      "fault_id": "component.sun_sensor:contamination",
+      "object_id": "component.sun_sensor",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "sensitivity_decay",
+      "fault_id": "component.sun_sensor:sensitivity_decay",
+      "object_id": "component.sun_sensor",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "bias_drift",
+      "fault_id": "component.sun_sensor:bias_drift",
+      "object_id": "component.sun_sensor",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "thermal_runaway",
+      "fault_id": "component.thermal_node:thermal_runaway",
+      "object_id": "component.thermal_node",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "sensor_bias",
+      "fault_id": "component.thermal_node:sensor_bias",
+      "object_id": "component.thermal_node",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "blocked_heat_path",
+      "fault_id": "component.thermal_node:blocked_heat_path",
+      "object_id": "component.thermal_node",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "thermal_resistance_growth",
+      "fault_id": "component.thermal_node:thermal_resistance_growth",
+      "object_id": "component.thermal_node",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "heat_capacity_drift",
+      "fault_id": "component.thermal_node:heat_capacity_drift",
+      "object_id": "component.thermal_node",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "valve_stuck_closed",
+      "fault_id": "component.thruster:valve_stuck_closed",
+      "object_id": "component.thruster",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "valve_stuck_open",
+      "fault_id": "component.thruster:valve_stuck_open",
+      "object_id": "component.thruster",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "nozzle_blockage",
+      "fault_id": "component.thruster:nozzle_blockage",
+      "object_id": "component.thruster",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "isp_decay",
+      "fault_id": "component.thruster:isp_decay",
+      "object_id": "component.thruster",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "thrust_coefficient_drift",
+      "fault_id": "component.thruster:thrust_coefficient_drift",
+      "object_id": "component.thruster",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "power_amplifier_fault",
+      "fault_id": "component.transmitter:power_amplifier_fault",
+      "object_id": "component.transmitter",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "frequency_drift_fault",
+      "fault_id": "component.transmitter:frequency_drift_fault",
+      "object_id": "component.transmitter",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "signal_loss",
+      "fault_id": "component.transmitter:signal_loss",
+      "object_id": "component.transmitter",
+      "scenario_type": "fault"
+    },
+    {
+      "effect_id": "output_power_decay",
+      "fault_id": "component.transmitter:output_power_decay",
+      "object_id": "component.transmitter",
+      "scenario_type": "degradation"
+    },
+    {
+      "effect_id": "frequency_stability_drift",
+      "fault_id": "component.transmitter:frequency_stability_drift",
+      "object_id": "component.transmitter",
+      "scenario_type": "degradation"
+    }
+  ],
+  "protocol_version": "G1.1",
+  "schema_version": "astrograph-fault-taxonomy.v1",
+  "status": "FROZEN_TECHNICAL"
+}

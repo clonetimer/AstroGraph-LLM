@@ -1,0 +1,11 @@
+{
+  "schema_version": "astrograph-r36-diagnostic-benchmark-plan.v1",
+  "benchmark_ids": [
+    "NASA_SMAP_MSL",
+    "ESA_OPS_SAT",
+    "ESA_MISSION1",
+    "ADCS",
+    "SATSIM"
+  ],
+  "claim_boundary": "Benchmark identities are release configuration, not generic evaluator logic. Missing mission evidence remains MISSING and is never reconstructed from historical prose."
+}

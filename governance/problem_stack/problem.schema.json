@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "astrograph-problem-record.v1",
+  "title": "AstroGraph governed problem record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "problem_id", "parent_task_id", "resume_task_id", "priority",
+    "signature", "raw_evidence", "impact"
+  ],
+  "properties": {
+    "schema_version": {"const": "astrograph-problem-record.v1", "default": "astrograph-problem-record.v1"},
+    "problem_id": {"type": "string", "pattern": "^P-[0-9]{3,}$"},
+    "parent_task_id": {"type": "string", "minLength": 1},
+    "resume_task_id": {"type": "string", "minLength": 1},
+    "priority": {"enum": ["P0", "P1", "P2", "P3"]},
+    "signature": {"type": "string", "minLength": 1},
+    "raw_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "impact": {"type": "string", "minLength": 1},
+    "root_cause": {"type": "string", "default": ""},
+    "literature_queries": {"type": "array", "items": {"type": "string"}, "default": []},
+    "candidate_solutions": {"type": "array", "items": {"type": "string"}, "default": []},
+    "decision": {"type": "string", "default": ""},
+    "fix_artifacts": {"type": "array", "items": {"type": "string"}, "default": []},
+    "regressions": {"type": "array", "items": {"type": "string"}, "default": []},
+    "status": {"enum": ["OPEN", "TRIAGED", "FIXED", "VERIFIED", "CLOSED"], "default": "OPEN"},
+    "opened_at": {"type": "string"},
+    "updated_at": {"type": "string"},
+    "resumed_at": {"type": "string", "default": ""}
+  }
+}

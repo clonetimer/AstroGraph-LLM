@@ -1,0 +1,23 @@
+{
+  "schema_version": "astrograph-graph-query-plan.v1",
+  "query_plan_id": "GQ-EXAMPLE-BACKWARD-V0516",
+  "purpose": "Resolve candidate fault to expected evidence definitions",
+  "start_entity_ids": [
+    "ADCS_RW_FRICTION_INCREASE"
+  ],
+  "allowed_relation_types": [
+    "REQUIRES_EVIDENCE",
+    "SUPPORTED_BY",
+    "CONTRADICTED_BY",
+    "EXCLUDES"
+  ],
+  "target_entity_types": [
+    "EvidenceDefinition"
+  ],
+  "include_support": true,
+  "include_counter_evidence": true,
+  "max_depth": 1,
+  "max_results": 100,
+  "operating_condition_filters": {},
+  "read_only": true
+}

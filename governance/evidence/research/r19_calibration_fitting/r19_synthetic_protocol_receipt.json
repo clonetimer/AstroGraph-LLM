@@ -1,0 +1,25 @@
+{
+  "claim_boundary": "Synthetic fixture verifies protocol mechanics, content binding, partition isolation and deterministic replay only. It is not real model calibration, external-validation performance, diagnostic accuracy, HIL/flight evidence or release qualification.",
+  "confirmatory_group_count": 8,
+  "external_validation_group_count": 8,
+  "fit_group_count": 8,
+  "fit_receipt_sha256": "93c83722941d6f4aac0c0a3bc85df6d532e8d82805c05176685b2562adb96f1e",
+  "positive_group_count_by_class": {
+    "CONFIRMATORY_EVALUATION": {
+      "A": 4,
+      "B": 4
+    },
+    "EXTERNAL_VALIDATION": {
+      "A": 4,
+      "B": 4
+    }
+  },
+  "qualification_receipt_sha256": "eeb48ed21594f4f7c45771ffb0459c935a4a35f7bcc5a6df1b2ba4d109f6ff6e",
+  "qualification_report_sha256": "9c6af8342d87103620cbb50644169fc4649576895ce769a0decf8f3a40157405",
+  "qualification_status": "PASS_FOR_ENGINEERING_CALIBRATION_REVIEW",
+  "receipt_sha256": "165f35c41007889a68e00cba7ec66f96bc592c6bc378403e050a1b69e7404fb4",
+  "schema_version": "astrograph-r19-calibration-fitting-synthetic-protocol-receipt.v1",
+  "status": "SYNTHETIC_PROTOCOL_SMOKE_ONLY",
+  "temperature": 1.303429199369053,
+  "two_stage_replay_identity_verified": true
+}

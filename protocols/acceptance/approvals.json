@@ -1,0 +1,41 @@
+{
+  "artifacts": {
+    "coverage_matrix.json": "9bc0cebda74852c27149cededb99df087b35872f3bfdf47c075dae8bb487d7c0",
+    "coverage_matrix.schema.json": "55585a40acbead09f25a80a12e217cfabcce1225332a846da1018aba3602603f",
+    "diagnosis_scope.json": "cf917a9e8529811cf07cb59548bf3ea5461546a99c42f742d4dc0e0510aa06bc",
+    "diagnosis_scope.schema.json": "97f553b1e930760d00856b81b0c12a2e195b1ea21d2dd2efadc8274dfd1eadad",
+    "fault_taxonomy.json": "3f966c58a813fdb70e26711647a44d6ea854d06c3c725dd9aa2d16c3be0ef413",
+    "fault_taxonomy.schema.json": "97f553b1e930760d00856b81b0c12a2e195b1ea21d2dd2efadc8274dfd1eadad",
+    "metric_policy.json": "4ceb52f6c1892cd8b416c2a62500f1ca14adec209ba69d53eef655e0583e94e1",
+    "metric_policy.schema.json": "97f553b1e930760d00856b81b0c12a2e195b1ea21d2dd2efadc8274dfd1eadad",
+    "reasoning_rubric.json": "c930b9f8c4f6fd8cce84b145126f47abd80f803dab3333ce7770f5baf45b7fc3",
+    "reasoning_rubric.schema.json": "97f553b1e930760d00856b81b0c12a2e195b1ea21d2dd2efadc8274dfd1eadad"
+  },
+  "independent_evaluator": {
+    "approval_scope": "Freeze diagnosis_scope, fault_taxonomy, coverage_matrix, metric_policy and reasoning_rubric for G1.1 no-ground-truth technical testing and independent acceptance. This approval does not preselect gray-box/UDE over PINN, TFM or custom models; G3 promotion requires reproducible evidence under the same frozen protocol, split, resource budget and independent evaluator.",
+    "assurance": "DECLARED_INDEPENDENT_REVIEWER_IDENTITY",
+    "attestation_text_zh": "我同意按 G1.1 冻结协议继续无真值技术测试和独立验收。该审批仅冻结 diagnosis_scope、fault_taxonomy、coverage_matrix、metric_policy 和 reasoning_rubric，不预先认定灰盒/UDE优于PINN、TFM或自设计模型。G3模型晋级必须在相同冻结协议、数据切分、资源预算和独立评测器下，以可复现证据决定，并继续遵守不得删除或跳过测试、修改分母、合并不可辨识类别、扩大UNKNOWN或降低阈值的限制。",
+    "declarations": [
+      "The reviewer did not participate in candidate model training, tuning or threshold selection.",
+      "The reviewer did not read formal hidden-acceptance truth.",
+      "The reviewer reviewed diagnosis_scope, fault_taxonomy, coverage_matrix, metric_policy and reasoning_rubric.",
+      "The approval does not preselect gray-box/UDE over PINN, TFM or custom models.",
+      "Tests may not be deleted or skipped; denominators may not be changed; non-identifiable classes may not be merged; UNKNOWN may not be expanded; thresholds may not be lowered to obtain PASS."
+    ],
+    "independence_declaration_zh": [
+      "我未参与当前候选的模型训练、调参和阈值选择。",
+      "我未读取正式 hidden-acceptance 真值。",
+      "我已审阅 diagnosis_scope、fault_taxonomy、coverage_matrix、metric_policy 和 reasoning_rubric。"
+    ],
+    "reviewed_at_utc": "2026-08-02T01:45:34.8804548Z",
+    "reviewer": "Timer",
+    "status": "APPROVED"
+  },
+  "project_owner": {
+    "reviewed_at_utc": "2026-07-29T00:00:00Z",
+    "reviewer": "project_owner",
+    "status": "APPROVED"
+  },
+  "protocol_version": "G1.1",
+  "schema_version": "astrograph-scope-approvals.v1"
+}

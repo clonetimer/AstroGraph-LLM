@@ -1,0 +1,118 @@
+{
+  "schema_version": "astrograph-spatiotemporal-fault-template-catalog.v1",
+  "catalog_version": "spatiotemporal-fault-templates-1.0.0-e0",
+  "maximum_temporal_lag_s": 30.0,
+  "bindings": [
+    {
+      "anomaly_id": "ANOM_RW_FRICTION_ESTIMATE_HIGH",
+      "component_instance_id": "component:adcs:reaction-wheel:analysis",
+      "component_archetype_id": "actuator.spinning_rotor",
+      "subsystem_id": "subsystem:adcs",
+      "effect_pattern_ids": ["effect:command-response-residual-growth"]
+    },
+    {
+      "anomaly_id": "ANOM_RW_CURRENT_DEVIATION",
+      "component_instance_id": "component:adcs:reaction-wheel:analysis",
+      "component_archetype_id": "actuator.spinning_rotor",
+      "subsystem_id": "subsystem:adcs",
+      "effect_pattern_ids": ["effect:baseline-deviation-growth"]
+    },
+    {
+      "anomaly_id": "ANOM_RW_SPEED_DEVIATION",
+      "component_instance_id": "component:adcs:reaction-wheel:analysis",
+      "component_archetype_id": "actuator.spinning_rotor",
+      "subsystem_id": "subsystem:adcs",
+      "effect_pattern_ids": ["effect:baseline-deviation-growth"]
+    },
+    {
+      "anomaly_id": "ANOM_RW_DRIVER_UNAVAILABLE",
+      "component_instance_id": "component:adcs:reaction-wheel:analysis",
+      "component_archetype_id": "actuator.spinning_rotor",
+      "subsystem_id": "subsystem:adcs",
+      "effect_pattern_ids": ["effect:availability-decrease"]
+    },
+    {
+      "anomaly_id": "ANOM_RW_ACTUAL_TORQUE_LOSS",
+      "component_instance_id": "component:adcs:reaction-wheel:analysis",
+      "component_archetype_id": "actuator.spinning_rotor",
+      "subsystem_id": "subsystem:adcs",
+      "effect_pattern_ids": ["effect:command-response-residual-growth"]
+    }
+  ],
+  "topology_edges": [],
+  "templates": [
+    {
+      "template_id": "template:adcs:rw-friction-response:v1",
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "node_requirements": [
+        {
+          "role": "local_mechanism",
+          "anomaly_ids": ["ANOM_RW_FRICTION_ESTIMATE_HIGH"],
+          "component_archetype_ids": ["actuator.spinning_rotor"],
+          "minimum_confidence": 0.5,
+          "required": true
+        },
+        {
+          "role": "component_response",
+          "anomaly_ids": ["ANOM_RW_CURRENT_DEVIATION", "ANOM_RW_SPEED_DEVIATION"],
+          "component_archetype_ids": ["actuator.spinning_rotor"],
+          "minimum_confidence": 0.5,
+          "required": true
+        }
+      ],
+      "edge_requirements": [
+        {
+          "edge_id": "edge:rw-friction-to-response",
+          "source_role": "local_mechanism",
+          "target_role": "component_response",
+          "allowed_relations": ["OVERLAPS", "STARTS_WITHIN", "PRECEDES"],
+          "maximum_lag_s": 5.0,
+          "required": true
+        }
+      ],
+      "node_weight": 0.6,
+      "edge_weight": 0.4,
+      "minimum_score": 1.0,
+      "evidence_level": "E0",
+      "review_status": "HUMAN_REVIEWED",
+      "rationale": "A local wheel-friction episode must be followed by or co-occur with a wheel response episode."
+    },
+    {
+      "template_id": "template:adcs:rw-torque-authority-response:v1",
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "node_requirements": [
+        {
+          "role": "driver_unavailable",
+          "anomaly_ids": ["ANOM_RW_DRIVER_UNAVAILABLE"],
+          "component_archetype_ids": ["actuator.spinning_rotor"],
+          "minimum_confidence": 0.5,
+          "required": true
+        },
+        {
+          "role": "delivered_torque_loss",
+          "anomaly_ids": ["ANOM_RW_ACTUAL_TORQUE_LOSS"],
+          "component_archetype_ids": ["actuator.spinning_rotor"],
+          "minimum_confidence": 0.5,
+          "required": true
+        }
+      ],
+      "edge_requirements": [
+        {
+          "edge_id": "edge:rw-driver-to-torque-response",
+          "source_role": "driver_unavailable",
+          "target_role": "delivered_torque_loss",
+          "allowed_relations": ["OVERLAPS", "STARTS_WITHIN", "PRECEDES"],
+          "maximum_lag_s": 5.0,
+          "required": true
+        }
+      ],
+      "node_weight": 0.6,
+      "edge_weight": 0.4,
+      "minimum_score": 1.0,
+      "evidence_level": "E0",
+      "review_status": "HUMAN_REVIEWED",
+      "rationale": "Driver-unavailable status must be followed by or co-occur with delivered torque loss."
+    }
+  ],
+  "claim_boundary": "E0 engineering templates over abstract component episodes. Temporal association ranks hypotheses but does not prove causal propagation or a second fault."
+}

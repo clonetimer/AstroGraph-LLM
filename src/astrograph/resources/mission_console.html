@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>AstroGraph · 智能故障分析</title>
+  <link rel="stylesheet" href="/platform/mission/assets/mission_console.css?v=20261012-analysis-engines" />
+</head>
+<body data-theme="dark" data-size="standard">
+  <div class="layout" id="layout">
+    <aside class="sidebar" id="sidebar" aria-label="主导航">
+      <div class="brand"><div class="brand-symbol">✧</div><div><strong>AstroGraph</strong><span>航天故障智能分析</span></div></div>
+      <nav class="nav" id="nav">
+        <a class="nav-link" href="/platform/home"><span aria-hidden="true">↗</span>首页大屏</a>
+        <div class="nav-caption">任务操作</div>
+        <button class="nav-link active" data-route="command" type="button"><span>▤</span>事件中心</button>
+        <button class="nav-link" data-route="upload" type="button" data-min-role="operator"><span>＋</span>新建分析</button>
+        <button class="nav-link" data-route="workbench" type="button"><span>◫</span>事件研判</button>
+        <button class="nav-link" data-route="review" type="button" data-min-role="reviewer"><span>✓</span>审校待办</button>
+        <button class="nav-link" data-route="report" type="button"><span>▤</span>决策包</button>
+        <div class="nav-caption">证据与知识</div>
+        <button class="nav-link" data-route="graph" type="button"><span>◇</span>知识图谱</button>
+        <details class="nav-secondary" id="nav-secondary">
+          <summary>更多工具</summary>
+          <button class="nav-link" data-route="assistant" type="button"><span>✦</span>证据问答</button>
+          <button class="nav-link" data-route="history" type="button"><span>◷</span>任务档案</button>
+          <button class="nav-link" data-route="graph-build" type="button" data-min-role="reviewer"><span>⌘</span>文献建图</button>
+          <button class="nav-link" data-route="knowledge-review" type="button" data-min-role="reviewer"><span>◈</span>知识审核</button>
+        </details>
+        <div class="nav-caption" id="nav-admin-label" data-min-role="admin">平台管理</div>
+        <button class="nav-link" data-route="users" type="button" data-min-role="admin" data-account-only="true"><span>♙</span>人员与访问</button>
+        <button class="nav-link" data-route="settings" type="button" data-min-role="admin"><span>⚙</span>模型与引擎</button>
+      </nav>
+      <div class="sidebar-bottom"><span class="status-dot" id="connection-light"></span><span id="side-status">服务状态</span></div>
+    </aside>
+    <div class="main-area">
+      <header class="topbar">
+        <div class="top-left"><button id="mobile-nav" class="icon-btn mobile-nav" type="button" aria-label="展开导航">☰</button><span id="page-label">任务指挥台</span></div>
+        <div class="top-actions">
+          <button class="top-status-btn" id="service-status-open" type="button" aria-label="平台服务状态">服务状态 <span aria-hidden="true">↗</span></button>
+          <label class="sr-only" for="theme-select">主题</label><select id="theme-select" class="toolbar-select" aria-label="主题"><option value="dark">深色</option><option value="light">浅色</option><option value="system">跟随系统</option></select>
+          <label class="sr-only" for="font-select">字号</label><select id="font-select" class="toolbar-select" aria-label="字体大小"><option value="compact">紧凑</option><option value="standard">舒适</option><option value="large">大字</option></select>
+          <button id="identity-trigger" class="identity" type="button" aria-haspopup="dialog" aria-controls="identity-modal"><span id="identity-avatar">用</span><span id="identity-label">确认身份</span></button>
+        </div>
+      </header>
+      <div class="content">
+        <section class="screen active" id="screen-command" aria-label="任务指挥台">
+          <div class="screen-head"><div><div class="kicker">任务与证据</div><h1>事件中心</h1></div><div class="head-actions"><button class="btn" type="button" id="command-refresh">刷新队列</button><button class="btn primary" type="button" id="command-create" data-min-role="operator">＋ 新建分析</button></div></div>
+          <section class="panel command-first-run" id="command-first-run" hidden aria-label="开始首个研判任务">
+            <div class="first-run-header"><h2>开始第一项故障研判</h2></div>
+            <ol class="first-run-steps"><li><b>1</b><strong>导入材料</strong></li><li><b>2</b><strong>完成预检</strong></li><li><b>3</b><strong>生成研判</strong></li><li><b>4</b><strong>专家复核</strong></li></ol>
+            <div class="first-run-actions"><button type="button" id="command-first-create" data-min-role="operator" class="btn primary">新建分析 →</button><button type="button" id="command-first-demo" data-min-role="operator" class="btn">选择演示案例</button><span id="command-first-viewer" data-min-role="viewer">暂无可查看的任务</span></div>
+          </section>
+          <div class="command-metrics" id="command-metrics" aria-label="任务状态汇总">
+            <div class="metric"><span>待处理</span><strong id="metric-attention">—</strong></div>
+            <div class="metric"><span>执行中</span><strong id="metric-running">—</strong></div>
+            <div class="metric"><span>报告已生成</span><strong id="metric-done">—</strong></div>
+            <div class="metric"><span>执行失败</span><strong id="metric-failed">—</strong></div>
+          </div>
+          <div class="command-layout" id="command-layout">
+            <section class="panel command-queue" aria-label="事件收件箱">
+              <div class="panel-head"><h2>事件收件箱</h2><label for="command-filter" class="sr-only">筛选事件</label><select id="command-filter"><option value="attention">优先待办</option><option value="all">全部任务</option><option value="running">执行中</option><option value="completed">已完成</option></select></div>
+              <div id="command-items" class="command-items" aria-live="polite"><div class="empty">正在读取事件…</div></div>
+            </section>
+            <section class="panel command-preview" aria-label="选中事件的研判与行动">
+              <h2>事件详情</h2>
+              <div id="command-action-content" aria-live="polite">聚焦左侧事件可预览，点击直接进入研判。</div>
+              <div class="command-action" aria-label="下一步行动">
+                <div id="command-next-content">请选择左侧事件</div>
+                <div class="command-action-buttons"><button type="button" class="btn" id="command-open-history">全部任务</button><button type="button" class="btn" id="command-open-review" data-min-role="reviewer">待复核事项</button></div>
+              </div>
+            </section>
+          </div>
+        </section>
+        <section class="screen" id="screen-workbench" aria-label="研判工作台"><div class="screen-head"><div><div class="kicker">任务研判</div><h1>事件研判</h1></div><div class="head-actions"><span class="chip" id="workbench-job">尚无当前任务</span><button id="workbench-open-report" type="button" class="btn primary">查看决策报告</button></div></div>
+          <div class="workbench-context" id="workbench-context" aria-label="当前事件状态"></div>
+          <div class="tri-workbench">
+            <aside class="panel workbench-col"><h2>阶段与候选</h2><div id="workbench-timeline"></div></aside>
+            <main class="panel workbench-col workbench-primary"><h2>当前判断与证据</h2><div id="workbench-evidence"></div></main>
+            <aside class="panel workbench-col"><h2>处置与审校</h2><div id="workbench-actions"></div></aside>
+          </div>
+        </section>
+        <section class="screen" id="screen-assistant" aria-label="智能助理">
+          <div class="conversation" id="conversation" aria-live="polite">
+            <div class="assistant-welcome" id="assistant-welcome"><div class="orbit-badge">✧</div><h1>针对已有报告追问证据</h1><div class="welcome-prompts"><button type="button" data-chat-suggest="查看当前报告中的可能原因">可能原因</button><button type="button" data-chat-suggest="推荐哪些核查和处置步骤？">处置建议</button><button type="button" data-chat-suggest="有哪些日志和文献证据？">证据依据</button><button type="button" data-chat-suggest="根因为什么还不能确诊？">证据缺口</button></div></div>
+          </div>
+          <div class="quick-links" id="assistant-quick-links"><button type="button" class="btn" id="quick-resume">继续上次任务</button><button type="button" class="btn" id="quick-demo" data-min-role="operator">载入演示案例</button><button type="button" class="btn" id="quick-history">最近报告</button></div>
+          <div class="composer-wrap"><form id="chat-form" class="composer"><textarea id="chat-text" rows="2" maxlength="700" placeholder="针对当前分析报告提问…" aria-label="针对当前报告提问"></textarea><div class="composer-bottom"><div class="composer-links"><button type="button" id="chat-add-material" class="text-btn" data-min-role="operator">＋ 上传材料</button><button type="button" id="chat-open-report" class="text-btn">查看报告</button></div><button type="submit" class="send-btn" aria-label="发送问题">↑</button></div></form></div>
+        </section>
+        <section class="screen analysis-screen" id="screen-upload">
+          <div class="analysis-shell">
+            <div class="analysis-intro">
+              <div class="kicker">新建分析</div>
+              <h1>把现象和材料交给 AstroGraph</h1>
+              <p>像和分析人员对话一样描述问题。系统会检查材料、说明正在做什么，并把结论、依据和下一步讲清楚。</p>
+            </div>
+            <div class="analysis-thread" aria-live="polite">
+              <article class="analysis-message assistant-message">
+                <div class="analysis-avatar" aria-hidden="true">A</div>
+                <div><strong>我可以帮你研判这次异常</strong><p>请描述你观察到的现象，并附上诊断结果、运行日志和参考资料。文件内容可以是表格、日志或普通文档，不需要把数据整理成 JSON 再输入。</p></div>
+              </article>
+              <section class="analysis-process" id="analysis-process" aria-label="分析过程">
+                <button class="thinking-toggle" id="analysis-thinking-toggle" type="button" aria-expanded="true"><span class="thinking-pulse" aria-hidden="true"></span><span><b id="analysis-process-title">等待材料</b><small id="analysis-process-summary">描述问题并添加三类材料后，我会自动检查</small></span><span aria-hidden="true">⌄</span></button>
+                <div class="thinking-body" id="analysis-thinking-body">
+                  <ol class="thinking-steps">
+                    <li data-upload-step="1" class="active"><b>1</b><span><strong>理解任务</strong><small>读取自然语言问题和设备信息</small></span></li>
+                    <li data-upload-step="2"><b>2</b><span><strong>检查材料</strong><small>确认诊断、日志和参考资料是否齐全</small></span></li>
+                    <li data-upload-step="3"><b>3</b><span><strong>形成结论</strong><small>整理证据、风险与下一步建议</small></span></li>
+                  </ol>
+                  <div class="upload-message" id="upload-state" aria-live="polite">还需：诊断结果、运行日志、参考资料</div>
+                  <div id="preflight-results"></div>
+                  <div class="progress-line" id="mission-progress" hidden><div class="progress-inner" id="mission-progress-inner"></div></div>
+                </div>
+              </section>
+            </div>
+            <div class="analysis-composer-panel">
+              <div class="analysis-context-row">
+                <label for="mission-scope">任务或设备名称 <span>可选</span></label>
+                <input id="mission-scope" type="text" maxlength="80" placeholder="例如：SAT-A 姿控分系统" />
+              </div>
+              <div class="attachment-tray" id="attachment-tray" aria-live="polite"><span class="attachment-empty">尚未添加材料</span></div>
+              <div class="analysis-composer">
+                <textarea id="mission-task" rows="3" maxlength="4000" aria-label="描述需要分析的问题">请结合我上传的诊断结果、运行日志和参考资料，判断最可能的故障原因，说明证据是否充分，并给出下一步核查建议。</textarea>
+                <div class="analysis-composer-actions">
+                  <div class="attachment-control">
+                    <button class="paperclip-button" id="analysis-attach-toggle" type="button" aria-expanded="false" aria-controls="analysis-attach-menu" aria-label="添加分析材料"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8.5 12.7l6.3-6.3a3.25 3.25 0 014.6 4.6l-8.2 8.2a5 5 0 01-7.1-7.1l8-8"/></svg><span>添加材料</span></button>
+                    <div class="attachment-menu" id="analysis-attach-menu" hidden>
+                      <p>选择材料类型</p>
+                      <label for="mission-diagnosis"><strong>诊断结果</strong><small>诊断软件或算法给出的判断</small></label>
+                      <label for="mission-logs"><strong>运行日志</strong><small>设备运行记录、遥测或告警</small></label>
+                      <label for="mission-references"><strong>参考资料</strong><small>手册、规程或相关文献</small></label>
+                    </div>
+                  </div>
+                  <div class="analysis-engine-control">
+                    <button class="analysis-engine-button" id="analysis-engine-toggle" type="button" aria-expanded="false" aria-controls="analysis-engine-menu">
+                      <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="4"/><path d="M9 9h6v6H9zM9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/></svg>
+                      <span><small>处理引擎</small><strong id="analysis-engine-label">规则引擎</strong></span>
+                      <span class="engine-chevron" aria-hidden="true">⌄</span>
+                    </button>
+                    <div class="analysis-engine-menu" id="analysis-engine-menu" role="listbox" aria-label="选择分析处理引擎" hidden>
+                      <div class="engine-menu-head"><strong>选择处理引擎</strong><small>每次分析单独选择</small></div>
+                      <div id="analysis-engine-options"><div class="engine-menu-state">正在读取可用引擎…</div></div>
+                      <div class="engine-knowledge-note"><strong>共同知识来源</strong><span>本次上传文献 + 软件内已审核图谱文献</span></div>
+                    </div>
+                  </div>
+                  <div class="analysis-submit-actions"><button type="button" class="text-btn" id="open-demo">使用示例</button><button type="button" class="text-btn" id="mission-preflight">重新检查</button><button type="button" class="analysis-send" id="mission-start" disabled><span>开始分析</span><span aria-hidden="true">↑</span></button></div>
+                </div>
+              </div>
+              <div class="legacy-file-access sr-only"><label class="file-picker" for="mission-diagnosis"><span>＋ 选择文件</span><input type="file" id="mission-diagnosis" accept=".json,.csv,.txt,.md,.pdf,.docx" multiple /></label><label class="file-picker" for="mission-logs"><span>＋ 选择文件</span><input type="file" id="mission-logs" accept=".log,.json,.csv,.txt,.md,.pdf,.docx" multiple /></label><label class="file-picker" for="mission-references"><span>＋ 选择文件</span><input type="file" id="mission-references" accept=".txt,.md,.pdf,.docx" multiple /></label><span id="diagnosis-summary">尚未选择</span><span id="logs-summary">尚未选择</span><span id="references-summary">尚未选择</span><span id="upload-file-count">0</span></div>
+              <div class="demo-cases compact-demo-cases" id="inline-demo-cases"><div class="mini-label">也可以从一个自然语言示例开始</div><div id="demo-cards" class="demo-cards"><button class="btn" type="button" id="demo-cards-retry">查看示例</button></div></div>
+            </div>
+          </div>
+        </section>
+        <section class="screen" id="screen-report"><div class="screen-head"><div><div class="kicker">分析结果</div><h1>这次异常，系统怎么看</h1></div><div class="head-actions"><span class="chip" id="report-job-label">未选择任务</span><button class="btn" type="button" id="report-export-md" hidden>下载文字报告</button><details class="report-more"><summary>更多</summary><button class="btn" type="button" id="report-export-json" hidden>导出完整数据</button></details><button class="btn" type="button" id="report-review-jump" data-min-role="reviewer">请专家复核</button></div></div>
+          <div class="action-summary panel" id="action-summary" role="region" aria-label="行动摘要"><div class="decision-lead"><span>当前结论</span><strong id="action-judgment">等待分析</strong><p>系统只说明材料能够支持到哪一步，不会替代人工完成工程确诊。</p></div><div class="action-summary-grid"><div><span>证据够不够</span><strong id="action-evidence" data-decision-code="NONE">—</strong></div><div><span>现在能否执行处置</span><strong id="action-approval">暂不能自动执行</strong></div><div><span>建议下一步</span><strong id="action-next">添加分析材料</strong></div><div class="risk-detail"><span>风险说明</span><strong id="action-risk">等待分析</strong></div></div></div>
+          <div class="report-tabs" role="tablist" aria-label="报告详情"><button class="tab active" data-report-tab="conclusion" type="button">研判结论</button><button class="tab" data-report-tab="evidence" type="button">日志与文献</button><button class="tab" data-report-tab="reasoning" type="button">图谱推理</button><button class="tab" data-report-tab="audit" type="button">审核与溯源</button></div><div id="report-content" class="report-body"><div class="empty">完成分析或在任务记录中选择报告。</div></div>
+        </section>
+        <section class="screen" id="screen-history"><div class="screen-head"><h1>任务记录</h1><button id="refresh-history" type="button" class="btn">刷新</button></div><div id="history-items" class="history-items"><div class="empty">正在读取…</div></div></section>
+        <section class="screen" id="screen-graph"><div class="screen-head"><h1>内置知识图谱</h1><span class="chip">公开参考图谱</span></div><div class="graph-layout"><div class="panel graph-list"><label class="sr-only" for="graph-search">故障名称</label><input id="graph-search" placeholder="搜索故障、机理、部件…"/><label class="sr-only" for="graph-domain">分系统</label><select id="graph-domain"><option value="">全部分系统</option><option value="ADCS">姿态控制</option><option value="EPS">电源</option><option value="THERMAL">热控</option><option value="PROP">推进</option><option value="COMM">通信</option><option value="CDH">星载计算</option><option value="PAYLOAD">有效载荷</option></select><label for="graph-evidence">关系筛选</label><select id="graph-evidence"><option value="all">全部关系</option><option value="supported">有公开文献引用</option><option value="unreviewed">待审核知识</option></select><div class="graph-topics" id="graph-topics"></div></div><div class="panel graph-detail" id="graph-detail"><div class="empty">请选择故障主题。</div></div></div></section>
+        <section class="screen" id="screen-review"><div class="screen-head"><h1>分析报告人工复核</h1><span class="chip" id="expert-status">专家会话未连接</span></div><div class="panel review-login" id="expert-login-panel"><div class="field"><label for="expert-credential">专家凭据</label><input id="expert-credential" type="password" autocomplete="off" placeholder="服务端配置的专家审核凭据" /></div><button class="btn primary" id="expert-login" type="button">专家登录</button><button class="btn" id="expert-logout" type="button" hidden>安全退出</button></div><div class="panel review-queue" id="review-queue" hidden><h2>待复核任务</h2><div id="review-queue-items"></div></div><div class="panel review-form" id="review-form-box"><div class="empty">选择已完成报告并登录专家会话。</div></div></section>
+        <section class="screen" id="screen-knowledge-review"><div class="screen-head"><h1>图谱与文献审核</h1><button type="button" class="btn" id="knowledge-review-refresh">刷新审核队列</button></div><div class="panel"><div class="report-tabs"><button class="tab active" data-knowledge-tab="graph" type="button">候选图谱关系</button><button class="tab" data-knowledge-tab="documents" type="button">参考文献</button><button class="tab" data-knowledge-tab="cases" type="button">历史案例</button></div><div id="knowledge-review-items" class="review-work-items"></div></div></section>
+        <section class="screen" id="screen-graph-build"><div class="screen-head"><h1>文献图谱构建</h1><span class="chip">候选知识 · 专家审核后生效</span></div><div class="panel form-panel"><div class="field"><label for="graph-build-scope">设备型号 / 构型</label><input id="graph-build-scope" maxlength="80" placeholder="SAT-A_ADCS_V1" /></div><div class="field"><label for="graph-build-files">参考文献</label><input type="file" id="graph-build-files" accept=".pdf,.docx,.txt,.md" multiple /></div><div class="field"><label for="graph-build-chunks">最大抽取片段</label><input type="number" id="graph-build-chunks" min="1" max="12" value="6" /></div><button class="btn primary" id="graph-build-run" type="button">构建候选图谱</button><div id="graph-build-status" class="upload-message" aria-live="polite"></div><button type="button" class="btn" id="graph-knowledge-review-link">审核候选关系 →</button></div></section>
+        <section class="screen" id="screen-users"><div class="screen-head"><h1>用户与角色管理</h1><button type="button" class="btn" id="users-refresh">刷新</button></div><div class="users-grid"><div class="panel"><h2>用户列表</h2><div id="users-list"></div></div><form class="panel" id="users-create-form"><h2>新增用户</h2><div class="field"><label for="new-user-name">登录账号</label><input id="new-user-name" required minlength="3" autocomplete="off"></div><div class="field"><label for="new-user-display">显示名称</label><input id="new-user-display" required></div><div class="field"><label for="new-user-role">角色</label><select id="new-user-role"><option value="viewer">只读用户</option><option value="operator">分析人员</option><option value="reviewer">领域审核专家</option><option value="admin">平台管理员</option></select></div><div class="field"><label for="new-user-password">临时密码（至少12位）</label><input id="new-user-password" type="password" required minlength="12" autocomplete="new-password"></div><button class="btn primary" type="submit">创建账号</button><div class="upload-message" id="users-message" aria-live="polite"></div></form></div></section>
+        <section class="screen" id="screen-settings"><div class="screen-head"><h1>模型与知识引擎配置</h1><span class="chip">管理员</span></div><div class="settings-grid"><form id="llm-form" class="panel form-panel"><h2>大模型</h2><div class="field"><label for="llm-provider">服务类型</label><select id="llm-provider"><option value="local-openai-compatible">OpenAI 兼容服务</option><option value="ollama">Ollama</option><option value="lmstudio">LM Studio</option><option value="vllm">vLLM</option></select></div><div class="field"><label for="llm-url">服务地址</label><input id="llm-url" placeholder="http://127.0.0.1:8000/v1" /></div><div class="field"><label for="llm-model">模型标识</label><input id="llm-model" placeholder="本地模型 ID" /></div><div class="field"><label for="llm-key">密钥（可留空）</label><input type="password" id="llm-key" autocomplete="off" /></div><label class="setting-switch"><input type="checkbox" id="llm-persist" /> 保存为默认服务（重启后可用）</label><div class="field" id="llm-profile-name-field" hidden><label for="llm-profile-name">配置名称</label><input id="llm-profile-name" maxlength="120" placeholder="例如 本地 Qwen 推理服务" /></div><div id="llm-mode-state" class="settings-body" aria-live="polite"></div><div class="upload-actions"><button type="button" class="btn" id="llm-test">检测模型</button><button type="submit" class="btn primary">保存设置</button></div><div id="llm-result" class="upload-message" aria-live="polite"></div></form><form id="engine-form" class="panel settings-summary"><h2>知识引擎</h2><div id="engine-state" class="settings-body">正在读取配置…</div>
+            <div class="field"><label for="engine-embedding">Embedding 模型路径</label><input id="engine-embedding" placeholder="D:\Models\bge-m3" /></div>
+            <div class="field"><label for="engine-backend">向量存储</label><select id="engine-backend"><option value="sqlite">SQLite</option><option value="qdrant">Qdrant</option></select></div>
+            <details class="detail-row"><summary>高级检索与多模态设置</summary>
+              <div class="field"><label for="engine-qdrant-url">Qdrant 地址</label><input id="engine-qdrant-url" placeholder="http://127.0.0.1:6333" /></div>
+              <div class="field"><label for="engine-qdrant-collection">Qdrant 集合</label><input id="engine-qdrant-collection" /></div>
+              <div class="field"><label for="engine-ocr">OCR 引擎</label><select id="engine-ocr"><option value="disabled">禁用</option><option value="tesseract">Tesseract</option><option value="docling">Docling</option></select></div>
+              <div class="field"><label for="engine-ocr-lang">OCR 语言</label><input id="engine-ocr-lang" placeholder="chi_sim+eng" /></div>
+              <label class="setting-switch"><input type="checkbox" id="engine-community" /> GraphRAG 社区摘要</label>
+              <label class="setting-switch"><input type="checkbox" id="engine-graph-build" /> 图谱抽取</label>
+              <div class="field"><label for="engine-graph-model">图谱抽取模型</label><input id="engine-graph-model" /></div>
+              <label class="setting-switch"><input type="checkbox" id="engine-vision" /> 视觉模型识别（结果待核验）</label>
+              <div class="field"><label for="engine-vision-url">视觉服务端点</label><input id="engine-vision-url" placeholder="http://127.0.0.1:8000/v1/chat/completions" /></div>
+              <div class="field"><label for="engine-vision-model">视觉模型名称</label><input id="engine-vision-model" /></div>
+              <div class="field"><label for="engine-vision-pages">视觉分析页数</label><input id="engine-vision-pages" type="number" min="0" max="5" /></div>
+              <div class="settings-three"><div class="field"><label for="engine-docs">文档预算</label><input id="engine-docs" type="number" min="1" max="40" /></div><div class="field"><label for="engine-sections">章节预算</label><input id="engine-sections" type="number" min="1" max="80" /></div><div class="field"><label for="engine-hits">引文预算</label><input id="engine-hits" type="number" min="1" max="20" /></div></div>
+            </details>
+            <div class="upload-actions"><button type="button" class="btn" id="engine-probe">检查配置</button><button type="submit" class="btn primary">保存知识引擎</button></div><div id="engine-result" class="upload-message" aria-live="polite"></div>
+          </form></div></section>
+      </div>
+    </div>
+  </div>
+  <dialog class="modal" id="account-modal"><h2 id="account-modal-title">登录 AstroGraph</h2><form id="account-form" autocomplete="on"><div class="field"><label for="account-name">账号</label><input id="account-name" autocomplete="username" required minlength="3"></div><div class="field" id="account-display-box" hidden><label for="account-display">管理员显示名称</label><input id="account-display"></div><div class="field"><label for="account-pass">密码</label><input id="account-pass" type="password" autocomplete="current-password" required></div><div class="field" id="account-setup-box" hidden><label for="account-setup-key">服务器初始化密钥</label><input id="account-setup-key" type="password" autocomplete="off"></div><button type="submit" class="btn primary" id="account-submit">登录</button><div id="account-message" class="upload-message" role="status"></div></form></dialog>
+  <dialog class="modal" id="service-modal"><h2>平台服务状态</h2><div id="service-details" class="service-details"></div><button id="service-probe" type="button" class="btn" data-min-role="admin">重新检测模型</button><button type="button" class="btn" id="service-close">关闭</button></dialog>
+  <dialog class="modal" id="identity-modal"><h2>当前身份</h2><div class="identity-info" id="identity-info"></div><button type="button" class="btn" id="identity-open-users" data-min-role="admin" data-account-only="true">人员与访问 →</button><form method="dialog"><button type="submit" class="btn" id="identity-close">关闭</button></form><div id="token-login-area"><label for="identity-token">访问令牌</label><input type="password" id="identity-token" autocomplete="off" placeholder="仅在本次页面中使用" /><button type="button" class="btn primary" id="identity-login">验证身份</button></div><button type="button" class="btn" id="identity-logout" hidden>退出令牌</button></dialog>
+  <dialog class="modal evidence-detail-dialog" id="evidence-detail" aria-labelledby="evidence-detail-title">
+    <div class="evidence-detail-head"><h2 id="evidence-detail-title">证据原文定位</h2><button type="button" class="btn small" id="evidence-detail-close">关闭</button></div>
+    <dl class="evidence-source-meta" id="evidence-source-meta"></dl>
+    <div class="evidence-quote-title">报告保留的原文摘录</div><blockquote id="evidence-source-quote" class="evidence-source-quote"></blockquote>
+    <p class="evidence-source-boundary">点击证据定位时以原始上传文件为准；报告仅保留最多 420 字的原文摘录，不代表原文件全文。</p>
+  </dialog>
+  <dialog class="modal" id="demo-modal"><h2>载入演示案例</h2><div id="demo-list"></div><form method="dialog"><button class="btn">关闭</button></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/platform/mission/assets/mission_console.js?v=20261012-analysis-engines"></script>
+</body>
+</html>

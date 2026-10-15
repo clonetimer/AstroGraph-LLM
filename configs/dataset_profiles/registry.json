@@ -1,0 +1,18 @@
+{
+  "schema_version": "astrograph-dataset-profile-registry.v1",
+  "registry_id": "astrograph.reviewed-dataset-profiles",
+  "version": "2.1.0",
+  "asset_root": "../..",
+  "profiles": [
+    {
+      "profile_id": "adcs.v5_2_2",
+      "path": "configs/dataset_profiles/adcs_v5_2_2.json",
+      "sha256": "b0691f8bd73838d407cd833272f548d1beb01477405cf08a3140a4d2e97cfb2a"
+    },
+    {
+      "profile_id": "phm.v6_0",
+      "path": "configs/dataset_profiles/phm_v6_0.json",
+      "sha256": "4c0aca1304f37cb09dd6c123515ed5a63bc5c49a86ed175a07b66211fa508f6e"
+    }
+  ]
+}

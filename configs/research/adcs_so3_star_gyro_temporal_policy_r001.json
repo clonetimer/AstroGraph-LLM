@@ -1,0 +1,100 @@
+{
+  "calibration_groups": [
+    0,
+    1,
+    2,
+    5,
+    6,
+    7
+  ],
+  "candidate_bundle_sha256": "40b4de94517f9189b9ef5c682c113fc1a1ae4d33454c387603ff937f7d3e238e",
+  "contract": {
+    "anchor_estimator": "MAX_VALID_NOMINAL_AFTER_WARMUP",
+    "calibration_groups": [
+      0,
+      1,
+      2,
+      5,
+      6,
+      7
+    ],
+    "claim_boundary": "Development-only label-free attitude-consistency score. Nominal anchors are empirical maxima, not calibrated probabilities or conformal bounds.",
+    "contract_id": "ADCS-SO3-STAR-GYRO-R001",
+    "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+    "development_groups": [
+      3,
+      8
+    ],
+    "distance_metric": "SO3_GEODESIC_DEG_2_ACOS_ABS_DOT",
+    "excluded_groups": [
+      4,
+      9
+    ],
+    "horizons_points": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "integration_rule": "SEQUENTIAL_TRAPEZOIDAL_RATE",
+    "notification_buffer_points": 3,
+    "propagation_convention": "RIGHT_MULTIPLY_POSITIVE_BODY_RATE",
+    "quaternion_order": "SCALAR_FIRST_Q0_Q1_Q2_Q3",
+    "runtime_ground_truth_access": false,
+    "sample_period_s": 1.0,
+    "schema_version": "astrograph-so3-star-gyro-contract.v1",
+    "warmup_points": 31
+  },
+  "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+  "dataset_archive_sha256": "86d6f0cca1436d51a882e5b9bcd8e5073c7930fcffc167d26787b9a8e220e4da",
+  "development_groups": [
+    3,
+    8
+  ],
+  "excluded_groups": [
+    4,
+    9
+  ],
+  "groups_4_9_read": false,
+  "new_confirmatory_evidence": "NONE",
+  "nominal_anchor_deg_by_horizon": {
+    "1": 0.0018176935168570778,
+    "2": 0.003332260494674236,
+    "4": 0.005104915325394549,
+    "8": 0.006206283299052813
+  },
+  "policy_config_sha256": "42e7d7fee633535c1e0c856c3c1f3415d0ec6e0f8cafa5d8e8ea170e01d0b801",
+  "policy_receipt_sha256": "8a43f4fe88850ac6d2c3ddc990d6452b37e907220cdc9a51667b51d9c6ab1b88",
+  "project_status": "B012_WIP_DEVELOPMENT_EVIDENCE",
+  "schema_version": "astrograph-b012-frozen-development-policy.v1",
+  "selected_policy": {
+    "calibration_groups": [
+      0,
+      1,
+      2,
+      5,
+      6,
+      7
+    ],
+    "contract_sha256": "d62481696736d9b0d3e82c3e8d733755d256351785d39cf87957335a325d71fd",
+    "development_groups": [
+      3,
+      8
+    ],
+    "excluded_groups": [
+      4,
+      9
+    ],
+    "horizon_points": [
+      8
+    ],
+    "notification_buffer_points": 3,
+    "persistence_points": 4,
+    "policy_id": "SO3P-BF730D1CE992005EC410",
+    "policy_sha256": "be66680da519e13cf3a4d3beb1f9b3b214a5e9c503643a8ca812534ef4b95653",
+    "runtime_ground_truth_access": false,
+    "schema_version": "astrograph-so3-star-gyro-policy.v1",
+    "threshold_multiplier": 2.0,
+    "warmup_points": 31
+  }
+}

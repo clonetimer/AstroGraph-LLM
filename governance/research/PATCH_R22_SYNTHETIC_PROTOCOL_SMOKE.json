@@ -1,0 +1,26 @@
+{
+  "schema_version": "astrograph-r22-synthetic-protocol-smoke.v2",
+  "status": "PASS_PROTOCOL_ONLY",
+  "replication_plan_sha256": "f3fb9db86150b49037575843eedc4720b2d9c446324b623a93d6a84987c4ae62",
+  "OPS": {
+    "track_readiness": "READY",
+    "prediction_status": "FROZEN_BEFORE_TRUTH_JOIN",
+    "report_status": "NEW_HOLDOUT_REPLICATION_DESCRIPTIVE",
+    "coverage_delta": 0.5,
+    "primary_delta": 0.0
+  },
+  "ESA": {
+    "track_readiness": "READY",
+    "preprocessed_receipt_status": "PREPROCESSED_INPUT_BOUND_UPSTREAM_PROVENANCE_NOT_INDEPENDENTLY_REEXECUTED",
+    "prediction_status": "FROZEN_BEFORE_TRUTH_JOIN",
+    "report_status": "NEW_HOLDOUT_TRANSPORT_REPLICATION_DESCRIPTIVE",
+    "corrected_eventwise_F0.5": 1.0,
+    "superiority_contrast_allowed": false
+  },
+  "real_holdout_used": false,
+  "performance_evidence_created": false,
+  "new_external_validation_receipt_generated": false,
+  "claim_boundary": "Synthetic fixtures prove first-contact admission, track-specific readiness, prediction-before-truth ordering, fixed executor operation and event truth-join mechanics only; values are not real replication performance.",
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "b7e6ac3dea6b0e8a9fb3ffa8f365dec360cbaec1dd4c0aa3f7429cc3870e8999"
+}

@@ -1,0 +1,50 @@
+{
+  "change_control": "Any temporal-policy change requires a new explicitly opened development cycle; no change may use groups 4/9.",
+  "claim_boundary": "Development freeze only. This is not confirmatory, external, HIL, flight, safety or qualification evidence.",
+  "development_groups": [
+    3,
+    8
+  ],
+  "excluded_groups": [
+    4,
+    9
+  ],
+  "freeze_id": "ADCS-TEMPORAL-STACK-R001",
+  "freeze_sha256": "8e1ce82e427799edbf4cdd9f67060024a78c81edb2307c000b2410ef92580f8e",
+  "groups_4_9_read": false,
+  "independent_group_count": 6,
+  "new_confirmatory_evidence": "NONE",
+  "next_valid_action": "Freeze statistics/evaluator and create a new hidden-truth sealed simulator campaign.",
+  "primary_cross_fitted_metrics": {
+    "group_macro_notified_within_20s_rate": 0.984848484848485,
+    "minimum_class_notified_within_20s_rate": 0.875,
+    "minimum_group_notified_within_20s_rate": 0.9545454545454546,
+    "nominal_false_alarm_count": 0,
+    "notified_within_20s_rate": 0.9886363636363636,
+    "pre_onset_selection_count": 0
+  },
+  "schema_version": "astrograph-adcs-temporal-stack-freeze.v1",
+  "status": "DEVELOPMENT_TEMPORAL_STACK_FROZEN_FOR_SEALED_CAMPAIGN_DESIGN",
+  "upstream_policies": {
+    "b010_reference_set": {
+      "path": "research/reference_set_temporal_r001/selected_policy_receipt.json",
+      "policy_sha256": "1cfb6363b0e2e852a67b826ec3ed42f81fbf398ba6a10b3fd91e1f10d71f0aab",
+      "receipt_sha256": "392cd31f886d98d7fbc269fd47fc667163aeebcf75ebc2c619effdde53cbf0c8"
+    },
+    "b011_mechanism_evidence": {
+      "path": "research/mechanism_evidence_temporal_r001/selected_policy_receipt.json",
+      "policy_sha256": "2389ae79285925989fcb200c80f170cabe47a0a7f45301a07f9989d1ee35d3d8",
+      "receipt_sha256": "106c81b98665a6e4e9aed7b5696efcc5d17ec8bad95c8b4c0e22c3f9cfdc1e12"
+    },
+    "b012_so3_star_gyro": {
+      "path": "research/so3_star_gyro_temporal_r001/selected_policy_receipt.json",
+      "policy_sha256": "be66680da519e13cf3a4d3beb1f9b3b214a5e9c503643a8ca812534ef4b95653",
+      "receipt_sha256": "8a43f4fe88850ac6d2c3ddc990d6452b37e907220cdc9a51667b51d9c6ab1b88"
+    },
+    "b013_control_authority": {
+      "path": "selected_policy_receipt.json",
+      "policy_sha256": "259b943fd98b580802781c24e2ea98f2fbf974fda176101e23ef09bb948f9177",
+      "receipt_sha256": "b060db49436a9130a9872e7c6c4a0d4fb2a6899d948de50c32ffe490641615d9"
+    }
+  }
+}

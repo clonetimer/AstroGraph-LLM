@@ -1,0 +1,77 @@
+{
+  "schema_version": "astrograph-r26-remediation-protocol.v1",
+  "patch_id": "PATCH-R26",
+  "base_artifact": "AstroGraph_0.7.1_post49_working_patch25_unified_source.zip",
+  "base_artifact_sha256": "8c948f2aff971542ccd63eb2bb912a27c42f41f06e60a010b80de48ff0645612",
+  "selection_timing": "NOT_PREREGISTERED_BEFORE_R26_DEVELOPMENT_CONTACT",
+  "dxc09_sample": {
+    "dataset_use": "DEVELOPMENT_ONLY",
+    "forbidden_datasets": [
+      "DXC09_COMPETITION",
+      "DXC09_REMATCH"
+    ],
+    "split_policy": "R25 frozen hash split: buckets 0/1/2 TRAIN, 3 SELECTION, 4 INTERNAL_REPLAY",
+    "continuous_branch": "R25 frozen command-aware Ridge residual + structural MBD",
+    "discrete_branch": {
+      "position_sensor_component_type": "PositionSensor",
+      "data_type": "bool",
+      "startup_s": 30.0,
+      "command_suppression_s": 1.0,
+      "open_state_value": false,
+      "semantic_boundary": "separate discrete-state admission; continuous engineering-unit gate is unchanged"
+    },
+    "predeclared_fusion_policies": [
+      "CONTINUOUS_ONLY",
+      "UNION",
+      "DISCRETE_OVERRIDE",
+      "DISCRETE_FIRST_SINGLE_CONTINUOUS"
+    ],
+    "selection_key": [
+      "max exact_fault_set_rate",
+      "max fault_element_f1_micro",
+      "max component_f1_micro",
+      "min mean_predicted_fault_count",
+      "stable policy name"
+    ],
+    "selected_policy": "DISCRETE_FIRST_SINGLE_CONTINUOUS",
+    "development_receipt_sha256": "0f9d23bc42f41074c959a3f870661087c1e742d42441781b0c477c3d2c7cbef6",
+    "internal_replay_already_exposed_in_r25": true
+  },
+  "esa": {
+    "status": "FROZEN_READY_FOR_GENUINELY_NEW_HOLDOUT_BLOCKED_DATASET",
+    "source_r25_development_receipt_sha256": "f3267ca7de06ed1a96b364991c07cd725a7dc23bf468ee9249f6ccae2959ab55",
+    "frozen_config": {
+      "robust_z_threshold": 8.0,
+      "minimum_coincident_channels": 2,
+      "alarm_group_gap_s": 40.0
+    },
+    "reference_sha256": "7f3d73247e3ec2bed5c1b0461026785fa87a4a40405c47a81f890e0284b6553e",
+    "detector_receipt_sha256": "e6ae59b685649c20b74cd0de82b968ddef6e4c628e67ba3bc6af6d8a5e777612",
+    "detector_identity_sha256": "9e384a7eab3acdd91ea50bf7dec467c663b905892dfd0675c8999794a4dd5c94",
+    "new_holdout_supplied": false,
+    "truth_join_order": "prediction receipt must be frozen before optional truth join"
+  },
+  "source_bindings": {
+    "src/astrograph/evaluation/dxc_discrete_consistency.py": {
+      "size": 9739,
+      "sha256": "a7b8d36edfd20466366d5d51504cba3fdb5c9ae28dc14ebbe08fc7a8deaedf85"
+    },
+    "src/astrograph/evaluation/dxc_hybrid_fusion_r26.py": {
+      "size": 5221,
+      "sha256": "2315bd850e1f31636c8974128526ead142d5262836633f8be200eda18f9e823e"
+    },
+    "src/astrograph/evaluation/esa_r26_frozen.py": {
+      "size": 9186,
+      "sha256": "d1c3cd5c68ebf77764f708c5e728989f19db59786221238448e180122c989814"
+    },
+    "scripts/experiments/run_r26_dxc_discrete_consistency_development.py": {
+      "size": 12062,
+      "sha256": "3430c3a92da10a3dfea0c0da1203c1db6e146fac91cddbaa87a429cd27c87982"
+    }
+  },
+  "formal_evidence_generated": false,
+  "agent_authority_changed": false,
+  "qualification": "DEVELOPMENT_REMEDIATION_AND_FROZEN_FUTURE_REPLICATION_CANDIDATE_NOT_EXTERNAL_VALIDATION_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R26 improves DXC development isolation using a separate bool PositionSensor consistency path and freezes the R25 ESA high-resolution detector for future new holdout contact. Seen DXC Competition/Rematch and ESA confirmatory/external predictions are not regenerated.",
+  "receipt_sha256": "f35aa0c0543f0390b6a73eb6c496d9dbf6c3994763fc18efba3bd2932ecb8987"
+}

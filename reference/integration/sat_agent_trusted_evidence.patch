@@ -1,0 +1,134 @@
+--- /dev/null	2026-07-28 15:41:51.843701518 +0000
++++ b/scripts/export_trusted_run_evidence.py	2026-07-28 17:12:27.155843757 +0000
+@@ -0,0 +1,131 @@
++#!/usr/bin/env python3
++"""Export fail-closed run evidence for AstroGraph trusted-data ingestion.
++
++This script does not reinterpret campaign results. It preserves the Sat-Agent
++summary status, separates the complete simulation gate from fault-effect
++execution, records hashes, and refuses to label limited or failed runs as
++acceptance-valid.
++"""
++from __future__ import annotations
++
++import argparse
++import csv
++import hashlib
++import json
++from pathlib import Path
++from typing import Any
++
++FORMAL_USES = ["training", "calibration", "validation", "acceptance"]
++DIRECT_PREFIXES = ("label.", "truth.", "ground_truth", "fault_label", "target_label")
++TRUTH_PROXIES = {
++    "effect.active_count",
++    "effect.active_ids",
++    "object.composite_digital_twin.effect_evidence",
++    "object.composite_digital_twin.health_state",
++}
++
++
++def sha256(path: Path) -> str:
++    digest = hashlib.sha256()
++    with path.open("rb") as handle:
++        for block in iter(lambda: handle.read(1024 * 1024), b""):
++            digest.update(block)
++    return digest.hexdigest()
++
++
++def read_object(path: Path) -> dict[str, Any]:
++    value = json.loads(path.read_text(encoding="utf-8"))
++    if not isinstance(value, dict):
++        raise ValueError(f"JSON object expected: {path}")
++    return value
++
++
++def exact_pass(value: Any) -> bool:
++    return str(value or "").strip().upper() == "PASS"
++
++
++def scan_trace(path: Path) -> dict[str, Any]:
++    if not path.is_file():
++        return {"exists": False, "leakage": True, "columns": [], "error": "TRACE_MISSING"}
++    with path.open("r", encoding="utf-8-sig", newline="") as handle:
++        header = next(csv.reader(handle), [])
++    leaks = []
++    for raw in header:
++        column = raw.strip().lower()
++        if column.startswith(DIRECT_PREFIXES) or column in TRUTH_PROXIES:
++            leaks.append(raw)
++    return {
++        "exists": True,
++        "sha256": sha256(path),
++        "leakage": bool(leaks),
++        "columns": sorted(set(leaks)),
++        "error": None,
++    }
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--run-root", type=Path, required=True)
++    parser.add_argument("--public-trace", type=Path, default=None)
++    parser.add_argument("--output", type=Path, required=True)
++    args = parser.parse_args()
++
++    run_root = args.run_root.resolve()
++    summary_path = run_root / "summary.json"
++    manifest_path = run_root / "manifest.json"
++    trace_path = run_root / "trace.csv"
++    for required in (summary_path, manifest_path, trace_path):
++        if not required.is_file():
++            raise SystemExit(f"required run artifact missing: {required}")
++
++    summary = read_object(summary_path)
++    manifest = read_object(manifest_path)
++    gate_vector = {
++        "status": str(summary.get("status", "MISSING")),
++        "execution_status": str(summary.get("execution_status", "MISSING")),
++        "physics_status": str(summary.get("physics_status", "MISSING")),
++        "data_conservation_status": str(summary.get("data_conservation_status", "MISSING")),
++        "energy_conservation_status": str(summary.get("energy_conservation_status", "MISSING")),
++    }
++    complete_pass = all(exact_pass(value) for value in gate_vector.values())
++    effect_pass = exact_pass(summary.get("effect_execution_status"))
++    public_trace = (args.public_trace or trace_path).resolve()
++    trace_scan = scan_trace(public_trace)
++
++    if complete_pass and effect_pass and not trace_scan["leakage"]:
++        acceptance_level = "ACCEPTANCE_VALID"
++        allowed_uses = ["research", "debugging", *FORMAL_USES]
++    elif effect_pass and not trace_scan["leakage"]:
++        acceptance_level = "EFFECT_VALID_RESEARCH_ONLY"
++        allowed_uses = ["research", "debugging"]
++    else:
++        acceptance_level = "INVALID"
++        allowed_uses = ["forensic_review"]
++
++    payload = {
++        "schema_version": "sat-agent-trusted-run-evidence.v1",
++        "run_root": str(run_root),
++        "summary_path": str(summary_path),
++        "summary_sha256": sha256(summary_path),
++        "manifest_path": str(manifest_path),
++        "manifest_sha256": sha256(manifest_path),
++        "internal_trace_path": str(trace_path),
++        "internal_trace_sha256": sha256(trace_path),
++        "public_trace_path": str(public_trace),
++        "public_trace_scan": trace_scan,
++        "platform": manifest.get("platform", {}),
++        "gate_vector": gate_vector,
++        "full_gate_status": "PASS" if complete_pass else "FAIL",
++        "effect_execution_status": str(summary.get("effect_execution_status", "MISSING")),
++        "acceptance_level": acceptance_level,
++        "allowed_uses": allowed_uses,
++        "claim_boundary": "Evidence export only; does not override original Sat-Agent run status or establish diagnostic accuracy.",
++    }
++    args.output.parent.mkdir(parents=True, exist_ok=True)
++    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
++    print(json.dumps(payload, ensure_ascii=False, indent=2))
++    return 0 if acceptance_level == "ACCEPTANCE_VALID" else 2
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())

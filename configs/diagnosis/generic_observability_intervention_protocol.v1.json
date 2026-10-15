@@ -1,0 +1,138 @@
+{
+  "schema_version": "astrograph-generic-observability-intervention-protocol.v1",
+  "protocol_id": "astrograph.generic-heads.p017.observability-intervention",
+  "protocol_version": "1.0.0",
+  "context_of_use": "Determine whether passive thermal experiment design, rather than classifier family or code execution, prevents known-mechanism identifiability in the disclosed synthetic domain. This is development/calibration research only.",
+  "authorization": {
+    "path": "protocols/acceptance/p017_observability_intervention_timer_attestation.json",
+    "status": "APPROVED_OBSERVABILITY_INTERVENTION_ONLY"
+  },
+  "retained_stage_a_failures": [
+    {"path": "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a.v1.json", "sha256": "c4d78e01264016d6e39adeb38bb646b5e07b3902d99b80264ebb502c7beda413", "status": "FAIL"},
+    {"path": "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a.v2.json", "sha256": "85c3ccc1bf10d93781542f554a480f42da843c5bb12694e86d0c0d94c5afcda8", "status": "FAIL"},
+    {"path": "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a.v3.json", "sha256": "d26872eff6a31fd568bd6522e9b2e59ca70d29c1ba3f7598cba149c6660d0032", "status": "FAIL"}
+  ],
+  "development_seed": 20320818,
+  "calibration_seed": 20320819,
+  "technical_validation_seed": null,
+  "permanently_exhausted_validation_seeds": [20280820, 20290820, 20300820],
+  "classes": ["NORMAL", "CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+  "formal_open_set_classes_generated": [],
+  "case_counts_per_arm": {
+    "development_per_archetype_per_class": 160,
+    "calibration_per_archetype_per_class": 80
+  },
+  "paired_controls": {
+    "same_configuration_draw_per_case_across_thermal_arms": true,
+    "same_onset_and_fault_severity_per_case_across_thermal_arms": true,
+    "same_state_noise_standard_deviation_and_noise_seed_per_case_across_thermal_arms": true,
+    "same_parameter_ranges_and_step_choices": true,
+    "same_feature_and_model_rules": true,
+    "storage_control_generated_once_without_intervention": true
+  },
+  "thermal_time_scale_audit": {
+    "capacity_j_per_k_range": [500.0, 1800.0],
+    "conductance_w_per_k_range": [1.5, 7.0],
+    "time_constant_seconds_range": [71.42857142857143, 1200.0],
+    "original_sample_count": 180,
+    "original_step_seconds_choices": [0.5, 0.75, 1.0, 1.25, 1.5, 1.75],
+    "original_horizon_seconds_range": [89.5, 313.25]
+  },
+  "thermal_arms": [
+    {
+      "arm_id": "PASSIVE_SHORT",
+      "horizon_rule": "Keep the original 180 samples at the frozen step size.",
+      "input_rule": "Keep the original offset plus sine and cosine heat profile."
+    },
+    {
+      "arm_id": "PASSIVE_LONG",
+      "observation_horizon_seconds": 3600.0,
+      "sample_count_rule": "floor(3600 / step_s) + 1",
+      "input_rule": "Continue the identical offset plus sine and cosine heat profile for the longer horizon."
+    },
+    {
+      "arm_id": "ACTIVE_MULTISCALE_LONG",
+      "observation_horizon_seconds": 3600.0,
+      "sample_count_rule": "floor(3600 / step_s) + 1",
+      "input_rule": "heat_offset + passive_zero_mean_rms * (square_90s + phase_shifted_square_360s) / sqrt(2)",
+      "square_definition": "square_ds(t)=+1 when sin(pi*t/ds + phase)>=0 else -1",
+      "dwell_seconds": [90.0, 360.0],
+      "slow_component_phase_radians": 0.7853981633974483,
+      "rms_matching_rule": "passive_zero_mean_rms=sqrt((heat_sine_w^2+heat_cosine_w^2)/2)",
+      "deployment_constraint": "Use only the existing commanded heat.exchange channel; no new observation or truth-bearing input."
+    }
+  ],
+  "primary_switching_physics_method": {
+    "frozen_implementation_reference": "scripts/acceptance/research_generic_diagnosis_stage_a_v3.py",
+    "implementation_sha256": "2948b015bc299251865079fd3fbc0aa4067733ebec06cbdb46922923d438f959",
+    "change_point_grid": [0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8],
+    "selection_score": "BIC",
+    "adequacy_score_for_calibration_and_runtime": "LOG_RESIDUAL_MEAN_SQUARE_FOR_THE_SAME_HYPOTHESIS",
+    "conformal_alpha": 0.02,
+    "ood_rule": "Prediction set is empty.",
+    "production_role": false
+  },
+  "nonlinear_separability_ceiling": {
+    "frozen_implementation_reference": "scripts/acceptance/research_generic_diagnosis_stage_a_v2.py",
+    "implementation_sha256": "2af2a28f0569fc30ab92c8167a116976a5e4a3898467c5f0a40b1ee9ae73fb1c",
+    "features": "22 frozen segmented physical features plus one archetype indicator",
+    "family": "EXTRA_TREES_CLASSIFIER",
+    "n_estimators": 512,
+    "criterion": "log_loss",
+    "max_features": "sqrt",
+    "max_depth": null,
+    "min_samples_leaf": 2,
+    "bootstrap": false,
+    "class_weight": null,
+    "random_state": 20320818,
+    "n_jobs": 1,
+    "production_role": false,
+    "open_set_claim": false
+  },
+  "simulation_verification": {
+    "thermal_equation": "C*dT/dt = heat - K*(T-ambient) + disturbance",
+    "implementation_update": "Crank-Nicolson midpoint balance",
+    "deterministic_convergence_steps_seconds": [2.0, 1.0, 0.5],
+    "deterministic_convergence_horizon_seconds": 600.0,
+    "reference_parameters": {"thermal_capacity_j_per_k": 1000.0, "thermal_conductance_w_per_k": 4.0, "initial_temperature_k": 295.0, "ambient_temperature_k": 293.0, "constant_heat_w": 20.0},
+    "gci_safety_factor": 1.25
+  },
+  "audit_strategy": ["S_numerical_heavy", "S_scenario_validation", "S_uq_sensitivity", "S_explainability_chain"],
+  "root_cause_decision_rules": [
+    "If numerical convergence fails, classify simulation numerical implementation as a blocking cause.",
+    "If development and calibration are both weak under an arm, classify representation or intrinsic identifiability rather than generalization gap.",
+    "If development is strong but calibration degrades by more than 0.10, classify cross-configuration generalization as material.",
+    "If PASSIVE_LONG materially improves over PASSIVE_SHORT under identical model rules, classify observation horizon as causal.",
+    "If ACTIVE_MULTISCALE_LONG materially improves over PASSIVE_LONG under identical horizon and RMS scale, classify excitation/observability as causal.",
+    "If the nonlinear ceiling passes but switching physics fails on the same active data, classify the governed diagnosis method as insufficient.",
+    "If both methods fail after design conditioning improves, classify feature/label-mechanism overlap or simulator structural validity as unresolved and block Stage B."
+  ],
+  "root_cause_decision_thresholds": {
+    "material_accuracy_improvement_absolute": 0.10,
+    "material_generalization_gap_absolute": 0.10,
+    "numerical_observed_order_minimum": 1.0,
+    "numerical_fine_grid_relative_error_maximum": 0.0001,
+    "rms_match_relative_tolerance": 0.05
+  },
+  "exit_checks": {
+    "known_classification_accuracy": 0.9,
+    "normal_detection_accuracy": 0.98,
+    "each_archetype_known_classification_accuracy": 0.9,
+    "known_retention": 0.98,
+    "open_set_rule_reachable_for_each_archetype": true,
+    "failed_case_count": 0,
+    "maximum_runtime_seconds": 600
+  },
+  "stage_b_authorized": false,
+  "prohibited_actions": [
+    "Generate BIAS, INTERMITTENT or STUCK",
+    "Create or reserve a technical-validation seed",
+    "Read, regenerate or reuse 20280820, 20290820 or 20300820",
+    "Fit or bind a production candidate",
+    "Modify G1.1 artifacts, classes, thresholds or denominators",
+    "Lower noise, increase fault severity or remove difficult configurations",
+    "Delete failed cases or change a model rule after observing an arm result",
+    "Call this research Stage B or a production candidate"
+  ],
+  "claim_boundary": "Development/calibration observability and simulation-credibility evidence only; no formal open-set performance, production fit, technical validation, Stage B or G3 claim."
+}

@@ -1,0 +1,53 @@
+{
+  "object_type": "thermal_heater",
+  "subsystem": "THERMAL",
+  "dataset_profiles": [
+    "WHOLE_SPACECRAFT_21_SCENE_E0"
+  ],
+  "object_parameters": {
+    "episode_selector": "event-window-from-run-manifest",
+    "claim_boundary": "E0 engineering synthetic scenario only"
+  },
+  "telemetry_bindings": [
+    {
+      "binding_id": "heater_on",
+      "source_field": "status.thermal.heater_on",
+      "unit": "1",
+      "semantic_role": "actual_state",
+      "required": true,
+      "description": "Observed heater state."
+    },
+    {
+      "binding_id": "heater_command_on",
+      "source_field": "status.thermal.heater_command_on",
+      "unit": "1",
+      "semantic_role": "command_state",
+      "required": true,
+      "description": "Commanded heater state."
+    },
+    {
+      "binding_id": "heater_current",
+      "source_field": "sensor.thermal.heater_current_a",
+      "unit": "A",
+      "semantic_role": "direct_effect",
+      "required": true,
+      "description": "Heater current telemetry."
+    },
+    {
+      "binding_id": "payload_temperature",
+      "source_field": "sensor.thermal.payload_temp_c",
+      "unit": "degC",
+      "semantic_role": "thermal_response",
+      "required": true,
+      "description": "Payload temperature telemetry."
+    },
+    {
+      "binding_id": "battery_current",
+      "source_field": "sensor.eps.battery_current_a",
+      "unit": "A",
+      "semantic_role": "power_response",
+      "required": true,
+      "description": "Battery current telemetry."
+    }
+  ]
+}

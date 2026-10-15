@@ -1,0 +1,34 @@
+{
+  "authority": {
+    "formal_evidence_eligible": false,
+    "formal_release_eligible": false,
+    "new_agent_probes_shadow_only": true
+  },
+  "baseline_r22_source_zip_sha256": "cccedaf1448adebbe60134cfe03c286297ce055f31758a1b99b6903e439b066c",
+  "data_exposure": {
+    "adcs_phm_embedded_evaluation_reused_for_selection": false,
+    "new_holdout_external_validation_performed": false,
+    "r20_r21_seen_external_reused_for_selection": false
+  },
+  "first_distribution_gate": {
+    "documentation_freshness": "PASS",
+    "historical_external_dependencies": 8,
+    "source_only_delivery": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+    "strict_require_bundled": "FAIL_AS_DESIGNED",
+    "verify_source": "2719 files verified / 0 errors"
+  },
+  "implementation_receipt_sha256": "6d3b807f5d6d175dd89864a676d98ca579512ddd4bc701cee31374e84d9a092d",
+  "performance_claim": "NO_NEW_REAL_EXTERNAL_PERFORMANCE_CLAIM",
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "4b25f9ad3648fa0099b8d3493b65465ce9d88b9796e9fa49ef91b7f4e42a9bf3",
+  "schema_version": "astrograph-r23-prepackage-gate.v1",
+  "status": "PASS_WITH_CLAIM_BOUNDARIES",
+  "tests": {
+    "chromium_behavior": "3 passed",
+    "distribution_inventory_delivery_group": "15 passed",
+    "full_collect_only": "3529 tests / 0 collection errors",
+    "production_es_modules_node_check": "10 PASS",
+    "r20_r22_source_only_family": "98 passed / 1 skipped",
+    "r23_expanded_affected_domain": "66 passed / 3 skipped"
+  }
+}

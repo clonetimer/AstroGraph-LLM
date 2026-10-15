@@ -1,0 +1,138 @@
+{
+  "schema_version": "astrograph-r21-remediation-preregistration.v1",
+  "frozen_before_execution": true,
+  "registry_sha256": "4274e79e8b2b8a4c30a3d5429da1c8c454acf09622fb24d191a23eff93f4c60b",
+  "stop_rule": "evaluate only the declared finite candidates once; no expanded grid; no seen-evaluation inference or selection; no new external_validation_receipt",
+  "OPS": {
+    "mechanism_hypothesis": "global 24-observation requirement blocks some mathematically available operators",
+    "allowed_development": [
+      {
+        "dataset_id": "OPS_SAT",
+        "partition": "MODEL_TRAIN"
+      },
+      {
+        "dataset_id": "OPS_SAT",
+        "partition": "CALIBRATION_FIT"
+      },
+      {
+        "dataset_id": "OPS_SAT",
+        "partition": "DEVELOPMENT_SELECTION"
+      }
+    ],
+    "forbidden_receipt_hashes": [
+      "6f00d3c0f684cc3a81661ea6d6857d21610aa93fb3864681a33400a45314d597",
+      "d642ed8fd26d5d7333b7c90968c5c94d3591ab41d87d5cf95a3236b7c7e81b74",
+      "43c906daaf3b43d156a581885b241c4074a29066c5c95de7dadfa1546d64e78e",
+      "9747c4dbb2824540ab476e91ff9eab32fee62e111b0c60da71dae5c029397759"
+    ],
+    "candidate_family": [
+      "CURRENT_GLOBAL_MIN_LENGTH",
+      "OPERATOR_SPECIFIC_MIN_SAMPLE_COUNT",
+      "LENGTH_AWARE_FALLBACK_FEATURE_SET"
+    ],
+    "operator_minimum_samples": {
+      "mean": 1,
+      "std": 2,
+      "span": 1,
+      "trend": 2
+    },
+    "fit_partition": "MODEL_TRAIN",
+    "selection_partition": "DEVELOPMENT_SELECTION",
+    "thresholds": {
+      "CURRENT_GLOBAL_MIN_LENGTH": [
+        35,
+        70,
+        100
+      ],
+      "OPERATOR_SPECIFIC_MIN_SAMPLE_COUNT": [
+        3,
+        6,
+        12
+      ],
+      "LENGTH_AWARE_FALLBACK_FEATURE_SET": [
+        3,
+        6,
+        12
+      ]
+    },
+    "fallback_long_threshold": 100,
+    "selection_metric": "coverage * covered F0.5",
+    "tie_break": [
+      "fewer_false_positives",
+      "candidate_order",
+      "threshold_order"
+    ],
+    "maximum_trials": 9
+  },
+  "ESA": {
+    "mechanism_hypothesis": "aggregation may suppress deviation or engineering threshold may exceed observed response",
+    "allowed_development": [
+      {
+        "dataset_id": "ESA_MISSION1",
+        "partition": "MODEL_TRAIN"
+      },
+      {
+        "dataset_id": "ESA_MISSION1",
+        "partition": "CALIBRATION_FIT"
+      },
+      {
+        "dataset_id": "ESA_MISSION1",
+        "partition": "DEVELOPMENT_SELECTION"
+      }
+    ],
+    "forbidden_receipt_hashes": [
+      "6f00d3c0f684cc3a81661ea6d6857d21610aa93fb3864681a33400a45314d597",
+      "d642ed8fd26d5d7333b7c90968c5c94d3591ab41d87d5cf95a3236b7c7e81b74",
+      "43c906daaf3b43d156a581885b241c4074a29066c5c95de7dadfa1546d64e78e",
+      "9747c4dbb2824540ab476e91ff9eab32fee62e111b0c60da71dae5c029397759"
+    ],
+    "candidate_family": [
+      "MEDIAN_5MIN_THRESHOLD_6",
+      "MEDIAN_5MIN_THRESHOLD_3",
+      "MEDIAN_15MIN_THRESHOLD_6",
+      "MEDIAN_15MIN_THRESHOLD_3"
+    ],
+    "aggregation_input": "existing 5min median cache filtered before scoring; 15min is median of three 5min medians, not raw 15min median",
+    "fit_partition": "MODEL_TRAIN",
+    "selection_partition": "DEVELOPMENT_SELECTION",
+    "selection_metric": "corrected_eventwise_F0.5",
+    "tie_break": [
+      "fewer_nominal_false_alarm_seconds",
+      "candidate_order"
+    ],
+    "maximum_trials": 4
+  },
+  "DXC": {
+    "mechanism_hypothesis": "20-39 simultaneous hypothesized faults cause over-isolation against true set sizes 0-3",
+    "allowed_development": [
+      {
+        "dataset_id": "DXC09_SAMPLE",
+        "partition": "DEVELOPMENT"
+      },
+      {
+        "dataset_id": "DXC10_DPI",
+        "partition": "DEVELOPMENT"
+      },
+      {
+        "dataset_id": "DXC10_DPII",
+        "partition": "DEVELOPMENT"
+      }
+    ],
+    "forbidden_receipt_hashes": [
+      "6f00d3c0f684cc3a81661ea6d6857d21610aa93fb3864681a33400a45314d597",
+      "d642ed8fd26d5d7333b7c90968c5c94d3591ab41d87d5cf95a3236b7c7e81b74",
+      "43c906daaf3b43d156a581885b241c4074a29066c5c95de7dadfa1546d64e78e",
+      "9747c4dbb2824540ab476e91ff9eab32fee62e111b0c60da71dae5c029397759"
+    ],
+    "candidate_family": [
+      "XML_VALID_MODE_FILTER",
+      "COMMAND_STATE_CONTEXT_FILTER"
+    ],
+    "selection_metric": "sample fault-element precision/recall without publication claim",
+    "tie_break": [
+      "simpler_filter"
+    ],
+    "execution_status": "PREREGISTERED_NOT_EXECUTED; OPS/ESA are bounded implemented remediation studies"
+  },
+  "receipt_sha256": "4d2738b2df92152f6e6cd74731297b9a0c1b7308dc5e018d14d167c9a89e834d"
+}

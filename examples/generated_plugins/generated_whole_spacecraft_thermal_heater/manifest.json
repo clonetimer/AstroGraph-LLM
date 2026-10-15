@@ -1,0 +1,31 @@
+{
+  "schema_version": "astrograph-object-plugin-manifest.v1",
+  "plugin_api_version": "1.0",
+  "plugin_id": "generated.whole_spacecraft.thermal_heater",
+  "plugin_version": "0.5.13",
+  "object_type": "thermal_heater",
+  "subsystem": "THERMAL",
+  "supported_dataset_profiles": [
+    "WHOLE_SPACECRAFT_21_SCENE_E0"
+  ],
+  "required_operator_ids": [
+    "JOINT_THRESHOLD_FRACTION",
+    "MAX_ABS_PAIRED_RESIDUAL",
+    "MEAN_VALUE"
+  ],
+  "evidence_catalog_schema_version": "astrograph-evidence-definition.v1",
+  "deterministic_runtime": true,
+  "review_status": "DEVELOPMENT",
+  "source_refs": [
+    "local_acceptance_data/01_整星21场景仿真源产物/heater_stuck_on",
+    "local_acceptance_data/01_整星21场景仿真源产物/nominal",
+    "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+  ],
+  "claim_boundary": "Generated E0 thermal-heater plugin specification; not flight-qualified.",
+  "metadata": {
+    "generated_by": "astrograph-object-plugin-factory-v0.5.13",
+    "online_registration_allowed": false,
+    "custom_code_feature_count": 0,
+    "blocked_feature_count": 0
+  }
+}

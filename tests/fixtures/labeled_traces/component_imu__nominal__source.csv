@@ -1,0 +1,16 @@
+task_id,case_id,time_s,sample_index,target_level,target_name,mode,adcs.imu.gyro_x_rad_s,adcs.imu.gyro_y_rad_s,adcs.imu.gyro_z_rad_s,adcs.imu.accel_x_m_s2,adcs.imu.accel_y_m_s2,adcs.imu.accel_z_m_s2,adcs.imu.effective_gyro_bias_x_rad_s,label.fault_active,label.degradation_active,label.health_state
+component_imu_v1_12s_nominal,case_000,0.0,0,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.1,1,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.2,2,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.3,3,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.4,4,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.5,5,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.6,6,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.7,7,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.8,8,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,0.9,9,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,1.0,10,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,1.1,11,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,1.2,12,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,1.3,13,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal
+component_imu_v1_12s_nominal,case_000,1.4,14,component,imu,nominal,0.1,0.2,0.3,0.0,0.0,0.0,0.0,False,False,nominal

@@ -1,0 +1,6 @@
+{
+  "case_id": "SYNTH-NONE-005",
+  "status": "NORMAL",
+  "diagnostic_summary": "上游此时间窗未产生明确故障候选。",
+  "review_status": "NO_DIAGNOSED_FAULT"
+}

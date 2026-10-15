@@ -1,0 +1,41 @@
+{
+  "schema_version": "astrograph-spacecraft-engineering-profile.v1",
+  "profile_id": "spacecraft-engineering-r32.v1",
+  "activation": "EXPLICIT_ENGINEERING_OR_BENCH_ONLY_NOT_AUTOMATIC_PRODUCTION_PROMOTION",
+  "domain": "SPACECRAFT_DIAGNOSTICS",
+  "algorithm_bindings": {
+    "ADCS_V5_2_2": {
+      "role": "detection_localization_classification",
+      "algorithm": "frozen_residual_tcn_innovation_v2",
+      "status": "CURRENT_IN_PROJECT_BEST_ENGINEERING_BENCHMARK"
+    },
+    "PHM_V6_0": {
+      "role": "trace_summary_detection_localization_classification",
+      "algorithm": "frozen_extratrees_cascade",
+      "status": "CURRENT_IN_PROJECT_BEST_ENGINEERING_BENCHMARK"
+    },
+    "OPS_SAT": {
+      "role": "segment_anomaly_classification",
+      "algorithm": "18_feature_RF100_candidate",
+      "status": "FROZEN_ENGINEERING_CANDIDATE_REQUIRES_NEW_HOLDOUT"
+    },
+    "ESA_MISSION1": {
+      "role": "dual_timescale_anomaly_detection",
+      "algorithm": "legacy_5min_slow_plus_r26_high_resolution_fast_candidate",
+      "status": "FROZEN_ENGINEERING_CANDIDATE_REQUIRES_NEW_HOLDOUT"
+    },
+    "DXC_ADAPT": {
+      "role": "model_mechanism_simulation_diagnosis",
+      "algorithm": "r29_reduced_order_core_plus_r31_physics_corroborator_legacy_retained",
+      "status": "POST_CONTACT_ENGINEERING_CANDIDATE_REQUIRES_NEW_HOLDOUT"
+    }
+  },
+  "agent_policy": {
+    "core_prediction_requires_agent": false,
+    "agent_tools_are_optional_review": true,
+    "agent_may_change_thresholds_or_model": false,
+    "agent_formal_evidence_authority": false,
+    "agent_release_authority": false
+  },
+  "qualification": "ENGINEERING_PROFILE_NOT_EXTERNAL_VALIDATION_NOT_FLIGHT_QUALIFIED"
+}

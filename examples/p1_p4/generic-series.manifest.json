@@ -1,0 +1,12 @@
+{
+  "schema_version": "astrograph-generic-series-manifest.v1",
+  "data_path": "generic-series.csv",
+  "entity_id": "example-battery",
+  "timestamp_column": "time_s",
+  "channels": [
+    {"name": "sensor.eps.battery_voltage_v", "unit": "V"}
+  ],
+  "baseline_fraction": 0.4,
+  "z_threshold": 6.0,
+  "minimum_baseline_points": 10
+}

@@ -1,0 +1,5 @@
+﻿constraint_id,subject_pattern,forbidden_predicate,forbidden_object,rationale,source_ref
+NEG-RW-FRICTION-TRUTH,estimate.adcs.rw.friction_torque_nm_{wheel},IS_EQUIVALENT_TO,calibrated_bearing_friction_truth,"The field is a signed command-response mismatch estimate, not calibrated bearing-friction truth.",physical_semantics_contract.json
+NEG-NO-FAULT-ABSOLUTE-HEALTH,NO_REGISTERED_FAULT,IS_EQUIVALENT_TO,ABSOLUTELY_HEALTHY,No registered fault means current evidence does not support registered faults; unknown mechanisms may remain.,astrograph-hypothesis protocol
+NEG-TRUTH-AS-INPUT,truth.*,USED_AS_MODEL_INPUT,diagnostic_reasoner,Simulation truth is validation-only.,dataset_contract.json
+NEG-LABEL-AS-INPUT,label.*,USED_AS_MODEL_INPUT,diagnostic_reasoner,Labels are training/evaluation-only.,telemetry_layer_contract.json

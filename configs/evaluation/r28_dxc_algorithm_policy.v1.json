@@ -1,0 +1,41 @@
+{
+  "schema_version": "astrograph-r28-dxc-algorithm-policy.v1",
+  "patch_id": "PATCH-R28",
+  "architecture": "LEGACY_RETAINED_PLUS_R27_DETERMINISTIC_BRANCH_PLUS_R28_FORWARD_MODEL_REFINEMENT_PLUS_OPTIONAL_AGENT_SHADOW_REVIEW",
+  "legacy_branch": {
+    "algorithm": "R20_DXC_STATISTICAL_PREDICTOR",
+    "retained": true,
+    "removed": false,
+    "runtime_default_changed_by_r28": false
+  },
+  "r27_branch": {
+    "algorithm": "R27_EXPECTED_RESPONSE_CORE",
+    "retained": true,
+    "role": "UPSTREAM_DETERMINISTIC_CANDIDATE_GENERATOR_AND_BASE_RANKER"
+  },
+  "r28_branch": {
+    "algorithm": "R28_QUALITATIVE_COMPONENT_STATE_TRANSITION_FORWARD_MODEL",
+    "role": "PRIMARY_CAPABLE_DEVELOPMENT_CANDIDATE",
+    "agent_required": false,
+    "formal_evidence_eligible": false,
+    "continuous_physics_simulator": false,
+    "promotion_status": "BLOCKED_PENDING_GENUINELY_NEW_HOLDOUT",
+    "runtime_default_changed_by_r28": false,
+    "legacy_fallback_available": true
+  },
+  "agent_layer": {
+    "role": "OPTIONAL_INVESTIGATION_AND_EXPLANATION_ONLY",
+    "existing_tools": [
+      "MINIMAL_DIAGNOSIS_REVIEW",
+      "SIMULATION_COUNTERFACTUAL_REVIEW",
+      "DXC_EXPECTED_RESPONSE_REVIEW",
+      "DXC_FORWARD_SIMULATION_REVIEW"
+    ],
+    "diagnostic_authority": false,
+    "may_rerun_or_reconfigure_forward_model": false,
+    "formal_evidence_eligible": false,
+    "performance_dependency": "NONE_CORE_EXECUTES_WITHOUT_AGENT",
+    "review_semantics": "READ_ONLY_HOST_BOUND_CORE_DECISION_MIRROR"
+  },
+  "claim_boundary": "R28 is an additional deterministic refinement branch over R27, not an Agent detector and not a continuous electrical simulator. Legacy/R27 branches remain available; promotion remains blocked pending genuinely new holdout evidence."
+}

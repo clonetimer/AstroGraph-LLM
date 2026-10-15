@@ -1,0 +1,27 @@
+{
+  "schema_version": "astrograph-r21-contamination-governance.v1",
+  "status": "PASS",
+  "external_audit_path": "R21/results/R21_CONTAMINATION_AUDIT.json",
+  "external_audit_file_sha256": "84689c5ff0cc8a7d36195355e0c6db62eca8e7648ec37ad7bd29cf4d4cc903c7",
+  "development_receipt_count": 2,
+  "registry_sha256": "4274e79e8b2b8a4c30a3d5429da1c8c454acf09622fb24d191a23eff93f4c60b",
+  "preregistration_sha256": "4d2738b2df92152f6e6cd74731297b9a0c1b7308dc5e018d14d167c9a89e834d",
+  "violations": [],
+  "blocked_purposes_on_seen_evaluation": [
+    "FIT",
+    "TUNE",
+    "SELECT",
+    "CALIBRATE",
+    "OPTIMIZE"
+  ],
+  "allowed_purposes_on_seen_evaluation": [
+    "AUDIT",
+    "DECOMPOSE",
+    "REPORT"
+  ],
+  "blocking_code": "R21_SEEN_EVALUATION_REUSE_FOR_DEVELOPMENT_BLOCKED",
+  "external_predictions_generated": false,
+  "external_validation_receipt_generated": false,
+  "maximum_claim": "DEVELOPMENT_REMEDIATION_READY_FOR_NEW_REPLICATION",
+  "receipt_sha256": "305a5b0ab889c01f1001447f9210625caaf22d9f5cbdafc512b79d6f71f2800f"
+}

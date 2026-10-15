@@ -1,0 +1,86 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "example_id": {
+      "minLength": 1,
+      "title": "Example Id",
+      "type": "string"
+    },
+    "task": {
+      "enum": [
+        "ONTOLOGY_EXTRACTION",
+        "RETRIEVAL_QUERY",
+        "DIAGNOSTIC_REPORT"
+      ],
+      "title": "Task",
+      "type": "string"
+    },
+    "source_group": {
+      "minLength": 1,
+      "title": "Source Group",
+      "type": "string"
+    },
+    "source_artifact_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Artifact Sha256",
+      "type": "string"
+    },
+    "source_url": {
+      "minLength": 1,
+      "title": "Source Url",
+      "type": "string"
+    },
+    "split": {
+      "enum": [
+        "train",
+        "validation",
+        "test"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "input": {
+      "additionalProperties": true,
+      "title": "Input",
+      "type": "object"
+    },
+    "candidate_output": {
+      "additionalProperties": true,
+      "title": "Candidate Output",
+      "type": "object"
+    },
+    "candidate_author": {
+      "minLength": 1,
+      "title": "Candidate Author",
+      "type": "string"
+    },
+    "origin": {
+      "default": "SOURCE_DERIVED_DRAFT",
+      "enum": [
+        "SOURCE_DERIVED_DRAFT",
+        "SYNTHETIC"
+      ],
+      "title": "Origin",
+      "type": "string"
+    },
+    "review_status": {
+      "const": "REVIEW_REQUIRED",
+      "default": "REVIEW_REQUIRED",
+      "title": "Review Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "example_id",
+    "task",
+    "source_group",
+    "source_artifact_sha256",
+    "source_url",
+    "split",
+    "input",
+    "candidate_output",
+    "candidate_author"
+  ],
+  "title": "ReviewDraft",
+  "type": "object"
+}

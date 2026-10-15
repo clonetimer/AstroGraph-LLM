@@ -1,0 +1,34 @@
+{
+  "authority": {
+    "agent_authority_increased": false,
+    "formal_evidence_eligible": false,
+    "formal_release_eligible": false
+  },
+  "baseline_r25_source_zip_sha256": "8c948f2aff971542ccd63eb2bb912a27c42f41f06e60a010b80de48ff0645612",
+  "data_exposure": {
+    "dxc_competition_rematch_reexecuted": false,
+    "dxc_internal_replay_status": "ALREADY_EXPOSED_R25_DEVELOPMENT_AUDIT_ONLY",
+    "esa_seen_confirmatory_reexecuted": false,
+    "new_esa_holdout_external_validation_performed": false
+  },
+  "first_distribution_gate": {
+    "documentation_freshness": "PASS",
+    "historical_external_dependencies": 8,
+    "source_only_delivery": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+    "strict_require_bundled": "FAIL_AS_DESIGNED",
+    "verify_source": "2748 files verified / 0 errors after gate/ledger inclusion"
+  },
+  "performance_claim": "DXC_DEVELOPMENT_REMEDIATION_ONLY__ESA_FROZEN_FUTURE_HOLDOUT_CANDIDATE",
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "7c9e7095489c8712c03e0528f697dafb6e077c1aa3c5a223d510f6b56f8d9e0c",
+  "schema_version": "astrograph-r26-prepackage-gate.v1",
+  "status": "PASS_WITH_CLAIM_BOUNDARIES",
+  "tests": {
+    "chromium_behavior": "3 passed",
+    "distribution_inventory_delivery_group": "24 passed",
+    "full_collect_only": "3546 tests / 0 collection errors",
+    "production_es_modules_node_check": "10 PASS",
+    "r26_cross_version_affected_domain": "48 passed",
+    "r26_dedicated": "11 passed"
+  }
+}

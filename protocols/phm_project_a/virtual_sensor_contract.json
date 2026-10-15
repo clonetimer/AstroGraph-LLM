@@ -1,0 +1,139 @@
+{
+  "schema_version": "virtual_sensor_suite.v2",
+  "random_seed": 20260718,
+  "status": "provisional_uncalibrated_synthetic_measurement_model",
+  "battery_model": {
+    "type": "one_resistance_equivalent_circuit_observer",
+    "ocv_min_v": 22.0,
+    "ocv_max_v": 33.6,
+    "internal_resistance_ohm": 0.08,
+    "coupling": "observation_only_not_fed_back_to_basilisk_energy_state"
+  },
+  "wheel_motor_model": {
+    "type": "dc_motor_algebraic_observer",
+    "torque_constant_nm_per_a": 0.04,
+    "back_emf_constant_v_s_per_rad": 0.04,
+    "winding_resistance_ohm": 0.8,
+    "supply_voltage_v": 28.0,
+    "coupling": "observation_only_not_fed_back_to_basilisk_power_bus"
+  },
+  "root_cause_observers": {
+    "status": "synthetic_project_defined_not_flight_hardware",
+    "solar_electrical": "power-to-fixed-operating-voltage observer",
+    "battery_temperature": "payload-temperature plus current-heating observer",
+    "radiator_temperature": "payload-temperature offset observer",
+    "wheel_temperature": "first-order winding thermal observer",
+    "transmitter": "state/power/current/counter observer",
+    "battery_capacity": "coulomb-counting over estimated SOC span; validity flag is mandatory",
+    "battery_resistance": "OCV estimate minus terminal voltage divided by measured current",
+    "wheel_actual_and_friction_torque": "motor-current torque estimate and command residual",
+    "rf_power_margin": "transmitter output power relative to a declared engineering reference; not RF link budget",
+    "coupling": "observation_only unless explicitly sourced from a native status message"
+  },
+  "channels": {
+    "battery_voltage": {
+      "minimum": 0.0,
+      "maximum": 40.0,
+      "bias": 0.015,
+      "noise_std": 0.01,
+      "resolution": 0.001,
+      "unit": "V"
+    },
+    "battery_current": {
+      "minimum": -25.0,
+      "maximum": 25.0,
+      "bias": 0.005,
+      "noise_std": 0.008,
+      "resolution": 0.001,
+      "unit": "A"
+    },
+    "temperature": {
+      "minimum": -80.0,
+      "maximum": 120.0,
+      "bias": 0.05,
+      "noise_std": 0.03,
+      "resolution": 0.01,
+      "unit": "degC"
+    },
+    "gyro": {
+      "minimum": -1.0,
+      "maximum": 1.0,
+      "bias": 0.0,
+      "noise_std": 2e-06,
+      "resolution": 1e-07,
+      "unit": "rad/s"
+    },
+    "wheel_speed": {
+      "minimum": -7000.0,
+      "maximum": 7000.0,
+      "bias": 0.02,
+      "noise_std": 0.01,
+      "resolution": 0.01,
+      "unit": "rad/s"
+    },
+    "motor_current": {
+      "minimum": -10.0,
+      "maximum": 10.0,
+      "bias": 0.002,
+      "noise_std": 0.004,
+      "resolution": 0.001,
+      "unit": "A"
+    },
+    "solar_voltage": {
+      "minimum": 0.0,
+      "maximum": 60.0,
+      "bias": 0.02,
+      "noise_std": 0.015,
+      "resolution": 0.001,
+      "unit": "V"
+    },
+    "solar_current": {
+      "minimum": 0.0,
+      "maximum": 20.0,
+      "bias": 0.004,
+      "noise_std": 0.006,
+      "resolution": 0.001,
+      "unit": "A"
+    },
+    "battery_temperature": {
+      "minimum": -80.0,
+      "maximum": 120.0,
+      "bias": 0.04,
+      "noise_std": 0.03,
+      "resolution": 0.01,
+      "unit": "degC"
+    },
+    "radiator_temperature": {
+      "minimum": -100.0,
+      "maximum": 120.0,
+      "bias": 0.05,
+      "noise_std": 0.04,
+      "resolution": 0.01,
+      "unit": "degC"
+    },
+    "wheel_temperature": {
+      "minimum": -80.0,
+      "maximum": 160.0,
+      "bias": 0.05,
+      "noise_std": 0.04,
+      "resolution": 0.01,
+      "unit": "degC"
+    },
+    "pa_current": {
+      "minimum": 0.0,
+      "maximum": 5.0,
+      "bias": 0.002,
+      "noise_std": 0.003,
+      "resolution": 0.001,
+      "unit": "A"
+    },
+    "rf_power": {
+      "minimum": 0.0,
+      "maximum": 20.0,
+      "bias": 0.01,
+      "noise_std": 0.01,
+      "resolution": 0.001,
+      "unit": "W"
+    }
+  }
+}

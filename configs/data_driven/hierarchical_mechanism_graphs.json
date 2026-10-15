@@ -1,0 +1,84 @@
+{
+  "schema_version": "astrograph-data-driven-hierarchical-mechanism-graphs.v1",
+  "graphs": {
+    "adcs_v5_2_2": {
+      "components": ["control_loop", "imu", "reaction_wheel", "star_tracker", "sun_sensor"],
+      "subsystems": ["adcs"],
+      "spacecraft": "whole_spacecraft",
+      "component_to_subsystem": {
+        "control_loop": "adcs",
+        "imu": "adcs",
+        "reaction_wheel": "adcs",
+        "star_tracker": "adcs",
+        "sun_sensor": "adcs"
+      },
+      "component_channel_patterns": {
+        "control_loop": ["^adcs\\.(?!sensor\\.|rw\\.|star_tracker\\.|sun_sensor\\.).+"],
+        "imu": ["^adcs\\.sensor\\..+"],
+        "reaction_wheel": ["^adcs\\.rw\\..+"],
+        "star_tracker": ["^adcs\\.star_tracker\\..+"],
+        "sun_sensor": ["^adcs\\.sun_sensor\\..+"]
+      },
+      "subsystem_channel_patterns": {"adcs": ["^adcs\\..+"]},
+      "subsystem_edges": [],
+      "claim_boundary": "Synthetic ADCS hierarchy: five evaluator components roll up to ADCS, then to the whole spacecraft. It is an architecture prior, not flight topology or learned causality."
+    },
+    "phm_v6_0": {
+      "components": [
+        "battery", "bus_load", "pdu", "solar_array", "downlink",
+        "onboard_storage", "transmitter", "payload_instrument", "fuel_tank",
+        "thruster", "heater", "thermal_node", "radiator"
+      ],
+      "subsystems": ["adcs", "eps", "payload", "comm_data", "thermal", "propulsion"],
+      "spacecraft": "whole_spacecraft",
+      "component_to_subsystem": {
+        "battery": "eps",
+        "bus_load": "eps",
+        "pdu": "eps",
+        "solar_array": "eps",
+        "downlink": "comm_data",
+        "onboard_storage": "comm_data",
+        "transmitter": "comm_data",
+        "payload_instrument": "payload",
+        "fuel_tank": "propulsion",
+        "thruster": "propulsion",
+        "heater": "thermal",
+        "thermal_node": "thermal",
+        "radiator": "thermal"
+      },
+      "component_channel_patterns": {
+        "battery": ["^eps\\.battery_.+"],
+        "bus_load": ["^eps\\.bus_load_power_w$", "^eps\\.loads\\..+"],
+        "pdu": ["^eps\\.pdu\\..+"],
+        "solar_array": ["^eps\\.solar_array_power_w$"],
+        "downlink": ["^comm\\.(?:geometric_access|native_cnr|gated_cnr|active|downlink_.+|downlinked_bits|command_permitted)$"],
+        "onboard_storage": ["^data\\..+"],
+        "transmitter": ["^comm\\.(?:commanded_enable|requested_rate_bps|attempted_rate_bps|command_execution_residual_bps|downlink_bps|downlink_rate_bps)$"],
+        "payload_instrument": ["^payload\\..+"],
+        "fuel_tank": ["^propulsion\\.(?:fuel_.+|expected_fuel_mass_dot_kg_s)$"],
+        "thruster": ["^propulsion\\.(?!fuel_|expected_fuel_).+"],
+        "heater": ["^thermal\\..*heater.+"],
+        "thermal_node": ["^thermal\\.(?:.+_temp_k|.+_safe|safe|temperature_status_valid)$"],
+        "radiator": ["^thermal\\..*radiator.+"]
+      },
+      "subsystem_channel_patterns": {
+        "adcs": ["^adcs\\..+"],
+        "eps": ["^eps\\..+"],
+        "payload": ["^payload\\..+"],
+        "comm_data": ["^(?:comm|data)\\..+"],
+        "thermal": ["^thermal\\..+"],
+        "propulsion": ["^propulsion\\..+"]
+      },
+      "subsystem_edges": [
+        {"source": "adcs", "target": "payload", "bidirectional": true, "relation": "pointing_enable_context"},
+        {"source": "adcs", "target": "comm_data", "bidirectional": true, "relation": "pointing_enable_context"},
+        {"source": "eps", "target": "payload", "bidirectional": true, "relation": "power_supply_and_load"},
+        {"source": "eps", "target": "comm_data", "bidirectional": true, "relation": "power_supply_and_load"},
+        {"source": "eps", "target": "thermal", "bidirectional": true, "relation": "heater_power_and_thermal_state"},
+        {"source": "eps", "target": "propulsion", "bidirectional": true, "relation": "power_state_context"},
+        {"source": "payload", "target": "comm_data", "bidirectional": true, "relation": "generated_data_flow"}
+      ],
+      "claim_boundary": "Synthetic PHM hierarchy: thirteen fault-bearing components roll up to six observable domains and the whole spacecraft. ADCS is context-only. Channel overlap is intentional where one telemetry family is jointly diagnostic of coupled components."
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "astrograph-kg-gold-online-v057.v1",
+  "node_count": 68,
+  "edge_count": 150,
+  "negative_constraint_count": 6,
+  "query_count": 12,
+  "fault_count": 6,
+  "dangling_edge_count": 0,
+  "passed": true,
+  "claim_boundary": "E0 synthetic engineering knowledge gold standard for six V0.5.7 single faults; not flight evidence."
+}

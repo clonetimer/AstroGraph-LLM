@@ -1,0 +1,443 @@
+{
+  "d-001-d4134e02": {
+    "scenario_id": "weak_rw_jam",
+    "difficulty": "hard",
+    "category": "weak_early",
+    "primary_effect_id": "adcs_rw_jamming",
+    "effect_ids": [
+      "adcs_rw_jamming"
+    ],
+    "fault_subsystems": [
+      "adcs"
+    ],
+    "subsystems": [
+      "adcs"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-002-5c5a014e": {
+    "scenario_id": "early_battery_loss",
+    "difficulty": "hard",
+    "category": "weak_early",
+    "primary_effect_id": "eps_battery_capacity_loss",
+    "effect_ids": [
+      "eps_battery_capacity_loss"
+    ],
+    "fault_subsystems": [
+      "eps"
+    ],
+    "subsystems": [
+      "eps"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-003-05595052": {
+    "scenario_id": "weak_solar_loss",
+    "difficulty": "hard",
+    "category": "weak_early",
+    "primary_effect_id": "solar_panel_efficiency_loss_20pct",
+    "effect_ids": [
+      "solar_panel_efficiency_loss_20pct"
+    ],
+    "fault_subsystems": [
+      "eps"
+    ],
+    "subsystems": [
+      "eps"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-004-12b91ff6": {
+    "scenario_id": "short_payload_off",
+    "difficulty": "hard",
+    "category": "weak_early",
+    "primary_effect_id": "payload_instrument_off",
+    "effect_ids": [
+      "payload_instrument_off"
+    ],
+    "fault_subsystems": [
+      "payload"
+    ],
+    "subsystems": [
+      "payload"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-005-e870e010": {
+    "scenario_id": "weak_thruster_loss",
+    "difficulty": "hard",
+    "category": "weak_early",
+    "primary_effect_id": "thruster_thrust_loss_15pct",
+    "effect_ids": [
+      "thruster_thrust_loss_15pct"
+    ],
+    "fault_subsystems": [
+      "propulsion"
+    ],
+    "subsystems": [
+      "propulsion"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-006-4d5325e9": {
+    "scenario_id": "weak_radiator_loss",
+    "difficulty": "hard",
+    "category": "weak_early",
+    "primary_effect_id": "thermal_radiator_rejection_loss",
+    "effect_ids": [
+      "thermal_radiator_rejection_loss"
+    ],
+    "fault_subsystems": [
+      "thermal"
+    ],
+    "subsystems": [
+      "thermal"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-007-07be9582": {
+    "scenario_id": "eps_capacity_solar",
+    "difficulty": "hard",
+    "category": "same_subsystem_double",
+    "primary_effect_id": "eps_battery_capacity_loss",
+    "effect_ids": [
+      "eps_battery_capacity_loss",
+      "solar_panel_efficiency_loss_20pct"
+    ],
+    "fault_subsystems": [
+      "eps"
+    ],
+    "subsystems": [
+      "eps"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-008-59e668e9": {
+    "scenario_id": "eps_capacity_solar_late",
+    "difficulty": "hard",
+    "category": "same_subsystem_double",
+    "primary_effect_id": "solar_panel_efficiency_loss_20pct",
+    "effect_ids": [
+      "eps_battery_capacity_loss",
+      "solar_panel_efficiency_loss_20pct"
+    ],
+    "fault_subsystems": [
+      "eps"
+    ],
+    "subsystems": [
+      "eps"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-009-3e91229e": {
+    "scenario_id": "thermal_heater_off_radiator",
+    "difficulty": "hard",
+    "category": "same_subsystem_double",
+    "primary_effect_id": "thermal_heater_stuck_off",
+    "effect_ids": [
+      "thermal_heater_stuck_off",
+      "thermal_radiator_rejection_loss"
+    ],
+    "fault_subsystems": [
+      "thermal"
+    ],
+    "subsystems": [
+      "thermal"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-010-d0f551ec": {
+    "scenario_id": "thermal_heater_on_radiator",
+    "difficulty": "hard",
+    "category": "same_subsystem_double",
+    "primary_effect_id": "thermal_heater_stuck_on",
+    "effect_ids": [
+      "thermal_heater_stuck_on",
+      "thermal_radiator_rejection_loss"
+    ],
+    "fault_subsystems": [
+      "thermal"
+    ],
+    "subsystems": [
+      "thermal"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-011-8b5c1d61": {
+    "scenario_id": "comm_downlink_storage",
+    "difficulty": "hard",
+    "category": "same_subsystem_double",
+    "primary_effect_id": "comm_data_downlink_link_loss",
+    "effect_ids": [
+      "comm_data_downlink_link_loss",
+      "comm_data_storage_capacity_loss"
+    ],
+    "fault_subsystems": [
+      "comm_data"
+    ],
+    "subsystems": [
+      "comm_data"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-012-3db80327": {
+    "scenario_id": "comm_storage_downlink_late",
+    "difficulty": "hard",
+    "category": "same_subsystem_double",
+    "primary_effect_id": "comm_data_storage_capacity_loss",
+    "effect_ids": [
+      "comm_data_storage_capacity_loss",
+      "comm_data_downlink_link_loss"
+    ],
+    "fault_subsystems": [
+      "comm_data"
+    ],
+    "subsystems": [
+      "comm_data"
+    ],
+    "propagation_paths": [],
+    "observed_secondary_impacts": []
+  },
+  "d-013-c7db7b24": {
+    "scenario_id": "eps_open_to_payload_comm",
+    "difficulty": "hard",
+    "category": "cross_subsystem_propagation",
+    "primary_effect_id": "eps_battery_open_circuit",
+    "effect_ids": [
+      "eps_battery_open_circuit"
+    ],
+    "fault_subsystems": [
+      "eps"
+    ],
+    "subsystems": [
+      "comm_data",
+      "eps",
+      "payload"
+    ],
+    "propagation_paths": [
+      "eps_open->power_bus->payload",
+      "eps_open->power_bus->downlink"
+    ],
+    "observed_secondary_impacts": [
+      {
+        "path_id": "eps_open->power_bus->payload",
+        "source_subsystem": "eps",
+        "target_subsystem": "payload",
+        "telemetry_field": "payload_generated_bps",
+        "interpretation": "EPS bus loss reduces payload production",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      },
+      {
+        "path_id": "eps_open->power_bus->downlink",
+        "source_subsystem": "eps",
+        "target_subsystem": "comm_data",
+        "telemetry_field": "downlink_requested_rate_bps",
+        "interpretation": "EPS bus loss reduces requested downlink activity",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      }
+    ]
+  },
+  "d-014-5cbe1fb3": {
+    "scenario_id": "heater_on_to_eps",
+    "difficulty": "hard",
+    "category": "cross_subsystem_propagation",
+    "primary_effect_id": "thermal_heater_stuck_on",
+    "effect_ids": [
+      "thermal_heater_stuck_on"
+    ],
+    "fault_subsystems": [
+      "thermal"
+    ],
+    "subsystems": [
+      "eps",
+      "thermal"
+    ],
+    "propagation_paths": [
+      "heater_on->eps_load->battery",
+      "heater_on->eps_load->net_power"
+    ],
+    "observed_secondary_impacts": [
+      {
+        "path_id": "heater_on->eps_load->battery",
+        "source_subsystem": "thermal",
+        "target_subsystem": "eps",
+        "telemetry_field": "battery_storage_j",
+        "interpretation": "Stuck-on heater increases EPS load and depletes stored energy",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      },
+      {
+        "path_id": "heater_on->eps_load->net_power",
+        "source_subsystem": "thermal",
+        "target_subsystem": "eps",
+        "telemetry_field": "net_power_w",
+        "interpretation": "Stuck-on heater makes net power more negative",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      }
+    ]
+  },
+  "d-015-22706675": {
+    "scenario_id": "heater_off_to_eps",
+    "difficulty": "hard",
+    "category": "cross_subsystem_propagation",
+    "primary_effect_id": "thermal_heater_stuck_off",
+    "effect_ids": [
+      "thermal_heater_stuck_off"
+    ],
+    "fault_subsystems": [
+      "thermal"
+    ],
+    "subsystems": [
+      "eps",
+      "thermal"
+    ],
+    "propagation_paths": [
+      "heater_off->eps_load->battery",
+      "heater_off->eps_load->net_power"
+    ],
+    "observed_secondary_impacts": [
+      {
+        "path_id": "heater_off->eps_load->battery",
+        "source_subsystem": "thermal",
+        "target_subsystem": "eps",
+        "telemetry_field": "battery_storage_j",
+        "interpretation": "Stuck-off heater removes EPS load and preserves stored energy",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      },
+      {
+        "path_id": "heater_off->eps_load->net_power",
+        "source_subsystem": "thermal",
+        "target_subsystem": "eps",
+        "telemetry_field": "net_power_w",
+        "interpretation": "Stuck-off heater makes net power less negative",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      }
+    ]
+  },
+  "d-016-0d8ca6ef": {
+    "scenario_id": "payload_off_to_eps_data",
+    "difficulty": "hard",
+    "category": "cross_subsystem_propagation",
+    "primary_effect_id": "payload_instrument_off",
+    "effect_ids": [
+      "payload_instrument_off"
+    ],
+    "fault_subsystems": [
+      "payload"
+    ],
+    "subsystems": [
+      "comm_data",
+      "eps",
+      "payload"
+    ],
+    "propagation_paths": [
+      "payload_off->eps_load->battery",
+      "payload_off->data_generation->storage"
+    ],
+    "observed_secondary_impacts": [
+      {
+        "path_id": "payload_off->eps_load->battery",
+        "source_subsystem": "payload",
+        "target_subsystem": "eps",
+        "telemetry_field": "battery_storage_j",
+        "interpretation": "Payload shutdown removes EPS load and preserves stored energy",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      },
+      {
+        "path_id": "payload_off->data_generation->storage",
+        "source_subsystem": "payload",
+        "target_subsystem": "comm_data",
+        "telemetry_field": "data_storage_bits",
+        "interpretation": "Payload shutdown reduces generated data accumulated in storage",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      }
+    ]
+  },
+  "d-017-a74b68d9": {
+    "scenario_id": "downlink_loss_to_eps_storage",
+    "difficulty": "hard",
+    "category": "cross_subsystem_propagation",
+    "primary_effect_id": "comm_data_downlink_link_loss",
+    "effect_ids": [
+      "comm_data_downlink_link_loss"
+    ],
+    "fault_subsystems": [
+      "comm_data"
+    ],
+    "subsystems": [
+      "comm_data",
+      "eps",
+      "payload"
+    ],
+    "propagation_paths": [
+      "downlink_loss->comm_load->battery",
+      "downlink_loss->comm_load->payload"
+    ],
+    "observed_secondary_impacts": [
+      {
+        "path_id": "downlink_loss->comm_load->battery",
+        "source_subsystem": "comm_data",
+        "target_subsystem": "eps",
+        "telemetry_field": "battery_storage_j",
+        "interpretation": "Loss of downlink activity removes communication load from EPS",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      },
+      {
+        "path_id": "downlink_loss->comm_load->payload",
+        "source_subsystem": "comm_data",
+        "target_subsystem": "payload",
+        "telemetry_field": "payload_generated_bps",
+        "interpretation": "Reduced communication load preserves EPS margin and payload availability",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      }
+    ]
+  },
+  "d-018-cf5f12d2": {
+    "scenario_id": "ignition_failure_to_eps",
+    "difficulty": "hard",
+    "category": "cross_subsystem_propagation",
+    "primary_effect_id": "propulsion_thruster_ignition_failure",
+    "effect_ids": [
+      "propulsion_thruster_ignition_failure"
+    ],
+    "fault_subsystems": [
+      "propulsion"
+    ],
+    "subsystems": [
+      "eps",
+      "propulsion"
+    ],
+    "propagation_paths": [
+      "ignition_failure->propulsion_activity->battery",
+      "ignition_failure->propulsion_activity->net_power"
+    ],
+    "observed_secondary_impacts": [
+      {
+        "path_id": "ignition_failure->propulsion_activity->battery",
+        "source_subsystem": "propulsion",
+        "target_subsystem": "eps",
+        "telemetry_field": "battery_storage_j",
+        "interpretation": "Failed ignition reduces active propulsion energy demand in the integrated model",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      },
+      {
+        "path_id": "ignition_failure->propulsion_activity->net_power",
+        "source_subsystem": "propulsion",
+        "target_subsystem": "eps",
+        "telemetry_field": "net_power_w",
+        "interpretation": "Failed ignition makes integrated net power less negative",
+        "claim_semantics": "OBSERVED_ASSOCIATIVE_COUPLING_NOT_CAUSAL_EFFECT_ESTIMATE"
+      }
+    ]
+  }
+}

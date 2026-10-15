@@ -1,0 +1,19 @@
+{
+  "schema_version": "astrograph-r17-score-semantics-closure.v1",
+  "patch": "R17",
+  "date": "2026-09-18",
+  "resolved": [
+    "R17-SCORE-001_ENGINEERING_NORMALIZED_MASS_MISLABELED_AS_PROBABILITY",
+    "R17-SCORE-002_BIRRF_FUSED_SCORE_SEMANTICS_NOT_TOP_LEVEL",
+    "R17-SCORE-003_PROBABILITY_SEMANTICS_RANGE_NOT_ENFORCED",
+    "R17-CAL-001_FORMAL_PROMOTION_ACCEPTED_BARE_CALIBRATION_ID",
+    "R17-CAL-003_PROMOTION_ECE_WAS_NOT_CONTENT_BOUND"
+  ],
+  "implemented_needs_external_validation": [
+    "R17-FUS-001_BIRRF_WEIGHT_SMOOTHING_SENSITIVITY",
+    "R17-CAL-002_CALIBRATION_TRANSFER_UNDER_SHIFT",
+    "R17-OOD-001_SELECTIVE_RISK_OOD_VALIDATION",
+    "R17-KG-001_KG_SOURCE_DEPENDENCE_LEAVE_SOURCE_OUT"
+  ],
+  "claim_boundary": "Semantic/governance closure and sensitivity infrastructure only. No new calibration fit, real dataset sensitivity result, OOD guarantee, HIL/flight qualification or diagnostic-performance promotion is claimed."
+}

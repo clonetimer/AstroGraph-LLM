@@ -1,0 +1,44 @@
+{
+  "schema_version": "astrograph-document-chunking-machine-benchmark.v1",
+  "benchmark_id": "document-chunking-machine-benchmark-r001",
+  "status": "FROZEN_BEFORE_EXECUTION",
+  "source_artifacts": {
+    "handbook_markdown_sha256": "a8d5dfe3c3676627cf3ea8fe64350ca1220e3b3713d68a99048b54b1015af585",
+    "canonical_facts_sha256": "b4abd3219044e44dd9913972373931d65d34ae85b8eda91dfef2592ca6bea032"
+  },
+  "case_construction": {
+    "unit": "one case per fault class",
+    "query": "first nonempty generator description only",
+    "explicit_fault_class_id_appended": false,
+    "relevance": "chunk intersects the exact generator-description source span",
+    "expected_case_count": 31,
+    "annotation_authority": "MACHINE_SOURCE_SPAN_NOT_HUMAN_GOLD"
+  },
+  "systems": {
+    "section_aware": {
+      "parser": "astrograph-section-first-markdown",
+      "maximum_section_units": 8
+    },
+    "fixed_character": {
+      "chunk_characters": 1200,
+      "overlap_characters": 0
+    }
+  },
+  "retrieval": {
+    "top_k": 5,
+    "bm25_weight": 0.7,
+    "term_coverage_weight": 0.3,
+    "dense_weight": 0.0,
+    "minimum_local_score": 0.0001,
+    "require_local_and_ontology": false
+  },
+  "metrics": [
+    "Recall@5",
+    "Precision@5",
+    "nDCG@5",
+    "MRR",
+    "citation_hash_integrity"
+  ],
+  "promotion_threshold": null,
+  "claim_boundary": "Frozen machine source-span benchmark only. It cannot establish human retrieval quality, multimodal parsing quality, diagnosis gain, or superiority on real engineering documents. Negative results must be retained."
+}

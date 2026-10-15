@@ -1,0 +1,461 @@
+{
+  "predictions": [
+    {
+      "best_diagnosis_id": "SIM-LGT_A",
+      "best_rmse": 1.1952715585428086,
+      "case_id": "R30-00-000",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.5526854970060143,
+      "case_id": "R30-00-001",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.4848162698532027,
+      "case_id": "R30-00-002",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.4517961440371762,
+      "case_id": "R30-00-003",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.4313751002963079,
+      "case_id": "R30-00-004",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B+LGT_C",
+      "best_rmse": 1.6405916438307668,
+      "case_id": "R30-00-005",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A",
+      "best_rmse": 1.3629458494938123,
+      "case_id": "R30-01-006",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 1.7724339254483357,
+      "case_id": "R30-01-007",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 1.0586888546301663,
+      "case_id": "R30-01-008",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 1.1799958428344368,
+      "case_id": "R30-01-009",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.3990554306749755,
+      "case_id": "R30-01-010",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B+LGT_C",
+      "best_rmse": 1.0407508952666547,
+      "case_id": "R30-01-011",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A",
+      "best_rmse": 1.403158778705209,
+      "case_id": "R30-02-012",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.5517263232298386,
+      "case_id": "R30-02-013",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.9470297264396783,
+      "case_id": "R30-02-014",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.41835389622405533,
+      "case_id": "R30-02-015",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.38361495972913856,
+      "case_id": "R30-02-016",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B+LGT_C",
+      "best_rmse": 0.897530725692457,
+      "case_id": "R30-02-017",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A",
+      "best_rmse": 1.6063198189500745,
+      "case_id": "R30-03-018",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.8996710584893816,
+      "case_id": "R30-03-019",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_C",
+      "best_rmse": 0.5361405107661734,
+      "case_id": "R30-03-020",
+      "predicted_fault_ids": [
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 1.1399949219986187,
+      "case_id": "R30-03-021",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.4610949840843751,
+      "case_id": "R30-03-022",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B+LGT_C",
+      "best_rmse": 0.7127340016685807,
+      "case_id": "R30-03-023",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A",
+      "best_rmse": 0.7791210538570837,
+      "case_id": "R30-04-024",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 1.5960673397725214,
+      "case_id": "R30-04-025",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 1.1786048678674397,
+      "case_id": "R30-04-026",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_C",
+      "best_rmse": 1.52416667269814,
+      "case_id": "R30-04-027",
+      "predicted_fault_ids": [
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_C",
+      "best_rmse": 0.714228154360277,
+      "case_id": "R30-04-028",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B+LGT_C",
+      "best_rmse": 1.6306582401349394,
+      "case_id": "R30-04-029",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A",
+      "best_rmse": 1.466559628109261,
+      "case_id": "R30-05-030",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.7556370055366041,
+      "case_id": "R30-05-031",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_C",
+      "best_rmse": 0.501188330077594,
+      "case_id": "R30-05-032",
+      "predicted_fault_ids": [
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.9183867145713581,
+      "case_id": "R30-05-033",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_C",
+      "best_rmse": 0.470959106690232,
+      "case_id": "R30-05-034",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B+LGT_C",
+      "best_rmse": 1.2013475552667916,
+      "case_id": "R30-05-035",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A",
+      "best_rmse": 1.226873075489529,
+      "case_id": "R30-06-036",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.5489198633474512,
+      "case_id": "R30-06-037",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.4482007688381649,
+      "case_id": "R30-06-038",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.7799136068477238,
+      "case_id": "R30-06-039",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 0.8547473043757856,
+      "case_id": "R30-06-040",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B+LGT_C",
+      "best_rmse": 1.0091534878644797,
+      "case_id": "R30-06-041",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A",
+      "best_rmse": 0.7757041094734157,
+      "case_id": "R30-07-042",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 1.2707422270884154,
+      "case_id": "R30-07-043",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B",
+      "best_rmse": 0.984251309969882,
+      "case_id": "R30-07-044",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_B",
+      "best_rmse": 1.5878101342470814,
+      "case_id": "R30-07-045",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_B:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_A+LGT_C",
+      "best_rmse": 0.46166854877597263,
+      "case_id": "R30-07-046",
+      "predicted_fault_ids": [
+        "LGT_A:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    },
+    {
+      "best_diagnosis_id": "SIM-LGT_B+LGT_C",
+      "best_rmse": 1.6768030239819867,
+      "case_id": "R30-07-047",
+      "predicted_fault_ids": [
+        "LGT_B:FailedOff",
+        "LGT_C:FailedOff"
+      ],
+      "runner_semantics": "TRUTH_FREE_FIXED_CANDIDATE_REDUCED_ORDER_SIMULATION"
+    }
+  ],
+  "schema_version": "astrograph-r30-blind-predictions.v1",
+  "seed": 3001
+}

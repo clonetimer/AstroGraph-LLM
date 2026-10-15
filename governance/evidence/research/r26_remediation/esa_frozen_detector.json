@@ -1,0 +1,72 @@
+{
+  "schema_version": "astrograph-r26-esa-frozen-detector-artifact.v1",
+  "status": "FROZEN_FROM_R25_DEVELOPMENT_BEFORE_NEW_HOLDOUT",
+  "source_r25_development_receipt_sha256": "f3267ca7de06ed1a96b364991c07cd725a7dc23bf468ee9249f6ccae2959ab55",
+  "reference": {
+    "schema_version": "astrograph-esa-high-resolution-reference.v1",
+    "channels": [
+      {
+        "channel_id": "channel_41",
+        "delta_center": 0.0,
+        "delta_scale": 0.002326159465312958,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_42",
+        "delta_center": 0.0,
+        "delta_scale": 0.0035742068052291866,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_43",
+        "delta_center": 0.0,
+        "delta_scale": 0.0023446287631988523,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_44",
+        "delta_center": 0.0,
+        "delta_scale": 0.0035005947232246396,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_45",
+        "delta_center": 0.0,
+        "delta_scale": 0.002514387238025665,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_46",
+        "delta_center": 0.0,
+        "delta_scale": 0.003756337058544159,
+        "reference_delta_count": 7499
+      }
+    ],
+    "reference_sha256": "7f3d73247e3ec2bed5c1b0461026785fa87a4a40405c47a81f890e0284b6553e",
+    "score_semantics": "ROBUST_LAG_ONE_DELTA_Z_NOT_PROBABILITY",
+    "claim_boundary": "Development-fitted robust first-difference reference. It preserves the raw sampling grid but is not a probability, event classifier, causal diagnosis, or external-validation result."
+  },
+  "config": {
+    "robust_z_threshold": 8.0,
+    "minimum_coincident_channels": 2,
+    "alarm_group_gap_s": 40.0
+  },
+  "implementation_sources": [
+    {
+      "relative_path": "src/astrograph/evaluation/esa_high_resolution.py",
+      "size": 8512,
+      "sha256": "27f32d579df5a5ec6ec1c6ffa1fa6ea6f6f9670f50f0519e7efebc8d5a191628"
+    },
+    {
+      "relative_path": "src/astrograph/evaluation/esa_r26_frozen.py",
+      "size": 9186,
+      "sha256": "d1c3cd5c68ebf77764f708c5e728989f19db59786221238448e180122c989814"
+    }
+  ],
+  "detector_identity_sha256": "9e384a7eab3acdd91ea50bf7dec467c663b905892dfd0675c8999794a4dd5c94",
+  "score_semantics": "ROBUST_LAG_ONE_DELTA_Z_NOT_PROBABILITY",
+  "formal_evidence_eligible": false,
+  "qualification": "FROZEN_DEVELOPMENT_CANDIDATE_NOT_EXTERNAL_VALIDATION_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "Configuration/reference are frozen from R25 development evidence. This artifact may be transported to a genuinely new admitted holdout but does not itself establish external validity.",
+  "receipt_sha256": "e6ae59b685649c20b74cd0de82b968ddef6e4c628e67ba3bc6af6d8a5e777612"
+}

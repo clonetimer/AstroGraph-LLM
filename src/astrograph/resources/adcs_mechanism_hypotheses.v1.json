@@ -1,0 +1,39 @@
+{
+  "schema_version": "astrograph-mechanism-hypotheses.v1",
+  "scope": "Basilisk project injection mechanisms; causal hypotheses, not identified physical causes",
+  "source_refs": ["sat/src/sat_sim/bsk_engine/project_native_modules.py:RW actuator and tachometer injection implementations"],
+  "mechanisms": {
+    "ADCS_RW_JAM": {
+      "parameter": "braking_or_rotor_constraint",
+      "propagation": ["braking_or_rotor_constraint", "angular_momentum_change", "rotor_speed_suppression", "available_control_authority_change"],
+      "observation_roles": ["commanded_torque", "delivered_torque_or_validated_estimate", "measured_rotor_speed", "rotor_speed_derivative"],
+      "conditions": ["nonzero excitation or initial rotor momentum", "speed sensor independently credible", "compare transient braking with steady lock"],
+      "ambiguous_with": ["ADCS_RW_MOTOR_FAILURE", "ADCS_RW_TORQUE_AUTHORITY_LOSS"],
+      "discriminating_check": "Under a known nonzero command, check whether the rotor coasts or is actively braked; low speed alone does not distinguish causes."
+    },
+    "ADCS_RW_MOTOR_FAILURE": {
+      "parameter": "drive_loss",
+      "propagation": ["drive_loss", "delivered_torque_loss", "rotor_response_change", "available_control_authority_change"],
+      "observation_roles": ["commanded_torque", "delivered_torque_or_validated_estimate", "motor_current_if_available", "rotor_speed_derivative"],
+      "conditions": ["adequate excitation", "known friction and saturation limits", "independent motor-current evidence for electrical attribution"],
+      "ambiguous_with": ["ADCS_RW_JAM", "ADCS_RW_TORQUE_AUTHORITY_LOSS"],
+      "discriminating_check": "Zero torque gain alone cannot distinguish drive failure from total authority loss; require electrical evidence or retain the mechanism set."
+    },
+    "ADCS_RW_TORQUE_AUTHORITY_LOSS": {
+      "parameter": "command_to_torque_gain",
+      "propagation": ["command_to_torque_gain_reduction", "delivered_torque_reduction", "rotor_acceleration_change", "attitude_control_response_change"],
+      "observation_roles": ["commanded_torque", "delivered_torque_or_validated_estimate", "rotor_speed_derivative", "attitude_rate_residual"],
+      "conditions": ["adequate excitation", "account for commanded saturation and wheel inertia", "partial gain loss is distinguishable from zero-gain limit only with sufficient signal-to-noise"],
+      "ambiguous_with": ["ADCS_RW_MOTOR_FAILURE", "ADCS_RW_JAM"],
+      "discriminating_check": "Estimate torque transfer gain and fit residual in an excited unsaturated interval; corroborate acceleration using inertia and friction."
+    },
+    "ADCS_RW_SPEED_SENSOR_BIAS": {
+      "parameter": "tachometer_measurement_offset",
+      "propagation": ["tachometer_measurement_offset", "measured_speed_disagreement", "feedback_estimate_change", "possible_closed_loop_response_change"],
+      "observation_roles": ["measured_rotor_speed", "independent_rotor_speed_or_momentum_estimate", "commanded_torque", "delivered_torque_or_validated_estimate"],
+      "conditions": ["independent reference is credible", "measurement offset does not directly change physical rotor speed in the injection model", "closed-loop response depends on sensor use"],
+      "ambiguous_with": ["ADCS_RW_JAM", "ADCS_RW_TORQUE_AUTHORITY_LOSS"],
+      "discriminating_check": "Compare tachometer output with independent momentum/speed estimation and torque response; paired healthy speed is a simulation assumption, not a flight sensor."
+    }
+  }
+}

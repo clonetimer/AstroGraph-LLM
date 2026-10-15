@@ -1,0 +1,699 @@
+{
+  "catalog_id": "astrograph-lab-fault-catalog-v1",
+  "catalog_version": "0.1.0",
+  "fault_modes": [
+    {
+      "fault_id": "EPS_BATTERY_CAPACITY_LOSS",
+      "display_name": "Battery capacity loss",
+      "subsystem": "EPS",
+      "description": "Usable battery capacity decreases and state-of-charge resilience degrades.",
+      "telemetry_channels": [
+        {
+          "channel": "estimate.eps.battery_capacity_wh",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "estimate.eps.battery_soh",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "estimate.eps.battery_soc",
+          "role": "SUPPORTING",
+          "expected_effect": "decrease under load",
+          "required": false
+        },
+        {
+          "channel": "sensor.eps.battery_voltage_v",
+          "role": "SUPPORTING",
+          "expected_effect": "load-dependent sag",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "EPS_BATTERY_CAPACITY_LOSS",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE",
+      "display_name": "Battery internal resistance increase",
+      "subsystem": "EPS",
+      "description": "Battery internal resistance rises and produces larger voltage drop and losses.",
+      "telemetry_channels": [
+        {
+          "channel": "estimate.eps.battery_internal_resistance_ohm",
+          "role": "PRIMARY",
+          "expected_effect": "increase",
+          "required": true
+        },
+        {
+          "channel": "sensor.eps.battery_voltage_v",
+          "role": "SUPPORTING",
+          "expected_effect": "larger sag",
+          "required": false
+        },
+        {
+          "channel": "sensor.eps.battery_current_a",
+          "role": "CONTEXT",
+          "expected_effect": "load context",
+          "required": false
+        },
+        {
+          "channel": "sensor.eps.battery_temp_c",
+          "role": "SUPPORTING",
+          "expected_effect": "thermal response",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "EPS_SOLAR_ARRAY_STRING_FAILURE",
+      "display_name": "Solar array string failure",
+      "subsystem": "EPS",
+      "description": "One or more solar-array strings become unavailable.",
+      "telemetry_channels": [
+        {
+          "channel": "status.eps.solar_array_available_strings",
+          "role": "PRIMARY",
+          "expected_effect": "step decrease",
+          "required": true
+        },
+        {
+          "channel": "sensor.eps.solar_array_current_a",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "estimate.eps.solar_array_power_w",
+          "role": "SUPPORTING",
+          "expected_effect": "decrease",
+          "required": false
+        },
+        {
+          "channel": "sensor.eps.solar_array_voltage_v",
+          "role": "CONTEXT",
+          "expected_effect": "operating point",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "EPS_SOLAR_ARRAY_STRING_FAILURE",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "EPS_SOLAR_ARRAY_EFFICIENCY_LOSS",
+      "display_name": "Solar array efficiency loss",
+      "subsystem": "EPS",
+      "description": "Solar-array conversion efficiency degrades without a discrete string outage.",
+      "telemetry_channels": [
+        {
+          "channel": "estimate.eps.solar_array_power_w",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "sensor.eps.solar_array_current_a",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "sensor.eps.solar_array_voltage_v",
+          "role": "SUPPORTING",
+          "expected_effect": "operating point shift",
+          "required": false
+        },
+        {
+          "channel": "eps.net_power_w",
+          "role": "SUPPORTING",
+          "expected_effect": "decrease",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "EPS_SOLAR_ARRAY_EFFICIENCY_LOSS",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "ADCS_GYRO_BIAS_DRIFT",
+      "display_name": "Gyroscope bias drift",
+      "subsystem": "ADCS",
+      "description": "Gyroscope bias changes gradually and perturbs rate estimation and pointing.",
+      "telemetry_channels": [
+        {
+          "channel": "sensor.adcs.gyro_rate_rad_s_x",
+          "role": "PRIMARY",
+          "expected_effect": "drift",
+          "required": true
+        },
+        {
+          "channel": "sensor.adcs.gyro_rate_rad_s_y",
+          "role": "PRIMARY",
+          "expected_effect": "drift",
+          "required": true
+        },
+        {
+          "channel": "sensor.adcs.gyro_rate_rad_s_z",
+          "role": "PRIMARY",
+          "expected_effect": "drift",
+          "required": true
+        },
+        {
+          "channel": "estimate.adcs.pointing_error_deg",
+          "role": "SUPPORTING",
+          "expected_effect": "increase",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "ADCS_GYRO_BIAS_DRIFT",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "display_name": "Star tracker dropout",
+      "subsystem": "ADCS",
+      "description": "Star-tracker measurements become invalid or stale and sensor fusion degrades.",
+      "telemetry_channels": [
+        {
+          "channel": "status.adcs.star_tracker_valid",
+          "role": "PRIMARY",
+          "expected_effect": "false",
+          "required": true
+        },
+        {
+          "channel": "status.adcs.star_tracker_locked",
+          "role": "PRIMARY",
+          "expected_effect": "false",
+          "required": true
+        },
+        {
+          "channel": "sensor.adcs.star_tracker_data_age_s",
+          "role": "PRIMARY",
+          "expected_effect": "increase",
+          "required": true
+        },
+        {
+          "channel": "status.adcs.sensor_fusion_mode_code",
+          "role": "SUPPORTING",
+          "expected_effect": "fallback mode",
+          "required": false
+        },
+        {
+          "channel": "estimate.adcs.pointing_error_deg",
+          "role": "SUPPORTING",
+          "expected_effect": "increase",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "display_name": "Reaction-wheel friction increase",
+      "subsystem": "ADCS",
+      "description": "Reaction-wheel friction torque and motor-current demand increase.",
+      "telemetry_channels": [
+        {
+          "channel": "estimate.adcs.rw.friction_torque_nm_0",
+          "role": "PRIMARY",
+          "expected_effect": "increase",
+          "required": true
+        },
+        {
+          "channel": "sensor.adcs.rw.motor_current_a_0",
+          "role": "PRIMARY",
+          "expected_effect": "increase",
+          "required": true
+        },
+        {
+          "channel": "sensor.adcs.rw.speed_rad_s_0",
+          "role": "SUPPORTING",
+          "expected_effect": "tracking deviation",
+          "required": false
+        },
+        {
+          "channel": "estimate.adcs.pointing_error_deg",
+          "role": "SUPPORTING",
+          "expected_effect": "increase",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "ADCS_RW_FRICTION_INCREASE",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "ADCS_RW_JAM",
+      "display_name": "Reaction-wheel jam",
+      "subsystem": "ADCS",
+      "description": "A reaction wheel loses rotational freedom and cannot follow torque commands.",
+      "telemetry_channels": [
+        {
+          "channel": "sensor.adcs.rw.speed_rad_s_0",
+          "role": "PRIMARY",
+          "expected_effect": "stuck or collapse",
+          "required": true
+        },
+        {
+          "channel": "sensor.adcs.rw.motor_current_a_0",
+          "role": "PRIMARY",
+          "expected_effect": "increase or saturate",
+          "required": true
+        },
+        {
+          "channel": "status.adcs.rw.available_0",
+          "role": "SAFETY",
+          "expected_effect": "false",
+          "required": true
+        },
+        {
+          "channel": "status.adcs.rw.driver_code_0",
+          "role": "SUPPORTING",
+          "expected_effect": "fault code",
+          "required": false
+        },
+        {
+          "channel": "estimate.adcs.pointing_error_deg",
+          "role": "SUPPORTING",
+          "expected_effect": "increase",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "ADCS_RW_JAM",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "display_name": "Reaction-wheel torque authority loss",
+      "subsystem": "ADCS",
+      "description": "Available reaction-wheel torque falls below commanded torque demand.",
+      "telemetry_channels": [
+        {
+          "channel": "adcs.rw.command_torque_nm_0",
+          "role": "CONTEXT",
+          "expected_effect": "command demand",
+          "required": false
+        },
+        {
+          "channel": "estimate.adcs.rw.actual_torque_nm_0",
+          "role": "PRIMARY",
+          "expected_effect": "below command",
+          "required": true
+        },
+        {
+          "channel": "adcs.rw.effective_max_torque_nm_0",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "estimate.adcs.pointing_error_deg",
+          "role": "SUPPORTING",
+          "expected_effect": "increase",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "THERMAL_HEATER_STUCK_ON",
+      "display_name": "Heater stuck on",
+      "subsystem": "THERMAL",
+      "description": "A heater remains energized despite control demand.",
+      "telemetry_channels": [
+        {
+          "channel": "status.thermal.heater_command_on",
+          "role": "CONTEXT",
+          "expected_effect": "command state",
+          "required": false
+        },
+        {
+          "channel": "status.thermal.heater_on",
+          "role": "PRIMARY",
+          "expected_effect": "remains true",
+          "required": true
+        },
+        {
+          "channel": "sensor.thermal.heater_current_a",
+          "role": "PRIMARY",
+          "expected_effect": "remains elevated",
+          "required": true
+        },
+        {
+          "channel": "sensor.thermal.payload_temp_c",
+          "role": "SUPPORTING",
+          "expected_effect": "increase",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "THERMAL_HEATER_STUCK_ON",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "THERMAL_RADIATOR_REJECTION_LOSS",
+      "display_name": "Radiator rejection loss",
+      "subsystem": "THERMAL",
+      "description": "Radiator heat-rejection performance degrades and temperatures rise.",
+      "telemetry_channels": [
+        {
+          "channel": "sensor.thermal.radiator_temp_c",
+          "role": "PRIMARY",
+          "expected_effect": "increase",
+          "required": true
+        },
+        {
+          "channel": "sensor.thermal.payload_temp_c",
+          "role": "PRIMARY",
+          "expected_effect": "increase",
+          "required": true
+        },
+        {
+          "channel": "status.thermal.control_mode_code",
+          "role": "CONTEXT",
+          "expected_effect": "control response",
+          "required": false
+        },
+        {
+          "channel": "thermal.bus_temp_c",
+          "role": "SUPPORTING",
+          "expected_effect": "increase",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "THERMAL_RADIATOR_REJECTION_LOSS",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "THERMAL_TEMPERATURE_SENSOR_BIAS",
+      "display_name": "Temperature sensor bias",
+      "subsystem": "THERMAL",
+      "description": "Temperature measurements exhibit an approximately constant offset.",
+      "telemetry_channels": [
+        {
+          "channel": "sensor.thermal.payload_temp_c",
+          "role": "PRIMARY",
+          "expected_effect": "constant offset",
+          "required": true
+        },
+        {
+          "channel": "sensor.thermal.radiator_temp_c",
+          "role": "SUPPORTING",
+          "expected_effect": "cross-sensor comparison",
+          "required": false
+        },
+        {
+          "channel": "status.thermal.control_mode_code",
+          "role": "CONTEXT",
+          "expected_effect": "control response",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "THERMAL_TEMPERATURE_SENSOR_BIAS",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "THERMAL_TEMPERATURE_SENSOR_DRIFT",
+      "display_name": "Temperature sensor drift",
+      "subsystem": "THERMAL",
+      "description": "Temperature measurement error changes progressively with time.",
+      "telemetry_channels": [
+        {
+          "channel": "sensor.thermal.payload_temp_c",
+          "role": "PRIMARY",
+          "expected_effect": "progressive drift",
+          "required": true
+        },
+        {
+          "channel": "sensor.thermal.radiator_temp_c",
+          "role": "SUPPORTING",
+          "expected_effect": "cross-sensor comparison",
+          "required": false
+        },
+        {
+          "channel": "status.thermal.control_mode_code",
+          "role": "CONTEXT",
+          "expected_effect": "control response",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "THERMAL_TEMPERATURE_SENSOR_DRIFT",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "COMM_DOWNLINK_SERVICE_LOSS",
+      "display_name": "Downlink service loss",
+      "subsystem": "COMM",
+      "description": "End-to-end downlink service becomes unavailable or severely degraded.",
+      "telemetry_channels": [
+        {
+          "channel": "comm.downlink_bps",
+          "role": "PRIMARY",
+          "expected_effect": "collapse",
+          "required": true
+        },
+        {
+          "channel": "estimate.comm.packet_error_rate",
+          "role": "PRIMARY",
+          "expected_effect": "increase",
+          "required": true
+        },
+        {
+          "channel": "counter.comm.packet_loss_count",
+          "role": "SUPPORTING",
+          "expected_effect": "increase",
+          "required": false
+        },
+        {
+          "channel": "estimate.comm.rf_power_margin_db",
+          "role": "SUPPORTING",
+          "expected_effect": "decrease",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "COMM_DOWNLINK_SERVICE_LOSS",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "COMM_TRANSMITTER_OUTPUT_POWER_LOSS",
+      "display_name": "Transmitter output power loss",
+      "subsystem": "COMM",
+      "description": "RF transmitter output falls below expected level.",
+      "telemetry_channels": [
+        {
+          "channel": "sensor.comm.rf_output_power_w",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "sensor.comm.pa_current_a",
+          "role": "SUPPORTING",
+          "expected_effect": "abnormal response",
+          "required": false
+        },
+        {
+          "channel": "estimate.comm.rf_power_margin_db",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "comm.downlink_bps",
+          "role": "SUPPORTING",
+          "expected_effect": "decrease",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "COMM_TRANSMITTER_OUTPUT_POWER_LOSS",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    },
+    {
+      "fault_id": "DATA_STORAGE_WRITE_FAILURE",
+      "display_name": "Storage write failure",
+      "subsystem": "DATA",
+      "description": "Onboard storage rejects or loses write throughput.",
+      "telemetry_channels": [
+        {
+          "channel": "status.data.storage_write_available",
+          "role": "PRIMARY",
+          "expected_effect": "false",
+          "required": true
+        },
+        {
+          "channel": "data.accepted_write_bps",
+          "role": "PRIMARY",
+          "expected_effect": "decrease",
+          "required": true
+        },
+        {
+          "channel": "data.storage_bits",
+          "role": "SUPPORTING",
+          "expected_effect": "unexpected trajectory",
+          "required": false
+        },
+        {
+          "channel": "data.net_baud_bps",
+          "role": "CONTEXT",
+          "expected_effect": "input/output balance",
+          "required": false
+        }
+      ],
+      "candidate_model_ids": [
+        "lab-logistic-regression",
+        "lab-random-forest",
+        "lab-hist-gradient-boosting",
+        "whole-spacecraft-hgb-window-baseline",
+        "temporal-lstm-autoencoder"
+      ],
+      "neo4j_fault_node_id": "DATA_STORAGE_WRITE_FAILURE",
+      "metadata": {
+        "source": "AstroGraph E0 scenario inventory; expert review required"
+      }
+    }
+  ],
+  "metadata": {
+    "authority": "ENGINEERING_CANDIDATE",
+    "claim_boundary": "Telemetry/model contract catalog only. Neo4j remains authoritative for causal and evidence relations.",
+    "expert_review_required": true
+  }
+}

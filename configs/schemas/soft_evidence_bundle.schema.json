@@ -1,0 +1,64 @@
+{
+  "$id": "astrograph-soft-evidence-bundle.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "episode_id",
+    "source_evidence_sha256",
+    "facts",
+    "calibrated_fact_count",
+    "unavailable_fact_count",
+    "claim_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "astrograph-soft-evidence-bundle.v1"},
+    "episode_id": {"type": "string", "minLength": 1},
+    "source_evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "schema_version",
+          "soft_evidence_fact_id",
+          "evidence_fact_id",
+          "evidence_definition_id",
+          "target_fault_id",
+          "role",
+          "hard_status",
+          "quantification_mode",
+          "conditions",
+          "uncertainty_quantified",
+          "claim_boundary"
+        ],
+        "properties": {
+          "schema_version": {"const": "astrograph-soft-evidence-fact.v1"},
+          "soft_evidence_fact_id": {"type": "string", "minLength": 1},
+          "evidence_fact_id": {"type": "string", "minLength": 1},
+          "evidence_definition_id": {"type": "string", "minLength": 1},
+          "target_fault_id": {"type": "string", "minLength": 1},
+          "role": {"enum": ["REQUIRED", "SUPPORTING", "COUNTER", "EXCLUSION"]},
+          "hard_status": {"enum": ["SATISFIED", "NOT_SATISFIED", "CONTRADICTED", "MISSING_DATA", "NOT_APPLICABLE", "INVALID_DATA", "UNKNOWN"]},
+          "predicate_truth_degree": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "predicate_truth_lower": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "predicate_truth_upper": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "quantification_mode": {"enum": ["BINARY_COMPATIBILITY", "LOGISTIC_INTERVAL", "UNAVAILABLE"]},
+          "calibration_policy_id": {"type": ["string", "null"]},
+          "calibration_policy_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "conditions": {"type": "array"},
+          "uncertainty_quantified": {"type": "boolean"},
+          "claim_boundary": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "calibration_policy_id": {"type": ["string", "null"]},
+    "calibration_policy_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "calibrated_fact_count": {"type": "integer", "minimum": 0},
+    "unavailable_fact_count": {"type": "integer", "minimum": 0},
+    "bundle_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "claim_boundary": {"type": "string", "minLength": 1}
+  }
+}

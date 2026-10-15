@@ -1,0 +1,370 @@
+{
+  "schema_version": "astrograph-r25-esa-high-resolution-development-report.v1",
+  "dataset_id": "ESA_MISSION1",
+  "partitions_consumed": [
+    "MODEL_TRAIN",
+    "DEVELOPMENT_SELECTION"
+  ],
+  "seen_partitions_regenerated": false,
+  "confirmatory_external_predictions_generated": false,
+  "channels": [
+    "channel_41",
+    "channel_42",
+    "channel_43",
+    "channel_44",
+    "channel_45",
+    "channel_46"
+  ],
+  "source_channel_zip_sha256": {
+    "channel_41": "32cabd39524c5c5fe972255f158e0ba933cdb0609efe88782e6217f3782d20d0",
+    "channel_42": "ef01d2afdfd6926f69fc7b427eaa63565a7b218d81317027420d22f2aa34854a",
+    "channel_43": "e664ea5b64ccea49796f32c9fd97cb6584c16d837442aebb2a6926c6f7413289",
+    "channel_44": "b5fa421b1e5828441a0e61fe489fb3fca3036db2de8c6fbb599be39acdd5de18",
+    "channel_45": "d98bce78727df6125ad82de764af68c20027b85ef3fe64c8b3dc402d3c58d57e",
+    "channel_46": "9cf536c62cf3db9e54c0da0c1b9b2988fb92b21e3652da472ff3f5725799ea08"
+  },
+  "reference": {
+    "schema_version": "astrograph-esa-high-resolution-reference.v1",
+    "channels": [
+      {
+        "channel_id": "channel_41",
+        "delta_center": 0.0,
+        "delta_scale": 0.002326159465312958,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_42",
+        "delta_center": 0.0,
+        "delta_scale": 0.0035742068052291866,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_43",
+        "delta_center": 0.0,
+        "delta_scale": 0.0023446287631988523,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_44",
+        "delta_center": 0.0,
+        "delta_scale": 0.0035005947232246396,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_45",
+        "delta_center": 0.0,
+        "delta_scale": 0.002514387238025665,
+        "reference_delta_count": 7499
+      },
+      {
+        "channel_id": "channel_46",
+        "delta_center": 0.0,
+        "delta_scale": 0.003756337058544159,
+        "reference_delta_count": 7499
+      }
+    ],
+    "reference_sha256": "7f3d73247e3ec2bed5c1b0461026785fa87a4a40405c47a81f890e0284b6553e",
+    "score_semantics": "ROBUST_LAG_ONE_DELTA_Z_NOT_PROBABILITY",
+    "claim_boundary": "Development-fitted robust first-difference reference. It preserves the raw sampling grid but is not a probability, event classifier, causal diagnosis, or external-validation result."
+  },
+  "reference_policy": {
+    "pre_event_hours": 2,
+    "gap_before_event_minutes": 10
+  },
+  "development_window_policy": {
+    "margin_hours_each_side": 2
+  },
+  "development_anomaly_ids": [
+    "id_101",
+    "id_102",
+    "id_103"
+  ],
+  "development_rare_event_ids": [
+    "id_100",
+    "id_104",
+    "id_16"
+  ],
+  "candidate_grid": [
+    {
+      "robust_z_threshold": 6.0,
+      "minimum_coincident_channels": 2,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 165,
+      "positive_alarm_group_count": 126,
+      "false_alarm_group_count": 39,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.7636363636363637,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.8015267175572519,
+      "alarm_groups_by_development_id": {
+        "id_100": 11,
+        "id_101": 78,
+        "id_102": 30,
+        "id_103": 27,
+        "id_104": 15,
+        "id_16": 4
+      }
+    },
+    {
+      "robust_z_threshold": 6.0,
+      "minimum_coincident_channels": 3,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 48,
+      "positive_alarm_group_count": 37,
+      "false_alarm_group_count": 11,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.7708333333333334,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.8078602620087337,
+      "alarm_groups_by_development_id": {
+        "id_100": 2,
+        "id_101": 26,
+        "id_102": 8,
+        "id_103": 7,
+        "id_104": 5,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 6.0,
+      "minimum_coincident_channels": 4,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 29,
+      "positive_alarm_group_count": 25,
+      "false_alarm_group_count": 4,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8620689655172413,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.8865248226950354,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 1,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 8.0,
+      "minimum_coincident_channels": 2,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 30,
+      "positive_alarm_group_count": 27,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.9,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9183673469387754,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 5,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 8.0,
+      "minimum_coincident_channels": 3,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 28,
+      "positive_alarm_group_count": 25,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8928571428571429,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9124087591240876,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 8.0,
+      "minimum_coincident_channels": 4,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 28,
+      "positive_alarm_group_count": 25,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8928571428571429,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9124087591240876,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 10.0,
+      "minimum_coincident_channels": 2,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 28,
+      "positive_alarm_group_count": 25,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8928571428571429,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9124087591240876,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 10.0,
+      "minimum_coincident_channels": 3,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 28,
+      "positive_alarm_group_count": 25,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8928571428571429,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9124087591240876,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 10.0,
+      "minimum_coincident_channels": 4,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 28,
+      "positive_alarm_group_count": 25,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8928571428571429,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9124087591240876,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 12.0,
+      "minimum_coincident_channels": 2,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 28,
+      "positive_alarm_group_count": 25,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8928571428571429,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9124087591240876,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 22,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 12.0,
+      "minimum_coincident_channels": 3,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 27,
+      "positive_alarm_group_count": 24,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8888888888888888,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9090909090909091,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 21,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    },
+    {
+      "robust_z_threshold": 12.0,
+      "minimum_coincident_channels": 4,
+      "alarm_group_gap_s": 40.0,
+      "alarm_group_count": 27,
+      "positive_alarm_group_count": 24,
+      "false_alarm_group_count": 3,
+      "anomaly_event_count": 3,
+      "hit_anomaly_event_count": 3,
+      "alarm_group_precision": 0.8888888888888888,
+      "anomaly_event_recall": 1.0,
+      "engineering_f0_5": 0.9090909090909091,
+      "alarm_groups_by_development_id": {
+        "id_100": 0,
+        "id_101": 21,
+        "id_102": 3,
+        "id_103": 3,
+        "id_104": 0,
+        "id_16": 0
+      }
+    }
+  ],
+  "selected_candidate": {
+    "robust_z_threshold": 8.0,
+    "minimum_coincident_channels": 2,
+    "alarm_group_gap_s": 40.0,
+    "alarm_group_count": 30,
+    "positive_alarm_group_count": 27,
+    "false_alarm_group_count": 3,
+    "anomaly_event_count": 3,
+    "hit_anomaly_event_count": 3,
+    "alarm_group_precision": 0.9,
+    "anomaly_event_recall": 1.0,
+    "engineering_f0_5": 0.9183673469387754,
+    "alarm_groups_by_development_id": {
+      "id_100": 0,
+      "id_101": 22,
+      "id_102": 5,
+      "id_103": 3,
+      "id_104": 0,
+      "id_16": 0
+    }
+  },
+  "metric_contract": {
+    "precision": "alarm groups overlapping the same development anomaly ID / all alarm groups in event-centered windows",
+    "recall": "development anomaly IDs with >=1 overlapping alarm group / development anomaly IDs",
+    "warning": "engineering development screen; not ESA-ADB corrected event-wise metric and not external validation"
+  },
+  "status": "EXPLORATORY_DEVELOPMENT_SELECTED",
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "f3267ca7de06ed1a96b364991c07cd725a7dc23bf468ee9249f6ccae2959ab55"
+}

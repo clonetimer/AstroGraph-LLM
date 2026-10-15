@@ -1,0 +1,369 @@
+{
+  "architecture_convergence": {
+    "schema_version": "astrograph-stable-architecture-convergence.v2",
+    "status": "VERIFIED_SOURCE_ARCHITECTURE",
+    "canonical_runtime": "astrograph.runtime.AstroGraphRuntime",
+    "runtime_pipelines": [
+      "diagnosis.compat.v1",
+      "diagnosis.unified.compat.v1",
+      "whole_spacecraft.online.v1"
+    ],
+    "single_api": "astrograph.api:create_app",
+    "single_cli": "astrograph.cli:main",
+    "contracts": {
+      "stage": "astrograph.runtime.contracts.RuntimeStage",
+      "model": "astrograph.contracts.ModelContract",
+      "evidence": "astrograph.contracts.EvidenceContract",
+      "knowledge": "astrograph.contracts.KnowledgeContract",
+      "policy": "astrograph.contracts.PolicyContract"
+    },
+    "compatibility_rule": "Legacy diagnosis and source-specific routes may execute only behind canonical Runtime/API/CLI compatibility adapters.",
+    "extension_rule": "DOR/FEC/ISGN/M2N are optional providers and do not own core Runtime contracts or policy.",
+    "qualification_boundary": "Architecture convergence does not change G0/G1/G2/G3/G4 qualification status or establish flight/safety claims.",
+    "whole_spacecraft_online_dag": {
+      "pipeline_id": "whole_spacecraft.online.v1",
+      "stage_count": 19,
+      "execution_boundary": "astrograph.runtime.AstroGraphRuntime",
+      "extension_nodes": {
+        "DOR": [
+          "online.extension.control_plane.v1",
+          "online.extension.semantic.v1"
+        ],
+        "FEC": [
+          "online.extension.calibration.v1"
+        ],
+        "ISGN": [
+          "online.extension.mechanism.v1"
+        ],
+        "M2N": []
+      },
+      "extension_semantics": "Optional nodes return SKIPPED when not configured; the main diagnosis DAG remains executable without external DOR/FEC/ISGN/M2N runtimes.",
+      "m2n_boundary": "M2N remains an offline MODEL_CHALLENGER and must cross ModelContract before promotion; it is not an online diagnosis dependency.",
+      "status": "VERIFIED_FINE_GRAINED_RUNTIME_DAG"
+    },
+    "core_service_extraction": {
+      "schema_version": "astrograph-core-service-extraction.v1",
+      "status": "VERIFIED_COMPONENT_BOUNDARIES",
+      "fusion": {
+        "runtime_service": "astrograph.fusion.RuntimeFusionService",
+        "components": [
+          "RankingBuilder",
+          "GraphAssociationFilter",
+          "BiRRFEngine",
+          "FusionDiagnostics",
+          "OpenSetFusionPolicy"
+        ],
+        "compatibility": "legacy public fusion functions retained as facades"
+      },
+      "knowledge": {
+        "runtime_service": "astrograph.knowledge.KGEvidenceRuntimeService",
+        "backends": [
+          "NEO4J_READ_ONLY",
+          "CSV_REFERENCE_FALLBACK"
+        ],
+        "workflow_boundary": "backend lifecycle, release hash verification and fallback owned by service"
+      },
+      "reasoning": {
+        "services": [
+          "DeterministicReferenceReasoner",
+          "StructuredHypothesisProposalService",
+          "EvidenceIntegrityAuditor",
+          "HypothesisSafetyCritic",
+          "SafetyValidationService"
+        ],
+        "agent_boundary": "Agent classes retained as compatibility facades"
+      },
+      "data_driven": {
+        "runtime_namespace": "astrograph.data_driven.runtime",
+        "lab_namespace": "astrograph.data_driven.lab",
+        "root_behavior": "lazy compatibility exports"
+      },
+      "evidence": {
+        "runtime_service": "astrograph.evidence.RuntimeEvidenceBuildService",
+        "legacy_boundary": "legacy.whole_spacecraft.v4 is late-loaded only through astrograph.compat.evidence"
+      },
+      "decision_release": {
+        "diagnostic_decision": "astrograph.investigation.DiagnosticDecisionGovernor",
+        "release_qualification": "astrograph.diagnosis.ReleaseQualificationGate",
+        "core_comparison": "CoreComparisonReference is not an independent SafetyReplayReference"
+      },
+      "parallelism_boundary": "post5 stopped before typed Stage Artifacts or independent Stage replay; post6 supersedes this limitation without claiming concurrent DAG execution."
+    },
+    "typed_stage_artifacts": {
+      "schema_version": "astrograph-typed-stage-artifacts.v1",
+      "status": "VERIFIED_INDEPENDENT_SERIAL_STAGE_COMPUTATION",
+      "artifact_contract": "astrograph.runtime.artifacts.RuntimeStageArtifact",
+      "artifact_store": "astrograph.runtime.artifacts.RuntimeArtifactStore",
+      "stage_executor": "astrograph.orchestration.whole_spacecraft_stage_executor.WholeSpacecraftOnlineStageExecutor",
+      "stage_artifact_models": "astrograph.orchestration.online_stage_artifacts",
+      "identity": {
+        "content_sha256": "exact serialized content integrity",
+        "semantic_sha256": "non-semantic clock fields removed for replay-equivalence comparison",
+        "lineage": "producer stage/version, execution scope and declared upstream artifact SHA-256 values"
+      },
+      "replay": "AstroGraphRuntime.replay_stage executes exactly one Stage from declared upstream RuntimeStageArtifacts and fails closed on missing/extra/cross-request inputs.",
+      "persistence": "online persistence writes a runtime Stage Artifact index and first-18-stage artifact files; the terminal persist artifact remains in the in-memory Runtime receipt.",
+      "compatibility": "whole_spacecraft.online.v1 and all 19 public Stage IDs are unchanged; direct workflow invocation uses the same per-stage executor.",
+      "concurrency_boundary": "post7 supersedes the post6 scheduling limitation with explicit execution profiles and a bounded scheduler, but Stable whole-spacecraft execution remains serial by default until hard-cancel/provider-isolation qualification is available.",
+      "qualification_boundary": "Typed artifacts and replayability do not change G0/G1/G2/G3/G4 status or establish diagnostic accuracy, flight, causal or safety qualification."
+    },
+    "safe_dag_scheduling": {
+      "schema_version": "astrograph-safe-dag-scheduling.v1",
+      "status": "VERIFIED_EXECUTION_CONTROL_SERIAL_DEFAULT",
+      "execution_policy": "astrograph.runtime.execution_control.RuntimeExecutionPolicy",
+      "stage_profile": "astrograph.runtime.execution_control.StageExecutionProfile",
+      "cancellation_token": "astrograph.runtime.execution_control.CancellationToken",
+      "scheduler": "bounded topological-level scheduler with resource-unit admission",
+      "stable_default": "SERIAL by default; post8 permits explicit SAFE_PARALLEL admission only for stages with machine-checkable hard-cancel qualification and a frozen isolated-worker adapter.",
+      "cooperative_research_parallelism": "Still supported for explicitly opted-in custom/non-reconstructable workflows; reviewed project-root execution uses hard-isolated parallel boundaries for the three qualified deterministic branches.",
+      "certified_cooperative_stages": [
+        "online.spatiotemporal.v1",
+        "online.verification.v1",
+        "online.deterministic_core.v1"
+      ],
+      "transaction_boundary": "online artifact persistence uses a sibling staging directory and directory-swap commit with restore-on-failure",
+      "failure_propagation": "parallel sibling failure cancels the shared request token and cooperative siblings exit fail-closed",
+      "qualification_boundary": "post8 supersedes the post7 hard-cancel blocker for exactly three local deterministic branches. KG, Data-driven, Reasoning/LLM and DOR/FEC/ISGN providers remain unqualified for isolated/provider-enforced parallelism."
+    },
+    "isolated_provider_execution": {
+      "schema_version": "astrograph-isolated-provider-execution.v1",
+      "status": "VERIFIED_HARD_ISOLATION_FOR_THREE_LOCAL_BRANCHES",
+      "runtime_version": "1.2",
+      "worker_protocol": "astrograph-isolated-stage-invocation.v1 / astrograph-isolated-stage-response.v1",
+      "worker_entrypoint": "python -m astrograph.runtime.isolated_worker",
+      "adapter_registry": "code-frozen allow-list in astrograph.runtime.isolated_worker; request metadata cannot choose adapters",
+      "qualification_id": "post8.whole_spacecraft.local-branch.hard-isolation.v1",
+      "qualified_stages": [
+        "online.spatiotemporal.v1",
+        "online.verification.v1",
+        "online.deterministic_core.v1"
+      ],
+      "serial_boundary": "IN_PROCESS",
+      "parallel_boundary": "ISOLATED_PROCESS",
+      "hard_cancel": "parent-enforced worker terminate followed by kill after bounded grace; no cooperation from stage code required",
+      "crash_containment": "worker non-zero exit/no-response/invalid-response fails closed without crashing the parent Runtime",
+      "resource_cleanup": "normal temporary workdir cleanup plus stale dead-parent workdir recovery on subsequent isolated execution",
+      "stable_default": "SERIAL; hard-isolated SAFE_PARALLEL is explicit, bounded and qualification-gated",
+      "not_qualified": [
+        "online.kg_evidence.v1",
+        "online.data_driven.v1",
+        "online.reasoning.v1",
+        "online.extension.control_plane.v1",
+        "online.extension.semantic.v1",
+        "online.extension.mechanism.v1",
+        "online.extension.calibration.v1"
+      ],
+      "platform_boundary": "Protocol avoids fork/pickled Stage closures and reconstructs workers from JSON plus project_root. Hard-cancel qualification covers the isolated worker process boundary; arbitrary provider descendant-process trees still require provider-specific enforced cleanup certification.",
+      "qualification_boundary": "No production speedup, arbitrary-provider process safety, diagnostic-accuracy, flight/safety, or G0-G4 promotion is claimed."
+    },
+    "provider_qualification": {
+      "schema_version": "astrograph-provider-qualification.v1",
+      "status": "VERIFIED_CONSERVATIVE_PROVIDER_LIFECYCLE_REGISTRY",
+      "runtime_version": "1.3",
+      "registry": "astrograph.provider_lifecycle.BUILTIN_PROVIDER_QUALIFICATIONS",
+      "scheduler_rule": "Stage hard-cancel/replay claims are insufficient when any bound provider lifecycle profile is not Stable-parallel eligible.",
+      "qualified_for_stable_parallel": [
+        "local-deterministic-isolated.v1"
+      ],
+      "partial": [
+        "external-cli-managed.v1",
+        "neo4j-readonly.v1",
+        "http-json-provider.v1"
+      ],
+      "qualified_but_not_stage_promoted": [
+        "kg-csv-reference.v1"
+      ],
+      "unqualified": [
+        "inprocess-model-runtime.v1"
+      ],
+      "external_cli_boundary": "DOR/FEC/ISGN/M2N optional CLI calls use managed process groups/process trees with bounded timeout cleanup; POSIX tree termination is runtime-tested, Windows taskkill tree cleanup is implemented but requires native Windows certification.",
+      "kg_boundary": "Neo4j driver cleanup is explicit, but reviewed query-level deadline/cancellation evidence is incomplete; KG stage remains non-parallel.",
+      "http_boundary": "Default urllib Data-driven and OpenAI-compatible providers have bounded socket/provider timeouts and context cleanup, but no request-scoped hard cancellation; they remain non-parallel.",
+      "model_boundary": "Opaque/in-process model runtimes remain unqualified until CPU/GPU memory lifecycle, cancellation and crash containment are provider-specific certified.",
+      "closure_rule": "No additional generic Runtime refactor is required for these blocked provider qualifications; remaining work moves to concrete provider/platform qualification and real-device application validation.",
+      "qualification_boundary": "No G0-G4, diagnostic accuracy, flight, safety or cross-platform provider certification is promoted."
+    },
+    "trusted_reference_contract_promotion": {
+      "schema_version": "astrograph-trusted-reference-contract-promotion.v1",
+      "status": "VERIFIED_CROSS_DOMAIN_CONTRACT_PROMOTION",
+      "generic_contracts": [
+        "astrograph.evidence.TrustedReferenceRecord",
+        "astrograph.evidence.CalibrationTransferAudit",
+        "astrograph.evidence.EvidenceReferenceUse"
+      ],
+      "runtime_binding": "CONTRACT_AVAILABLE_NOT_AUTOMATICALLY_ENFORCED_BY_EXISTING_DIAGNOSIS_STAGES",
+      "domain_boundary": "ADAPT and PRONOSTIA providers remain domain/research scoped and are not core runtime dependencies.",
+      "not_promoted": [
+        "Event-State detector",
+        "automatic reference adaptation",
+        "global stable-signal whitelist",
+        "domain diagnosis models"
+      ],
+      "qualification_boundary": "Contract promotion does not change G0-G4, flight/safety, model performance or diagnosis accuracy claims.",
+      "evidence_policy": "Historical application receipts are not bundled in the current-source delivery; contract/runtime code remains included."
+    }
+  },
+  "checksum_entry_count": 2568,
+  "checksum_excluded": [
+    "SHA256SUMS.txt"
+  ],
+  "checksum_file": "SHA256SUMS.txt",
+  "claim_boundary": [
+    "Current-source delivery only; historical reports/receipts/ledgers are excluded.",
+    "Runtime/API/CLI, models, data/reference assets, Agent workflows, replay, document/knowledge and controlled-evolution source are preserved.",
+    "No new diagnostic, provider, flight, causal or safety qualification is established by packaging.",
+    "RAG retrieval matches, document text and graph associations are not proof of current root cause.",
+    "The legacy Active KG remains read-only. Only separately approved, signed material graph releases may be explicitly imported into a dedicated Neo4j database by a privileged host action.",
+    "Confirmed prior cases are equipment-scoped reference material, not current fault truth or control authorization.",
+    "A multi-hop link path represents reference associations, not a proven causal chain or confirmed on-orbit root cause.",
+    "Unreviewed public knowledge only suggests questions; it cannot support confirmed diagnosis or executable control.",
+    "ABSTAIN is uncertainty due to missing/mismatched/contested knowledge and is not a declaration that the fault does not exist.",
+    "The material LLM explanation is redacted from the public report because citation validation is not semantic truth verification.",
+    "Terminology expansion is a retrieval aid, not a declaration of a true component/fault or semantic equivalence for an unknown mission.",
+    "Document modality support means structural recognition; native image/scan understanding and complex PDF table math OCR are not independently validated.",
+    "Hierarchical document-section-fragment retrieval is not the same as full GraphRAG community-report/global-search and not a long-term persistent vector DB."
+  ],
+  "content_excluded": [
+    "FILELIST.txt",
+    "SHA256SUMS.txt",
+    "SOURCE_MANIFEST.json"
+  ],
+  "content_file_count": 2566,
+  "content_total_bytes": 53771971,
+  "current_release_truth": "governance/implementation/post49/RELEASE_READINESS.json",
+  "customer_delivery_extension": {
+    "changed_areas": [
+      "README.md",
+      "START_HERE.md",
+      "CHANGELOG.md",
+      "MATERIAL_MULTIHOP_ABSTENTION_DELIVERY.md",
+      "src/astrograph/integrations/material_multihop.py",
+      "src/astrograph/integrations/material_case_memory.py",
+      "src/astrograph/integrations/material_reasoning.py",
+      "src/astrograph/integrations/result_log_review.py",
+      "src/astrograph/integrations/upload_report.py",
+      "src/astrograph/api.py",
+      "src/astrograph/resources/platform_report.js",
+      "src/astrograph/resources/platform_graph_workbench.js",
+      "src/astrograph/resources/platform_ui.html",
+      "src/astrograph/resources/platform_ui.css",
+      "tests/test_material_multihop_reasoning.py",
+      "tests/test_platform_ui_assets.py",
+      "tests/test_platform_diagnostic_workspace.py",
+      "tests/test_platform_operations_console.py",
+      "tests/ui/test_platform_operations_console_browser.py",
+      "tests/ui/test_platform_diagnostic_workspace_contract_http_e2e.py",
+      "tests/ui/test_platform_browser_behavior.py",
+      "MATERIAL_HIERARCHICAL_RAG_DELIVERY.md",
+      "src/astrograph/integrations/material_hierarchical_rag.py",
+      "src/astrograph/retrieval/spacecraft_terminology.py",
+      "src/astrograph/retrieval/structured_document.py",
+      "src/astrograph/integrations/platform_knowledge.py",
+      "examples/hierarchical_rag/mission_glossary_template.json",
+      "tests/test_material_hierarchical_rag.py",
+      "MATERIAL_REPORT_HUMAN_REVIEW_DELIVERY.md",
+      "src/astrograph/integrations/manual_report_review.py",
+      "src/astrograph/resources/platform_shell.js",
+      "tests/test_manual_report_review_workflow.py",
+      "tests/ui/test_manual_report_review_browser.py"
+    ],
+    "delivery_id": "material-manual-report-review-workflow-2026-10-09",
+    "documentation": "MATERIAL_REPORT_HUMAN_REVIEW_DELIVERY.md",
+    "extension_test_result": {
+      "focused_backend_and_compatibility": "65 selected tests passed",
+      "additional_upload_and_chromium_regression": "41 passed, 1 skipped",
+      "field_qualification": "not performed; independent expert review and production IAM require site acceptance"
+    },
+    "focus": "operator_actionable_case_by_case_manual_report_review",
+    "functionality": [
+      "two-three-hop approved document graph path traversal over a pinned equipment-specific snapshot, with direction labels, SHA256 provenance and ontology validation",
+      "public seed only as an explicitly unreviewed alternative reference channel, never as approved root cause evidence",
+      "log symptom lexical support/opposition and approved-knowledge negation, conflict, modality, scope and revocation gating",
+      "uncertainty states ABSTAIN_* or PROVISIONAL_EVIDENCE_BACKED_HYPOTHESIS with no verified current root cause, numeric probability or control authorization",
+      "durable host-owned expert knowledge-gap queue with protected GET / resolve POST (CSRF), no implicit graph publication",
+      "operator-facing summary and per-hop evidence and citations in JSON/Markdown/GUI, with unverified LLM narrative withheld from public report",
+      "preserves legacy telemetry diagnosis and graph construction/review/release as separate optional capabilities",
+      "allow-listed report generation metadata; raw model parsing failures/provider receipts withheld to prevent unverified LLM text reaching operators",
+      "fault-candidate-specific multi-query lexical and optional local dense retrieval, RRF fusion, and audit-able document/section/quote screening",
+      "expert-pinned scope-and-checksum-controlled bilingual spacecraft synonym bridge",
+      "structure-aware text length segmentation with byte-for-byte-equivalent source quotes; long-table row window retrieval and unreviewed image/layout safety gating",
+      "operator-visible citation source, sha256, modality, retrieval status, stage trace and corpus coverage",
+      "mixed-modality retrieval cannot silently promote unreviewed image/OMML/OCR/layout reconstructions to verified documentary evidence",
+      "preserves separate approved material graph and 2-3 hop evidence-scoped reasoning including ABSTAIN outcome when knowledge absent",
+      "append-only report-level manual review actions, bound to immutable report SHA-256, with optimistic revision checks",
+      "expert authenticated CSRF-protected candidate-by-candidate review with independent rationale and evidence references",
+      "public review-progress summary and detailed protected review queue; no automatic fault confirmation, active KG promotion, or control authorization"
+    ],
+    "incremental_parent": "AstroGraph_0.7.1_post53_operator_workbench_ui_redesign_delivery.zip",
+    "parent_audit_scope": "DELIVERY_AUDIT.json is inherited from original core baseline; not extension validation",
+    "platform_ui_asset_version": "v0.21.1",
+    "prior_extension_id": "operator-workbench-redesign-2026-10-09",
+    "qualification": "ENGINEERING_REVIEW_REQUIRED_NOT_FLIGHT_QUALIFIED",
+    "source_baseline": "AstroGraph_0.7.1_post53_active_policy_conformal_36af8bc_candidate.zip",
+    "stable_software_version_changed": false
+  },
+  "filelist": "FILELIST.txt",
+  "generated": "2026-10-11",
+  "historical_records_included": false,
+  "material_hierarchical_rag": {
+    "deployed_embedding_model": false,
+    "external_validation": "required for flight hardware; no accuracy claim",
+    "graph_rag_scope": "approved-graph-neighbor query hints; separate evidence-scoped 2-3 hop graph reasoning; no Microsoft GraphRAG community reports",
+    "long_task_policy": "candidate-wise 14-query cap; 8 docs/16 sections/5 quotes; 6000 native chunk corpus cap with explicit partial status and knowledge gap",
+    "method": "lexical BM25 + Chinese/English character ngrams + opt-in local embedding; RRF ranking with document-section-literal-passage screening",
+    "schema_version": "astrograph-material-hierarchical-hybrid-rag.v1",
+    "semantic_bridge": "24 curated bilingual term groups; optional expert-approved mission terminology pinned to equipment scope and SHA-256 digest",
+    "source_evidence_policy": "literal excerpt, SHA-256 quote + document hashes, locators, staged search trace; retrieval is never causal proof",
+    "structured_documents": "native text section and length-boundary segmentation; modality isolation; native table contiguous literal row windows; images and ambiguous PDF layout excluded from unreviewed evidence",
+    "verified_live_ocr_or_multimodal_document_understanding": false,
+    "verified_production_graph_db": false
+  },
+  "material_multihop_reasoning": {
+    "automatic_control_authorized": false,
+    "candidate_source": "upstream_diagnostic_result_only",
+    "field_qualification": false,
+    "outcome_policy": "provisional_hypothesis_or_explicit_abstention",
+    "public_seed_policy": "unreviewed_not_flight_qualified_not_counted_as_confirmed",
+    "reference_graph_max_hops": 3,
+    "reference_graph_policy": "independently_reviewed_and_exact_scope_with_verified_provenance",
+    "report_guard": "generated_raw_llm_summary_redacted_public_json;host_side_audit_only",
+    "schema_version": "astrograph-material-multihop-reasoning.v1"
+  },
+  "package_profile": {
+    "historical_records_included": false,
+    "history_policy": "Historical reports, receipts, dev/post ledgers and prior release evidence are intentionally excluded from this source package.",
+    "kind": "CURRENT_SOURCE_DELIVERY",
+    "profile_id": "post49-current-delivery-source-r1",
+    "runtime_functionality_preserved": true,
+    "software_version_changed": false
+  },
+  "project": "AstroGraph",
+  "public_reference_seed": {
+    "edge_count": 225,
+    "fault_case_count": 30,
+    "graph_kind": "UNREVIEWED_PUBLIC_REFERENCE_SEED",
+    "location": "reference/public_spacecraft_knowledge_seed/",
+    "node_count": 206,
+    "public_source_entries": 13,
+    "safety": "reference-only; no automatic Active KG promotion or flight control authorization",
+    "schema_version": "astrograph-public-spacecraft-seed.v1",
+    "scope": "PUBLIC_GENERAL_SPACECRAFT",
+    "used_source_entries": 12
+  },
+  "schema_version": "astrograph-source-manifest.v2",
+  "status": "STABLE_SOFTWARE_RELEASE_WITH_DECLARED_PROFILE_GATES_AND_EXTERNAL_QUALIFICATION_DEPENDENCIES",
+  "version": "0.7.1.post49",
+  "event_center_v2_delivery": {
+    "date": "2026-10-11",
+    "baseline": "post53-task-command-center-queue-reentry-fixed",
+    "scope": [
+      "ASCII-only PowerShell 5.1 launchers and native parser check",
+      "event inbox and evidence workspace",
+      "stale queue guard",
+      "source-filtered evidence",
+      "UI regression and synthetic cases"
+    ],
+    "verified": "Selected Linux tests plus actual-backend Chromium bridge; Windows native PowerShell pending",
+    "notes": "Do not treat prior missing reference model weights as packaged artifacts"
+  }
+}

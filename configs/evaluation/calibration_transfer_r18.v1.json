@@ -1,0 +1,31 @@
+{
+  "schema_version": "astrograph-calibration-transfer-design.v1",
+  "design_id": "calibration-transfer-r18.v1",
+  "required_partitions": [
+    "CALIBRATION_FIT",
+    "DEVELOPMENT_SELECTION",
+    "CONFIRMATORY_EVALUATION"
+  ],
+  "required_dimensions": [
+    "simulator_version",
+    "mission_mode",
+    "fault_severity",
+    "noise_condition"
+  ],
+  "ece_bins": 10,
+  "ece_estimator": "EQUAL_WIDTH_10_BIN_ECE",
+  "uncertainty_method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+  "bootstrap_resamples": 2000,
+  "bootstrap_seed": 20260918,
+  "primary_metrics": [
+    "equal_group_macro_accuracy",
+    "equal_group_macro_nll",
+    "equal_group_macro_brier",
+    "equal_group_macro_ece",
+    "classwise_one_vs_rest_brier",
+    "classwise_one_vs_rest_ece",
+    "aurc"
+  ],
+  "selection_rule": "Calibration fitting and confidence-threshold selection groups must be disjoint from confirmatory evaluation groups. Confirmatory groups may not retune calibrator or threshold.",
+  "claim_boundary": "Preregistered calibration-transfer evaluation method only. No model is declared calibrated until real frozen predictions, truth, independent-group assignments and declared baseline strata are admitted and evaluated. ECE is not the sole calibration criterion."
+}

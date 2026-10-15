@@ -1,0 +1,41 @@
+{
+  "schema_version": "astrograph-document-graph-ablation-config.v1",
+  "ablation_id": "document-to-graph-extraction-r001",
+  "comparison_controls": [
+    "same frozen paired-corpus manifest",
+    "same eight preselected documents and graph scopes",
+    "same Qwen3.5-9B endpoint and schema-constrained decoding",
+    "same deterministic descriptor and content extraction",
+    "no Active KG publication and no Runtime voting"
+  ],
+  "variants": [
+    {
+      "variant_id": "A_SECTION_BATCHED_BASELINE_R007",
+      "intervention": "section-batched prompt without a mandatory local extraction objective",
+      "receipt_path": "governance/evidence/research/document_corpus/document_graph_scope_pilot_r007/build_receipt.json",
+      "receipt_file_sha256": "df23e617943b074de485c08e16695999513b869acee342f43e7ff888af05c8d8"
+    },
+    {
+      "variant_id": "B_MANDATORY_LOCAL_OBJECTIVE_R009",
+      "intervention": "mandatory per-fragment extraction objective before a hard field-grounding gate",
+      "receipt_path": "governance/evidence/research/document_corpus/document_graph_scope_pilot_r009/build_receipt.json",
+      "receipt_file_sha256": "ed325267ce24d7a70d0ddacbb5decb9bbb34b77b675fdd3aad7af559829839c9",
+      "grounding_audit_path": "governance/evidence/research/document_corpus/document_graph_scope_pilot_r009/grounding_audit.json",
+      "grounding_audit_file_sha256": "ad5e7d37027ed27c97db15c4c0c972b1bfd845b61f1b94707b522b16a77dd0d1"
+    },
+    {
+      "variant_id": "C_GROUNDED_HYBRID_R010",
+      "intervention": "mandatory local objective, corrected table semantics and a fail-closed grounding gate",
+      "receipt_path": "governance/evidence/research/document_corpus/document_graph_scope_pilot_r010/build_receipt.json",
+      "receipt_file_sha256": "ccb5e2d38882dbaa7d18d7a63d1f9ddc8b60408474222bfbdd9f5fa26489981d",
+      "grounding_audit_path": "governance/evidence/research/document_corpus/document_graph_scope_pilot_r010/grounding_audit.json",
+      "grounding_audit_file_sha256": "6ff51a1e52a280728146535c75d6c06432b359ccb82fd152a6de4132854b6bdf"
+    }
+  ],
+  "excluded_variants": [
+    {
+      "variant_id": "R008",
+      "reason": "The prompt-only change produced the same semantic receipt identity as r007 before pipeline source hashes were added; it is preserved as failure evidence but excluded from quantitative comparison."
+    }
+  ]
+}

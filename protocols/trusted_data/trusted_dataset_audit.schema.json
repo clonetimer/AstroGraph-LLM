@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrograph.local/schemas/trusted_dataset_audit.v1.json",
+  "title": "AstroGraph Trusted Dataset Audit",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "dataset_tree_sha256",
+    "sat_agent_tree_sha256",
+    "total_run_count",
+    "acceptance_valid_count",
+    "effect_valid_research_only_count",
+    "invalid_count",
+    "public_trace_leakage_count",
+    "reproduction_ready",
+    "blockers",
+    "source_effect_valid_research_only_count",
+    "source_invalid_count"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "astrograph-trusted-dataset-audit.v1"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "BLOCKED"
+      ]
+    },
+    "dataset_tree_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sat_agent_tree_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "total_run_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "acceptance_valid_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "effect_valid_research_only_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "invalid_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "public_trace_leakage_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "reproduction_ready": {
+      "type": "boolean"
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_effect_valid_research_only_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source_invalid_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

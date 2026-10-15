@@ -1,0 +1,47 @@
+schema_version: phm.fault_contract.v1
+fault_id: THERMAL_HEATER_STUCK_ON
+name_zh: 加热器常开
+subsystem: thermal_control
+component: payload_heater
+fault_type: fault
+mechanism: 在加热器指令为关闭时，功率开关保持导通；电功率同时形成热节点热输入和 EPS 母线负载。
+injection_target: HeaterFaultController.thermal_heater_stuck_on
+parameters:
+  heater_power_w:
+    unit: W
+    nominal: 20.0
+    range: [10.0, 40.0]
+  heater_efficiency:
+    unit: ratio
+    nominal: 0.95
+    range: [0.8, 1.0]
+direct_channels:
+  - status.thermal.heater_command_on
+  - status.thermal.heater_on
+  - sensor.thermal.heater_current_a
+component_response_channels:
+  - sensor.thermal.payload_temp_c
+  - sensor.thermal.radiator_temp_c
+subsystem_propagation_channels:
+  - sensor.eps.battery_current_a
+  - estimate.eps.battery_soc
+confusable_faults:
+  - THERMAL_TEMPERATURE_SENSOR_BIAS
+  - PAYLOAD_ABNORMAL_HEAT
+  - THERMAL_HEATER_COMMANDED_ON
+supported_conditions:
+  - heater_command_off
+  - payload_on_or_off
+  - sunlight_or_eclipse
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  command_actual_mismatch_required: true
+  minimum_heater_current_a: 0.2
+  minimum_payload_temperature_delta_c: 0.05
+  minimum_battery_current_delta_a: 0.1
+known_limits:
+  - 当前采用单一集总热节点，不代表加热器、结构与敏感器的完整热网络。
+  - 电流由加热器功率和母线电压代数计算，尚未经过硬件标定。
+  - 本 Pilot 的正常指令固定为关闭；正式覆盖还需加入正常受控开启工况。
+  - 结论仅适用于工程合成数据，不构成飞行级诊断或参数标定。

@@ -1,0 +1,433 @@
+{
+  "schema_version": "astrograph.p018.sat-agent-semantic-contract-validation.v1",
+  "generated_at": "2026-08-02T13:25:11.341048+00:00",
+  "stage": "P018_S0_ZERO_FIT",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "adapter_key": "sat_agent_platform",
+  "source_family_alias": "sat-agent-platform",
+  "source_count": 1,
+  "control_sha256": {
+    "semantic_schema": "63f994c2ac4e0002f40400d38ed40d8b3cee9875b4aa007718e5af4166a8c551",
+    "archetype_catalog": "4541de8838de9f8aa2752f4e627bb5b854958cee63f4d7be25e442b0d7d16075",
+    "channel_map_catalog": "5fc46ad455d9b5484b6846720f713fcd79f0d0fb5a071b381078e90e465a6263",
+    "schema_profile_catalog": "124d91138bdce5d09be949ff13d6007b0a7813b0d1ae1646c2e2cd6e5def8ff9"
+  },
+  "summary": {
+    "mapping_count": 9,
+    "configured_component_archetype_count": 7,
+    "exercised_component_archetype_count": 7,
+    "exercised_component_archetype_ids": [
+      "actuator.controlled_effort",
+      "converter.power",
+      "link.transport",
+      "queue.bounded_inventory",
+      "sensor.measurement",
+      "storage.energy_buffer",
+      "thermal.lumped_capacity"
+    ],
+    "exercised_hierarchy_level_count": 3,
+    "exercised_hierarchy_levels": [
+      "component",
+      "subsystem",
+      "whole_spacecraft"
+    ],
+    "passed_entity_count": 237,
+    "failed_entity_count": 0,
+    "field_compatible_entity_denominator": 237,
+    "declared_profile_entity_denominator": 195,
+    "declared_profile_passed_entity_count": 195,
+    "declared_profile_failed_entity_count": 0,
+    "cross_profile_compatible_entity_denominator": 42,
+    "cross_profile_passed_entity_count": 42,
+    "cross_profile_failed_entity_count": 0,
+    "mapped_row_count": 24825,
+    "structural_contract_status": "PASS",
+    "blockers": []
+  },
+  "time_axis_audit": {
+    "expected_source_field": "time_s",
+    "missing_time_axis_entity_count": 0,
+    "missing_time_axis_contract_status_counts": {},
+    "explicit_alternative_time_field_entity_count": 0,
+    "index_surrogate_entity_count": 0,
+    "row_count_convention_counts": {},
+    "consumer_side_time_synthesis_authorized": false,
+    "source_export_repair_required": false,
+    "interpretation": "Manifest duration/sample metadata is structural audit evidence only. It cannot replace an explicit source-native time column because endpoint and row-count conventions differ across export families."
+  },
+  "mapping_results": [
+    {
+      "mapping_id": "sat-agent-platform.component.battery.v1",
+      "profile_id": "sat-agent.component.battery.trace.v1",
+      "declared_profile_capability_id": "component.battery.v1",
+      "declared_profile_hierarchy_level": "component",
+      "hierarchy_level": "component",
+      "component_archetype_ids": [
+        "storage.energy_buffer"
+      ],
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "matched_entity_count": 48,
+      "passed_entity_count": 48,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 45,
+      "declared_profile_passed_entity_count": 45,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 3,
+      "cross_profile_passed_entity_count": 3,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "component.battery.v1": 45,
+        "subsystem.eps.basic.v1": 3
+      },
+      "actual_hierarchy_level_counts": {
+        "component": 45,
+        "subsystem": 3
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 724,
+      "unique_semantic_frame_count": 17,
+      "mapped_signal_count_min": 1,
+      "mapped_signal_count_max": 2,
+      "error_counts": {}
+    },
+    {
+      "mapping_id": "sat-agent-platform.subsystem.adcs-rw.v2",
+      "profile_id": "sat-agent.subsystem.adcs-rw.astrograph-5ch.v2",
+      "declared_profile_capability_id": "subsystem.adcs_unified_native.v1",
+      "declared_profile_hierarchy_level": "subsystem",
+      "hierarchy_level": "subsystem",
+      "component_archetype_ids": [
+        "actuator.controlled_effort"
+      ],
+      "usage_grade": "SOURCE_CONTRACT_ALLOWLIST_PRESENT_VALIDATION_ONLY",
+      "matched_entity_count": 18,
+      "passed_entity_count": 18,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 18,
+      "declared_profile_passed_entity_count": 18,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 0,
+      "cross_profile_passed_entity_count": 0,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "subsystem.adcs_unified_native.v1": 18
+      },
+      "actual_hierarchy_level_counts": {
+        "subsystem": 18
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 1098,
+      "unique_semantic_frame_count": 18,
+      "mapped_signal_count_min": 3,
+      "mapped_signal_count_max": 3,
+      "error_counts": {}
+    },
+    {
+      "mapping_id": "sat-agent-platform.subsystem.thermal.v1",
+      "profile_id": "sat-agent.subsystem.thermal.source-native.v1",
+      "declared_profile_capability_id": "subsystem.thermal.source_native.v1",
+      "declared_profile_hierarchy_level": "subsystem",
+      "hierarchy_level": "subsystem",
+      "component_archetype_ids": [
+        "thermal.lumped_capacity"
+      ],
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "matched_entity_count": 36,
+      "passed_entity_count": 36,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 36,
+      "declared_profile_passed_entity_count": 36,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 0,
+      "cross_profile_passed_entity_count": 0,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "subsystem.thermal.source_native.v1": 36
+      },
+      "actual_hierarchy_level_counts": {
+        "subsystem": 36
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 17390,
+      "unique_semantic_frame_count": 6,
+      "mapped_signal_count_min": 4,
+      "mapped_signal_count_max": 4,
+      "error_counts": {}
+    },
+    {
+      "mapping_id": "sat-agent-platform.subsystem.eps-unified.v1",
+      "profile_id": "sat-agent.subsystem.eps.unified-native.v1",
+      "declared_profile_capability_id": "subsystem.eps.unified_native.v1",
+      "declared_profile_hierarchy_level": "subsystem",
+      "hierarchy_level": "subsystem",
+      "component_archetype_ids": [
+        "storage.energy_buffer"
+      ],
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "matched_entity_count": 59,
+      "passed_entity_count": 59,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 20,
+      "declared_profile_passed_entity_count": 20,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 39,
+      "cross_profile_passed_entity_count": 39,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "subsystem.eps.unified_native.v1": 20,
+        "whole_spacecraft.unified_native.v1": 39
+      },
+      "actual_hierarchy_level_counts": {
+        "subsystem": 20,
+        "whole_spacecraft": 39
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 2703,
+      "unique_semantic_frame_count": 10,
+      "mapped_signal_count_min": 1,
+      "mapped_signal_count_max": 2,
+      "error_counts": {}
+    },
+    {
+      "mapping_id": "sat-agent-platform.whole-spacecraft.composite.v1",
+      "profile_id": "sat-agent.whole-spacecraft.composite.v1",
+      "declared_profile_capability_id": "whole_spacecraft.composite_digital_twin.v1",
+      "declared_profile_hierarchy_level": "whole_spacecraft",
+      "hierarchy_level": "whole_spacecraft",
+      "component_archetype_ids": [
+        "storage.energy_buffer",
+        "thermal.lumped_capacity"
+      ],
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "matched_entity_count": 4,
+      "passed_entity_count": 4,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 4,
+      "declared_profile_passed_entity_count": 4,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 0,
+      "cross_profile_passed_entity_count": 0,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "whole_spacecraft.composite_digital_twin.v1": 4
+      },
+      "actual_hierarchy_level_counts": {
+        "whole_spacecraft": 4
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 30,
+      "unique_semantic_frame_count": 2,
+      "mapped_signal_count_min": 2,
+      "mapped_signal_count_max": 2,
+      "error_counts": {}
+    },
+    {
+      "mapping_id": "sat-agent-platform.component.imu.v1",
+      "profile_id": "sat-agent.component.imu.trace.v1",
+      "declared_profile_capability_id": "component.imu.v1",
+      "declared_profile_hierarchy_level": "component",
+      "hierarchy_level": "component",
+      "component_archetype_ids": [
+        "sensor.measurement"
+      ],
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "matched_entity_count": 18,
+      "passed_entity_count": 18,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 18,
+      "declared_profile_passed_entity_count": 18,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 0,
+      "cross_profile_passed_entity_count": 0,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "component.imu.v1": 18
+      },
+      "actual_hierarchy_level_counts": {
+        "component": 18
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 2178,
+      "unique_semantic_frame_count": 4,
+      "mapped_signal_count_min": 3,
+      "mapped_signal_count_max": 3,
+      "error_counts": {}
+    },
+    {
+      "mapping_id": "sat-agent-platform.component.pdu.v1",
+      "profile_id": "sat-agent.component.pdu.trace.v1",
+      "declared_profile_capability_id": "component.pdu.v1",
+      "declared_profile_hierarchy_level": "component",
+      "hierarchy_level": "component",
+      "component_archetype_ids": [
+        "converter.power"
+      ],
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "matched_entity_count": 18,
+      "passed_entity_count": 18,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 18,
+      "declared_profile_passed_entity_count": 18,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 0,
+      "cross_profile_passed_entity_count": 0,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "component.pdu.v1": 18
+      },
+      "actual_hierarchy_level_counts": {
+        "component": 18
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 234,
+      "unique_semantic_frame_count": 3,
+      "mapped_signal_count_min": 2,
+      "mapped_signal_count_max": 2,
+      "error_counts": {}
+    },
+    {
+      "mapping_id": "sat-agent-platform.component.data-queue-link.v1",
+      "profile_id": "sat-agent.component.data-queue.trace.v1",
+      "declared_profile_capability_id": "component.data_queue.v1",
+      "declared_profile_hierarchy_level": "component",
+      "hierarchy_level": "component",
+      "component_archetype_ids": [
+        "link.transport"
+      ],
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "matched_entity_count": 18,
+      "passed_entity_count": 18,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 18,
+      "declared_profile_passed_entity_count": 18,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 0,
+      "cross_profile_passed_entity_count": 0,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "component.data_queue.v1": 18
+      },
+      "actual_hierarchy_level_counts": {
+        "component": 18
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 234,
+      "unique_semantic_frame_count": 1,
+      "mapped_signal_count_min": 2,
+      "mapped_signal_count_max": 2,
+      "error_counts": {}
+    },
+    {
+      "mapping_id": "sat-agent-platform.component.onboard-storage.v1",
+      "profile_id": "sat-agent.component.onboard-storage.trace.v1",
+      "declared_profile_capability_id": "component.onboard_storage.v1",
+      "declared_profile_hierarchy_level": "component",
+      "hierarchy_level": "component",
+      "component_archetype_ids": [
+        "queue.bounded_inventory"
+      ],
+      "usage_grade": "STRUCTURAL_UNCONTRACTED_NOT_TRAINING_QUALIFIED",
+      "matched_entity_count": 18,
+      "passed_entity_count": 18,
+      "failed_entity_count": 0,
+      "declared_profile_matched_entity_count": 18,
+      "declared_profile_passed_entity_count": 18,
+      "declared_profile_failed_entity_count": 0,
+      "cross_profile_compatible_entity_count": 0,
+      "cross_profile_passed_entity_count": 0,
+      "cross_profile_failed_entity_count": 0,
+      "actual_capability_counts": {
+        "component.onboard_storage.v1": 18
+      },
+      "actual_hierarchy_level_counts": {
+        "component": 18
+      },
+      "signal_schema_match_missing_time_axis_count": 0,
+      "missing_time_axis_contract_status_counts": {},
+      "missing_time_explicit_alternative_entity_count": 0,
+      "missing_time_index_surrogate_entity_count": 0,
+      "missing_time_manifest_sample_s_counts": {},
+      "missing_time_manifest_duration_s_counts": {},
+      "missing_time_row_count_convention_counts": {},
+      "mapped_row_count": 234,
+      "unique_semantic_frame_count": 3,
+      "mapped_signal_count_min": 3,
+      "mapped_signal_count_max": 3,
+      "error_counts": {}
+    }
+  ],
+  "execution_receipt": {
+    "read_only": true,
+    "selection_basis": "DECLARED_PUBLIC_FIELD_PRESENCE_ONLY",
+    "manifest_files_may_contain_annotation_values_and_are_parsed": true,
+    "manifest_annotation_fields_used_for_selection_or_mapping": false,
+    "manifest_annotation_values_emitted": false,
+    "manifest_structural_capability_level_and_timing_metadata_used_for_audit": true,
+    "manifest_structural_metadata_is_model_input": false,
+    "truth_values_read": false,
+    "simulator_answer_proxy_values_read": false,
+    "entity_case_run_path_or_seed_values_emitted": false,
+    "raw_rows_emitted": false,
+    "model_fit_count": 0,
+    "threshold_selection_count": 0,
+    "split_creation_count": 0,
+    "seed_creation_or_reservation_count": 0
+  },
+  "readiness": {
+    "common_semantic_interface_exercised": true,
+    "training_qualified": false,
+    "stage_s1_fit_authorized": false,
+    "stage_b_authorized": false,
+    "g2_pass": false,
+    "g3_pass": false
+  },
+  "claim_boundary": "A PASS proves only that actual telemetry from one Sat-Agent source can be projected through declared, truth-blind semantic contracts. It is not data qualification, diagnostic accuracy, cross-source generalization, flight evidence, or Stage B authorization."
+}

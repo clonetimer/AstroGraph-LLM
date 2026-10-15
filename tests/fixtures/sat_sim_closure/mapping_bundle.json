@@ -1,0 +1,1666 @@
+{
+  "schema_version": "sat-sim.astrograph-diagnostic-mapping-bundle.v1",
+  "mapping_count": 4,
+  "fault_ids": [
+    "ADCS_RW_FRICTION_INCREASE",
+    "ADCS_RW_JAM",
+    "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+    "EPS_BATTERY_CAPACITY_LOSS"
+  ],
+  "mappings": [
+    {
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "status": "active_provisional",
+      "mechanism": {
+        "schema_version": "sat-sim.fault-mechanism.v1",
+        "mechanism_id": "adcs.rw_friction_increase.mechanism.v1",
+        "fault_id": "ADCS_RW_FRICTION_INCREASE",
+        "subsystem": "ADCS",
+        "component": "reaction_wheel",
+        "status": "active_provisional",
+        "diagnostic_signature_id": "adcs.rw_friction_increase.diagnostic.v1",
+        "causes": [
+          {
+            "cause_id": "bearing_drag_growth",
+            "kind": "degradation",
+            "description": "Bearing or lubrication degradation increases parasitic drag."
+          }
+        ],
+        "physical_effects": [
+          {
+            "effect_id": "friction_torque_increase",
+            "description": "Parasitic wheel friction torque increases.",
+            "state_variable": "rw.friction_torque_nm",
+            "direction": "increasing"
+          },
+          {
+            "effect_id": "control_margin_consumed",
+            "description": "Available wheel authority is consumed by parasitic torque.",
+            "state_variable": "adcs.control_margin",
+            "direction": "decreasing"
+          }
+        ],
+        "propagation_chain": [
+          {
+            "stage_id": "p1",
+            "from": "bearing_drag_growth",
+            "to": "friction_torque_increase",
+            "relation": "causes"
+          },
+          {
+            "stage_id": "p2",
+            "from": "friction_torque_increase",
+            "to": "control_margin_consumed",
+            "relation": "reduces"
+          },
+          {
+            "stage_id": "p3",
+            "from": "control_margin_consumed",
+            "to": "wheel_speed_response",
+            "relation": "changes"
+          }
+        ],
+        "observables": [
+          {
+            "channel": "estimate.adcs.rw.friction_torque_nm_0",
+            "evidence_role": "simulator_truth",
+            "expected_relation": "increases after onset",
+            "model_input_eligible": false
+          },
+          {
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "evidence_role": "observable_telemetry",
+            "expected_relation": "paired trajectory diverges",
+            "model_input_eligible": true
+          },
+          {
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "evidence_role": "operational_estimate",
+            "expected_relation": "paired residual may increase",
+            "model_input_eligible": true
+          },
+          {
+            "channel": "estimate.adcs.pointing_error_deg",
+            "evidence_role": "operational_estimate",
+            "expected_relation": "may increase under loaded control",
+            "model_input_eligible": true
+          }
+        ],
+        "feature_contract_id": "adcs.rw_friction_increase.features.v1",
+        "pipeline_id": "adcs.rw_friction_increase.pipeline.v1",
+        "knowledge_graph_projection": {
+          "fault_node_id": "ADCS_RW_FRICTION_INCREASE",
+          "mechanism_node_id": "adcs.rw_friction_increase.mechanism.v1",
+          "edge_types": [
+            "HAS_CAUSE",
+            "CAUSES_EFFECT",
+            "PROPAGATES_TO",
+            "OBSERVED_AS",
+            "DIAGNOSED_BY"
+          ]
+        },
+        "claim_boundary": {
+          "mechanism_status": "engineering_hypothesis_pending_basilisk_18_case_and_expert_review",
+          "flight_validated": false
+        }
+      },
+      "feature_contract": {
+        "schema_version": "sat-sim.telemetry-feature-contract.v1",
+        "contract_id": "adcs.rw_friction_increase.features.v1",
+        "fault_id": "ADCS_RW_FRICTION_INCREASE",
+        "mechanism_id": "adcs.rw_friction_increase.mechanism.v1",
+        "status": "active_provisional",
+        "telemetry_profile": "astrograph-rw-temporal-basilisk-5ch.v1",
+        "raw_features": [
+          {
+            "feature_id": "rw_speed",
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "unit": "rad/s",
+            "dtype": "number",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": true,
+            "rationale": "Direct wheel-speed telemetry.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "rw_actual_torque",
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "unit": "N*m",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "rationale": "Runtime torque estimate; requires estimator provenance.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "pointing_error",
+            "channel": "estimate.adcs.pointing_error_deg",
+            "unit": "deg",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "rationale": "Attitude-control response.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "friction_truth",
+            "channel": "estimate.adcs.rw.friction_torque_nm_0",
+            "unit": "N*m",
+            "dtype": "number",
+            "evidence_role": "simulator_truth",
+            "model_input_eligible": false,
+            "rationale": "Fault-injection truth for physics review only.",
+            "availability": "available",
+            "required_for_formal_model_input": false
+          },
+          {
+            "feature_id": "rw_motor_current",
+            "channel": "sensor.adcs.rw.motor_current_a_0",
+            "unit": "A",
+            "dtype": "number",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": false,
+            "availability": "missing_from_simulator",
+            "required_for_formal_model_input": true,
+            "rationale": "AstroGraph primary channel; blocked until a physically parameterized motor-current sensor model exists."
+          }
+        ],
+        "derived_features": [
+          {
+            "feature_id": "rw_speed_paired_rms",
+            "inputs": [
+              "rw_speed"
+            ],
+            "transformation": "paired_rms_residual_over_post_fault_window",
+            "leakage_safe": true,
+            "model_input_eligible": true,
+            "status": "provisional",
+            "unit": "rad/s"
+          },
+          {
+            "feature_id": "actual_torque_paired_rms",
+            "inputs": [
+              "rw_actual_torque"
+            ],
+            "transformation": "paired_rms_residual_over_post_fault_window",
+            "leakage_safe": true,
+            "model_input_eligible": true,
+            "status": "provisional",
+            "unit": "N*m"
+          }
+        ],
+        "label_policy": {
+          "label_source": "experiment_record.ground_truth",
+          "onset_source": "fault_injection.start_s",
+          "simulator_truth_excluded_from_model_inputs": true
+        },
+        "split_policy": {
+          "group_key": "pair_id",
+          "independence_keys": [
+            "random_seed",
+            "initial_state_id",
+            "severity_band"
+          ],
+          "paired_fault_nominal_must_share_split": true
+        },
+        "missing_data_policy": {
+          "required_raw_feature_action": "reject_case",
+          "optional_feature_action": "mask_and_record",
+          "imputation_requires_training_only_fit": true
+        },
+        "claim_boundary": {
+          "thresholds_provisional": true,
+          "formal_training_requires_a_level_basilisk_and_named_expert_review": true,
+          "astrograph_interface_ready": false,
+          "missing_required_model_channels": [
+            "sensor.adcs.rw.motor_current_a_0"
+          ]
+        }
+      },
+      "pipeline": {
+        "schema_version": "sat-sim.diagnostic-pipeline.v1",
+        "pipeline_id": "adcs.rw_friction_increase.pipeline.v1",
+        "fault_id": "ADCS_RW_FRICTION_INCREASE",
+        "mechanism_id": "adcs.rw_friction_increase.mechanism.v1",
+        "feature_contract_id": "adcs.rw_friction_increase.features.v1",
+        "diagnostic_signature_id": "adcs.rw_friction_increase.diagnostic.v1",
+        "status": "active_provisional",
+        "stages": [
+          {
+            "stage_id": "quality_gate",
+            "kind": "data_quality_gate",
+            "implementation_ref": "sat_sim.dataset_qualification",
+            "required": true,
+            "input_refs": [
+              "experiment_record",
+              "dataset_contract"
+            ],
+            "output_ref": "qualified_pair"
+          },
+          {
+            "stage_id": "signature_detector",
+            "kind": "signature_detector",
+            "implementation_ref": "adcs.rw_friction_increase.diagnostic.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "signature_evidence"
+          },
+          {
+            "stage_id": "feature_extractor",
+            "kind": "feature_extractor",
+            "implementation_ref": "adcs.rw_friction_increase.features.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "feature_vector"
+          },
+          {
+            "stage_id": "ml_model",
+            "kind": "ml_model",
+            "implementation_ref": "astrograph.model_registry:selected_after_benchmark",
+            "required": false,
+            "input_refs": [
+              "feature_vector"
+            ],
+            "output_ref": "data_driven_prediction"
+          },
+          {
+            "stage_id": "kg_reasoner",
+            "kind": "kg_reasoner",
+            "implementation_ref": "astrograph.neo4j:causal_reasoner",
+            "required": true,
+            "input_refs": [
+              "signature_evidence",
+              "data_driven_prediction"
+            ],
+            "output_ref": "kg_diagnosis"
+          },
+          {
+            "stage_id": "simulation_evidence",
+            "kind": "simulation_evidence",
+            "implementation_ref": "adcs.rw_friction_increase.mechanism.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "simulation_evidence"
+          },
+          {
+            "stage_id": "fusion",
+            "kind": "fusion",
+            "implementation_ref": "astrograph.fusion:birrf",
+            "required": true,
+            "input_refs": [
+              "data_driven_prediction",
+              "kg_diagnosis",
+              "simulation_evidence"
+            ],
+            "output_ref": "fused_diagnosis"
+          },
+          {
+            "stage_id": "expert_gate",
+            "kind": "expert_review_gate",
+            "implementation_ref": "astrograph.governance:named_expert",
+            "required": true,
+            "input_refs": [
+              "fused_diagnosis"
+            ],
+            "output_ref": "publishable_diagnosis"
+          }
+        ],
+        "model_policy": {
+          "candidate_model_families": [
+            "random_forest",
+            "hist_gradient_boosting",
+            "tcn",
+            "lstm_autoencoder"
+          ],
+          "binding_status": "disabled_pending_benchmark",
+          "selection_gate": "minimum 3 independent A-level test runs per fault plus release gate and named expert approval"
+        },
+        "expert_review_required": true,
+        "claim_boundary": {
+          "pipeline_is_contract_not_accuracy_claim": true,
+          "formal_model_binding_enabled": false
+        }
+      },
+      "diagnostic_signature": {
+        "schema_version": "sat-sim.diagnostic-signature.v1",
+        "signature_id": "adcs.rw_friction_increase.diagnostic.v1",
+        "fault_id": "ADCS_RW_FRICTION_INCREASE",
+        "source_experiment_template_id": "adcs.rw_friction_increase.basilisk.v1",
+        "required_channels": [
+          "estimate.adcs.rw.friction_torque_nm_0",
+          "sensor.adcs.rw.speed_rad_s_0",
+          "estimate.adcs.pointing_error_deg"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "friction_level_shift",
+            "channel": "estimate.adcs.rw.friction_torque_nm_0",
+            "metric": "post_fault_mean_minus_nominal_gt",
+            "threshold": 1e-06,
+            "weight": 0.0,
+            "required": true,
+            "evidence_role": "simulator_truth",
+            "contributes_to_diagnostic_score": false
+          },
+          {
+            "criterion_id": "wheel_speed_response",
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "metric": "post_pair_rms_delta_gt",
+            "threshold": 1e-07,
+            "weight": 0.7,
+            "required": true,
+            "evidence_role": "observable_telemetry",
+            "contributes_to_diagnostic_score": true
+          },
+          {
+            "criterion_id": "applied_torque_response",
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "metric": "post_pair_rms_delta_gt",
+            "threshold": 1e-08,
+            "weight": 0.15,
+            "required": false,
+            "evidence_role": "operational_estimate",
+            "contributes_to_diagnostic_score": true
+          },
+          {
+            "criterion_id": "pointing_response",
+            "channel": "estimate.adcs.pointing_error_deg",
+            "metric": "post_pair_max_abs_delta_gt",
+            "threshold": 1e-07,
+            "weight": 0.15,
+            "required": false,
+            "evidence_role": "operational_estimate",
+            "contributes_to_diagnostic_score": true
+          }
+        ],
+        "qualification": {
+          "minimum_diagnostic_score": 0.65,
+          "require_all_required_criteria": true,
+          "minimum_observable_criteria_passed": 1,
+          "threshold_status": "provisional_until_basilisk_18_case",
+          "minimum_independent_basilisk_pairs_for_freeze": 3
+        },
+        "claim_boundary": {
+          "flight_calibrated": false,
+          "threshold_freeze_requires_basilisk_18_case": true
+        }
+      },
+      "astrograph_model_input_channels": [
+        "sensor.adcs.rw.speed_rad_s_0",
+        "estimate.adcs.rw.actual_torque_nm_0",
+        "estimate.adcs.pointing_error_deg"
+      ],
+      "missing_required_model_channels": [
+        "sensor.adcs.rw.motor_current_a_0"
+      ],
+      "astrograph_interface_ready": false,
+      "formal_model_binding_enabled": false,
+      "pipeline_runtime_supported": true,
+      "local_runtime_stage_kinds": [
+        "data_quality_gate",
+        "signature_detector",
+        "feature_extractor",
+        "simulation_evidence"
+      ],
+      "external_runtime_stage_kinds": [
+        "ml_model",
+        "kg_reasoner",
+        "fusion",
+        "expert_review_gate"
+      ],
+      "mapping_sha256": "f891896c0545069ed03bbd684f8298ffe6526718bfb5f4d3c1248c5ec2e1d695"
+    },
+    {
+      "fault_id": "ADCS_RW_JAM",
+      "status": "active_provisional",
+      "mechanism": {
+        "schema_version": "sat-sim.fault-mechanism.v1",
+        "mechanism_id": "adcs.rw_jam.mechanism.v1",
+        "fault_id": "ADCS_RW_JAM",
+        "subsystem": "ADCS",
+        "component": "reaction_wheel",
+        "status": "active_provisional",
+        "diagnostic_signature_id": "adcs.rw_jam.diagnostic.v1",
+        "causes": [
+          {
+            "cause_id": "rotor_lock",
+            "kind": "fault",
+            "description": "Mechanical or electrical lock prevents commanded wheel acceleration."
+          }
+        ],
+        "physical_effects": [
+          {
+            "effect_id": "wheel_torque_path_lost",
+            "description": "Wheel can no longer deliver commanded torque.",
+            "state_variable": "rw.delivered_torque_nm",
+            "direction": "decreasing"
+          },
+          {
+            "effect_id": "momentum_management_degraded",
+            "description": "Spacecraft loses one actuator degree of freedom.",
+            "state_variable": "adcs.control_authority",
+            "direction": "decreasing"
+          }
+        ],
+        "propagation_chain": [
+          {
+            "stage_id": "p1",
+            "from": "rotor_lock",
+            "to": "wheel_torque_path_lost",
+            "relation": "causes"
+          },
+          {
+            "stage_id": "p2",
+            "from": "wheel_torque_path_lost",
+            "to": "momentum_management_degraded",
+            "relation": "reduces"
+          },
+          {
+            "stage_id": "p3",
+            "from": "momentum_management_degraded",
+            "to": "pointing_error_response",
+            "relation": "can_increase"
+          }
+        ],
+        "observables": [
+          {
+            "channel": "status.adcs.rw.available_0",
+            "evidence_role": "simulator_truth",
+            "expected_relation": "becomes false",
+            "model_input_eligible": false
+          },
+          {
+            "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+            "evidence_role": "simulator_truth",
+            "expected_relation": "collapses",
+            "model_input_eligible": false
+          },
+          {
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "evidence_role": "observable_telemetry",
+            "expected_relation": "paired trajectory diverges",
+            "model_input_eligible": true
+          },
+          {
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "evidence_role": "operational_estimate",
+            "expected_relation": "paired residual increases",
+            "model_input_eligible": true
+          },
+          {
+            "channel": "estimate.adcs.pointing_error_deg",
+            "evidence_role": "operational_estimate",
+            "expected_relation": "may increase",
+            "model_input_eligible": true
+          }
+        ],
+        "feature_contract_id": "adcs.rw_jam.features.v1",
+        "pipeline_id": "adcs.rw_jam.pipeline.v1",
+        "knowledge_graph_projection": {
+          "fault_node_id": "ADCS_RW_JAM",
+          "mechanism_node_id": "adcs.rw_jam.mechanism.v1",
+          "edge_types": [
+            "HAS_CAUSE",
+            "CAUSES_EFFECT",
+            "PROPAGATES_TO",
+            "OBSERVED_AS",
+            "DIAGNOSED_BY"
+          ]
+        },
+        "claim_boundary": {
+          "mechanism_status": "engineering_hypothesis_pending_basilisk_18_case_and_expert_review",
+          "flight_validated": false
+        }
+      },
+      "feature_contract": {
+        "schema_version": "sat-sim.telemetry-feature-contract.v1",
+        "contract_id": "adcs.rw_jam.features.v1",
+        "fault_id": "ADCS_RW_JAM",
+        "mechanism_id": "adcs.rw_jam.mechanism.v1",
+        "status": "active_provisional",
+        "telemetry_profile": "astrograph-rw-temporal-basilisk-5ch.v1",
+        "raw_features": [
+          {
+            "feature_id": "rw_speed",
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "unit": "rad/s",
+            "dtype": "number",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": true,
+            "rationale": "Direct wheel-speed telemetry.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "rw_actual_torque",
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "unit": "N*m",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "rationale": "Runtime torque estimate.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "pointing_error",
+            "channel": "estimate.adcs.pointing_error_deg",
+            "unit": "deg",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "rationale": "Attitude-control response.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "rw_available_truth",
+            "channel": "status.adcs.rw.available_0",
+            "unit": "bool",
+            "dtype": "number",
+            "evidence_role": "simulator_truth",
+            "model_input_eligible": false,
+            "rationale": "Injected availability state.",
+            "availability": "available",
+            "required_for_formal_model_input": false
+          },
+          {
+            "feature_id": "max_torque_truth",
+            "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+            "unit": "N*m",
+            "dtype": "number",
+            "evidence_role": "simulator_truth",
+            "model_input_eligible": false,
+            "rationale": "Injected authority truth.",
+            "availability": "available",
+            "required_for_formal_model_input": false
+          },
+          {
+            "feature_id": "rw_motor_current",
+            "channel": "sensor.adcs.rw.motor_current_a_0",
+            "unit": "A",
+            "dtype": "number",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": false,
+            "availability": "missing_from_simulator",
+            "required_for_formal_model_input": true,
+            "rationale": "AstroGraph primary channel; missing from current Basilisk telemetry profile."
+          },
+          {
+            "feature_id": "rw_driver_code",
+            "channel": "status.adcs.rw.driver_code_0",
+            "unit": "code",
+            "dtype": "string",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": false,
+            "availability": "missing_from_simulator",
+            "required_for_formal_model_input": false,
+            "rationale": "Optional AstroGraph supporting channel."
+          }
+        ],
+        "derived_features": [
+          {
+            "feature_id": "rw_speed_decay_rate",
+            "inputs": [
+              "rw_speed"
+            ],
+            "transformation": "post_fault_linear_slope",
+            "leakage_safe": true,
+            "model_input_eligible": true,
+            "status": "provisional",
+            "unit": "rad/s^2"
+          },
+          {
+            "feature_id": "torque_speed_consistency_residual",
+            "inputs": [
+              "rw_speed",
+              "rw_actual_torque"
+            ],
+            "transformation": "paired_dynamic_consistency_residual",
+            "leakage_safe": true,
+            "model_input_eligible": true,
+            "status": "provisional",
+            "unit": "1"
+          }
+        ],
+        "label_policy": {
+          "label_source": "experiment_record.ground_truth",
+          "onset_source": "fault_injection.start_s",
+          "simulator_truth_excluded_from_model_inputs": true
+        },
+        "split_policy": {
+          "group_key": "pair_id",
+          "independence_keys": [
+            "random_seed",
+            "initial_state_id",
+            "severity_band"
+          ],
+          "paired_fault_nominal_must_share_split": true
+        },
+        "missing_data_policy": {
+          "required_raw_feature_action": "reject_case",
+          "optional_feature_action": "mask_and_record",
+          "imputation_requires_training_only_fit": true
+        },
+        "claim_boundary": {
+          "thresholds_provisional": true,
+          "formal_training_requires_a_level_basilisk_and_named_expert_review": true,
+          "astrograph_interface_ready": false,
+          "missing_required_model_channels": [
+            "sensor.adcs.rw.motor_current_a_0"
+          ]
+        }
+      },
+      "pipeline": {
+        "schema_version": "sat-sim.diagnostic-pipeline.v1",
+        "pipeline_id": "adcs.rw_jam.pipeline.v1",
+        "fault_id": "ADCS_RW_JAM",
+        "mechanism_id": "adcs.rw_jam.mechanism.v1",
+        "feature_contract_id": "adcs.rw_jam.features.v1",
+        "diagnostic_signature_id": "adcs.rw_jam.diagnostic.v1",
+        "status": "active_provisional",
+        "stages": [
+          {
+            "stage_id": "quality_gate",
+            "kind": "data_quality_gate",
+            "implementation_ref": "sat_sim.dataset_qualification",
+            "required": true,
+            "input_refs": [
+              "experiment_record",
+              "dataset_contract"
+            ],
+            "output_ref": "qualified_pair"
+          },
+          {
+            "stage_id": "signature_detector",
+            "kind": "signature_detector",
+            "implementation_ref": "adcs.rw_jam.diagnostic.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "signature_evidence"
+          },
+          {
+            "stage_id": "feature_extractor",
+            "kind": "feature_extractor",
+            "implementation_ref": "adcs.rw_jam.features.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "feature_vector"
+          },
+          {
+            "stage_id": "ml_model",
+            "kind": "ml_model",
+            "implementation_ref": "astrograph.model_registry:selected_after_benchmark",
+            "required": false,
+            "input_refs": [
+              "feature_vector"
+            ],
+            "output_ref": "data_driven_prediction"
+          },
+          {
+            "stage_id": "kg_reasoner",
+            "kind": "kg_reasoner",
+            "implementation_ref": "astrograph.neo4j:causal_reasoner",
+            "required": true,
+            "input_refs": [
+              "signature_evidence",
+              "data_driven_prediction"
+            ],
+            "output_ref": "kg_diagnosis"
+          },
+          {
+            "stage_id": "simulation_evidence",
+            "kind": "simulation_evidence",
+            "implementation_ref": "adcs.rw_jam.mechanism.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "simulation_evidence"
+          },
+          {
+            "stage_id": "fusion",
+            "kind": "fusion",
+            "implementation_ref": "astrograph.fusion:birrf",
+            "required": true,
+            "input_refs": [
+              "data_driven_prediction",
+              "kg_diagnosis",
+              "simulation_evidence"
+            ],
+            "output_ref": "fused_diagnosis"
+          },
+          {
+            "stage_id": "expert_gate",
+            "kind": "expert_review_gate",
+            "implementation_ref": "astrograph.governance:named_expert",
+            "required": true,
+            "input_refs": [
+              "fused_diagnosis"
+            ],
+            "output_ref": "publishable_diagnosis"
+          }
+        ],
+        "model_policy": {
+          "candidate_model_families": [
+            "random_forest",
+            "hist_gradient_boosting",
+            "tcn"
+          ],
+          "binding_status": "disabled_pending_benchmark",
+          "selection_gate": "minimum 3 independent A-level test runs per fault plus release gate and named expert approval"
+        },
+        "expert_review_required": true,
+        "claim_boundary": {
+          "pipeline_is_contract_not_accuracy_claim": true,
+          "formal_model_binding_enabled": false
+        }
+      },
+      "diagnostic_signature": {
+        "schema_version": "sat-sim.diagnostic-signature.v1",
+        "signature_id": "adcs.rw_jam.diagnostic.v1",
+        "fault_id": "ADCS_RW_JAM",
+        "source_experiment_template_id": "adcs.rw_jam.basilisk.v1",
+        "required_channels": [
+          "status.adcs.rw.available_0",
+          "estimate.adcs.rw.effective_max_torque_nm_0",
+          "sensor.adcs.rw.speed_rad_s_0"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "wheel_unavailable_persistent",
+            "channel": "status.adcs.rw.available_0",
+            "metric": "post_fault_fraction_le_gte",
+            "threshold": 0.9,
+            "value_threshold": 0.0,
+            "weight": 0.0,
+            "required": true,
+            "evidence_role": "simulator_truth",
+            "contributes_to_diagnostic_score": false
+          },
+          {
+            "criterion_id": "torque_authority_collapsed",
+            "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+            "metric": "post_fault_max_le",
+            "threshold": 1e-12,
+            "weight": 0.0,
+            "required": true,
+            "evidence_role": "simulator_truth",
+            "contributes_to_diagnostic_score": false
+          },
+          {
+            "criterion_id": "wheel_speed_divergence",
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "metric": "post_pair_rms_delta_gt",
+            "threshold": 1e-07,
+            "weight": 0.5,
+            "required": true,
+            "evidence_role": "observable_telemetry",
+            "contributes_to_diagnostic_score": true
+          },
+          {
+            "criterion_id": "applied_torque_response",
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "metric": "post_pair_rms_delta_gt",
+            "threshold": 1e-08,
+            "weight": 0.25,
+            "required": false,
+            "evidence_role": "operational_estimate",
+            "contributes_to_diagnostic_score": true
+          },
+          {
+            "criterion_id": "pointing_response",
+            "channel": "estimate.adcs.pointing_error_deg",
+            "metric": "post_pair_max_abs_delta_gt",
+            "threshold": 1e-07,
+            "weight": 0.25,
+            "required": false,
+            "evidence_role": "operational_estimate",
+            "contributes_to_diagnostic_score": true
+          }
+        ],
+        "qualification": {
+          "minimum_diagnostic_score": 0.7,
+          "require_all_required_criteria": true,
+          "minimum_observable_criteria_passed": 1,
+          "threshold_status": "provisional_until_basilisk_18_case",
+          "minimum_independent_basilisk_pairs_for_freeze": 3
+        },
+        "claim_boundary": {
+          "flight_calibrated": false,
+          "threshold_freeze_requires_basilisk_18_case": true
+        }
+      },
+      "astrograph_model_input_channels": [
+        "sensor.adcs.rw.speed_rad_s_0",
+        "estimate.adcs.rw.actual_torque_nm_0",
+        "estimate.adcs.pointing_error_deg"
+      ],
+      "missing_required_model_channels": [
+        "sensor.adcs.rw.motor_current_a_0"
+      ],
+      "astrograph_interface_ready": false,
+      "formal_model_binding_enabled": false,
+      "pipeline_runtime_supported": true,
+      "local_runtime_stage_kinds": [
+        "data_quality_gate",
+        "signature_detector",
+        "feature_extractor",
+        "simulation_evidence"
+      ],
+      "external_runtime_stage_kinds": [
+        "ml_model",
+        "kg_reasoner",
+        "fusion",
+        "expert_review_gate"
+      ],
+      "mapping_sha256": "2b6263084361964f4d2890dc408989363ff55ad2f3652173dcb64c92094941e9"
+    },
+    {
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "status": "active_provisional",
+      "mechanism": {
+        "schema_version": "sat-sim.fault-mechanism.v1",
+        "mechanism_id": "adcs.rw_torque_authority_loss.mechanism.v1",
+        "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+        "subsystem": "ADCS",
+        "component": "reaction_wheel",
+        "status": "active_provisional",
+        "diagnostic_signature_id": "adcs.rw_torque_authority_loss.diagnostic.v1",
+        "causes": [
+          {
+            "cause_id": "drive_derating",
+            "kind": "degradation",
+            "description": "Motor drive, current limit or thermal protection reduces available wheel torque."
+          }
+        ],
+        "physical_effects": [
+          {
+            "effect_id": "torque_limit_reduced",
+            "description": "Maximum deliverable torque is reduced.",
+            "state_variable": "rw.max_torque_nm",
+            "direction": "decreasing"
+          },
+          {
+            "effect_id": "command_tracking_residual",
+            "description": "Commanded and delivered torque can diverge under load.",
+            "state_variable": "rw.torque_residual_nm",
+            "direction": "increasing"
+          }
+        ],
+        "propagation_chain": [
+          {
+            "stage_id": "p1",
+            "from": "drive_derating",
+            "to": "torque_limit_reduced",
+            "relation": "causes"
+          },
+          {
+            "stage_id": "p2",
+            "from": "torque_limit_reduced",
+            "to": "command_tracking_residual",
+            "relation": "creates_when_loaded"
+          },
+          {
+            "stage_id": "p3",
+            "from": "command_tracking_residual",
+            "to": "pointing_error_response",
+            "relation": "can_increase"
+          }
+        ],
+        "observables": [
+          {
+            "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+            "evidence_role": "simulator_truth",
+            "expected_relation": "decreases",
+            "model_input_eligible": false
+          },
+          {
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "evidence_role": "operational_estimate",
+            "expected_relation": "paired response diverges when authority binds",
+            "model_input_eligible": true
+          },
+          {
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "evidence_role": "observable_telemetry",
+            "expected_relation": "may diverge under loaded maneuver",
+            "model_input_eligible": true
+          },
+          {
+            "channel": "estimate.adcs.pointing_error_deg",
+            "evidence_role": "operational_estimate",
+            "expected_relation": "may increase",
+            "model_input_eligible": true
+          }
+        ],
+        "feature_contract_id": "adcs.rw_torque_authority_loss.features.v1",
+        "pipeline_id": "adcs.rw_torque_authority_loss.pipeline.v1",
+        "knowledge_graph_projection": {
+          "fault_node_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+          "mechanism_node_id": "adcs.rw_torque_authority_loss.mechanism.v1",
+          "edge_types": [
+            "HAS_CAUSE",
+            "CAUSES_EFFECT",
+            "PROPAGATES_TO",
+            "OBSERVED_AS",
+            "DIAGNOSED_BY"
+          ]
+        },
+        "claim_boundary": {
+          "mechanism_status": "engineering_hypothesis_pending_basilisk_18_case_and_expert_review",
+          "flight_validated": false
+        }
+      },
+      "feature_contract": {
+        "schema_version": "sat-sim.telemetry-feature-contract.v1",
+        "contract_id": "adcs.rw_torque_authority_loss.features.v1",
+        "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+        "mechanism_id": "adcs.rw_torque_authority_loss.mechanism.v1",
+        "status": "active_provisional",
+        "telemetry_profile": "astrograph-rw-temporal-basilisk-5ch.v1",
+        "raw_features": [
+          {
+            "feature_id": "rw_speed",
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "unit": "rad/s",
+            "dtype": "number",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": true,
+            "rationale": "Direct wheel-speed telemetry.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "rw_actual_torque",
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "unit": "N*m",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "rationale": "Delivered torque estimate.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "pointing_error",
+            "channel": "estimate.adcs.pointing_error_deg",
+            "unit": "deg",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "rationale": "Attitude-control response.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "max_torque_truth",
+            "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+            "unit": "N*m",
+            "dtype": "number",
+            "evidence_role": "simulator_truth",
+            "model_input_eligible": false,
+            "rationale": "Injected authority truth only.",
+            "availability": "available",
+            "required_for_formal_model_input": false
+          },
+          {
+            "feature_id": "rw_command_torque",
+            "channel": "adcs.rw.command_torque_nm_0",
+            "unit": "N*m",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": false,
+            "availability": "missing_from_simulator",
+            "required_for_formal_model_input": true,
+            "rationale": "Required to form a non-leaking command-versus-delivered torque residual."
+          }
+        ],
+        "derived_features": [
+          {
+            "feature_id": "actual_torque_paired_rms",
+            "inputs": [
+              "rw_actual_torque"
+            ],
+            "transformation": "paired_rms_residual_over_post_fault_window",
+            "leakage_safe": true,
+            "model_input_eligible": true,
+            "status": "provisional",
+            "unit": "N*m"
+          },
+          {
+            "feature_id": "rw_speed_paired_rms",
+            "inputs": [
+              "rw_speed"
+            ],
+            "transformation": "paired_rms_residual_over_post_fault_window",
+            "leakage_safe": true,
+            "model_input_eligible": true,
+            "status": "provisional",
+            "unit": "rad/s"
+          }
+        ],
+        "label_policy": {
+          "label_source": "experiment_record.ground_truth",
+          "onset_source": "fault_injection.start_s",
+          "simulator_truth_excluded_from_model_inputs": true
+        },
+        "split_policy": {
+          "group_key": "pair_id",
+          "independence_keys": [
+            "random_seed",
+            "initial_state_id",
+            "severity_band"
+          ],
+          "paired_fault_nominal_must_share_split": true
+        },
+        "missing_data_policy": {
+          "required_raw_feature_action": "reject_case",
+          "optional_feature_action": "mask_and_record",
+          "imputation_requires_training_only_fit": true
+        },
+        "claim_boundary": {
+          "thresholds_provisional": true,
+          "formal_training_requires_a_level_basilisk_and_named_expert_review": true,
+          "astrograph_interface_ready": false,
+          "missing_required_model_channels": [
+            "adcs.rw.command_torque_nm_0"
+          ]
+        }
+      },
+      "pipeline": {
+        "schema_version": "sat-sim.diagnostic-pipeline.v1",
+        "pipeline_id": "adcs.rw_torque_authority_loss.pipeline.v1",
+        "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+        "mechanism_id": "adcs.rw_torque_authority_loss.mechanism.v1",
+        "feature_contract_id": "adcs.rw_torque_authority_loss.features.v1",
+        "diagnostic_signature_id": "adcs.rw_torque_authority_loss.diagnostic.v1",
+        "status": "active_provisional",
+        "stages": [
+          {
+            "stage_id": "quality_gate",
+            "kind": "data_quality_gate",
+            "implementation_ref": "sat_sim.dataset_qualification",
+            "required": true,
+            "input_refs": [
+              "experiment_record",
+              "dataset_contract"
+            ],
+            "output_ref": "qualified_pair"
+          },
+          {
+            "stage_id": "signature_detector",
+            "kind": "signature_detector",
+            "implementation_ref": "adcs.rw_torque_authority_loss.diagnostic.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "signature_evidence"
+          },
+          {
+            "stage_id": "feature_extractor",
+            "kind": "feature_extractor",
+            "implementation_ref": "adcs.rw_torque_authority_loss.features.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "feature_vector"
+          },
+          {
+            "stage_id": "ml_model",
+            "kind": "ml_model",
+            "implementation_ref": "astrograph.model_registry:selected_after_benchmark",
+            "required": false,
+            "input_refs": [
+              "feature_vector"
+            ],
+            "output_ref": "data_driven_prediction"
+          },
+          {
+            "stage_id": "kg_reasoner",
+            "kind": "kg_reasoner",
+            "implementation_ref": "astrograph.neo4j:causal_reasoner",
+            "required": true,
+            "input_refs": [
+              "signature_evidence",
+              "data_driven_prediction"
+            ],
+            "output_ref": "kg_diagnosis"
+          },
+          {
+            "stage_id": "simulation_evidence",
+            "kind": "simulation_evidence",
+            "implementation_ref": "adcs.rw_torque_authority_loss.mechanism.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "simulation_evidence"
+          },
+          {
+            "stage_id": "fusion",
+            "kind": "fusion",
+            "implementation_ref": "astrograph.fusion:birrf",
+            "required": true,
+            "input_refs": [
+              "data_driven_prediction",
+              "kg_diagnosis",
+              "simulation_evidence"
+            ],
+            "output_ref": "fused_diagnosis"
+          },
+          {
+            "stage_id": "expert_gate",
+            "kind": "expert_review_gate",
+            "implementation_ref": "astrograph.governance:named_expert",
+            "required": true,
+            "input_refs": [
+              "fused_diagnosis"
+            ],
+            "output_ref": "publishable_diagnosis"
+          }
+        ],
+        "model_policy": {
+          "candidate_model_families": [
+            "random_forest",
+            "hist_gradient_boosting",
+            "tcn"
+          ],
+          "binding_status": "disabled_pending_benchmark",
+          "selection_gate": "minimum 3 independent A-level test runs per fault plus release gate and named expert approval"
+        },
+        "expert_review_required": true,
+        "claim_boundary": {
+          "pipeline_is_contract_not_accuracy_claim": true,
+          "formal_model_binding_enabled": false
+        }
+      },
+      "diagnostic_signature": {
+        "schema_version": "sat-sim.diagnostic-signature.v1",
+        "signature_id": "adcs.rw_torque_authority_loss.diagnostic.v1",
+        "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+        "source_experiment_template_id": "adcs.rw_torque_authority_loss.basilisk.v1",
+        "required_channels": [
+          "estimate.adcs.rw.effective_max_torque_nm_0",
+          "estimate.adcs.rw.actual_torque_nm_0",
+          "estimate.adcs.pointing_error_deg"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "effective_torque_ratio_reduced",
+            "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+            "metric": "post_fault_to_nominal_mean_ratio_lt",
+            "threshold": 0.9,
+            "weight": 0.0,
+            "required": true,
+            "evidence_role": "simulator_truth",
+            "contributes_to_diagnostic_score": false
+          },
+          {
+            "criterion_id": "applied_torque_response",
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "metric": "post_pair_rms_delta_gt",
+            "threshold": 1e-08,
+            "weight": 0.5,
+            "required": true,
+            "evidence_role": "operational_estimate",
+            "contributes_to_diagnostic_score": true
+          },
+          {
+            "criterion_id": "wheel_speed_response",
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "metric": "post_pair_rms_delta_gt",
+            "threshold": 1e-07,
+            "weight": 0.2,
+            "required": false,
+            "evidence_role": "observable_telemetry",
+            "contributes_to_diagnostic_score": true
+          },
+          {
+            "criterion_id": "pointing_response",
+            "channel": "estimate.adcs.pointing_error_deg",
+            "metric": "post_pair_max_abs_delta_gt",
+            "threshold": 1e-07,
+            "weight": 0.3,
+            "required": false,
+            "evidence_role": "operational_estimate",
+            "contributes_to_diagnostic_score": true
+          }
+        ],
+        "qualification": {
+          "minimum_diagnostic_score": 0.5,
+          "require_all_required_criteria": true,
+          "minimum_observable_criteria_passed": 1,
+          "threshold_status": "provisional_until_basilisk_18_case",
+          "minimum_independent_basilisk_pairs_for_freeze": 3
+        },
+        "claim_boundary": {
+          "flight_calibrated": false,
+          "threshold_freeze_requires_basilisk_18_case": true
+        }
+      },
+      "astrograph_model_input_channels": [
+        "sensor.adcs.rw.speed_rad_s_0",
+        "estimate.adcs.rw.actual_torque_nm_0",
+        "estimate.adcs.pointing_error_deg"
+      ],
+      "missing_required_model_channels": [
+        "adcs.rw.command_torque_nm_0"
+      ],
+      "astrograph_interface_ready": false,
+      "formal_model_binding_enabled": false,
+      "pipeline_runtime_supported": true,
+      "local_runtime_stage_kinds": [
+        "data_quality_gate",
+        "signature_detector",
+        "feature_extractor",
+        "simulation_evidence"
+      ],
+      "external_runtime_stage_kinds": [
+        "ml_model",
+        "kg_reasoner",
+        "fusion",
+        "expert_review_gate"
+      ],
+      "mapping_sha256": "a081d1c4aea85404a4f2c1c508e6d23d8a0ccf83d6565e1d021b4b2ef2a54c33"
+    },
+    {
+      "fault_id": "EPS_BATTERY_CAPACITY_LOSS",
+      "status": "blocked_pending_basilisk_fault_migration",
+      "mechanism": {
+        "schema_version": "sat-sim.fault-mechanism.v1",
+        "mechanism_id": "eps.battery_capacity_loss.mechanism.v1",
+        "fault_id": "EPS_BATTERY_CAPACITY_LOSS",
+        "subsystem": "EPS",
+        "component": "battery_pack",
+        "status": "blocked_pending_basilisk_fault_migration",
+        "diagnostic_signature_id": null,
+        "causes": [
+          {
+            "cause_id": "active_material_loss",
+            "kind": "degradation",
+            "description": "Ageing or damage reduces usable electrochemical capacity."
+          }
+        ],
+        "physical_effects": [
+          {
+            "effect_id": "usable_capacity_reduced",
+            "description": "Usable battery energy capacity decreases.",
+            "state_variable": "eps.battery.usable_capacity_wh",
+            "direction": "decreasing"
+          },
+          {
+            "effect_id": "soc_dynamics_accelerated",
+            "description": "State of charge falls faster under matched load and generation.",
+            "state_variable": "eps.battery.soc_rate",
+            "direction": "more_negative"
+          }
+        ],
+        "propagation_chain": [
+          {
+            "stage_id": "p1",
+            "from": "active_material_loss",
+            "to": "usable_capacity_reduced",
+            "relation": "causes"
+          },
+          {
+            "stage_id": "p2",
+            "from": "usable_capacity_reduced",
+            "to": "soc_dynamics_accelerated",
+            "relation": "increases_discharge_rate"
+          },
+          {
+            "stage_id": "p3",
+            "from": "soc_dynamics_accelerated",
+            "to": "load_shed_response",
+            "relation": "can_trigger"
+          }
+        ],
+        "observables": [
+          {
+            "channel": "eps.battery_capacity_j",
+            "evidence_role": "simulator_truth",
+            "expected_relation": "decreases",
+            "model_input_eligible": false
+          },
+          {
+            "channel": "eps.battery_soc",
+            "evidence_role": "observable_telemetry",
+            "expected_relation": "paired discharge slope becomes more negative",
+            "model_input_eligible": true
+          },
+          {
+            "channel": "eps.net_power_w",
+            "evidence_role": "operational_estimate",
+            "expected_relation": "used as load-generation context",
+            "model_input_eligible": true
+          },
+          {
+            "channel": "eps.load_shed_active",
+            "evidence_role": "observable_telemetry",
+            "expected_relation": "may activate earlier",
+            "model_input_eligible": true
+          }
+        ],
+        "feature_contract_id": "eps.battery_capacity_loss.features.v1",
+        "pipeline_id": "eps.battery_capacity_loss.pipeline.v1",
+        "knowledge_graph_projection": {
+          "fault_node_id": "EPS_BATTERY_CAPACITY_LOSS",
+          "mechanism_node_id": "eps.battery_capacity_loss.mechanism.v1",
+          "edge_types": [
+            "HAS_CAUSE",
+            "CAUSES_EFFECT",
+            "PROPAGATES_TO",
+            "OBSERVED_AS",
+            "DIAGNOSED_BY"
+          ]
+        },
+        "claim_boundary": {
+          "simulation_gap": "subsystem.eps.unified_native.v1 currently supports nominal mode only; capacity-loss event is not yet migrated to Basilisk runtime",
+          "formal_training_allowed": false,
+          "flight_validated": false
+        }
+      },
+      "feature_contract": {
+        "schema_version": "sat-sim.telemetry-feature-contract.v1",
+        "contract_id": "eps.battery_capacity_loss.features.v1",
+        "fault_id": "EPS_BATTERY_CAPACITY_LOSS",
+        "mechanism_id": "eps.battery_capacity_loss.mechanism.v1",
+        "status": "blocked_pending_basilisk_fault_migration",
+        "telemetry_profile": "astrograph-eps-battery-capacity-basilisk-pending.v1",
+        "raw_features": [
+          {
+            "feature_id": "battery_soc",
+            "channel": "eps.battery_soc",
+            "unit": "1",
+            "dtype": "number",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": true,
+            "rationale": "Primary observable for matched-load discharge dynamics.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "net_power",
+            "channel": "eps.net_power_w",
+            "unit": "W",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "rationale": "Required context to distinguish load changes from capacity loss.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "load_shed",
+            "channel": "eps.load_shed_active",
+            "unit": "bool",
+            "dtype": "number",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": true,
+            "rationale": "Operational consequence; not sufficient alone.",
+            "availability": "available",
+            "required_for_formal_model_input": true
+          },
+          {
+            "feature_id": "capacity_truth",
+            "channel": "eps.battery_capacity_j",
+            "unit": "J",
+            "dtype": "number",
+            "evidence_role": "simulator_truth",
+            "model_input_eligible": false,
+            "rationale": "Injected capacity truth for physics validation only.",
+            "availability": "available",
+            "required_for_formal_model_input": false
+          },
+          {
+            "feature_id": "battery_capacity_estimate",
+            "channel": "estimate.eps.battery_capacity_wh",
+            "unit": "Wh",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": false,
+            "availability": "missing_from_simulator",
+            "required_for_formal_model_input": true,
+            "rationale": "AstroGraph primary capacity estimate; no Basilisk observer is implemented."
+          },
+          {
+            "feature_id": "battery_soh_estimate",
+            "channel": "estimate.eps.battery_soh",
+            "unit": "1",
+            "dtype": "number",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": false,
+            "availability": "missing_from_simulator",
+            "required_for_formal_model_input": true,
+            "rationale": "AstroGraph primary SOH estimate; no Basilisk observer is implemented."
+          },
+          {
+            "feature_id": "battery_voltage",
+            "channel": "sensor.eps.battery_voltage_v",
+            "unit": "V",
+            "dtype": "number",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": false,
+            "availability": "missing_from_simulator",
+            "required_for_formal_model_input": false,
+            "rationale": "AstroGraph supporting channel; current unified EPS profile does not record voltage."
+          }
+        ],
+        "derived_features": [
+          {
+            "feature_id": "soc_paired_slope_delta",
+            "inputs": [
+              "battery_soc",
+              "net_power"
+            ],
+            "transformation": "load_conditioned_paired_soc_slope_delta",
+            "leakage_safe": true,
+            "model_input_eligible": true,
+            "status": "blocked_missing_channel",
+            "unit": "1/s"
+          },
+          {
+            "feature_id": "capacity_estimate_ratio",
+            "inputs": [
+              "battery_soc",
+              "net_power"
+            ],
+            "transformation": "observer_estimated_capacity_ratio",
+            "leakage_safe": true,
+            "model_input_eligible": false,
+            "status": "blocked_missing_channel",
+            "unit": "1"
+          }
+        ],
+        "label_policy": {
+          "label_source": "future_basilisk_capacity_loss_event_record",
+          "simulator_truth_excluded_from_model_inputs": true,
+          "current_status": "no_native_fault_event"
+        },
+        "split_policy": {
+          "group_key": "pair_id",
+          "independence_keys": [
+            "random_seed",
+            "load_profile_id",
+            "initial_soc",
+            "severity_band"
+          ],
+          "paired_fault_nominal_must_share_split": true
+        },
+        "missing_data_policy": {
+          "required_raw_feature_action": "reject_case",
+          "optional_feature_action": "mask_and_record",
+          "imputation_requires_training_only_fit": true
+        },
+        "claim_boundary": {
+          "formal_training_allowed": false,
+          "blocking_reason": "Basilisk EPS capacity-loss event and observable voltage/current profile are not yet implemented",
+          "astrograph_interface_ready": false,
+          "missing_required_model_channels": [
+            "estimate.eps.battery_capacity_wh",
+            "estimate.eps.battery_soh"
+          ]
+        }
+      },
+      "pipeline": {
+        "schema_version": "sat-sim.diagnostic-pipeline.v1",
+        "pipeline_id": "eps.battery_capacity_loss.pipeline.v1",
+        "fault_id": "EPS_BATTERY_CAPACITY_LOSS",
+        "mechanism_id": "eps.battery_capacity_loss.mechanism.v1",
+        "feature_contract_id": "eps.battery_capacity_loss.features.v1",
+        "diagnostic_signature_id": null,
+        "status": "blocked_pending_basilisk_fault_migration",
+        "stages": [
+          {
+            "stage_id": "quality_gate",
+            "kind": "data_quality_gate",
+            "implementation_ref": "sat_sim.dataset_qualification",
+            "required": true,
+            "input_refs": [
+              "future_experiment_record",
+              "future_dataset_contract"
+            ],
+            "output_ref": "qualified_pair"
+          },
+          {
+            "stage_id": "feature_extractor",
+            "kind": "feature_extractor",
+            "implementation_ref": "eps.battery_capacity_loss.features.v1",
+            "required": true,
+            "input_refs": [
+              "qualified_pair"
+            ],
+            "output_ref": "feature_vector"
+          },
+          {
+            "stage_id": "ml_model",
+            "kind": "ml_model",
+            "implementation_ref": "astrograph.model_registry:selected_after_benchmark",
+            "required": false,
+            "input_refs": [
+              "feature_vector"
+            ],
+            "output_ref": "data_driven_prediction"
+          },
+          {
+            "stage_id": "kg_reasoner",
+            "kind": "kg_reasoner",
+            "implementation_ref": "astrograph.neo4j:causal_reasoner",
+            "required": true,
+            "input_refs": [
+              "feature_vector",
+              "data_driven_prediction"
+            ],
+            "output_ref": "kg_diagnosis"
+          },
+          {
+            "stage_id": "fusion",
+            "kind": "fusion",
+            "implementation_ref": "astrograph.fusion:birrf",
+            "required": true,
+            "input_refs": [
+              "data_driven_prediction",
+              "kg_diagnosis"
+            ],
+            "output_ref": "fused_diagnosis"
+          },
+          {
+            "stage_id": "expert_gate",
+            "kind": "expert_review_gate",
+            "implementation_ref": "astrograph.governance:named_expert",
+            "required": true,
+            "input_refs": [
+              "fused_diagnosis"
+            ],
+            "output_ref": "publishable_diagnosis"
+          }
+        ],
+        "model_policy": {
+          "candidate_model_families": [
+            "hist_gradient_boosting",
+            "random_forest",
+            "tcn"
+          ],
+          "binding_status": "blocked_by_simulation_capability",
+          "selection_gate": "requires migrated Basilisk fault event, qualified paired dataset, independent benchmark and named expert approval"
+        },
+        "expert_review_required": true,
+        "claim_boundary": {
+          "pipeline_is_contract_not_accuracy_claim": true,
+          "formal_model_binding_enabled": false,
+          "blocking_reason": "no Basilisk-native EPS capacity-loss fault experiment"
+        }
+      },
+      "diagnostic_signature": null,
+      "astrograph_model_input_channels": [
+        "eps.battery_soc",
+        "eps.net_power_w",
+        "eps.load_shed_active"
+      ],
+      "missing_required_model_channels": [
+        "estimate.eps.battery_capacity_wh",
+        "estimate.eps.battery_soh"
+      ],
+      "astrograph_interface_ready": false,
+      "formal_model_binding_enabled": false,
+      "pipeline_runtime_supported": false,
+      "local_runtime_stage_kinds": [
+        "data_quality_gate",
+        "feature_extractor"
+      ],
+      "external_runtime_stage_kinds": [
+        "ml_model",
+        "kg_reasoner",
+        "fusion",
+        "expert_review_gate"
+      ],
+      "mapping_sha256": "40ddb30e47ff4547b49256415d8fbc4e80f136ec343e721a8272362640135b0b"
+    }
+  ],
+  "runtime_contract": {
+    "schema_version": "sat-sim.astrograph-pipeline-runtime-contract.v1",
+    "registry_endpoint": "/diagnostics/pipelines",
+    "pipeline_endpoint": "/diagnostics/pipelines/{fault_id}",
+    "execute_endpoint": "/diagnostics/pipelines/{fault_id}/execute",
+    "runtime_result_schema": "sat-sim.diagnostic-pipeline-runtime.v1",
+    "evidence_graph_schema": "sat-sim.simulation-evidence-graph.v1",
+    "local_execution_scope": [
+      "data_quality_gate",
+      "signature_detector",
+      "feature_extractor",
+      "simulation_evidence"
+    ],
+    "astrograph_handoff_scope": [
+      "ml_model",
+      "kg_reasoner",
+      "fusion"
+    ],
+    "human_governance_scope": [
+      "expert_review_gate"
+    ],
+    "arbitrary_implementation_import_forbidden": true
+  },
+  "governance": {
+    "basilisk_required_for_formal_training": true,
+    "simulator_truth_model_input_forbidden": true,
+    "model_binding_requires_independent_benchmark": true,
+    "expert_review_required": true
+  },
+  "bundle_sha256": "44f1e997d4b75a5b7d0e10ce050cc13cfb163673a992361a95ee2069137edc64"
+}

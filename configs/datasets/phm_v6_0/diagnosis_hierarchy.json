@@ -1,0 +1,29 @@
+{
+  "schema_version": "astrograph-phm-v6-diagnosis-hierarchy.v1",
+  "components": [
+    "battery", "bus_load", "pdu", "solar_array", "downlink", "onboard_storage",
+    "transmitter", "payload_instrument", "fuel_tank", "thruster", "heater",
+    "thermal_node", "radiator"
+  ],
+  "fault_to_component": {
+    "comm_data_downlink_link_loss": "downlink",
+    "comm_data_storage_capacity_loss": "onboard_storage",
+    "comm_data_transmitter_rate_loss": "transmitter",
+    "eps_battery_capacity_loss": "battery",
+    "eps_battery_open_circuit": "battery",
+    "eps_load_overload": "bus_load",
+    "eps_pdu_channel_trip": "pdu",
+    "eps_solar_string_open": "solar_array",
+    "payload_instrument_off": "payload_instrument",
+    "payload_instrument_rate_loss": "payload_instrument",
+    "propulsion_fuel_leak": "fuel_tank",
+    "propulsion_thruster_ignition_failure": "thruster",
+    "propulsion_thruster_nozzle_blockage": "thruster",
+    "thermal_heater_stuck_off": "heater",
+    "thermal_heater_stuck_on": "heater",
+    "thermal_node_heat_bias": "thermal_node",
+    "thermal_radiator_rejection_loss": "radiator"
+  },
+  "truth_source": "whole_spacecraft_phm_dataset_v6_0/sample_index.csv condition_id; evaluator side only",
+  "claim_boundary": "Synthetic source-component hierarchy derived from the v6 generator fault targets. It is not a flight asset hierarchy."
+}

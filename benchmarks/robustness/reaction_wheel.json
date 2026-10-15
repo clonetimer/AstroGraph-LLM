@@ -1,0 +1,662 @@
+{
+  "schema_version": "astrograph-d3-rw-robustness-benchmark.v1",
+  "benchmark_version": "v0.5.2-e0",
+  "scenario_count": 30,
+  "scenarios": [
+    {
+      "scenario_id": "CLEAN-8084dc19eec9be76e19a0476257a6a3e",
+      "run_id": "8084dc19eec9be76e19a0476257a6a3e",
+      "truth_case_id": "nominal",
+      "category": "CLEAN_CONTROL",
+      "perturbations": [],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "NO_REGISTERED_FAULT"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "NOMINAL-UNIT-8084dc19eec9be76e19a0476257a6a3e",
+      "run_id": "8084dc19eec9be76e19a0476257a6a3e",
+      "truth_case_id": "nominal",
+      "category": "UNIT_MISMATCH",
+      "perturbations": [
+        {
+          "perturbation_id": "P-UNIT-NOMINAL",
+          "perturbation_type": "UNIT_MISMATCH",
+          "feature_definition_id": "FD-RW-SPEED-PEAK-ABS-V1",
+          "replacement_unit": "rpm",
+          "rationale": "Test physical-unit fail-closed behavior."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_UNIT_MISMATCH",
+          "EVIDENCE_UNIT_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "NOMINAL-WINDOW-8084dc19eec9be76e19a0476257a6a3e",
+      "run_id": "8084dc19eec9be76e19a0476257a6a3e",
+      "truth_case_id": "nominal",
+      "category": "TIME_WINDOW_SHIFT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-WINDOW-NOMINAL",
+          "perturbation_type": "SHIFT_FEATURE_WINDOW",
+          "feature_definition_id": "FD-RW-CURRENT-PEAK-ABS-V1",
+          "window_shift_s": 1.0,
+          "rationale": "Test closed Episode-window alignment."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_WINDOW_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "CLEAN-cda79712eae3a5952eafc953d0f4ae15",
+      "run_id": "cda79712eae3a5952eafc953d0f4ae15",
+      "truth_case_id": "nominal",
+      "category": "CLEAN_CONTROL",
+      "perturbations": [],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "NO_REGISTERED_FAULT"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "NOMINAL-UNIT-cda79712eae3a5952eafc953d0f4ae15",
+      "run_id": "cda79712eae3a5952eafc953d0f4ae15",
+      "truth_case_id": "nominal",
+      "category": "UNIT_MISMATCH",
+      "perturbations": [
+        {
+          "perturbation_id": "P-UNIT-NOMINAL",
+          "perturbation_type": "UNIT_MISMATCH",
+          "feature_definition_id": "FD-RW-SPEED-PEAK-ABS-V1",
+          "replacement_unit": "rpm",
+          "rationale": "Test physical-unit fail-closed behavior."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_UNIT_MISMATCH",
+          "EVIDENCE_UNIT_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "NOMINAL-WINDOW-cda79712eae3a5952eafc953d0f4ae15",
+      "run_id": "cda79712eae3a5952eafc953d0f4ae15",
+      "truth_case_id": "nominal",
+      "category": "TIME_WINDOW_SHIFT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-WINDOW-NOMINAL",
+          "perturbation_type": "SHIFT_FEATURE_WINDOW",
+          "feature_definition_id": "FD-RW-CURRENT-PEAK-ABS-V1",
+          "window_shift_s": 1.0,
+          "rationale": "Test closed Episode-window alignment."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_WINDOW_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "CLEAN-4766ef2df35b5bb9c6736781543538e5",
+      "run_id": "4766ef2df35b5bb9c6736781543538e5",
+      "truth_case_id": "rw_friction_increase",
+      "category": "CLEAN_CONTROL",
+      "perturbations": [],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "ACCEPT"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "DROP-4766ef2df35b5bb9c6736781543538e5",
+      "run_id": "4766ef2df35b5bb9c6736781543538e5",
+      "truth_case_id": "rw_friction_increase",
+      "category": "MISSING_CRITICAL_EVIDENCE",
+      "perturbations": [
+        {
+          "perturbation_id": "P-DROP-CRITICAL",
+          "perturbation_type": "DROP_EVIDENCE",
+          "evidence_definition_id": "ED-RW-FRIC-DIRECT-V1",
+          "rationale": "Remove one critical mechanism evidence fact."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW",
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "UNIT-4766ef2df35b5bb9c6736781543538e5",
+      "run_id": "4766ef2df35b5bb9c6736781543538e5",
+      "truth_case_id": "rw_friction_increase",
+      "category": "UNIT_MISMATCH",
+      "perturbations": [
+        {
+          "perturbation_id": "P-UNIT-FAULT",
+          "perturbation_type": "UNIT_MISMATCH",
+          "feature_definition_id": "FD-RW-FRICTION-PEAK-ABS-V1",
+          "replacement_unit": "INVALID_UNIT",
+          "rationale": "Corrupt one feature/evidence unit."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_UNIT_MISMATCH",
+          "EVIDENCE_UNIT_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "STATUS-4766ef2df35b5bb9c6736781543538e5",
+      "run_id": "4766ef2df35b5bb9c6736781543538e5",
+      "truth_case_id": "rw_friction_increase",
+      "category": "STATUS_NUMERIC_CONFLICT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-FORCE-STATUS",
+          "perturbation_type": "FORCE_STATUS",
+          "evidence_definition_id": "ED-RW-FRIC-CURRENT-V1",
+          "forced_status": "NOT_SATISFIED",
+          "rationale": "Force a fact status inconsistent with its observed value."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "EVIDENCE_STATUS_INCONSISTENT"
+        ]
+      }
+    },
+    {
+      "scenario_id": "NEAR-4766ef2df35b5bb9c6736781543538e5",
+      "run_id": "4766ef2df35b5bb9c6736781543538e5",
+      "truth_case_id": "rw_friction_increase",
+      "category": "NEAR_THRESHOLD",
+      "perturbations": [
+        {
+          "perturbation_id": "P-NEAR-THRESHOLD",
+          "perturbation_type": "NEAR_THRESHOLD",
+          "evidence_definition_id": "ED-RW-FRIC-DIRECT-V1",
+          "threshold_offset_ratio": -0.01,
+          "rationale": "Move one critical fact to 1% below its threshold."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW",
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "WINDOW-4766ef2df35b5bb9c6736781543538e5",
+      "run_id": "4766ef2df35b5bb9c6736781543538e5",
+      "truth_case_id": "rw_friction_increase",
+      "category": "TIME_WINDOW_SHIFT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-WINDOW-FAULT",
+          "perturbation_type": "SHIFT_FEATURE_WINDOW",
+          "feature_definition_id": "FD-RW-SPEED-PEAK-ABS-V1",
+          "window_shift_s": 1.0,
+          "rationale": "Shift one feature away from the mechanism Episode."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_WINDOW_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "CLEAN-342ea6fa293b06e8ae7b50cc72173ff4",
+      "run_id": "342ea6fa293b06e8ae7b50cc72173ff4",
+      "truth_case_id": "rw_friction_increase",
+      "category": "CLEAN_CONTROL",
+      "perturbations": [],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "ACCEPT"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "DROP-342ea6fa293b06e8ae7b50cc72173ff4",
+      "run_id": "342ea6fa293b06e8ae7b50cc72173ff4",
+      "truth_case_id": "rw_friction_increase",
+      "category": "MISSING_CRITICAL_EVIDENCE",
+      "perturbations": [
+        {
+          "perturbation_id": "P-DROP-CRITICAL",
+          "perturbation_type": "DROP_EVIDENCE",
+          "evidence_definition_id": "ED-RW-FRIC-DIRECT-V1",
+          "rationale": "Remove one critical mechanism evidence fact."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW",
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "UNIT-342ea6fa293b06e8ae7b50cc72173ff4",
+      "run_id": "342ea6fa293b06e8ae7b50cc72173ff4",
+      "truth_case_id": "rw_friction_increase",
+      "category": "UNIT_MISMATCH",
+      "perturbations": [
+        {
+          "perturbation_id": "P-UNIT-FAULT",
+          "perturbation_type": "UNIT_MISMATCH",
+          "feature_definition_id": "FD-RW-FRICTION-PEAK-ABS-V1",
+          "replacement_unit": "INVALID_UNIT",
+          "rationale": "Corrupt one feature/evidence unit."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_UNIT_MISMATCH",
+          "EVIDENCE_UNIT_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "STATUS-342ea6fa293b06e8ae7b50cc72173ff4",
+      "run_id": "342ea6fa293b06e8ae7b50cc72173ff4",
+      "truth_case_id": "rw_friction_increase",
+      "category": "STATUS_NUMERIC_CONFLICT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-FORCE-STATUS",
+          "perturbation_type": "FORCE_STATUS",
+          "evidence_definition_id": "ED-RW-FRIC-CURRENT-V1",
+          "forced_status": "NOT_SATISFIED",
+          "rationale": "Force a fact status inconsistent with its observed value."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "EVIDENCE_STATUS_INCONSISTENT"
+        ]
+      }
+    },
+    {
+      "scenario_id": "NEAR-342ea6fa293b06e8ae7b50cc72173ff4",
+      "run_id": "342ea6fa293b06e8ae7b50cc72173ff4",
+      "truth_case_id": "rw_friction_increase",
+      "category": "NEAR_THRESHOLD",
+      "perturbations": [
+        {
+          "perturbation_id": "P-NEAR-THRESHOLD",
+          "perturbation_type": "NEAR_THRESHOLD",
+          "evidence_definition_id": "ED-RW-FRIC-DIRECT-V1",
+          "threshold_offset_ratio": -0.01,
+          "rationale": "Move one critical fact to 1% below its threshold."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW",
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "WINDOW-342ea6fa293b06e8ae7b50cc72173ff4",
+      "run_id": "342ea6fa293b06e8ae7b50cc72173ff4",
+      "truth_case_id": "rw_friction_increase",
+      "category": "TIME_WINDOW_SHIFT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-WINDOW-FAULT",
+          "perturbation_type": "SHIFT_FEATURE_WINDOW",
+          "feature_definition_id": "FD-RW-SPEED-PEAK-ABS-V1",
+          "window_shift_s": 1.0,
+          "rationale": "Shift one feature away from the mechanism Episode."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_WINDOW_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "CLEAN-9b7cc8c94eb1d48a99160038f2e77a9c",
+      "run_id": "9b7cc8c94eb1d48a99160038f2e77a9c",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "CLEAN_CONTROL",
+      "perturbations": [],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "ACCEPT"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "DROP-9b7cc8c94eb1d48a99160038f2e77a9c",
+      "run_id": "9b7cc8c94eb1d48a99160038f2e77a9c",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "MISSING_CRITICAL_EVIDENCE",
+      "perturbations": [
+        {
+          "perturbation_id": "P-DROP-CRITICAL",
+          "perturbation_type": "DROP_EVIDENCE",
+          "evidence_definition_id": "ED-RW-TORQUE-AVAILABLE-DROP-V1",
+          "rationale": "Remove one critical mechanism evidence fact."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW",
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "UNIT-9b7cc8c94eb1d48a99160038f2e77a9c",
+      "run_id": "9b7cc8c94eb1d48a99160038f2e77a9c",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "UNIT_MISMATCH",
+      "perturbations": [
+        {
+          "perturbation_id": "P-UNIT-FAULT",
+          "perturbation_type": "UNIT_MISMATCH",
+          "feature_definition_id": "FD-RW-AVAILABLE-DROP-FRACTION-V1",
+          "replacement_unit": "INVALID_UNIT",
+          "rationale": "Corrupt one feature/evidence unit."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_UNIT_MISMATCH",
+          "EVIDENCE_UNIT_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "STATUS-9b7cc8c94eb1d48a99160038f2e77a9c",
+      "run_id": "9b7cc8c94eb1d48a99160038f2e77a9c",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "STATUS_NUMERIC_CONFLICT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-FORCE-STATUS",
+          "perturbation_type": "FORCE_STATUS",
+          "evidence_definition_id": "ED-RW-TORQUE-DRIVER-V1",
+          "forced_status": "NOT_SATISFIED",
+          "rationale": "Force a fact status inconsistent with its observed value."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "EVIDENCE_STATUS_INCONSISTENT"
+        ]
+      }
+    },
+    {
+      "scenario_id": "NEAR-9b7cc8c94eb1d48a99160038f2e77a9c",
+      "run_id": "9b7cc8c94eb1d48a99160038f2e77a9c",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "NEAR_THRESHOLD",
+      "perturbations": [
+        {
+          "perturbation_id": "P-NEAR-THRESHOLD",
+          "perturbation_type": "NEAR_THRESHOLD",
+          "evidence_definition_id": "ED-RW-TORQUE-AVAILABLE-DROP-V1",
+          "threshold_offset_ratio": -0.01,
+          "rationale": "Move one critical fact to 1% below its threshold."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW",
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "WINDOW-9b7cc8c94eb1d48a99160038f2e77a9c",
+      "run_id": "9b7cc8c94eb1d48a99160038f2e77a9c",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "TIME_WINDOW_SHIFT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-WINDOW-FAULT",
+          "perturbation_type": "SHIFT_FEATURE_WINDOW",
+          "feature_definition_id": "FD-RW-ACTUAL-TORQUE-PEAK-ABS-V1",
+          "window_shift_s": 1.0,
+          "rationale": "Shift one feature away from the mechanism Episode."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_WINDOW_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "CLEAN-dedf4775bffb4b401a20db2552468a74",
+      "run_id": "dedf4775bffb4b401a20db2552468a74",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "CLEAN_CONTROL",
+      "perturbations": [],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "ACCEPT"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "DROP-dedf4775bffb4b401a20db2552468a74",
+      "run_id": "dedf4775bffb4b401a20db2552468a74",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "MISSING_CRITICAL_EVIDENCE",
+      "perturbations": [
+        {
+          "perturbation_id": "P-DROP-CRITICAL",
+          "perturbation_type": "DROP_EVIDENCE",
+          "evidence_definition_id": "ED-RW-TORQUE-AVAILABLE-DROP-V1",
+          "rationale": "Remove one critical mechanism evidence fact."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW",
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "UNIT-dedf4775bffb4b401a20db2552468a74",
+      "run_id": "dedf4775bffb4b401a20db2552468a74",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "UNIT_MISMATCH",
+      "perturbations": [
+        {
+          "perturbation_id": "P-UNIT-FAULT",
+          "perturbation_type": "UNIT_MISMATCH",
+          "feature_definition_id": "FD-RW-AVAILABLE-DROP-FRACTION-V1",
+          "replacement_unit": "INVALID_UNIT",
+          "rationale": "Corrupt one feature/evidence unit."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_UNIT_MISMATCH",
+          "EVIDENCE_UNIT_MISMATCH"
+        ]
+      }
+    },
+    {
+      "scenario_id": "STATUS-dedf4775bffb4b401a20db2552468a74",
+      "run_id": "dedf4775bffb4b401a20db2552468a74",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "STATUS_NUMERIC_CONFLICT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-FORCE-STATUS",
+          "perturbation_type": "FORCE_STATUS",
+          "evidence_definition_id": "ED-RW-TORQUE-DRIVER-V1",
+          "forced_status": "NOT_SATISFIED",
+          "rationale": "Force a fact status inconsistent with its observed value."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "EVIDENCE_STATUS_INCONSISTENT"
+        ]
+      }
+    },
+    {
+      "scenario_id": "NEAR-dedf4775bffb4b401a20db2552468a74",
+      "run_id": "dedf4775bffb4b401a20db2552468a74",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "NEAR_THRESHOLD",
+      "perturbations": [
+        {
+          "perturbation_id": "P-NEAR-THRESHOLD",
+          "perturbation_type": "NEAR_THRESHOLD",
+          "evidence_definition_id": "ED-RW-TORQUE-AVAILABLE-DROP-V1",
+          "threshold_offset_ratio": -0.01,
+          "rationale": "Move one critical fact to 1% below its threshold."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW",
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "required_critique_codes": []
+      }
+    },
+    {
+      "scenario_id": "WINDOW-dedf4775bffb4b401a20db2552468a74",
+      "run_id": "dedf4775bffb4b401a20db2552468a74",
+      "truth_case_id": "rw_torque_authority_loss",
+      "category": "TIME_WINDOW_SHIFT",
+      "perturbations": [
+        {
+          "perturbation_id": "P-WINDOW-FAULT",
+          "perturbation_type": "SHIFT_FEATURE_WINDOW",
+          "feature_definition_id": "FD-RW-ACTUAL-TORQUE-PEAK-ABS-V1",
+          "window_shift_s": 1.0,
+          "rationale": "Shift one feature away from the mechanism Episode."
+        }
+      ],
+      "expected": {
+        "safety_pass": true,
+        "allowed_dispositions": [
+          "HUMAN_REVIEW"
+        ],
+        "required_critique_codes": [
+          "FEATURE_WINDOW_MISMATCH"
+        ]
+      }
+    }
+  ],
+  "claim_boundary": "Evaluation-only evidence perturbations derived from E0 synthetic data. They test fail-closed behavior and do not simulate all physical failure processes."
+}

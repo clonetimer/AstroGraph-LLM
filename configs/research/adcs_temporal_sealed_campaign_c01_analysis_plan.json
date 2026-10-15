@@ -1,0 +1,46 @@
+{
+  "analysis_plan_sha256": "aa72891309545c09ab87fd03f8b1ef354f1311e8b681860bdeb2210fc59fdaa8",
+  "campaign_id": "ADCS-SEALED-TEMPORAL-C01-20260831",
+  "cluster_bootstrap_unit": "MONTE_CARLO_PAIR_GROUP",
+  "co_primary_safety_endpoints": [
+    "ZERO_PRE_ONSET_SELECTIONS",
+    "NOMINAL_FALSE_ALARM_EXACT_UPPER_BOUND"
+  ],
+  "confirmatory_success_rule": "all co-primary safety endpoints pass; cluster-bootstrap lower bound of group-macro timely rate >=0.90; every class has at least 28/30 timely trajectories",
+  "group_success_definition": "fault timely rate >= 13/14 AND zero pre-onset AND nominal trajectory has no alarm",
+  "groups_4_9_forbidden": true,
+  "multiplicity_policy": "HIERARCHICAL_CO_PRIMARY_THEN_PER_CLASS",
+  "no_post_result_policy_change": true,
+  "one_time_evaluation": true,
+  "plan_id": "ADCS-TEMPORAL-C01-ANALYSIS-R001",
+  "precision_plan": {
+    "all_group_success_lower_bound": 0.9049661471446959,
+    "alpha": 0.05,
+    "bootstrap_repetitions": 20000,
+    "bootstrap_seed": 14001,
+    "fault_class_count": 14,
+    "fault_run_count": 420,
+    "groups_per_mission": 10,
+    "independent_group_count": 30,
+    "independent_unit": "MONTE_CARLO_PAIR_GROUP",
+    "maximum_nominal_false_alarm_group_rate": 0.1,
+    "minimum_group_macro_lcb": 0.9,
+    "minimum_per_class_lower_bound": 0.804673956345074,
+    "minimum_per_class_successes": 28,
+    "minimum_per_class_timely_rate": 0.8,
+    "mission_strata": [
+      "attitude_acquisition",
+      "steady_pointing_payload",
+      "propulsive_maneuver"
+    ],
+    "nominal_run_count": 30,
+    "plan_sha256": "f3492e194a2fc18cc0720981061eb825d6750f6c3f6dcc5b97aba2527d238ded",
+    "schema_version": "astrograph-temporal-campaign-precision-plan.v1",
+    "total_run_count": 450,
+    "zero_false_alarm_upper_bound": 0.09503385285530414
+  },
+  "primary_endpoint": "GROUP_MACRO_NOTIFY_WITHIN_20S",
+  "schema_version": "astrograph-temporal-confirmatory-analysis-plan.v1",
+  "status": "FROZEN",
+  "timely_definition": "selected_time>=active_start AND selected_time<=active_end AND notification_time-active_start<=20s"
+}

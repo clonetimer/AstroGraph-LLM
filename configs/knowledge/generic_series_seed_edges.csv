@@ -1,0 +1,2 @@
+fault_id,fault_name,anomaly_id,anomaly_name,weight,edge_role,evidence_level,evidence_source,source_ref,review_status,provisional,knowledge_version,applicable_condition_ids,excluded_condition_ids
+EPS_BATTERY_VOLTAGE_FAULT,Battery voltage fault,ANOM_BATTERY_VOLTAGE_DEVIATION,Battery voltage deviation,1.0,direct,E0,astrograph_existing_dataset_diagnosis_contract,tests/test_dataset_diagnosis.py,provisional,true,astrograph-generic-series-e0,,

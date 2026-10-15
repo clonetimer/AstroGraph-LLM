@@ -1,0 +1,110 @@
+{
+  "schema_version": "astrograph-r31-waterpump-public-sample-mechanism-audit.v1",
+  "dataset_id": "DXC09_SAMPLE",
+  "partition": "DEVELOPMENT_AUDIT_ONLY",
+  "source_system_xml_sha256": "71e5ee01746192f4c7e3fc7784f11f084b73d7fe387df079a97d31ff12adcccf",
+  "design_sha256": "6ce5f092044bc6ae26f42d516c5c16f69df57eea8a18195a78a94b7ea56509d5",
+  "case_count": 2,
+  "mode_agreement_count": 2,
+  "mode_agreement_rate": 1.0,
+  "rows": [
+    {
+      "case_id": "Exp_659_pb_t2",
+      "group_id": "b242cda4cef72a6ec5532649da0152852b1d31f2aa0079478eb79ab41873d471",
+      "truth_aligned_transition_time_s": 92.964,
+      "true_fault_id": "PMP420:FailedOff",
+      "physics_preferred_fault_id": "PMP420:FailedOff",
+      "mode_agreement": true,
+      "application_status": "PUMP_PHYSICS_CORROBORATES_BASE_MODE",
+      "candidate_fits": [
+        {
+          "diagnosis_id": "R31-PMP420-FailedOff",
+          "fault_id": "PMP420:FailedOff",
+          "component_id": "PMP420",
+          "fault_mode": "FailedOff",
+          "current_sensor_id": "IT267",
+          "voltage_sensor_id": "E267",
+          "flow_sensor_id": "FT520",
+          "fitted_flow_tau_s": 0.5,
+          "fitted_flow_asymptote_ratio": 0.0,
+          "normalized_current_rmse": 1.0231666868407148,
+          "normalized_flow_rmse": 0.3414171605686441,
+          "aggregate_normalized_rmse": 0.6822919237046794,
+          "simulation_trace_sha256": "da27bb8266320493331c219e095629992be4b9afa76c40129354d0251ca2d492",
+          "fit_status": "BEST_PHYSICAL_FIT",
+          "score_semantics": "REDUCED_ORDER_CURRENT_FLOW_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+        },
+        {
+          "diagnosis_id": "R31-PMP420-FlowBlocked",
+          "fault_id": "PMP420:FlowBlocked",
+          "component_id": "PMP420",
+          "fault_mode": "FlowBlocked",
+          "current_sensor_id": "IT267",
+          "voltage_sensor_id": "E267",
+          "flow_sensor_id": "FT520",
+          "fitted_flow_tau_s": 0.5,
+          "fitted_flow_asymptote_ratio": 0.003959968868291962,
+          "normalized_current_rmse": 3.7066465034171303,
+          "normalized_flow_rmse": 0.3393932270618922,
+          "aggregate_normalized_rmse": 2.0230198652395113,
+          "simulation_trace_sha256": "efc9590ef60b5e6efe88ae7d29d275303b9d563a0c64441d60c446397a336bf9",
+          "fit_status": "ALTERNATE_PHYSICAL_FIT",
+          "score_semantics": "REDUCED_ORDER_CURRENT_FLOW_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+        }
+      ],
+      "decision_sha256": "c5f4d7bb3ea98ec48a947a79c13cc918ed2d9e01f0a8e624bcab9f854e42ce4e"
+    },
+    {
+      "case_id": "Exp_660_pb_t2",
+      "group_id": "55838aa81550220e13c43436dd228996338f6de449468b869d8874dde4612e42",
+      "truth_aligned_transition_time_s": 177.901,
+      "true_fault_id": "PMP420:FlowBlocked",
+      "physics_preferred_fault_id": "PMP420:FlowBlocked",
+      "mode_agreement": true,
+      "application_status": "PUMP_PHYSICS_CONTRADICTS_BASE_MODE_NO_AUTO_OVERRIDE",
+      "candidate_fits": [
+        {
+          "diagnosis_id": "R31-PMP420-FlowBlocked",
+          "fault_id": "PMP420:FlowBlocked",
+          "component_id": "PMP420",
+          "fault_mode": "FlowBlocked",
+          "current_sensor_id": "IT267",
+          "voltage_sensor_id": "E267",
+          "flow_sensor_id": "FT520",
+          "fitted_flow_tau_s": 4.0,
+          "fitted_flow_asymptote_ratio": 0.7608793895111822,
+          "normalized_current_rmse": 0.24440970845447213,
+          "normalized_flow_rmse": 0.3110933127636908,
+          "aggregate_normalized_rmse": 0.27775151060908143,
+          "simulation_trace_sha256": "f3a2933b2d2a6c0c1fbbe36c77af45b96a681d8927c3496337f4344ada0c7d42",
+          "fit_status": "BEST_PHYSICAL_FIT",
+          "score_semantics": "REDUCED_ORDER_CURRENT_FLOW_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+        },
+        {
+          "diagnosis_id": "R31-PMP420-FailedOff",
+          "fault_id": "PMP420:FailedOff",
+          "component_id": "PMP420",
+          "fault_mode": "FailedOff",
+          "current_sensor_id": "IT267",
+          "voltage_sensor_id": "E267",
+          "flow_sensor_id": "FT520",
+          "fitted_flow_tau_s": 4.0,
+          "fitted_flow_asymptote_ratio": 0.0,
+          "normalized_current_rmse": 3.864757996782812,
+          "normalized_flow_rmse": 4.619223935961973,
+          "aggregate_normalized_rmse": 4.241990966372392,
+          "simulation_trace_sha256": "bec5d161563b1d46e1e417a5988a97490df457685d639a946a321381cd03de20",
+          "fit_status": "ALTERNATE_PHYSICAL_FIT",
+          "score_semantics": "REDUCED_ORDER_CURRENT_FLOW_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+        }
+      ],
+      "decision_sha256": "dfa7a91dcec641c630812ce1818f6d99b36bb9efcd5c0a4bdd9ed46ab84a5478"
+    }
+  ],
+  "window_alignment": "FAULT_INJECTION_TRUTH_TIMESTAMP_USED_FOR_MECHANISM_FIT_AUDIT_ONLY",
+  "prediction_semantics": "FIXED_BASE_ACTIVATION_THEN_TRUTH_FREE_PHYSICAL_MODE_PREFERENCE",
+  "status": "TRUTH_ALIGNED_PUBLIC_SAMPLE_MECHANISM_FIT_AUDIT_NOT_ONLINE_DIAGNOSIS",
+  "stop_rule": "NO_PARAMETER_OR_RULE_OPTIMIZATION_ON_R31_PUMP_BLIND_OR_DXC09_SAMPLE_OUTCOMES",
+  "claim_boundary": "The public DXC09 Sample injection timestamp is used to align the mechanism-fit window, so this artifact cannot support detection-delay, online localization/classification, independent-validation, or SOTA claims. It only checks whether the frozen WaterPump reduced-order model orders the two public pump modes consistently with already-known sample faults.",
+  "receipt_sha256": "e8790fc3f49ad5912d286f53b42140768e5d266ec99f141517e764c54cae683a"
+}

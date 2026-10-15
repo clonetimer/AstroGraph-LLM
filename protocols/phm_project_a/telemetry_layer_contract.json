@@ -1,0 +1,44 @@
+{
+  "schema_version": "phm.telemetry_layers.v1.2",
+  "layers": {
+    "raw_measurement": {
+      "prefixes": [
+        "sensor.",
+        "status.",
+        "counter."
+      ],
+      "use": "direct model input when listed in raw_telemetry_fields"
+    },
+    "onboard_estimate": {
+      "prefixes": [
+        "estimate."
+      ],
+      "use": "optional model input; estimator validity/status must be retained",
+      "warning": "project-defined low-order estimator, not flight-software output"
+    },
+    "simulation_truth": {
+      "prefixes": [
+        "truth."
+      ],
+      "use": "verification only; forbidden as model input"
+    },
+    "supervised_label": {
+      "prefixes": [
+        "label."
+      ],
+      "use": "training target/evaluation only; forbidden as feature"
+    }
+  },
+  "non_prefixed_allowlist": [
+    "time_s",
+    "payload.active",
+    "comm.downlink_rate_bps",
+    "comm.downlinked_bits",
+    "data.storage_bits",
+    "adcs.rw.command_torque_nm_0",
+    "adcs.rw.command_torque_nm_1",
+    "adcs.rw.command_torque_nm_2",
+    "data.accepted_write_bps"
+  ],
+  "protocol_version": "1.2"
+}

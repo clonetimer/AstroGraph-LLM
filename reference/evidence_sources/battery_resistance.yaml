@@ -1,0 +1,31 @@
+schema_version: phm.fault_contract.v1
+fault_id: EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE
+name_zh: 电池内阻增大
+subsystem: EPS
+component: battery
+fault_type: fault_or_degradation
+mechanism: 有效内阻增大使端电压相对开路电压的偏差增大（放电时降低、充电时升高）并增加I平方R损耗；额外损耗同时反馈至EPS能量和热节点。
+injection_target: BatteryInternalResistanceFaultController
+parameters:
+  resistance_scale: {unit: ratio, nominal: 2.0, range: [1.25, 3.0], source: engineering_assumption}
+direct_channels:
+  - estimate.eps.battery_internal_resistance_ohm
+  - sensor.eps.battery_voltage_v
+component_response_channels:
+  - sensor.eps.battery_current_a
+  - sensor.eps.battery_temp_c
+subsystem_propagation_channels:
+  - estimate.eps.battery_soc
+confusable_faults:
+  - EPS_BATTERY_CAPACITY_LOSS
+  - EPS_SOLAR_ARRAY_STRING_FAILURE
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  minimum_absolute_terminal_voltage_residual_delta_v: 0.05
+  minimum_ohmic_loss_w: 0.1
+  minimum_temperature_delta_c: 0.02
+known_limits:
+  - 母线采用等效固定电压估算电流和I平方R损耗，不是电化学电池模型。
+  - 内阻范围、热耦合和端电压响应未经过目标电池标定。
+  - 适用于工程合成诊断证据，不适用于寿命或热安全承诺。

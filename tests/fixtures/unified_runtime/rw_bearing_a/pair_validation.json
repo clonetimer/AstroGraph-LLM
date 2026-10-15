@@ -1,0 +1,26 @@
+{
+  "schema_version": "sat-agent-paired-physics-validation.v1",
+  "case_id": "rw_bearing_a",
+  "scenario_id": "adcs_rw_bearing_seizure",
+  "status": "PASS",
+  "nominal_source_gate_status": "PASS",
+  "nominal_reasons": [],
+  "effect_source_gate_status": "PASS",
+  "effect_reasons": [],
+  "trend": {
+    "status": "PASS",
+    "field": "attitude_error_deg",
+    "aggregate": "rms",
+    "direction": "different",
+    "nominal_value": 6.232452379404332e-06,
+    "effect_value": 0.5663491036451963,
+    "delta": 0.5663428711928169,
+    "relative_delta": 90869.98772174257,
+    "absolute_delta_min": 1e-07,
+    "relative_delta_min": 1e-06,
+    "direction_ok": true,
+    "threshold_ok": true
+  },
+  "fault_spec_count": 1,
+  "claim_boundary": "Paired laboratory counterfactual trend validation; not flight qualification."
+}

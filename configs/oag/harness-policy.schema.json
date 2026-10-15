@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "AgentProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "role_id": {
+          "title": "Role Id",
+          "type": "string"
+        },
+        "mission": {
+          "title": "Mission",
+          "type": "string"
+        },
+        "allowed_stages": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Stages",
+          "type": "array"
+        },
+        "allowed_model_agents": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Model Agents",
+          "type": "array"
+        },
+        "may_modify_active_graph": {
+          "default": false,
+          "title": "May Modify Active Graph",
+          "type": "boolean"
+        },
+        "may_execute_control": {
+          "default": false,
+          "title": "May Execute Control",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "role_id",
+        "mission",
+        "allowed_stages"
+      ],
+      "title": "AgentProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "max_model_calls": {
+      "default": 2,
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Max Model Calls",
+      "type": "integer"
+    },
+    "max_prompt_bytes": {
+      "default": 131072,
+      "maximum": 1048576,
+      "minimum": 1024,
+      "title": "Max Prompt Bytes",
+      "type": "integer"
+    },
+    "profiles": {
+      "default": [
+        {
+          "role_id": "evidence",
+          "mission": "Bind telemetry and model output to graph evidence.",
+          "allowed_stages": [
+            "validate",
+            "graph",
+            "fuse",
+            "summarize"
+          ],
+          "allowed_model_agents": [],
+          "may_modify_active_graph": false,
+          "may_execute_control": false
+        },
+        {
+          "role_id": "knowledge",
+          "mission": "Retrieve sources and propose cited ontology candidates.",
+          "allowed_stages": [
+            "literature",
+            "ontology"
+          ],
+          "allowed_model_agents": [
+            "oag-ontology-extraction"
+          ],
+          "may_modify_active_graph": false,
+          "may_execute_control": false
+        },
+        {
+          "role_id": "analyst",
+          "mission": "Review alternatives and report evidence-constrained conclusions.",
+          "allowed_stages": [
+            "generate"
+          ],
+          "allowed_model_agents": [
+            "oag-diagnosis-explanation"
+          ],
+          "may_modify_active_graph": false,
+          "may_execute_control": false
+        }
+      ],
+      "items": {
+        "$ref": "#/$defs/AgentProfile"
+      },
+      "title": "Profiles",
+      "type": "array"
+    }
+  },
+  "title": "HarnessPolicy",
+  "type": "object"
+}

@@ -1,0 +1,951 @@
+--- /dev/null
++++ b/src/sat_sim/trusted_campaign.py
+@@ -0,0 +1,479 @@
++"""Fail-closed Basilisk campaign generation for AstroGraph trusted datasets.
++
++The module preserves single-run Sat-Agent evidence and only promotes a run to
++``ACCEPTANCE_VALID`` after a nominal/effect pair passes counterfactual trend
++validation.  It never rewrites the original whole-spacecraft summary.
++"""
++from __future__ import annotations
++
++import csv
++import hashlib
++import importlib.metadata
++import json
++import math
++import platform
++from dataclasses import asdict, dataclass, replace
++from pathlib import Path
++from typing import Any, Iterable, Mapping, Sequence
++
++EXPECTED_BSK_VERSION = "2.11.0"
++EXPECTED_LINUX_X86_64_WHEEL = (
++    "bsk-2.11.0-cp39-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
++)
++EXPECTED_LINUX_X86_64_WHEEL_SHA256 = (
++    "d51fe1ffa1b0b03dc415034b210497b28a2504428d4d8e71b481542a08c08a0a"
++)
++PUBLIC_FORBIDDEN_PREFIXES = (
++    "label.", "truth.", "ground_truth", "fault_label", "target_label", "diagnosis_label"
++)
++PUBLIC_FORBIDDEN_EXACT = {
++    "effect.active_ids",
++    "effect.active_count",
++    "object.composite_digital_twin.effect_evidence",
++    "object.composite_digital_twin.health_state",
++}
++
++
++class TrustedCampaignError(RuntimeError):
++    """Raised when trusted campaign generation cannot prove its requirements."""
++
++
++def sha256_file(path: Path) -> str:
++    digest = hashlib.sha256()
++    with path.open("rb") as handle:
++        for block in iter(lambda: handle.read(1024 * 1024), b""):
++            digest.update(block)
++    return digest.hexdigest()
++
++
++def write_json(path: Path, payload: Mapping[str, Any]) -> None:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    path.write_text(json.dumps(dict(payload), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
++
++
++def exact_pass(value: Any) -> bool:
++    return str(value or "").strip().upper() == "PASS"
++
++
++def verify_basilisk_runtime(*, receipt_path: Path | None = None) -> dict[str, Any]:
++    """Verify the frozen Basilisk runtime and optional installation receipt."""
++    try:
++        version = importlib.metadata.version("bsk")
++        import Basilisk  # type: ignore
++        from Basilisk.utilities import SimulationBaseClass  # type: ignore
++    except Exception as exc:  # pragma: no cover - environment dependent
++        raise TrustedCampaignError(f"BASILISK_RUNTIME_UNAVAILABLE:{type(exc).__name__}:{exc}") from exc
++    if version != EXPECTED_BSK_VERSION:
++        raise TrustedCampaignError(
++            f"BASILISK_VERSION_MISMATCH:expected={EXPECTED_BSK_VERSION}:actual={version}"
++        )
++    module_path = Path(Basilisk.__file__).resolve()
++    evidence = {
++        "status": "PASS",
++        "distribution": "bsk",
++        "version": version,
++        "module_path": str(module_path),
++        "simulation_base_class": f"{SimulationBaseClass.__module__}.{SimulationBaseClass.__name__}",
++        "python_version": platform.python_version(),
++        "platform": platform.platform(),
++        "expected_wheel_filename": EXPECTED_LINUX_X86_64_WHEEL,
++        "expected_wheel_sha256": EXPECTED_LINUX_X86_64_WHEEL_SHA256,
++    }
++    if receipt_path is not None:
++        if not receipt_path.is_file():
++            raise TrustedCampaignError(f"BASILISK_INSTALL_RECEIPT_MISSING:{receipt_path}")
++        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
++        if receipt.get("version") != EXPECTED_BSK_VERSION:
++            raise TrustedCampaignError("BASILISK_INSTALL_RECEIPT_VERSION_MISMATCH")
++        if receipt.get("wheel_sha256") != EXPECTED_LINUX_X86_64_WHEEL_SHA256:
++            raise TrustedCampaignError("BASILISK_INSTALL_RECEIPT_HASH_MISMATCH")
++        evidence["receipt_path"] = str(receipt_path.resolve())
++        evidence["receipt_sha256"] = sha256_file(receipt_path)
++    return evidence
++
++
++def public_trace_leaks(path: Path) -> list[str]:
++    if not path.is_file():
++        return ["<MISSING_PUBLIC_TRACE>"]
++    with path.open("r", encoding="utf-8-sig", newline="") as handle:
++        header = next(csv.reader(handle), [])
++    leaks: list[str] = []
++    for raw in header:
++        value = raw.strip().lower()
++        if value.startswith(PUBLIC_FORBIDDEN_PREFIXES) or value in PUBLIC_FORBIDDEN_EXACT:
++            leaks.append(raw)
++    return sorted(set(leaks))
++
++
++def _serialise_rows(path: Path, rows: Sequence[Any]) -> None:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    if not rows:
++        raise TrustedCampaignError("EMPTY_TRACE")
++    first = asdict(rows[0]) if hasattr(rows[0], "__dataclass_fields__") else dict(rows[0])
++    fields = list(first)
++    with path.open("w", newline="", encoding="utf-8") as handle:
++        writer = csv.DictWriter(handle, fieldnames=fields)
++        writer.writeheader()
++        for row in rows:
++            payload = asdict(row) if hasattr(row, "__dataclass_fields__") else dict(row)
++            writer.writerow(payload)
++
++
++def _numeric_column(rows: Sequence[Any], field: str) -> list[float]:
++    values: list[float] = []
++    for row in rows:
++        value = getattr(row, field, None) if hasattr(row, field) else row.get(field)
++        try:
++            number = float(value)
++        except (TypeError, ValueError):
++            continue
++        if math.isfinite(number):
++            values.append(number)
++    return values
++
++
++def _trend_metric(rows: Sequence[Any], field: str, aggregate: str) -> float:
++    values = _numeric_column(rows, field)
++    if not values:
++        raise TrustedCampaignError(f"TREND_FIELD_MISSING:{field}")
++    if aggregate == "final":
++        return values[-1]
++    if aggregate == "max":
++        return max(values)
++    if aggregate == "min":
++        return min(values)
++    if aggregate == "mean":
++        return sum(values) / len(values)
++    if aggregate == "range":
++        return max(values) - min(values)
++    if aggregate == "rms":
++        return math.sqrt(sum(v * v for v in values) / len(values))
++    raise TrustedCampaignError(f"UNKNOWN_TREND_AGGREGATE:{aggregate}")
++
++
++def _validate_trend(
++    nominal_rows: Sequence[Any], effect_rows: Sequence[Any], trend: Mapping[str, Any]
++) -> dict[str, Any]:
++    field = str(trend["field"])
++    aggregate = str(trend.get("aggregate", "final"))
++    direction = str(trend.get("direction", "different"))
++    absolute_delta_min = float(trend.get("absolute_delta_min", 0.0))
++    relative_delta_min = float(trend.get("relative_delta_min", 0.0))
++    nominal = _trend_metric(nominal_rows, field, aggregate)
++    effect = _trend_metric(effect_rows, field, aggregate)
++    delta = effect - nominal
++    relative = abs(delta) / max(abs(nominal), 1.0e-12)
++    if direction == "increase":
++        direction_ok = delta > 0.0
++    elif direction == "decrease":
++        direction_ok = delta < 0.0
++    elif direction == "different":
++        direction_ok = delta != 0.0
++    else:
++        raise TrustedCampaignError(f"UNKNOWN_TREND_DIRECTION:{direction}")
++    threshold_ok = abs(delta) >= absolute_delta_min and relative >= relative_delta_min
++    return {
++        "status": "PASS" if direction_ok and threshold_ok else "FAIL",
++        "field": field,
++        "aggregate": aggregate,
++        "direction": direction,
++        "nominal_value": nominal,
++        "effect_value": effect,
++        "delta": delta,
++        "relative_delta": relative,
++        "absolute_delta_min": absolute_delta_min,
++        "relative_delta_min": relative_delta_min,
++        "direction_ok": direction_ok,
++        "threshold_ok": threshold_ok,
++    }
++
++
++def _source_single_run_pass(summary: Mapping[str, Any], *, variant: str) -> tuple[bool, list[str]]:
++    reasons: list[str] = []
++    for field in ("status", "execution_status", "data_conservation_status", "energy_conservation_status"):
++        if not exact_pass(summary.get(field)):
++            reasons.append(f"SOURCE_{field.upper()}_NOT_PASS")
++    if str(summary.get("physics_status", "")).upper() != "PASS_SINGLE_RUN_LIMITED":
++        reasons.append("SOURCE_SINGLE_RUN_PHYSICS_NOT_LIMITED_PASS")
++    if summary.get("basilisk_simbase_used") is not True:
++        reasons.append("BASILISK_SIMBASE_NOT_USED")
++    if summary.get("execute_simulation_used") is not True:
++        reasons.append("EXECUTE_SIMULATION_NOT_USED")
++    if str(summary.get("backend", "")).lower() != "basilisk":
++        reasons.append("BACKEND_NOT_BASILISK")
++    if variant == "effect":
++        if not exact_pass(summary.get("runtime_injection_status")):
++            reasons.append("RUNTIME_INJECTION_NOT_PASS")
++        if int(summary.get("runtime_fault_triggered_count", 0) or 0) <= 0:
++            reasons.append("NO_RUNTIME_FAULT_TRIGGERED")
++        if int(summary.get("runtime_unsupported_count", 0) or 0) != 0:
++            reasons.append("UNSUPPORTED_RUNTIME_FAULT")
++    else:
++        if int(summary.get("runtime_fault_triggered_count", 0) or 0) != 0:
++            reasons.append("NOMINAL_HAS_TRIGGERED_FAULT")
++    return not reasons, reasons
++
++
++@dataclass(frozen=True)
++class TrustedCaseConfig:
++    case_id: str
++    scenario_id: str
++    split: str
++    orbit_phase_deg: float
++    initial_sigma_bn: tuple[float, float, float]
++    trend: Mapping[str, Any]
++
++
++@dataclass(frozen=True)
++class TrustedCampaignConfig:
++    campaign_id: str
++    duration_s: float
++    sample_s: float
++    cases: tuple[TrustedCaseConfig, ...]
++    source_version: str = "Sat-Agent-v0.7.8-dev9-claimfix1"
++
++    @classmethod
++    def from_json(cls, path: str | Path) -> "TrustedCampaignConfig":
++        payload = json.loads(Path(path).read_text(encoding="utf-8"))
++        cases = []
++        for row in payload.get("cases", []):
++            cases.append(TrustedCaseConfig(
++                case_id=str(row["case_id"]),
++                scenario_id=str(row["scenario_id"]),
++                split=str(row.get("split", "development")),
++                orbit_phase_deg=float(row.get("orbit_phase_deg", 0.0)),
++                initial_sigma_bn=tuple(float(x) for x in row.get("initial_sigma_bn", [0.0, 0.0, 0.0])),
++                trend=dict(row["trend"]),
++            ))
++        if not cases:
++            raise ValueError("trusted campaign requires at least one case")
++        return cls(
++            campaign_id=str(payload["campaign_id"]),
++            duration_s=float(payload.get("duration_s", 300.0)),
++            sample_s=float(payload.get("sample_s", 10.0)),
++            cases=tuple(cases),
++            source_version=str(payload.get("source_version", cls.source_version)),
++        )
++
++
++def _trusted_summary(
++    *,
++    case: TrustedCaseConfig,
++    variant: str,
++    source_summary: Mapping[str, Any],
++    source_summary_path: Path,
++    pair_validation_path: Path,
++    public_trace_path: Path,
++    runtime: Mapping[str, Any],
++) -> dict[str, Any]:
++    effect_status = "PASS" if variant == "effect" else "NOT_REQUIRED"
++    return {
++        "schema_version": "sat-agent-trusted-paired-summary.v1",
++        "case_id": case.case_id,
++        "scenario_id": case.scenario_id,
++        "split": case.split,
++        "variant": variant,
++        "status": "PASS",
++        "execution_status": "PASS",
++        "physics_status": "PASS",
++        "data_conservation_status": "PASS",
++        "energy_conservation_status": "PASS",
++        "effect_execution_status": effect_status,
++        "acceptance_level": "ACCEPTANCE_VALID",
++        "basilisk_simbase_used": True,
++        "execute_simulation_used": True,
++        "backend": "basilisk",
++        "basilisk_version": runtime["version"],
++        "source_summary_path": source_summary_path.name,
++        "source_summary_sha256": sha256_file(source_summary_path),
++        "source_gate_vector": {
++            key: str(source_summary.get(key, "MISSING"))
++            for key in (
++                "status", "execution_status", "physics_status",
++                "data_conservation_status", "energy_conservation_status",
++                "runtime_injection_status", "mission_status",
++            )
++        },
++        "pair_validation_path": "../pair_validation.json",
++        "pair_validation_sha256": sha256_file(pair_validation_path),
++        "public_trace_path": public_trace_path.name,
++        "public_trace_sha256": sha256_file(public_trace_path),
++        "claim_boundary": (
++            "Paired counterfactual acceptance for the configured laboratory campaign only; "
++            "source single-run evidence is preserved and is not flight qualification."
++        ),
++    }
++
++
++def run_trusted_campaign(
++    config: TrustedCampaignConfig,
++    output_root: Path,
++    *,
++    receipt_path: Path | None = None,
++) -> dict[str, Any]:
++    """Execute a trustworthy paired whole-spacecraft Basilisk campaign."""
++    runtime = verify_basilisk_runtime(receipt_path=receipt_path)
++    # Lazy imports make missing Basilisk fail in verify_basilisk_runtime rather
++    # than during module import and keep unit tests independent of native code.
++    from whole_spacecraft.faults import runtime_fault_specs_for_scenario
++    from whole_spacecraft.runner import run_whole_spacecraft_fault_case, run_whole_spacecraft_native_case
++    from whole_spacecraft.schemas import WholeSpacecraftConfig, WholeSpacecraftRunConfig
++
++    root = output_root.resolve()
++    if root.exists() and any(root.iterdir()):
++        raise TrustedCampaignError(f"OUTPUT_ROOT_NOT_EMPTY:{root}")
++    root.mkdir(parents=True, exist_ok=True)
++    write_json(root / "runtime_identity.json", runtime)
++    case_results: list[dict[str, Any]] = []
++    accepted_run_count = 0
++    accepted_pair_count = 0
++
++    for case in config.cases:
++        pair_root = root / "cases" / case.case_id
++        nominal_root = pair_root / "nominal"
++        effect_root = pair_root / "effect"
++        nominal_root.mkdir(parents=True, exist_ok=True)
++        effect_root.mkdir(parents=True, exist_ok=True)
++        structure = WholeSpacecraftConfig(
++            initial_orbit_phase_deg=case.orbit_phase_deg,
++            mission_initial_sigma_bn=case.initial_sigma_bn,
++            parameter_profile="demo",
++            strict_parameter_provenance=True,
++        )
++        run_cfg = WholeSpacecraftRunConfig(
++            duration_s=config.duration_s,
++            sample_s=config.sample_s,
++            structure=structure,
++        )
++        nominal_summary_obj, nominal_rows = run_whole_spacecraft_native_case(run_cfg)
++        fault_specs = list(runtime_fault_specs_for_scenario(case.scenario_id))
++        if not fault_specs:
++            raise TrustedCampaignError(f"NO_RUNTIME_FAULT_SPECS:{case.scenario_id}")
++        effect_summary_obj, effect_rows = run_whole_spacecraft_fault_case(run_cfg, fault_specs=fault_specs)
++        nominal_summary = asdict(nominal_summary_obj)
++        effect_summary = asdict(effect_summary_obj)
++
++        nominal_source_summary = nominal_root / "source_summary.json"
++        effect_source_summary = effect_root / "source_summary.json"
++        write_json(nominal_source_summary, nominal_summary)
++        write_json(effect_source_summary, effect_summary)
++        _serialise_rows(nominal_root / "trace.csv", nominal_rows)
++        _serialise_rows(effect_root / "trace.csv", effect_rows)
++        nominal_ok, nominal_reasons = _source_single_run_pass(nominal_summary, variant="nominal")
++        effect_ok, effect_reasons = _source_single_run_pass(effect_summary, variant="effect")
++        trend_result = _validate_trend(nominal_rows, effect_rows, case.trend)
++        pair_ok = nominal_ok and effect_ok and trend_result["status"] == "PASS"
++        pair_validation = {
++            "schema_version": "sat-agent-paired-physics-validation.v1",
++            "case_id": case.case_id,
++            "scenario_id": case.scenario_id,
++            "status": "PASS" if pair_ok else "FAIL",
++            "nominal_source_gate_status": "PASS" if nominal_ok else "FAIL",
++            "nominal_reasons": nominal_reasons,
++            "effect_source_gate_status": "PASS" if effect_ok else "FAIL",
++            "effect_reasons": effect_reasons,
++            "trend": trend_result,
++            "fault_spec_count": len(fault_specs),
++            "claim_boundary": "Paired laboratory counterfactual trend validation; not flight qualification.",
++        }
++        pair_validation_path = pair_root / "pair_validation.json"
++        write_json(pair_validation_path, pair_validation)
++
++        for variant, source_summary, source_path, variant_root in (
++            ("nominal", nominal_summary, nominal_source_summary, nominal_root),
++            ("effect", effect_summary, effect_source_summary, effect_root),
++        ):
++            trace_path = variant_root / "trace.csv"
++            leaks = public_trace_leaks(trace_path)
++            if leaks:
++                pair_ok = False
++                pair_validation["status"] = "FAIL"
++                pair_validation.setdefault("public_trace_leaks", {})[variant] = leaks
++                write_json(pair_validation_path, pair_validation)
++            if pair_ok:
++                summary = _trusted_summary(
++                    case=case,
++                    variant=variant,
++                    source_summary=source_summary,
++                    source_summary_path=source_path,
++                    pair_validation_path=pair_validation_path,
++                    public_trace_path=trace_path,
++                    runtime=runtime,
++                )
++                accepted_run_count += 1
++            else:
++                summary = {
++                    "schema_version": "sat-agent-trusted-paired-summary.v1",
++                    "case_id": case.case_id,
++                    "scenario_id": case.scenario_id,
++                    "split": case.split,
++                    "variant": variant,
++                    "status": "FAIL",
++                    "execution_status": str(source_summary.get("execution_status", "MISSING")),
++                    "physics_status": "FAIL",
++                    "data_conservation_status": str(source_summary.get("data_conservation_status", "MISSING")),
++                    "energy_conservation_status": str(source_summary.get("energy_conservation_status", "MISSING")),
++                    "effect_execution_status": "PASS" if variant == "effect" and effect_ok else "NOT_REQUIRED" if variant == "nominal" else "FAIL",
++                    "acceptance_level": "INVALID",
++                    "claim_boundary": "Failed trusted pair; forensic use only.",
++                }
++            write_json(variant_root / "summary.json", summary)
++            manifest = {
++                "schema_version": "sat-agent-trusted-run-manifest.v1",
++                "campaign_id": config.campaign_id,
++                "case_id": case.case_id,
++                "scenario_id": case.scenario_id,
++                "split": case.split,
++                "variant": variant,
++                "files": {
++                    "summary": "summary.json",
++                    "source_summary": "source_summary.json",
++                    "trace": "trace.csv",
++                    "pair_validation": "../pair_validation.json",
++                },
++                "platform": runtime,
++                "source_version": config.source_version,
++            }
++            write_json(variant_root / "manifest.json", manifest)
++
++        if pair_ok:
++            accepted_pair_count += 1
++        case_results.append({
++            "case_id": case.case_id,
++            "scenario_id": case.scenario_id,
++            "status": "PASS" if pair_ok else "FAIL",
++            "pair_validation": str(pair_validation_path.relative_to(root)),
++        })
++
++    campaign_status = "PASS" if accepted_run_count == len(config.cases) * 2 else "FAIL"
++    manifest = {
++        "schema_version": "sat-agent-trusted-campaign.v1",
++        "campaign_id": config.campaign_id,
++        "status": campaign_status,
++        "source_version": config.source_version,
++        "runtime_identity": runtime,
++        "total_run_count": len(config.cases) * 2,
++        "acceptance_valid_count": accepted_run_count,
++        "acceptance_valid_pair_count": accepted_pair_count,
++        "public_trace_leakage_count": sum(
++            bool(public_trace_leaks(path)) for path in root.glob("cases/*/*/trace.csv")
++        ),
++        "reproduction_ready": True,
++        "case_results": case_results,
++        "claim_boundary": "Trusted laboratory Basilisk campaign; not flight or hardware qualification.",
++    }
++    write_json(root / "campaign_manifest.json", manifest)
++    return manifest
++
++
++__all__ = [
++    "EXPECTED_BSK_VERSION",
++    "EXPECTED_LINUX_X86_64_WHEEL",
++    "EXPECTED_LINUX_X86_64_WHEEL_SHA256",
++    "TrustedCampaignConfig",
++    "TrustedCampaignError",
++    "public_trace_leaks",
++    "run_trusted_campaign",
++    "sha256_file",
++    "verify_basilisk_runtime",
++]
+--- /dev/null
++++ b/scripts/install_basilisk_runtime.py
+@@ -0,0 +1,66 @@
++#!/usr/bin/env python3
++"""Install the frozen Basilisk 2.11.0 wheel with hash verification."""
++from __future__ import annotations
++
++import argparse
++import importlib.metadata
++import json
++import subprocess
++import sys
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parents[1]
++SRC = ROOT / "src"
++if str(SRC) not in sys.path:
++    sys.path.insert(0, str(SRC))
++
++from sat_sim.trusted_campaign import (
++    EXPECTED_BSK_VERSION,
++    EXPECTED_LINUX_X86_64_WHEEL,
++    EXPECTED_LINUX_X86_64_WHEEL_SHA256,
++    sha256_file,
++    verify_basilisk_runtime,
++)
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--wheel", type=Path, required=True)
++    parser.add_argument("--receipt", type=Path, default=Path("third_party/basilisk_runtime_receipt.json"))
++    parser.add_argument("--target", type=Path, default=None, help="optional isolated installation directory")
++    args = parser.parse_args()
++    wheel = args.wheel.resolve()
++    if not wheel.is_file():
++        raise SystemExit(f"wheel missing: {wheel}")
++    if wheel.name != EXPECTED_LINUX_X86_64_WHEEL:
++        raise SystemExit(f"unexpected wheel filename: {wheel.name}")
++    actual = sha256_file(wheel)
++    if actual != EXPECTED_LINUX_X86_64_WHEEL_SHA256:
++        raise SystemExit(f"wheel SHA256 mismatch: {actual}")
++    command = [sys.executable, "-m", "pip", "install", "--no-deps", "--force-reinstall"]
++    if args.target is not None:
++        args.target.mkdir(parents=True, exist_ok=True)
++        command += ["--target", str(args.target.resolve())]
++    command.append(str(wheel))
++    subprocess.run(command, check=True)
++    if args.target is not None:
++        sys.path.insert(0, str(args.target.resolve()))
++    runtime = verify_basilisk_runtime()
++    receipt = {
++        "schema_version": "sat-agent-basilisk-install-receipt.v1",
++        "status": "PASS",
++        "version": importlib.metadata.version("bsk"),
++        "wheel_filename": wheel.name,
++        "wheel_sha256": actual,
++        "wheel_path": str(wheel),
++        "python_executable": sys.executable,
++        "runtime": runtime,
++    }
++    args.receipt.parent.mkdir(parents=True, exist_ok=True)
++    args.receipt.write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
++    print(json.dumps(receipt, ensure_ascii=False, indent=2))
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- /dev/null
++++ b/scripts/run_basilisk_fault_matrix.py
+@@ -0,0 +1,38 @@
++#!/usr/bin/env python3
++"""Run the frozen trusted whole-spacecraft Basilisk fault matrix."""
++from __future__ import annotations
++
++import argparse
++import json
++import sys
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parents[1]
++SRC = ROOT / "src"
++if str(SRC) not in sys.path:
++    sys.path.insert(0, str(SRC))
++
++from sat_sim.trusted_campaign import TrustedCampaignConfig, TrustedCampaignError, run_trusted_campaign
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--config", type=Path, default=Path("configs/integration/trusted_basilisk_campaign.json"))
++    parser.add_argument("--output", type=Path, required=True)
++    parser.add_argument("--runtime-receipt", type=Path, default=Path("third_party/basilisk_runtime_receipt.json"))
++    args = parser.parse_args()
++    try:
++        result = run_trusted_campaign(
++            TrustedCampaignConfig.from_json(args.config),
++            args.output,
++            receipt_path=args.runtime_receipt,
++        )
++    except TrustedCampaignError as exc:
++        print(json.dumps({"status": "BLOCKED", "error": str(exc)}, ensure_ascii=False, indent=2))
++        return 2
++    print(json.dumps(result, ensure_ascii=False, indent=2))
++    return 0 if result.get("status") == "PASS" else 2
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- /dev/null
++++ b/scripts/generate_coupled_fault_campaign.py
+@@ -0,0 +1,6 @@
++#!/usr/bin/env python3
++"""Compatibility entrypoint for the trusted paired Basilisk campaign."""
++from run_basilisk_fault_matrix import main
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- /dev/null
++++ b/scripts/export_trusted_run_evidence.py
+@@ -0,0 +1,142 @@
++#!/usr/bin/env python3
++"""Export fail-closed run evidence for AstroGraph trusted-data ingestion.
++
++This script does not reinterpret campaign results. It preserves the Sat-Agent
++summary status, separates the complete simulation gate from fault-effect
++execution, records hashes, and refuses to label limited or failed runs as
++acceptance-valid.
++"""
++from __future__ import annotations
++
++import argparse
++import csv
++import hashlib
++import json
++from pathlib import Path
++from typing import Any
++
++FORMAL_USES = ["training", "calibration", "validation", "acceptance"]
++DIRECT_PREFIXES = ("label.", "truth.", "ground_truth", "fault_label", "target_label")
++TRUTH_PROXIES = {
++    "effect.active_count",
++    "effect.active_ids",
++    "object.composite_digital_twin.effect_evidence",
++    "object.composite_digital_twin.health_state",
++}
++
++
++def sha256(path: Path) -> str:
++    digest = hashlib.sha256()
++    with path.open("rb") as handle:
++        for block in iter(lambda: handle.read(1024 * 1024), b""):
++            digest.update(block)
++    return digest.hexdigest()
++
++
++def read_object(path: Path) -> dict[str, Any]:
++    value = json.loads(path.read_text(encoding="utf-8"))
++    if not isinstance(value, dict):
++        raise ValueError(f"JSON object expected: {path}")
++    return value
++
++
++def exact_pass(value: Any) -> bool:
++    return str(value or "").strip().upper() == "PASS"
++
++
++def scan_trace(path: Path) -> dict[str, Any]:
++    if not path.is_file():
++        return {"exists": False, "leakage": True, "columns": [], "error": "TRACE_MISSING"}
++    with path.open("r", encoding="utf-8-sig", newline="") as handle:
++        header = next(csv.reader(handle), [])
++    leaks = []
++    for raw in header:
++        column = raw.strip().lower()
++        if column.startswith(DIRECT_PREFIXES) or column in TRUTH_PROXIES:
++            leaks.append(raw)
++    return {
++        "exists": True,
++        "sha256": sha256(path),
++        "leakage": bool(leaks),
++        "columns": sorted(set(leaks)),
++        "error": None,
++    }
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--run-root", type=Path, required=True)
++    parser.add_argument("--public-trace", type=Path, default=None)
++    parser.add_argument("--output", type=Path, required=True)
++    parser.add_argument("--variant", choices=("nominal", "effect"), required=True)
++    args = parser.parse_args()
++
++    run_root = args.run_root.resolve()
++    summary_path = run_root / "summary.json"
++    manifest_path = run_root / "manifest.json"
++    trace_path = run_root / "trace.csv"
++    for required in (summary_path, manifest_path, trace_path):
++        if not required.is_file():
++            raise SystemExit(f"required run artifact missing: {required}")
++
++    summary = read_object(summary_path)
++    manifest = read_object(manifest_path)
++    gate_vector = {
++        "status": str(summary.get("status", "MISSING")),
++        "execution_status": str(summary.get("execution_status", "MISSING")),
++        "physics_status": str(summary.get("physics_status", "MISSING")),
++        "data_conservation_status": str(summary.get("data_conservation_status", "MISSING")),
++        "energy_conservation_status": str(summary.get("energy_conservation_status", "MISSING")),
++    }
++    complete_pass = all(exact_pass(value) for value in gate_vector.values())
++    if args.variant == "effect":
++        effect_pass = (
++            exact_pass(summary.get("effect_execution_status"))
++            and int(summary.get("runtime_fault_triggered_count", 0) or 0) > 0
++            and int(summary.get("runtime_unsupported_count", 0) or 0) == 0
++        )
++    else:
++        effect_pass = int(summary.get("runtime_fault_triggered_count", 0) or 0) == 0
++    public_trace = (args.public_trace or trace_path).resolve()
++    trace_scan = scan_trace(public_trace)
++
++    if complete_pass and effect_pass and not trace_scan["leakage"]:
++        acceptance_level = "ACCEPTANCE_VALID"
++        allowed_uses = ["research", "debugging", *FORMAL_USES]
++    elif effect_pass and not trace_scan["leakage"]:
++        acceptance_level = "EFFECT_VALID_RESEARCH_ONLY"
++        allowed_uses = ["research", "debugging"]
++    else:
++        acceptance_level = "INVALID"
++        allowed_uses = ["forensic_review"]
++
++    payload = {
++        "schema_version": "sat-agent-trusted-run-evidence.v1",
++        "run_root": str(run_root),
++        "summary_path": str(summary_path),
++        "summary_sha256": sha256(summary_path),
++        "manifest_path": str(manifest_path),
++        "manifest_sha256": sha256(manifest_path),
++        "internal_trace_path": str(trace_path),
++        "internal_trace_sha256": sha256(trace_path),
++        "public_trace_path": str(public_trace),
++        "public_trace_scan": trace_scan,
++        "platform": manifest.get("platform", {}),
++        "gate_vector": gate_vector,
++        "full_gate_status": "PASS" if complete_pass else "FAIL",
++        "variant": args.variant,
++        "effect_execution_status": ("NOT_REQUIRED" if args.variant == "nominal" else str(summary.get("effect_execution_status", "MISSING"))),
++        "runtime_fault_triggered_count": int(summary.get("runtime_fault_triggered_count", 0) or 0),
++        "runtime_unsupported_count": int(summary.get("runtime_unsupported_count", 0) or 0),
++        "acceptance_level": acceptance_level,
++        "allowed_uses": allowed_uses,
++        "claim_boundary": "Evidence export only; does not override original Sat-Agent run status or establish diagnostic accuracy.",
++    }
++    args.output.parent.mkdir(parents=True, exist_ok=True)
++    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
++    print(json.dumps(payload, ensure_ascii=False, indent=2))
++    return 0 if acceptance_level == "ACCEPTANCE_VALID" else 2
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- /dev/null
++++ b/configs/integration/trusted_basilisk_campaign.json
+@@ -0,0 +1,56 @@
++{
++  "campaign_id": "astrograph_trusted_basilisk_minimum_v1",
++  "source_version": "Sat-Agent-v0.7.8-dev9-claimfix1-trusted-data-patch",
++  "duration_s": 300.0,
++  "sample_s": 10.0,
++  "cases": [
++    {
++      "case_id": "eps_capacity_a",
++      "scenario_id": "eps_battery_capacity_loss",
++      "split": "development",
++      "orbit_phase_deg": 0.0,
++      "initial_sigma_bn": [0.0, 0.0, 0.0],
++      "trend": {"field": "battery_soc", "aggregate": "final", "direction": "different", "absolute_delta_min": 1e-8, "relative_delta_min": 1e-8}
++    },
++    {
++      "case_id": "eps_capacity_b",
++      "scenario_id": "eps_battery_capacity_loss",
++      "split": "holdout",
++      "orbit_phase_deg": 18.0,
++      "initial_sigma_bn": [0.01, -0.005, 0.004],
++      "trend": {"field": "battery_soc", "aggregate": "final", "direction": "different", "absolute_delta_min": 1e-8, "relative_delta_min": 1e-8}
++    },
++    {
++      "case_id": "rw_bearing_a",
++      "scenario_id": "adcs_rw_bearing_seizure",
++      "split": "development",
++      "orbit_phase_deg": 4.0,
++      "initial_sigma_bn": [0.015, -0.01, 0.006],
++      "trend": {"field": "attitude_error_deg", "aggregate": "rms", "direction": "different", "absolute_delta_min": 1e-7, "relative_delta_min": 1e-6}
++    },
++    {
++      "case_id": "rw_bearing_b",
++      "scenario_id": "adcs_rw_bearing_seizure",
++      "split": "holdout",
++      "orbit_phase_deg": 25.0,
++      "initial_sigma_bn": [-0.012, 0.008, 0.004],
++      "trend": {"field": "rate_error_norm_rad_s", "aggregate": "rms", "direction": "different", "absolute_delta_min": 1e-9, "relative_delta_min": 1e-6}
++    },
++    {
++      "case_id": "thermal_heater_a",
++      "scenario_id": "thermal_heater_stuck_on",
++      "split": "development",
++      "orbit_phase_deg": 8.0,
++      "initial_sigma_bn": [0.0, 0.0, 0.0],
++      "trend": {"field": "thermal_temp_c", "aggregate": "final", "direction": "increase", "absolute_delta_min": 1e-6, "relative_delta_min": 1e-8}
++    },
++    {
++      "case_id": "thermal_heater_b",
++      "scenario_id": "thermal_heater_stuck_on",
++      "split": "holdout",
++      "orbit_phase_deg": 32.0,
++      "initial_sigma_bn": [0.006, -0.004, 0.003],
++      "trend": {"field": "thermal_temp_c", "aggregate": "mean", "direction": "increase", "absolute_delta_min": 1e-6, "relative_delta_min": 1e-8}
++    }
++  ]
++}
+--- /dev/null
++++ b/tests/test_trusted_campaign.py
+@@ -0,0 +1,99 @@
++from __future__ import annotations
++
++import csv
++import json
++from dataclasses import dataclass
++from pathlib import Path
++
++import pytest
++
++from sat_sim import trusted_campaign as tc
++
++
++@dataclass
++class Row:
++    battery_soc: float
++    attitude_error_deg: float
++    rate_error_norm_rad_s: float
++    thermal_temp_c: float
++
++
++def test_runtime_is_fail_closed_when_basilisk_missing(monkeypatch):
++    def missing(_name):
++        raise tc.importlib.metadata.PackageNotFoundError("bsk")
++    monkeypatch.setattr(tc.importlib.metadata, "version", missing)
++    with pytest.raises(tc.TrustedCampaignError, match="BASILISK_RUNTIME_UNAVAILABLE"):
++        tc.verify_basilisk_runtime()
++
++
++def test_public_trace_leak_scans_labels_and_truth_proxies(tmp_path: Path):
++    path = tmp_path / "trace.csv"
++    path.write_text("time_s,label.fault_active,effect.active_ids,battery_soc\n0,0,,0.6\n", encoding="utf-8")
++    assert tc.public_trace_leaks(path) == ["effect.active_ids", "label.fault_active"]
++
++
++def test_public_trace_without_labels_is_clean(tmp_path: Path):
++    path = tmp_path / "trace.csv"
++    path.write_text("time_s,battery_soc,thermal_temp_c\n0,0.6,20\n", encoding="utf-8")
++    assert tc.public_trace_leaks(path) == []
++
++
++def test_trend_validation_requires_direction_and_threshold():
++    nominal = [Row(0.6, 1.0, 0.1, 20.0), Row(0.5, 2.0, 0.2, 21.0)]
++    effect = [Row(0.6, 1.5, 0.2, 22.0), Row(0.4, 3.0, 0.4, 25.0)]
++    result = tc._validate_trend(nominal, effect, {
++        "field": "thermal_temp_c", "aggregate": "final", "direction": "increase",
++        "absolute_delta_min": 1.0, "relative_delta_min": 0.01,
++    })
++    assert result["status"] == "PASS"
++    failed = tc._validate_trend(nominal, effect, {
++        "field": "thermal_temp_c", "aggregate": "final", "direction": "decrease",
++        "absolute_delta_min": 1.0, "relative_delta_min": 0.01,
++    })
++    assert failed["status"] == "FAIL"
++
++
++def _summary(**overrides):
++    payload = {
++        "status": "PASS",
++        "execution_status": "PASS",
++        "physics_status": "PASS_SINGLE_RUN_LIMITED",
++        "data_conservation_status": "PASS",
++        "energy_conservation_status": "PASS",
++        "runtime_injection_status": "PASS",
++        "runtime_fault_triggered_count": 0,
++        "runtime_unsupported_count": 0,
++        "basilisk_simbase_used": True,
++        "execute_simulation_used": True,
++        "backend": "basilisk",
++    }
++    payload.update(overrides)
++    return payload
++
++
++def test_source_gate_distinguishes_nominal_and_effect():
++    ok, reasons = tc._source_single_run_pass(_summary(), variant="nominal")
++    assert ok and not reasons
++    ok, reasons = tc._source_single_run_pass(_summary(runtime_fault_triggered_count=1), variant="effect")
++    assert ok and not reasons
++    ok, reasons = tc._source_single_run_pass(_summary(runtime_fault_triggered_count=0), variant="effect")
++    assert not ok and "NO_RUNTIME_FAULT_TRIGGERED" in reasons
++
++
++def test_single_run_plain_physics_pass_cannot_substitute_limited_evidence():
++    ok, reasons = tc._source_single_run_pass(_summary(physics_status="PASS"), variant="nominal")
++    assert not ok
++    assert "SOURCE_SINGLE_RUN_PHYSICS_NOT_LIMITED_PASS" in reasons
++
++
++def test_campaign_config_has_twelve_runs_and_three_pairs_minimum():
++    root = Path(__file__).resolve().parents[1]
++    config = tc.TrustedCampaignConfig.from_json(root / "configs/integration/trusted_basilisk_campaign.json")
++    assert len(config.cases) == 6
++    assert len(config.cases) * 2 >= 12
++    assert len({case.scenario_id for case in config.cases}) >= 3
++
++
++def test_install_constants_are_frozen():
++    assert tc.EXPECTED_BSK_VERSION == "2.11.0"
++    assert tc.EXPECTED_LINUX_X86_64_WHEEL_SHA256 == "d51fe1ffa1b0b03dc415034b210497b28a2504428d4d8e71b481542a08c08a0a"
+--- /dev/null
++++ b/tests/test_trusted_campaign_scripts.py
+@@ -0,0 +1,41 @@
++from __future__ import annotations
++
++import os
++import subprocess
++import sys
++from pathlib import Path
++
++
++def test_required_trusted_campaign_entrypoints_exist():
++    root = Path(__file__).resolve().parents[1]
++    for relative in (
++        "scripts/install_basilisk_runtime.py",
++        "scripts/run_basilisk_fault_matrix.py",
++        "scripts/generate_coupled_fault_campaign.py",
++        "scripts/export_trusted_run_evidence.py",
++    ):
++        path = root / relative
++        assert path.is_file(), relative
++        assert path.stat().st_size > 100
++
++
++def test_trusted_campaign_entrypoints_run_help_without_pythonpath():
++    root = Path(__file__).resolve().parents[1]
++    environment = dict(os.environ)
++    environment.pop("PYTHONPATH", None)
++    for relative in (
++        "scripts/install_basilisk_runtime.py",
++        "scripts/run_basilisk_fault_matrix.py",
++        "scripts/generate_coupled_fault_campaign.py",
++    ):
++        completed = subprocess.run(
++            [sys.executable, str(root / relative), "--help"],
++            cwd=root,
++            env=environment,
++            text=True,
++            capture_output=True,
++            timeout=30,
++            check=False,
++        )
++        assert completed.returncode == 0, (relative, completed.stdout, completed.stderr)
++        assert "usage:" in completed.stdout.lower()

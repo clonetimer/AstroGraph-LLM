@@ -1,0 +1,24 @@
+{
+  "schema_version": "astrograph-production-estimator-manifest.v1",
+  "manifest_id": "astrograph.production-estimators.g3-baseline",
+  "version": "1.0.0",
+  "production_slot": "component_state_estimator",
+  "estimator_id": "astrograph.gray-box.bounded-balance",
+  "estimator_version": "1.2.0",
+  "residual_model": "NONE",
+  "uncertainty_calibration_resource": "astrograph.resources/gray_box_uncertainty_calibration.v1.json",
+  "uncertainty_calibration_sha256": "708c721c25678706e4585fc39ff89f565b815136d15b6230d1d5f522c34f929b",
+  "bindings": [
+    {
+      "component_archetype_id": "storage.energy_buffer",
+      "dynamics_contract_id": "astrograph.physics.storage.energy-buffer.v1"
+    },
+    {
+      "component_archetype_id": "thermal.lumped_capacity",
+      "dynamics_contract_id": "astrograph.physics.thermal.lumped-capacity.v1"
+    }
+  ],
+  "fallback_estimators": [],
+  "ensemble_members": [],
+  "claim_boundary": "T-306 synthetic configuration-out calibration, GLS innovation whiteness and noise-aware conservation checks pass for two archetypes. Raw pointwise violations remain fully reported; independent-source G3 evidence, diagnostic heads, G3 and G4 remain incomplete."
+}

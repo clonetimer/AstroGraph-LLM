@@ -1,0 +1,39 @@
+{
+  "ambiguous_command_ids": [],
+  "claim_boundary": "Structural catalog/graph audit only; no fault prediction, model selection, external validation, probability, or flight qualification.",
+  "command_binding_count": 27,
+  "component_count": 173,
+  "connection_count": 172,
+  "edge_count": 796,
+  "edge_kind_counts": {
+    "COMMANDS": 27,
+    "CONNECTED_TO": 172,
+    "CONTAINS": 202,
+    "HAS_FAULT_MODE": 222,
+    "INSTANCE_OF": 173
+  },
+  "fault_target_universe_count": 222,
+  "node_count": 452,
+  "node_kind_counts": {
+    "COMMAND": 27,
+    "COMPONENT": 90,
+    "COMPONENT_TYPE": 29,
+    "FAULT_MODE": 222,
+    "SENSOR": 83,
+    "SYSTEM": 1
+  },
+  "performance_evaluation_performed": false,
+  "receipt_sha256": "ce5c333eef5d67dd8a45775cf83518c6b6e39d25d05f6430d827a83574115125",
+  "schema_version": "astrograph-r23-dxc-system-graph-audit.v1",
+  "source_role": "PUBLIC_SYSTEM_MODEL_ONLY_NO_SCENARIO_TRUTH",
+  "source_xml_sha256": "71e5ee01746192f4c7e3fc7784f11f084b73d7fe387df079a97d31ff12adcccf",
+  "system_graph_sha256": "c1c1fdf037737c749b4f4addf80277e7c8974867582df62cb19fa3a6d68014c5",
+  "truth_consumed": false,
+  "verified_example_binding": {
+    "binding_source": "COMPONENT_INSTANCE_XML",
+    "command_id": "EY136_OP",
+    "component_id": "CB136",
+    "component_type": "CircuitBreaker70AmpCmd",
+    "data_type": "bool"
+  }
+}

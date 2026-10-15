@@ -1,0 +1,24 @@
+{
+  "schema_version": "astrograph-dataset-fault-ontology-bindings.v1",
+  "binding_id": "adcs-v5.2.2-to-cross-domain-fault-mechanisms",
+  "dataset_id": "whole_spacecraft_adcs_paired_dataset_v5_2_2",
+  "ontology_id": "astrograph.core.cross-domain-fault-mechanisms",
+  "ontology_version": "1.0.0",
+  "bindings": [
+    {"fault_class_id": "adcs_control_loop_failure", "mechanism_id": "mechanism:actuation-authority-loss", "expected_effect_pattern_ids": ["effect:command-response-residual-growth"]},
+    {"fault_class_id": "adcs_gyro_bias_step", "mechanism_id": "mechanism:additive-bias-shift", "expected_effect_pattern_ids": ["effect:baseline-deviation-growth"]},
+    {"fault_class_id": "adcs_imu_axis_dropout", "mechanism_id": "mechanism:signal-availability-loss", "expected_effect_pattern_ids": ["effect:availability-decrease"]},
+    {"fault_class_id": "adcs_imu_gyro_noise_amplification", "mechanism_id": "mechanism:dispersion-increase", "expected_effect_pattern_ids": ["effect:dispersion-ratio-growth"]},
+    {"fault_class_id": "adcs_imu_total_output_zero", "mechanism_id": "mechanism:output-stagnation", "expected_effect_pattern_ids": ["effect:response-stagnation"]},
+    {"fault_class_id": "adcs_rw_jamming", "mechanism_id": "mechanism:output-stagnation", "expected_effect_pattern_ids": ["effect:response-stagnation", "effect:command-response-residual-growth"]},
+    {"fault_class_id": "adcs_rw_speed_sensor_fault", "mechanism_id": "mechanism:signal-availability-loss", "expected_effect_pattern_ids": ["effect:availability-decrease"]},
+    {"fault_class_id": "adcs_rw_torque_path_open", "mechanism_id": "mechanism:actuation-authority-loss", "expected_effect_pattern_ids": ["effect:command-response-residual-growth"]},
+    {"fault_class_id": "adcs_star_solution_constant_bias", "mechanism_id": "mechanism:additive-bias-shift", "expected_effect_pattern_ids": ["effect:baseline-deviation-growth"]},
+    {"fault_class_id": "adcs_star_solution_unavailable", "mechanism_id": "mechanism:signal-availability-loss", "expected_effect_pattern_ids": ["effect:availability-decrease"]},
+    {"fault_class_id": "adcs_star_tracker_stuck_at_last", "mechanism_id": "mechanism:output-stagnation", "expected_effect_pattern_ids": ["effect:response-stagnation"]},
+    {"fault_class_id": "adcs_sun_sensor_cell_failure", "mechanism_id": "mechanism:signal-availability-loss", "expected_effect_pattern_ids": ["effect:availability-decrease"]},
+    {"fault_class_id": "adcs_sun_sensor_saturation", "mechanism_id": "mechanism:output-stagnation", "expected_effect_pattern_ids": ["effect:response-stagnation"]},
+    {"fault_class_id": "adcs_sun_vector_unavailable", "mechanism_id": "mechanism:signal-availability-loss", "expected_effect_pattern_ids": ["effect:availability-decrease"]}
+  ],
+  "claim_boundary": "Dataset-label binding only. It does not promote dataset columns, thresholds or generated labels into the cross-domain TBox."
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "phm.minimal_runtime.run.v1",
+  "scenario": "solar_efficiency_loss",
+  "duration_s": 120.0,
+  "integration_step_s": 1.0,
+  "seed": 20260719,
+  "event_count": 1,
+  "active_event_rows": 61,
+  "row_count": 121,
+  "events": [
+    {
+      "id": "solar_efficiency_loss",
+      "category": "degradation",
+      "effect": "solar_panel_efficiency_loss",
+      "target": "solar_array",
+      "start_s": 30.0,
+      "duration_s": 60.0,
+      "parameters": {
+        "remaining_efficiency_ratio": 0.55
+      }
+    }
+  ],
+  "runtime": "Basilisk official modules + project-native SysModel in one scheduler",
+  "context_of_use": "E0 engineering synthetic whole-spacecraft PHM simulation",
+  "claim_boundary": "Not flight calibrated; no RUL or flight-grade diagnostic claim"
+}

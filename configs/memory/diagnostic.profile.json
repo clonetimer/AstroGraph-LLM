@@ -1,0 +1,220 @@
+{
+  "schema": "ppl.profile/0.2",
+  "id": "astrograph.diagnostic.evidence-ledger.v1",
+  "title": "证据账本科研助手",
+  "version": "0.1.0",
+  "kind": "research",
+  "engine": {
+    "id": "research/evidence-ledger",
+    "version": "0.2"
+  },
+  "application": {
+    "domain": "spacecraft-diagnostic-evidence-ledger",
+    "maturity": "application-evolution",
+    "hostOwnsRetrieval": true
+  },
+  "personaBinding": {
+    "optional": true,
+    "role": "communication-style-only"
+  },
+  "mission": {
+    "goal": "维护可追溯 claim/evidence/validation 生命周期，显式保留冲突和不确定性，阻止把生成的 hypothesis 直接升级成已成立结论。",
+    "success": [
+      "evidence 可去重",
+      "相关来源被降权",
+      "冲突不平均消失",
+      "validation 独立记录",
+      "结论受 provenance/independence/uncertainty gate 约束"
+    ]
+  },
+  "interaction": {
+    "defaultMode": "evidence-ledger",
+    "principles": [
+      "claim 不是 truth",
+      "support 与 oppose 分离记账",
+      "相关来源不算多个独立证据",
+      "validation 与 generation 分离",
+      "blocked/inconclusive/qualified/ready 明确区分"
+    ]
+  },
+  "userModel": {
+    "owner": "host-or-profile",
+    "fields": [
+      "research.question",
+      "research.claims"
+    ]
+  },
+  "domainPolicy": {
+    "retrievalOwnedByHost": true,
+    "citationsOwnedByHost": true,
+    "toolResultsAreEvidenceNotTruth": true,
+    "prematureConclusionBlocked": true
+  },
+  "capabilities": {
+    "required": [
+      "source-ingestion"
+    ],
+    "optional": [
+      "web-search",
+      "paper-search",
+      "dataset",
+      "code-runner",
+      "experiment-runner",
+      "human-review"
+    ]
+  },
+  "researchModel": {
+    "decisionThresholds": {
+      "maxReadyUncertainty": 0.35,
+      "minStrongValidation": 1,
+      "minConflictMass": 0.6,
+      "inconclusiveBalanceRatio": 0.55,
+      "minDominantMass": 1.2,
+      "minIndependentDominant": 2,
+      "maxReadyCounterRatio": 0.35
+    },
+    "correlatedSourceFactor": 0.35,
+    "note": "Support/oppose mass 是审计友好的 evidence accounting，不宣称是客观真值概率。结论成熟度(status)与方向(direction)分离：ready 可以是 support 或 oppose；实质且较均衡的冲突进入 inconclusive；ready 仍要求可重复且 provenance 完整的 replication/experiment/formal-check 等强验证。",
+    "readyValidationKinds": [
+      "replication",
+      "experiment",
+      "formal-check"
+    ]
+  },
+  "initialState": {
+    "research": {
+      "question": "",
+      "activeClaimId": "",
+      "claimOrder": [],
+      "claims": {},
+      "evidenceLedger": [],
+      "evidenceIds": [],
+      "validationLedger": [],
+      "conclusionStatus": "blocked",
+      "conclusionDirection": "undetermined"
+    },
+    "workflow": {
+      "nextAction": "define-question"
+    }
+  },
+  "stateSchema": {
+    "research.question": {
+      "type": "string",
+      "required": true
+    },
+    "research.activeClaimId": {
+      "type": "string",
+      "required": true
+    },
+    "research.claimOrder": {
+      "type": "array",
+      "required": true
+    },
+    "research.claims": {
+      "type": "object",
+      "required": true
+    },
+    "research.evidenceLedger": {
+      "type": "array",
+      "required": true
+    },
+    "research.evidenceIds": {
+      "type": "array",
+      "required": true
+    },
+    "research.validationLedger": {
+      "type": "array",
+      "required": true
+    },
+    "research.conclusionStatus": {
+      "type": "string",
+      "enum": [
+        "blocked",
+        "inconclusive",
+        "qualified",
+        "ready"
+      ],
+      "required": true
+    },
+    "workflow.nextAction": {
+      "type": "string",
+      "required": true
+    },
+    "research.conclusionDirection": {
+      "type": "string",
+      "enum": [
+        "undetermined",
+        "support",
+        "oppose",
+        "mixed"
+      ],
+      "required": true
+    }
+  },
+  "rules": [],
+  "transactionPolicy": {
+    "commitEndReasons": [
+      "completed"
+    ],
+    "abortPolicy": "rollback"
+  },
+  "evaluation": {
+    "metrics": [
+      {
+        "id": "conclusion_status",
+        "label": "结论状态",
+        "type": "path",
+        "path": "research.conclusionStatus"
+      },
+      {
+        "id": "evidence_count",
+        "label": "证据账本条目",
+        "type": "path",
+        "path": "research.evidenceLedger.length"
+      },
+      {
+        "id": "validation_count",
+        "label": "验证条目",
+        "type": "path",
+        "path": "research.validationLedger.length"
+      }
+    ]
+  },
+  "observability": {
+    "metrics": [],
+    "groups": [
+      {
+        "id": "claims",
+        "label": "Claim Graph",
+        "prefix": "research.claims."
+      },
+      {
+        "id": "workflow",
+        "label": "研究流程",
+        "prefix": "workflow."
+      }
+    ]
+  },
+  "literature": [
+    {
+      "id": "arxiv:2504.11524",
+      "title": "HypoBench",
+      "mechanismBorrowed": "hypothesis generation 的发现率有限，不能把一次生成直接当作完整科学发现。"
+    },
+    {
+      "id": "arxiv:2505.14599",
+      "title": "TruthHypo / Toward Reliable Biomedical Hypothesis Generation",
+      "mechanismBorrowed": "groundedness/truthfulness 需要独立验证；生成的 plausibility 不能替代 evidence。"
+    },
+    {
+      "id": "arxiv:2505.04651",
+      "title": "Scientific Hypothesis Generation and Validation: Methods, Datasets, and Future Directions",
+      "mechanismBorrowed": "generation 与 validation 是独立阶段，需 uncertainty quantification 和 human/tool validation。"
+    },
+    {
+      "id": "arxiv:2504.08066",
+      "title": "The AI Scientist-v2",
+      "mechanismBorrowed": "research workflow 应显式覆盖 hypothesis → experiment → analysis → iterative validation。"
+    }
+  ]
+}

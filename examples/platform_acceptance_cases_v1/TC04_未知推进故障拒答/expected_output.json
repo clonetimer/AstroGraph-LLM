@@ -1,0 +1,21 @@
+{
+  "preflight_can_start": true,
+  "run_status": "SUCCEEDED",
+  "review_status": "REVIEW_REQUIRED",
+  "top_fault_id": "PROP_VALVE_LEAK_UNDOCUMENTED",
+  "candidate_count": 1,
+  "candidate_status_by_fault": {
+    "PROP_VALVE_LEAK_UNDOCUMENTED": "PROVISIONAL_UNCORROBORATED"
+  },
+  "unknown_mechanism": true,
+  "must_have_hypotheses": true,
+  "case_id": "TC04_未知推进故障拒答",
+  "description": "未知故障编码应保留候选但不能编造根因",
+  "upload_files": [
+    "diagnosis_result.json",
+    "operations.log",
+    "reference.md"
+  ],
+  "equipment_scope": "LAB_PROP_V1",
+  "manifest": "analysis_input.json"
+}

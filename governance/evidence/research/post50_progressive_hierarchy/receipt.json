@@ -1,0 +1,41 @@
+{
+  "schema_version": "astrograph-research-receipt.v1",
+  "study_id": "post50-progressive-hierarchy-adcs",
+  "baseline_commit": "5a6b3813e27109baa2bcfb12dc333a06782d7abf",
+  "evidence_class": "DEVELOPMENT",
+  "model": "progressive_hierarchical_gat_tcn",
+  "feature_profile": "full",
+  "hierarchy_levels": [
+    "parameter", "part", "component", "functional_module", "subsystem", "whole_spacecraft"
+  ],
+  "development_nominal_manifest_sha256": "ef89fa91d9ea56ad9b95d27a4292282ae36dc330b245907357c2b59bd3e878c5",
+  "discarded_confirmation_manifest_sha256": "ac8dc155aac345bea2d389dd480b0fcc5e7c2587908d0a5f92e22bdc23098fdf",
+  "final_confirmation_manifest_sha256": "ec533a4e01f351700c4bc169f76bef62953860c78668c6c680d6af5fcff1675e",
+  "selection": {
+    "alarm_on_threshold": 0.99,
+    "alarm_off_threshold": 0.89,
+    "minimum_consecutive": 5,
+    "validation_fault_event_recall": 0.8068181818181818,
+    "validation_nominal_trajectory_false_alarm_rate": 0.0
+  },
+  "test_metrics": {
+    "detection_macro_f1": 0.7900440772228563,
+    "localization_macro_f1": 0.8828504783208297,
+    "classification_macro_f1": 0.8642498238061054,
+    "end_to_end_15_class_macro_f1": 0.7313075405517195
+  },
+  "independent_nominal_confirmation": {
+    "trajectory_count": 30,
+    "window_count": 3060,
+    "alarmed_trajectory_count": 0,
+    "false_alarm_window_count": 0,
+    "selection_frozen_before_scoring": true
+  },
+  "artifact_sha256": {
+    "validation_ablation": "6a26dc6cfb483ecea30d314324240463028675bd1844f7ade39fa94f0a5a9150",
+    "discarded_basic_confirmation": "181f62c1090118c071b14273abdc0bffafd2e7846920ff26432e303f8ce8a123",
+    "full_feature_selection": "03964848b5ddf7f42fd4469613767ed16e206ee4ee09cae57d13c2b894bece1d",
+    "full_feature_confirmation": "757d4d40e569288392c207a02626fda0ae7c4ec029a9fb9c44ebb61e5c60c80b"
+  },
+  "claim_boundary": "Single-training-seed Basilisk synthetic development evidence. No flight qualification, universal GAT superiority, or cross-spacecraft generalization claim."
+}

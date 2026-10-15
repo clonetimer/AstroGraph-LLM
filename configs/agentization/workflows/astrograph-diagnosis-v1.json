@@ -1,0 +1,26 @@
+{
+  "claim_scope": "RUNTIME_DIAGNOSIS_NO_TRUTH",
+  "edges": [
+    {
+      "from": "runtime.describe",
+      "to": "runtime.diagnosis.execute"
+    }
+  ],
+  "nodes": [
+    {
+      "capability": "runtime.describe",
+      "id": "runtime.describe"
+    },
+    {
+      "capability": "runtime.diagnosis.execute",
+      "id": "runtime.diagnosis.execute"
+    }
+  ],
+  "profile": "DIAGNOSIS",
+  "project_status": "B009_WIP_DEVELOPMENT_EVIDENCE",
+  "schema_version": "astrograph-agent-workflow.v1",
+  "runtime_execution_is_atomic": true,
+  "individual_stage_invocation_allowed": false,
+  "structural_validation_not_scientific_validation": true,
+  "workflow_id": "astrograph-diagnosis-v1"
+}

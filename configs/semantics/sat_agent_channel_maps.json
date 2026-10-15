@@ -1,0 +1,51 @@
+{
+  "schema_version": "astrograph-channel-map-catalog.v1",
+  "catalog_id": "astrograph.adapters.sat-agent.phm-project-a",
+  "version": "1.0.0",
+  "maps": [
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent.storage.energy-buffer",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent.phm-project-a.v1.1",
+      "source_schema_sha256": "6aa1c78c518ae4d8662ced9569d4207f6fecda0c67cf9ef7110caa06a66b07ff",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {"source_field": "time_s", "source_unit": "s"},
+      "entries": [
+        {"source_field": "estimate.eps.battery_soc", "semantic_channel_id": "asset.eps.storage_0.state_of_charge", "asset_instance_id": "asset-under-test", "component_archetype_id": "storage.energy_buffer", "port_role_id": "state.energy_fraction", "quantity_kind_id": "energy.state_of_charge", "source_unit": "1", "direction": 1, "required": true}
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 0.000001
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent.actuator.controlled-effort",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent.phm-project-a.v1.1",
+      "source_schema_sha256": "6aa1c78c518ae4d8662ced9569d4207f6fecda0c67cf9ef7110caa06a66b07ff",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {"source_field": "time_s", "source_unit": "s"},
+      "entries": [
+        {"source_field": "adcs.rw.command_torque_nm_0", "semantic_channel_id": "asset.adcs.actuator_0.command_torque", "asset_instance_id": "asset-under-test", "component_archetype_id": "actuator.controlled_effort", "port_role_id": "command.effort", "quantity_kind_id": "mechanical.torque", "source_unit": "N*m", "direction": 1, "required": true},
+        {"source_field": "estimate.adcs.rw.actual_torque_nm_0", "semantic_channel_id": "asset.adcs.actuator_0.response_torque", "asset_instance_id": "asset-under-test", "component_archetype_id": "actuator.controlled_effort", "port_role_id": "response.effort", "quantity_kind_id": "mechanical.torque", "source_unit": "N*m", "direction": 1, "required": false},
+        {"source_field": "sensor.adcs.rw.speed_rad_s_0", "semantic_channel_id": "asset.adcs.actuator_0.angular_rate", "asset_instance_id": "asset-under-test", "component_archetype_id": "actuator.controlled_effort", "port_role_id": "state.rate", "quantity_kind_id": "mechanical.angular_rate", "source_unit": "rad/s", "direction": 1, "required": true}
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 0.000001
+    },
+    {
+      "schema_version": "astrograph-channel-map.v1",
+      "mapping_id": "sat-agent.thermal.lumped-capacity",
+      "version": "1.0.0",
+      "source_adapter_id": "sat-agent.phm-project-a.v1.1",
+      "source_schema_sha256": "6aa1c78c518ae4d8662ced9569d4207f6fecda0c67cf9ef7110caa06a66b07ff",
+      "semantic_schema_id": "astrograph.core.physical-quantities.v1",
+      "time_axis": {"source_field": "time_s", "source_unit": "s"},
+      "entries": [
+        {"source_field": "sensor.thermal.payload_temp_c", "semantic_channel_id": "asset.thermal.capacity_0.temperature", "asset_instance_id": "asset-under-test", "component_archetype_id": "thermal.lumped_capacity", "port_role_id": "state.temperature", "quantity_kind_id": "thermal.temperature", "source_unit": "degC", "direction": 1, "required": true}
+      ],
+      "unmapped_field_policy": "IGNORE_CLEAN",
+      "sampling_tolerance_ratio": 0.000001
+    }
+  ]
+}

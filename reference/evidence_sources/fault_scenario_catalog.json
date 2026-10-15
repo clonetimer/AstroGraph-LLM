@@ -1,0 +1,29 @@
+{
+  "schema_version": "phm.whole_spacecraft.scenario_catalog.v1",
+  "context_of_use": "E0 engineering synthetic whole-spacecraft PHM simulation",
+  "claim_boundary": "Not flight calibrated; no RUL or flight-grade diagnostic claim",
+  "single_scenarios": {
+    "battery_capacity_loss": {"category":"fault","effect":"eps_battery_capacity_loss","target":"battery","parameters":{"remaining_capacity_ratio":0.65}},
+    "solar_efficiency_loss": {"category":"degradation","effect":"solar_panel_efficiency_loss","target":"solar_array","parameters":{"remaining_efficiency_ratio":0.55}},
+    "radiator_rejection_loss": {"category":"degradation","effect":"thermal_radiator_rejection_loss","target":"radiator","parameters":{"remaining_rejection_ratio":0.45}},
+    "reaction_wheel_jam": {"category":"fault","effect":"adcs_rw_jamming","target":"reaction_wheel","parameters":{"wheel_index":0,"brake_torque_nm":0.2,"lock_tolerance_rad_s":0.25}},
+    "downlink_service_loss": {"category":"fault","effect":"comm_data_downlink_link_loss","target":"communication","parameters":{}},
+    "battery_internal_resistance_increase": {"category":"fault","effect":"battery_internal_resistance_increase","target":"battery","parameters":{"resistance_scale":2.0}},
+    "solar_array_string_failure": {"category":"fault","effect":"solar_array_string_failure","target":"solar_array","parameters":{"failed_strings":2}},
+    "heater_stuck_on": {"category":"fault","effect":"thermal_heater_stuck_on","target":"payload_heater","parameters":{}},
+    "temperature_sensor_bias": {"category":"fault","effect":"temperature_sensor_bias","target":"payload_temperature_sensor","parameters":{"bias_c":5.0}},
+    "temperature_sensor_drift": {"category":"degradation","effect":"temperature_sensor_drift","target":"payload_temperature_sensor","parameters":{"bias_c":5.0}},
+    "reaction_wheel_friction_increase": {"category":"degradation","effect":"rw_friction_degradation","target":"reaction_wheel","parameters":{"wheel_index":0,"drag_nms":0.015}},
+    "reaction_wheel_torque_authority_loss": {"category":"fault","effect":"adcs_rw_motor_failure","target":"reaction_wheel","parameters":{"wheel_index":0,"torque_scale":0.35}},
+    "star_tracker_dropout": {"category":"fault","effect":"star_tracker_dropout","target":"star_tracker","parameters":{}},
+    "gyro_bias_drift": {"category":"degradation","effect":"gyro_bias_drift","target":"gyroscope","parameters":{"drift_rate_deg_s_per_s":[0.001,0.0,0.0]}},
+    "transmitter_output_power_loss": {"category":"degradation","effect":"transmitter_output_power_loss","target":"transmitter","parameters":{"rf_power_scale":0.45}},
+    "storage_write_failure": {"category":"fault","effect":"storage_write_failure","target":"storage","parameters":{"remaining_write_ratio":0.0}}
+  },
+  "composite_scenarios": {
+    "eps_capacity_plus_solar": ["battery_capacity_loss","solar_efficiency_loss"],
+    "radiator_plus_heater": ["radiator_rejection_loss","heater_stuck_on"],
+    "rw_friction_plus_star_tracker": ["reaction_wheel_friction_increase","star_tracker_dropout"],
+    "transmitter_plus_storage_write": ["transmitter_output_power_loss","storage_write_failure"]
+  }
+}

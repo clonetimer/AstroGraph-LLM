@@ -1,0 +1,439 @@
+{
+  "schema_version": "astrograph-current-document-index.v2",
+  "release": "0.7.1.post49",
+  "package_profile": "post49-current-delivery-source-r1",
+  "historical_records_included": false,
+  "authoritative_order": [
+    "governance/implementation/post49/RELEASE_READINESS.json",
+    "docs/CURRENT_DATA_DRIVEN_METRICS.md",
+    "docs/THESIS_METHOD_REMEDIATION.md",
+    "docs/CURRENT_ENGINEERING_POLICY.md",
+    "docs/CURRENT_DOCS.json"
+  ],
+  "default_current_corpus": [
+    "README.md",
+    "START_HERE.md",
+    "RUN_GUIDE.md",
+    "TESTING.md",
+    "ARCHITECTURE.md",
+    "DESIGN.md",
+    "CHANGELOG.md",
+    "docs/README.md",
+    "docs/LLM_ACTIVE_DIAGNOSIS_RESEARCH_PLAN.md",
+    "docs/LLM_ACTIVE_DIAGNOSIS_EXPLORATORY_RUNBOOK.md",
+    "docs/ASTROGRAPH_RESEARCH_AUDIT_R14.md",
+    "docs/ASTROGRAPH_R15_EVIDENCE_AND_CONFIRMATORY_DESIGN.md",
+    "docs/ASTROGRAPH_UNIFIED_SOURCE_R14.md",
+    "docs/DOCUMENT_STATUS_POLICY.md",
+    "docs/CURRENT_ENGINEERING_POLICY.md",
+    "docs/CURRENT_DELIVERY_SOURCE.md",
+    "docs/CURRENT_DATA_DRIVEN_METRICS.md",
+    "docs/FRAMEWORK_MAP.md",
+    "docs/JOINT_DIAGNOSIS_ARCHITECTURE.md",
+    "docs/PROVIDER_QUALIFICATION.md",
+    "docs/PROVIDER_QUALIFICATION_VALIDATION.md",
+    "docs/DIRECTORY_STRUCTURE.md",
+    "docs/agent_modes/WORK_MODES.md",
+    "docs/agentization/AGENTIZATION_ARCHITECTURE.md",
+    "docs/agentization/AGENTIZATION_EXECUTION_STATUS.md",
+    "docs/agentization/OPTIONAL_SIGNAL_TOOLKIT_ADMISSION.md",
+    "docs/basilisk_materials/README.md",
+    "docs/local_acceptance/README.md",
+    "docs/local_acceptance/STAGE_COMMANDS.md",
+    "docs/local_acceptance/TRAINING_AND_EVALUATION.md",
+    "docs/local_acceptance/LLM_SERVICE_SETUP.md",
+    "docs/local_acceptance/READ_RESULTS.md",
+    "docs/local_acceptance/EXTERNAL_TOOLS.md",
+    "docs/local_acceptance/TROUBLESHOOTING.md",
+    "docs/implementation/POST49_STABLE_RELEASE.md",
+    "governance/README.md",
+    "governance/implementation/README.md",
+    "docs/ASTROGRAPH_R16_REPRODUCIBILITY_IDENTITY.md",
+    "docs/LLM_METHOD_CONFIRMATORY_R16_RUNBOOK.md",
+    "docs/ASTROGRAPH_RESEARCH_BACKLOG_R16.md",
+    "docs/ASTROGRAPH_R21_REAL_DATA_FAILURE_MECHANISMS.md",
+    "docs/ASTROGRAPH_RESEARCH_BACKLOG_R21.md",
+    "docs/ASTROGRAPH_R22_NEW_INDEPENDENT_REPLICATION.md",
+    "docs/ASTROGRAPH_RESEARCH_BACKLOG_R22.md",
+    "docs/ASTROGRAPH_R23_GRAPH_MODEL_SIMULATION_DIAGNOSIS.md",
+    "docs/ASTROGRAPH_R25_DXC_ESA_REMEDIATION.md",
+    "docs/ASTROGRAPH_R26_DXC_DISCRETE_ESA_FREEZE.md",
+    "docs/ASTROGRAPH_R27_DXC_EXPECTED_RESPONSE_ARCHITECTURE.md",
+    "docs/ASTROGRAPH_R29_REDUCED_ORDER_SIMULATION.md",
+    "docs/ASTROGRAPH_AGENT_TOOL_SPECIFICATION_R30.md",
+    "docs/ASTROGRAPH_R30_MECHANISM_MODEL_AND_BLIND_SIMULATION.md",
+    "docs/ASTROGRAPH_AGENT_TOOL_SPECIFICATION_R31.md",
+    "docs/ASTROGRAPH_R31_WATERPUMP_REDUCED_ORDER_SIMULATION.md",
+    "docs/ASTROGRAPH_OPERATIONS_CONSOLE_R33.md",
+    "docs/ASTROGRAPH_OPERATIONS_CONSOLE_R33_1.md",
+    "docs/ASTROGRAPH_OPERATIONS_CONSOLE_R33_2.md",
+    "docs/ASTROGRAPH_DIAGNOSTIC_WORKSPACE_R34.md",
+    "docs/ASTROGRAPH_DIAGNOSTIC_WORKSPACE_R34_1.md",
+    "docs/ASTROGRAPH_DIAGNOSTIC_WORKSPACE_R34_2.md",
+    "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35.md",
+    "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_1.md",
+    "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_2.md"
+  ],
+  "excluded_from_current_corpus": [
+    "historical archives (not bundled)",
+    "research result ledgers (not bundled)",
+    "prior release receipts (not bundled)"
+  ],
+  "documents": [
+    {
+      "path": "README.md",
+      "status": "CURRENT",
+      "sha256": "bdadfb236d2f57145ee220d2d4d62f33d4c6d22f72123bef53b3619aaadc1983"
+    },
+    {
+      "path": "START_HERE.md",
+      "status": "CURRENT",
+      "sha256": "30bfd408bf668101fd2e558cdf8ebf4d8aee130e66cb9a59071580ee76d9fda4"
+    },
+    {
+      "path": "RUN_GUIDE.md",
+      "status": "CURRENT",
+      "sha256": "30fe127ccf1bbf67eb431d84a079016bf878c59163bf0b6eceb9eb7a1a6d5ee4"
+    },
+    {
+      "path": "TESTING.md",
+      "status": "CURRENT",
+      "sha256": "95b7867d2776fe5a6a10ef23080ea8deca8b7ef3c094aca5404950a0ac40e402"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "status": "CURRENT",
+      "sha256": "54acbb4264dd522002a5e15d1cef1d52f8531ede30ac9798e48a7401aa94365a"
+    },
+    {
+      "path": "DESIGN.md",
+      "status": "CURRENT",
+      "sha256": "3007076c3b325832fc66b407e2696b07d0614b8448e64f77317c79f89bac8855"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "status": "CURRENT",
+      "sha256": "c8594e82214e7e764f64560372cc7d85bd82ce2ccfc8a43015ba43bc2981dba1"
+    },
+    {
+      "path": "docs/README.md",
+      "status": "CURRENT",
+      "sha256": "a2e63870145ab0360f13e06e7892b62752bc252aea8e356e154ff491565c9be7"
+    },
+    {
+      "path": "docs/LLM_ACTIVE_DIAGNOSIS_RESEARCH_PLAN.md",
+      "status": "CURRENT_DEVELOPMENT_EXPLORATORY",
+      "sha256": "a3c69fcf34b18a53f1e346a8cfc94f235b081e60676551dcf0e2bca3a17df111"
+    },
+    {
+      "path": "docs/LLM_ACTIVE_DIAGNOSIS_EXPLORATORY_RUNBOOK.md",
+      "status": "CURRENT_DEVELOPMENT_EXPLORATORY",
+      "sha256": "60a5cc0e6c29e44c076c161190f7e72fc7f1fb27f79fb9257da890cab9d36af1"
+    },
+    {
+      "path": "docs/DOCUMENT_STATUS_POLICY.md",
+      "status": "CURRENT",
+      "sha256": "1ab964374b12c1e664a8cf4ce2e25038bc29a42dfd80dc18d42f3df2ce9b158d"
+    },
+    {
+      "path": "docs/CURRENT_ENGINEERING_POLICY.md",
+      "status": "CURRENT",
+      "sha256": "7a834e46fe8f09080086c27f77bb085da0bc74d4c73315090f75347bc5c0abe2"
+    },
+    {
+      "path": "docs/CURRENT_DATA_DRIVEN_METRICS.md",
+      "status": "CURRENT",
+      "sha256": "cfdd103d9f2ba128ea069dba667db75f311be067f423f4a09b8f2d1bba2f4dcf"
+    },
+    {
+      "path": "docs/THESIS_METHOD_REMEDIATION.md",
+      "status": "CURRENT",
+      "sha256": "9bbfc2f91b7c49167bfda5856ed052d7bce9c666216e49b956c005a91eb5126f"
+    },
+    {
+      "path": "docs/FRAMEWORK_MAP.md",
+      "status": "CURRENT",
+      "sha256": "b08ddd4601fefeb9cb411b4b27ee69786f14aba1b1fd7c0de2ca16fd89d0e6ba"
+    },
+    {
+      "path": "docs/JOINT_DIAGNOSIS_ARCHITECTURE.md",
+      "status": "CURRENT",
+      "sha256": "535b6dfb9ac83e6d4a42353650dcdd9379eac1e13593dba3d4ff3d9da5c4ec38"
+    },
+    {
+      "path": "docs/PROVIDER_QUALIFICATION.md",
+      "status": "CURRENT",
+      "sha256": "83848e7498d0b314ef46b1dc685e87cebea080503ed5fb0aeb9a30cc0045ebd4"
+    },
+    {
+      "path": "docs/PROVIDER_QUALIFICATION_VALIDATION.md",
+      "status": "CURRENT",
+      "sha256": "65ab4c395a9a89b85d364ca0ad34bb182b72d623540192fc69b0f8328687216e"
+    },
+    {
+      "path": "docs/DIRECTORY_STRUCTURE.md",
+      "status": "CURRENT",
+      "sha256": "99b696a28c1c813b6c06f7e68491846f9b315f788e2458923ce4f387747605ca"
+    },
+    {
+      "path": "docs/agent_modes/WORK_MODES.md",
+      "status": "CURRENT",
+      "sha256": "cc54bdbf760b28eeddf6a511547007f1ebab084e9206e92663dfdba0de2681d4"
+    },
+    {
+      "path": "docs/agentization/AGENTIZATION_ARCHITECTURE.md",
+      "status": "CURRENT",
+      "sha256": "a88e3cbc2709412c85933d13c5e2cd67850ddced216bffa3f71f0babf5d33e34"
+    },
+    {
+      "path": "docs/agentization/AGENTIZATION_EXECUTION_STATUS.md",
+      "status": "CURRENT",
+      "sha256": "baefff0a91ff9a7aec02b50ae93ab5c09d74432688985d018b7a2472bfae8c71"
+    },
+    {
+      "path": "docs/agentization/OPTIONAL_SIGNAL_TOOLKIT_ADMISSION.md",
+      "status": "CURRENT",
+      "sha256": "30150687c50f039294e31ae774925419149538720da9638a702fdc3a151a47bd"
+    },
+    {
+      "path": "docs/basilisk_materials/README.md",
+      "status": "CURRENT",
+      "sha256": "33bf1ddf01122539a2b2d4c6a36c943e521b6d1dab0908284d536577eeb343c2"
+    },
+    {
+      "path": "docs/local_acceptance/README.md",
+      "status": "CURRENT",
+      "sha256": "ae2480f363e4b1b2cb652208de3a4c099b3817e9777d77d4a241caafee98d75a"
+    },
+    {
+      "path": "docs/local_acceptance/STAGE_COMMANDS.md",
+      "status": "CURRENT",
+      "sha256": "5c829a0d3eb736e812a81b5cac2922bd8bd371fe6a6de0b5b1a7fc75775bd2c2"
+    },
+    {
+      "path": "docs/local_acceptance/TRAINING_AND_EVALUATION.md",
+      "status": "CURRENT",
+      "sha256": "59b0009489734dca9b78fd177c00176b775fa9303a7d9b15aa4eb4e33637b1d9"
+    },
+    {
+      "path": "docs/local_acceptance/LLM_SERVICE_SETUP.md",
+      "status": "CURRENT",
+      "sha256": "72be09af0ed79b0b00d1cc6a1215bb331a3e78cf5c153fcca95587974715fa8a"
+    },
+    {
+      "path": "docs/local_acceptance/READ_RESULTS.md",
+      "status": "CURRENT",
+      "sha256": "0c92b2c045446e95bd33e0149f9e9032c4b590984e65938170b4d28af46ede12"
+    },
+    {
+      "path": "docs/local_acceptance/EXTERNAL_TOOLS.md",
+      "status": "CURRENT",
+      "sha256": "cd80d4a4aa257921c9fc493163c7d32cec69a474cb40dbfd26f122ed8b324ca0"
+    },
+    {
+      "path": "docs/local_acceptance/TROUBLESHOOTING.md",
+      "status": "CURRENT",
+      "sha256": "b4bf3345fdd42adfd209a9fc94a603e3d25302db18b6cf6f8aa0e6b52a60ccaa"
+    },
+    {
+      "path": "docs/implementation/POST49_STABLE_RELEASE.md",
+      "status": "CURRENT",
+      "sha256": "c39e73127c9e156034a5f85eb8af5f918f32fb6d8bb790f9834e72ad9342d7b1"
+    },
+    {
+      "path": "governance/README.md",
+      "status": "CURRENT",
+      "sha256": "d02f6eccc32dbd01fc6dc03a4d5b2dcefaa01ad1559f529e708480242a9c1545"
+    },
+    {
+      "path": "governance/implementation/README.md",
+      "status": "CURRENT",
+      "sha256": "2d73b3390c97f8f98b3e8321f49f4d37b5a1440650a44ea572a2b4ffb631073d"
+    },
+    {
+      "path": "docs/CURRENT_DELIVERY_SOURCE.md",
+      "status": "CURRENT",
+      "sha256": "bf9cd9405ea494b60cbc34724f8010ee748f017c974f535e2668ec2fbf337cd6"
+    },
+    {
+      "path": "docs/ASTROGRAPH_UNIFIED_SOURCE_R14.md",
+      "status": "CURRENT",
+      "sha256": "e211261990abd738a6ffd3c5647a3d397619cc58e7cd9c0046f9fe31d8d5f272"
+    },
+    {
+      "path": "docs/ASTROGRAPH_RESEARCH_AUDIT_R14.md",
+      "status": "CURRENT",
+      "sha256": "96e68aa06d849784e749009d13f43c72908a327bf9bf0fef5d446e5b430927ea"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R15_EVIDENCE_AND_CONFIRMATORY_DESIGN.md",
+      "status": "CURRENT",
+      "sha256": "15f081583c3ef9a8e81231d155510116ef5e87aa443914e5915c882af806d5a8"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R16_REPRODUCIBILITY_IDENTITY.md",
+      "status": "CURRENT",
+      "sha256": "d4588c7ee5f90841ecde430b8efde1db9c00676d1ef168e21c4633e085570c0c"
+    },
+    {
+      "path": "docs/LLM_METHOD_CONFIRMATORY_R16_RUNBOOK.md",
+      "status": "CURRENT",
+      "sha256": "6008e754c935664450f90349d8679ab4725751a4764b43d3a12a96211858f7d4"
+    },
+    {
+      "path": "docs/ASTROGRAPH_RESEARCH_BACKLOG_R16.md",
+      "status": "CURRENT",
+      "sha256": "bba16dc2b489b13c069fb51f483692c5d40a6c489b106d7b4ac815a8b6b51b73"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R21_REAL_DATA_FAILURE_MECHANISMS.md",
+      "status": "CURRENT",
+      "sha256": "32bb754605aa31b81ac740722af8ba2147f73fd5f80a2420754a34ec807b8ea5"
+    },
+    {
+      "path": "docs/ASTROGRAPH_RESEARCH_BACKLOG_R21.md",
+      "status": "CURRENT",
+      "sha256": "4a80e8501377a38cc5b84863945ff7a5a7036bf014a8ed6bfaeb260b7dad28c6"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R22_NEW_INDEPENDENT_REPLICATION.md",
+      "status": "CURRENT",
+      "sha256": "95c4c02e37daf4224d619043822903c7ed18862366f53d46a4da6d1985fcf9f5"
+    },
+    {
+      "path": "docs/ASTROGRAPH_RESEARCH_BACKLOG_R22.md",
+      "status": "CURRENT",
+      "sha256": "3409e205a432497b811404f023a1c26bac3369ccf18c5574b6ed2324ff23397b"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R23_GRAPH_MODEL_SIMULATION_DIAGNOSIS.md",
+      "status": "CURRENT",
+      "sha256": "8de82541169d74993a7a99a1cb8b934617c5ac9e51b488578b6eee78084f1dd1"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R25_DXC_ESA_REMEDIATION.md",
+      "status": "CURRENT",
+      "sha256": "3a703ece243ee2f795ccd599c847619416324ce9413e9bf249df78aeb54f10ed"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R26_DXC_DISCRETE_ESA_FREEZE.md",
+      "status": "CURRENT",
+      "sha256": "d295a820de67102434bff8180a122b618882d1a83028278939afd89f0619f458"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R27_DXC_EXPECTED_RESPONSE_ARCHITECTURE.md",
+      "status": "CURRENT",
+      "sha256": "b65f0b073f228fb6a1584ef323603852685a184df2f427675c5ace1031e94d67"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R29_REDUCED_ORDER_SIMULATION.md",
+      "status": "CURRENT",
+      "sha256": "910bd2b486d8a8d00d2ab2bd86c2ad161032d31aa7b0de248d8b31f76f27af48"
+    },
+    {
+      "path": "docs/ASTROGRAPH_AGENT_TOOL_SPECIFICATION_R30.md",
+      "status": "CURRENT",
+      "sha256": "e9ebb9b8f86f0a0f7520b8db1f2e5e8a6165b404fa030fbe246d30c7164089ed"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R30_MECHANISM_MODEL_AND_BLIND_SIMULATION.md",
+      "status": "CURRENT",
+      "sha256": "bf9510d0279fa0a1b0ce3bc1cd951cbf1e11975636b335ca3158e0d4a59c121a"
+    },
+    {
+      "path": "docs/ASTROGRAPH_AGENT_TOOL_SPECIFICATION_R31.md",
+      "status": "CURRENT",
+      "sha256": "c4fe699720caa7741e482846612b94bac228cdbad8e4469ef23bd047cd2919f4"
+    },
+    {
+      "path": "docs/ASTROGRAPH_R31_WATERPUMP_REDUCED_ORDER_SIMULATION.md",
+      "status": "CURRENT",
+      "sha256": "e1fcee9ced43c3dc0e723d939f4056420a80a1e6f4b552ac7d1b499e3ea57cf3"
+    },
+    {
+      "path": "docs/ASTROGRAPH_SPACECRAFT_SCOPE_CONVERGENCE_R32.md",
+      "status": "CURRENT",
+      "sha256": "60217ba7a0bd4de37b93ac58dcbca37081cbb6da478e82e69cfcf2fccb968325"
+    },
+    {
+      "path": "docs/ASTROGRAPH_POST_R32_ROADMAP.md",
+      "status": "CURRENT",
+      "sha256": "004650538af9bff415ef597873f68f1753162352a0c36226e10f2b769915fc2d"
+    },
+    {
+      "path": "docs/ASTROGRAPH_OPERATIONS_CONSOLE_R33.md",
+      "status": "CURRENT",
+      "sha256": "a12adefbb53dea13ac444c2154da193e7234a68fe1b3a540b1ee8d50b04322f5"
+    },
+    {
+      "path": "docs/ASTROGRAPH_OPERATIONS_CONSOLE_R33_1.md",
+      "status": "CURRENT",
+      "sha256": "2bfdb8f06706c9ef10148985cd32d5518d944d36d8573faf796d7745a392a96c"
+    },
+    {
+      "path": "docs/ASTROGRAPH_OPERATIONS_CONSOLE_R33_2.md",
+      "status": "CURRENT",
+      "sha256": "309e765bb7ff35baac8ba83f17ed514e2e2b9675e9104408667cc3be6c7fb346"
+    },
+    {
+      "path": "docs/ASTROGRAPH_DIAGNOSTIC_WORKSPACE_R34.md",
+      "status": "CURRENT",
+      "sha256": "66369655eda1112175fc7a328f9feba4522c2cb14abbec06c85afcc9914f24d3"
+    },
+    {
+      "path": "docs/ASTROGRAPH_DIAGNOSTIC_WORKSPACE_R34_1.md",
+      "status": "CURRENT",
+      "sha256": "263c379dfed56bf1ceb744d9d861bec1421fa740a114a223aa506115526e699d"
+    },
+    {
+      "path": "docs/ASTROGRAPH_DIAGNOSTIC_WORKSPACE_R34_2.md",
+      "status": "CURRENT",
+      "sha256": "dc880e82b19261257bb948eb079afa642d73d2de9e9247acee4e14fec3968fbf"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35.md",
+      "status": "CURRENT",
+      "sha256": "a258c1083e2ccfeb2cae12eab47778e79ac5ce875480407e4cd69dab0eede985"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_1.md",
+      "status": "CURRENT",
+      "sha256": "2e700d50f9417caeacfff5495401d6785b0740e5f59a7144ba8a188a85689485"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_2.md",
+      "status": "CURRENT",
+      "sha256": "52335f50e2ac0ebc109b98de55dde052d39072b90f71ef6a5ec641e343fd339a"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_3.md",
+      "status": "CURRENT",
+      "sha256": "105c855996e435017e9f407d836f03e5710e445afa378488b68b34d53d39257f"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_4.md",
+      "status": "CURRENT",
+      "sha256": "7a6a06cf3f0b2b44af6ed76fefc82bddef972b834ef6e08366ad19c6d8f0dc17"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_5.md",
+      "status": "CURRENT",
+      "sha256": "f14c4128b28e0b4d8d80029ffb5a4b85a33e2fb7ceb0a1b8bd25fd2c95e7724d"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_6.md",
+      "status": "CURRENT",
+      "sha256": "669dcaeb453b2a45193841a19d8a2d4fbca5e136e3bdf842bee7a2f282381764"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_7.md",
+      "status": "CURRENT",
+      "sha256": "da9aa91d459a278d68bf7958ead88f0e814a20af01197c66dd174a6d9db47326"
+    },
+    {
+      "path": "docs/ASTROGRAPH_PRODUCT_EXPERIENCE_R35_8.md",
+      "status": "CURRENT",
+      "sha256": "53077d6e91405a2bca7c8755d8a63c44f4a33c9f97c57edffdfe7c855bbea2d4"
+    }
+  ]
+}

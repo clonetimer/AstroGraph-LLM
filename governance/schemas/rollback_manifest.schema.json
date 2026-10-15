@@ -1,0 +1,86 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-rollback-manifest.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "rollback_id": {
+      "minLength": 1,
+      "title": "Rollback Id",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Contract Sha256",
+      "type": "string"
+    },
+    "candidate_id": {
+      "minLength": 1,
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "baseline_version": {
+      "minLength": 1,
+      "title": "Baseline Version",
+      "type": "string"
+    },
+    "baseline_archive_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Baseline Archive Sha256",
+      "type": "string"
+    },
+    "patch_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Patch Sha256",
+      "type": "string"
+    },
+    "changed_paths": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Changed Paths",
+      "type": "array"
+    },
+    "rollback_command": {
+      "minLength": 1,
+      "title": "Rollback Command",
+      "type": "string"
+    },
+    "verification_command": {
+      "minLength": 1,
+      "title": "Verification Command",
+      "type": "string"
+    },
+    "verified": {
+      "default": false,
+      "title": "Verified",
+      "type": "boolean"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "rollback_id",
+    "contract_id",
+    "contract_sha256",
+    "candidate_id",
+    "baseline_version",
+    "baseline_archive_sha256",
+    "patch_sha256",
+    "changed_paths",
+    "rollback_command",
+    "verification_command"
+  ],
+  "title": "RollbackManifest",
+  "type": "object"
+}

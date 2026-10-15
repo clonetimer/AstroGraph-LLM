@@ -1,0 +1,38 @@
+{
+  "schema_version": "astrograph-observability-research-authorization-request.v1",
+  "request_id": "P017-THERMAL-OBSERVABILITY-INTERVENTION-001",
+  "problem_id": "P-017",
+  "requested_reviewer": "Timer",
+  "status": "PENDING_EXTERNAL_APPROVAL",
+  "reason": "Three Stage-A methods, including a nonlinear separability oracle and direct physical-hypothesis comparison, fail the thermal archetype on new development/calibration splits. Stage B is not justified.",
+  "bound_stage_a_summary": "governance/evidence/0.7.1-extension/generic_diagnosis_stage_a_summary.v1.json",
+  "bound_stage_a_summary_sha256": "786b550b87fa74dc440fceb01ceb1fe9092e192064b757ec56e2a2c3de7d8e17",
+  "preserved_without_change": {
+    "known_mechanisms": ["CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+    "open_set_mechanisms": ["BIAS", "INTERMITTENT", "STUCK"],
+    "metric_thresholds": [0.98, 0.9, 0.95, 0.9, 0.98, 0.98],
+    "denominators": {"normal": 240, "known": 720, "open_set": 720, "total": 1680},
+    "maximum_runtime_seconds": 600,
+    "formal_hidden_truth_isolation": true
+  },
+  "requested_authority": {
+    "scope": "A new development/calibration-only observability study; not Stage B and not a production candidate.",
+    "new_development_seed": 20320818,
+    "new_calibration_seed": 20320819,
+    "technical_validation_seed": null,
+    "allowed_intervention": "Pre-freeze a deployable active thermal excitation and observation horizon using the existing heat.exchange, state.temperature and context.ambient_temperature channels; do not add truth-bearing inputs.",
+    "required_comparison": "Run passive and active profiles with identical fault severities, noise ranges, case counts and model rules.",
+    "required_exit": "Both archetypes must meet Stage-A classification, normal detection, known retention and OOD reachability checks before any Stage-B proposal."
+  },
+  "not_authorized": [
+    "Lower noise, increase fault severity or remove difficult configurations after observing results",
+    "Add a new sensor or change diagnosis_scope without a separate G1.1 artifact approval",
+    "Generate formal BIAS, INTERMITTENT or STUCK cases",
+    "Create or reserve a technical-validation seed",
+    "Fit or bind a production candidate",
+    "Change thresholds, denominators or class membership",
+    "Reuse 20280820, 20290820 or 20300820"
+  ],
+  "approval_text_requested_zh": "Timer 审批：我已审阅 P-017 Stage A 三轮开发/校准失败证据和独立下游计分合同。我确认当前证据不足以进入 Stage B，并授权一个新的可观测性干预研究阶段，仅使用开发种子 20320818 和校准种子 20320819，预先冻结可部署的主动热激励与观察时长，在相同故障严重度、噪声范围、样本数和模型规则下比较被动与主动方案。本审批不授权新增传感器、修改 G1.1 五项制品、生成正式开放类、拟合生产候选、创建验证种子或启动 Stage B；20280820、20290820、20300820 继续永久禁止复用。",
+  "claim_boundary": "Pending request only. No observability intervention experiment is authorized until Timer signs."
+}

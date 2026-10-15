@@ -1,0 +1,1114 @@
+{
+  "schema_version": "sat-sim.diagnostic-pipeline-runtime.v1",
+  "runtime_engine": "governed-diagnostic-pipeline-executor.v1",
+  "pipeline_id": "adcs.rw_jam.pipeline.v1",
+  "fault_id": "ADCS_RW_JAM",
+  "pair_id": "train-adcs_rw_jam-000",
+  "fault_dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+  "execution_status": "LOCAL_RUNTIME_COMPLETE_INTERFACE_BLOCKED",
+  "stage_results": [
+    {
+      "stage_id": "quality_gate",
+      "kind": "data_quality_gate",
+      "implementation_ref": "sat_sim.dataset_qualification",
+      "required": true,
+      "output_ref": "qualified_pair",
+      "status": "COMPLETED_REVIEW",
+      "decision": "REVIEW",
+      "reason": "physics_signatures_passed_but_formal_basilisk_evidence_missing"
+    },
+    {
+      "stage_id": "signature_detector",
+      "kind": "signature_detector",
+      "implementation_ref": "adcs.rw_jam.diagnostic.v1",
+      "required": true,
+      "output_ref": "signature_evidence",
+      "status": "COMPLETED_REVIEW",
+      "decision": "REVIEW",
+      "diagnostic_score": 1.0,
+      "reason": "diagnostic_signature_passed_but_formal_basilisk_physics_gate_missing"
+    },
+    {
+      "stage_id": "feature_extractor",
+      "kind": "feature_extractor",
+      "implementation_ref": "adcs.rw_jam.features.v1",
+      "required": true,
+      "output_ref": "feature_vector",
+      "status": "COMPLETED_PARTIAL",
+      "feature_count": 4,
+      "missing_required_model_channels": [
+        "sensor.adcs.rw.motor_current_a_0"
+      ],
+      "blocked_derived_features": [
+        "torque_speed_consistency_residual"
+      ]
+    },
+    {
+      "stage_id": "ml_model",
+      "kind": "ml_model",
+      "implementation_ref": "astrograph.model_registry:selected_after_benchmark",
+      "required": false,
+      "output_ref": "data_driven_prediction",
+      "status": "SKIPPED_OPTIONAL",
+      "reason": "formal_model_binding_disabled_pending_benchmark"
+    },
+    {
+      "stage_id": "kg_reasoner",
+      "kind": "kg_reasoner",
+      "implementation_ref": "astrograph.neo4j:causal_reasoner",
+      "required": true,
+      "output_ref": "kg_diagnosis",
+      "status": "PENDING_ASTROGRAPH",
+      "reason": "external_governed_stage_not_supplied"
+    },
+    {
+      "stage_id": "simulation_evidence",
+      "kind": "simulation_evidence",
+      "implementation_ref": "adcs.rw_jam.mechanism.v1",
+      "required": true,
+      "output_ref": "simulation_evidence",
+      "status": "COMPLETED",
+      "graph_id": "simulation-evidence:train-adcs_rw_jam-000:adcs.rw_jam.pipeline.v1",
+      "graph_sha256": "6d9d45d5c9aae087696653d4b1264c8942707a3505fcd73b26bd193b33bf9a6d"
+    },
+    {
+      "stage_id": "fusion",
+      "kind": "fusion",
+      "implementation_ref": "astrograph.fusion:birrf",
+      "required": true,
+      "output_ref": "fused_diagnosis",
+      "status": "PENDING_ASTROGRAPH",
+      "reason": "external_governed_stage_not_supplied"
+    },
+    {
+      "stage_id": "expert_gate",
+      "kind": "expert_review_gate",
+      "implementation_ref": "astrograph.governance:named_expert",
+      "required": true,
+      "output_ref": "publishable_diagnosis",
+      "status": "PENDING_EXPERT",
+      "reason": "external_governed_stage_not_supplied"
+    }
+  ],
+  "local_outputs": {
+    "physics_validation": {
+      "schema_version": "sat-sim.simulation-pair-validation.v1",
+      "validation_agent": "deterministic_simulation_validation_agent.v1",
+      "pair_id": "train-adcs_rw_jam-000",
+      "fault_id": "ADCS_RW_JAM",
+      "experiment_template_id": "adcs.rw_jam.basilisk.v1",
+      "fault_dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+      "nominal_dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-nominal",
+      "decision": "REVIEW",
+      "reason": "physics_signatures_passed_but_formal_basilisk_evidence_missing",
+      "physics_validation_passed": true,
+      "formal_training_qualified": false,
+      "expert_review_required": true,
+      "checks": [
+        {
+          "check_id": "pair_identity",
+          "status": "PASS",
+          "required": true,
+          "summary": "fault and nominal pair IDs must match",
+          "observed": "train-adcs_rw_jam-000",
+          "expected": "train-adcs_rw_jam-000"
+        },
+        {
+          "check_id": "pair_roles",
+          "status": "PASS",
+          "required": true,
+          "summary": "pair roles must be fault/nominal",
+          "observed": [
+            "fault",
+            "nominal"
+          ],
+          "expected": [
+            "fault",
+            "nominal"
+          ]
+        },
+        {
+          "check_id": "paired_seed",
+          "status": "PASS",
+          "required": true,
+          "summary": "paired cases must use the same seed",
+          "observed": 20260726,
+          "expected": 20260726
+        },
+        {
+          "check_id": "fault_onset_present",
+          "status": "PASS",
+          "required": true,
+          "summary": "fault case must declare onset_time_s",
+          "observed": 2.167059,
+          "expected": "finite time"
+        },
+        {
+          "check_id": "pre_onset_sample_count",
+          "status": "PASS",
+          "required": true,
+          "summary": "enough paired samples must exist before injection",
+          "observed": 3,
+          "expected": 2
+        },
+        {
+          "check_id": "post_onset_sample_count",
+          "status": "PASS",
+          "required": true,
+          "summary": "enough paired samples must exist after injection",
+          "observed": 6,
+          "expected": 2
+        },
+        {
+          "check_id": "pre_onset_pair_equivalence",
+          "status": "PASS",
+          "required": true,
+          "summary": "paired runs must be equivalent before fault onset",
+          "observed": {
+            "max_abs_delta": 0.0,
+            "missing_channels": []
+          },
+          "expected": {
+            "max_abs_delta": 1e-08,
+            "missing_channels": []
+          }
+        },
+        {
+          "check_id": "wheel_unavailable",
+          "status": "PASS",
+          "required": true,
+          "summary": "status.adcs.rw.available_0: post_fault_max_le",
+          "observed": 0.0,
+          "expected": 0.0
+        },
+        {
+          "check_id": "effective_torque_collapses",
+          "status": "PASS",
+          "required": true,
+          "summary": "estimate.adcs.rw.effective_max_torque_nm_0: post_fault_max_le",
+          "observed": 0.0,
+          "expected": 1e-12
+        },
+        {
+          "check_id": "dynamic_response_present",
+          "status": "PASS",
+          "required": true,
+          "summary": "sensor.adcs.rw.speed_rad_s_0: post_pair_max_abs_delta_gt",
+          "observed": 71.7679875905175,
+          "expected": 1e-07
+        },
+        {
+          "check_id": "basilisk_source_eligibility",
+          "status": "REVIEW",
+          "required": false,
+          "summary": "both cases need A-level Basilisk runtime evidence for formal qualification",
+          "observed": [
+            "C_TEST_PROXY_ONLY",
+            "C_TEST_PROXY_ONLY"
+          ],
+          "expected": [
+            "A_ENGINEERING_BASILISK_NATIVE",
+            "A_ENGINEERING_BASILISK_NATIVE"
+          ]
+        }
+      ],
+      "claim_boundary": {
+        "flight_validated": false,
+        "agent_may_modify_simulation": false,
+        "agent_may_publish_knowledge": false,
+        "qualification_is_candidate_only_until_expert_review": true
+      }
+    },
+    "diagnostic_validation": {
+      "schema_version": "sat-sim.diagnostic-pair-validation.v1",
+      "validation_agent": "deterministic_diagnostic_validation_agent.v1",
+      "pair_id": "train-adcs_rw_jam-000",
+      "fault_id": "ADCS_RW_JAM",
+      "signature_id": "adcs.rw_jam.diagnostic.v1",
+      "signature_sha256": "6a4759d8f36f535fcf76755e8d86bbb8a606548f04b8039ff8eda355f66f6cc8",
+      "source_experiment_template_id": "adcs.rw_jam.basilisk.v1",
+      "fault_dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+      "nominal_dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-nominal",
+      "decision": "REVIEW",
+      "reason": "diagnostic_signature_passed_but_formal_basilisk_physics_gate_missing",
+      "diagnostic_validation_passed": true,
+      "diagnostic_score": 1.0,
+      "minimum_diagnostic_score": 0.7,
+      "observable_criteria_passed": 3,
+      "minimum_observable_criteria_passed": 1,
+      "missing_required_channels": [],
+      "basilisk_candidate_qualified": false,
+      "signature_threshold_status": "provisional_until_basilisk_18_case",
+      "formal_diagnostic_qualified": false,
+      "signature_expert_freeze_required": true,
+      "criteria": [
+        {
+          "criterion_id": "wheel_unavailable_persistent",
+          "status": "PASS",
+          "required": true,
+          "weight": 0.0,
+          "channel": "status.adcs.rw.available_0",
+          "metric": "post_fault_fraction_le_gte",
+          "evidence_role": "simulator_truth",
+          "contributes_to_diagnostic_score": false,
+          "observed": 1.0,
+          "expected": {
+            "threshold": 0.9
+          },
+          "summary": "status.adcs.rw.available_0: post_fault_fraction_le_gte"
+        },
+        {
+          "criterion_id": "torque_authority_collapsed",
+          "status": "PASS",
+          "required": true,
+          "weight": 0.0,
+          "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+          "metric": "post_fault_max_le",
+          "evidence_role": "simulator_truth",
+          "contributes_to_diagnostic_score": false,
+          "observed": 0.0,
+          "expected": {
+            "threshold": 1e-12
+          },
+          "summary": "estimate.adcs.rw.effective_max_torque_nm_0: post_fault_max_le"
+        },
+        {
+          "criterion_id": "wheel_speed_divergence",
+          "status": "PASS",
+          "required": true,
+          "weight": 0.5,
+          "channel": "sensor.adcs.rw.speed_rad_s_0",
+          "metric": "post_pair_rms_delta_gt",
+          "evidence_role": "observable_telemetry",
+          "contributes_to_diagnostic_score": true,
+          "observed": 71.74298400729826,
+          "expected": {
+            "threshold": 1e-07
+          },
+          "summary": "sensor.adcs.rw.speed_rad_s_0: post_pair_rms_delta_gt"
+        },
+        {
+          "criterion_id": "applied_torque_response",
+          "status": "PASS",
+          "required": false,
+          "weight": 0.25,
+          "channel": "estimate.adcs.rw.actual_torque_nm_0",
+          "metric": "post_pair_rms_delta_gt",
+          "evidence_role": "operational_estimate",
+          "contributes_to_diagnostic_score": true,
+          "observed": 0.0008115077826455961,
+          "expected": {
+            "threshold": 1e-08
+          },
+          "summary": "estimate.adcs.rw.actual_torque_nm_0: post_pair_rms_delta_gt"
+        },
+        {
+          "criterion_id": "pointing_response",
+          "status": "PASS",
+          "required": false,
+          "weight": 0.25,
+          "channel": "estimate.adcs.pointing_error_deg",
+          "metric": "post_pair_max_abs_delta_gt",
+          "evidence_role": "operational_estimate",
+          "contributes_to_diagnostic_score": true,
+          "observed": 0.0023528163188544227,
+          "expected": {
+            "threshold": 1e-07
+          },
+          "summary": "estimate.adcs.pointing_error_deg: post_pair_max_abs_delta_gt"
+        }
+      ],
+      "leakage_guard": {
+        "simulator_truth_criteria_count": 2,
+        "simulator_truth_contributing_count": 0,
+        "target_leakage_blocked": true
+      },
+      "claim_boundary": {
+        "flight_validated": false,
+        "thresholds_are_provisional": true,
+        "agent_may_modify_thresholds": false,
+        "agent_may_approve_training": false
+      }
+    },
+    "feature_vector": {
+      "schema_version": "sat-sim.diagnostic-feature-vector.v1",
+      "fault_id": "ADCS_RW_JAM",
+      "pair_id": "train-adcs_rw_jam-000",
+      "feature_contract_id": "adcs.rw_jam.features.v1",
+      "fault_dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+      "nominal_dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-nominal",
+      "onset_time_s": 2.167059,
+      "status": "PARTIAL",
+      "raw_feature_results": [
+        {
+          "feature_id": "rw_speed",
+          "channel": "sensor.adcs.rw.speed_rad_s_0",
+          "evidence_role": "observable_telemetry",
+          "declared_availability": "available",
+          "present_in_pair": true,
+          "model_input_eligible": true,
+          "post_fault_pair_residual_summary": {
+            "count": 6,
+            "mean": -71.74298187914034,
+            "minimum": -71.7679875905175,
+            "maximum": -71.71695472994138,
+            "rms": 71.74298400729826
+          }
+        },
+        {
+          "feature_id": "rw_actual_torque",
+          "channel": "estimate.adcs.rw.actual_torque_nm_0",
+          "evidence_role": "operational_estimate",
+          "declared_availability": "available",
+          "present_in_pair": true,
+          "model_input_eligible": true,
+          "post_fault_pair_residual_summary": {
+            "count": 6,
+            "mean": 0.000810291673526913,
+            "minimum": 0.0007329287090514615,
+            "maximum": 0.0008574546898302855,
+            "rms": 0.0008115077826455961
+          }
+        },
+        {
+          "feature_id": "pointing_error",
+          "channel": "estimate.adcs.pointing_error_deg",
+          "evidence_role": "operational_estimate",
+          "declared_availability": "available",
+          "present_in_pair": true,
+          "model_input_eligible": true,
+          "post_fault_pair_residual_summary": {
+            "count": 6,
+            "mean": 0.000806513055162957,
+            "minimum": 1.7687032237034828e-05,
+            "maximum": 0.0023528163188544227,
+            "rms": 0.001151190989991809
+          }
+        },
+        {
+          "feature_id": "rw_available_truth",
+          "channel": "status.adcs.rw.available_0",
+          "evidence_role": "simulator_truth",
+          "declared_availability": "available",
+          "present_in_pair": true,
+          "model_input_eligible": false,
+          "post_fault_pair_residual_summary": {
+            "count": 6,
+            "mean": -1.0,
+            "minimum": -1.0,
+            "maximum": -1.0,
+            "rms": 1.0
+          }
+        },
+        {
+          "feature_id": "max_torque_truth",
+          "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+          "evidence_role": "simulator_truth",
+          "declared_availability": "available",
+          "present_in_pair": true,
+          "model_input_eligible": false,
+          "post_fault_pair_residual_summary": {
+            "count": 6,
+            "mean": -0.05000000000000001,
+            "minimum": -0.05,
+            "maximum": -0.05,
+            "rms": 0.05
+          }
+        },
+        {
+          "feature_id": "rw_motor_current",
+          "channel": "sensor.adcs.rw.motor_current_a_0",
+          "evidence_role": "observable_telemetry",
+          "declared_availability": "missing_from_simulator",
+          "present_in_pair": false,
+          "model_input_eligible": false,
+          "post_fault_pair_residual_summary": {
+            "count": 0,
+            "mean": null,
+            "minimum": null,
+            "maximum": null,
+            "rms": null
+          }
+        },
+        {
+          "feature_id": "rw_driver_code",
+          "channel": "status.adcs.rw.driver_code_0",
+          "evidence_role": "operational_estimate",
+          "declared_availability": "missing_from_simulator",
+          "present_in_pair": false,
+          "model_input_eligible": false,
+          "post_fault_pair_residual_summary": {
+            "count": 0,
+            "mean": null,
+            "minimum": null,
+            "maximum": null,
+            "rms": null
+          }
+        }
+      ],
+      "derived_feature_results": [
+        {
+          "feature_id": "rw_speed_decay_rate",
+          "transformation": "post_fault_linear_slope",
+          "inputs": [
+            "rw_speed"
+          ],
+          "model_input_eligible": true,
+          "status": "COMPLETED",
+          "value": 0.0,
+          "reason": null
+        },
+        {
+          "feature_id": "torque_speed_consistency_residual",
+          "transformation": "paired_dynamic_consistency_residual",
+          "inputs": [
+            "rw_speed",
+            "rw_actual_torque"
+          ],
+          "model_input_eligible": true,
+          "status": "BLOCKED",
+          "value": null,
+          "reason": "requires_reviewed_actuator_dynamics_and_command_torque_contract"
+        }
+      ],
+      "feature_vector": {
+        "raw.rw_speed.paired_rms": 71.74298400729826,
+        "raw.rw_actual_torque.paired_rms": 0.0008115077826455961,
+        "raw.pointing_error.paired_rms": 0.001151190989991809,
+        "derived.rw_speed_decay_rate": 0.0
+      },
+      "feature_channels": {
+        "raw.rw_speed.paired_rms": "sensor.adcs.rw.speed_rad_s_0",
+        "raw.rw_actual_torque.paired_rms": "estimate.adcs.rw.actual_torque_nm_0",
+        "raw.pointing_error.paired_rms": "estimate.adcs.pointing_error_deg",
+        "derived.rw_speed_decay_rate": "sensor.adcs.rw.speed_rad_s_0"
+      },
+      "missing_required_model_channels": [
+        "sensor.adcs.rw.motor_current_a_0"
+      ],
+      "blocked_derived_features": [
+        "torque_speed_consistency_residual"
+      ],
+      "leakage_guard": {
+        "simulator_truth_excluded": true,
+        "label_prefixes_excluded": [
+          "label."
+        ],
+        "emitted_feature_count": 4,
+        "emitted_simulator_truth_count": 0
+      },
+      "claim_boundary": {
+        "features_are_engineering_candidates": true,
+        "formal_model_binding_allowed": false,
+        "blocked_transformations_must_not_be_imputed_with_fault_truth": true
+      },
+      "feature_vector_sha256": "fcd37c867cbd0afab10e3f6acae500283935c1ba2715d881e949b623bc01c7ec"
+    },
+    "simulation_evidence_graph": {
+      "schema_version": "sat-sim.simulation-evidence-graph.v1",
+      "graph_id": "simulation-evidence:train-adcs_rw_jam-000:adcs.rw_jam.pipeline.v1",
+      "fault_id": "ADCS_RW_JAM",
+      "pair_id": "train-adcs_rw_jam-000",
+      "nodes": [
+        {
+          "node_id": "concept:momentum_management_degraded",
+          "kind": "MechanismConcept",
+          "properties": {
+            "concept_id": "momentum_management_degraded",
+            "concept_kind": "physical_effect",
+            "description": "Spacecraft loses one actuator degree of freedom.",
+            "state_variable": "adcs.control_authority",
+            "direction": "decreasing"
+          }
+        },
+        {
+          "node_id": "concept:pointing_error_response",
+          "kind": "MechanismConcept",
+          "properties": {
+            "concept_id": "pointing_error_response",
+            "concept_kind": "propagation_state"
+          }
+        },
+        {
+          "node_id": "concept:rotor_lock",
+          "kind": "MechanismConcept",
+          "properties": {
+            "concept_id": "rotor_lock",
+            "concept_kind": "cause",
+            "description": "Mechanical or electrical lock prevents commanded wheel acceleration."
+          }
+        },
+        {
+          "node_id": "concept:wheel_torque_path_lost",
+          "kind": "MechanismConcept",
+          "properties": {
+            "concept_id": "wheel_torque_path_lost",
+            "concept_kind": "physical_effect",
+            "description": "Wheel can no longer deliver commanded torque.",
+            "state_variable": "rw.delivered_torque_nm",
+            "direction": "decreasing"
+          }
+        },
+        {
+          "node_id": "criterion:train-adcs_rw_jam-000:applied_torque_response",
+          "kind": "SignatureCriterionEvidence",
+          "properties": {
+            "criterion_id": "applied_torque_response",
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "status": "PASS",
+            "observed": 0.0008115077826455961,
+            "expected": {
+              "threshold": 1e-08
+            },
+            "evidence_role": "operational_estimate",
+            "contributes_to_diagnostic_score": true
+          }
+        },
+        {
+          "node_id": "criterion:train-adcs_rw_jam-000:pointing_response",
+          "kind": "SignatureCriterionEvidence",
+          "properties": {
+            "criterion_id": "pointing_response",
+            "channel": "estimate.adcs.pointing_error_deg",
+            "status": "PASS",
+            "observed": 0.0023528163188544227,
+            "expected": {
+              "threshold": 1e-07
+            },
+            "evidence_role": "operational_estimate",
+            "contributes_to_diagnostic_score": true
+          }
+        },
+        {
+          "node_id": "criterion:train-adcs_rw_jam-000:torque_authority_collapsed",
+          "kind": "SignatureCriterionEvidence",
+          "properties": {
+            "criterion_id": "torque_authority_collapsed",
+            "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+            "status": "PASS",
+            "observed": 0.0,
+            "expected": {
+              "threshold": 1e-12
+            },
+            "evidence_role": "simulator_truth",
+            "contributes_to_diagnostic_score": false
+          }
+        },
+        {
+          "node_id": "criterion:train-adcs_rw_jam-000:wheel_speed_divergence",
+          "kind": "SignatureCriterionEvidence",
+          "properties": {
+            "criterion_id": "wheel_speed_divergence",
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "status": "PASS",
+            "observed": 71.74298400729826,
+            "expected": {
+              "threshold": 1e-07
+            },
+            "evidence_role": "observable_telemetry",
+            "contributes_to_diagnostic_score": true
+          }
+        },
+        {
+          "node_id": "criterion:train-adcs_rw_jam-000:wheel_unavailable_persistent",
+          "kind": "SignatureCriterionEvidence",
+          "properties": {
+            "criterion_id": "wheel_unavailable_persistent",
+            "channel": "status.adcs.rw.available_0",
+            "status": "PASS",
+            "observed": 1.0,
+            "expected": {
+              "threshold": 0.9
+            },
+            "evidence_role": "simulator_truth",
+            "contributes_to_diagnostic_score": false
+          }
+        },
+        {
+          "node_id": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "kind": "Dataset",
+          "properties": {
+            "dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+            "training_ready": false
+          }
+        },
+        {
+          "node_id": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-nominal",
+          "kind": "Dataset",
+          "properties": {
+            "dataset_id": "phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-nominal",
+            "training_ready": false
+          }
+        },
+        {
+          "node_id": "experiment:phase3d_proxy_diagnostic_smoke:train-adcs_rw_jam-000:fault",
+          "kind": "SimulationExperiment",
+          "properties": {
+            "case_role": "fault",
+            "pair_id": "train-adcs_rw_jam-000",
+            "fidelity_level": "C_TEST_PROXY_ONLY"
+          }
+        },
+        {
+          "node_id": "experiment:phase3d_proxy_diagnostic_smoke:train-adcs_rw_jam-000:nominal",
+          "kind": "SimulationExperiment",
+          "properties": {
+            "case_role": "nominal",
+            "pair_id": "train-adcs_rw_jam-000",
+            "fidelity_level": "C_TEST_PROXY_ONLY"
+          }
+        },
+        {
+          "node_id": "fault:ADCS_RW_JAM",
+          "kind": "Fault",
+          "properties": {
+            "fault_id": "ADCS_RW_JAM",
+            "status": "active_provisional"
+          }
+        },
+        {
+          "node_id": "feature-vector:fcd37c867cbd0afab10e3f6acae500283935c1ba2715d881e949b623bc01c7ec",
+          "kind": "DiagnosticFeatureVector",
+          "properties": {
+            "status": "PARTIAL",
+            "feature_contract_id": "adcs.rw_jam.features.v1",
+            "missing_required_model_channels": [
+              "sensor.adcs.rw.motor_current_a_0"
+            ],
+            "blocked_derived_features": [
+              "torque_speed_consistency_residual"
+            ]
+          }
+        },
+        {
+          "node_id": "mechanism:adcs.rw_jam.mechanism.v1",
+          "kind": "FaultMechanism",
+          "properties": {
+            "mechanism_id": "adcs.rw_jam.mechanism.v1",
+            "subsystem": "ADCS",
+            "component": "reaction_wheel"
+          }
+        },
+        {
+          "node_id": "pipeline-stage:adcs.rw_jam.pipeline.v1:feature_extractor",
+          "kind": "PipelineStageExecution",
+          "properties": {
+            "stage_id": "feature_extractor",
+            "stage_kind": "feature_extractor",
+            "status": "COMPLETED_PARTIAL",
+            "implementation_ref": "adcs.rw_jam.features.v1"
+          }
+        },
+        {
+          "node_id": "pipeline-stage:adcs.rw_jam.pipeline.v1:kg_reasoner",
+          "kind": "PipelineStageExecution",
+          "properties": {
+            "stage_id": "kg_reasoner",
+            "stage_kind": "kg_reasoner",
+            "status": "PENDING_ASTROGRAPH",
+            "implementation_ref": "astrograph.neo4j:causal_reasoner"
+          }
+        },
+        {
+          "node_id": "pipeline-stage:adcs.rw_jam.pipeline.v1:ml_model",
+          "kind": "PipelineStageExecution",
+          "properties": {
+            "stage_id": "ml_model",
+            "stage_kind": "ml_model",
+            "status": "SKIPPED_OPTIONAL",
+            "implementation_ref": "astrograph.model_registry:selected_after_benchmark"
+          }
+        },
+        {
+          "node_id": "pipeline-stage:adcs.rw_jam.pipeline.v1:quality_gate",
+          "kind": "PipelineStageExecution",
+          "properties": {
+            "stage_id": "quality_gate",
+            "stage_kind": "data_quality_gate",
+            "status": "COMPLETED_REVIEW",
+            "implementation_ref": "sat_sim.dataset_qualification"
+          }
+        },
+        {
+          "node_id": "pipeline-stage:adcs.rw_jam.pipeline.v1:signature_detector",
+          "kind": "PipelineStageExecution",
+          "properties": {
+            "stage_id": "signature_detector",
+            "stage_kind": "signature_detector",
+            "status": "COMPLETED_REVIEW",
+            "implementation_ref": "adcs.rw_jam.diagnostic.v1"
+          }
+        },
+        {
+          "node_id": "pipeline:adcs.rw_jam.pipeline.v1",
+          "kind": "DiagnosticPipeline",
+          "properties": {
+            "pipeline_id": "adcs.rw_jam.pipeline.v1",
+            "status": "active_provisional"
+          }
+        },
+        {
+          "node_id": "signature:adcs.rw_jam.diagnostic.v1",
+          "kind": "DiagnosticSignature",
+          "properties": {
+            "signature_id": "adcs.rw_jam.diagnostic.v1",
+            "signature_sha256": "6a4759d8f36f535fcf76755e8d86bbb8a606548f04b8039ff8eda355f66f6cc8",
+            "decision": "REVIEW",
+            "diagnostic_score": 1.0
+          }
+        },
+        {
+          "node_id": "telemetry:estimate.adcs.pointing_error_deg",
+          "kind": "TelemetryChannel",
+          "properties": {
+            "channel": "estimate.adcs.pointing_error_deg",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "expected_relation": "may increase"
+          }
+        },
+        {
+          "node_id": "telemetry:estimate.adcs.rw.actual_torque_nm_0",
+          "kind": "TelemetryChannel",
+          "properties": {
+            "channel": "estimate.adcs.rw.actual_torque_nm_0",
+            "evidence_role": "operational_estimate",
+            "model_input_eligible": true,
+            "expected_relation": "paired residual increases"
+          }
+        },
+        {
+          "node_id": "telemetry:estimate.adcs.rw.effective_max_torque_nm_0",
+          "kind": "TelemetryChannel",
+          "properties": {
+            "channel": "estimate.adcs.rw.effective_max_torque_nm_0",
+            "evidence_role": "simulator_truth",
+            "model_input_eligible": false,
+            "expected_relation": "collapses"
+          }
+        },
+        {
+          "node_id": "telemetry:sensor.adcs.rw.speed_rad_s_0",
+          "kind": "TelemetryChannel",
+          "properties": {
+            "channel": "sensor.adcs.rw.speed_rad_s_0",
+            "evidence_role": "observable_telemetry",
+            "model_input_eligible": true,
+            "expected_relation": "paired trajectory diverges"
+          }
+        },
+        {
+          "node_id": "telemetry:status.adcs.rw.available_0",
+          "kind": "TelemetryChannel",
+          "properties": {
+            "channel": "status.adcs.rw.available_0",
+            "evidence_role": "simulator_truth",
+            "model_input_eligible": false,
+            "expected_relation": "becomes false"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "concept:momentum_management_degraded",
+          "relation": "CAN_INCREASE",
+          "target": "concept:pointing_error_response",
+          "properties": {
+            "stage_id": "p3"
+          }
+        },
+        {
+          "source": "concept:rotor_lock",
+          "relation": "CAUSES",
+          "target": "concept:wheel_torque_path_lost",
+          "properties": {
+            "stage_id": "p1"
+          }
+        },
+        {
+          "source": "concept:wheel_torque_path_lost",
+          "relation": "REDUCES",
+          "target": "concept:momentum_management_degraded",
+          "properties": {
+            "stage_id": "p2"
+          }
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "DERIVES",
+          "target": "feature-vector:fcd37c867cbd0afab10e3f6acae500283935c1ba2715d881e949b623bc01c7ec",
+          "properties": {}
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "HAS_SIGNATURE_EVIDENCE",
+          "target": "signature:adcs.rw_jam.diagnostic.v1",
+          "properties": {}
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "PAIRED_WITH",
+          "target": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-nominal",
+          "properties": {
+            "pair_id": "train-adcs_rw_jam-000"
+          }
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "SUPPORTS",
+          "target": "criterion:train-adcs_rw_jam-000:applied_torque_response",
+          "properties": {}
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "SUPPORTS",
+          "target": "criterion:train-adcs_rw_jam-000:pointing_response",
+          "properties": {}
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "SUPPORTS",
+          "target": "criterion:train-adcs_rw_jam-000:torque_authority_collapsed",
+          "properties": {}
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "SUPPORTS",
+          "target": "criterion:train-adcs_rw_jam-000:wheel_speed_divergence",
+          "properties": {}
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "SUPPORTS",
+          "target": "criterion:train-adcs_rw_jam-000:wheel_unavailable_persistent",
+          "properties": {}
+        },
+        {
+          "source": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "relation": "VALIDATES",
+          "target": "mechanism:adcs.rw_jam.mechanism.v1",
+          "properties": {
+            "physics_decision": "REVIEW",
+            "diagnostic_decision": "REVIEW"
+          }
+        },
+        {
+          "source": "experiment:phase3d_proxy_diagnostic_smoke:train-adcs_rw_jam-000:fault",
+          "relation": "INJECTS",
+          "target": "fault:ADCS_RW_JAM",
+          "properties": {}
+        },
+        {
+          "source": "experiment:phase3d_proxy_diagnostic_smoke:train-adcs_rw_jam-000:fault",
+          "relation": "PRODUCED",
+          "target": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-fault",
+          "properties": {}
+        },
+        {
+          "source": "experiment:phase3d_proxy_diagnostic_smoke:train-adcs_rw_jam-000:nominal",
+          "relation": "PRODUCED",
+          "target": "dataset:phase3d_proxy_diagnostic_smoke-train-adcs_rw_jam-000-nominal",
+          "properties": {}
+        },
+        {
+          "source": "fault:ADCS_RW_JAM",
+          "relation": "DIAGNOSED_BY",
+          "target": "pipeline:adcs.rw_jam.pipeline.v1",
+          "properties": {}
+        },
+        {
+          "source": "fault:ADCS_RW_JAM",
+          "relation": "HAS_MECHANISM",
+          "target": "mechanism:adcs.rw_jam.mechanism.v1",
+          "properties": {}
+        },
+        {
+          "source": "mechanism:adcs.rw_jam.mechanism.v1",
+          "relation": "HAS_CAUSE",
+          "target": "concept:rotor_lock",
+          "properties": {}
+        },
+        {
+          "source": "mechanism:adcs.rw_jam.mechanism.v1",
+          "relation": "HAS_EFFECT",
+          "target": "concept:momentum_management_degraded",
+          "properties": {}
+        },
+        {
+          "source": "mechanism:adcs.rw_jam.mechanism.v1",
+          "relation": "HAS_EFFECT",
+          "target": "concept:wheel_torque_path_lost",
+          "properties": {}
+        },
+        {
+          "source": "mechanism:adcs.rw_jam.mechanism.v1",
+          "relation": "OBSERVED_AS",
+          "target": "telemetry:estimate.adcs.pointing_error_deg",
+          "properties": {}
+        },
+        {
+          "source": "mechanism:adcs.rw_jam.mechanism.v1",
+          "relation": "OBSERVED_AS",
+          "target": "telemetry:estimate.adcs.rw.actual_torque_nm_0",
+          "properties": {}
+        },
+        {
+          "source": "mechanism:adcs.rw_jam.mechanism.v1",
+          "relation": "OBSERVED_AS",
+          "target": "telemetry:estimate.adcs.rw.effective_max_torque_nm_0",
+          "properties": {}
+        },
+        {
+          "source": "mechanism:adcs.rw_jam.mechanism.v1",
+          "relation": "OBSERVED_AS",
+          "target": "telemetry:sensor.adcs.rw.speed_rad_s_0",
+          "properties": {}
+        },
+        {
+          "source": "mechanism:adcs.rw_jam.mechanism.v1",
+          "relation": "OBSERVED_AS",
+          "target": "telemetry:status.adcs.rw.available_0",
+          "properties": {}
+        },
+        {
+          "source": "pipeline:adcs.rw_jam.pipeline.v1",
+          "relation": "CONSUMES",
+          "target": "feature-vector:fcd37c867cbd0afab10e3f6acae500283935c1ba2715d881e949b623bc01c7ec",
+          "properties": {}
+        },
+        {
+          "source": "pipeline:adcs.rw_jam.pipeline.v1",
+          "relation": "HAS_STAGE",
+          "target": "pipeline-stage:adcs.rw_jam.pipeline.v1:feature_extractor",
+          "properties": {}
+        },
+        {
+          "source": "pipeline:adcs.rw_jam.pipeline.v1",
+          "relation": "HAS_STAGE",
+          "target": "pipeline-stage:adcs.rw_jam.pipeline.v1:kg_reasoner",
+          "properties": {}
+        },
+        {
+          "source": "pipeline:adcs.rw_jam.pipeline.v1",
+          "relation": "HAS_STAGE",
+          "target": "pipeline-stage:adcs.rw_jam.pipeline.v1:ml_model",
+          "properties": {}
+        },
+        {
+          "source": "pipeline:adcs.rw_jam.pipeline.v1",
+          "relation": "HAS_STAGE",
+          "target": "pipeline-stage:adcs.rw_jam.pipeline.v1:quality_gate",
+          "properties": {}
+        },
+        {
+          "source": "pipeline:adcs.rw_jam.pipeline.v1",
+          "relation": "HAS_STAGE",
+          "target": "pipeline-stage:adcs.rw_jam.pipeline.v1:signature_detector",
+          "properties": {}
+        },
+        {
+          "source": "pipeline:adcs.rw_jam.pipeline.v1",
+          "relation": "USES_MECHANISM",
+          "target": "mechanism:adcs.rw_jam.mechanism.v1",
+          "properties": {}
+        },
+        {
+          "source": "pipeline:adcs.rw_jam.pipeline.v1",
+          "relation": "USES_SIGNATURE",
+          "target": "signature:adcs.rw_jam.diagnostic.v1",
+          "properties": {}
+        },
+        {
+          "source": "signature:adcs.rw_jam.diagnostic.v1",
+          "relation": "HAS_CRITERION",
+          "target": "criterion:train-adcs_rw_jam-000:applied_torque_response",
+          "properties": {}
+        },
+        {
+          "source": "signature:adcs.rw_jam.diagnostic.v1",
+          "relation": "HAS_CRITERION",
+          "target": "criterion:train-adcs_rw_jam-000:pointing_response",
+          "properties": {}
+        },
+        {
+          "source": "signature:adcs.rw_jam.diagnostic.v1",
+          "relation": "HAS_CRITERION",
+          "target": "criterion:train-adcs_rw_jam-000:torque_authority_collapsed",
+          "properties": {}
+        },
+        {
+          "source": "signature:adcs.rw_jam.diagnostic.v1",
+          "relation": "HAS_CRITERION",
+          "target": "criterion:train-adcs_rw_jam-000:wheel_speed_divergence",
+          "properties": {}
+        },
+        {
+          "source": "signature:adcs.rw_jam.diagnostic.v1",
+          "relation": "HAS_CRITERION",
+          "target": "criterion:train-adcs_rw_jam-000:wheel_unavailable_persistent",
+          "properties": {}
+        }
+      ],
+      "neo4j_projection": {
+        "status": "CANDIDATE_ONLY",
+        "formal_knowledge_publishable": false,
+        "named_expert_review_required": true,
+        "allowed_operations": [
+          "preview",
+          "export_candidate"
+        ],
+        "forbidden_operations": [
+          "automatic_merge_to_formal_kg",
+          "automatic_fact_assertion"
+        ]
+      },
+      "leakage_guard": {
+        "simulator_truth_may_validate_mechanism": true,
+        "simulator_truth_may_train_model": false
+      },
+      "graph_sha256": "6d9d45d5c9aae087696653d4b1264c8942707a3505fcd73b26bd193b33bf9a6d"
+    }
+  },
+  "astrograph_handoff": {
+    "status": "BLOCKED_REQUIRED_CHANNELS",
+    "missing_required_model_channels": [
+      "sensor.adcs.rw.motor_current_a_0"
+    ],
+    "requests": [
+      {
+        "stage_id": "kg_reasoner",
+        "kind": "kg_reasoner",
+        "implementation_ref": "astrograph.neo4j:causal_reasoner",
+        "required": true,
+        "expected_output_ref": "kg_diagnosis"
+      },
+      {
+        "stage_id": "fusion",
+        "kind": "fusion",
+        "implementation_ref": "astrograph.fusion:birrf",
+        "required": true,
+        "expected_output_ref": "fused_diagnosis"
+      },
+      {
+        "stage_id": "expert_gate",
+        "kind": "expert_review_gate",
+        "implementation_ref": "astrograph.governance:named_expert",
+        "required": true,
+        "expected_output_ref": "publishable_diagnosis"
+      }
+    ],
+    "external_stage_execution_is_data_only": true,
+    "arbitrary_implementation_import_forbidden": true
+  },
+  "formal_diagnosis_publishable": false,
+  "formal_model_binding_enabled": false,
+  "training_ready": false,
+  "claim_boundary": {
+    "local_runtime_does_not_execute_astrograph_models_or_neo4j": true,
+    "pipeline_completion_is_not_accuracy_evidence": true,
+    "named_expert_review_required": true,
+    "basilisk_a_level_required_for_formal_claims": true,
+    "astrograph_is_authority_for_final_diagnosis_publication": true
+  },
+  "runtime_sha256": "9b5befe7bd5cc2d18762da5af29dd93ad3aa2df35601f913cc231ffc6dc59626"
+}

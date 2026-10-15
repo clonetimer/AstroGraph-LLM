@@ -1,0 +1,33 @@
+{
+  "schema_version": "astrograph-candidate-universe.v1",
+  "dataset_id": "whole_spacecraft_phm_dataset_v6_0",
+  "dataset_class_count": 17,
+  "mapping_path": "configs/datasets/phm_v6_0/fault_class_map.json",
+  "runtime_evidence_path": "configs/datasets/phm_v6_0/runtime_evidence.json",
+  "generic_tbox_binding_path": "configs/datasets/phm_v6_0/fault_ontology_bindings.json",
+  "catalog_mapped_fault_ids": [
+    "COMM_DOWNLINK_SERVICE_LOSS",
+    "EPS_BATTERY_CAPACITY_LOSS",
+    "EPS_SOLAR_ARRAY_STRING_FAILURE",
+    "THERMAL_HEATER_STUCK_ON",
+    "THERMAL_RADIATOR_REJECTION_LOSS"
+  ],
+  "runtime_fault_ids": [
+    "COMM_DOWNLINK_SERVICE_LOSS",
+    "EPS_BATTERY_CAPACITY_LOSS",
+    "EPS_SOLAR_ARRAY_STRING_FAILURE",
+    "THERMAL_HEATER_STUCK_ON",
+    "THERMAL_RADIATOR_REJECTION_LOSS"
+  ],
+  "configured_rule_evidence_fault_ids": [
+    "COMM_DOWNLINK_SERVICE_LOSS",
+    "EPS_BATTERY_CAPACITY_LOSS",
+    "EPS_SOLAR_ARRAY_STRING_FAILURE",
+    "THERMAL_HEATER_STUCK_ON",
+    "THERMAL_RADIATOR_REJECTION_LOSS"
+  ],
+  "zero_mapped_mass_policy": "ABSTAIN_DATA_BRANCH",
+  "unsupported_mass_policy": "RETAIN_AS_OOD_SCORE",
+  "maximum_unsupported_mass_for_fusion": 0.5,
+  "claim_boundary": "All five strict PHM v6.0 catalog mappings now have dataset-scoped executable E0 evidence and may enter runtime ranking. The remaining twelve semantic-only classes have no formal fault ID and cannot vote."
+}

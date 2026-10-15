@@ -1,0 +1,151 @@
+{
+  "$id": "https://astrograph.local/schemas/label-ontology.v3.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "active_interval": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "causal_role": {
+      "enum": [
+        "INITIATING_EVENT",
+        "ROOT_CAUSE",
+        "INTERMEDIATE_CAUSE",
+        "SYMPTOM",
+        "DOWNSTREAM_EFFECT",
+        "UNKNOWN"
+      ]
+    },
+    "component": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "downstream_effects": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "fault_universe_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "injection_location": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "label_confidence": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        }
+      ]
+    },
+    "label_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "label_source": {
+      "type": "object"
+    },
+    "manifestation": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "mechanism": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "multiplicity": {
+      "enum": [
+        "SINGLE",
+        "MULTIPLE",
+        "UNKNOWN"
+      ]
+    },
+    "notes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "onset_interval": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "onset_uncertainty": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "minimum": 0,
+          "type": "number"
+        }
+      ]
+    },
+    "schema_version": {
+      "const": "astrograph-label-ontology.v3"
+    },
+    "severity": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "supporting_evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "upstream_causes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "label_id",
+    "fault_universe_id",
+    "mechanism",
+    "component",
+    "manifestation",
+    "injection_location",
+    "onset_interval",
+    "onset_uncertainty",
+    "active_interval",
+    "severity",
+    "causal_role",
+    "upstream_causes",
+    "downstream_effects",
+    "multiplicity",
+    "label_source",
+    "label_confidence",
+    "supporting_evidence_ids",
+    "notes"
+  ],
+  "title": "AstroGraph Label Ontology Record v3",
+  "type": "object"
+}

@@ -1,0 +1,22 @@
+{
+  "confirmatory_requires_policy_freeze": true,
+  "confirmatory_requires_truth_join_after_prediction_freeze": true,
+  "confirmatory_requires_unseen_data": true,
+  "globally_frozen_claim_scopes": [
+    "DOMAIN_EXTERNAL_VALIDITY",
+    "UNIVERSAL_KG_GAIN",
+    "HIL_VALIDITY",
+    "FLIGHT_VALIDITY",
+    "FLIGHT_QUALIFICATION",
+    "SAFETY_QUALIFICATION",
+    "G0_G4_STATUS"
+  ],
+  "permanently_post_hoc_groups": [
+    "4",
+    "9"
+  ],
+  "project_status": "WIP_NOT_RELEASED",
+  "project_version": "B006",
+  "qualification_change_allowed": false,
+  "schema_version": "astrograph-project-claim-policy.v1"
+}

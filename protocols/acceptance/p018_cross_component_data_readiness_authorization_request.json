@@ -1,0 +1,150 @@
+{
+  "schema_version": "astrograph-cross-component-data-readiness-authorization-request.v1",
+  "request_id": "P018-CROSS-COMPONENT-DATA-READINESS-001",
+  "problem_id": "P-018",
+  "requested_reviewer": "Timer",
+  "status": "PENDING_EXTERNAL_APPROVAL",
+  "requested_stage": "STAGE_X0_DATA_READINESS_ONLY",
+  "supersedes": null,
+  "preserves_prior_failure": {
+    "path": "governance/evidence/0.7.1-extension/p017_method_readiness_summary.v1.json",
+    "sha256": "43e90824a8890d3f0162a63c24eb5c511a3b9f869b65ec27cb97c1a898e02fac",
+    "interpretation": "P-017 remains an immutable failed two-archetype single-head study; this request does not reopen its candidate or seed budget."
+  },
+  "bound_landscape": {
+    "path": "governance/evidence/0.7.1-extension/p018_cross_component_data_method_landscape.v1.json",
+    "sha256": "02c7d6e0a4e527851cdca84c94c11405f8fa13d977f65755d3e711b9f4f77eb5"
+  },
+  "bound_architecture_decision": {
+    "path": "governance/adr/ADR-003-hierarchical-gated-cross-component-diagnosis.md",
+    "sha256": "4a8552c2dd784b3d78e1eddc8009ce615a766004f2000703ebfaae93147f3a7b",
+    "status_required": "proposed"
+  },
+  "reason": "The local portfolio spans many component types but shares one synthetic source, while P-017 reduced storage and thermal evidence to one common feature schema. Cross-component method selection must start with independent-source, level-aware data suitability and archetype-specific feature contracts rather than another local classifier fit.",
+  "requested_authority": {
+    "scope": "Stage X0 zero-fit cross-component and cross-source data readiness, adapter feasibility and exact next-protocol design only.",
+    "authorized_model_fit_count": 0,
+    "development_seed": null,
+    "calibration_seed": null,
+    "technical_validation_seed": null,
+    "production_candidate_count": 0,
+    "stage_b_authorized": false,
+    "allowed_actions": [
+      "Acquire official public datasets only after both Timer Stage X0 approval and separate project-owner network, storage and license approval; record URL, version, checksum and license receipt.",
+      "Read dataset schemas, channel dictionaries, labels, sampling metadata and provenance in an isolated profiling process.",
+      "Build declarative SourceAdapter, ChannelMap, feature-contract schemas and non-fitting contract tests.",
+      "Classify each dataset by usable task: detection, known classification, localization, open-set stress, representation or prognostics.",
+      "Define archetype-specific feature families and one common truth-blind evidence-token output contract.",
+      "Pre-register Stage X1 research reporting slices for source, component, condition and archetype holdouts plus macro, per-group, worst-group and end-to-end views; these slices may not replace or remove any frozen G1.1 formal denominator.",
+      "Submit a later exact development/calibration fit request that freezes architectures, dimensions, regularization, gate rules, seeds and finite candidate budget before model access."
+    ],
+    "initial_priority_sources": [
+      {
+        "dataset_id": "OPS_SAT_AD_2024",
+        "role": "small real-spacecraft anomaly-detection adapter",
+        "raw_data_access_in_this_request": "ALLOWED_ONLY_AFTER_SEPARATE_OPERATOR_APPROVAL"
+      },
+      {
+        "dataset_id": "NASA_ADAPT_EPS",
+        "role": "physical EPS detection and isolation adapter",
+        "raw_data_access_in_this_request": "ALLOWED_ONLY_AFTER_SEPARATE_OPERATOR_APPROVAL"
+      },
+      {
+        "dataset_id": "ESA_ANOMALY_DATASET_2024",
+        "role": "large cross-mission detection and source-shift benchmark",
+        "raw_data_access_in_this_request": "METADATA_FIRST; FULL_12GB_ACQUISITION_REQUIRES_SEPARATE_OPERATOR_APPROVAL"
+      },
+      {
+        "dataset_id": "LOCAL_SAT_AGENT_WHOLE_SPACECRAFT",
+        "role": "controlled mechanism and compatibility source",
+        "raw_data_access_in_this_request": "EXISTING_READ_ONLY"
+      },
+      {
+        "dataset_id": "DAMADICS",
+        "role": "pending-qualification industrial actuator and sensor cross-domain source",
+        "raw_data_access_in_this_request": "ALLOWED_ONLY_AFTER_TIMER_AND_SEPARATE_OPERATOR_APPROVAL"
+      }
+    ],
+    "frozen_architecture_direction_for_design_only": {
+      "task_layers": ["DATA_QUALITY", "ANOMALY_DETECTION", "MECHANISM_CLASSIFICATION_AND_OPEN_SET", "HIERARCHICAL_LOCALIZATION", "EVIDENCE_REASONING"],
+      "component_representation": "ARCHETYPE_SPECIFIC_VARIABLE_FEATURE_SETS_TO_COMMON_EVIDENCE_TOKEN_SPACE",
+      "detection_and_classification_share_one_required_model": false,
+      "dynamic_gating_status": "CHALLENGER_TO_BE_FROZEN_ONLY_IN_LATER_FIT_REQUEST",
+      "knowledge_graph_role": "TOPOLOGY_CONSTRAINT_PROVENANCE_AND_REASONING_ONLY",
+      "current_45d_logistic_role": "RETAINED_FAILED_BASELINE_ONLY",
+      "unique_production_estimator_manifest_preserved": true,
+      "estimator_ensemble_fallback_or_second_slot_authorized": false
+    },
+    "gate_input_allowlist_for_design": [
+      "component_archetype_id",
+      "typed port and quantity semantics",
+      "operating mode and physical context",
+      "available-channel mask and sampling metadata",
+      "data-quality state",
+      "continuous truth-blind evidence tokens"
+    ],
+    "gate_input_denylist": [
+      "dataset ID or source path",
+      "filename",
+      "case or scenario ID",
+      "seed or split",
+      "fault label or label-derived field",
+      "hidden truth",
+      "legacy exact-fault diagnosis"
+    ],
+    "required_stage_x0_deliverables": [
+      "versioned data-source x system-level x archetype x mechanism x observability x task-suitability matrix",
+      "license, security, provenance, duplicate and truth-leakage audit for every acquired source",
+      "archetype-specific feature-contract catalog with missing-channel behavior",
+      "declarative adapter feasibility receipts for at least three genuinely different sources or an explicit blocked result",
+      "leave-one-source, leave-one-instance and leave-one-archetype split proposal",
+      "exact finite-candidate Stage X1 request; no fitting before its separate Timer approval"
+    ]
+  },
+  "g1_1_preserved": {
+    "approval_binding": {
+      "path": "protocols/acceptance/approvals.json",
+      "sha256": "79b0588cc3b791cfc292c317553fe2a9a4010bca848142a722c432ef1ef7331e",
+      "reviewer": "Timer",
+      "status": "APPROVED"
+    },
+    "artifact_bindings": {
+      "diagnosis_scope": {"path": "protocols/acceptance/diagnosis_scope.json", "sha256": "cf917a9e8529811cf07cb59548bf3ea5461546a99c42f742d4dc0e0510aa06bc"},
+      "fault_taxonomy": {"path": "protocols/acceptance/fault_taxonomy.json", "sha256": "3f966c58a813fdb70e26711647a44d6ea854d06c3c725dd9aa2d16c3be0ef413"},
+      "coverage_matrix": {"path": "protocols/acceptance/coverage_matrix.json", "sha256": "9bc0cebda74852c27149cededb99df087b35872f3bfdf47c075dae8bb487d7c0"},
+      "metric_policy": {"path": "protocols/acceptance/metric_policy.json", "sha256": "4ceb52f6c1892cd8b416c2a62500f1ca14adec209ba69d53eef655e0583e94e1"},
+      "reasoning_rubric": {"path": "protocols/acceptance/reasoning_rubric.json", "sha256": "c930b9f8c4f6fd8cce84b145126f47abd80f803dab3333ce7770f5baf45b7fc3"}
+    },
+    "generic_technical_contract": {
+      "source_path": "configs/diagnosis/generic_head_calibration_protocol.v3.json",
+      "source_sha256": "3236b5786005229eeade43d495b2953a07fa2575f86eed679078baad4a7b676d",
+      "known_mechanisms": ["CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+      "open_set_mechanisms": ["BIAS", "INTERMITTENT", "STUCK"],
+      "thresholds": {
+        "detection_accuracy": 0.98,
+        "classification_accuracy": 0.9,
+        "localization_accuracy": 0.95,
+        "reasoning_correctness": 0.9,
+        "known_class_retention": 0.98,
+        "open_set_rejection": 0.98
+      },
+      "denominators": {"normal": 240, "known": 720, "open_set": 720, "total": 1680},
+      "maximum_runtime_seconds": 600
+    },
+    "thresholds_and_denominators_unchanged": true,
+    "exhausted_validation_seeds": [20280820, 20290820, 20300820]
+  },
+  "not_authorized": [
+    "Fit, fine-tune, pretrain or select any detector, encoder, expert, gate, classifier, localizer or threshold",
+    "Acquire external raw data without both Timer Stage X0 approval and separate project-owner network, storage and license approval",
+    "Create or reserve development, calibration or validation seeds",
+    "Search dynamic-gating topology, feature count, hidden dimension, expert count, regularization or conformal rules",
+    "Generate formal open-set classes or access hidden-acceptance truth",
+    "Bind a production model or start Stage B",
+    "Reuse exhausted seeds 20280820, 20290820 or 20300820",
+    "Change G1.1 classes, thresholds, denominators or expand UNKNOWN/OOD",
+    "Report Stage X0, P-018, T-310, T-311 or G3 as performance PASS"
+  ],
+  "approval_text_requested_zh": "Timer 审批：我已审阅 P-017 完整失败证据、P-018 跨部件数据/方法矩阵和 ADR-003。我授权 Stage X0 零拟合跨部件、跨数据源的数据就绪、适配器可行性、原型专属特征合同和下一阶段精确协议设计；不授权任何模型训练、微调、特征选择、动态门控搜索、阈值选择、开发/校准/验证种子、正式开放类、生产拟合或 Stage B。G1.1 五项制品、故障分类、阈值、分母、600 秒预算、唯一 production-estimator manifest 和耗尽种子禁用规则保持不变。外部公开数据只能在本审批与项目负责人另行批准网络、存储和许可同时具备后获取，并必须记录来源、版本、许可和校验和。Stage X0 完成后，任何分层模型、原型专属编码器、动态门控或图定位拟合，都必须在模型、维数、正则化、门控规则、数据切分、种子和有限候选预算冻结后再次提交 Timer 审批。",
+  "claim_boundary": "Pending zero-fit Stage X0 request only. It authorizes no raw-data acquisition without both Timer and separate project-owner approval, and no model fitting under any condition."
+}

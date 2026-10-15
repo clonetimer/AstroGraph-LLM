@@ -1,0 +1,133 @@
+{
+  "schema_version": "astrograph-three-stage-experiment-protocol.v1",
+  "status": "ACTIVE_ENGINEERING_REGRESSION",
+  "claim_boundary": "This protocol defines admissible data and evaluation semantics. Existing research-probe scores are not promoted by this file.",
+  "dataset_roles": {
+    "whole_spacecraft_adcs_paired_dataset_v5_2_2": {
+      "role": "ADCS_GROUPED_THREE_STAGE_REGRESSION",
+      "formal_metric_eligible": true,
+      "reason": "Thirty independent trajectory_pair_id groups support frozen 60/20/20 grouped train/validation/test evaluation; conclusions remain synthetic engineering evidence."
+    },
+    "whole_spacecraft_phm_dataset_v6_0": {
+      "role": "NON_ADCS_WHOLE_SPACECRAFT_GROUPED_REGRESSION",
+      "formal_metric_eligible": true,
+      "reason": "Ten Monte Carlo groups are split by sample_index with all operating phases retained in one partition; the 560 new samples cover EPS, thermal, comm/data, payload and propulsion."
+    }
+  },
+  "new_campaign": {
+    "required_axes": [
+      "fault_case_id",
+      "component_archetype_id",
+      "component_instance_id",
+      "fault_mechanism_family",
+      "fault_mode_local_to_component",
+      "severity",
+      "onset",
+      "duration",
+      "mission_profile",
+      "initial_attitude_and_rate",
+      "initial_resource_state",
+      "command_or_load_profile",
+      "simulator_parameter_draw",
+      "simulation_seed"
+    ],
+    "independence_requirement": "A new independence_group_id requires at least one consumed simulator parameter, initial-state, command/load profile, or stochastic-process draw to differ. Changing only onset, output path, run_id, or recorded-but-unused seed does not create an independent group.",
+    "required_partitions": {
+      "development": "May fit representations and model parameters; no final claim.",
+      "calibration": "May select thresholds, temperature scaling, abstention and top-k policy; cannot fit representation weights.",
+      "test_id": "Frozen in-distribution groups; no fit, selection or ontology edits.",
+      "test_condition_ood": "Unseen initial conditions and command/load or mission profiles.",
+      "test_severity_ood": "Frozen lower and boundary severities not used for threshold selection.",
+      "test_open_set": "Unknown fault modes plus nominal transients; must permit UNKNOWN.",
+      "test_multi_fault": "Concurrent faults with explicit source and affected-component truth."
+    },
+    "split_grouping_priority": [
+      "component_instance_id",
+      "fault_case_id",
+      "simulator_parameter_draw_id",
+      "initial_condition_family_id",
+      "command_profile_family_id"
+    ],
+    "generation_gates": [
+      "sample seed or parameter-draw identifier is consumed and attested",
+      "pre-fault trajectory diversity is non-zero where the plan claims condition variation",
+      "counterfactual fault-versus-paired-nominal observability passes on source-local and propagated channels",
+      "source execution, numerical, conservation, mission and calibration statuses are reported separately",
+      "a top-level validation PASS cannot mask an ineligible source status",
+      "label, truth, case, path, scenario, seed and split fields are stored only in evaluator sidecars"
+    ]
+  },
+  "stages": {
+    "detection": {
+      "operational_task": "Causal continuous-stream event detection with unknown onset",
+      "representation_probe": "Known-window fault-versus-nominal discrimination; must be reported separately and never called detection accuracy",
+      "primary_algorithm": "Causal component residual bank: robust rolling nominal or independent digital-twin prediction, physics-normalized residuals, lightweight logistic/HGB event scorer and hysteresis",
+      "challenger": "Smooth grey-box residual network with bounded learnable component parameters; raw CNN is not the default",
+      "required_metrics": [
+        "event_recall",
+        "false_alarms_per_hour",
+        "median_detection_delay_s",
+        "p95_detection_delay_s",
+        "event_precision",
+        "area_under_precision_recall_curve",
+        "per_fault_family_recall",
+        "per_severity_recall"
+      ],
+      "prohibited_shortcuts": [
+        "fault_active or injected onset used by inference",
+        "each run's own pre-fault segment supplied to only its positive example while nominal negatives are exact zero residuals",
+        "other-component propagated faults omitted from false-positive accounting",
+        "test-set best threshold"
+      ]
+    },
+    "localization": {
+      "task": "Hierarchical source localization: subsystem then component archetype, with affected components reported separately",
+      "primary_algorithm": "Train-only normalized z-statistics and residual signatures with multinomial logistic baseline",
+      "challenger": "Physics-gated lightweight MLP over source-local, command-response and propagation residual groups",
+      "instance_policy": "Instance-level localization is eligible only when each component class has multiple independently varied physical instances or axes.",
+      "required_metrics": [
+        "subsystem_top1_and_macro_f1",
+        "component_top1_top3_macro_f1",
+        "mean_reciprocal_rank",
+        "source_vs_affected_confusion",
+        "selective_accuracy_and_coverage",
+        "per_profile_and_per_severity_metrics"
+      ],
+      "required_ablations": [
+        "aggregate_1hz_vs_native_channels",
+        "source_local_only_vs_propagated_only_vs_combined",
+        "linear_baseline_vs_lightweight_mlp",
+        "oracle_detection_window_vs_predicted_detection_window"
+      ]
+    },
+    "classification": {
+      "task": "Component-conditioned hierarchy: mechanism family then component-local fault mode, with UNKNOWN for unsupported combinations",
+      "primary_algorithm": "Component equation residual features plus hierarchical regularized logistic/HGB heads",
+      "challenger": "Continuous smooth grey-box network whose bounded learnable parameters correct component equations before a small hierarchical MLP",
+      "deferred_algorithm": "TFM or large temporal transformer is deferred until independent support per component-mechanism cell and cross-condition validation justify its capacity.",
+      "required_metrics": [
+        "mechanism_family_top1_macro_f1_balanced_accuracy",
+        "component_local_mode_top1_top3_macro_f1",
+        "unknown_rejection_aupr",
+        "expected_calibration_error",
+        "oracle_component_conditioned_score",
+        "predicted_component_cascade_score"
+      ],
+      "ontology_gates": [
+        "No cross-component mechanism label is trainable unless it has repeated support across at least two component archetypes and distinguishable governed residual signatures.",
+        "Classes without adequate independent support remain evaluation-only or UNKNOWN and are not merged after observing test results.",
+        "Macro-F1 includes every truth-supported class, including classes with zero true positives."
+      ]
+    }
+  },
+  "cascade_evaluation": {
+    "required_views": [
+      "each stage with oracle upstream input",
+      "each stage with predicted upstream input",
+      "end-to-end exact match",
+      "failure attribution by first wrong stage",
+      "abstention-aware coverage"
+    ],
+    "promotion_rule": "No stage or cascade enters the downstream knowledge/LLM capability claim until the frozen test manifests, metric implementation tests, leakage audit and confidence intervals are complete."
+  }
+}

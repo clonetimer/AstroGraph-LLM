@@ -1,0 +1,33 @@
+{
+  "schema_version": "astrograph-fault-model-binding-set.v1",
+  "binding_set_id": "astrograph-lab-fault-model-bindings-example-v1",
+  "bindings": [
+    {
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "model_id": "example-tcn-fault-classifier",
+      "model_version": "0.1.0-unvalidated",
+      "feature_schema_ids": ["REPLACE_WITH_APPROVED_FEATURE_SCHEMA_ID"],
+      "priority": 200,
+      "enabled": false,
+      "rationale": "Template binding only; enable after independent validation and provider registration.",
+      "metadata": {
+        "template_only": true
+      }
+    },
+    {
+      "fault_id": "THERMAL_HEATER_STUCK_ON",
+      "model_id": "example-autoencoder-attribution",
+      "model_version": "0.1.0-unvalidated",
+      "feature_schema_ids": ["REPLACE_WITH_APPROVED_FEATURE_SCHEMA_ID"],
+      "priority": 150,
+      "enabled": false,
+      "rationale": "Template binding only; enable after independent validation and attribution review.",
+      "metadata": {
+        "template_only": true
+      }
+    }
+  ],
+  "metadata": {
+    "claim_boundary": "Examples are disabled and must not be used for released diagnoses."
+  }
+}

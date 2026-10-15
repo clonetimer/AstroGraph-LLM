@@ -1,0 +1,95 @@
+{
+  "schema_version": "astrograph-hypothesis-set.v1",
+  "hypothesis_set_id": "HS-D2222A9259AE94730492",
+  "episode_id": "EP-E37B20A04F88013680ED",
+  "hypotheses": [
+    {
+      "hypothesis_id": "HYP-D7B6F81670746F52C05E",
+      "hypothesis_type": "REGISTERED_FAULT",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "description": "候选注册故障：ADCS_RW_FRICTION_INCREASE",
+      "status": "CONTRADICTED",
+      "supporting_evidence_fact_ids": [
+        "EF-D61A91F100A5E4160C7A"
+      ],
+      "contradicting_evidence_fact_ids": [
+        "EF-C2BA2AD112E3C1D7D04B"
+      ],
+      "missing_evidence_definition_ids": [],
+      "not_applicable_evidence_definition_ids": [],
+      "reasoning_summary": "基于 2 条版本化证据定义；支持 1 条，反对/未满足关键条件 1 条，缺失 0 条。",
+      "claim_type": "INFERRED"
+    },
+    {
+      "hypothesis_id": "HYP-ABEBCCB54906E83AECD0",
+      "hypothesis_type": "REGISTERED_FAULT",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "description": "候选注册故障：ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "status": "CONTRADICTED",
+      "supporting_evidence_fact_ids": [
+        "EF-AE3763CF31EC04AD9DF4"
+      ],
+      "contradicting_evidence_fact_ids": [
+        "EF-76454F51D9E0B5BB4B25"
+      ],
+      "missing_evidence_definition_ids": [],
+      "not_applicable_evidence_definition_ids": [],
+      "reasoning_summary": "基于 2 条版本化证据定义；支持 1 条，反对/未满足关键条件 1 条，缺失 0 条。",
+      "claim_type": "INFERRED"
+    },
+    {
+      "hypothesis_id": "HYP-FA7B090B46799222EF13",
+      "hypothesis_type": "REGISTERED_FAULT",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "description": "候选注册故障：ADCS_STAR_TRACKER_DROPOUT",
+      "status": "CONTRADICTED",
+      "supporting_evidence_fact_ids": [],
+      "contradicting_evidence_fact_ids": [
+        "EF-03497B179300B66BA8D3",
+        "EF-06EAE50EB499998663E0",
+        "EF-AF7E1A95EEDB6036E26F",
+        "EF-B01FA06128E81803A327"
+      ],
+      "missing_evidence_definition_ids": [],
+      "not_applicable_evidence_definition_ids": [],
+      "reasoning_summary": "基于 4 条版本化证据定义；支持 0 条，反对/未满足关键条件 4 条，缺失 0 条。",
+      "claim_type": "INFERRED"
+    },
+    {
+      "hypothesis_id": "HYP-50CA1C64A60E87670D41",
+      "hypothesis_type": "REGISTERED_FAULT",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "description": "候选注册故障：THERMAL_HEATER_STUCK_ON",
+      "status": "SUPPORTED",
+      "supporting_evidence_fact_ids": [
+        "EF-0F1630325E8E9682B452",
+        "EF-BE9ABDAE228A5F2A9567"
+      ],
+      "contradicting_evidence_fact_ids": [],
+      "missing_evidence_definition_ids": [],
+      "not_applicable_evidence_definition_ids": [],
+      "reasoning_summary": "基于 2 条版本化证据定义；支持 2 条，反对/未满足关键条件 0 条，缺失 0 条。",
+      "claim_type": "INFERRED"
+    },
+    {
+      "hypothesis_id": "HYP-1E511B98A93297BE4A67",
+      "hypothesis_type": "NO_REGISTERED_FAULT",
+      "target_fault_id": null,
+      "description": "当前证据未支持任何已注册故障",
+      "status": "CONTRADICTED",
+      "supporting_evidence_fact_ids": [],
+      "contradicting_evidence_fact_ids": [
+        "EF-0F1630325E8E9682B452",
+        "EF-BE9ABDAE228A5F2A9567"
+      ],
+      "missing_evidence_definition_ids": [],
+      "not_applicable_evidence_definition_ids": [],
+      "reasoning_summary": "至少一个已注册故障满足关键证据，因此无已注册故障假设被反对。",
+      "claim_type": "INFERRED"
+    }
+  ],
+  "generated_by_agent_id": "diagnostic-reasoner-agent",
+  "generated_at": "2026-07-20T08:06:37.328579+00:00",
+  "validation_metadata": {},
+  "claim_boundary": "Registered hypotheses remain shadow conclusions until Decision Governor and deterministic Core comparison complete."
+}

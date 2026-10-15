@@ -1,0 +1,262 @@
+{
+  "profiles": [
+    {
+      "allowed_claim_scopes": [
+        "INTERNAL_METHOD_VALIDITY",
+        "POST_HOC_EVIDENCE"
+      ],
+      "allowed_evaluation_uses": [
+        "DEVELOPMENT",
+        "POST_HOC_AUDIT"
+      ],
+      "allowed_statistical_units": [
+        "TRAJECTORY_GROUP",
+        "MONTE_CARLO_GROUP"
+      ],
+      "allowed_tasks": [
+        "ANOMALY_DETECTION",
+        "TEMPORAL_LOCALIZATION",
+        "FAULT_IDENTIFICATION",
+        "ROOT_CAUSE_ATTRIBUTION",
+        "CALIBRATION",
+        "SELECTIVE_PREDICTION",
+        "EXPLANATION_FIDELITY"
+      ],
+      "confirmatory_eligible": false,
+      "dataset_id": "ADCS_V5_2_2_INTERNAL",
+      "domain_scope": "AstroGraph internal ADCS synthetic trajectories; 14-class configured runtime universe",
+      "evidence_tier": "S0_INTERNAL_SYNTHETIC",
+      "forbidden_claim_scopes": [
+        "DOMAIN_EXTERNAL_VALIDITY",
+        "UNIVERSAL_KG_GAIN",
+        "HIL_VALIDITY",
+        "FLIGHT_VALIDITY",
+        "FLIGHT_QUALIFICATION",
+        "SAFETY_QUALIFICATION",
+        "G0_G4_STATUS",
+        "TASK_LEVEL_EXTERNAL_VALIDITY",
+        "SUBSYSTEM_PHYSICAL_VALIDITY"
+      ],
+      "notes": [
+        "Groups 3/8 are development. Groups 4/9 are permanently post-hoc."
+      ],
+      "previously_accessed": true,
+      "schema_version": "astrograph-dataset-evidence-profile.v1"
+    },
+    {
+      "allowed_claim_scopes": [
+        "INTERNAL_METHOD_VALIDITY",
+        "POST_HOC_EVIDENCE"
+      ],
+      "allowed_evaluation_uses": [
+        "DEVELOPMENT",
+        "POST_HOC_AUDIT"
+      ],
+      "allowed_statistical_units": [
+        "TRAJECTORY_GROUP",
+        "MONTE_CARLO_GROUP"
+      ],
+      "allowed_tasks": [
+        "ANOMALY_DETECTION",
+        "TEMPORAL_LOCALIZATION",
+        "FAULT_IDENTIFICATION",
+        "ROOT_CAUSE_ATTRIBUTION",
+        "CALIBRATION",
+        "SELECTIVE_PREDICTION",
+        "EXPLANATION_FIDELITY"
+      ],
+      "confirmatory_eligible": false,
+      "dataset_id": "PHM_V6_0_INTERNAL",
+      "domain_scope": "AstroGraph internal PHM synthetic trajectories; 17-class dataset universe",
+      "evidence_tier": "S0_INTERNAL_SYNTHETIC",
+      "forbidden_claim_scopes": [
+        "DOMAIN_EXTERNAL_VALIDITY",
+        "UNIVERSAL_KG_GAIN",
+        "HIL_VALIDITY",
+        "FLIGHT_VALIDITY",
+        "FLIGHT_QUALIFICATION",
+        "SAFETY_QUALIFICATION",
+        "G0_G4_STATUS",
+        "TASK_LEVEL_EXTERNAL_VALIDITY",
+        "SUBSYSTEM_PHYSICAL_VALIDITY"
+      ],
+      "notes": [
+        "Strict ontology mapping and executable rule coverage remain incomplete."
+      ],
+      "previously_accessed": true,
+      "schema_version": "astrograph-dataset-evidence-profile.v1"
+    },
+    {
+      "allowed_claim_scopes": [
+        "INTERNAL_METHOD_VALIDITY",
+        "POST_HOC_EVIDENCE"
+      ],
+      "allowed_evaluation_uses": [
+        "DEVELOPMENT",
+        "POST_HOC_AUDIT"
+      ],
+      "allowed_statistical_units": [
+        "TRAJECTORY_GROUP",
+        "MONTE_CARLO_GROUP",
+        "SEALED_CAMPAIGN_BLOCK"
+      ],
+      "allowed_tasks": [
+        "ANOMALY_DETECTION",
+        "TEMPORAL_LOCALIZATION",
+        "FAULT_IDENTIFICATION",
+        "ROOT_CAUSE_ATTRIBUTION",
+        "CALIBRATION",
+        "SELECTIVE_PREDICTION",
+        "EXPLANATION_FIDELITY"
+      ],
+      "confirmatory_eligible": false,
+      "dataset_id": "SAT_PLATFORM_BASILISK_EXISTING",
+      "domain_scope": "Existing uploaded Basilisk/satellite-platform simulation outputs",
+      "evidence_tier": "S1_EXTERNAL_SIMULATION",
+      "forbidden_claim_scopes": [
+        "DOMAIN_EXTERNAL_VALIDITY",
+        "UNIVERSAL_KG_GAIN",
+        "HIL_VALIDITY",
+        "FLIGHT_VALIDITY",
+        "FLIGHT_QUALIFICATION",
+        "SAFETY_QUALIFICATION",
+        "G0_G4_STATUS",
+        "TASK_LEVEL_EXTERNAL_VALIDITY",
+        "SUBSYSTEM_PHYSICAL_VALIDITY"
+      ],
+      "notes": [
+        "A future pre-registered sealed campaign requires a distinct dataset_id and profile."
+      ],
+      "previously_accessed": true,
+      "schema_version": "astrograph-dataset-evidence-profile.v1"
+    },
+    {
+      "allowed_claim_scopes": [
+        "INTERNAL_METHOD_VALIDITY",
+        "POST_HOC_EVIDENCE",
+        "TASK_LEVEL_EXTERNAL_VALIDITY"
+      ],
+      "allowed_evaluation_uses": [
+        "DEVELOPMENT",
+        "POST_HOC_AUDIT"
+      ],
+      "allowed_statistical_units": [
+        "EVENT_CLUSTER",
+        "CHANNEL_EVENT_CLUSTER"
+      ],
+      "allowed_tasks": [
+        "ANOMALY_DETECTION",
+        "TEMPORAL_LOCALIZATION",
+        "CALIBRATION",
+        "SELECTIVE_PREDICTION",
+        "EXPLANATION_FIDELITY"
+      ],
+      "confirmatory_eligible": false,
+      "dataset_id": "NASA_SMAP_MSL",
+      "domain_scope": "Real SMAP spacecraft and MSL rover anomaly telemetry; event labels, not AstroGraph ADCS root-cause labels",
+      "evidence_tier": "S2_REAL_TELEMETRY_ANOMALY",
+      "forbidden_claim_scopes": [
+        "DOMAIN_EXTERNAL_VALIDITY",
+        "UNIVERSAL_KG_GAIN",
+        "HIL_VALIDITY",
+        "FLIGHT_VALIDITY",
+        "FLIGHT_QUALIFICATION",
+        "SAFETY_QUALIFICATION",
+        "G0_G4_STATUS",
+        "SUBSYSTEM_PHYSICAL_VALIDITY"
+      ],
+      "notes": [
+        "A sealed partition plan is required before any confirmatory designation.",
+        "Accessed during B006 P0-P2 adapter/intake audit on 2026-08-29; it is development/external-audit evidence, not untouched confirmatory evidence."
+      ],
+      "previously_accessed": true,
+      "schema_version": "astrograph-dataset-evidence-profile.v1"
+    },
+    {
+      "allowed_claim_scopes": [
+        "INTERNAL_METHOD_VALIDITY",
+        "POST_HOC_EVIDENCE",
+        "TASK_LEVEL_EXTERNAL_VALIDITY"
+      ],
+      "allowed_evaluation_uses": [
+        "DEVELOPMENT",
+        "POST_HOC_AUDIT"
+      ],
+      "allowed_statistical_units": [
+        "EVENT_CLUSTER",
+        "CHANNEL_EVENT_CLUSTER"
+      ],
+      "allowed_tasks": [
+        "ANOMALY_DETECTION",
+        "TEMPORAL_LOCALIZATION",
+        "CALIBRATION",
+        "SELECTIVE_PREDICTION",
+        "EXPLANATION_FIDELITY"
+      ],
+      "confirmatory_eligible": false,
+      "dataset_id": "ESA_MISSION1_LIGHTWEIGHT",
+      "domain_scope": "Anonymised real mission telemetry with anomaly, rare nominal event, and gap semantics",
+      "evidence_tier": "S2_REAL_TELEMETRY_ANOMALY",
+      "forbidden_claim_scopes": [
+        "DOMAIN_EXTERNAL_VALIDITY",
+        "UNIVERSAL_KG_GAIN",
+        "HIL_VALIDITY",
+        "FLIGHT_VALIDITY",
+        "FLIGHT_QUALIFICATION",
+        "SAFETY_QUALIFICATION",
+        "G0_G4_STATUS",
+        "SUBSYSTEM_PHYSICAL_VALIDITY"
+      ],
+      "notes": [
+        "Physical root-cause semantics are unavailable because channels are anonymised.",
+        "Accessed during B006 P0-P2 adapter/intake audit on 2026-08-29; it is development/external-audit evidence, not untouched confirmatory evidence."
+      ],
+      "previously_accessed": true,
+      "schema_version": "astrograph-dataset-evidence-profile.v1"
+    },
+    {
+      "allowed_claim_scopes": [
+        "INTERNAL_METHOD_VALIDITY",
+        "POST_HOC_EVIDENCE",
+        "TASK_LEVEL_EXTERNAL_VALIDITY",
+        "SUBSYSTEM_PHYSICAL_VALIDITY"
+      ],
+      "allowed_evaluation_uses": [
+        "DEVELOPMENT",
+        "POST_HOC_AUDIT"
+      ],
+      "allowed_statistical_units": [
+        "EXPERIMENT_ID"
+      ],
+      "allowed_tasks": [
+        "ANOMALY_DETECTION",
+        "TEMPORAL_LOCALIZATION",
+        "FAULT_IDENTIFICATION",
+        "ROOT_CAUSE_ATTRIBUTION",
+        "CALIBRATION",
+        "SELECTIVE_PREDICTION",
+        "EXPLANATION_FIDELITY"
+      ],
+      "confirmatory_eligible": false,
+      "dataset_id": "NASA_DXC09_ADAPT",
+      "domain_scope": "NASA ADAPT aerospace electrical power-system physical testbed experiments",
+      "evidence_tier": "S3_PHYSICAL_TESTBED",
+      "forbidden_claim_scopes": [
+        "DOMAIN_EXTERNAL_VALIDITY",
+        "UNIVERSAL_KG_GAIN",
+        "HIL_VALIDITY",
+        "FLIGHT_VALIDITY",
+        "FLIGHT_QUALIFICATION",
+        "SAFETY_QUALIFICATION",
+        "G0_G4_STATUS"
+      ],
+      "notes": [
+        "TXT/MAT/SCN representations of one experiment are not independent repeats.",
+        "Accessed during B006 P0-P2 adapter/intake audit on 2026-08-29; it is development/external-audit evidence, not untouched confirmatory evidence."
+      ],
+      "previously_accessed": true,
+      "schema_version": "astrograph-dataset-evidence-profile.v1"
+    }
+  ],
+  "schema_version": "astrograph-dataset-evidence-profiles.v1"
+}

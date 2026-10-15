@@ -1,0 +1,38 @@
+{
+  "schema_version": "astrograph-synthetic-dataset-spec.v1",
+  "dataset_id": "r4f3-regression-example",
+  "entity_id": "EPS_SHIFT_CASE",
+  "row_count": 240,
+  "sample_interval": 1.0,
+  "seed": 20260724,
+  "timestamp_column": "time_s",
+  "channels": [
+    "sensor.eps.battery_voltage_v",
+    "sensor.eps.battery_current_a",
+    "sensor.thermal.payload_temp_c"
+  ],
+  "label_column": "label.fault_active",
+  "patterns": [
+    {
+      "pattern": "shift",
+      "channel": "sensor.eps.battery_voltage_v",
+      "start_fraction": 0.55,
+      "end_fraction": 0.85,
+      "magnitude": 8.0,
+      "period": 10,
+      "keep_every": 2,
+      "metadata": {}
+    },
+    {
+      "pattern": "dropout",
+      "channel": "sensor.eps.battery_current_a",
+      "start_fraction": 0.7,
+      "end_fraction": 0.75,
+      "magnitude": 5.0,
+      "period": 10,
+      "keep_every": 2,
+      "metadata": {}
+    }
+  ],
+  "claim_boundary": "Synthetic structural test data only; not an ESA-ADB sample and not a physically calibrated satellite simulation."
+}

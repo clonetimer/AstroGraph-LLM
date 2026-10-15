@@ -1,0 +1,46 @@
+{
+  "schema_version": "astrograph-stable-layer-policy.v1",
+  "rules": [
+    {
+      "rule_id": "contracts-are-domain-neutral",
+      "path_prefix": "src/astrograph/contracts",
+      "forbidden_import_prefixes": [
+        "astrograph.agents",
+        "astrograph.compat",
+        "astrograph.data_driven",
+        "astrograph.diagnosis",
+        "astrograph.integrations",
+        "astrograph.llm",
+        "astrograph.orchestration",
+        "astrograph.simulation",
+        "astrograph.tools"
+      ]
+    },
+    {
+      "rule_id": "runtime-has-no-static-domain-dependencies",
+      "path_prefix": "src/astrograph/runtime",
+      "forbidden_import_prefixes": [
+        "astrograph.agents",
+        "astrograph.compat",
+        "astrograph.data_driven",
+        "astrograph.diagnosis",
+        "astrograph.integrations",
+        "astrograph.llm",
+        "astrograph.orchestration",
+        "astrograph.simulation",
+        "astrograph.tools"
+      ]
+    },
+    {
+      "rule_id": "extension-contracts-do-not-import-implementations",
+      "path_prefix": "src/astrograph/extensions",
+      "forbidden_import_prefixes": [
+        "astrograph.integrations",
+        "astrograph.orchestration",
+        "astrograph.diagnosis",
+        "astrograph.agents",
+        "astrograph.llm"
+      ]
+    }
+  ]
+}

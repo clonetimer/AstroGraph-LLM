@@ -1,0 +1,1637 @@
+{
+  "schema_version": "astrograph-r28-dxc-forward-simulation-development-report.v1",
+  "dataset_id": "DXC09_SAMPLE",
+  "partition": "POST_CONTACT_DEVELOPMENT",
+  "source_system_xml_sha256": "71e5ee01746192f4c7e3fc7784f11f084b73d7fe387df079a97d31ff12adcccf",
+  "source_r27_receipt_sha256": "f4b96e55aa519007c2d6e278e6a12ab6aa8cd6b7a2744118e3739f7f936e8549",
+  "r28_forward_config": {
+    "startup_s": 30.0,
+    "offset_startup_guard_s": 60.0,
+    "command_guard_s": 2.0,
+    "offset_pre_samples": 20,
+    "offset_post_samples": 20,
+    "offset_candidate_steps": 12,
+    "offset_min_z": 20.0,
+    "offset_min_relative_step": 0.2,
+    "offset_std_ratio_min": 0.35,
+    "offset_std_ratio_max": 3.0,
+    "offset_persistence_z": 12.0,
+    "stuck_previous_samples": 12,
+    "stuck_min_suffix_samples": 20,
+    "stuck_absolute_range_floor": 0.005,
+    "stuck_relative_tolerance": 1e-06,
+    "stuck_step_z": 8.0,
+    "light_pre_window_s": 10.0,
+    "light_late_start_s": 30.0,
+    "light_min_cooling": 5.0,
+    "light_peer_separation": 10.0,
+    "shared_light_drop_relative": 0.08,
+    "max_direct_numeric_sensor_faults": 2
+  },
+  "algorithm_source_sha256": "d083a552f5e0abf95f87f4f79702c2db88f838b9e476604aae28164744165ee8",
+  "integration_adapter_sha256": "d474b20f0b03dd91b8ecdc578f5429c91c7e1bfe89502b8de480f703bceed04d",
+  "split_policy": "Same already-contacted R25/R26/R27 DXC09 Sample hash split; no independent validation slice remains.",
+  "partitions": {
+    "SELECTION": {
+      "r27_metrics": {
+        "case_count": 11,
+        "fault_element_precision_micro": 0.9375,
+        "fault_element_recall_micro": 0.8333333333333334,
+        "fault_element_f1_micro": 0.8823529411764706,
+        "component_precision_micro": 0.9375,
+        "component_recall_micro": 0.8333333333333334,
+        "component_f1_micro": 0.8823529411764706,
+        "exact_fault_set_rate": 0.8181818181818182,
+        "faulty_case_any_fault_element_overlap_rate": 0.9090909090909091,
+        "mean_predicted_fault_count": 1.4545454545454546,
+        "early_first_alarm_case_count": 2,
+        "post_injection_first_alarm_case_count": 8,
+        "no_alarm_case_count": 1,
+        "post_injection_first_alarm_rate": 0.7272727272727273,
+        "median_post_injection_delay_s": 0.3539999999999992
+      },
+      "r28_metrics": {
+        "case_count": 11,
+        "fault_element_precision_micro": 1.0,
+        "fault_element_recall_micro": 1.0,
+        "fault_element_f1_micro": 1.0,
+        "component_precision_micro": 1.0,
+        "component_recall_micro": 1.0,
+        "component_f1_micro": 1.0,
+        "exact_fault_set_rate": 1.0,
+        "faulty_case_any_fault_element_overlap_rate": 1.0,
+        "mean_predicted_fault_count": 1.6363636363636365,
+        "diagnostic_resolution_rate": 1.0,
+        "unresolved_case_count": 0,
+        "resolved_exact_fault_set_rate": 1.0
+      },
+      "r28_case_rows": [
+        {
+          "case_id": "Exp_627_pb_t2f",
+          "group_id": "cd2f34c76df70f012fefd0fd1d56fdbb1310cb6e6520fd96078a4e6f476fd968",
+          "true_fault_ids": [
+            "E242:Offset"
+          ],
+          "r27_predicted_fault_ids": [
+            "E242:Offset"
+          ],
+          "predicted_fault_ids": [
+            "E242:Offset"
+          ],
+          "first_alarm_time_s": 115.501,
+          "forward_response_result_sha256": "6d535a0dfc10ee61cb3c62d24005f680c6c03a41b9ab67624fdc761b3d013b43",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "E242:Offset",
+              "fit_score": 91.39275959048021,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E242",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "E242"
+              ],
+              "metrics": {
+                "onset_time_s": 115.501,
+                "step_z": 61.39275959048021,
+                "relative_step": 0.549490616060016,
+                "post_pre_std_ratio": 0.734571311352341
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_628_pb_t2f",
+          "group_id": "3f29bcb05b2c0ed2a24ec82ca594cef8b44275d8d0f73c34b193196966409669",
+          "true_fault_ids": [
+            "E265:Stuck"
+          ],
+          "r27_predicted_fault_ids": [
+            "E265:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E265:Stuck"
+          ],
+          "first_alarm_time_s": null,
+          "forward_response_result_sha256": "7dd649768a203ceeda76e833150de79427931ecebc6de4d949103ef70b8e5f86",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": []
+        },
+        {
+          "case_id": "Exp_628_pb_t2ff",
+          "group_id": "d4260c382e6442a9a685e5513055d1495c19d4151637347d8c166432d976cb51",
+          "true_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "r27_predicted_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "predicted_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "first_alarm_time_s": 83.001,
+          "forward_response_result_sha256": "50e8625503884e8539ad7dbe6bad58e6a198720c7ecbfe05593bd7d54e30f3ec",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "FT520:Offset",
+              "fit_score": 62.31944988986773,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "FT520",
+                "component_type": "FlowTransmitter",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "FT520"
+              ],
+              "metrics": {
+                "onset_time_s": 125.001,
+                "step_z": 32.31944988986773,
+                "relative_step": 0.5324090711857548,
+                "post_pre_std_ratio": 0.7769546554242185
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_630_pb_t2ff",
+          "group_id": "fea940ec32d0b1e9fb992f0b5ed0f3e1b8f93e321b272f607bb6b4711d41b871",
+          "true_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "r27_predicted_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "first_alarm_time_s": 70.001,
+          "forward_response_result_sha256": "93f2c71d81f7add520476dad5ea0af8c1c7d3aec162223cb1e72af92c7fa0b37",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "E140:Stuck",
+              "fit_score": 232.70346044009287,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E140",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Stuck",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "STUCK_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ABRUPT_CHANGE",
+                  "OWN_CHANNEL_PERSISTENT_FREEZE"
+                ]
+              },
+              "observed_response_codes": [
+                "ABRUPT_CHANGE_OBSERVED",
+                "PERSISTENT_SUFFIX_FREEZE_OBSERVED"
+              ],
+              "source_component_ids": [
+                "E140"
+              ],
+              "metrics": {
+                "onset_time_s": 70.001,
+                "step_z": 192.70346044009287,
+                "suffix_range": 0.0
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_636_pb_t2f",
+          "group_id": "dc8ceb67c7e4980aee8ea6e37e17be734014b5c2465110fcfa084167950abe24",
+          "true_fault_ids": [
+            "E261:Stuck"
+          ],
+          "r27_predicted_fault_ids": [
+            "E261:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E261:Stuck"
+          ],
+          "first_alarm_time_s": 47.5,
+          "forward_response_result_sha256": "e22bc07265bcb4e5192e8507285087cec560bd9959e6c3e3cf65bc88cc5c89d8",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "E261:Stuck",
+              "fit_score": 454.09966132915554,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E261",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Stuck",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "STUCK_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ABRUPT_CHANGE",
+                  "OWN_CHANNEL_PERSISTENT_FREEZE"
+                ]
+              },
+              "observed_response_codes": [
+                "ABRUPT_CHANGE_OBSERVED",
+                "PERSISTENT_SUFFIX_FREEZE_OBSERVED"
+              ],
+              "source_component_ids": [
+                "E261"
+              ],
+              "metrics": {
+                "onset_time_s": 47.5,
+                "step_z": 414.09966132915554,
+                "suffix_range": 0.0
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_653_pb_t2",
+          "group_id": "3c80ba18d3e330efbcf52190cb8720f15f285201a81208cee4e36527d484019d",
+          "true_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "r27_predicted_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "first_alarm_time_s": 203.003,
+          "forward_response_result_sha256": "625739f9d8cb44e08f6c24822af5e32b6ecd7370b29556fcea97f00c0141c67f",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": []
+        },
+        {
+          "case_id": "Exp_659_pb_t2",
+          "group_id": "b242cda4cef72a6ec5532649da0152852b1d31f2aa0079478eb79ab41873d471",
+          "true_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "r27_predicted_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "first_alarm_time_s": 93.501,
+          "forward_response_result_sha256": "eb90e3977bc903070db192e9991f80d72fadde90d4444771d0198a052cd4aff2",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": []
+        },
+        {
+          "case_id": "Exp_665_pb_t2ff",
+          "group_id": "ce7d881fbca210793160bd6222c0e49336a7ab28a2945f3dc1eb4b4204623144",
+          "true_fault_ids": [
+            "E281:Stuck",
+            "ST265:Offset"
+          ],
+          "r27_predicted_fault_ids": [
+            "E281:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E281:Stuck",
+            "ST265:Offset"
+          ],
+          "first_alarm_time_s": 66.001,
+          "forward_response_result_sha256": "aa4a83c30d0c0e6b72225c2e551ea05759b202e1a0b94ccbcf2bf248e9c24f87",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "E281:Stuck",
+              "fit_score": 299.8424426174458,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E281",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Stuck",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "STUCK_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ABRUPT_CHANGE",
+                  "OWN_CHANNEL_PERSISTENT_FREEZE"
+                ]
+              },
+              "observed_response_codes": [
+                "ABRUPT_CHANGE_OBSERVED",
+                "PERSISTENT_SUFFIX_FREEZE_OBSERVED"
+              ],
+              "source_component_ids": [
+                "E281"
+              ],
+              "metrics": {
+                "onset_time_s": 172.002,
+                "step_z": 259.8424426174458,
+                "suffix_range": 0.0
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "ST265:Offset",
+              "fit_score": 195.45481638716328,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "ST265",
+                "component_type": "ACFrequencyTransmitter",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "ST265"
+              ],
+              "metrics": {
+                "onset_time_s": 124.001,
+                "step_z": 165.45481638716328,
+                "relative_step": 0.33090963277432656,
+                "post_pre_std_ratio": 2.102686969638832
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_667_pb_t2ff",
+          "group_id": "67ea98f4628cd4b40587cebbb4aa7b221fe23d52af8b54ff398cc2e2b9078fbe",
+          "true_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "r27_predicted_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "first_alarm_time_s": 73.0,
+          "forward_response_result_sha256": "44d654f6171c64f751e609b6424c117f9bed37fcbd62dc987ff237b9f99b3d7f",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "IT167:Offset",
+              "fit_score": 443.9537785743937,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "IT167",
+                "component_type": "ACCurrentTransmitter12",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "IT167"
+              ],
+              "metrics": {
+                "onset_time_s": 95.001,
+                "step_z": 413.9537785743937,
+                "relative_step": 2.1795960462528434,
+                "post_pre_std_ratio": 1.0884495667953888
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "TE502:Stuck",
+              "fit_score": 256.4567667406485,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "TE502",
+                "component_type": "TemperatureSensor",
+                "fault_mode": "Stuck",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "STUCK_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ABRUPT_CHANGE",
+                  "OWN_CHANNEL_PERSISTENT_FREEZE"
+                ]
+              },
+              "observed_response_codes": [
+                "ABRUPT_CHANGE_OBSERVED",
+                "PERSISTENT_SUFFIX_FREEZE_OBSERVED"
+              ],
+              "source_component_ids": [
+                "TE502"
+              ],
+              "metrics": {
+                "onset_time_s": 122.001,
+                "step_z": 216.45676674064848,
+                "suffix_range": 0.0
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_676_pb_t2",
+          "group_id": "a10d050ef27eb380509a684f08dd6899262a7e44b7d4143a936baa6107864fb7",
+          "true_fault_ids": [
+            "LGT400:FailedOff",
+            "LGT402:FailedOff"
+          ],
+          "r27_predicted_fault_ids": [
+            "LGT401:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "LGT400:FailedOff",
+            "LGT402:FailedOff"
+          ],
+          "first_alarm_time_s": 159.002,
+          "forward_response_result_sha256": "8ec046c6d685c26aa67f6c71c6a2011294e8762e2ce46c0fac765e61ff7ac3f4",
+          "vetoed_fault_ids": [
+            "LGT401:FailedOff"
+          ],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "LGT400:FailedOff",
+              "fit_score": 86.21770037069327,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "LGT400",
+                "component_type": "LightBulb25W",
+                "fault_mode": "FailedOff",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFF",
+                "transition_kind": "PLANT_COMPONENT_MODE_TRANSITION",
+                "expected_response_codes": [
+                  "LOCAL_TEMPERATURE_COOLING",
+                  "SHARED_LIGHT_OUTPUT_DROP"
+                ]
+              },
+              "observed_response_codes": [
+                "LOCAL_TEMPERATURE_COOLING_OBSERVED",
+                "SHARED_LIGHT_OUTPUT_DROP_OBSERVED"
+              ],
+              "source_component_ids": [
+                "LGT400",
+                "LT500",
+                "TE500",
+                "WI170"
+              ],
+              "metrics": {
+                "temperature_late_delta": -30.934380176671922,
+                "shared_light_relative_delta": -0.5283320194021341
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "LGT402:FailedOff",
+              "fit_score": 63.381290949242995,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "LGT402",
+                "component_type": "LightBulb25W",
+                "fault_mode": "FailedOff",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFF",
+                "transition_kind": "PLANT_COMPONENT_MODE_TRANSITION",
+                "expected_response_codes": [
+                  "LOCAL_TEMPERATURE_COOLING",
+                  "SHARED_LIGHT_OUTPUT_DROP"
+                ]
+              },
+              "observed_response_codes": [
+                "LOCAL_TEMPERATURE_COOLING_OBSERVED",
+                "SHARED_LIGHT_OUTPUT_DROP_OBSERVED"
+              ],
+              "source_component_ids": [
+                "LGT402",
+                "LT500",
+                "TE502",
+                "WI170"
+              ],
+              "metrics": {
+                "temperature_late_delta": -8.097970755221652,
+                "shared_light_relative_delta": -0.5283320194021341
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_682_pb_t2",
+          "group_id": "cb95078148dda06ddafd4592f3cb8fa3d9ec1b3f6fc51e7b3ba8a5bcde873bde",
+          "true_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "r27_predicted_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "predicted_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "first_alarm_time_s": 103.001,
+          "forward_response_result_sha256": "64d5e344ab2bc0db9b86063e9f00899bcd48dd9c164835c2dca761b157e43c7f",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": []
+        }
+      ]
+    },
+    "INTERNAL_REPLAY": {
+      "r27_metrics": {
+        "case_count": 14,
+        "fault_element_precision_micro": 0.75,
+        "fault_element_recall_micro": 0.75,
+        "fault_element_f1_micro": 0.75,
+        "component_precision_micro": 0.75,
+        "component_recall_micro": 0.75,
+        "component_f1_micro": 0.75,
+        "exact_fault_set_rate": 0.7857142857142857,
+        "faulty_case_any_fault_element_overlap_rate": 0.7857142857142857,
+        "mean_predicted_fault_count": 1.1428571428571428,
+        "early_first_alarm_case_count": 1,
+        "post_injection_first_alarm_case_count": 13,
+        "no_alarm_case_count": 0,
+        "post_injection_first_alarm_rate": 0.9285714285714286,
+        "median_post_injection_delay_s": 0.32800000000000296
+      },
+      "r28_metrics": {
+        "case_count": 14,
+        "fault_element_precision_micro": 1.0,
+        "fault_element_recall_micro": 0.9375,
+        "fault_element_f1_micro": 0.967741935483871,
+        "component_precision_micro": 1.0,
+        "component_recall_micro": 0.9375,
+        "component_f1_micro": 0.967741935483871,
+        "exact_fault_set_rate": 0.9285714285714286,
+        "faulty_case_any_fault_element_overlap_rate": 0.9285714285714286,
+        "mean_predicted_fault_count": 1.0714285714285714,
+        "diagnostic_resolution_rate": 0.9285714285714286,
+        "unresolved_case_count": 1,
+        "resolved_exact_fault_set_rate": 1.0
+      },
+      "r28_case_rows": [
+        {
+          "case_id": "Exp_605_pb_fix_t2",
+          "group_id": "79b739c1ebe762282f2c0be9463f7f80acb4b15ad2b5dd4a3e67a89ced5edc11",
+          "true_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "r27_predicted_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "predicted_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "first_alarm_time_s": 37.5,
+          "forward_response_result_sha256": "6576f077b56d0a5733240f263a2048cab95d71a1675286677fe8465e6dca1d88",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": []
+        },
+        {
+          "case_id": "Exp_606_pb_fix_t2",
+          "group_id": "b6de9e93cffed4daccf9b099c9c9a53fc87f2761b61a5aa7ed57f7d9d7d4a2b2",
+          "true_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "r27_predicted_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "predicted_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "first_alarm_time_s": 203.003,
+          "forward_response_result_sha256": "58cd8e587de334666879deaf4640839b242ec05fb4f06ffd6a538c0c931d37e9",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": []
+        },
+        {
+          "case_id": "Exp_610_pb_fix_t2",
+          "group_id": "2c172172529dbe22d357a21d7ca7251bc96e0fd080532674100b7a9bfab5bf5a",
+          "true_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "r27_predicted_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "predicted_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "first_alarm_time_s": 95.501,
+          "forward_response_result_sha256": "9d8123fdc67633849cad7b1166284475bc212f3a539d66cf45a0fd37ef885dd5",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "IT240:Offset",
+              "fit_score": 470.89222481593794,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "IT240",
+                "component_type": "DCCurrentTransmitter50",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "IT240"
+              ],
+              "metrics": {
+                "onset_time_s": 95.501,
+                "step_z": 440.89222481593794,
+                "relative_step": 0.8817844496318759,
+                "post_pre_std_ratio": 1.0591274833521183
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "IT261:Offset",
+              "fit_score": 470.0775073501857,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "IT261",
+                "component_type": "DCCurrentTransmitter50",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "IT261"
+              ],
+              "metrics": {
+                "onset_time_s": 95.501,
+                "step_z": 440.0775073501857,
+                "relative_step": 0.8801550147003714,
+                "post_pre_std_ratio": 0.8132756745622273
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "IT267:Offset",
+              "fit_score": 263.9301368962343,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "IT267",
+                "component_type": "ACCurrentTransmitter12",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "IT267"
+              ],
+              "metrics": {
+                "onset_time_s": 95.501,
+                "step_z": 233.93013689623427,
+                "relative_step": 0.9998669967613647,
+                "post_pre_std_ratio": 0.35237341417052026
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_614_pb_fix_t2",
+          "group_id": "38384661cbf6d2b2c74e227cb32864495e71fa0f4ba2078828602117441b81a5",
+          "true_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "r27_predicted_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "predicted_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "first_alarm_time_s": 63.501,
+          "forward_response_result_sha256": "1f4d0be38b5526ea2065c41cd63980b6bde9a6699e9e383ffaea9f35fe132fa5",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": []
+        },
+        {
+          "case_id": "Exp_616_pb_t2",
+          "group_id": "3c3c2afcbee18abb73d0566339542cfd597975e8ee7b2bb6862ebcde77ade16d",
+          "true_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "r27_predicted_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "first_alarm_time_s": 126.501,
+          "forward_response_result_sha256": "47d68c0d13d323039d984e8501226749b8e49cee4e774b7f6180f75f5929aa5b",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "IT140:Offset",
+              "fit_score": 472.0258155404367,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "IT140",
+                "component_type": "DCCurrentTransmitter50",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "IT140"
+              ],
+              "metrics": {
+                "onset_time_s": 126.501,
+                "step_z": 442.0258155404367,
+                "relative_step": 0.8840516310808734,
+                "post_pre_std_ratio": 0.5684204228032046
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "FT520:Offset",
+              "fit_score": 53.71708245126284,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "FT520",
+                "component_type": "FlowTransmitter",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "FT520"
+              ],
+              "metrics": {
+                "onset_time_s": 127.001,
+                "step_z": 23.717082451262844,
+                "relative_step": 1.0,
+                "post_pre_std_ratio": 1.0707603736493887
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_620_pb_t2",
+          "group_id": "8c536fb9933fdbf05cbb2bb0d5c889108c69c46bc5a88acad6c179e1aec9601d",
+          "true_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "r27_predicted_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "predicted_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "first_alarm_time_s": 196.502,
+          "forward_response_result_sha256": "ba52737e086aac284af0df7b8d6df008fd74888896c22395803ed7b2f8c13ef9",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "IT340:Offset",
+              "fit_score": 531.1576456839423,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "IT340",
+                "component_type": "DCCurrentTransmitter50",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "IT340"
+              ],
+              "metrics": {
+                "onset_time_s": 197.002,
+                "step_z": 501.1576456839423,
+                "relative_step": 1.0023152913678846,
+                "post_pre_std_ratio": 0.4271788288583805
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "E165:Offset",
+              "fit_score": 529.5399831397109,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E165",
+                "component_type": "ACVoltageSensor",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "E165"
+              ],
+              "metrics": {
+                "onset_time_s": 197.002,
+                "step_z": 499.5399831397109,
+                "relative_step": 0.9990799662794219,
+                "post_pre_std_ratio": 2.708054122541437
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "E167:Offset",
+              "fit_score": 529.3872079670126,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E167",
+                "component_type": "ACVoltageSensor",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "E167"
+              ],
+              "metrics": {
+                "onset_time_s": 197.002,
+                "step_z": 499.3872079670126,
+                "relative_step": 0.9987744159340253,
+                "post_pre_std_ratio": 2.5671387014289264
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "E181:Offset",
+              "fit_score": 448.83142466939415,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E181",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "E181"
+              ],
+              "metrics": {
+                "onset_time_s": 197.002,
+                "step_z": 418.83142466939415,
+                "relative_step": 0.9829046292349782,
+                "post_pre_std_ratio": 1.700536499771371
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "E161:Offset",
+              "fit_score": 262.7864101166988,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E161",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "E161"
+              ],
+              "metrics": {
+                "onset_time_s": 197.002,
+                "step_z": 232.78641011669876,
+                "relative_step": 0.9741206345125116,
+                "post_pre_std_ratio": 0.9108874878929527
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "E142:Offset",
+              "fit_score": 197.33555626680374,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E142",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "E142"
+              ],
+              "metrics": {
+                "onset_time_s": 197.002,
+                "step_z": 167.33555626680374,
+                "relative_step": 0.9745980061282056,
+                "post_pre_std_ratio": 0.7209576980413023
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_637_pb_t2f",
+          "group_id": "e83e016dd302e603546514121b025f33def54645b414256dee0dfd65437b071e",
+          "true_fault_ids": [
+            "E240:Stuck"
+          ],
+          "r27_predicted_fault_ids": [
+            "E240:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E240:Stuck"
+          ],
+          "first_alarm_time_s": 146.002,
+          "forward_response_result_sha256": "ca4bbff06f2214dba8d3eb75976c454141e4092c3d488c217994b814cc7845b5",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "E240:Stuck",
+              "fit_score": 540.0,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E240",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Stuck",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "STUCK_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ABRUPT_CHANGE",
+                  "OWN_CHANNEL_PERSISTENT_FREEZE"
+                ]
+              },
+              "observed_response_codes": [
+                "ABRUPT_CHANGE_OBSERVED",
+                "PERSISTENT_SUFFIX_FREEZE_OBSERVED"
+              ],
+              "source_component_ids": [
+                "E240"
+              ],
+              "metrics": {
+                "onset_time_s": 146.002,
+                "step_z": 500.0,
+                "suffix_range": 0.0
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_644_pb_t2f",
+          "group_id": "e969fbc3560dc61ed8ddf0c5a1a8f3e50f3c69473daecd33f3f92f07dce5a884",
+          "true_fault_ids": [
+            "IT267:Stuck"
+          ],
+          "r27_predicted_fault_ids": [
+            "E265:Offset",
+            "ST265:Offset"
+          ],
+          "predicted_fault_ids": [
+            "IT267:Stuck"
+          ],
+          "first_alarm_time_s": 33.0,
+          "forward_response_result_sha256": "01ab88aa990607864cffa177ccc3744069bb588ef28c11750299507801eedf12",
+          "vetoed_fault_ids": [
+            "E265:Offset",
+            "ST265:Offset"
+          ],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "IT267:Stuck",
+              "fit_score": 241.21174908180646,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "IT267",
+                "component_type": "ACCurrentTransmitter12",
+                "fault_mode": "Stuck",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "STUCK_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ABRUPT_CHANGE",
+                  "OWN_CHANNEL_PERSISTENT_FREEZE"
+                ]
+              },
+              "observed_response_codes": [
+                "ABRUPT_CHANGE_OBSERVED",
+                "PERSISTENT_SUFFIX_FREEZE_OBSERVED"
+              ],
+              "source_component_ids": [
+                "IT267"
+              ],
+              "metrics": {
+                "onset_time_s": 143.001,
+                "step_z": 201.21174908180646,
+                "suffix_range": 0.0
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_645_pb_t2f",
+          "group_id": "54e4a2b46fec6f070ea149c35ea9a13482435a84bb69f465b1a5d3c505d60ccc",
+          "true_fault_ids": [
+            "E265:Offset"
+          ],
+          "r27_predicted_fault_ids": [
+            "E265:Offset"
+          ],
+          "predicted_fault_ids": [
+            "E265:Offset"
+          ],
+          "first_alarm_time_s": 168.002,
+          "forward_response_result_sha256": "c1cca30b09e562b97fc4dc3a3d0d37b4d5150876f3e7ceb48e5803b3f1ba6ce5",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "E265:Offset",
+              "fit_score": 155.61185283087536,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E265",
+                "component_type": "ACVoltageSensor",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "E265"
+              ],
+              "metrics": {
+                "onset_time_s": 168.002,
+                "step_z": 125.61185283087536,
+                "relative_step": 0.25122370566175073,
+                "post_pre_std_ratio": 0.9211323729436766
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_649_pb_t2f",
+          "group_id": "eeb81c09d12a5d32e33762a371af579171a072c31f89679d839b228fdf789ccd",
+          "true_fault_ids": [
+            "E235:Stuck"
+          ],
+          "r27_predicted_fault_ids": [
+            "E235:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E235:Stuck"
+          ],
+          "first_alarm_time_s": 157.502,
+          "forward_response_result_sha256": "ec99227730725c90c601a282b40675454c43d0fd041512b0954c8160095dceae",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "E235:Stuck",
+              "fit_score": 517.0769999453984,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "E235",
+                "component_type": "DCVoltageSensor",
+                "fault_mode": "Stuck",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "STUCK_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ABRUPT_CHANGE",
+                  "OWN_CHANNEL_PERSISTENT_FREEZE"
+                ]
+              },
+              "observed_response_codes": [
+                "ABRUPT_CHANGE_OBSERVED",
+                "PERSISTENT_SUFFIX_FREEZE_OBSERVED"
+              ],
+              "source_component_ids": [
+                "E235"
+              ],
+              "metrics": {
+                "onset_time_s": 157.502,
+                "step_z": 477.07699994539837,
+                "suffix_range": 0.0
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_656_pb_t2",
+          "group_id": "8b2e5d88e3bfecd5e1af282321875dbaee8e41cdfb478b97b42ce6ea40808255",
+          "true_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "r27_predicted_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "predicted_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "first_alarm_time_s": 77.001,
+          "forward_response_result_sha256": "b7622a8d6f2759d545764c35f5e922845b5c267924d3f703b59c87f104cd1b67",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "XT167:Offset",
+              "fit_score": 96.7749617181938,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "XT167",
+                "component_type": "PhaseAngleTransducer",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "XT167"
+              ],
+              "metrics": {
+                "onset_time_s": 77.501,
+                "step_z": 66.7749617181938,
+                "relative_step": 0.4457007299891833,
+                "post_pre_std_ratio": 1.0951561937037086
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_658_pb_t2",
+          "group_id": "99b794b999ea87a177cb5a78bb0350b4177e388f905cbb9d4fdca7df0c3baf25",
+          "true_fault_ids": [
+            "LGT481:FailedOff"
+          ],
+          "r27_predicted_fault_ids": [
+            "IT161:Offset"
+          ],
+          "predicted_fault_ids": [],
+          "first_alarm_time_s": 115.501,
+          "forward_response_result_sha256": "a3d264ccd900300a4bd2c665fc3af0ff8fd22475883fd895bb765a1854d574af",
+          "vetoed_fault_ids": [
+            "IT161:Offset"
+          ],
+          "unresolved_reason_codes": [
+            "SENSOR_OFFSET_UNCORROBORATED_PHYSICAL_RESPONSE_UNRESOLVED"
+          ],
+          "fits": []
+        },
+        {
+          "case_id": "Exp_692_pb_t2",
+          "group_id": "80ca0220514d04d6fd6c7abeeb8d4d28c18fe5cf54088ad8528054463017199c",
+          "true_fault_ids": [
+            "LGT405:FailedOff",
+            "LGT406:FailedOff"
+          ],
+          "r27_predicted_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "LGT405:FailedOff",
+            "LGT406:FailedOff"
+          ],
+          "first_alarm_time_s": 131.502,
+          "forward_response_result_sha256": "a0b4447ed9aece808635813dc533550bb66a01baa45ff9e436b12e5763b1d2e0",
+          "vetoed_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "LGT406:FailedOff",
+              "fit_score": 83.01303364795707,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "LGT406",
+                "component_type": "LightBulb25W",
+                "fault_mode": "FailedOff",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFF",
+                "transition_kind": "PLANT_COMPONENT_MODE_TRANSITION",
+                "expected_response_codes": [
+                  "LOCAL_TEMPERATURE_COOLING",
+                  "SHARED_LIGHT_OUTPUT_DROP"
+                ]
+              },
+              "observed_response_codes": [
+                "LOCAL_TEMPERATURE_COOLING_OBSERVED",
+                "SHARED_LIGHT_OUTPUT_DROP_OBSERVED"
+              ],
+              "source_component_ids": [
+                "LGT406",
+                "LT505",
+                "TE506",
+                "WI274"
+              ],
+              "metrics": {
+                "temperature_late_delta": -27.857937363837294,
+                "shared_light_relative_delta": -0.5155096284119783
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "LGT405:FailedOff",
+              "fit_score": 71.58239915627247,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "LGT405",
+                "component_type": "LightBulb25W",
+                "fault_mode": "FailedOff",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFF",
+                "transition_kind": "PLANT_COMPONENT_MODE_TRANSITION",
+                "expected_response_codes": [
+                  "LOCAL_TEMPERATURE_COOLING",
+                  "SHARED_LIGHT_OUTPUT_DROP"
+                ]
+              },
+              "observed_response_codes": [
+                "LOCAL_TEMPERATURE_COOLING_OBSERVED",
+                "SHARED_LIGHT_OUTPUT_DROP_OBSERVED"
+              ],
+              "source_component_ids": [
+                "LGT405",
+                "LT505",
+                "TE505",
+                "WI274"
+              ],
+              "metrics": {
+                "temperature_late_delta": -16.427302872152694,
+                "shared_light_relative_delta": -0.5155096284119783
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_696_pb_t2",
+          "group_id": "86be81ece91737401bd5b030cecacf6c7f579f1c15f2fbaf0bff02ce46bf5f6c",
+          "true_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "r27_predicted_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "first_alarm_time_s": 118.502,
+          "forward_response_result_sha256": "b1703ae5494d1ceb32bae54af4423d178b5945c09e8f7b0e380dd88abd7d518e",
+          "vetoed_fault_ids": [],
+          "unresolved_reason_codes": [],
+          "fits": [
+            {
+              "fault_id": "IT140:Offset",
+              "fit_score": 447.3247604703747,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "IT140",
+                "component_type": "DCCurrentTransmitter50",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "IT140"
+              ],
+              "metrics": {
+                "onset_time_s": 118.502,
+                "step_z": 417.3247604703747,
+                "relative_step": 0.8346495209407494,
+                "post_pre_std_ratio": 2.826002449425451
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            },
+            {
+              "fault_id": "FT520:Offset",
+              "fit_score": 73.96787718714286,
+              "fit_status": "SUPPORTED",
+              "transition": {
+                "component_id": "FT520",
+                "component_type": "FlowTransmitter",
+                "fault_mode": "Offset",
+                "from_mode": "NOMINAL_OR_CURRENT_MODE",
+                "to_mode": "OFFSET_OBSERVATION",
+                "transition_kind": "SENSOR_OBSERVATION_FAULT",
+                "expected_response_codes": [
+                  "OWN_CHANNEL_ADDITIVE_STEP",
+                  "POST_STEP_DYNAMICS_RETAINED",
+                  "STEP_PERSISTS"
+                ]
+              },
+              "observed_response_codes": [
+                "ADDITIVE_STEP_OBSERVED",
+                "POST_STEP_VARIABILITY_RETAINED",
+                "STEP_PERSISTED"
+              ],
+              "source_component_ids": [
+                "FT520"
+              ],
+              "metrics": {
+                "onset_time_s": 119.002,
+                "step_z": 43.96787718714286,
+                "relative_step": 1.0,
+                "post_pre_std_ratio": 2.444613190578689
+              },
+              "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "combined_post_contact_development": {
+    "r27_metrics": {
+      "case_count": 25,
+      "fault_element_precision_micro": 0.84375,
+      "fault_element_recall_micro": 0.7941176470588235,
+      "fault_element_f1_micro": 0.8181818181818182,
+      "component_precision_micro": 0.84375,
+      "component_recall_micro": 0.7941176470588235,
+      "component_f1_micro": 0.8181818181818182,
+      "exact_fault_set_rate": 0.8,
+      "faulty_case_any_fault_element_overlap_rate": 0.84,
+      "mean_predicted_fault_count": 1.28,
+      "early_first_alarm_case_count": 3,
+      "post_injection_first_alarm_case_count": 21,
+      "no_alarm_case_count": 1,
+      "post_injection_first_alarm_rate": 0.84,
+      "median_post_injection_delay_s": 0.34499999999999886
+    },
+    "r28_metrics": {
+      "case_count": 25,
+      "fault_element_precision_micro": 1.0,
+      "fault_element_recall_micro": 0.9705882352941176,
+      "fault_element_f1_micro": 0.9850746268656716,
+      "component_precision_micro": 1.0,
+      "component_recall_micro": 0.9705882352941176,
+      "component_f1_micro": 0.9850746268656716,
+      "exact_fault_set_rate": 0.96,
+      "faulty_case_any_fault_element_overlap_rate": 0.96,
+      "mean_predicted_fault_count": 1.32,
+      "diagnostic_resolution_rate": 0.96,
+      "unresolved_case_count": 1,
+      "resolved_exact_fault_set_rate": 1.0
+    }
+  },
+  "changed_case_count": 5,
+  "changed_case_ids": [
+    "Exp_665_pb_t2ff",
+    "Exp_676_pb_t2",
+    "Exp_644_pb_t2f",
+    "Exp_658_pb_t2",
+    "Exp_692_pb_t2"
+  ],
+  "unresolved_case_count": 1,
+  "unresolved_case_ids": [
+    "Exp_658_pb_t2"
+  ],
+  "modeled_scope": [
+    "numeric sensor Stuck observation transition",
+    "large additive numeric sensor Offset observation transition",
+    "LightBulb25W FailedOff local-thermal/shared-light forward response",
+    "sensor-only Offset consistency veto with explicit unresolved disposition"
+  ],
+  "continuous_physics_simulator": false,
+  "agent_required": false,
+  "legacy_algorithm_retained": true,
+  "runtime_default_changed": false,
+  "competition_or_rematch_regenerated": false,
+  "new_holdout_supplied": false,
+  "stop_rule": "STOP_AFTER_FIXED_R28_MODEL_AUDIT_NO_FURTHER_CASE_SPECIFIC_RULE_OPTIMIZATION",
+  "status": "POST_CONTACT_DEVELOPMENT_FORWARD_MODEL_AUDIT_ONLY",
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R28 was developed after inspection of DXC09 Sample development outcomes. Metrics are post-contact remediation evidence only. The qualitative forward model is not HyDE, a continuous electrical simulator, posterior probability, or formal evidence. Competition/Rematch are not consumed and production runtime defaults are unchanged.",
+  "receipt_sha256": "9dc4e37c327e1d51ba368a1e702c5b986a0fd9c2f53376e54c258b39eaaa64db"
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "astrograph.p018.sat-agent-time-axis-repair-project-owner-attestation.v1",
+  "attestation_id": "P018-S0-SAT-AGENT-TIME-AXIS-REPAIR-PROJECT-OWNER-001",
+  "status": "APPROVED",
+  "approved_on": "2026-08-02",
+  "recorded_at": "2026-08-02T13:17:59.6727984Z",
+  "approver_role": "PROJECT_OWNER",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "source_count": 1,
+  "authorized_source_root_token": "${SAT_AGENT_PLATFORM_ROOT}",
+  "authorized_target_count": 57,
+  "approval_terms": [
+    "Add an explicit per-row time_s under sat_agent_public_time_axis.v1.",
+    "Declare the endpoint policy for every affected export family.",
+    "Preserve row count, row order and every non-time physical payload byte.",
+    "Keep the complete 237-case structural denominator; every repair failure remains a failure.",
+    "Do not add labels, truth, fault identity, seed, split or simulator-answer proxy fields.",
+    "Use the independent Sat-Agent environment only for non-fitting source validation."
+  ],
+  "permissions": {
+    "astrograph_repair_tooling_and_receipts": true,
+    "sat_agent_source_write": true,
+    "sat_agent_non_fitting_source_validation": true,
+    "model_fit_or_calibration": false,
+    "new_seed": false,
+    "stage_s1": false,
+    "stage_b": false,
+    "formal_technical_validation": false
+  },
+  "sha256_bindings": {
+    "time_axis_schema": "22cd70a5d4e8fe4754321fd8df5d88d3b6dfbfb73d5a92dc6f2bb31a73a67736",
+    "repair_protocol": "38899b6cdcc75e9e1aa50872ebb62f0ff5af269e35f47cfa471f817232cbf067",
+    "pre_repair_semantic_evidence": "cbfbbf321c954b84db5bffd9966dcd9fcba2081716f909fc185b032c1fb7fa29"
+  },
+  "claim_boundary": "Project-owner approval for exactly 57 P-018 S0 public-export time-axis repairs. It is not Timer approval for fitting, seeds, Stage S1, Stage B, formal technical validation or acceptance."
+}

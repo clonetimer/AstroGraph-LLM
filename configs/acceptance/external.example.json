@@ -1,0 +1,27 @@
+{
+  "schema_version": "astrograph-mission-settings.v1",
+  "project_root": ".",
+  "read_roots": [
+    "."
+  ],
+  "output_root": "../AstroGraph-external-runs",
+  "planner": "deterministic",
+  "max_checks": 3,
+  "max_optional_actions": 2,
+  "max_llm_calls": 6,
+  "domain": "adcs",
+  "evidence_profile": "sensor-checks",
+  "approved_model_sha256": [
+    "39062457c1ed6d68c1478afa1d125ba54b80a6e07936de0a4078dca865852732"
+  ],
+  "allow_external_literature": false,
+  "allow_a2o": false,
+  "allow_mineru": false,
+  "llm_config": null,
+  "embedding_model_path": null,
+  "reranker_model_path": null,
+  "paperseek_url": null,
+  "paperseek_source_root": null,
+  "a2o_source_root": null,
+  "mineru_executable": null
+}

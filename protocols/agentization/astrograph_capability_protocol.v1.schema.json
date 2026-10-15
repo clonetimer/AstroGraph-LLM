@@ -1,0 +1,46 @@
+{
+  "$id": "astrograph-capability-protocol.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "method": {
+      "enum": [
+        "health",
+        "capabilities.list",
+        "capabilities.invoke",
+        "jobs.status",
+        "shutdown"
+      ]
+    },
+    "params": {
+      "type": "object"
+    },
+    "profile": {
+      "enum": [
+        "DIAGNOSIS",
+        "DEVELOPMENT",
+        "POSTHOC_AUDIT",
+        "EVIDENCE_CURATION",
+        "CONFIRMATORY_SEALED",
+        "MAINTAINER",
+        "SHADOW"
+      ]
+    },
+    "protocol_version": {
+      "const": "astrograph-capability-protocol.v1"
+    },
+    "request_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "protocol_version",
+    "request_id",
+    "method",
+    "profile",
+    "params"
+  ],
+  "title": "AstroGraph Capability Request",
+  "type": "object"
+}

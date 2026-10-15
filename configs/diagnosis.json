@@ -1,0 +1,21 @@
+{
+  "policy_version": "diagnosis-policy-0.4.3",
+  "min_score": 0.45,
+  "min_margin": 0.08,
+  "min_evidence_count": 1,
+  "role_factors": {
+    "direct": 1.0,
+    "indirect": 0.6,
+    "cascade": 0.35
+  },
+  "evidence_level_factors": {
+    "E0": 0.7,
+    "E1": 0.8,
+    "E2": 0.9,
+    "E3": 1.0,
+    "E4": 1.0
+  },
+  "provisional_factor": 0.85,
+  "claim_boundary": "D0/D1/D3 synthetic engineering evidence only; not flight-qualified, calibrated probability, or RUL.",
+  "coverage_floor": 0.5
+}

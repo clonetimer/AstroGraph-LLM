@@ -1,0 +1,165 @@
+{
+  "$id": "https://astrograph.local/schemas/claim-record.v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifacts": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "claim_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "claim_scope": {
+      "enum": [
+        "INTERNAL_METHOD_VALIDITY",
+        "POST_HOC_EVIDENCE",
+        "TASK_LEVEL_EXTERNAL_VALIDITY",
+        "SUBSYSTEM_PHYSICAL_VALIDITY",
+        "DOMAIN_EXTERNAL_VALIDITY",
+        "UNIVERSAL_KG_GAIN",
+        "HIL_VALIDITY",
+        "FLIGHT_VALIDITY",
+        "FLIGHT_QUALIFICATION",
+        "SAFETY_QUALIFICATION",
+        "G0_G4_STATUS"
+      ]
+    },
+    "claim_text": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "data_previously_used_for_development": {
+      "type": "boolean"
+    },
+    "dataset_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "dataset_profile_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "evaluation_use": {
+      "enum": [
+        "DEVELOPMENT",
+        "POST_HOC_AUDIT",
+        "CONFIRMATORY"
+      ]
+    },
+    "groups_used": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "label_ontology_record_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "notes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "parameter_selection_groups": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "policy_frozen_before_evaluation": {
+      "type": "boolean"
+    },
+    "primary_endpoint": {
+      "type": "string"
+    },
+    "project_policy_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "project_status": {
+      "enum": [
+        "VALIDATED_STABLE_BASELINE",
+        "WIP_NOT_RELEASED",
+        "RELEASE_CANDIDATE",
+        "RELEASED"
+      ]
+    },
+    "project_version": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "qualification_change_requested": {
+      "type": "boolean"
+    },
+    "record_state": {
+      "enum": [
+        "DRAFT",
+        "EVIDENCE_BOUND",
+        "FROZEN",
+        "WITHDRAWN"
+      ]
+    },
+    "schema_version": {
+      "const": "astrograph-claim-record.v1"
+    },
+    "statistical_unit": {
+      "enum": [
+        "TRAJECTORY_GROUP",
+        "MONTE_CARLO_GROUP",
+        "EXPERIMENT_ID",
+        "EVENT_CLUSTER",
+        "CHANNEL_EVENT_CLUSTER",
+        "SEALED_CAMPAIGN_BLOCK"
+      ]
+    },
+    "task_type": {
+      "enum": [
+        "ANOMALY_DETECTION",
+        "TEMPORAL_LOCALIZATION",
+        "FAULT_IDENTIFICATION",
+        "ROOT_CAUSE_ATTRIBUTION",
+        "CALIBRATION",
+        "SELECTIVE_PREDICTION",
+        "EXPLANATION_FIDELITY"
+      ]
+    },
+    "truth_join_after_prediction_freeze": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "claim_id",
+    "claim_text",
+    "project_version",
+    "project_status",
+    "project_policy_sha256",
+    "dataset_id",
+    "dataset_profile_sha256",
+    "task_type",
+    "evaluation_use",
+    "claim_scope",
+    "statistical_unit",
+    "groups_used",
+    "parameter_selection_groups",
+    "policy_frozen_before_evaluation",
+    "truth_join_after_prediction_freeze",
+    "data_previously_used_for_development",
+    "qualification_change_requested",
+    "record_state",
+    "artifacts",
+    "notes"
+  ],
+  "title": "AstroGraph Scientific Claim Record v1",
+  "type": "object"
+}

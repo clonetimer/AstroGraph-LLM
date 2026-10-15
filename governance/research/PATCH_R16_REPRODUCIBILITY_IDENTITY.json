@@ -1,0 +1,69 @@
+{
+  "schema_version": "astrograph-r16-reproducibility-identity-closure.v1",
+  "patch": "PATCH-R16",
+  "date": "2026-09-18",
+  "baseline": "PATCH-R15 unified source",
+  "status": "READY_FOR_PACKAGING",
+  "closed_findings": [
+    {
+      "id": "R14-REP-001",
+      "closure": "ENGINEERING_REPRODUCIBILITY_IDENTITY_CLOSED",
+      "claim_boundary": "Does not authenticate a remote producer or qualify model performance."
+    },
+    {
+      "id": "BASE-R16-01",
+      "closure": "MANIFEST_GROUP_ID_PROPAGATION_REPAIRED",
+      "claim_boundary": "Repairs execution/statistics identity propagation only; no performance result is created."
+    },
+    {
+      "id": "BASE-R16-02",
+      "closure": "EXECUTION_RECEIPT_SELF_HASH_REPAIRED",
+      "claim_boundary": "Receipt-integrity repair only; no performance result is created."
+    }
+  ],
+  "frozen_identity_components": [
+    "astrograph_source_manifest",
+    "astrograph_source_checksums",
+    "prompt_implementation",
+    "inference_profile",
+    "python_runtime_and_distribution_lock",
+    "cyclonedx_1_7_sbom",
+    "model_artifact_content_and_revision",
+    "tokenizer_artifact_content_and_revision",
+    "vllm_server_binary_or_container_identity",
+    "vllm_launch_configuration",
+    "gpu_uuid_name_driver_memory",
+    "torch_cuda_runtime",
+    "dataset_snapshot_identity"
+  ],
+  "formal_post_run_requirement": "COMBINED_IDENTITY_STABLE",
+  "remote_origin_authentication": "UNVERIFIED",
+  "real_confirmatory_campaign_executed": false,
+  "probe_formal_evidence_promoted": false,
+  "prepackaging_validation": {
+    "source_integrity_verified_files": 2581,
+    "source_integrity_errors": 0,
+    "collect_only_tests": 3393,
+    "collect_only_errors": 0,
+    "runtime_confirmatory_r15_guard_regression": {
+      "passed": 64,
+      "skipped": 1
+    },
+    "maintenance_platform_regression": {
+      "passed": 115
+    },
+    "distribution_inventory_delivery_regression": {
+      "passed": 20
+    },
+    "chromium_behavior": {
+      "passed": 3
+    },
+    "production_es_modules_node_check": {
+      "passed": 10,
+      "total": 10
+    },
+    "documentation_freshness": "PASS",
+    "source_only_delivery_evidence": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+    "strict_require_bundled": "FAIL_AS_DESIGNED_8_HISTORICAL_EXTERNAL_DEPENDENCIES"
+  }
+}

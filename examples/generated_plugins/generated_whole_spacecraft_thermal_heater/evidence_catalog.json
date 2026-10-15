@@ -1,0 +1,61 @@
+{
+  "schema_version": "astrograph-generated-evidence-catalog.v1",
+  "evidence": [
+    {
+      "evidence_id": "ED-HEATER-MISMATCH-REQUIRED-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_id": "FD-HEATER-CMD-ACTUAL-MISMATCH-FRACTION-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.9,
+      "threshold_unit": "1",
+      "critical": true,
+      "source_refs": [
+        "configs/thermal_star_evidence.json"
+      ],
+      "claim_boundary": "E0 synthetic acceptance threshold."
+    },
+    {
+      "evidence_id": "ED-HEATER-CURRENT-REQUIRED-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_id": "FD-HEATER-CURRENT-MEAN-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.2,
+      "threshold_unit": "A",
+      "critical": true,
+      "source_refs": [
+        "configs/thermal_star_evidence.json"
+      ],
+      "claim_boundary": "E0 synthetic acceptance threshold."
+    },
+    {
+      "evidence_id": "ED-HEATER-TEMP-SUPPORT-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_id": "FD-PAYLOAD-TEMP-PAIRED-MAX-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.05,
+      "threshold_unit": "degC",
+      "critical": false,
+      "source_refs": [
+        "configs/thermal_star_evidence.json"
+      ],
+      "claim_boundary": "E0 synthetic acceptance threshold."
+    },
+    {
+      "evidence_id": "ED-HEATER-BATTERY-SUPPORT-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_id": "FD-BATTERY-CURRENT-PAIRED-MAX-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.1,
+      "threshold_unit": "A",
+      "critical": false,
+      "source_refs": [
+        "configs/thermal_star_evidence.json"
+      ],
+      "claim_boundary": "E0 synthetic acceptance threshold."
+    }
+  ]
+}

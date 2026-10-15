@@ -1,0 +1,20 @@
+{
+  "schema_version": "astrograph-r22-protocol-closure.v2",
+  "status": "READY_FOR_NEW_HOLDOUT_BLOCKED_DATASET",
+  "r21_source_sha256": "6e3d1e7b35a718f32d06ee34ae9b49d6c8b562533fda3d17ae22e75757ed64ec",
+  "r21_evidence_archive_sha256": "b7ea88f13ae1cd122e4e62fa9a8df4ca485142c467e860dcf7795b4f6b77aa45",
+  "replication_plan_sha256": "f3fb9db86150b49037575843eedc4720b2d9c446324b623a93d6a84987c4ae62",
+  "ops_executable_reproduction_sha256": "5319b82b026de4f151f6965191e7e335ec01afacea73740651f3d0fd92d68cb9",
+  "esa_transport_identity_sha256": "16e2711ae29ecef0c2b2238de2637f3c3af236c82642d0f45206ecca30943e2b",
+  "synthetic_protocol_smoke_sha256": "b7e6ac3dea6b0e8a9fb3ffa8f365dec360cbaec1dd4c0aa3f7429cc3870e8999",
+  "ops_ready": true,
+  "esa_ready_for_preprocessed_transport": true,
+  "independent_track_readiness_supported": true,
+  "dxc_ready_for_replication": false,
+  "dxc_reason": "R21_PREREGISTERED_NOT_EXECUTED",
+  "new_real_holdout_admitted": false,
+  "performance_result_generated": false,
+  "new_external_validation_receipt_generated": false,
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "dbd95928becb3815ca09d368463522190496c0d078cdf367fde90700971faa88"
+}

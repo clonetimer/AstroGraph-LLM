@@ -1,0 +1,21 @@
+{
+  "schema_version": "astrograph-governed-document-descriptor.v1",
+  "document_id": "astrograph:confusion:adcs.v5_2_2:adcs_rw_jamming:r001",
+  "document_type": "DESIGN_PROPOSAL",
+  "visibility_class": "DESIGN_PUBLIC",
+  "source_uri": "corpus://confusion-pack-r001/comparisons/adcs.v5_2_2/adcs_rw_jamming.md",
+  "source_sha256": "798277973af3cf49fb37d4d534eb2295abb27f2eeff579b84e164343e27aa13a",
+  "review_state": "REVIEW_REQUIRED",
+  "authority": "NON_NORMATIVE",
+  "provenance_group_id": "synthetic-dataset-taxonomy-confusion-r001",
+  "episode_id": null,
+  "valid_time_start_s": null,
+  "valid_time_end_s": null,
+  "observable_cutoff_time_s": null,
+  "template_version": "adcs-v522-phm-v60-confusion-groups-r001",
+  "generator_sha256": "1a0fb97fc186a0ae157963641fa18aeb717bf40498816997dc4543608b3df87d",
+  "contains_root_cause": false,
+  "contains_episode_truth": false,
+  "synthetic_from_simulation": true,
+  "runtime_vote_allowed": false
+}

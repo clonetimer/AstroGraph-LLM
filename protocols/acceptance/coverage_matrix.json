@@ -1,0 +1,1806 @@
+{
+  "expansion_policy": {
+    "formal_generation_requires_independent_approval": true,
+    "required_case_types": [
+      "normal",
+      "known_single_fault",
+      "known_multifault",
+      "unknown_fault",
+      "data_quality",
+      "operating_condition_shift"
+    ]
+  },
+  "protocol_version": "G1.1",
+  "rows": [
+    {
+      "capability_id": "whole_spacecraft.unified_native.v1",
+      "effect_ids": [],
+      "object_id": "whole_spacecraft",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "whole.nominal_mission",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "whole_spacecraft.unified_native.v1",
+      "effect_ids": [
+        "payload_instrument_off",
+        "adcs_rw_jamming",
+        "adcs_rw_motor_failure",
+        "gyro_bias_step",
+        "comm_data_downlink_link_loss",
+        "eps_battery_capacity_loss",
+        "propulsion_thruster_ignition_failure"
+      ],
+      "object_id": "whole_spacecraft",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "whole.subsystem_failure_propagation",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "whole_spacecraft.unified_native.v1",
+      "effect_ids": [
+        "solar_panel_efficiency_loss",
+        "gyro_noise_increase",
+        "rw_friction_degradation",
+        "thermal_radiator_rejection_loss",
+        "propulsion_burn_impulse_loss"
+      ],
+      "object_id": "whole_spacecraft",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "whole.resource_margin_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.adcs_unified_native.v1",
+      "effect_ids": [],
+      "object_id": "subsystem.adcs",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "adcs.nominal_pointing",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.adcs_unified_native.v1",
+      "effect_ids": [
+        "adcs_rw_jamming",
+        "adcs_rw_motor_failure",
+        "gyro_bias_step"
+      ],
+      "object_id": "subsystem.adcs",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "adcs.actuator_or_sensor_failure",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.adcs_unified_native.v1",
+      "effect_ids": [
+        "gyro_noise_increase",
+        "rw_friction_degradation",
+        "adcs_rw_torque_authority_loss"
+      ],
+      "object_id": "subsystem.adcs",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "adcs.pointing_authority_degradation",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.propulsion.unified_native.v1",
+      "effect_ids": [],
+      "object_id": "subsystem.propulsion",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "propulsion.nominal_burn",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.propulsion.unified_native.v1",
+      "effect_ids": [
+        "thrust_or_feed_failure"
+      ],
+      "object_id": "subsystem.propulsion",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "propulsion.thrust_or_feed_failure",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.propulsion.unified_native.v1",
+      "effect_ids": [
+        "performance_degradation"
+      ],
+      "object_id": "subsystem.propulsion",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "propulsion.performance_degradation",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.eps.unified_native.v1",
+      "effect_ids": [],
+      "object_id": "subsystem.eps",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "eps.nominal_power_balance",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.eps.unified_native.v1",
+      "effect_ids": [
+        "generation_storage_distribution_failure"
+      ],
+      "object_id": "subsystem.eps",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "eps.generation_storage_distribution_failure",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.eps.unified_native.v1",
+      "effect_ids": [
+        "energy_margin_degradation"
+      ],
+      "object_id": "subsystem.eps",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "eps.energy_margin_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.thermal.basic_lumped.v1",
+      "effect_ids": [],
+      "object_id": "subsystem.thermal",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thermal.nominal_regulation",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.thermal.basic_lumped.v1",
+      "effect_ids": [
+        "heating_or_rejection_failure"
+      ],
+      "object_id": "subsystem.thermal",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thermal.heating_or_rejection_failure",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.thermal.basic_lumped.v1",
+      "effect_ids": [
+        "radiator_degradation_factor"
+      ],
+      "object_id": "subsystem.thermal",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thermal.control_margin_degradation",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.payload.source_native.v1",
+      "effect_ids": [],
+      "object_id": "subsystem.payload",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload.nominal_observation",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.payload.source_native.v1",
+      "effect_ids": [
+        "instrument_failure"
+      ],
+      "object_id": "subsystem.payload",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload.instrument_failure",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.payload.source_native.v1",
+      "effect_ids": [
+        "quality_or_rate_degradation"
+      ],
+      "object_id": "subsystem.payload",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload.quality_or_rate_degradation",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.comm_data.unified_native.v1",
+      "effect_ids": [],
+      "object_id": "subsystem.comm_data",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "comm_data.nominal_downlink",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.comm_data.unified_native.v1",
+      "effect_ids": [
+        "link_or_storage_failure"
+      ],
+      "object_id": "subsystem.comm_data",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "comm_data.link_or_storage_failure",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "subsystem.comm_data.unified_native.v1",
+      "effect_ids": [
+        "margin_or_throughput_degradation"
+      ],
+      "object_id": "subsystem.comm_data",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "comm_data.margin_or_throughput_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.antenna.v1",
+      "effect_ids": [],
+      "object_id": "component.antenna",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "antenna.nominal_gain",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.antenna.v1",
+      "effect_ids": [
+        "pointing_loss",
+        "feed_open",
+        "gain_drop"
+      ],
+      "object_id": "component.antenna",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "antenna.pointing_loss",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.antenna.v1",
+      "effect_ids": [
+        "surface_contamination",
+        "pointing_bias_drift"
+      ],
+      "object_id": "component.antenna",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "antenna.gain_degradation",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.battery.v1",
+      "effect_ids": [],
+      "object_id": "component.battery",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "battery.nominal_charge_discharge",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.battery.v1",
+      "effect_ids": [
+        "open_circuit",
+        "sudden_capacity_loss"
+      ],
+      "object_id": "component.battery",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "battery.open_circuit",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.battery.v1",
+      "effect_ids": [
+        "capacity_loss_pct",
+        "internal_resistance_increase_pct"
+      ],
+      "object_id": "component.battery",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "battery.capacity_loss",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.cmg.v1",
+      "effect_ids": [],
+      "object_id": "component.cmg",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "cmg.nominal_torque",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.cmg.v1",
+      "effect_ids": [
+        "gimbal_stuck",
+        "wheel_drive_fault",
+        "rate_limit_fault"
+      ],
+      "object_id": "component.cmg",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "cmg.gimbal_lock",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.cmg.v1",
+      "effect_ids": [
+        "gimbal_friction_growth",
+        "momentum_loss"
+      ],
+      "object_id": "component.cmg",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "cmg.torque_authority_loss",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.data_queue.v1",
+      "effect_ids": [],
+      "object_id": "component.data_queue",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "data_queue.nominal_flow",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.data_queue.v1",
+      "effect_ids": [
+        "overflow",
+        "read_stall",
+        "priority_inversion"
+      ],
+      "object_id": "component.data_queue",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "data_queue.overflow",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.data_queue.v1",
+      "effect_ids": [
+        "throughput_decay",
+        "packet_error_growth"
+      ],
+      "object_id": "component.data_queue",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "data_queue.service_rate_degradation",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.fuel_tank.v1",
+      "effect_ids": [],
+      "object_id": "component.fuel_tank",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "fuel_tank.nominal_feed",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.fuel_tank.v1",
+      "effect_ids": [
+        "leak",
+        "outlet_blockage",
+        "pressure_sensor_fault"
+      ],
+      "object_id": "component.fuel_tank",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "fuel_tank.leak",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.fuel_tank.v1",
+      "effect_ids": [
+        "pressure_decay",
+        "outlet_aging"
+      ],
+      "object_id": "component.fuel_tank",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "fuel_tank.feed_pressure_degradation",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.ground_station.v1",
+      "effect_ids": [],
+      "object_id": "component.ground_station",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "ground_station.nominal_pass",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.ground_station.v1",
+      "effect_ids": [
+        "tracking_loss",
+        "weather_fade",
+        "receiver_outage"
+      ],
+      "object_id": "component.ground_station",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "ground_station.unavailable",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.ground_station.v1",
+      "effect_ids": [
+        "gover_tdrift",
+        "pointing_accuracy_drift"
+      ],
+      "object_id": "component.ground_station",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "ground_station.receive_margin_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.heater.v1",
+      "effect_ids": [],
+      "object_id": "component.heater",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "heater.nominal_switching",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.heater.v1",
+      "effect_ids": [
+        "stuck_off",
+        "stuck_on",
+        "relay_chatter"
+      ],
+      "object_id": "component.heater",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "heater.stuck_off",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.heater.v1",
+      "effect_ids": [
+        "heating_efficiency_decay",
+        "resistance_drift"
+      ],
+      "object_id": "component.heater",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "heater.power_degradation",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.imu.v1",
+      "effect_ids": [],
+      "object_id": "component.imu",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "imu.nominal_measurement",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.imu.v1",
+      "effect_ids": [
+        "bias_step",
+        "axis_dropout",
+        "noise_burst"
+      ],
+      "object_id": "component.imu",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "imu.measurement_dropout",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.imu.v1",
+      "effect_ids": [
+        "bias_drift",
+        "noise_density_growth"
+      ],
+      "object_id": "component.imu",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "imu.bias_noise_growth",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.link_budget.v1",
+      "effect_ids": [],
+      "object_id": "component.link_budget",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "link_budget.nominal_margin",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.link_budget.v1",
+      "effect_ids": [
+        "jamming",
+        "fade",
+        "antenna_mispointing"
+      ],
+      "object_id": "component.link_budget",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "link_budget.link_outage",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.link_budget.v1",
+      "effect_ids": [
+        "margin_erosion",
+        "noise_figure_growth"
+      ],
+      "object_id": "component.link_budget",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "link_budget.margin_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.magnetometer.v1",
+      "effect_ids": [],
+      "object_id": "component.magnetometer",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "magnetometer.nominal_measurement",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.magnetometer.v1",
+      "effect_ids": [
+        "axis_bias",
+        "axis_dropout",
+        "saturation"
+      ],
+      "object_id": "component.magnetometer",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "magnetometer.dropout",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.magnetometer.v1",
+      "effect_ids": [
+        "bias_drift",
+        "scale_factor_drift"
+      ],
+      "object_id": "component.magnetometer",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "magnetometer.bias_noise_growth",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.mtb.v1",
+      "effect_ids": [],
+      "object_id": "component.mtb",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "mtb.nominal_dipole",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.mtb.v1",
+      "effect_ids": [
+        "mtb_coil_open",
+        "mtb_communication_loss",
+        "mtb_coil_short"
+      ],
+      "object_id": "component.mtb",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "mtb.coil_open",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.mtb.v1",
+      "effect_ids": [
+        "mtb_dipole_capacity_loss",
+        "mtb_response_lag_increase"
+      ],
+      "object_id": "component.mtb",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "mtb.dipole_capacity_loss",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.onboard_storage.v1",
+      "effect_ids": [],
+      "object_id": "component.onboard_storage",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "onboard_storage.nominal_buffering",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.onboard_storage.v1",
+      "effect_ids": [
+        "bad_block",
+        "read_only",
+        "corruption"
+      ],
+      "object_id": "component.onboard_storage",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "onboard_storage.overflow",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.onboard_storage.v1",
+      "effect_ids": [
+        "capacity_loss",
+        "bit_error_growth"
+      ],
+      "object_id": "component.onboard_storage",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "onboard_storage.capacity_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.payload.v1",
+      "effect_ids": [],
+      "object_id": "component.payload",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload.nominal_operation",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.payload.v1",
+      "effect_ids": [
+        "instrument_off",
+        "saturation",
+        "pointing_limit"
+      ],
+      "object_id": "component.payload",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload.shutdown",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.payload.v1",
+      "effect_ids": [
+        "sensitivity_decay",
+        "dark_current_growth"
+      ],
+      "object_id": "component.payload",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload.throughput_degradation",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.payload_sensor.v1",
+      "effect_ids": [],
+      "object_id": "component.payload_sensor",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload_sensor.nominal_observation",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.payload_sensor.v1",
+      "effect_ids": [
+        "pixel_dropout",
+        "blur",
+        "radiation_hit"
+      ],
+      "object_id": "component.payload_sensor",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload_sensor.data_corruption",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.payload_sensor.v1",
+      "effect_ids": [
+        "responsivity_decay",
+        "noise_growth"
+      ],
+      "object_id": "component.payload_sensor",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "payload_sensor.sensitivity_degradation",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.pdu.v1",
+      "effect_ids": [],
+      "object_id": "component.pdu",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "pdu.nominal_distribution",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.pdu.v1",
+      "effect_ids": [
+        "channel_trip",
+        "over_current",
+        "switch_stuck"
+      ],
+      "object_id": "component.pdu",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "pdu.channel_trip",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.pdu.v1",
+      "effect_ids": [
+        "contact_resistance_growth",
+        "voltage_regulation_drift"
+      ],
+      "object_id": "component.pdu",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "pdu.efficiency_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.power_sink.v1",
+      "effect_ids": [],
+      "object_id": "component.power_sink",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "power_sink.nominal_load",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.power_sink.v1",
+      "effect_ids": [
+        "overload",
+        "intermittent_load",
+        "open_load"
+      ],
+      "object_id": "component.power_sink",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "power_sink.overcurrent",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.power_sink.v1",
+      "effect_ids": [
+        "load_drift",
+        "efficiency_decay"
+      ],
+      "object_id": "component.power_sink",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "power_sink.efficiency_degradation",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.radiator.v1",
+      "effect_ids": [],
+      "object_id": "component.radiator",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "radiator.nominal_rejection",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.radiator.v1",
+      "effect_ids": [
+        "radiator_rejection_loss",
+        "radiator_surface_contamination"
+      ],
+      "object_id": "component.radiator",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "radiator.rejection_loss",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.radiator.v1",
+      "effect_ids": [
+        "radiator_emissivity_decay",
+        "radiator_area_degradation"
+      ],
+      "object_id": "component.radiator",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "radiator.emissivity_decay",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.reaction_wheel.v1",
+      "effect_ids": [],
+      "object_id": "component.reaction_wheel",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "reaction_wheel.nominal_torque",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.reaction_wheel.v1",
+      "effect_ids": [
+        "rw_jamming",
+        "rw_motor_failure"
+      ],
+      "object_id": "component.reaction_wheel",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "reaction_wheel.jamming",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.reaction_wheel.v1",
+      "effect_ids": [
+        "friction_increase_pct",
+        "bearing_wear_factor"
+      ],
+      "object_id": "component.reaction_wheel",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "reaction_wheel.friction_increase",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.solar_panel.v1",
+      "effect_ids": [],
+      "object_id": "component.solar_panel",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "solar_panel.nominal_generation",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.solar_panel.v1",
+      "effect_ids": [
+        "solar_panel_failure",
+        "solar_panel_degradation",
+        "deployment_failure"
+      ],
+      "object_id": "component.solar_panel",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "solar_panel.string_failure",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.solar_panel.v1",
+      "effect_ids": [
+        "efficiency_loss_pct",
+        "radiation_damage_factor"
+      ],
+      "object_id": "component.solar_panel",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "solar_panel.efficiency_loss",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.star_tracker.v1",
+      "effect_ids": [],
+      "object_id": "component.star_tracker",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "star_tracker.nominal_attitude",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.star_tracker.v1",
+      "effect_ids": [
+        "blinding",
+        "dropout",
+        "misalignment"
+      ],
+      "object_id": "component.star_tracker",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "star_tracker.lost_in_space",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.star_tracker.v1",
+      "effect_ids": [
+        "centroid_noise_growth",
+        "boresight_drift"
+      ],
+      "object_id": "component.star_tracker",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "star_tracker.accuracy_degradation",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.sun_sensor.v1",
+      "effect_ids": [],
+      "object_id": "component.sun_sensor",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "sun_sensor.nominal_vector",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.sun_sensor.v1",
+      "effect_ids": [
+        "false_eclipse",
+        "cell_failure",
+        "contamination"
+      ],
+      "object_id": "component.sun_sensor",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "sun_sensor.blinding",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.sun_sensor.v1",
+      "effect_ids": [
+        "sensitivity_decay",
+        "bias_drift"
+      ],
+      "object_id": "component.sun_sensor",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "sun_sensor.accuracy_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.thermal_node.v1",
+      "effect_ids": [],
+      "object_id": "component.thermal_node",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thermal_node.nominal_balance",
+      "scenario_type": "nominal",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.thermal_node.v1",
+      "effect_ids": [
+        "thermal_runaway",
+        "sensor_bias",
+        "blocked_heat_path"
+      ],
+      "object_id": "component.thermal_node",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thermal_node.thermal_path_break",
+      "scenario_type": "fault",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.thermal_node.v1",
+      "effect_ids": [
+        "thermal_resistance_growth",
+        "heat_capacity_drift"
+      ],
+      "object_id": "component.thermal_node",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thermal_node.conductance_degradation",
+      "scenario_type": "degradation",
+      "split_group": "validation",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.thruster.v1",
+      "effect_ids": [],
+      "object_id": "component.thruster",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thruster.nominal_firing",
+      "scenario_type": "nominal",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.thruster.v1",
+      "effect_ids": [
+        "valve_stuck_closed",
+        "valve_stuck_open",
+        "nozzle_blockage"
+      ],
+      "object_id": "component.thruster",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thruster.fail_off",
+      "scenario_type": "fault",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.thruster.v1",
+      "effect_ids": [
+        "isp_decay",
+        "thrust_coefficient_drift"
+      ],
+      "object_id": "component.thruster",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "thruster.thrust_loss",
+      "scenario_type": "degradation",
+      "split_group": "holdout",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.transmitter.v1",
+      "effect_ids": [],
+      "object_id": "component.transmitter",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "transmitter.nominal_downlink",
+      "scenario_type": "nominal",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.transmitter.v1",
+      "effect_ids": [
+        "power_amplifier_fault",
+        "frequency_drift_fault",
+        "signal_loss"
+      ],
+      "object_id": "component.transmitter",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "transmitter.fail_off",
+      "scenario_type": "fault",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    },
+    {
+      "capability_id": "component.transmitter.v1",
+      "effect_ids": [
+        "output_power_decay",
+        "frequency_stability_drift"
+      ],
+      "object_id": "component.transmitter",
+      "required_case_types": [
+        "normal",
+        "known_single_fault",
+        "known_multifault",
+        "unknown_fault",
+        "data_quality",
+        "operating_condition_shift"
+      ],
+      "scenario_id": "transmitter.power_or_rate_degradation",
+      "scenario_type": "degradation",
+      "split_group": "development",
+      "support_status": "SUPPORTED"
+    }
+  ],
+  "schema_version": "astrograph-coverage-matrix.v1",
+  "status": "FROZEN_TECHNICAL"
+}

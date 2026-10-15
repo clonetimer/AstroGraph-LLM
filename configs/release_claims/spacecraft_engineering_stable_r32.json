@@ -1,0 +1,34 @@
+{
+  "schema_version": "astrograph-release-claim-manifest.v1",
+  "release_id": "AstroGraph-0.7.1.post49-spacecraft-engineering-r32-diagnostic-claims",
+  "claims": [
+    {
+      "claim_id": "r32-cross-condition-generalization",
+      "claim_type": "CROSS_CONDITION_GENERALIZATION",
+      "disposition": "NOT_CLAIMED",
+      "statement": "R32 spacecraft feature freeze does not claim broad independent cross-condition diagnostic generalization; dataset-specific evidence retains its original protocol boundaries.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "governance/evidence/research/r32_spacecraft_convergence/PATCH_R32_SPACECRAFT_CONVERGENCE.json"
+      ]
+    },
+    {
+      "claim_id": "r32-cross-satellite-generalization",
+      "claim_type": "CROSS_SATELLITE_GENERALIZATION",
+      "disposition": "NOT_CLAIMED",
+      "statement": "R32 does not claim that admitted spacecraft benchmark performance automatically transfers to other spacecraft, missions or simulator families.",
+      "required_model_ids": [],
+      "source_artifacts": [
+        "docs/ASTROGRAPH_SPACECRAFT_SCOPE_CONVERGENCE_R32.md"
+      ]
+    },
+    {
+      "claim_id": "r32-flight-validation",
+      "claim_type": "FLIGHT_VALIDATION",
+      "disposition": "NOT_CLAIMED",
+      "statement": "R32 does not claim HIL, target-hardware, safety or flight qualification.",
+      "required_model_ids": [],
+      "source_artifacts": ["release.json"]
+    }
+  ]
+}

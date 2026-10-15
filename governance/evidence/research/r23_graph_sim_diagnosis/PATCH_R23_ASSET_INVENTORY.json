@@ -1,0 +1,163 @@
+{
+  "assets": [
+    {
+      "asset_id": "ADCS_V5_2_2",
+      "claim_boundary": "Archive/schema inventory only. Per-case labels, frozen predictions and embedded performance reports are not consumed for R23 model fitting/tuning/selection/calibration/optimization.",
+      "evaluation_content_consumed_for_selection": false,
+      "extension_counts": {
+        ".csv": 5462,
+        ".json": 1834,
+        ".md": 1,
+        ".sha256": 1
+      },
+      "filename": "ADCS.zip",
+      "member_count": 7298,
+      "receipt_sha256": "dd7e95adc3de4cebf52a12b893f9cea7aaa0f7330f615062339b5dbc96ce0862",
+      "role": "DATASET_GOVERNED_SCHEMA_ONLY_NO_R23_MODEL_SELECTION",
+      "schema_facts": {
+        "dataset_manifest": {
+          "anomaly_condition_count": 22,
+          "capability_id": "whole_spacecraft.unified_native.v1",
+          "condition_count": 23,
+          "design": "mission_x_valid_operating_phase_x_single_fault_x_latin_hypercube_sample_with_shared_mission_nominal_baseline",
+          "fault_run_count": 880,
+          "mission_count": 3,
+          "nominal_baseline_run_count": 30,
+          "operating_scenario_count": 4,
+          "schema_version": "sat-sim.whole-spacecraft-adcs-paired-dataset.v5.2.2",
+          "status": "complete_with_warnings",
+          "total_run_count": 910
+        },
+        "dataset_manifest_member": "whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json"
+      },
+      "schema_version": "astrograph-r23-source-asset-inventory.v1",
+      "source_artifact_sha256": "86d6f0cca1436d51a882e5b9bcd8e5073c7930fcffc167d26787b9a8e220e4da",
+      "source_size_bytes": 128472015,
+      "top_roots": [
+        "whole_spacecraft_adcs_paired_dataset_v5_2_2"
+      ],
+      "uncompressed_size_bytes": 709466629
+    },
+    {
+      "asset_id": "PHM_V6_0",
+      "claim_boundary": "Archive/schema inventory only. Per-case labels, frozen predictions and embedded performance reports are not consumed for R23 model fitting/tuning/selection/calibration/optimization.",
+      "evaluation_content_consumed_for_selection": false,
+      "extension_counts": {
+        ".csv": 3365,
+        ".json": 1126,
+        ".md": 4,
+        ".sha256": 1
+      },
+      "filename": "sat.zip",
+      "member_count": 4496,
+      "receipt_sha256": "18db19504ee1982a04cd8c621ca1ce918a5c92eaea1874495547d210c1ca88ee",
+      "role": "DATASET_GOVERNED_SCHEMA_ONLY_NO_R23_MODEL_SELECTION",
+      "schema_facts": {
+        "dataset_manifest": {
+          "expected_new_sample_count": 560,
+          "fault_count": 17,
+          "logical_total_sample_count": 1470,
+          "monte_carlo_method": "deterministic_latin_hypercube",
+          "new_sample_count": 560,
+          "phase_count": 3,
+          "referenced_adcs_sample_count": 910,
+          "schema_version": "sat-sim.whole-spacecraft-phm-dataset.v6.0",
+          "status": "PASS",
+          "subsystems": [
+            "eps",
+            "thermal",
+            "comm_data",
+            "payload",
+            "propulsion"
+          ]
+        },
+        "dataset_manifest_member": "whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json"
+      },
+      "schema_version": "astrograph-r23-source-asset-inventory.v1",
+      "source_artifact_sha256": "21ff16cb8361344a75f33ff2f7594e39603378c011687be80882ef09b804b2c5",
+      "source_size_bytes": 99936148,
+      "top_roots": [
+        "whole_spacecraft_phm_dataset_v6_0"
+      ],
+      "uncompressed_size_bytes": 585910060
+    },
+    {
+      "asset_id": "SAT_SIM_PLATFORM",
+      "claim_boundary": "Archive/schema inventory only. Per-case labels, frozen predictions and embedded performance reports are not consumed for R23 model fitting/tuning/selection/calibration/optimization.",
+      "evaluation_content_consumed_for_selection": false,
+      "extension_counts": {
+        ".bat": 14,
+        ".csv": 2,
+        ".docx": 1,
+        ".json": 150,
+        ".m": 207,
+        ".mat": 3,
+        ".md": 6,
+        ".npy": 1,
+        ".original": 1,
+        ".ps1": 4,
+        ".py": 80,
+        ".pyc": 45,
+        ".slx": 4,
+        ".slxc": 2,
+        ".toml": 5,
+        ".txt": 3,
+        ".whl": 6
+      },
+      "filename": "Sat.zip",
+      "member_count": 534,
+      "receipt_sha256": "8ddafdaa84c5dcc359fcbef55756e406d84e5ec090dd56c3c10e241efcd69f1c",
+      "role": "OPTIONAL_SIMULATION_BACKEND_SOURCE",
+      "schema_facts": {
+        "component_registry": {
+          "component_count": 19,
+          "registry_version": "1.0"
+        },
+        "package_manifest": {
+          "artifact_count": 480,
+          "package_type": "standard_distribution",
+          "product": "航天器自主故障诊断与重构仿真验证平台"
+        }
+      },
+      "schema_version": "astrograph-r23-source-asset-inventory.v1",
+      "source_artifact_sha256": "6fa48167dce60fe90a6a81c7ecf712eec62f164218185eb9cdf1b91aea1cc276",
+      "source_size_bytes": 9790869,
+      "top_roots": [
+        "ActivateSVP.m",
+        "Manifest.json",
+        "OpenSpacecraftWorkbench.m",
+        "PackageInfo.json",
+        "README.md",
+        "RunFullCoverage.m",
+        "RunNormalValidation.m",
+        "RunReportComparisons.m",
+        "RunReportScenario.m",
+        "RunSelectedCases.m",
+        "RunVerificationProfile.m",
+        "SpacecraftAutonomyValidation.slxc",
+        "TestSVP.m",
+        "algorithms",
+        "configuration",
+        "data",
+        "documentation",
+        "environment",
+        "export_report_5_4_showcase_data.m",
+        "export_report_5_4_showcase_data_v2.m",
+        "generated",
+        "interfaces",
+        "matlab",
+        "model",
+        "plugins",
+        "python",
+        "scenarios",
+        "tools",
+        "verification",
+        "wheel_subsystem_control_v3_robust.slx",
+        "wheel_subsystem_control_v3_robust.slxc"
+      ],
+      "uncompressed_size_bytes": 16563165
+    }
+  ],
+  "schema_version": "astrograph-r23-source-asset-inventory-bundle.v1",
+  "selection_policy": "SCHEMA_AND_CONTENT_IDENTITY_ONLY_NO_EMBEDDED_EVALUATION_REUSE"
+}

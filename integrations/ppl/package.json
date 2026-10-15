@@ -1,0 +1,12 @@
+{
+  "name": "astrograph-ppl-diagnostic-binding",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@ppl/profile-core": "file:vendor/ppl-profile-core-0.2.0.tgz",
+    "@ppl/profile-research": "file:vendor/ppl-profile-research-0.2.0.tgz",
+    "@ppl/profile-tutor": "file:vendor/ppl-profile-tutor-0.2.0.tgz",
+    "@ppl/profile-runtime": "file:vendor/ppl-profile-runtime-0.2.0.tgz"
+  }
+}

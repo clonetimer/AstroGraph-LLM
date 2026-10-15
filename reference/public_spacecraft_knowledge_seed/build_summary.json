@@ -1,0 +1,44 @@
+{
+  "all_unreviewed": true,
+  "domains": {
+    "ADCS": 5,
+    "CDH": 4,
+    "COMM": 5,
+    "EPS": 5,
+    "PAYLOAD": 3,
+    "PROP": 4,
+    "THERMAL": 4
+  },
+  "edge_count": 225,
+  "entity_types": {
+    "ACTION": 30,
+    "COMPONENT": 26,
+    "CONDITION": 30,
+    "FAILURE_MECHANISM": 30,
+    "FAULT_MODE": 30,
+    "SYMPTOM": 30,
+    "VERIFICATION": 30
+  },
+  "fault_case_count": 30,
+  "interpretation_kinds": {
+    "DOCUMENTED_CASE_DERIVED": 4,
+    "ENGINEERING_INFERENCE": 84,
+    "ENGINEERING_INFERENCE_CROSS_SUBSYSTEM": 15,
+    "PROPOSED_CHECK": 30,
+    "PUBLIC_SOURCE_PARAPHRASE": 32,
+    "UNAUTHORIZED_RESPONSE_SUGGESTION": 60
+  },
+  "node_count": 206,
+  "relation_types": {
+    "ASSOCIATED_WITH": 45,
+    "CHECKED_BY": 30,
+    "INDICATED_BY": 30,
+    "MANIFESTS_AS": 30,
+    "MITIGATED_BY": 30,
+    "REQUIRES": 30,
+    "SUSCEPTIBLE_TO": 30
+  },
+  "schema_version": "astrograph-public-spacecraft-seed.v1",
+  "source_count": 13,
+  "used_source_count": 12
+}

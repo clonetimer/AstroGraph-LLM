@@ -1,0 +1,105 @@
+{
+  "schema_version": "astrograph-r26-dxc-esa-remediation-report.v1",
+  "patch_id": "PATCH-R26",
+  "protocol_receipt_sha256": "f35aa0c0543f0390b6a73eb6c496d9dbf6c3994763fc18efba3bd2932ecb8987",
+  "dxc": {
+    "development_receipt_sha256": "0f9d23bc42f41074c959a3f870661087c1e742d42441781b0c477c3d2c7cbef6",
+    "selected_policy": "DISCRETE_FIRST_SINGLE_CONTINUOUS",
+    "selection_metrics": {
+      "case_count": 11,
+      "fault_element_precision_micro": 0.5,
+      "fault_element_recall_micro": 0.3333333333333333,
+      "fault_element_f1_micro": 0.4,
+      "component_precision_micro": 0.5,
+      "component_recall_micro": 0.3333333333333333,
+      "component_f1_micro": 0.4,
+      "exact_fault_set_rate": 0.2727272727272727,
+      "faulty_case_any_fault_element_overlap_rate": 0.45454545454545453,
+      "mean_predicted_fault_count": 1.0909090909090908,
+      "discrete_branch_active_case_count": 3,
+      "early_first_alarm_case_count": 2,
+      "post_injection_first_alarm_case_count": 8,
+      "no_alarm_case_count": 1,
+      "post_injection_first_alarm_rate": 0.7272727272727273,
+      "median_post_injection_delay_s": 0.3539999999999992
+    },
+    "internal_replay_metrics": {
+      "case_count": 14,
+      "fault_element_precision_micro": 0.5,
+      "fault_element_recall_micro": 0.4375,
+      "fault_element_f1_micro": 0.4666666666666667,
+      "component_precision_micro": 0.5714285714285714,
+      "component_recall_micro": 0.5,
+      "component_f1_micro": 0.5333333333333333,
+      "exact_fault_set_rate": 0.42857142857142855,
+      "faulty_case_any_fault_element_overlap_rate": 0.5,
+      "mean_predicted_fault_count": 1.0,
+      "discrete_branch_active_case_count": 6,
+      "early_first_alarm_case_count": 1,
+      "post_injection_first_alarm_case_count": 13,
+      "no_alarm_case_count": 0,
+      "post_injection_first_alarm_rate": 0.9285714285714286,
+      "median_post_injection_delay_s": 0.32800000000000296
+    },
+    "r25_continuous_same_internal_replay_metrics": {
+      "case_count": 14,
+      "fault_element_precision_micro": 0.07692307692307693,
+      "fault_element_recall_micro": 0.125,
+      "fault_element_f1_micro": 0.09523809523809525,
+      "component_precision_micro": 0.15384615384615385,
+      "component_recall_micro": 0.25,
+      "component_f1_micro": 0.1904761904761905,
+      "exact_fault_set_rate": 0.0,
+      "faulty_case_any_fault_element_overlap_rate": 0.14285714285714285,
+      "mean_predicted_fault_count": 1.8571428571428572,
+      "discrete_branch_active_case_count": 6,
+      "early_first_alarm_case_count": 1,
+      "post_injection_first_alarm_case_count": 12,
+      "no_alarm_case_count": 1,
+      "post_injection_first_alarm_rate": 0.8571428571428571,
+      "median_post_injection_delay_s": 0.4454999999999991
+    },
+    "internal_replay_deltas": {
+      "fault_element_f1_micro": 0.37142857142857144,
+      "component_f1_micro": 0.34285714285714286,
+      "exact_fault_set_rate": 0.42857142857142855,
+      "any_overlap_rate": 0.35714285714285715,
+      "post_injection_first_alarm_rate": 0.07142857142857151,
+      "median_post_injection_delay_s": -0.11749999999999616,
+      "mean_predicted_fault_count": -0.8571428571428572
+    },
+    "mechanism_finding": "Bool PositionSensor observations were excluded from the R25 continuous-unit path. A separate exact-topology discrete-state path materially improves relay/circuit-breaker isolation without weakening continuous unit governance.",
+    "remaining_limit": "PositionSensor:Stuck versus adjacent component state-fault can remain observationally ambiguous without downstream physical-response equations; INTERNAL_REPLAY is already seen development evidence, not external validation."
+  },
+  "esa": {
+    "frozen_detector_receipt_sha256": "e6ae59b685649c20b74cd0de82b968ddef6e4c628e67ba3bc6af6d8a5e777612",
+    "detector_identity_sha256": "9e384a7eab3acdd91ea50bf7dec467c663b905892dfd0675c8999794a4dd5c94",
+    "frozen_config": {
+      "robust_z_threshold": 8.0,
+      "minimum_coincident_channels": 2,
+      "alarm_group_gap_s": 40.0
+    },
+    "reference_sha256": "7f3d73247e3ec2bed5c1b0461026785fa87a4a40405c47a81f890e0284b6553e",
+    "synthetic_protocol_smoke_receipt_sha256": "56d38ea68222a2c1d8ec47d7d04cf6c9b5325f21dfed8db8c873def1cc2f602b",
+    "new_holdout_supplied": false,
+    "new_external_performance_generated": false,
+    "status": "FROZEN_READY_FOR_GENUINELY_NEW_HOLDOUT_BLOCKED_DATASET",
+    "preserved_seen_confirmatory_result": {
+      "decision_points": 73641,
+      "alarm_points": 0,
+      "true_anomaly_events": 4,
+      "tp": 0,
+      "fn": 4,
+      "status": "PRESERVED_NOT_REGENERATED"
+    }
+  },
+  "formal_evidence_generated": false,
+  "agent_authority_changed": false,
+  "qualification": "DEVELOPMENT_REMEDIATION_AND_FROZEN_FUTURE_REPLICATION_CANDIDATE_NOT_EXTERNAL_VALIDATION_NOT_FLIGHT_QUALIFIED",
+  "next_gate": [
+    "DXC: add explicit component behavior equations / downstream expected-response consistency to resolve PositionSensor-vs-component ambiguity and non-stateful load/inverter faults.",
+    "ESA: admit a genuinely new raw-grid holdout through first-contact source/group identity and bind it to the frozen R26 detector before truth join.",
+    "Do not regenerate DXC Competition/Rematch or ESA seen confirmatory/external predictions for selection."
+  ],
+  "receipt_sha256": "a6b58ffc3a2afcc77a1333464d65d4f11c656a016e7f6ad66e100d361a1d766a"
+}

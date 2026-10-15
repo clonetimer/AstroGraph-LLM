@@ -1,0 +1,98 @@
+{
+  "schema_version": "astrograph-causal-edge-review-packet.v1",
+  "packet_id": "KGE2-CAUSAL-EDGE-REVIEW-20260818",
+  "ontology_path": "configs/knowledge/generic_fault_ontology.json",
+  "ontology_sha256": "9ee63040bbacdc5ac9dd7224d642ce51584e309045e47836ff2cc1c59c4fa747",
+  "review_items": [
+    {
+      "review_item_id": "review-item:actuation-authority-to-command-response-residual",
+      "source_node_id": "mechanism:actuation-authority-loss",
+      "relation_type": "MANIFESTS_AS",
+      "target_node_id": "effect:command-response-residual-growth",
+      "current_review_status": "MACHINE_VALIDATED",
+      "source_anchors": [
+        {
+          "source_path": "reference/evidence_sources/reaction_wheel_authority_loss.yaml",
+          "source_sha256": "e106ca9f21da6842dd57f53d8364497aed7644c2ee8b285e9341787096d6e8ad",
+          "locator": "mechanism, component_response_channels, acceptance",
+          "evidence_summary": "The E0 reaction-wheel contract scales available motor torque and observes actual torque response.",
+          "evidence_scope": "Project-defined synthetic ADCS reaction-wheel fault contract; not cross-domain or flight calibrated."
+        },
+        {
+          "source_path": "reference/evidence_sources/whole_spacecraft_effect_validation.json",
+          "source_sha256": "4aeaaa2770c53654668185da19dc4f44a0270490e962aa0591e226a3ef9676b5",
+          "locator": "rows[reaction_wheel_torque_authority_loss]",
+          "evidence_summary": "The synthetic campaign verifies that effective maximum wheel torque decreases to the injected value.",
+          "evidence_scope": "One simulator campaign; it does not independently establish a generic command-response residual relation."
+        }
+      ],
+      "automated_recommendation": "DEFER",
+      "recommendation_reasons": [
+        "The two anchors belong to the same E0 synthetic engineering chain and are not demonstrably independent.",
+        "The runtime check verifies reduced torque authority but does not directly validate the abstract residual-growth effect across component archetypes."
+      ],
+      "human_decision": null
+    },
+    {
+      "review_item_id": "review-item:signal-availability-to-availability-decrease",
+      "source_node_id": "mechanism:signal-availability-loss",
+      "relation_type": "MANIFESTS_AS",
+      "target_node_id": "effect:availability-decrease",
+      "current_review_status": "MACHINE_VALIDATED",
+      "source_anchors": [
+        {
+          "source_path": "reference/evidence_sources/star_tracker_dropout.yaml",
+          "source_sha256": "e9f6835c7ba6e8523e0f7edf03b38760c88eaf9f8910e37b0312d6507b519aac",
+          "locator": "mechanism, direct_channels, acceptance",
+          "evidence_summary": "The E0 star-tracker dropout contract requires invalid and unlocked states during loss of updates.",
+          "evidence_scope": "Synthetic ADCS star-tracker and deterministic fusion implementation only."
+        },
+        {
+          "source_path": "reference/evidence_sources/whole_spacecraft_effect_validation.json",
+          "source_sha256": "4aeaaa2770c53654668185da19dc4f44a0270490e962aa0591e226a3ef9676b5",
+          "locator": "rows[star_tracker_dropout]",
+          "evidence_summary": "The synthetic campaign verifies invalid, unlocked and increasing data-age observations.",
+          "evidence_scope": "One simulator campaign; it does not establish all sensor and transport availability-loss mechanisms."
+        }
+      ],
+      "automated_recommendation": "DEFER",
+      "recommendation_reasons": [
+        "The evidence supports an ADCS example but is narrower than the cross-domain TBox assertion.",
+        "The contract and validation are coupled products of the same synthetic model."
+      ],
+      "human_decision": null
+    },
+    {
+      "review_item_id": "review-item:output-stagnation-to-response-stagnation",
+      "source_node_id": "mechanism:output-stagnation",
+      "relation_type": "MANIFESTS_AS",
+      "target_node_id": "effect:response-stagnation",
+      "current_review_status": "MACHINE_VALIDATED",
+      "source_anchors": [
+        {
+          "source_path": "reference/evidence_sources/fmea.md",
+          "source_sha256": "84d22a6935b25d037db74f0058b65ff0f10d509446267a8ec8ccb9a51157341c",
+          "locator": "F04 ADCS/reaction wheel 0",
+          "evidence_summary": "The project FMEA states that wheel jamming or braking produces abnormal wheel speed and applied torque.",
+          "evidence_scope": "Synthetic project FMEA; explicitly not a real spacecraft FMECA."
+        },
+        {
+          "source_path": "reference/evidence_sources/whole_spacecraft_effect_validation.json",
+          "source_sha256": "4aeaaa2770c53654668185da19dc4f44a0270490e962aa0591e226a3ef9676b5",
+          "locator": "rows[reaction_wheel_jam]",
+          "evidence_summary": "The campaign verifies wheel unavailability and driver-code activation for the injected jam.",
+          "evidence_scope": "The recorded checks do not directly establish response stagnation across all declared archetypes."
+        }
+      ],
+      "automated_recommendation": "DEFER",
+      "recommendation_reasons": [
+        "The validation checks status activation rather than a generic response-stagnation measure.",
+        "The evidence cannot justify the ontology-wide scope without an expert scope restriction or additional independent sources."
+      ],
+      "human_decision": null
+    }
+  ],
+  "publication_allowed": false,
+  "active_graph_modified": false,
+  "claim_boundary": "This packet verifies source identity and review readiness only. DEFER is an automated recommendation, not a human decision; no edge is promoted or published."
+}

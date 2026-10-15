@@ -1,0 +1,222 @@
+{
+  "schema_version": "astrograph-object-plugin-build-spec.v1",
+  "plugin_id": "generated.whole_spacecraft.thermal_heater",
+  "plugin_version": "0.5.13",
+  "object_type": "thermal_heater",
+  "subsystem": "THERMAL",
+  "dataset_profiles": [
+    "WHOLE_SPACECRAFT_21_SCENE_E0"
+  ],
+  "object_parameters": {
+    "episode_selector": "event-window-from-run-manifest",
+    "claim_boundary": "E0 engineering synthetic scenario only"
+  },
+  "telemetry_bindings": [
+    {
+      "binding_id": "heater_on",
+      "source_field": "status.thermal.heater_on",
+      "unit": "1",
+      "semantic_role": "actual_state",
+      "required": true,
+      "description": "Observed heater state."
+    },
+    {
+      "binding_id": "heater_command_on",
+      "source_field": "status.thermal.heater_command_on",
+      "unit": "1",
+      "semantic_role": "command_state",
+      "required": true,
+      "description": "Commanded heater state."
+    },
+    {
+      "binding_id": "heater_current",
+      "source_field": "sensor.thermal.heater_current_a",
+      "unit": "A",
+      "semantic_role": "direct_effect",
+      "required": true,
+      "description": "Heater current telemetry."
+    },
+    {
+      "binding_id": "payload_temperature",
+      "source_field": "sensor.thermal.payload_temp_c",
+      "unit": "degC",
+      "semantic_role": "thermal_response",
+      "required": true,
+      "description": "Payload temperature telemetry."
+    },
+    {
+      "binding_id": "battery_current",
+      "source_field": "sensor.eps.battery_current_a",
+      "unit": "A",
+      "semantic_role": "power_response",
+      "required": true,
+      "description": "Battery current telemetry."
+    }
+  ],
+  "features": [
+    {
+      "feature_id": "FD-HEATER-CMD-ACTUAL-MISMATCH-FRACTION-V1",
+      "name": "Heater command/actual mismatch fraction",
+      "output_unit": "1",
+      "input_bindings": {
+        "actual": "heater_on",
+        "command": "heater_command_on"
+      },
+      "operator_id": null,
+      "operator_pipeline": [],
+      "operator_graph": {
+        "graph_version": "astrograph-operator-graph.v1",
+        "nodes": [
+          {
+            "node_id": "mismatch_fraction",
+            "operator_id": "JOINT_THRESHOLD_FRACTION",
+            "current_inputs": [
+              {
+                "source": "CURRENT_SIGNAL",
+                "ref": "heater_on"
+              }
+            ],
+            "baseline_inputs": [
+              {
+                "source": "CURRENT_SIGNAL",
+                "ref": "heater_command_on"
+              }
+            ],
+            "time_input": null,
+            "parameters": {
+              "current_comparison": "GREATER_THAN",
+              "current_threshold": 0.5,
+              "baseline_comparison": "LESS_OR_EQUAL",
+              "baseline_threshold": 0.5
+            }
+          }
+        ],
+        "output_node_id": "mismatch_fraction"
+      },
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "configs/thermal_star_evidence.json",
+        "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+      ],
+      "claim_boundary": "E0 synthetic command/actual mismatch evidence."
+    },
+    {
+      "feature_id": "FD-HEATER-CURRENT-MEAN-V1",
+      "name": "Heater current mean",
+      "output_unit": "A",
+      "input_bindings": {
+        "current": "heater_current"
+      },
+      "operator_id": "MEAN_VALUE",
+      "operator_pipeline": [],
+      "operator_graph": null,
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+      ],
+      "claim_boundary": "E0 synthetic direct-effect feature."
+    },
+    {
+      "feature_id": "FD-PAYLOAD-TEMP-PAIRED-MAX-V1",
+      "name": "Payload temperature paired maximum residual",
+      "output_unit": "degC",
+      "input_bindings": {
+        "current": "payload_temperature",
+        "baseline": "payload_temperature"
+      },
+      "operator_id": "MAX_ABS_PAIRED_RESIDUAL",
+      "operator_pipeline": [],
+      "operator_graph": null,
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+      ],
+      "claim_boundary": "E0 synthetic thermal-response feature."
+    },
+    {
+      "feature_id": "FD-BATTERY-CURRENT-PAIRED-MAX-V1",
+      "name": "Battery current paired maximum residual",
+      "output_unit": "A",
+      "input_bindings": {
+        "current": "battery_current",
+        "baseline": "battery_current"
+      },
+      "operator_id": "MAX_ABS_PAIRED_RESIDUAL",
+      "operator_pipeline": [],
+      "operator_graph": null,
+      "operator_parameters": {},
+      "custom_formula": null,
+      "source_refs": [
+        "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+      ],
+      "claim_boundary": "E0 synthetic power-response feature."
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ED-HEATER-MISMATCH-REQUIRED-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_id": "FD-HEATER-CMD-ACTUAL-MISMATCH-FRACTION-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.9,
+      "threshold_unit": "1",
+      "critical": true,
+      "source_refs": [
+        "configs/thermal_star_evidence.json"
+      ],
+      "claim_boundary": "E0 synthetic acceptance threshold."
+    },
+    {
+      "evidence_id": "ED-HEATER-CURRENT-REQUIRED-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_id": "FD-HEATER-CURRENT-MEAN-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.2,
+      "threshold_unit": "A",
+      "critical": true,
+      "source_refs": [
+        "configs/thermal_star_evidence.json"
+      ],
+      "claim_boundary": "E0 synthetic acceptance threshold."
+    },
+    {
+      "evidence_id": "ED-HEATER-TEMP-SUPPORT-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_id": "FD-PAYLOAD-TEMP-PAIRED-MAX-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.05,
+      "threshold_unit": "degC",
+      "critical": false,
+      "source_refs": [
+        "configs/thermal_star_evidence.json"
+      ],
+      "claim_boundary": "E0 synthetic acceptance threshold."
+    },
+    {
+      "evidence_id": "ED-HEATER-BATTERY-SUPPORT-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_id": "FD-BATTERY-CURRENT-PAIRED-MAX-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.1,
+      "threshold_unit": "A",
+      "critical": false,
+      "source_refs": [
+        "configs/thermal_star_evidence.json"
+      ],
+      "claim_boundary": "E0 synthetic acceptance threshold."
+    }
+  ],
+  "source_refs": [
+    "local_acceptance_data/01_整星21场景仿真源产物/heater_stuck_on",
+    "local_acceptance_data/01_整星21场景仿真源产物/nominal",
+    "docs/source_evidence/THERMAL_HEATER_STUCK_ON.yaml"
+  ],
+  "claim_boundary": "Generated E0 thermal-heater plugin specification; not flight-qualified."
+}

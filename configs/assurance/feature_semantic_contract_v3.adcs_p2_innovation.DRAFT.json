@@ -1,0 +1,1008 @@
+{
+  "channels": [
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.pointing_error_deg",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "deg",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.pointing_error_deg",
+      "tensor_index": 0,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sensor.gyro_measured_rad_s_x",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sensor.gyro_measured_rad_s_x",
+      "tensor_index": 1,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sensor.gyro_measured_rad_s_y",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sensor.gyro_measured_rad_s_y",
+      "tensor_index": 2,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sensor.gyro_measured_rad_s_z",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sensor.gyro_measured_rad_s_z",
+      "tensor_index": 3,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sensor.imu.valid",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sensor.imu.valid",
+      "tensor_index": 4,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sensor.gyro_axis_valid_x",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sensor.gyro_axis_valid_x",
+      "tensor_index": 5,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sensor.gyro_axis_valid_y",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sensor.gyro_axis_valid_y",
+      "tensor_index": 6,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sensor.gyro_axis_valid_z",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sensor.gyro_axis_valid_z",
+      "tensor_index": 7,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.star_tracker.valid",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.star_tracker.valid",
+      "tensor_index": 8,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.star_tracker.solution_fresh",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.star_tracker.solution_fresh",
+      "tensor_index": 9,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sun_sensor.valid",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sun_sensor.valid",
+      "tensor_index": 10,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sun_sensor.saturated",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sun_sensor.saturated",
+      "tensor_index": 11,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sun_sensor.cell_healthy",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sun_sensor.cell_healthy",
+      "tensor_index": 12,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.command_execution_residual_norm_nm",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "N*m",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.command_execution_residual_norm_nm",
+      "tensor_index": 13,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.speed_response_residual_norm_nm",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "N*m",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.speed_response_residual_norm_nm",
+      "tensor_index": 14,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.speed_sensor_invalid_count",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.speed_sensor_invalid_count",
+      "tensor_index": 15,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.sensor.gyro_invalid_axis_count",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "1",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.sensor.gyro_invalid_axis_count",
+      "tensor_index": 16,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.measured_speed_rad_s_0",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.measured_speed_rad_s_0",
+      "tensor_index": 17,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.measured_speed_rad_s_1",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.measured_speed_rad_s_1",
+      "tensor_index": 18,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.measured_speed_rad_s_2",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.measured_speed_rad_s_2",
+      "tensor_index": 19,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.measured_speed_rad_s_3",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.measured_speed_rad_s_3",
+      "tensor_index": 20,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.command_torque_nm_0",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "N*m",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.command_torque_nm_0",
+      "tensor_index": 21,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.command_torque_nm_1",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "N*m",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.command_torque_nm_1",
+      "tensor_index": 22,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.command_torque_nm_2",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "N*m",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.command_torque_nm_2",
+      "tensor_index": 23,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.command_torque_nm_3",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "N*m",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.command_torque_nm_3",
+      "tensor_index": 24,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.motor_current_a_0",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "A",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.motor_current_a_0",
+      "tensor_index": 25,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.motor_current_a_1",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "A",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.motor_current_a_1",
+      "tensor_index": 26,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.motor_current_a_2",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "A",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.motor_current_a_2",
+      "tensor_index": 27,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.rw.motor_current_a_3",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "A",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.rw.motor_current_a_3",
+      "tensor_index": 28,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.innovation.star_gyro_rate_residual_rad_s_x",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.innovation.star_gyro_rate_residual_rad_s_x",
+      "tensor_index": 29,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.innovation.star_gyro_rate_residual_rad_s_y",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.innovation.star_gyro_rate_residual_rad_s_y",
+      "tensor_index": 30,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.innovation.star_gyro_rate_residual_rad_s_z",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.innovation.star_gyro_rate_residual_rad_s_z",
+      "tensor_index": 31,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    },
+    {
+      "axis_definition": "UNRESOLVED",
+      "channel_name": "adcs.innovation.star_gyro_rate_residual_norm_rad_s",
+      "coordinate_frame": "UNRESOLVED",
+      "imputation_policy": "TRAIN_MEDIAN_WITH_ZERO_FALLBACK_PER_CHANNEL",
+      "missingness_policy": "IMPUTE",
+      "normalization": {
+        "fitted_on_groups": [],
+        "kind": "UNRESOLVED",
+        "parameters": {},
+        "receipt_sha256": null
+      },
+      "notes": [
+        "Unit token is bound to the declared telemetry field naming/runtime evidence contract; frame/axis/sign remain unresolved until authoritative model and source schema are pinned."
+      ],
+      "physical_unit": "rad/s",
+      "preprocessing_sha256": "10ae278e63be0e0f5c711edd783ac9f114c5ea5d4ed3d3de4ecff8e261a371fe",
+      "resampling_method": "EXACT",
+      "sampling_rate_hz": 1.0,
+      "sign_convention": "UNRESOLVED",
+      "source_field": "adcs.innovation.star_gyro_rate_residual_norm_rad_s",
+      "tensor_index": 32,
+      "timestamp_semantics": "telemetry sample time_s at 1 s native ADCS recorder cadence"
+    }
+  ],
+  "claim_boundary": "Audited semantic draft only. It must not be frozen until the authoritative historical P2 model package and its exact preprocessor receipt are recovered and state/logit equivalence is demonstrated.",
+  "computed_contract_sha256": "892efb05b41adcef0de4a05c36cdee7443c4a144780bcc78fd87fdec477dd5a6",
+  "contract_id": "ADCS_P2_INNOVATION_FEATURE_SEMANTICS_V3_DRAFT",
+  "contract_sha256": null,
+  "model_package_sha256": null,
+  "schema_version": "astrograph-feature-semantic-contract.v3",
+  "source_manifest_sha256s": [
+    "b7fc5dcb622d9abd85e7fdf10655daa3d3e7535a960a608b3220e0e6f5db21d9",
+    "9f0f913ef6e0a0c53678ff9c55df658bbe456fe34e63c9d192a7a5b695977051",
+    "b121c8a087c205c6e4c613e9e8b64b329675f61b38f164a074a96716af881aeb"
+  ],
+  "status": "AUDITED",
+  "unresolved_semantics": {
+    "adcs.innovation.star_gyro_rate_residual_norm_rad_s": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.innovation.star_gyro_rate_residual_rad_s_x": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.innovation.star_gyro_rate_residual_rad_s_y": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.innovation.star_gyro_rate_residual_rad_s_z": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.pointing_error_deg": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.command_execution_residual_norm_nm": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.command_torque_nm_0": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.command_torque_nm_1": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.command_torque_nm_2": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.command_torque_nm_3": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.measured_speed_rad_s_0": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.measured_speed_rad_s_1": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.measured_speed_rad_s_2": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.measured_speed_rad_s_3": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.motor_current_a_0": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.motor_current_a_1": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.motor_current_a_2": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.motor_current_a_3": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.speed_response_residual_norm_nm": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.rw.speed_sensor_invalid_count": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sensor.gyro_axis_valid_x": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sensor.gyro_axis_valid_y": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sensor.gyro_axis_valid_z": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sensor.gyro_invalid_axis_count": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sensor.gyro_measured_rad_s_x": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sensor.gyro_measured_rad_s_y": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sensor.gyro_measured_rad_s_z": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sensor.imu.valid": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.star_tracker.solution_fresh": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.star_tracker.valid": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sun_sensor.cell_healthy": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sun_sensor.saturated": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ],
+    "adcs.sun_sensor.valid": [
+      "coordinate_frame",
+      "axis_definition",
+      "sign_convention",
+      "normalization"
+    ]
+  }
+}

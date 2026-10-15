@@ -1,0 +1,36 @@
+{
+  "source": "User-uploaded wheels and DOR archive",
+  "dependency_complete": false,
+  "artifacts": [
+    {
+      "file": "langchain-1.4.0-py3-none-any.whl",
+      "sha256": "af1dc0161d30944a52ec7844d9bf890d0497b12ec0703069f3503b4003cbbac3",
+      "bytes": 161534
+    },
+    {
+      "file": "langgraph-1.2.11-py3-none-any.whl",
+      "sha256": "8bab70de7b2d00b5300fb289bcf38d8b241400f3184c1e95e8ce706fb0e8686b",
+      "bytes": 248854
+    },
+    {
+      "file": "dor_diagnostic_stack-1.0.3-py3-none-any.whl",
+      "sha256": "1d993cb54259e70dd6b6cb8daf7060f403fd15e4210372b8bdd9490d7110a391",
+      "bytes": 57943
+    },
+    {
+      "file": "isgn_toolkit-2.4.0-py3-none-any.whl",
+      "sha256": "acb3eef3e0cf3cfb6a256b70ec4367d0a95a3075a2665c4728b87abe3e224751",
+      "bytes": 172084
+    },
+    {
+      "file": "m2n_toolkit-2.16.1-py3-none-any.whl",
+      "sha256": "404a6c1aba8e19a5b6d4f0b43f56ea479e377fd99cb2fdb2dafc7f2fd322a319",
+      "bytes": 168428
+    },
+    {
+      "file": "fec_toolkit-2.4.2-py3-none-any.whl",
+      "sha256": "482268e63ff4785169fa159101f8d78c9052aed38d15ae8347ad1d4e94248f56",
+      "bytes": 83426
+    }
+  ]
+}

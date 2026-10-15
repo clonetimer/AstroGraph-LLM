@@ -1,0 +1,63 @@
+{
+  "schema_version": "astrograph-r27-remediation-protocol.v1",
+  "patch_id": "PATCH-R27",
+  "base_artifact": "AstroGraph_0.7.1_post49_working_patch26_unified_source.zip",
+  "base_artifact_sha256": "9c790a2c47156b18b12e0c7160c449efa6cf5384baac73e66212783f20b491ec",
+  "architecture": "LEGACY_RETAINED_PLUS_DETERMINISTIC_PRIMARY_CANDIDATE_PLUS_OPTIONAL_AGENT_SHADOW_REVIEW",
+  "dxc09_sample": {
+    "dataset_use": "POST_CONTACT_DEVELOPMENT_ONLY",
+    "development_receipt_sha256": "f4b96e55aa519007c2d6e278e6a12ab6aa8cd6b7a2744118e3739f7f936e8549",
+    "architecture_receipt_sha256": "c3a35edb019ad9856301716f7f72aa77244a58f1f4fed205c4097e4c7afa781e",
+    "r27_role": "PRIMARY_CAPABLE_DEVELOPMENT_CANDIDATE",
+    "agent_required": false,
+    "runtime_default_changed": false,
+    "competition_or_rematch_regenerated": false,
+    "new_holdout_supplied": false,
+    "promotion_status": "BLOCKED_PENDING_GENUINELY_NEW_HOLDOUT"
+  },
+  "esa": {
+    "r26_fast_branch": "FROZEN_CANDIDATE_WAITING_NEW_HOLDOUT",
+    "legacy_slow_branch_retained": true,
+    "r27_retuning_performed": false,
+    "new_holdout_supplied": false
+  },
+  "agent": {
+    "expected_response_review_kind": "DXC_EXPECTED_RESPONSE_REVIEW",
+    "diagnostic_authority": false,
+    "formal_evidence_eligible": false,
+    "core_prediction_dependency": "NONE"
+  },
+  "source_bindings": {
+    "src/astrograph/diagnosis/dxc_expected_response.py": {
+      "size": 27284,
+      "sha256": "90f796dcff21c4f19cb782b29c5515c1abe75efd7a6d8fd9b45ee21f9dc7571a"
+    },
+    "src/astrograph/evaluation/dxc_r27_expected_response.py": {
+      "size": 5499,
+      "sha256": "16f9201882a885ec190d478112893fee7ee4deeb1915d629ae30874f34c0a12a"
+    },
+    "src/astrograph/investigation/diagnostic_probes.py": {
+      "size": 25333,
+      "sha256": "7051104453fc6c3d62c09037425557f5da5316321b01d9357eeaad1403f267ba"
+    },
+    "scripts/experiments/run_r27_dxc_expected_response_development.py": {
+      "size": 10691,
+      "sha256": "5b2058f2d6b9129db9d809d57ebb2fcf1b514bfa6e7b919d61fd5743ed29a2ec"
+    },
+    "configs/evaluation/r27_dxc_algorithm_policy.v1.json": {
+      "size": 1752,
+      "sha256": "24b1e0b56460ab31a41681b32798bb4faf99372f645068e1e7f95a26094911fe"
+    },
+    "governance/evidence/research/r27_expected_response/dxc_expected_response_development.json": {
+      "size": 52468,
+      "sha256": "2d55979c9540fc15d5884c2bd75918497b91b3faa6b156e3f2b0cfa4d2a1ceca"
+    },
+    "governance/evidence/research/r27_expected_response/r27_algorithm_architecture_receipt.json": {
+      "size": 4671,
+      "sha256": "26c3ee6eebd95648bc6376de65ea465b7362d9a30cee7718bc2f2b3a4ff4cddc"
+    }
+  },
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R27 development metrics are post-contact remediation evidence. The deterministic core is independently executable without Agent. Production promotion requires genuinely new holdout evidence.",
+  "receipt_sha256": "5353a86210d7ab982053c45c583b4b3ec6eafd412ac15b64f355311e1626faf7"
+}

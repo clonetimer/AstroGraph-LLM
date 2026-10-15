@@ -1,0 +1,29 @@
+{
+  "schema_version": "astrograph-independent-approval-attestation.v1",
+  "attestation_id": "P017-THERMAL-OBSERVABILITY-INTERVENTION-TIMER-001",
+  "problem_id": "P-017",
+  "reviewer_id": "Timer",
+  "reviewer_role": "INDEPENDENT_EVALUATOR",
+  "approved_on": "2026-08-02",
+  "status": "APPROVED_OBSERVABILITY_INTERVENTION_ONLY",
+  "bound_request": {
+    "path": "protocols/acceptance/p017_observability_intervention_authorization_request.json",
+    "sha256": "efdc9b91f489dc95b7821d2e8f177fb7acab0733e368104569043905ffde6fa6"
+  },
+  "authorized_seeds": {
+    "development": 20320818,
+    "calibration": 20320819,
+    "technical_validation": null
+  },
+  "authorization_limits": {
+    "new_sensors": false,
+    "modify_g1_1_artifacts": false,
+    "generate_formal_open_classes": false,
+    "fit_production_candidate": false,
+    "create_validation_seed": false,
+    "start_stage_b": false,
+    "reuse_exhausted_validation_seeds": false
+  },
+  "approval_text_verbatim_zh": "我已审阅 P-017 Stage A 三轮开发/校准失败证据和独立下游计分合同。我确认当前证据不足以进入 Stage B，并授权一个新的可观测性干预研究阶段，仅使用开发种子 20320818 和校准种子 20320819，预先冻结可部署的主动热激励与观察时长，在相同故障严重度、噪声范围、样本数和模型规则下比较被动与主动方案。本审批不授权新增传感器、修改 G1.1 五项制品、生成正式开放类、拟合生产候选、创建验证种子或启动 Stage B；20280820、20290820、20300820 继续永久禁止复用。",
+  "claim_boundary": "This attestation authorizes development/calibration observability research only and does not authorize Stage B or technical validation."
+}

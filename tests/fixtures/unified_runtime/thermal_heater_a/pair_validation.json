@@ -1,0 +1,26 @@
+{
+  "schema_version": "sat-agent-paired-physics-validation.v1",
+  "case_id": "thermal_heater_a",
+  "scenario_id": "thermal_heater_stuck_on",
+  "status": "PASS",
+  "nominal_source_gate_status": "PASS",
+  "nominal_reasons": [],
+  "effect_source_gate_status": "PASS",
+  "effect_reasons": [],
+  "trend": {
+    "status": "PASS",
+    "field": "thermal_temp_c",
+    "aggregate": "final",
+    "direction": "increase",
+    "nominal_value": 26.542250217957076,
+    "effect_value": 26.547247725245825,
+    "delta": 0.004997507288749148,
+    "relative_delta": 0.00018828498894069275,
+    "absolute_delta_min": 1e-06,
+    "relative_delta_min": 1e-08,
+    "direction_ok": true,
+    "threshold_ok": true
+  },
+  "fault_spec_count": 1,
+  "claim_boundary": "Paired laboratory counterfactual trend validation; not flight qualification."
+}

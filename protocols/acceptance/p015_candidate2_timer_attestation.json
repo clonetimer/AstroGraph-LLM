@@ -1,0 +1,30 @@
+{
+  "schema_version": "astrograph-candidate-authorization-attestation.v1",
+  "request_id": "P015-CANDIDATE-2-AUTHORIZATION-001",
+  "reviewer": "Timer",
+  "status": "APPROVED",
+  "recorded_at_utc": "2026-08-02T05:10:04Z",
+  "authorization_request_preapproval_sha256": "c8df97cd2a172d76da1b14b61c688793415b09db8e30d560bef94c903c97fc99",
+  "verbatim_attestation_text_zh": "Timer 审批：\n\n我已审阅 P-015、首个候选的拟合证据和单次冻结技术验证结果。\n\n我授权在 P-015 下启动第 2/3 个候选，并确认：\n\n1. G1.1 的 diagnosis_scope、fault_taxonomy、coverage_matrix、\n   metric_policy 和 reasoning_rubric 保持不变；\n2. 已知机制仍为 CAPACITY_LOSS、DRIFT、LEAKAGE；\n   开放集仍为 BIAS、INTERMITTENT、STUCK，不允许合并或扩大；\n3. detection 0.98、classification 0.90、localization 0.95、\n   reasoning 0.90、known retention 0.98、open-set rejection 0.98\n   等阈值和全部分母保持不变；\n4. development seed 20260820 和 calibration seed 20270820 保持不变；\n   已耗尽的 validation seed 20280820 永久只保留为失败证据，\n   禁止用于候选 2 的训练、调参、特征选择、阈值选择或再次验收；\n5. 授权将 20290820 预先冻结为候选 2 唯一的新技术验证种子，\n   仍不使用正式 hidden-acceptance 真值；\n6. 候选 2 使用分段灰盒参数/扰动证据和单一 L2 逻辑回归头，\n   不允许集成、回退、旧精确故障路由或第二套隐式生产模型；\n7. 候选总数不得超过 3，单次运行预算仍为 600 秒，\n   所有运行失败继续计为指标失败；\n8. 本审批不预认定候选 2、T-310、T-311、P-014、P-015 或 G3 PASS；\n   结果仍须由 Timer 在冻结协议下独立审阅。",
+  "declarations": {
+    "g1_1_artifacts_unchanged": true,
+    "known_mechanisms": ["CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+    "open_set_mechanisms": ["BIAS", "INTERMITTENT", "STUCK"],
+    "classes_not_merged_or_expanded": true,
+    "thresholds_and_denominators_unchanged": true,
+    "development_seed": 20260820,
+    "calibration_seed": 20270820,
+    "exhausted_validation_seed": 20280820,
+    "new_single_use_validation_seed": 20290820,
+    "formal_hidden_truth_used": false,
+    "model_path": "SEGMENTED_GRAY_BOX_EVIDENCE_PLUS_L2_LOGISTIC_HEAD",
+    "single_l2_head_only": true,
+    "ensemble_fallback_or_legacy_router_allowed": false,
+    "maximum_candidates": 3,
+    "maximum_runtime_seconds": 600,
+    "run_failures_count_as_metric_failures": true,
+    "promotion_preapproved": false,
+    "independent_review_required": true
+  },
+  "claim_boundary": "Verbatim Timer authorization for candidate-2 work only; it does not promote candidate 2 or establish P-014, P-015, T-310, T-311, G3 or G4."
+}

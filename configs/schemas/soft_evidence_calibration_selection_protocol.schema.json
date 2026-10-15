@@ -1,0 +1,42 @@
+{
+  "$id": "astrograph-soft-calibration-selection-protocol.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "independent_group_key",
+    "development_group_ids",
+    "forbidden_group_ids",
+    "transition_width_multipliers",
+    "brier_tie_tolerance",
+    "selection_rule",
+    "runtime_activation_allowed"
+  ],
+  "properties": {
+    "schema_version": {"const": "astrograph-soft-calibration-selection-protocol.v1"},
+    "independent_group_key": {"const": "sample_index"},
+    "development_group_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "integer"}
+    },
+    "forbidden_group_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "integer"}
+    },
+    "transition_width_multipliers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "number", "exclusiveMinimum": 0}
+    },
+    "brier_tie_tolerance": {"type": "number", "minimum": 0},
+    "selection_rule": {
+      "const": "minimum_group_macro_brier_then_largest_width_within_tolerance"
+    },
+    "runtime_activation_allowed": {"const": false}
+  }
+}

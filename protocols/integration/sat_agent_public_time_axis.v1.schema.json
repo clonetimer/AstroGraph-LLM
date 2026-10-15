@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrograph.local/schemas/sat-agent-public-time-axis.v1.schema.json",
+  "title": "Sat-Agent public telemetry explicit time-axis contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_id",
+    "source_count",
+    "export_receipt_id",
+    "telemetry_sha256",
+    "row_count",
+    "time_axis",
+    "truth_or_label_fields_present"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "sat-agent-public-time-axis.v1"
+    },
+    "source_id": {
+      "const": "SAT_AGENT_PLATFORM"
+    },
+    "source_count": {
+      "const": 1
+    },
+    "export_receipt_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "minLength": 1
+    },
+    "telemetry_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "row_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "time_axis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "unit",
+        "storage_policy",
+        "monotonicity",
+        "finite_values_required",
+        "row_index_derivation_allowed",
+        "manifest_sample_interval_substitution_allowed",
+        "endpoint_policy"
+      ],
+      "properties": {
+        "field": {
+          "const": "time_s"
+        },
+        "unit": {
+          "const": "s"
+        },
+        "storage_policy": {
+          "const": "EXPLICIT_COLUMN_PER_TELEMETRY_ROW"
+        },
+        "monotonicity": {
+          "const": "STRICTLY_INCREASING"
+        },
+        "finite_values_required": {
+          "const": true
+        },
+        "row_index_derivation_allowed": {
+          "const": false
+        },
+        "manifest_sample_interval_substitution_allowed": {
+          "const": false
+        },
+        "endpoint_policy": {
+          "enum": [
+            "INCLUDE_START_EXCLUDE_END",
+            "INCLUDE_START_AND_END",
+            "EXPLICIT_IRREGULAR_TIMESTAMPS"
+          ]
+        }
+      }
+    },
+    "truth_or_label_fields_present": {
+      "const": false
+    }
+  }
+}

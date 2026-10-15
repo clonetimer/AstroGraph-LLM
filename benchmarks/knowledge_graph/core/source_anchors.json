@@ -1,0 +1,55 @@
+{
+  "schema_version": "astrograph-source-anchor.v1",
+  "review_status": "PROVISIONAL_ENGINEERING_GOLD",
+  "documents": {
+    "reference/evidence_sources/reaction_wheel_friction.yaml": "15ddc4409418d5c1eb9014fab62a00bf9d30adcc5a3adf41a0a66ea472821336",
+    "reference/evidence_sources/reaction_wheel_authority_loss.yaml": "e106ca9f21da6842dd57f53d8364497aed7644c2ee8b285e9341787096d6e8ad",
+    "reference/evidence_sources/reaction_wheel_campaign.json": "b1c7c1ebc604e331cbefcc229ab1978bc7ae9c2cef82a0d002c95a7fd38a1dc5",
+    "reference/evidence_sources/fmea.md": "84d22a6935b25d037db74f0058b65ff0f10d509446267a8ec8ccb9a51157341c",
+    "reference/evidence_sources/reaction_wheel_validation.json": "111dae4e2efcc6ca34a776380c0f99ba7df74bd26f779423d5a4e9e398817039",
+    "reference/evidence_sources/reaction_wheel_dataset_manifest.json": "abd48a1f7b8b81b638ca8e9906d7b8e0f961247794f124bdd3d498b2ec40d07b",
+    "reference/evidence_sources/reaction_wheel_dataset_splits.json": "ca708bc8f66b516887b27aa2bd1799d467fcec20a5d557b0c5f1f7d610c15991"
+  },
+  "fault_anchors": [
+    {
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "document": "reference/evidence_sources/reaction_wheel_friction.yaml",
+      "anchors": [
+        "mechanism",
+        "direct_channels",
+        "component_response_channels",
+        "confusable_faults",
+        "acceptance",
+        "known_limits"
+      ],
+      "claim_boundary": "E0 viscous-drag simulation mechanism; not complete bearing-friction physics."
+    },
+    {
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "document": "reference/evidence_sources/reaction_wheel_authority_loss.yaml",
+      "anchors": [
+        "mechanism",
+        "direct_channels",
+        "component_response_channels",
+        "confusable_faults",
+        "acceptance",
+        "known_limits"
+      ],
+      "claim_boundary": "E0 torque-scale simulation mechanism; does not establish a specific hardware root cause."
+    }
+  ],
+  "global_negative_anchors": [
+    {
+      "constraint_id": "NEG-RW-FRICTION-TRUTH",
+      "document": "reference/evidence_sources/reaction_wheel_friction.yaml",
+      "anchor": "known_limits"
+    },
+    {
+      "constraint_id": "NEG-NO-FAULT-ABSOLUTE-HEALTH",
+      "document": "AstroGraph protocol",
+      "anchor": "NO_REGISTERED_FAULT semantics"
+    }
+  ],
+  "claim_boundary": "Source anchors support E0 project knowledge and do not upgrade evidence to real-hardware or flight level.",
+  "catalog_version": "reaction-wheel-e0-v0.6.5"
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "astrograph-candidate-authorization-attestation.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "reviewer",
+    "status",
+    "recorded_at_utc",
+    "authorization_request_preapproval_sha256",
+    "verbatim_attestation_text_zh",
+    "declarations",
+    "claim_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "astrograph-candidate-authorization-attestation.v1"},
+    "request_id": {"const": "P015-CANDIDATE-2-AUTHORIZATION-001"},
+    "reviewer": {"const": "Timer"},
+    "status": {"const": "APPROVED"},
+    "recorded_at_utc": {"type": "string", "format": "date-time"},
+    "authorization_request_preapproval_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "verbatim_attestation_text_zh": {"type": "string", "minLength": 300},
+    "declarations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "g1_1_artifacts_unchanged",
+        "known_mechanisms",
+        "open_set_mechanisms",
+        "classes_not_merged_or_expanded",
+        "thresholds_and_denominators_unchanged",
+        "development_seed",
+        "calibration_seed",
+        "exhausted_validation_seed",
+        "new_single_use_validation_seed",
+        "formal_hidden_truth_used",
+        "model_path",
+        "single_l2_head_only",
+        "ensemble_fallback_or_legacy_router_allowed",
+        "maximum_candidates",
+        "maximum_runtime_seconds",
+        "run_failures_count_as_metric_failures",
+        "promotion_preapproved",
+        "independent_review_required"
+      ],
+      "properties": {
+        "g1_1_artifacts_unchanged": {"const": true},
+        "known_mechanisms": {"const": ["CAPACITY_LOSS", "DRIFT", "LEAKAGE"]},
+        "open_set_mechanisms": {"const": ["BIAS", "INTERMITTENT", "STUCK"]},
+        "classes_not_merged_or_expanded": {"const": true},
+        "thresholds_and_denominators_unchanged": {"const": true},
+        "development_seed": {"const": 20260820},
+        "calibration_seed": {"const": 20270820},
+        "exhausted_validation_seed": {"const": 20280820},
+        "new_single_use_validation_seed": {"const": 20290820},
+        "formal_hidden_truth_used": {"const": false},
+        "model_path": {"const": "SEGMENTED_GRAY_BOX_EVIDENCE_PLUS_L2_LOGISTIC_HEAD"},
+        "single_l2_head_only": {"const": true},
+        "ensemble_fallback_or_legacy_router_allowed": {"const": false},
+        "maximum_candidates": {"const": 3},
+        "maximum_runtime_seconds": {"const": 600},
+        "run_failures_count_as_metric_failures": {"const": true},
+        "promotion_preapproved": {"const": false},
+        "independent_review_required": {"const": true}
+      }
+    },
+    "claim_boundary": {"type": "string", "minLength": 1}
+  }
+}

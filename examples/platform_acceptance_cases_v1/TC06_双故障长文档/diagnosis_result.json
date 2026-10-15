@@ -1,0 +1,16 @@
+{
+  "case_id": "SYNTH-MULTI-006",
+  "candidate_faults": [
+    {
+      "fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "subsystem": "ADCS",
+      "status": "UNVERIFIED"
+    },
+    {
+      "fault_id": "COMM_TRANSMITTER_OUTPUT_POWER_LOSS",
+      "subsystem": "COMM",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "diagnostic_summary": "两个上游候选尚无跨系统因果确认。"
+}

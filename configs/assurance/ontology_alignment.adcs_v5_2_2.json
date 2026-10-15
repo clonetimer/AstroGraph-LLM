@@ -1,0 +1,126 @@
+{
+  "counts": {
+    "dataset": 14,
+    "executable": 4,
+    "fusion_eligible": 4,
+    "semantic": 14,
+    "strict_registered": 14
+  },
+  "dataset_id": "ADCS_V5_2_2",
+  "report_sha256": "1e5f02de3f2b8fbe0599458734046c2520863a50b7a4b0132bb833934f857c00",
+  "rows": [
+    {
+      "dataset_class_id": "adcs_control_loop_failure",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:actuation-authority-loss",
+      "registered_fault_id": "ADCS_CONTROL_LOOP_AUTHORITY_LOSS",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_gyro_bias_step",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:additive-bias-shift",
+      "registered_fault_id": "ADCS_GYRO_BIAS_DRIFT",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_imu_axis_dropout",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:signal-availability-loss",
+      "registered_fault_id": "ADCS_IMU_AXIS_DROPOUT",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_imu_gyro_noise_amplification",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:dispersion-increase",
+      "registered_fault_id": "ADCS_IMU_GYRO_NOISE_AMPLIFICATION",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_imu_total_output_zero",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:output-stagnation",
+      "registered_fault_id": "ADCS_IMU_OUTPUT_ZERO",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_rw_jamming",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:output-stagnation",
+      "registered_fault_id": "ADCS_RW_JAM",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_rw_speed_sensor_fault",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:signal-availability-loss",
+      "registered_fault_id": "ADCS_RW_SPEED_SENSOR_BIAS",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_rw_torque_path_open",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:actuation-authority-loss",
+      "registered_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_star_solution_constant_bias",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:additive-bias-shift",
+      "registered_fault_id": "ADCS_STAR_SOLUTION_BIAS",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_star_solution_unavailable",
+      "executable_runtime_evidence": true,
+      "fusion_eligible": true,
+      "mechanism_id": "mechanism:signal-availability-loss",
+      "registered_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_star_tracker_stuck_at_last",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:output-stagnation",
+      "registered_fault_id": "ADCS_STAR_TRACKER_STUCK_AT_LAST",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_sun_sensor_cell_failure",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:signal-availability-loss",
+      "registered_fault_id": "ADCS_SUN_SENSOR_CELL_DEGRADATION",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_sun_sensor_saturation",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:output-stagnation",
+      "registered_fault_id": "ADCS_SUN_SENSOR_SATURATION",
+      "status": "EXACT_REGISTERED"
+    },
+    {
+      "dataset_class_id": "adcs_sun_vector_unavailable",
+      "executable_runtime_evidence": false,
+      "fusion_eligible": false,
+      "mechanism_id": "mechanism:signal-availability-loss",
+      "registered_fault_id": "ADCS_SUN_VECTOR_UNAVAILABLE",
+      "status": "EXACT_REGISTERED"
+    }
+  ],
+  "schema_version": "astrograph-ontology-alignment-report.v1"
+}

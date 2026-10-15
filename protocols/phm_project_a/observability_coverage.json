@@ -1,0 +1,117 @@
+{
+  "schema_version": "phm.fault_observability_matrix.v1",
+  "policy": "every fault requires direct evidence, component response and subsystem propagation in the exported contract",
+  "gate_pass": true,
+  "missing_contract_fields": [],
+  "cases": {
+    "battery_capacity_loss": {
+      "direct_evidence": [
+        "estimate.eps.battery_capacity_wh",
+        "estimate.eps.battery_soh"
+      ],
+      "component_response": [
+        "sensor.eps.battery_voltage_v",
+        "sensor.eps.battery_current_a"
+      ],
+      "subsystem_propagation": [
+        "estimate.eps.battery_soc"
+      ],
+      "evidence_level": "E0_synthetic_estimator"
+    },
+    "solar_efficiency_loss": {
+      "direct_evidence": [
+        "sensor.eps.solar_array_voltage_v",
+        "sensor.eps.solar_array_current_a"
+      ],
+      "component_response": [
+        "estimate.eps.solar_array_power_w",
+        "status.eps.solar_regulator_code"
+      ],
+      "subsystem_propagation": [
+        "sensor.eps.battery_current_a",
+        "estimate.eps.battery_soc"
+      ],
+      "evidence_level": "E0_synthetic_sensor"
+    },
+    "radiator_rejection_loss": {
+      "direct_evidence": [
+        "sensor.thermal.radiator_temp_c",
+        "status.thermal.control_mode_code"
+      ],
+      "component_response": [
+        "sensor.thermal.payload_temp_c",
+        "status.thermal.heater_on"
+      ],
+      "subsystem_propagation": [
+        "sensor.eps.battery_temp_c"
+      ],
+      "evidence_level": "E0_synthetic_sensor_no_coefficient_telemetry"
+    },
+    "reaction_wheel_jam": {
+      "direct_evidence": [
+        "status.adcs.rw.available_0",
+        "status.adcs.rw.driver_code_0"
+      ],
+      "component_response": [
+        "sensor.adcs.rw.speed_rad_s_0",
+        "sensor.adcs.rw.motor_current_a_0",
+        "estimate.adcs.rw.friction_torque_nm_0"
+      ],
+      "subsystem_propagation": [
+        "sensor.adcs.gyro_rate_rad_s_x",
+        "sensor.adcs.gyro_rate_rad_s_y",
+        "sensor.adcs.gyro_rate_rad_s_z"
+      ],
+      "evidence_level": "E0_component_response"
+    },
+    "downlink_loss": {
+      "direct_evidence": [
+        "status.comm.transmitter_command_on",
+        "status.comm.transmitter_on",
+        "sensor.comm.rf_output_power_w"
+      ],
+      "component_response": [
+        "comm.downlink_rate_bps",
+        "counter.comm.packet_loss_count"
+      ],
+      "subsystem_propagation": [
+        "data.storage_bits"
+      ],
+      "evidence_level": "E0_service_response_not_RF_root_cause"
+    },
+    "thermal_heater_stuck_on": {
+      "direct_evidence": [
+        "status.thermal.heater_command_on",
+        "status.thermal.heater_on",
+        "sensor.thermal.heater_current_a"
+      ],
+      "component_response": [
+        "sensor.thermal.payload_temp_c",
+        "sensor.thermal.radiator_temp_c"
+      ],
+      "subsystem_propagation": [
+        "sensor.eps.battery_current_a",
+        "estimate.eps.battery_soc"
+      ],
+      "evidence_level": "E0_D3_fault_protocol"
+    },
+    "star_tracker_dropout": {
+      "direct_evidence": [
+        "status.adcs.star_tracker_valid",
+        "status.adcs.star_tracker_locked",
+        "sensor.adcs.star_tracker_data_age_s"
+      ],
+      "component_response": [
+        "status.adcs.sensor_fusion_mode_code",
+        "estimate.adcs.pointing_error_deg"
+      ],
+      "subsystem_propagation": [
+        "sensor.adcs.gyro_rate_rad_s_x",
+        "sensor.adcs.rw.speed_rad_s_0"
+      ],
+      "evidence_level": "E0_D3_fault_protocol"
+    }
+  },
+  "warning": "E0 engineering synthetic evidence only; truth.* and injection parameters are forbidden features",
+  "protocol_version": "1.2"
+}

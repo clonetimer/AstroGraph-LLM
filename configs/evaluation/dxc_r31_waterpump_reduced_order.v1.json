@@ -1,0 +1,37 @@
+{
+  "schema_version": "astrograph-dxc-r31-waterpump-reduced-order-design.v1",
+  "patch_id": "PATCH-R31",
+  "dataset_scope": "DXC09_SAMPLE_AUDIT_PLUS_SYNTHETIC_BLIND_PROTOCOL",
+  "core_role": "PRIMARY_PATH_PHYSICS_CORROBORATOR_NO_AUTO_OVERRIDE",
+  "provider_id": "adapt-waterpump-reduced-order-v1",
+  "config": {
+    "pre_window_s": 8.0,
+    "post_window_s": 8.0,
+    "max_topology_hops": 5,
+    "current_noise_floor_a": 0.02,
+    "flow_noise_floor_gph": 4.0,
+    "current_relative_scale": 0.25,
+    "flow_relative_scale": 0.10,
+    "flow_tau_sample_multipliers": [1.0, 2.0, 4.0, 8.0],
+    "max_flowblocked_asymptote_ratio": 0.95,
+    "command_guard_s": 2.0
+  },
+  "public_parameter_contract": {
+    "component_type": "WaterPump",
+    "rated_power_source": "ADAPT XML componentType/nominalWattage",
+    "nominal_flow_source": "ADAPT XML WaterPump/Nominal description",
+    "expected_values_for_supplied_adapt_xml": {
+      "rated_power_w": 35.0,
+      "nominal_flow_gph": 250.0
+    }
+  },
+  "blind_campaign": {
+    "seed": 3101,
+    "repetitions_per_mode": 40,
+    "transition_time_is_host_admitted": true,
+    "prediction_freeze_before_truth_join": true,
+    "metric_scope": "EVENT_CONDITIONAL_MODE_CLASSIFICATION_ONLY"
+  },
+  "stop_rule": "NO_PARAMETER_OR_RULE_OPTIMIZATION_ON_R31_PUMP_BLIND_OR_DXC09_SAMPLE_OUTCOMES",
+  "claim_boundary": "Reduced-order WaterPump mechanism model and blind synthetic event-conditional mode-classification protocol. Not end-to-end detection, DXC external validation, calibrated probability, HIL, SOTA, production promotion, or flight qualification."
+}

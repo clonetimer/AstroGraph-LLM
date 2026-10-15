@@ -1,0 +1,709 @@
+{
+  "capabilities": [
+    {
+      "allowed_profiles": [
+        "MAINTAINER",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Validate an LLM-proposed plan against a deterministic reference without granting execution authority.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "proposed_tools": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "workflow_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "proposed_tools"
+        ],
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "agent.shadow.validate_plan",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "EVIDENCE_CURATION",
+        "MAINTAINER",
+        "POSTHOC_AUDIT",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Verify a file SHA-256 within configured roots.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_sha256": {
+            "pattern": "^[0-9a-fA-F]{64}$",
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "expected_sha256"
+        ],
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "artifact.verify",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "MAINTAINER"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Search supplied roots and archives for model/temporal candidates without promoting filename matches to authoritative evidence.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "authoritative_p2.audit",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED"
+      ],
+      "availability": "BLOCKED_BY_SCIENTIFIC_PREREQUISITES",
+      "description": "Execute a fully frozen campaign through a future allowlisted generator adapter; currently blocked while the authoritative chain is open.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "confirmatory.campaign.execute_once",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "SEALED_ONE_TIME_EXECUTION"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "MAINTAINER"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Verify a sealed confirmatory preregistration. Does not generate or evaluate a campaign.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "preregistration": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "preregistration"
+        ],
+        "type": "object"
+      },
+      "label_access": "OFFLINE_ONLY",
+      "name": "confirmatory.campaign.verify_preregistration",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "EVIDENCE_CURATION",
+        "MAINTAINER",
+        "POSTHOC_AUDIT",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Read-only ZIP safety and provenance intake; never deserializes payloads.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "dataset.intake_archive",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "EVIDENCE_CURATION",
+        "MAINTAINER"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Draft a source-pinned evidence card. Agent output cannot become frozen evidence.",
+      "input_schema": {
+        "additionalProperties": true,
+        "required": [
+          "source_path",
+          "source_sha256",
+          "fault_id",
+          "evidence_type",
+          "telemetry_fields",
+          "predicate",
+          "applicability_envelope"
+        ],
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "evidence.card.propose",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "ARTIFACT_WRITE"
+    },
+    {
+      "allowed_profiles": [
+        "EVIDENCE_CURATION",
+        "MAINTAINER"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Validate evidence-card structure and enforce the automatic promotion ceiling.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "card": {
+            "type": "object"
+          },
+          "requested_state": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "card"
+        ],
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "evidence.card.validate",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "EVIDENCE_CURATION",
+        "MAINTAINER",
+        "POSTHOC_AUDIT",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Return selectively admitted optional signal/anomaly libraries; none are imported by default.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "optional_toolkits.catalog",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "EVIDENCE_CURATION",
+        "MAINTAINER",
+        "POSTHOC_AUDIT",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Return profile-specific truth and mutation boundaries.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "profiles.describe",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER",
+        "POSTHOC_AUDIT"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Verify and inspect a research JSON artifact before evaluator use.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_sha256": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "expected_sha256"
+        ],
+        "type": "object"
+      },
+      "label_access": "OFFLINE_ONLY",
+      "name": "research.artifact.verify_json",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Verify frozen development inputs before deterministic Route A selection.",
+      "input_schema": {
+        "additionalProperties": true,
+        "properties": {
+          "required_artifacts": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "selection_groups": {
+            "items": {
+              "type": [
+                "string",
+                "integer"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "required_artifacts",
+          "selection_groups"
+        ],
+        "type": "object"
+      },
+      "label_access": "OFFLINE_ONLY",
+      "name": "research.route_a.selection_gate",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": true,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "DIAGNOSIS",
+        "MAINTAINER",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Describe the canonical deterministic Runtime pipelines, stages and Agent execution boundary.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "runtime.describe",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "DIAGNOSIS",
+        "MAINTAINER"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Execute an admitted RuntimeRequest atomically through AstroGraphRuntime and return all governed stage receipts.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request": {
+            "additionalProperties": false,
+            "properties": {
+              "metadata": {
+                "type": "object"
+              },
+              "payload": {
+                "type": "object"
+              },
+              "pipeline_id": {
+                "enum": [
+                  "diagnosis.compat.v1",
+                  "diagnosis.unified.compat.v1",
+                  "whole_spacecraft.online.v1"
+                ],
+                "type": "string"
+              },
+              "request_id": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "schema_version": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "request_id",
+              "pipeline_id",
+              "payload"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "runtime.diagnosis.execute",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "DIAGNOSTIC_EXECUTION"
+    },
+    {
+      "allowed_profiles": [
+        "DIAGNOSIS",
+        "MAINTAINER",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Return the executable atomic diagnosis workflow without granting execution authority.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "runtime.reference_plan",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "EVIDENCE_CURATION",
+        "MAINTAINER",
+        "POSTHOC_AUDIT",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Describe immutable project status and scientific boundaries.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "system.describe",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "MAINTAINER",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Describe the frozen groups-3/8 bounded mismatch-tolerant temporal route and its claim boundary.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "temporal.mismatch_tolerant.describe",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Verify a frozen label-free bounded-alignment trace index before offline evaluation.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_sha256": {
+            "pattern": "^[0-9a-fA-F]{64}$",
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "expected_sha256"
+        ],
+        "type": "object"
+      },
+      "label_access": "OFFLINE_ONLY",
+      "name": "temporal.mismatch_tolerant.verify_trace_index",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "MAINTAINER",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Describe the frozen groups-3/8 classifier-independent temporal route and its claim boundary.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "temporal.model_independent.describe",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Verify a frozen label-free trace index before offline evaluation.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_sha256": {
+            "pattern": "^[0-9a-fA-F]{64}$",
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "expected_sha256"
+        ],
+        "type": "object"
+      },
+      "label_access": "OFFLINE_ONLY",
+      "name": "temporal.model_independent.verify_trace_index",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "MAINTAINER",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Audit every persistent workflow against registered capabilities, profile boundaries and declared availability.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "workflows.audit_capabilities",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "EVIDENCE_CURATION",
+        "MAINTAINER",
+        "POSTHOC_AUDIT",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Return a content-addressed workflow DAG.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "workflow_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "workflow_id"
+        ],
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "workflows.get",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "EVIDENCE_CURATION",
+        "MAINTAINER",
+        "POSTHOC_AUDIT",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "List persistent AstroGraph agent workflows.",
+      "input_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "workflows.list",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    },
+    {
+      "allowed_profiles": [
+        "CONFIRMATORY_SEALED",
+        "DEVELOPMENT",
+        "DIAGNOSIS",
+        "EVIDENCE_CURATION",
+        "MAINTAINER",
+        "POSTHOC_AUDIT",
+        "SHADOW"
+      ],
+      "availability": "AVAILABLE",
+      "description": "Validate DAG acyclicity and references; this is structural, not scientific validation.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "workflow": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "workflow"
+        ],
+        "type": "object"
+      },
+      "label_access": "NONE",
+      "name": "workflows.validate",
+      "output_schema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "policy_selection": false,
+      "side_effect": "NONE"
+    }
+  ],
+  "manifest_sha256": "23b1415b6cc25beebaa316c9b5d25c907142dbae75c116425abac38932a9824b",
+  "project_status": "B009_WIP_DEVELOPMENT_EVIDENCE",
+  "protocol_version": "astrograph-capability-protocol.v1"
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "astrograph-change-request.v2",
+  "request_id": "CR-POST49-CURRENT-DELIVERY-R1",
+  "contract_id": "ASTROGRAPH-POST49-CURRENT-DELIVERY-SOURCE-R1",
+  "contract_sha256": "de04ce0a474e82324d21bde8727f19dda53699880b927bf2aae4d569cade8bdb",
+  "candidate_id": "ASTROGRAPH_POST49_CURRENT_DELIVERY_R1",
+  "summary": "Build a current-version AstroGraph-Agent source delivery without historical records while preserving functional source/assets.",
+  "rationale": "The audit-oriented stable source contains historical documentation, prior dev ledgers, receipts and release contracts that can be mistaken for current results. The delivery profile removes those records, keeps current runtime/governance state, and retains only gate inputs still read by current code. During validation, four hash-pinned ADCS evidence configs modified by the earlier docs-r1 normalization were restored to the original post49 stable bytes to preserve qualification behavior.",
+  "changed_paths": [
+    "historical docs/research/governance records removed from delivery tree",
+    "current-only release/docs/governance metadata",
+    "tests/fixtures/mission_three_task_candidate/",
+    "scripts/smoke_mission_agent.py",
+    "scripts/docs/check_document_freshness.py",
+    "scripts/data_driven/validate_distribution.py",
+    "scripts/build_sensor_check_package.py",
+    "scripts/ai_native/",
+    "tests/implementation/p1_p4/test_model_execution_bridge_dev18.py",
+    "tests/implementation/p1_p4/test_generic_dev19_stages.py",
+    "src/astrograph/governance/health_check.py",
+    "configs/research/document_dual_use_guide_descriptor_r001.json (removed)",
+    "configs/research/zero_authority.v1.json (restored to post49 frozen SHA)",
+    "configs/research/terminal8_zero_authority.v1.json (restored to post49 frozen SHA)",
+    "configs/datasets/adcs_v5_2_2/runtime_window_integrated_evidence.json (restored to post49 frozen SHA)",
+    "configs/datasets/adcs_v5_2_2/runtime_sensor_checks.research.json (restored to post49 frozen SHA)",
+    "governance/contracts/ (prior contracts removed)",
+    "FILELIST.txt",
+    "SHA256SUMS.txt",
+    "SOURCE_MANIFEST.json"
+  ],
+  "expected_metric_impacts": {
+    "diagnostic_metrics": "NONE",
+    "runtime_functionality": "NO_REGRESSION_EXPECTED",
+    "package_size": "REDUCED"
+  },
+  "risks": [
+    "Over-pruning a runtime-required governance asset.",
+    "Leaving a current metadata reference to a removed historical record.",
+    "Changing a hash-pinned package while attempting provenance cleanup."
+  ],
+  "rollback_plan": "Use the separately retained post49-docs-r1/audit source package for historical reproduction; current deployment rollback remains governed separately.",
+  "requested_at": "2026-09-16T17:40:00+08:00"
+}

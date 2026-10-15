@@ -1,0 +1,21 @@
+{
+  "schema_version": "astrograph-governed-document-descriptor.v1",
+  "document_id": "astrograph:early-design-proposal:r001",
+  "document_type": "DESIGN_PROPOSAL",
+  "visibility_class": "DESIGN_PUBLIC",
+  "source_uri": "external://AstroGraph/智能故障检测软件_设计报告.docx",
+  "source_sha256": "3c36e1f563d1790217068b51d6e26d133f69b09c5bf8a370bd4bc68fc64d4ee0",
+  "review_state": "REVIEW_REQUIRED",
+  "authority": "NON_NORMATIVE",
+  "provenance_group_id": null,
+  "episode_id": null,
+  "valid_time_start_s": null,
+  "valid_time_end_s": null,
+  "observable_cutoff_time_s": null,
+  "template_version": null,
+  "generator_sha256": null,
+  "contains_root_cause": false,
+  "contains_episode_truth": false,
+  "synthetic_from_simulation": false,
+  "runtime_vote_allowed": false
+}

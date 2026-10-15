@@ -1,0 +1,17 @@
+{
+  "schema_version": "astrograph-vllm-server-launch-config.v1",
+  "provider": "vllm",
+  "model_id": "REPLACE_WITH_EXACT_SERVED_MODEL_ID",
+  "served_model_name": "REPLACE_WITH_EXACT_SERVED_MODEL_ID",
+  "generation_config_policy": "vllm",
+  "argv": [
+    "vllm",
+    "serve",
+    "/content-addressed/model/path",
+    "--served-model-name",
+    "REPLACE_WITH_EXACT_SERVED_MODEL_ID",
+    "--generation-config",
+    "vllm"
+  ],
+  "environment": {}
+}

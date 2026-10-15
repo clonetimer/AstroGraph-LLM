@@ -1,0 +1,25 @@
+{
+  "preflight_can_start": true,
+  "run_status": "SUCCEEDED",
+  "review_status": "REVIEW_REQUIRED",
+  "top_fault_id": "ADCS_RW_FRICTION_INCREASE",
+  "candidate_count": 1,
+  "candidate_status_by_fault": {
+    "ADCS_RW_FRICTION_INCREASE": "PROVISIONAL_LOG_CUE"
+  },
+  "minimum_evidence_roles": [
+    "diagnosis_results",
+    "log_reports",
+    "references"
+  ],
+  "must_have_hypotheses": true,
+  "case_id": "TC01_ADCS_反作用轮摩擦",
+  "description": "已知故障+日志+手册，可检出待核查机理",
+  "upload_files": [
+    "diagnosis_result.json",
+    "operations.log",
+    "reference.md"
+  ],
+  "equipment_scope": "LAB_ADCS_V1",
+  "manifest": "analysis_input.json"
+}

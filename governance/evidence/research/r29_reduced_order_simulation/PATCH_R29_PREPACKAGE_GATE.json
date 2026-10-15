@@ -1,0 +1,55 @@
+{
+  "schema_version": "astrograph-r29-prepackage-gate.v1",
+  "patch_id": "PATCH-R29",
+  "business_logic_frozen": true,
+  "base_r28_source_zip_sha256": "46750823384f5d6aa43d117a5ce1677bdb3674798f323495d4b4b97d34638e0a",
+  "historical_contract_repair": "BASE-R29-01_SHARED_R28_PROBE_HOST_HISTORICAL_BYTE_BINDING",
+  "r20_r29_research_chain_regression": {
+    "passed": 147,
+    "skipped": 1,
+    "failed": 0
+  },
+  "r29_direct_protocol_core_regression": {
+    "passed": 9,
+    "failed": 0
+  },
+  "r23_r29_model_simulation_probe_regression": {
+    "passed": 31,
+    "failed": 0
+  },
+  "full_collect_only": {
+    "tests_collected": 3568,
+    "collection_errors": 0
+  },
+  "source_integrity_before_gate": {
+    "verified_files": 2785,
+    "errors": 0,
+    "status": "PASS"
+  },
+  "documentation_freshness": "PASS",
+  "distribution_inventory_cleanup_evidence_tests": {
+    "passed": 23,
+    "failed": 0
+  },
+  "production_js_modules": {
+    "passed": 10,
+    "failed": 0
+  },
+  "chromium_behavior": {
+    "passed": 3,
+    "failed": 0
+  },
+  "delivery_evidence_source_only": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+  "delivery_evidence_strict": "FAIL_AS_DESIGNED_8_HISTORICAL_EXTERNAL_ARCHIVES",
+  "competition_or_rematch_regenerated": false,
+  "new_holdout_supplied": false,
+  "esa_seen_external_regenerated": false,
+  "runtime_default_changed": false,
+  "agent_required": false,
+  "post_contact_development_fault_element_f1": 1.0,
+  "post_contact_development_exact_fault_set_rate": 1.0,
+  "post_contact_development_changed_case_count": 1,
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R29 prepackage gates validate source/test/governance behavior only. The apparent 1.0 DXC09 Sample result is post-contact development closure after inspection of the R28 unresolved case; independent promotion requires genuinely new holdout evidence.",
+  "receipt_sha256": "2fd357f6d1577a370f0ec9cc46b5139169d623ed47dcc67968ea4a78d753896c"
+}

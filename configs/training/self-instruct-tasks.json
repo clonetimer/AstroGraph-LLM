@@ -1,0 +1,453 @@
+{
+  "method": "Self-Instruct adaptation: assistant-authored two-round task expansion with programmatically source-bound instances; not a reproduction of the paper scale or model identity.",
+  "tasks": [
+    {
+      "task_id": "SI-R1-01",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "all",
+      "instruction": "Extract associations from every ParameterEffect declaration. Link its stated mechanism description to the named parameter; use associated_with and quote the original declaration.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-02",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "add",
+      "instruction": "只整理 add 操作对应的机制与参数关联；multiply 和 override 不纳入结果。没有加性项时返回空 triples。",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-03",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "multiply",
+      "instruction": "Audit multiplicative effects in this source excerpt. Report only declarations whose operator is multiply; preserve each mechanism phrase and parameter spelling.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-04",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "override",
+      "instruction": "Find assignments that replace a parameter outright. Convert override declarations into source-cited associations, excluding incremental and scaling operations.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-05",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "zero",
+      "instruction": "识别数值被设置成零的声明。仅为操作数等于0的条目建立关联，不把未出现的失效状态补进图谱。",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-06",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "fraction",
+      "instruction": "Which declarations specify a factor strictly between zero and one? Return their mechanism-to-parameter associations without calling them calibrated failure probabilities.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-07",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "power",
+      "instruction": "Prepare a power-channel knowledge fragment from declarations whose parameter ends in _w. Other units and generic availability fields must be omitted.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-08",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "availability",
+      "instruction": "只抽取 availability 参数相关的声明，保留逐字引文；字段缺席时输出合法的空本体，不以其他状态字段代替。",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-09",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "all",
+      "instruction": "Form a literature-search query using the supplied component, mechanism descriptions and parameter names. Preserve source IDs and do not diagnose a current spacecraft.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-10",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "first",
+      "instruction": "为第一条参数效应写一个简洁的资料检索词组，包含组件名、原机制描述与字段名；不要混入后一条声明的内容。",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-11",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "add",
+      "instruction": "Search for additive fault effects represented here. Use only the component and add declarations; if none exist, request the component ParameterEffect documentation.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-12",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "multiply",
+      "instruction": "Generate a lookup query for scaling behavior in the excerpt. Include mechanism and field terms from multiply entries; use the component documentation fallback when absent.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-13",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "override",
+      "instruction": "请为参数覆写行为组织检索词，只使用 override 条目的原机制与字段。若没有覆写，则检索该组件的 ParameterEffect 文档。",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-14",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "zero",
+      "instruction": "Build an evidence lookup for zero-valued parameter effects. Keep source vocabulary intact; if no zero-valued entry is present, query the component ParameterEffect documentation.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-15",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "fields",
+      "instruction": "Construct a compact index query consisting of the component and declared parameter identifiers. Exclude prose interpretations and invented aliases.",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R1-16",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "mechanisms",
+      "instruction": "输出便于查找机制说明的英文检索词：组件名加原文机制描述，合并重复描述，不额外扩展字段缩写或加入诊断结论。",
+      "generation_round": 1,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL"
+      ]
+    },
+    {
+      "task_id": "SI-R2-01",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "nonzero",
+      "instruction": "Create associations only for nonzero operands. A zero override remains outside this extraction task even if its description mentions a severe failure.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-02",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "above_one",
+      "instruction": "抽取操作数大于1的参数效应，保持关联语义而不推断真实风险；没有符合条件的声明时明确输出空 triples。",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-03",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "negative",
+      "instruction": "Locate negative numeric operands and bind each qualifying mechanism phrase to its exact field identifier. Do not reverse signs or turn a subtraction into an absolute value.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-04",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "first",
+      "instruction": "Read only the earliest ParameterEffect declaration in source order. Produce one cited association for it and ignore the remaining declarations in this excerpt.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-05",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "last",
+      "instruction": "仅为原文最后一条 ParameterEffect 声明构造关联，主体取其机制描述，客体取其字段名；不要按故障严重程度重新排序。",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-06",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "not_availability",
+      "instruction": "Build a parameter fragment after excluding the generic availability field. Each retained association must still be supported by an exact source declaration.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-07",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "thermal",
+      "instruction": "筛选字段名中包含 heat、temperature、thermal、emissivity 或 absorptivity 的效应；只抽取命中字段，不能因其描述提到热就纳入其他参数。",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-08",
+      "task": "ONTOLOGY_EXTRACTION",
+      "mode": "sensor",
+      "instruction": "Select declarations about field identifiers containing bias, noise, error or dropout. Return source-grounded associations and abstain from inventing sensor identities.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-09",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "last",
+      "instruction": "Prepare a lookup for the final declaration in document order. Compose the component name, its mechanism phrase and its parameter identifier without borrowing earlier entries.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-10",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "nonzero",
+      "instruction": "为所有非零操作数的效应拟定资料检索词，保留机制、字段和组件；零值项排除，若全部为零则使用组件 ParameterEffect 文档查询。",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-11",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "above_one",
+      "instruction": "Focus the search on operands above one, retaining the excerpt vocabulary. With no such entry, request the component ParameterEffect reference instead of fabricating amplification.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-12",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "negative",
+      "instruction": "只围绕负数操作数生成查询；符号不变，不把正数倍率误作负向效应。不存在匹配项时检索组件 ParameterEffect 说明。",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-13",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "power",
+      "instruction": "Retrieve documentation for _w parameters and their stated mechanisms. Include the component; if no watt-like field is named, fall back to its ParameterEffect reference.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-14",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "availability",
+      "instruction": "Construct a query about the literal availability field only. Use its declared mechanism when present; otherwise return a component ParameterEffect documentation query.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-15",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "thermal",
+      "instruction": "为字段名称明确涉及热量、温度、热阻、发射率或吸收率的声明准备检索词；使用 heat/temperature/thermal/emissivity/absorptivity 字段筛选规则，不补造热模型。",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    },
+    {
+      "task_id": "SI-R2-16",
+      "task": "RETRIEVAL_QUERY",
+      "mode": "sensor",
+      "instruction": "Draft a search over fields containing bias, noise, error or dropout and their supplied mechanisms. Without a matching field, query the component ParameterEffect documentation.",
+      "generation_round": 2,
+      "classification_task": false,
+      "teacher": "Codex session assistant",
+      "parent_task_ids": [
+        "HUMAN-TRAIN-ONTOLOGY",
+        "HUMAN-TRAIN-RETRIEVAL",
+        "SI-R1-01",
+        "SI-R1-09"
+      ]
+    }
+  ]
+}

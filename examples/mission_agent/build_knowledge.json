@@ -1,0 +1,8 @@
+{
+  "task_id": "knowledge-candidate-001",
+  "task": "build_knowledge",
+  "goal": "Extract source-quoted candidate propagation and required-observation relationships; never activate them automatically.",
+  "documents": [
+    "examples/mission_agent/mechanism-note.md"
+  ]
+}

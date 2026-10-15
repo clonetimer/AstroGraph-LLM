@@ -1,0 +1,40 @@
+{
+  "schema_version": "astrograph-r27-dxc-algorithm-policy.v1",
+  "patch_id": "PATCH-R27",
+  "architecture": "LEGACY_RETAINED_PLUS_DETERMINISTIC_PRIMARY_CANDIDATE_PLUS_OPTIONAL_AGENT_SHADOW_REVIEW",
+  "legacy_branch": {
+    "algorithm": "R20_DXC_STATISTICAL_PREDICTOR",
+    "retained": true,
+    "removed": false,
+    "runtime_default_changed_by_r27": false
+  },
+  "candidate_branch": {
+    "algorithm": "R27_R25_COMMAND_AWARE_RESIDUAL_PLUS_R26_DISCRETE_STATE_PLUS_EXPECTED_RESPONSE_CONSISTENCY",
+    "role": "PRIMARY_CAPABLE_DEVELOPMENT_CANDIDATE",
+    "agent_required": false,
+    "formal_evidence_eligible": false,
+    "promotion_status": "BLOCKED_PENDING_GENUINELY_NEW_HOLDOUT",
+    "core_module": "astrograph.diagnosis.dxc_expected_response",
+    "integration_adapter": "astrograph.evaluation.dxc_r27_expected_response",
+    "runtime_default_changed_by_r27": false,
+    "legacy_fallback_available": true
+  },
+  "agent_layer": {
+    "role": "OPTIONAL_INVESTIGATION_AND_EXPLANATION_ONLY",
+    "existing_tools": [
+      "MINIMAL_DIAGNOSIS_REVIEW",
+      "SIMULATION_COUNTERFACTUAL_REVIEW",
+      "DXC_EXPECTED_RESPONSE_REVIEW"
+    ],
+    "diagnostic_authority": false,
+    "may_change_thresholds_or_model": false,
+    "performance_dependency": "NONE_CORE_EXECUTES_WITHOUT_AGENT",
+    "review_semantics": "READ_ONLY_HOST_BOUND_CORE_DECISION_MIRROR"
+  },
+  "esa": {
+    "legacy_slow_branch_retained": true,
+    "r26_fast_high_resolution_branch": "FROZEN_CANDIDATE_WAITING_NEW_HOLDOUT",
+    "agent_required": false
+  },
+  "claim_boundary": "R27 does not silently replace production defaults. The deterministic candidate is evaluated in parallel until new holdout evidence supports promotion. Agent tools may review but do not create the improvement."
+}

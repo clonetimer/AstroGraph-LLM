@@ -1,0 +1,62 @@
+{
+  "schema_version": "astrograph-r25-esa-confirmatory-raw-visibility-audit.v1",
+  "dataset_id": "ESA_MISSION1",
+  "partition": "CONFIRMATORY_EVALUATION",
+  "purpose": "AUDIT",
+  "prediction_generation": false,
+  "event_ids": [
+    "id_107",
+    "id_109",
+    "id_110",
+    "id_114"
+  ],
+  "event_duration_s": {
+    "id_107": 9.912,
+    "id_109": 6.912,
+    "id_110": 3.912,
+    "id_114": 9.912
+  },
+  "raw_sample_count_inside_annotation": {
+    "id_107": {
+      "channel_41": 2,
+      "channel_42": 2,
+      "channel_43": 2,
+      "channel_44": 2,
+      "channel_45": 2,
+      "channel_46": 2
+    },
+    "id_109": {
+      "channel_41": 2,
+      "channel_42": 2,
+      "channel_43": 2,
+      "channel_44": 2,
+      "channel_45": 2,
+      "channel_46": 2
+    },
+    "id_110": {
+      "channel_41": 2,
+      "channel_42": 2,
+      "channel_43": 2,
+      "channel_44": 2,
+      "channel_45": 2,
+      "channel_46": 2
+    },
+    "id_114": {
+      "channel_41": 2,
+      "channel_42": 2,
+      "channel_43": 2,
+      "channel_44": 2,
+      "channel_45": 2,
+      "channel_46": 2
+    }
+  },
+  "all_six_channels_have_raw_sample_inside_annotation": {
+    "id_107": true,
+    "id_109": true,
+    "id_110": true,
+    "id_114": true
+  },
+  "claim_boundary": "Read-only raw timestamp visibility audit only. It does not score a new detector or regenerate seen confirmatory predictions.",
+  "qualification": "AUDIT_ONLY_NOT_EXTERNAL_REVALIDATION",
+  "receipt_sha256": "03a0d899f0782c48641cf987a4c21292c5ea81975a4fe47b31e1c269a91502b9"
+}

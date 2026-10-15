@@ -1,0 +1,16 @@
+{
+  "provider": "local-openai-compatible",
+  "base_url": "http://127.0.0.1:1234/v1",
+  "model": "REPLACE_WITH_YOUR_LOCAL_MODEL_ID",
+  "api_key": "local-placeholder",
+  "temperature": 0,
+  "max_tokens": 2400,
+  "timeout_s": 45,
+  "response_format_strategy": "json_schema",
+  "repair_attempts": 0,
+  "tokenizer_mode": "disabled",
+  "tokenizer_trust_remote_code": false,
+  "context_length": 16384,
+  "max_response_bytes": 4000000,
+  "max_http_attempts": 2
+}

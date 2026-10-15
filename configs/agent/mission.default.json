@@ -1,0 +1,30 @@
+{
+  "schema_version": "astrograph-mission-settings.v1",
+  "project_root": ".",
+  "read_roots": [
+    "."
+  ],
+  "output_root": "../astrograph-agent-runs",
+  "planner": "deterministic",
+  "max_checks": 3,
+  "max_optional_actions": 2,
+  "max_llm_calls": 6,
+  "domain": "adcs",
+  "evidence_profile": "sensor-checks",
+  "approved_model_sha256": [
+    "39062457c1ed6d68c1478afa1d125ba54b80a6e07936de0a4078dca865852732"
+  ],
+  "allow_external_literature": false,
+  "allow_a2o": false,
+  "allow_mineru": false,
+  "task_timeout_s": 600,
+  "llm_timeout_s": 120,
+  "max_http_attempts": 6,
+  "context_token_limit": 16384,
+  "max_plan_revisions": 1,
+  "ontology_batch_chars": 12000,
+  "ontology_max_batches": 16,
+  "resume_read_only": false,
+  "model_capability_registry": "configs/agent/model_capabilities.default.json",
+  "model_execution_bindings": "configs/agent/model_execution_bindings.default.json"
+}

@@ -1,0 +1,17 @@
+{
+  "preflight_can_start": true,
+  "run_status": "SUCCEEDED",
+  "review_status": "INSUFFICIENT_EVIDENCE",
+  "top_fault_id": null,
+  "candidate_count": 0,
+  "must_have_hypotheses": false,
+  "case_id": "TC05_仅日志有异常但诊断无候选",
+  "description": "防止系统把单条日志变成已确诊上游故障",
+  "upload_files": [
+    "diagnosis_result.json",
+    "operations.log",
+    "reference.md"
+  ],
+  "equipment_scope": "LAB_ADCS_V3",
+  "manifest": "analysis_input.json"
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": "astrograph-r29-algorithm-architecture-receipt.v1",
+  "patch_id": "PATCH-R29",
+  "base_r28_source_zip_sha256": "46750823384f5d6aa43d117a5ce1677bdb3674798f323495d4b4b97d34638e0a",
+  "architecture": "LEGACY_RETAINED_PLUS_R28_DETERMINISTIC_CORE_PLUS_SELECTIVE_R29_REDUCED_ORDER_PHYSICAL_RESOLVER_PLUS_OPTIONAL_AGENT_SHADOW_REVIEW",
+  "legacy_branch_retained": true,
+  "r28_branch_retained": true,
+  "runtime_default_changed": false,
+  "r29_role": "FROZEN_POST_CONTACT_DEVELOPMENT_CANDIDATE_REQUIRES_NEW_HOLDOUT",
+  "simulation_provider_interface": "DiagnosticSimulationProvider",
+  "simulation_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+  "simulation_semantics": "REDUCED_ORDER_ELECTRICAL_LOAD_TIME_SERIES_FORWARD_SIMULATION",
+  "numerical_time_series_simulation": true,
+  "continuous_network_solver": false,
+  "virtual_adapt_or_simulink_equivalent": false,
+  "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY",
+  "simulation_candidate_semantics": "HOST_BOUND_SIMULATION_HYPOTHESIS_NOT_DIAGNOSIS_PROOF",
+  "r29_agent_required": false,
+  "r29_formal_evidence_eligible": false,
+  "agent_review_kind": "DXC_REDUCED_ORDER_SIMULATION_REVIEW",
+  "agent_review_read_only": true,
+  "core_truth_or_case_id_dependency": false,
+  "development_report_receipt_sha256": "f25192a6fd49ed30061db1dd2a8ac12edbe7d4cc47abd91a9d255761c0a67abd",
+  "development_report_file_identity": {
+    "size": 58750,
+    "sha256": "bb912276808a91ade0a81c3d1227b8b8027342634ed8204516063ac5590b20af"
+  },
+  "combined_post_contact_development_r28_metrics": {
+    "case_count": 25,
+    "fault_element_precision_micro": 1.0,
+    "fault_element_recall_micro": 0.9705882352941176,
+    "fault_element_f1_micro": 0.9850746268656716,
+    "component_precision_micro": 1.0,
+    "component_recall_micro": 0.9705882352941176,
+    "component_f1_micro": 0.9850746268656716,
+    "exact_fault_set_rate": 0.96,
+    "faulty_case_any_fault_element_overlap_rate": 0.96,
+    "mean_predicted_fault_count": 1.32,
+    "diagnostic_resolution_rate": 0.96,
+    "unresolved_case_count": 1,
+    "resolved_exact_fault_set_rate": 1.0
+  },
+  "combined_post_contact_development_r29_metrics": {
+    "case_count": 25,
+    "fault_element_precision_micro": 1.0,
+    "fault_element_recall_micro": 1.0,
+    "fault_element_f1_micro": 1.0,
+    "component_precision_micro": 1.0,
+    "component_recall_micro": 1.0,
+    "component_f1_micro": 1.0,
+    "exact_fault_set_rate": 1.0,
+    "faulty_case_any_fault_element_overlap_rate": 1.0,
+    "mean_predicted_fault_count": 1.36,
+    "diagnostic_resolution_rate": 1.0,
+    "unresolved_case_count": 0,
+    "resolved_exact_fault_set_rate": 1.0
+  },
+  "changed_case_count": 1,
+  "physics_application_case_count": 1,
+  "source_identities": {
+    "src/astrograph/simulation/diagnostic_provider.py": {
+      "size": 13110,
+      "sha256": "76717e4e3cd1faf111cb9ccb107d059558e4534b89bbd70836cf732b8a7a5dd8"
+    },
+    "src/astrograph/simulation/adapt_reduced_order.py": {
+      "size": 8108,
+      "sha256": "d855c4196b8a901f068eeff9b8734ebac204d5bdbc60d594ede5cdbeaf8dec3e"
+    },
+    "src/astrograph/diagnosis/dxc_reduced_order_physics.py": {
+      "size": 28106,
+      "sha256": "3977a535bbd8e140d2a919161ff514d90585719762b76e5214523e865f07bf89"
+    },
+    "src/astrograph/evaluation/dxc_r29_reduced_order.py": {
+      "size": 4543,
+      "sha256": "130adce8e943706eb133ca143774a6db11960ebe297b9d622facf9d04f812a77"
+    },
+    "src/astrograph/investigation/diagnostic_probes.py": {
+      "size": 31131,
+      "sha256": "e949ca475c8619f493228bf2a4c905df2a2a1e6ff1332c2592632b8b5748eb70"
+    },
+    "scripts/experiments/run_r29_dxc_reduced_order_development.py": {
+      "size": 10357,
+      "sha256": "cb998788f17cc8a71669b61301ed8f5abdc53f3d5bf11e051ffeb15679f30e0f"
+    },
+    "configs/evaluation/dxc_r29_reduced_order.v1.json": {
+      "size": 1737,
+      "sha256": "f9fab9a76fb7b23043e45223b9cf4375d9731405decfe6c5c0c0f2ff0668f83b"
+    },
+    "governance/evidence/research/r29_reduced_order_simulation/dxc_reduced_order_development.json": {
+      "size": 58750,
+      "sha256": "bb912276808a91ade0a81c3d1227b8b8027342634ed8204516063ac5590b20af"
+    }
+  },
+  "competition_or_rematch_regenerated": false,
+  "new_holdout_supplied": false,
+  "stop_rule": "NO_PARAMETER_SEARCH_ON_DXC09_SAMPLE_AFTER_FIXED_R29_DESIGN",
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R29 is a reduced-order numerical simulation resolver implemented after the R28 unresolved development case had already been inspected. Its core is truth-blind at runtime, but all DXC09 Sample metrics are post-contact development evidence and require genuinely new holdout validation.",
+  "receipt_sha256": "3cb5da7160754db9379754e4552878f89fc5c6ed754f0d2b9c98a6b8ae55bd1d"
+}

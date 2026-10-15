@@ -1,0 +1,82 @@
+{
+  "schema_version": "astrograph-r36-method-remediation-receipt.v1",
+  "status": "PASS_BOUNDED_REMEDIATION_WITH_INHERITED_BASELINE_FAILURES",
+  "source_delivery": {
+    "archive": "AstroGraph_0.7.1_post49_R36_reconstructed_source_4a31f18.zip",
+    "archive_sha256": "b82b808664c83f308384450ac5aea6f168c4b4c587b27b9b211118e5db947759",
+    "declared_commit": "4a31f1806e2dd3dac25d354c24644fc64aa181e7",
+    "version": "0.7.1.post49"
+  },
+  "method_changes": [
+    "timezone-aware temporal evidence edges",
+    "numerically stable tempered likelihood update",
+    "per-target completeness semantics",
+    "PENDING review lifecycle state",
+    "argument-bound expiring one-use tool approvals",
+    "identity-bound externally verified qualification receipts",
+    "truth-independent ADCS alarm episode generation"
+  ],
+  "adcs_development_recheck": {
+    "dataset_id": "ADCS_V5_2_2_USER_SUPPLIED",
+    "cohort_id": "ADCS_V5_2_2_FROZEN_TEST_SAMPLE_INDEX_4_9",
+    "protocol_id": "R36_ADCS_DEV_SKLEARN_LOGREG_EVENT_CAUSAL_V2",
+    "case_artifact_sha256": "54cd9db35db81d70eba1ea97cdf1b377663dedb247a63d8ad2020cd5e02abad5",
+    "snapshot_sha256": "c9b621458ac4ae9615bed2a191aefea397bebb777a609e2a94344ba1be7ac075",
+    "trajectory_count": 182,
+    "fault_count": 176,
+    "normal_count": 6,
+    "detection": {
+      "TP": 155,
+      "FP": 6,
+      "FN": 21,
+      "TN": 0,
+      "precision": 0.9627329192546584,
+      "recall": 0.8806818181818182,
+      "F1": 0.9198813056379823,
+      "false_alarm_rate": 1.0,
+      "fault_pre_onset_alarm_count": 110,
+      "fault_pre_onset_alarm_rate": 0.625,
+      "latency_mean_s": 9.148387096774194,
+      "latency_median_s": 3.0,
+      "latency_p95_s": 38.89999999999995
+    },
+    "localization_accuracy": 0.6534090909090909,
+    "identification_accuracy": 0.5568181818181818,
+    "evidence_class": "DEVELOPMENT"
+  },
+  "source_sha256": {
+    "src/astrograph/diagnosis/reasoning_graph.py": "7ad57c7df9d6f13bd38094b543ea938fdcba5f5c502aef6d60f4f829f995eccb",
+    "src/astrograph/evidence/quality.py": "f75f506ddc57654816f815e6faf30eafbb2e17b2b6a2e06ff8a80530f2a9e86c",
+    "src/astrograph/integrations/review_lifecycle.py": "e1d282dececd737dc86668fb651fc87ba468fceb0cba15c16b6c021a28e9de05",
+    "src/astrograph/agents/controlled_tools.py": "9be2f42b1edb64f22b8342f9e3d7c9397993312a39d7c964190d8ccd94d7040a",
+    "src/astrograph/evaluation/diagnostic_regression.py": "fa62f64ef9347fadb418ad329bd85bd8659d6367ac3dd954d666b9960c5eb730",
+    "scripts/evaluation/build_adcs_r36_development_cases.py": "d8c112c9a6d58a1d3095e907887f6fcd820893b4e81aad3b245ee4eb3277e05b"
+  },
+  "validation": {
+    "targeted": {
+      "passed": 35,
+      "failed": 0
+    },
+    "baseline_full_regression": {
+      "passed": 3328,
+      "failed": 110,
+      "skipped": 203
+    },
+    "candidate_full_regression": {
+      "passed": 3337,
+      "failed": 108,
+      "skipped": 203
+    },
+    "new_failure_count_relative_to_baseline": 0,
+    "inherited_failures_fixed": 2,
+    "source_package_validation": {
+      "status": "FAIL_INHERITED_MISSING_MODEL_ARTIFACTS",
+      "errors": [
+        "MODEL_HASH_MISMATCH:reference/models/sat_sim_catalog/sat_sim_catalog.joblib",
+        "MODEL_HASH_MISMATCH:reference/models/sat_sim_open_set/sat_sim_open_set.joblib"
+      ]
+    },
+    "interpretation": "The remediation adds no failing test node relative to the reconstructed baseline. The 108 remaining failures are inherited baseline/delivery gaps, so this receipt does not declare the reconstructed source fully validated or stable."
+  },
+  "claim_boundary": "Development-method remediation on the frozen reconstructed post49 source. It does not establish independent confirmation, qualification, causal identification, flight performance or production readiness."
+}

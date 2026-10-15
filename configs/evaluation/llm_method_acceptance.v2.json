@@ -1,0 +1,61 @@
+{
+  "schema_version": "astrograph-llm-method-acceptance-campaign.v2",
+  "campaign_id": "llm-method-acceptance-v2-confirmatory",
+  "qualification_status": "PREEXECUTION_GATES_FROZEN",
+  "arm_order": [
+    "A0_ALGORITHM_ONLY",
+    "A1_LATE_LLM",
+    "A2_CONTROLLED_FULL",
+    "A3_NO_KG_OBSERVATION",
+    "A4_NO_RAG_OAG_CONTEXT",
+    "A5_NO_EXPERIENCE_CONTEXT",
+    "A6_NO_OBSERVATION_FEEDBACK",
+    "A7_NO_ACTIVE_PROBE"
+  ],
+  "case_selection": {
+    "datasets": ["adcs.v5_2_2", "phm.v6_0"],
+    "split": "test",
+    "test_sample_indices": [4, 9],
+    "registered_exact_mapping_only": true,
+    "selection_rule": "Include every test row whose dataset class has an exact registered fault mapping. Pair each fault row with its frozen nominal counterpart. No post-result case removal is allowed.",
+    "expected_adcs_case_count": 28,
+    "expected_phm_case_count": 10,
+    "expected_case_count": 38
+  },
+  "case_manifest_path": "governance/evidence/research/llm_method_confirmatory_v2/case_manifest.json",
+  "primary_comparison": "A2_CONTROLLED_FULL vs A0_ALGORITHM_ONLY",
+  "secondary_probe_comparison": "A2_CONTROLLED_FULL vs A7_NO_ACTIVE_PROBE",
+  "statistics": {
+    "paired_test": "EXACT_TWO_SIDED_MCNEMAR",
+    "alpha": 0.05,
+    "multiple_comparison_policy": "Primary promotion gate is A2 vs A0 only. A1/A3/A4/A5/A6/A7 are mechanism ablations and are descriptive unless separately preregistered.",
+    "missing_arm_policy": "FAIL_CAMPAIGN",
+    "failed_case_policy": "FAIL_CAMPAIGN_NO_DENOMINATOR_CHANGE"
+  },
+  "promotion_thresholds": {
+    "max_induced_error_count": 0,
+    "min_true_fault_in_candidate_set_rate": 1.0,
+    "min_evidence_citation_valid_rate": 1.0,
+    "min_net_diagnostic_gain": 1,
+    "max_mcnemar_exact_p": 0.05
+  },
+  "required_metrics": [
+    "accuracy",
+    "macro_f1",
+    "balanced_accuracy",
+    "coverage",
+    "selective_risk",
+    "failure_to_abstain_rate",
+    "true_fault_in_candidate_set_rate",
+    "probe_execution_count",
+    "new_observation_count",
+    "new_raw_observation_count",
+    "formal_evidence_generated_count",
+    "resolved_gap_count",
+    "corrected_case_count",
+    "induced_error_count",
+    "net_diagnostic_gain",
+    "mcnemar_exact_two_sided_p"
+  ],
+  "claim_boundary": "Frozen engineering confirmatory design. Passing gates authorizes engineering promotion review only; it does not establish flight qualification, hard-real-time safety, or generalization outside the frozen datasets."
+}

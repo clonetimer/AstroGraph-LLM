@@ -1,0 +1,8 @@
+{
+  "schema_version": "external-diagnosis-result.v1",
+  "case_id": "EXAMPLE-ADCS-001",
+  "subsystem": "ADCS",
+  "candidate_fault_id": "ADCS_RW_FRICTION_INCREASE",
+  "diagnostic_summary": "诊断系统提示反作用轮摩擦增大，尚未完成硬件检验。",
+  "review_status": "UNVERIFIED"
+}

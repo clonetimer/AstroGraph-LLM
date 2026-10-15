@@ -1,0 +1,72 @@
+{
+  "schema_version": "astrograph-r31-prepackage-gate.v1",
+  "patch_id": "PATCH-R31",
+  "business_logic_frozen": true,
+  "base_r30_source_zip_sha256": "c42fcda321d225e2d8be557674a2bec683ce68e3614e66829797b5fdfddbe7a4",
+  "historical_contract_repairs": [
+    "BASE-R31-01_ADDITIVE_SHARED_R30_TOOL_AND_MECHANISM_HOSTS",
+    "BASE-R31-02_ADDITIVE_SHARED_R29_PROBE_HOST"
+  ],
+  "r20_r31_research_chain_regression": {
+    "passed": 179,
+    "skipped": 1,
+    "failed": 0
+  },
+  "r31_direct_protocol_core_regression": {
+    "passed": 14,
+    "failed": 0
+  },
+  "full_collect_only": {
+    "tests_collected": 3593,
+    "collection_errors": 0
+  },
+  "source_integrity_before_gate": {
+    "verified_files": 2826,
+    "errors": 0,
+    "status": "PASS"
+  },
+  "documentation_freshness": "PASS",
+  "distribution_inventory_cleanup_evidence_tests": {
+    "passed": 23,
+    "failed": 0
+  },
+  "production_js_modules": {
+    "passed": 10,
+    "failed": 0
+  },
+  "chromium_behavior": {
+    "passed": 3,
+    "failed": 0
+  },
+  "delivery_evidence_source_only": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+  "delivery_evidence_strict": "FAIL_AS_DESIGNED_8_HISTORICAL_EXTERNAL_ARCHIVES",
+  "static_governed_tool_count": 46,
+  "diagnostic_probe_count": 12,
+  "agent_tool_catalog_sha256": "637f4e94d4847c24c9e4ed44b71d5ffb1fc875c6225f0df0db87e34242c74074",
+  "adapt_fault_mode_instance_count": 222,
+  "numerical_reduced_order_count": 14,
+  "numerical_reduced_order_coverage": 0.06306306306306306,
+  "waterpump_provider_id": "adapt-waterpump-reduced-order-v1",
+  "synthetic_blind_pump_campaign": {
+    "case_count": 80,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "status": "SYNTHETIC_BLIND_EVENT_CONDITIONAL_PROTOCOL_EVIDENCE_NOT_EXTERNAL_VALIDATION",
+    "prediction_set_sha256": "8f7ef4641e4230bfed87d7885fd445b44d071f06fec70ab7e6dffde9e6575dfb",
+    "truth_set_sha256": "b8556a28795111c552da69abf05575176ee8ab6200195bb7ac13f399cac4bec6"
+  },
+  "public_sample_mechanism_audit": {
+    "case_count": 2,
+    "mode_agreement_rate": 1.0,
+    "status": "TRUTH_ALIGNED_PUBLIC_SAMPLE_MECHANISM_FIT_AUDIT_NOT_ONLINE_DIAGNOSIS"
+  },
+  "competition_or_rematch_regenerated": false,
+  "esa_seen_external_regenerated": false,
+  "new_external_holdout_supplied": false,
+  "runtime_default_changed": false,
+  "agent_required": false,
+  "auto_override_enabled": false,
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R31 prepackage gates validate source/test/governance behavior and a second numerical WaterPump mechanism family. The 80-case pump result is synthetic event-conditional mode-classification protocol evidence, and the 2-case public-sample audit is truth-aligned mechanism-fit evidence. Neither is end-to-end online or external validation.",
+  "receipt_sha256": "fb4044e62b1d61453872f8a2c5bf9eaa17081a66b62ef000c30f39416905163d"
+}

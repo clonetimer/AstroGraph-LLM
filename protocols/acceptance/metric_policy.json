@@ -1,0 +1,17 @@
+{
+  "formal_case_status": "ACCEPTANCE_VALID",
+  "protocol_version": "G1.1",
+  "research_case_status": "RESEARCH_ONLY",
+  "rules": {
+    "macro_and_micro_required": true,
+    "truth_blind_runtime": true,
+    "unknown_and_data_quality_included": true
+  },
+  "schema_version": "astrograph-metric-policy.v1",
+  "thresholds": {
+    "classification_accuracy": 0.9,
+    "detection_accuracy": 0.98,
+    "localization_accuracy": 0.95,
+    "reasoning_correctness": 0.9
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "astrograph-episode-temporal-constraint-catalog.v1",
+  "catalog_version": "episode-temporal-constraints-0.4.3-e0",
+  "constraints": [
+    {
+      "constraint_id": "TMP-D3-RW-FRICTION-RESPONSE-001",
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "anchor_anomaly_id": "ANOM_RW_FRICTION_ESTIMATE_HIGH",
+      "related_anomaly_ids": ["ANOM_RW_CURRENT_DEVIATION", "ANOM_RW_SPEED_DEVIATION"],
+      "allowed_relations": ["OVERLAPS", "STARTS_WITHIN", "CO_OCCURS"],
+      "max_lag_s": 5.0,
+      "min_overlap_s": 1.0,
+      "minimum_matches": 1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "The D3 friction mechanism requires a local friction episode to overlap or closely co-occur with a wheel response episode.",
+      "evidence_level": "E0"
+    },
+    {
+      "constraint_id": "TMP-D3-RW-TORQUE-RESPONSE-001",
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "anchor_anomaly_id": "ANOM_RW_DRIVER_UNAVAILABLE",
+      "related_anomaly_ids": ["ANOM_RW_ACTUAL_TORQUE_LOSS"],
+      "allowed_relations": ["OVERLAPS", "STARTS_WITHIN", "CO_OCCURS"],
+      "max_lag_s": 5.0,
+      "min_overlap_s": 1.0,
+      "minimum_matches": 1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "The D3 torque-authority mechanism requires driver-unavailable status to overlap or closely co-occur with actual torque loss.",
+      "evidence_level": "E0"
+    }
+  ],
+  "claim_boundary": "E0 temporal constraints derived from D3 synthetic engineering contracts; not flight-qualified causal timing rules."
+}

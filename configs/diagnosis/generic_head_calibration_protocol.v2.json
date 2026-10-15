@@ -1,0 +1,279 @@
+{
+  "schema_version": "astrograph-generic-head-calibration-protocol.v2",
+  "protocol_id": "astrograph.generic-heads.synthetic-technical.candidate-2",
+  "protocol_version": "2.0.1",
+  "frozen_at": "2026-08-02T13:10:04+08:00",
+  "protocol_basis": "G1.1",
+  "candidate_ordinal": 2,
+  "maximum_candidates": 3,
+  "authorization": {
+    "request_id": "P015-CANDIDATE-2-AUTHORIZATION-001",
+    "request_path": "protocols/acceptance/p015_candidate2_authorization_request.json",
+    "request_sha256": "e9fbaa1d88f54fc4957f05e1b45e9bef0f7239864d2804e1c041160205f3bada",
+    "timer_attestation_path": "protocols/acceptance/p015_candidate2_timer_attestation.json",
+    "timer_attestation_sha256": "827eaa6f0d1e86999531b1f3af95d0113bfb1431218a8d0a2451bd3e3e882bae",
+    "authorization_gate_path": "governance/evidence/0.7.1-extension/candidate2_authorization_gate.json",
+    "authorization_gate_sha256": "16447fdc0127023b9c036cc420a2e7245ef7036b37c4a912409305e4e26dd62b"
+  },
+  "predecessor_failure": {
+    "protocol_path": "configs/diagnosis/generic_head_calibration_protocol.v1.json",
+    "protocol_sha256": "b296b579fdbc08e58933a52bcd2129719404966993452f93caf8ae09dae63240",
+    "fit_evidence_sha256": "e6aebe57528ffa5b715ee12ececcb9c2c86fd98a6cda11b1d2a5077646cd0e10",
+    "validation_evidence_sha256": "60bc39e3dacda713b9a5e34420b958b4a0bbaae7cdc4b0084a628a2c49368e78",
+    "exhausted_validation_seed": 20280820,
+    "exhausted_seed_permitted_uses": ["PRESERVED_FAILURE_EVIDENCE_ONLY"]
+  },
+  "frozen_g1_1_artifacts": [
+    {
+      "path": "protocols/acceptance/diagnosis_scope.json",
+      "sha256": "cf917a9e8529811cf07cb59548bf3ea5461546a99c42f742d4dc0e0510aa06bc"
+    },
+    {
+      "path": "protocols/acceptance/fault_taxonomy.json",
+      "sha256": "3f966c58a813fdb70e26711647a44d6ea854d06c3c725dd9aa2d16c3be0ef413"
+    },
+    {
+      "path": "protocols/acceptance/coverage_matrix.json",
+      "sha256": "9bc0cebda74852c27149cededb99df087b35872f3bfdf47c075dae8bb487d7c0"
+    },
+    {
+      "path": "protocols/acceptance/metric_policy.json",
+      "sha256": "4ceb52f6c1892cd8b416c2a62500f1ca14adec209ba69d53eef655e0583e94e1"
+    },
+    {
+      "path": "protocols/acceptance/reasoning_rubric.json",
+      "sha256": "c930b9f8c4f6fd8cce84b145126f47abd80f803dab3333ce7770f5baf45b7fc3"
+    }
+  ],
+  "formal_hidden_truth_used": false,
+  "synthetic_controlled_reference_used": true,
+  "runtime_labels_used": false,
+  "runtime_truth_used": false,
+  "production_candidate": {
+    "model_path": "SEGMENTED_GRAY_BOX_PARAMETER_AND_DISTURBANCE_EVIDENCE_PLUS_SINGLE_L2_LOGISTIC_HEAD",
+    "model_family": "L2_REGULARIZED_MULTINOMIAL_LOGISTIC_REGRESSION",
+    "head_count": 1,
+    "ensemble_allowed": false,
+    "fallback_model_allowed": false,
+    "legacy_exact_fault_router_allowed": false,
+    "second_implicit_production_model_allowed": false,
+    "feature_source": "PUBLIC_SEMANTIC_TELEMETRY_AND_FROZEN_DYNAMICS_CONTRACT_ONLY",
+    "anomaly_decision": "CALIBRATION_NORMAL_SPLIT_CONFORMAL_ON_FIXED_COMPOSITE_SEGMENT_SCORE",
+    "probability_calibration": "HELD_OUT_TEMPERATURE_SCALING",
+    "open_set_method": "CLASS_CONDITIONAL_SPLIT_CONFORMAL_SHRUNK_MAHALANOBIS_ENVELOPE_AROUND_PREDICTED_LOGISTIC_CLASS",
+    "open_set_is_classifier": false,
+    "classification_abstention_outside_ood": false,
+    "optimizer": {
+      "solver": "lbfgs",
+      "l2_inverse_regularization": 1.0,
+      "maximum_iterations": 1000,
+      "tolerance": 1e-08,
+      "class_weight": "NONE",
+      "random_seed": 20260820
+    },
+    "temperature_scaling": {
+      "selection_metric": "NEGATIVE_LOG_LIKELIHOOD",
+      "minimum_temperature": 0.25,
+      "maximum_temperature": 4.0,
+      "grid_point_count": 256
+    },
+    "conformal_quantile_rule": "rank=ceil((n+1)*(1-alpha)), clipped to n",
+    "class_covariance_shrinkage_to_diagonal": 0.1,
+    "matrix_eigenvalue_floor": 1e-06,
+    "feature_scale_floor": 1e-12
+  },
+  "known_mechanisms": ["CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+  "open_set_mechanisms": ["BIAS", "INTERMITTENT", "STUCK"],
+  "component_archetypes": [
+    "storage.energy_buffer",
+    "thermal.lumped_capacity"
+  ],
+  "segmented_gray_box_evidence": {
+    "change_fraction_grid": [
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8
+    ],
+    "tie_break": "EARLIEST_CHANGE_FRACTION",
+    "derivative": "FIRST_DIFFERENCE_DIVIDED_BY_ACTUAL_SAMPLE_INTERVAL",
+    "physical_design": {
+      "storage.energy_buffer": [
+        "MIDPOINT_ELECTRICAL_ACTIVE_POWER"
+      ],
+      "thermal.lumped_capacity": [
+        "MIDPOINT_ELECTRICAL_ACTIVE_POWER",
+        "NEGATIVE_MIDPOINT_STATE_MINUS_AMBIENT_TEMPERATURE"
+      ]
+    },
+    "design_normalization": "EACH_PHYSICAL_COLUMN_DIVIDED_BY_ITS_FULL_EPISODE_RMS_WITH_1E-12_FLOOR",
+    "pre_segment_fit": "ORDINARY_LEAST_SQUARES_WITHOUT_INTERCEPT_ON_NORMALIZED_PHYSICAL_DESIGN",
+    "post_segment_decomposition": "ORDINARY_LEAST_SQUARES_OF_PREMODEL_RESIDUAL_ON_NORMALIZED_PHYSICAL_DESIGN_PLUS_CONSTANT_PLUS_UNIT_RAMP",
+    "selected_change_score": "MAXIMUM_NONNEGATIVE_POST_SSE_REDUCTION_DIVIDED_BY_PRE_RESIDUAL_VARIANCE_FLOORED_AT_1E-12",
+    "anomaly_score": "MAX_OF_SELECTED_CHANGE_SCORE_MAX_ABS_RESIDUAL_Z_SQUARED_AND_STATE_PLATEAU_Z_SQUARED",
+    "state_plateau_z": "LONGEST_CONTIGUOUS_STATE_PLATEAU_RUN_DIVIDED_BY_MAX_OF_ONE_AND_CEILING_OF_0.05_TIMES_BALANCE_RESIDUAL_LENGTH",
+    "pre_residual_scale": "1.4826_TIMES_MEDIAN_ABSOLUTE_DEVIATION_WITH_RMS_AND_1E-12_FALLBACK",
+    "active_residual_rule": "ABS_RESIDUAL_EXCEEDS_TWO_TIMES_PRE_RESIDUAL_SCALE",
+    "state_plateau_rule": "ABS_STATE_FIRST_DIFFERENCE_LE_PRE_DIFFERENCE_MAD_FLOORED_AT_1E-12",
+    "periodic_autocorrelation_lags": [2, 20],
+    "onset_window_half_width_samples": 2
+  },
+  "feature_schema": [
+    "selected_split_fraction",
+    "pre_fit_r2",
+    "post_decomposition_r2",
+    "parameter_shift_norm",
+    "parameter_shift_alignment",
+    "parameter_shift_primary_signed",
+    "constant_disturbance_signed",
+    "ramp_disturbance_signed",
+    "post_residual_rms_ratio",
+    "post_residual_mean_over_scale",
+    "post_residual_slope_over_scale",
+    "impulse_l1_concentration",
+    "onset_window_energy_fraction",
+    "lag1_autocorrelation",
+    "max_periodic_autocorrelation_lag_2_20",
+    "sign_change_fraction",
+    "active_fraction_two_mad",
+    "longest_active_run_fraction",
+    "state_plateau_fraction",
+    "state_jump_over_pre_scale",
+    "input_residual_correlation",
+    "selected_change_score_log1p"
+  ],
+  "feature_definitions": {
+    "selected_split_fraction": "selected change index divided by balance-residual length",
+    "pre_fit_r2": "one minus pre physical-fit SSE divided by centered pre derivative SST, clipped to [-1,1]",
+    "post_decomposition_r2": "selected post SSE reduction divided by post premodel-residual SSE, clipped to [0,1]",
+    "parameter_shift_norm": "L2 norm of selected normalized-physical-design coefficients divided by pre residual scale",
+    "parameter_shift_alignment": "cosine between selected parameter-shift coefficients and pre physical coefficients; zero if either norm is below 1e-12",
+    "parameter_shift_primary_signed": "first selected parameter-shift coefficient divided by pre residual scale",
+    "constant_disturbance_signed": "selected constant coefficient divided by pre residual scale",
+    "ramp_disturbance_signed": "selected unit-ramp coefficient divided by pre residual scale",
+    "post_residual_rms_ratio": "post premodel-residual RMS divided by pre residual RMS with 1e-12 floor",
+    "post_residual_mean_over_scale": "post premodel-residual mean divided by pre residual scale",
+    "post_residual_slope_over_scale": "post premodel-residual unit-index linear slope divided by pre residual scale",
+    "impulse_l1_concentration": "maximum absolute premodel residual divided by its full-episode L1 norm with 1e-12 floor",
+    "onset_window_energy_fraction": "premodel residual squared energy within selected split plus or minus two samples divided by full squared energy",
+    "lag1_autocorrelation": "finite Pearson lag-one correlation of premodel residual, otherwise zero",
+    "max_periodic_autocorrelation_lag_2_20": "maximum finite absolute Pearson autocorrelation over feasible frozen lags 2 through 20, otherwise zero",
+    "sign_change_fraction": "fraction of adjacent nonzero premodel residual signs that differ",
+    "active_fraction_two_mad": "fraction satisfying the frozen active residual rule",
+    "longest_active_run_fraction": "longest contiguous active-residual run divided by residual length",
+    "state_plateau_fraction": "fraction satisfying the frozen state plateau rule",
+    "state_jump_over_pre_scale": "maximum absolute state first difference divided by pre state-difference MAD with RMS and 1e-12 fallback",
+    "input_residual_correlation": "maximum absolute finite Pearson correlation between post residual and each normalized physical-design column",
+    "selected_change_score_log1p": "natural log of one plus selected nonnegative change score"
+  },
+  "split": {
+    "group_keys": [
+      "asset_instance",
+      "configuration_family",
+      "mechanism",
+      "severity",
+      "onset_fraction",
+      "simulation_seed"
+    ],
+    "development_seed": 20260820,
+    "calibration_seed": 20270820,
+    "exhausted_validation_seed": 20280820,
+    "technical_validation_seed": 20290820,
+    "development_count_per_archetype_per_known_mechanism": 120,
+    "calibration_count_per_archetype_per_known_mechanism": 60,
+    "calibration_normal_count_per_archetype": 60,
+    "technical_validation_count_per_archetype_per_mechanism": 120,
+    "normal_count_per_archetype_in_technical_validation": 120,
+    "split_overlap_allowed": false,
+    "technical_validation_run_count": 1,
+    "validation_seed_may_be_read_during_fit_or_calibration": false
+  },
+  "synthetic_generator": {
+    "development_and_calibration_configuration_domain": "calibrate_gray_box_uncertainty._configurations(validation=false)",
+    "technical_validation_configuration_domain": "calibrate_gray_box_uncertainty._configurations(validation=true)",
+    "onset_fraction_range": [0.3, 0.6],
+    "capacity_remaining_fraction_range": [0.5, 0.75],
+    "storage_leakage_rate_per_s_range": [-0.00025, -0.00015],
+    "thermal_leakage_heat_w_range": [-12.0, -5.0],
+    "storage_drift_final_rate_per_s_range": [-0.0006, -0.0003],
+    "thermal_drift_final_heat_w_range": [-25.0, -10.0],
+    "storage_bias_step_range": [-0.06, -0.02],
+    "thermal_bias_step_k_range": [-3.0, -1.0],
+    "intermittent_active_fraction_range": [0.2, 0.4],
+    "intermittent_period_samples_range": [8, 20],
+    "stuck_duration_fraction_range": [0.15, 0.35],
+    "severity_endpoints_inclusive": true,
+    "mechanism_sign_is_fixed": "LOSS_DIRECTION"
+  },
+  "localization_evidence_requirements": {
+    "boundary_inputs_observed": true,
+    "state_channel_integrity_verified": true,
+    "input_channel_integrity_verified": true,
+    "time_alignment_verified": true,
+    "independent_repetitions_minimum": 2,
+    "affected_component_alone_is_root_cause": false
+  },
+  "thresholds": {
+    "detection_accuracy": 0.98,
+    "classification_accuracy": 0.9,
+    "localization_accuracy": 0.95,
+    "reasoning_correctness": 0.9,
+    "known_class_retention": 0.98,
+    "open_set_rejection": 0.98,
+    "open_set_alpha": 0.02,
+    "anomaly_false_alarm_alpha": 0.02
+  },
+  "denominators": {
+    "normal": 240,
+    "known": 720,
+    "open_set": 720,
+    "total": 1680
+  },
+  "reporting": {
+    "macro_and_micro_required": true,
+    "per_archetype_required": true,
+    "per_mechanism_required": true,
+    "worst_declared_group_required": true,
+    "normal_known_and_open_set_denominators_preserved": true,
+    "failed_runs_count_as_failures": true,
+    "case_level_receipts_retained": true
+  },
+  "resource_budget": {
+    "max_model_candidates": 3,
+    "production_model_candidates_used_after_fit": 2,
+    "max_runtime_seconds": 600,
+    "max_retries_per_error": 2
+  },
+  "predeclared_paths": {
+    "feature_implementation": "src/astrograph/diagnosis/generic/segmented_calibration.py",
+    "fit_and_validation_entrypoint": "scripts/acceptance/calibrate_segmented_generic_diagnosis.py",
+    "calibration_artifact": "src/astrograph/resources/generic_mechanism_calibration.v2.json",
+    "fit_evidence": "governance/evidence/0.7.1-extension/generic_mechanism_fit_calibration.v2.json",
+    "single_use_validation_receipt": "governance/evidence/0.7.1-extension/generic_head_technical_validation_query.v2.json",
+    "technical_validation_evidence": "governance/evidence/0.7.1-extension/generic_head_technical_validation.v2.json"
+  },
+  "prohibited_actions": [
+    "Read or regenerate validation seed 20280820",
+    "Read validation seed 20290820 before the candidate-2 fit and calibration artifact is frozen",
+    "Run validation seed 20290820 more than once",
+    "Delete, skip or xfail a validation case",
+    "Change any declared denominator after observing results",
+    "Merge a mechanism class",
+    "Add mechanisms to UNKNOWN or OOD",
+    "Lower any frozen threshold",
+    "Use case IDs, file paths, labels or truth at runtime",
+    "Use an ensemble, fallback, legacy exact fault router or second implicit production model",
+    "Use validation output for fitting, threshold selection or feature selection",
+    "Bind candidate 2 to production before independent Timer review"
+  ],
+  "claim_boundary": "Candidate-2 synthetic controlled technical calibration only. Freezing or fitting this protocol does not use formal hidden-acceptance truth and does not establish candidate promotion, P-014, P-015, T-310, T-311, G3, G4, flight validity or safety qualification."
+}

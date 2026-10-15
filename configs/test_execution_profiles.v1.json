@@ -1,0 +1,78 @@
+{
+  "schema_version": "astrograph-test-execution-profiles.v1",
+  "profiles": {
+    "source-only": {
+      "description": "Current-source regression with classified omissions bounded by the frozen budget.",
+      "minimum_collected_items": 3700,
+      "maximum_total_skips": 166,
+      "maximum_skips_by_category": {
+        "historical_archive_missing": 93,
+        "external_runtime_missing": 35,
+        "external_dataset_missing": 16,
+        "ui_regression_data_missing": 3,
+        "browser_dependency_missing": 6,
+        "agent_dependency_missing": 1,
+        "pdf_dependency_missing": 1,
+        "platform_not_applicable": 6,
+        "scenario_not_applicable": 5,
+        "unknown": 0
+      }
+    },
+    "archival-replay": {
+      "description": "Historical replay requires all registered frozen archive inputs.",
+      "minimum_collected_items": 3700,
+      "maximum_total_skips": 73,
+      "maximum_skips_by_category": {
+        "historical_archive_missing": 0,
+        "external_runtime_missing": 35,
+        "external_dataset_missing": 16,
+        "ui_regression_data_missing": 3,
+        "browser_dependency_missing": 6,
+        "agent_dependency_missing": 1,
+        "pdf_dependency_missing": 1,
+        "platform_not_applicable": 6,
+        "scenario_not_applicable": 5,
+        "unknown": 0
+      }
+    },
+    "external-integration": {
+      "description": "All declared external runtimes and external datasets must be configured.",
+      "minimum_collected_items": 3700,
+      "maximum_total_skips": 112,
+      "maximum_skips_by_category": {
+        "historical_archive_missing": 93,
+        "external_runtime_missing": 0,
+        "external_dataset_missing": 0,
+        "ui_regression_data_missing": 0,
+        "browser_dependency_missing": 6,
+        "agent_dependency_missing": 1,
+        "pdf_dependency_missing": 1,
+        "platform_not_applicable": 6,
+        "scenario_not_applicable": 5,
+        "unknown": 0
+      }
+    },
+    "platform-e2e": {
+      "description": "Browser dependencies and checked-in UI regression material are mandatory.",
+      "minimum_collected_items": 3700,
+      "maximum_total_skips": 157,
+      "maximum_skips_by_category": {
+        "historical_archive_missing": 93,
+        "external_runtime_missing": 35,
+        "external_dataset_missing": 16,
+        "ui_regression_data_missing": 0,
+        "browser_dependency_missing": 0,
+        "agent_dependency_missing": 1,
+        "pdf_dependency_missing": 1,
+        "platform_not_applicable": 6,
+        "scenario_not_applicable": 5,
+        "unknown": 0
+      }
+    }
+  },
+  "aliases": {
+    "source-core": "source-only",
+    "historical-replay": "archival-replay"
+  },
+  "claim_boundary": "A passing profile proves only that the collected pytest suite stayed within its declared coverage and skip budget. It does not qualify models, external data, historical evidence or production behavior."
+}

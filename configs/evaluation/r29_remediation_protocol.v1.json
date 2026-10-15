@@ -1,0 +1,89 @@
+{
+  "schema_version": "astrograph-r29-remediation-protocol.v1",
+  "patch_id": "PATCH-R29",
+  "base_artifact": "AstroGraph_0.7.1_post49_working_patch28_unified_source.zip",
+  "base_artifact_sha256": "46750823384f5d6aa43d117a5ce1677bdb3674798f323495d4b4b97d34638e0a",
+  "architecture": "LEGACY_RETAINED_PLUS_R28_DETERMINISTIC_CORE_PLUS_SELECTIVE_R29_REDUCED_ORDER_PHYSICAL_RESOLVER_PLUS_OPTIONAL_AGENT_SHADOW_REVIEW",
+  "dxc09_sample": {
+    "dataset_use": "POST_CONTACT_DEVELOPMENT_ONLY",
+    "development_receipt_sha256": "f25192a6fd49ed30061db1dd2a8ac12edbe7d4cc47abd91a9d255761c0a67abd",
+    "architecture_receipt_sha256": "3cb5da7160754db9379754e4552878f89fc5c6ed754f0d2b9c98a6b8ae55bd1d",
+    "r29_role": "FROZEN_POST_CONTACT_DEVELOPMENT_CANDIDATE_REQUIRES_NEW_HOLDOUT",
+    "agent_required": false,
+    "runtime_default_changed": false,
+    "competition_or_rematch_regenerated": false,
+    "new_holdout_supplied": false,
+    "post_contact_fault_element_f1_micro": 1.0,
+    "post_contact_exact_fault_set_rate": 1.0,
+    "promotion_status": "BLOCKED_PENDING_GENUINELY_NEW_HOLDOUT"
+  },
+  "esa": {
+    "r26_fast_branch": "FROZEN_CANDIDATE_WAITING_NEW_HOLDOUT",
+    "r29_retuning_performed": false,
+    "new_holdout_supplied": false
+  },
+  "agent": {
+    "review_kind": "DXC_REDUCED_ORDER_SIMULATION_REVIEW",
+    "diagnostic_authority": false,
+    "may_rerun_or_reconfigure_simulator": false,
+    "formal_evidence_eligible": false,
+    "core_prediction_dependency": "NONE"
+  },
+  "simulation": {
+    "provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+    "numerical_time_series_simulation": true,
+    "continuous_network_solver": false,
+    "virtual_adapt_or_simulink_equivalent": false,
+    "candidate_semantics": "HOST_BOUND_SIMULATION_HYPOTHESIS_NOT_DIAGNOSIS_PROOF"
+  },
+  "stop_rule": "NO_PARAMETER_SEARCH_ON_DXC09_SAMPLE_AFTER_FIXED_R29_DESIGN",
+  "source_bindings": {
+    "src/astrograph/simulation/diagnostic_provider.py": {
+      "size": 13110,
+      "sha256": "76717e4e3cd1faf111cb9ccb107d059558e4534b89bbd70836cf732b8a7a5dd8"
+    },
+    "src/astrograph/simulation/adapt_reduced_order.py": {
+      "size": 8108,
+      "sha256": "d855c4196b8a901f068eeff9b8734ebac204d5bdbc60d594ede5cdbeaf8dec3e"
+    },
+    "src/astrograph/diagnosis/dxc_reduced_order_physics.py": {
+      "size": 28106,
+      "sha256": "3977a535bbd8e140d2a919161ff514d90585719762b76e5214523e865f07bf89"
+    },
+    "src/astrograph/evaluation/dxc_r29_reduced_order.py": {
+      "size": 4543,
+      "sha256": "130adce8e943706eb133ca143774a6db11960ebe297b9d622facf9d04f812a77"
+    },
+    "src/astrograph/investigation/diagnostic_probes.py": {
+      "size": 31131,
+      "sha256": "e949ca475c8619f493228bf2a4c905df2a2a1e6ff1332c2592632b8b5748eb70"
+    },
+    "scripts/experiments/run_r29_dxc_reduced_order_development.py": {
+      "size": 10357,
+      "sha256": "cb998788f17cc8a71669b61301ed8f5abdc53f3d5bf11e051ffeb15679f30e0f"
+    },
+    "configs/evaluation/dxc_r29_reduced_order.v1.json": {
+      "size": 1737,
+      "sha256": "f9fab9a76fb7b23043e45223b9cf4375d9731405decfe6c5c0c0f2ff0668f83b"
+    },
+    "governance/evidence/research/r29_reduced_order_simulation/dxc_reduced_order_development.json": {
+      "size": 58750,
+      "sha256": "bb912276808a91ade0a81c3d1227b8b8027342634ed8204516063ac5590b20af"
+    },
+    "governance/evidence/research/r29_reduced_order_simulation/r29_algorithm_architecture_receipt.json": {
+      "size": 4830,
+      "sha256": "346760be3f9af71ff553c0cda664be9d3f322245386d57726366c3bba038cab5"
+    }
+  },
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R29 resolves only the narrow R28 unresolved physical-response scope using a reduced-order branch simulator. No Competition/Rematch or new external holdout is consumed; production default and Agent authority remain unchanged.",
+  "historical_contract_repairs": [
+    {
+      "finding": "BASE-R29-01_SHARED_R28_PROBE_HOST_HISTORICAL_BYTE_BINDING",
+      "sealed_r28_protocol_rewritten": false,
+      "repair": "R28 historical test preserves DXC_FORWARD_SIMULATION_REVIEW capability while R29 protocol independently binds current shared probe bytes",
+      "diagnostic_authority_changed": false
+    }
+  ],
+  "receipt_sha256": "53ab472d53deb81222665a2dd3a9dac4baef517c524371664b3401422cc870c9"
+}

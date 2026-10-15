@@ -1,0 +1,13 @@
+{
+  "schema_version": "astrograph-vlm-scan-transcription-config.v1",
+  "experiment_id": "rotated-noisy-scan-page1-r001",
+  "source_pdf_sha256": "9249066477ec01dae8d8fe3efece90afa8226efb9ed01836be7997d408fd8b66",
+  "scan_image_sha256": "52cd2050679647238a2899fb252c90b20ebcdbbbc661cb7608055c246af61f1f",
+  "source_page": 1,
+  "model_id": "Qwen3.5-9B",
+  "temperature": 0,
+  "max_tokens": 4096,
+  "prompt": "Transcribe all visible text on this single scanned document page in reading order. Preserve table rows as separate lines. Do not infer cropped, unreadable, or missing text. Put uncertain visible spans in uncertain_spans. Return only the required JSON object.",
+  "admission": "MACHINE_TRANSCRIPTION_HUMAN_REVIEW_REQUIRED",
+  "claim_boundary": "A VLM transcription candidate for a deterministic scan stress sample. Native-PDF comparison is machine reference only; no human OCR gold, RAG admission, KG extraction or diagnostic claim."
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version": "astrograph-result-log-review.v1",
+  "diagnosis_results": ["diagnosis_result.json"],
+  "log_reports": ["operations.log"],
+  "references": ["reference.md"]
+}

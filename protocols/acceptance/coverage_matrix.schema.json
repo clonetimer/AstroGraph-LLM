@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "expansion_policy": {
+      "additionalProperties": true,
+      "required": [
+        "required_case_types"
+      ],
+      "type": "object"
+    },
+    "protocol_version": {
+      "type": "string"
+    },
+    "rows": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "capability_id": {
+            "type": "string"
+          },
+          "effect_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "object_id": {
+            "type": "string"
+          },
+          "required_case_types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "scenario_id": {
+            "type": "string"
+          },
+          "scenario_type": {
+            "enum": [
+              "nominal",
+              "fault",
+              "degradation"
+            ]
+          },
+          "split_group": {
+            "enum": [
+              "development",
+              "validation",
+              "holdout"
+            ]
+          },
+          "support_status": {
+            "const": "SUPPORTED"
+          }
+        },
+        "required": [
+          "scenario_id",
+          "object_id",
+          "scenario_type",
+          "capability_id",
+          "effect_ids",
+          "support_status",
+          "split_group",
+          "required_case_types"
+        ],
+        "type": "object"
+      },
+      "maxItems": 93,
+      "minItems": 93,
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "astrograph-coverage-matrix.v1"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "status",
+    "expansion_policy",
+    "rows"
+  ],
+  "type": "object"
+}

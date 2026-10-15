@@ -1,0 +1,385 @@
+{
+  "schema_version": "astrograph-configured-runtime-evidence.v1",
+  "package_id": "whole-spacecraft-phm-v6.0",
+  "version": "2.0.0",
+  "source_schema_sha256": "b0148777ba3b5b8a0ceeaac782ddcdbd4ada4069a678f6a798e5a4e180e884a7",
+  "domain_id": "PHM_V6_0",
+  "analysis_component_instance": "WHOLE_SPACECRAFT",
+  "episode_mode": "full_run",
+  "time_axis": {
+    "source_field": "time_s",
+    "source_unit": "s"
+  },
+  "channels": [
+    {
+      "source_field": "thermal.electronics_heater_on",
+      "semantic_channel_id": "asset.thermal.electronics.heater_on",
+      "component_instance": "THERMAL_HEATER",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "thermal.electronics_heater_power_w",
+      "semantic_channel_id": "asset.thermal.electronics.heater_power",
+      "component_instance": "THERMAL_HEATER",
+      "source_unit": "W",
+      "canonical_unit": "W",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "eps.battery_energy_wh",
+      "semantic_channel_id": "asset.eps.battery_pack.energy_wh",
+      "component_instance": "BATTERY_PACK",
+      "source_unit": "Wh",
+      "canonical_unit": "Wh",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "eps.battery_soc",
+      "semantic_channel_id": "asset.eps.battery_pack.soc",
+      "component_instance": "BATTERY_PACK",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "eps.solar_array_power_w",
+      "semantic_channel_id": "asset.eps.solar_array.power",
+      "component_instance": "SOLAR_ARRAY",
+      "source_unit": "W",
+      "canonical_unit": "W",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "comm.active",
+      "semantic_channel_id": "asset.comm.downlink.active",
+      "component_instance": "COMM_DOWNLINK",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "comm.command_execution_residual_bps",
+      "semantic_channel_id": "asset.comm.downlink.command_execution_residual",
+      "component_instance": "COMM_DOWNLINK",
+      "source_unit": "bit/s",
+      "canonical_unit": "bit/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "thermal.electronics_radiator_rejected_w",
+      "semantic_channel_id": "asset.thermal.radiator.electronics_rejected_power",
+      "component_instance": "THERMAL_RADIATOR",
+      "source_unit": "W",
+      "canonical_unit": "W",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "thermal.electronics_temp_k",
+      "semantic_channel_id": "asset.thermal.electronics.temperature",
+      "component_instance": "THERMAL_RADIATOR",
+      "source_unit": "K",
+      "canonical_unit": "K",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    }
+  ],
+  "feature_definitions": [
+    {
+      "feature_definition_id": "FD-PHM-V60-HEATER-ON-MEAN-RESIDUAL-V1",
+      "name": "电子设备加热器开启状态相对配对正常轨迹的均值残差",
+      "source_field_template": "asset.thermal.electronics.heater_on",
+      "aggregation": "MEAN_PAIRED_RESIDUAL",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-paired-residual@0.7.1",
+      "source_refs": [
+        "whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "generate_whole_spacecraft_phm_dataset_v6.py"
+      ],
+      "claim_boundary": "E0 paired synthetic feature; not available without a matched nominal trajectory."
+    },
+    {
+      "feature_definition_id": "FD-PHM-V60-HEATER-POWER-MEAN-ABS-RESIDUAL-V1",
+      "name": "电子设备加热器功率相对配对正常轨迹的平均绝对残差",
+      "source_field_template": "asset.thermal.electronics.heater_power",
+      "aggregation": "MEAN_ABS_PAIRED_RESIDUAL",
+      "unit": "W",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-abs-paired-residual@0.7.1",
+      "source_refs": [
+        "whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "generate_whole_spacecraft_phm_dataset_v6.py"
+      ],
+      "claim_boundary": "E0 paired synthetic feature; not available without a matched nominal trajectory."
+    },
+    {
+      "feature_definition_id": "FD-PHM-V60-BATTERY-ENERGY-MEAN-ABS-RESIDUAL-V1",
+      "name": "电池储能相对配对正常轨迹的平均绝对残差",
+      "source_field_template": "asset.eps.battery_pack.energy_wh",
+      "aggregation": "MEAN_ABS_PAIRED_RESIDUAL",
+      "unit": "Wh",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-abs-paired-residual@0.7.1",
+      "source_refs": [
+        "whole_spacecraft_phm_dataset_v6_0/dataset_manifest.json",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json"
+      ],
+      "claim_boundary": "E0 paired synthetic storage-response feature; it does not measure physical battery capacity directly."
+    },
+    {
+      "feature_definition_id": "FD-PHM-V60-BATTERY-SOC-MEAN-ABS-RESIDUAL-V1",
+      "name": "电池SOC相对配对正常轨迹的平均绝对残差",
+      "source_field_template": "asset.eps.battery_pack.soc",
+      "aggregation": "MEAN_ABS_PAIRED_RESIDUAL",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-abs-paired-residual@0.7.1",
+      "source_refs": [
+        "whole_spacecraft_phm_dataset_v6_0/audit/causal_observability_report.json",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json"
+      ],
+      "claim_boundary": "E0 paired synthetic state-response feature; it cannot establish an electrochemical root cause."
+    },
+    {
+      "feature_definition_id": "FD-PHM-V60-SOLAR-POWER-MEAN-ABS-RESIDUAL-V1",
+      "name": "太阳阵功率相对配对正常轨迹的平均绝对残差",
+      "source_field_template": "asset.eps.solar_array.power",
+      "aggregation": "MEAN_ABS_PAIRED_RESIDUAL",
+      "unit": "W",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-abs-paired-residual@0.7.1",
+      "source_refs": [
+        "reference/evidence_sources/solar_array_string_failure.yaml",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json"
+      ],
+      "claim_boundary": "E0 paired synthetic array-response feature; not a flight array qualification metric."
+    },
+    {
+      "feature_definition_id": "FD-PHM-V60-DOWNLINK-ACTIVE-MEAN-ABS-RESIDUAL-V1",
+      "name": "下行活动状态相对配对正常轨迹的平均绝对残差",
+      "source_field_template": "asset.comm.downlink.active",
+      "aggregation": "MEAN_ABS_PAIRED_RESIDUAL",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-abs-paired-residual@0.7.1",
+      "source_refs": [
+        "reference/evidence_sources/fmea.md#F05",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json"
+      ],
+      "claim_boundary": "E0 paired synthetic service-state feature; planned or geometry-driven inactivity must remain a confounder outside the paired protocol."
+    },
+    {
+      "feature_definition_id": "FD-PHM-V60-DOWNLINK-COMMAND-RESIDUAL-MEAN-ABS-V1",
+      "name": "下行命令执行残差相对配对正常轨迹的平均绝对变化",
+      "source_field_template": "asset.comm.downlink.command_execution_residual",
+      "aggregation": "MEAN_ABS_PAIRED_RESIDUAL",
+      "unit": "bit/s",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-abs-paired-residual@0.7.1",
+      "source_refs": [
+        "reference/evidence_sources/fmea.md#F05",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json"
+      ],
+      "claim_boundary": "E0 paired synthetic command-response feature; it identifies service loss, not a unique RF root cause."
+    },
+    {
+      "feature_definition_id": "FD-PHM-V60-RADIATOR-REJECTION-MEAN-ABS-RESIDUAL-V1",
+      "name": "电子设备散热器拒热功率相对配对正常轨迹的平均绝对残差",
+      "source_field_template": "asset.thermal.radiator.electronics_rejected_power",
+      "aggregation": "MEAN_ABS_PAIRED_RESIDUAL",
+      "unit": "W",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-abs-paired-residual@0.7.1",
+      "source_refs": [
+        "reference/evidence_sources/fmea.md#F03",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json"
+      ],
+      "claim_boundary": "E0 paired synthetic heat-rejection response; it is not a material emissivity measurement."
+    },
+    {
+      "feature_definition_id": "FD-PHM-V60-ELECTRONICS-TEMP-MEAN-RESIDUAL-V1",
+      "name": "电子设备温度相对配对正常轨迹的均值残差",
+      "source_field_template": "asset.thermal.electronics.temperature",
+      "aggregation": "MEAN_PAIRED_RESIDUAL",
+      "unit": "K",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-mean-paired-residual@0.7.1",
+      "source_refs": [
+        "reference/evidence_sources/fmea.md#F03",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json"
+      ],
+      "claim_boundary": "E0 paired synthetic thermal propagation feature; not a flight thermal-limit assessment."
+    }
+  ],
+  "evidence_definitions": [
+    {
+      "evidence_definition_id": "ED-PHM-V60-HEATER-STUCK-ON-STATE-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "name": "电子设备加热器额外开启占比超过工程门槛",
+      "feature_definition_id": "FD-PHM-V60-HEATER-ON-MEAN-RESIDUAL-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.1,
+      "threshold_unit": "1",
+      "critical": true,
+      "source_refs": [
+        "v6.0 synthetic paired regression"
+      ],
+      "claim_boundary": "E0 synthetic regression threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "evidence_definition_id": "ED-PHM-V60-HEATER-STUCK-ON-POWER-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "name": "电子设备加热器额外功率超过工程门槛",
+      "feature_definition_id": "FD-PHM-V60-HEATER-POWER-MEAN-ABS-RESIDUAL-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 1.0,
+      "threshold_unit": "W",
+      "critical": true,
+      "source_refs": [
+        "v6.0 synthetic paired regression"
+      ],
+      "claim_boundary": "E0 synthetic regression threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "evidence_definition_id": "ED-PHM-V60-BATTERY-CAPACITY-ENERGY-V1",
+      "target_fault_id": "EPS_BATTERY_CAPACITY_LOSS",
+      "name": "电池储能配对残差超过容量损失开发门槛",
+      "feature_definition_id": "FD-PHM-V60-BATTERY-ENERGY-MEAN-ABS-RESIDUAL-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 5.0,
+      "threshold_unit": "Wh",
+      "critical": true,
+      "source_refs": [
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json#EPS_BATTERY_CAPACITY_LOSS"
+      ],
+      "claim_boundary": "E0 v6.0 paired-response threshold frozen on development trajectory groups 3 and 8; capacity root cause remains scenario-scoped."
+    },
+    {
+      "evidence_definition_id": "ED-PHM-V60-BATTERY-CAPACITY-SOC-V1",
+      "target_fault_id": "EPS_BATTERY_CAPACITY_LOSS",
+      "name": "电池SOC配对残差超过容量损失开发门槛",
+      "feature_definition_id": "FD-PHM-V60-BATTERY-SOC-MEAN-ABS-RESIDUAL-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.02,
+      "threshold_unit": "1",
+      "critical": true,
+      "source_refs": [
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json#EPS_BATTERY_CAPACITY_LOSS"
+      ],
+      "claim_boundary": "E0 v6.0 paired-response threshold frozen on development trajectory groups 3 and 8; not transferable to flight SOC calibration."
+    },
+    {
+      "evidence_definition_id": "ED-PHM-V60-SOLAR-STRING-POWER-V1",
+      "target_fault_id": "EPS_SOLAR_ARRAY_STRING_FAILURE",
+      "name": "太阳阵功率配对残差达到单串失效验收门槛",
+      "feature_definition_id": "FD-PHM-V60-SOLAR-POWER-MEAN-ABS-RESIDUAL-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 5.0,
+      "threshold_unit": "W",
+      "critical": true,
+      "source_refs": [
+        "reference/evidence_sources/solar_array_string_failure.yaml#acceptance.minimum_power_delta_w",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json#EPS_SOLAR_ARRAY_STRING_FAILURE"
+      ],
+      "claim_boundary": "E0 engineering acceptance threshold confirmed on v6.0 development groups; it does not distinguish all solar-array degradation mechanisms."
+    },
+    {
+      "evidence_definition_id": "ED-PHM-V60-DOWNLINK-SERVICE-ACTIVE-V1",
+      "target_fault_id": "COMM_DOWNLINK_SERVICE_LOSS",
+      "name": "下行活动状态相对配对轨迹显著丧失",
+      "feature_definition_id": "FD-PHM-V60-DOWNLINK-ACTIVE-MEAN-ABS-RESIDUAL-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.35,
+      "threshold_unit": "1",
+      "critical": true,
+      "source_refs": [
+        "reference/evidence_sources/fmea.md#F05",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json#COMM_DOWNLINK_SERVICE_LOSS"
+      ],
+      "claim_boundary": "E0 v6.0 paired-service threshold; unpaired operational visibility loss remains a confounder."
+    },
+    {
+      "evidence_definition_id": "ED-PHM-V60-DOWNLINK-SERVICE-COMMAND-V1",
+      "target_fault_id": "COMM_DOWNLINK_SERVICE_LOSS",
+      "name": "下行命令执行残差达到服务丧失门槛且活动状态同步丧失",
+      "feature_definition_id": "FD-PHM-V60-DOWNLINK-COMMAND-RESIDUAL-MEAN-ABS-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 500000.0,
+      "threshold_unit": "bit/s",
+      "critical": true,
+      "source_refs": [
+        "reference/evidence_sources/fmea.md#F05",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json#COMM_DOWNLINK_SERVICE_LOSS"
+      ],
+      "and_feature_conditions": [
+        {
+          "schema_version": "astrograph-conjunctive-feature-condition.v1",
+          "feature_definition_id": "FD-PHM-V60-DOWNLINK-ACTIVE-MEAN-ABS-RESIDUAL-V1",
+          "comparison": "GREATER_OR_EQUAL",
+          "threshold": 0.35,
+          "threshold_unit": "1"
+        }
+      ],
+      "claim_boundary": "E0 v6.0 paired-service threshold conjunctively excludes transmitter-rate reduction without activity loss; it does not identify a unique RF cause."
+    },
+    {
+      "evidence_definition_id": "ED-PHM-V60-RADIATOR-REJECTION-POWER-V1",
+      "target_fault_id": "THERMAL_RADIATOR_REJECTION_LOSS",
+      "name": "散热器拒热功率配对残差超过开发门槛",
+      "feature_definition_id": "FD-PHM-V60-RADIATOR-REJECTION-MEAN-ABS-RESIDUAL-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 5.0,
+      "threshold_unit": "W",
+      "critical": true,
+      "source_refs": [
+        "reference/evidence_sources/fmea.md#F03",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json#THERMAL_RADIATOR_REJECTION_LOSS"
+      ],
+      "claim_boundary": "E0 v6.0 paired heat-rejection threshold frozen on development groups 3 and 8; not a radiator material calibration."
+    },
+    {
+      "evidence_definition_id": "ED-PHM-V60-RADIATOR-REJECTION-TEMP-V1",
+      "target_fault_id": "THERMAL_RADIATOR_REJECTION_LOSS",
+      "name": "电子设备温升配对残差超过散热能力损失门槛",
+      "feature_definition_id": "FD-PHM-V60-ELECTRONICS-TEMP-MEAN-RESIDUAL-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 1.0,
+      "threshold_unit": "K",
+      "critical": true,
+      "source_refs": [
+        "reference/evidence_sources/fmea.md#F03",
+        "configs/datasets/phm_v6_0/evidence_calibration_receipt.json#THERMAL_RADIATOR_REJECTION_LOSS"
+      ],
+      "claim_boundary": "E0 v6.0 paired temperature-response threshold frozen on development groups 3 and 8; not a flight thermal limit."
+    }
+  ],
+  "claim_boundary": "Configuration-driven E0 paired evidence for all five strictly registered PHM v6.0 faults. Labels and condition IDs are not runtime channels. Thresholds are source-backed or frozen on development trajectory groups 3 and 8 and screened on untouched groups; they are dataset-scoped, not flight limits or causal proof. The remaining twelve semantic-only classes still cannot cast rule or BiRRF votes."
+}

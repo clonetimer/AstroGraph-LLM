@@ -1,0 +1,140 @@
+[
+  {
+    "proposal": {
+      "triples": [
+        {
+          "subject": "adcs_rw_jamming",
+          "predicate": "associated_with",
+          "object": "Wheel braking/jamming.",
+          "source_document_id": "SAT-704219bfdc92b823",
+          "source_quote": "Condition(\"adcs_rw_jamming\", \"fault\", \"adcs_rw_jamming\", {\"wheel_index\": (0, 3), \"brake_torque_nm\": (0.90 * HR16_MAX_TORQUE_NM, HR16_MAX_TORQUE_NM), \"lock_tolerance_rad_s\": (0.15, 0.35)}, \"reaction_wheel.rw_jamming\", \"Wheel braking/jamming.\", \"Brake torque is 90-100% of the HR16 model torque limit; lock tolerance is a numerical observability threshold.\", (\"BASILISK_HR16\", \"PROJECT_L2_FAULTS\"), \"medium\", \"severe\")"
+        }
+      ],
+      "lifecycle": "REVIEW_REQUIRED",
+      "active_kg_modified": false
+    },
+    "source_path": "scripts/generate_whole_spacecraft_adcs_eps_dataset.py",
+    "source_line": 127,
+    "source_sha256": "704219bfdc92b823b14981ad363b920ebc6f37a6038dd8fddf41637059c0136f",
+    "validation": "EXACT_SOURCE_QUOTE_AND_SCHEMA_CHECKED",
+    "review_status": "REVIEW_REQUIRED",
+    "diagnostic_vote_allowed": false,
+    "active_kg_write_allowed": false,
+    "note": "Association to catalog description only; does not assert physical causality or human approval."
+  },
+  {
+    "proposal": {
+      "triples": [
+        {
+          "subject": "adcs_rw_torque_authority_loss",
+          "predicate": "associated_with",
+          "object": "Partial torque-authority loss.",
+          "source_document_id": "SAT-704219bfdc92b823",
+          "source_quote": "Condition(\"adcs_rw_torque_authority_loss\", \"degradation\", \"adcs_rw_torque_authority_loss\", {\"wheel_index\": (0, 3), \"remaining_torque_ratio\": (0.25, 0.70)}, \"reaction_wheel.motor_open/actuator_failure\", \"Partial torque-authority loss.\", \"Lower bound matches the project bearing-seizure 0.25 max-torque factor; upper bound represents an observable partial loss.\", (\"PROJECT_L2_FAULTS\", \"NASA_ORION_FDIR\"), \"medium\", \"medium_to_severe\")"
+        }
+      ],
+      "lifecycle": "REVIEW_REQUIRED",
+      "active_kg_modified": false
+    },
+    "source_path": "scripts/generate_whole_spacecraft_adcs_eps_dataset.py",
+    "source_line": 132,
+    "source_sha256": "704219bfdc92b823b14981ad363b920ebc6f37a6038dd8fddf41637059c0136f",
+    "validation": "EXACT_SOURCE_QUOTE_AND_SCHEMA_CHECKED",
+    "review_status": "REVIEW_REQUIRED",
+    "diagnostic_vote_allowed": false,
+    "active_kg_write_allowed": false,
+    "note": "Association to catalog description only; does not assert physical causality or human approval."
+  },
+  {
+    "proposal": {
+      "triples": [
+        {
+          "subject": "eps_battery_capacity_loss",
+          "predicate": "associated_with",
+          "object": "Abrupt usable battery-capacity loss.",
+          "source_document_id": "SAT-956f07dabfaf6007",
+          "source_quote": "FaultCondition(\"eps_battery_capacity_loss\", \"eps\", \"eps_battery_capacity_loss\", {\"remaining_capacity_ratio\": (0.45, 0.70)}, \"battery\", \"Abrupt usable battery-capacity loss.\")"
+        }
+      ],
+      "lifecycle": "REVIEW_REQUIRED",
+      "active_kg_modified": false
+    },
+    "source_path": "scripts/generate_whole_spacecraft_phm_dataset_v6.py",
+    "source_line": 56,
+    "source_sha256": "956f07dabfaf600729aa61385dc1901504d33e137912288020f3253538020252",
+    "validation": "EXACT_SOURCE_QUOTE_AND_SCHEMA_CHECKED",
+    "review_status": "REVIEW_REQUIRED",
+    "diagnostic_vote_allowed": false,
+    "active_kg_write_allowed": false,
+    "note": "Association to catalog description only; does not assert physical causality or human approval."
+  },
+  {
+    "proposal": {
+      "triples": [
+        {
+          "subject": "thermal_heater_stuck_off",
+          "predicate": "associated_with",
+          "object": "Battery heater is forced off.",
+          "source_document_id": "SAT-956f07dabfaf6007",
+          "source_quote": "FaultCondition(\"thermal_heater_stuck_off\", \"thermal\", \"thermal_heater_stuck_off\", {}, \"heater.battery\", \"Battery heater is forced off.\")"
+        }
+      ],
+      "lifecycle": "REVIEW_REQUIRED",
+      "active_kg_modified": false
+    },
+    "source_path": "scripts/generate_whole_spacecraft_phm_dataset_v6.py",
+    "source_line": 61,
+    "source_sha256": "956f07dabfaf600729aa61385dc1901504d33e137912288020f3253538020252",
+    "validation": "EXACT_SOURCE_QUOTE_AND_SCHEMA_CHECKED",
+    "review_status": "REVIEW_REQUIRED",
+    "diagnostic_vote_allowed": false,
+    "active_kg_write_allowed": false,
+    "note": "Association to catalog description only; does not assert physical causality or human approval."
+  },
+  {
+    "proposal": {
+      "triples": [
+        {
+          "subject": "comm_data_transmitter_rate_loss",
+          "predicate": "associated_with",
+          "object": "Power-amplifier fault reduces requested downlink rate.",
+          "source_document_id": "SAT-956f07dabfaf6007",
+          "source_quote": "FaultCondition(\"comm_data_transmitter_rate_loss\", \"comm_data\", \"comm_data_transmitter_rate_loss\", {\"remaining_ratio\": (0.20, 0.60)}, \"transmitter\", \"Power-amplifier fault reduces requested downlink rate.\")"
+        }
+      ],
+      "lifecycle": "REVIEW_REQUIRED",
+      "active_kg_modified": false
+    },
+    "source_path": "scripts/generate_whole_spacecraft_phm_dataset_v6.py",
+    "source_line": 66,
+    "source_sha256": "956f07dabfaf600729aa61385dc1901504d33e137912288020f3253538020252",
+    "validation": "EXACT_SOURCE_QUOTE_AND_SCHEMA_CHECKED",
+    "review_status": "REVIEW_REQUIRED",
+    "diagnostic_vote_allowed": false,
+    "active_kg_write_allowed": false,
+    "note": "Association to catalog description only; does not assert physical causality or human approval."
+  },
+  {
+    "proposal": {
+      "triples": [
+        {
+          "subject": "propulsion_fuel_leak",
+          "predicate": "associated_with",
+          "object": "Native tank leak causes parasitic propellant loss.",
+          "source_document_id": "SAT-956f07dabfaf6007",
+          "source_quote": "FaultCondition(\"propulsion_fuel_leak\", \"propulsion\", \"propulsion_fuel_leak\", {\"leak_rate_kg_s\": (5.0e-5, 2.0e-4)}, \"fuel_tank\", \"Native tank leak causes parasitic propellant loss.\")"
+        }
+      ],
+      "lifecycle": "REVIEW_REQUIRED",
+      "active_kg_modified": false
+    },
+    "source_path": "scripts/generate_whole_spacecraft_phm_dataset_v6.py",
+    "source_line": 72,
+    "source_sha256": "956f07dabfaf600729aa61385dc1901504d33e137912288020f3253538020252",
+    "validation": "EXACT_SOURCE_QUOTE_AND_SCHEMA_CHECKED",
+    "review_status": "REVIEW_REQUIRED",
+    "diagnostic_vote_allowed": false,
+    "active_kg_write_allowed": false,
+    "note": "Association to catalog description only; does not assert physical causality or human approval."
+  }
+]

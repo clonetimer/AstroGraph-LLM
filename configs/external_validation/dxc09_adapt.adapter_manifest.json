@@ -1,0 +1,5142 @@
+{
+  "archives": [
+    {
+      "name": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "sha256": "78fcdd74a419b7bcfe6280aae2f90b84a95217631ed0fc46eec4dc0c69ef23e2"
+    },
+    {
+      "name": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "sha256": "0a7ee6164da31db67d4e090410e631216298bcaa40ec54f845162f19e1fb52d9"
+    },
+    {
+      "name": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "sha256": "0527a200448a79bac7842ae6591714701d1e0000d61952e22d85ccff816f88ae"
+    }
+  ],
+  "claim_boundary": "TXT/MAT/SCN representations are not independent repeats; EPS testbed results do not establish ADCS flight validity.",
+  "experiment_group_count": 199,
+  "experiments": [
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "727",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_727_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_727_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_727_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "728",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_728_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_728_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_728_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "729",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_729_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_729_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_729_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "730",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_730_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_730_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_730_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "731",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_731_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_731_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_731_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "732",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_732_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_732_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_732_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_732_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_732_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_732_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "733",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_733_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_733_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_733_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_733_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_733_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_733_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "734",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_734_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_734_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_734_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_734_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_734_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_734_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "736",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_736_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_736_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_736_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_736_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_736_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_736_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "737",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_737_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_737_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_737_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_737_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_737_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_737_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "738",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_738_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_738_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_738_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_738_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_738_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_738_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "740",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_740_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_740_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_740_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_740_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_740_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_740_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "742",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_742_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_742_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_742_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_742_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_742_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_742_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "743",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_743_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_743_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_743_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_743_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_743_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_743_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "744",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_744_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_744_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_744_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_744_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_744_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_744_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "745",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_745_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_745_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_745_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_745_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_745_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_745_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "746",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_746_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_746_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_746_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_746_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_746_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_746_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "747",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_747_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_747_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_747_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_747_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_747_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_747_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "748",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_748_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_748_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_748_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_748_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_748_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_748_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "749",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_749_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_749_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_749_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_749_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_749_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_749_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "750",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_750_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_750_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_750_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_750_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_750_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_750_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "751",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_751_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_751_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_751_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_751_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_751_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_751_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "752",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_752_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_752_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_752_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_752_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_752_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_752_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "755",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_755_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_755_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_755_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_755_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_755_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_755_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "758",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_758_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_758_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_758_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "759",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_759_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_759_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_759_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "760",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_760_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_760_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_760_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "762",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_762_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_762_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_762_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "763",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_763_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_763_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_763_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "764",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_764_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_764_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_764_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "765",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_765_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_765_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_765_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "766",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_766_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_766_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_766_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "768",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_768_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_768_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_768_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "769",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_769_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_769_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_769_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "770",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_770_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_770_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_770_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "772",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_772_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_772_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_772_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "773",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_773_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_773_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_773_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_773_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_773_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_773_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "775",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_775_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_775_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_775_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "776",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_776_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_776_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_776_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "777",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_777_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_777_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_777_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "778",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_778_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_778_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_778_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "779",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_779_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_779_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_779_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "780",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_780_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_780_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_780_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "781",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_781_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_781_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_781_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "782",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_782_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_782_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_782_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "783",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_783_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_783_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_783_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "784",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_784_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_784_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_784_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "785",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_785_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_785_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_785_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "787",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_787_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_787_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_787_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "788",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_788_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_788_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_788_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "789",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_789_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_789_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_789_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_789_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_789_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_789_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "790",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_790_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_790_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_790_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "791",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_791_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_791_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_791_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "792",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_792_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_792_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_792_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "793",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_793_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_793_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_793_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "794",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_794_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_794_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_794_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_794_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_794_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_794_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "795",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_795_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_795_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_795_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_795_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_795_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_795_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "796",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_796_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_796_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_796_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_796_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_796_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_796_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "797",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_797_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_797_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_797_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_797_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_797_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_797_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "798",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_798_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_798_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_798_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_798_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_798_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_798_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "799",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_799_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_799_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_799_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_799_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_799_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_799_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "800",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_800_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_800_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_800_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_800_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_800_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_800_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "801",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_801_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_801_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_801_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_801_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_801_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_801_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "802",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_802_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_802_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_802_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_802_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_802_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_802_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "803",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_803_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_803_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_803_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_803_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_803_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_803_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "804",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_804_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_804_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_804_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_804_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_804_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_804_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "805",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_805_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_805_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_805_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_805_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_805_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_805_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "806",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_806_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_806_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_806_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_806_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_806_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_806_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "807",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_807_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_807_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_807_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_807_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_807_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_807_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "808",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_808_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_808_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_808_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_808_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_808_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_808_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "809",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_809_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_809_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_809_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_809_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_809_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_809_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "813",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_813_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_813_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_813_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "814",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_814_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_814_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_814_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "815",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_815_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_815_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_815_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "816",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_816_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_816_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_816_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "817",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_817_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_817_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_817_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_817_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_817_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_817_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "818",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_818_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_818_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_818_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "819",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_819_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_819_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_819_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "822",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_822_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_822_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_822_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "823",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_823_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_823_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_823_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "824",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_824_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_824_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_824_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2CompetitionData20090330.zip",
+      "experiment_id": "825",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_825_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_825_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_825_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "954",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_954_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_954_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_954_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "955",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_955_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_955_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_955_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "956",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_956_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_956_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_956_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "957",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_957_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_957_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_957_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "958",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_958_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_958_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_958_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "959",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_959_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_959_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_959_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "960",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_960_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_960_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_960_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "961",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_961_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_961_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_961_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "962",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_962_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_962_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_962_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "964",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_964_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_964_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_964_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "965",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_965_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_965_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_965_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "966",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_966_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_966_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_966_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "967",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_967_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_967_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_967_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "968",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_968_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_968_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_968_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "969",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_969_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_969_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_969_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "970",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_970_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_970_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_970_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "971",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_971_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_971_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_971_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "972",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_972_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_972_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_972_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "973",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_973_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_973_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_973_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "975",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_975_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_975_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_975_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "976",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_976_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_976_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_976_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "977",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_977_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_977_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_977_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "978",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_978_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_978_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_978_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "979",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_979_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_979_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_979_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "980",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_980_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_980_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_980_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "981",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_981_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_981_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_981_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "983",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_983_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_983_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_983_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "984",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_984_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_984_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_984_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "985",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_985_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_985_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_985_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "986",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_986_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_986_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_986_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "987",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_987_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_987_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_987_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "988",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_988_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_988_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_988_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "989",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_989_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_989_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_989_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "990",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_990_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_990_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_990_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "991",
+      "representations": [
+        {
+          "format": "scn",
+          "member": "Exp_991_pb_t2ff.scn"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_991_pb_t2fff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_991_pb_t2fff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_991_pb_t2fff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff",
+        "_pb_t2fff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "992",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_992_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_992_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_992_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "993",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_993_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_993_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_993_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2RematchNewData20090921.zip",
+      "experiment_id": "994",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_994_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_994_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_994_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "599",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_599_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_599_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_599_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "600",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_600_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_600_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_600_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "601",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_601_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_601_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_601_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "602",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_602_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_602_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_602_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "604",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_604_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_604_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_604_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "605",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_605_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_605_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_605_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "606",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_606_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_606_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_606_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "607",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_607_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_607_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_607_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "608",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_608_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_608_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_608_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "609",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_609_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_609_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_609_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "610",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_610_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_610_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_610_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "611",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_611_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_611_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_611_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "612",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_612_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_612_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_612_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "613",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_613_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_613_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_613_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "614",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_614_pb_fix_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_614_pb_fix_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_614_pb_fix_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_fix_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "616",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_616_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_616_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_616_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "617",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_617_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_617_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_617_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "618",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_618_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_618_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_618_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "619",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_619_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_619_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_619_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "620",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_620_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_620_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_620_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "621",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_621_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_621_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_621_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "622",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_622_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_622_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_622_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "623",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_623_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_623_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_623_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "624",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_624_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_624_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_624_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "626",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_626_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_626_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_626_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_626_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_626_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_626_pb_t2f.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_626_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_626_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_626_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "627",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_627_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_627_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_627_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_627_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_627_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_627_pb_t2f.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_627_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_627_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_627_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "628",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_628_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_628_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_628_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_628_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_628_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_628_pb_t2f.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_628_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_628_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_628_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "629",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_629_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_629_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_629_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_629_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_629_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_629_pb_t2f.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_629_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_629_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_629_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "630",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_630_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_630_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_630_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_630_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_630_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_630_pb_t2f.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_630_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_630_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_630_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "631",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_631_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_631_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_631_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_631_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_631_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_631_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "632",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_632_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_632_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_632_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_632_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_632_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_632_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "633",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_633_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_633_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_633_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_633_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_633_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_633_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "634",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_634_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_634_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_634_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_634_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_634_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_634_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "635",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_635_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_635_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_635_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_635_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_635_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_635_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "636",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_636_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_636_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_636_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_636_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_636_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_636_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "637",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_637_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_637_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_637_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_637_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_637_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_637_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "639",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_639_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_639_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_639_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_639_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_639_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_639_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "640",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_640_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_640_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_640_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_640_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_640_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_640_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "641",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_641_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_641_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_641_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_641_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_641_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_641_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "642",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_642_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_642_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_642_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_642_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_642_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_642_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "643",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_643_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_643_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_643_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_643_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_643_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_643_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "644",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_644_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_644_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_644_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_644_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_644_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_644_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "645",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_645_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_645_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_645_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_645_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_645_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_645_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "646",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_646_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_646_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_646_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_646_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_646_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_646_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "647",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_647_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_647_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_647_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_647_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_647_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_647_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "648",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_648_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_648_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_648_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_648_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_648_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_648_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "649",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_649_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_649_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_649_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_649_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_649_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_649_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "650",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_650_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_650_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_650_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_650_pb_t2f.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_650_pb_t2f.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_650_pb_t2f.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2f"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "651",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_651_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_651_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_651_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "652",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_652_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_652_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_652_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "653",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_653_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_653_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_653_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "654",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_654_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_654_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_654_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "655",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_655_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_655_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_655_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "656",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_656_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_656_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_656_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "657",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_657_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_657_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_657_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "658",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_658_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_658_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_658_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "659",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_659_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_659_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_659_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "660",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_660_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_660_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_660_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "662",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_662_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_662_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_662_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "663",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_663_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_663_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_663_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "664",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_664_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_664_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_664_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_664_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_664_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_664_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "665",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_665_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_665_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_665_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_665_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_665_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_665_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "666",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_666_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_666_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_666_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_666_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_666_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_666_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "667",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_667_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_667_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_667_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_667_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_667_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_667_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "668",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_668_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_668_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_668_pb_t2.txt"
+        },
+        {
+          "format": "mat",
+          "member": "Exp_668_pb_t2ff.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_668_pb_t2ff.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_668_pb_t2ff.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2",
+        "_pb_t2ff"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "669",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_669_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_669_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_669_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "670",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_670_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_670_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_670_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "671",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_671_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_671_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_671_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "672",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_672_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_672_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_672_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "675",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_675_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_675_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_675_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "676",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_676_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_676_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_676_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "680",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_680_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_680_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_680_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "681",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_681_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_681_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_681_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "682",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_682_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_682_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_682_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "685",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_685_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_685_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_685_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "686",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_686_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_686_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_686_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "692",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_692_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_692_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_692_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "695",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_695_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_695_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_695_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    },
+    {
+      "archive": "DXC09_Industrial_Tier2SampleData_20090331.zip",
+      "experiment_id": "696",
+      "representations": [
+        {
+          "format": "mat",
+          "member": "Exp_696_pb_t2.mat"
+        },
+        {
+          "format": "scn",
+          "member": "Exp_696_pb_t2.scn"
+        },
+        {
+          "format": "txt",
+          "member": "Exp_696_pb_t2.txt"
+        }
+      ],
+      "variants": [
+        "_pb_t2"
+      ]
+    }
+  ],
+  "independent_unit": "EXPERIMENT_ID_WITH_ARCHIVE_VARIANT_PROVENANCE",
+  "schema_version": "astrograph-dxc09-adapt-adapter-manifest.v1"
+}

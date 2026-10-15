@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>AstroGraph · 任务总览</title>
+  <link rel="stylesheet" href="/platform/mission/assets/home.css">
+</head>
+<body>
+  <main class="home-shell">
+    <div id="workflow-geo-map" class="orbit-viewport" aria-label="地球、轨道与卫星的演示场景，可拖动旋转和滚轮缩放">
+      <div id="orbit-scene-loading" class="orbit-scene-loading" role="status">正在载入地球场景</div>
+      <div id="orbit-satellite-tag" class="orbit-satellite-tag hidden"><i></i><span>演示卫星01</span></div>
+    </div>
+    <header class="masthead">
+      <a class="brand" href="/platform/home" aria-label="AstroGraph 首页"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3 22 14 33 18 22 22 18 33 14 22 3 18 14 14Z"/><circle cx="18" cy="18" r="4"/></svg><span>AstroGraph<small>航天故障智能分析</small></span></a>
+      <nav aria-label="首页导航"><span class="nav-current">任务总览</span><a href="/platform/mission#command">事件中心 <span aria-hidden="true">↗</span></a></nav>
+      <button class="quiet status" id="refresh-data" type="button"><i></i><span id="connection">正在连接</span></button>
+    </header>
+    <section class="focus" aria-labelledby="focus-title">
+      <p class="eyebrow">MISSION INTELLIGENCE <span> / 01</span></p>
+      <h1>让每一次判断，<br>都有证据可循。</h1>
+      <p class="intro">从异常线索到可复核的决策，<br>在同一个任务里完成。</p>
+      <div class="focus-event" aria-live="polite" aria-busy="true">
+        <div class="focus-label"><span id="event-category">当前任务</span><span id="event-state">正在读取</span></div>
+        <h2 id="focus-title">连接事件中心</h2>
+        <p id="focus-description">正在获取已授权的任务。</p>
+        <p class="job-id" id="focus-job"></p>
+        <div class="focus-actions"><a class="primary" id="primary-action" href="/platform/mission">进入工作台 <span aria-hidden="true">→</span></a><button class="text-action" id="show-events" type="button" hidden>展开事件</button></div>
+      </div>
+    </section>
+    <aside class="scene-caption"><span class="hairline"></span><span>EARTH / ORBITAL VIEW<small>轨道演示 · 非实时遥测</small></span></aside>
+    <div class="scene-controls" aria-label="地球视图操作"><button id="scene-pause" type="button" aria-pressed="false">暂停演示</button><button id="orbit-reset-camera" type="button">重置视角</button><button id="orbit-follow" type="button">跟随卫星</button></div>
+    <footer class="bottom-bar">
+      <div class="metrics" aria-label="当前账号任务统计"><span><b id="count-attention">—</b> 待处理</span><span><b id="count-active">—</b> 执行中</span><span><b id="count-done">—</b> 已生成报告</span></div>
+      <span class="bottom-note" id="data-note">登录后显示任务数据</span>
+    </footer>
+  </main>
+  <dialog id="event-drawer" aria-labelledby="drawer-title">
+    <div class="drawer-head"><div><p class="eyebrow">EVENT INBOX</p><h2 id="drawer-title">选择一个事件</h2></div><button class="quiet" id="close-drawer" type="button" aria-label="关闭事件面板">关闭 ×</button></div>
+    <p class="drawer-note">打开事件，继续核对证据与处置建议。</p><div id="event-list"></div>
+    <a class="all-events" href="/platform/mission#command">进入完整事件中心 →</a>
+  </dialog>
+  <script type="module" src="/platform/mission/assets/home_scene.js"></script>
+  <script src="/platform/mission/assets/home.js" defer></script>
+</body>
+</html>

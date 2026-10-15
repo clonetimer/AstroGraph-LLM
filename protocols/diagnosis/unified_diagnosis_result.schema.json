@@ -1,0 +1,537 @@
+{
+  "$defs": {
+    "DataQualityFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "title": "Severity",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "DataQualityFinding",
+      "type": "object"
+    },
+    "DiagnosticEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "statistic": {
+          "title": "Statistic",
+          "type": "string"
+        },
+        "nominal_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nominal Value"
+        },
+        "effect_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effect Value"
+        },
+        "observed_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed Delta"
+        },
+        "threshold": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Threshold"
+        },
+        "interpretation": {
+          "title": "Interpretation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "field",
+        "statistic",
+        "interpretation"
+      ],
+      "title": "DiagnosticEvidence",
+      "type": "object"
+    },
+    "EngineExecutionStatus": {
+      "enum": [
+        "EXECUTED",
+        "SKIPPED",
+        "FAILED"
+      ],
+      "title": "EngineExecutionStatus",
+      "type": "string"
+    },
+    "EngineRunRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "engine_id": {
+          "title": "Engine Id",
+          "type": "string"
+        },
+        "eligible": {
+          "title": "Eligible",
+          "type": "boolean"
+        },
+        "execution_status": {
+          "$ref": "#/$defs/EngineExecutionStatus"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "reason_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "detected_effect_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Detected Effect Ids",
+          "type": "array"
+        },
+        "primary_effect_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Primary Effect Id"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Score"
+        },
+        "raw_result": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Result"
+        }
+      },
+      "required": [
+        "engine_id",
+        "eligible",
+        "execution_status",
+        "status"
+      ],
+      "title": "EngineRunRecord",
+      "type": "object"
+    },
+    "TelemetryProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "backend": {
+          "title": "Backend",
+          "type": "string"
+        },
+        "row_count": {
+          "minimum": 0,
+          "title": "Row Count",
+          "type": "integer"
+        },
+        "column_count": {
+          "minimum": 0,
+          "title": "Column Count",
+          "type": "integer"
+        },
+        "numeric_signal_count": {
+          "minimum": 0,
+          "title": "Numeric Signal Count",
+          "type": "integer"
+        },
+        "time_column": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time Column"
+        },
+        "time_monotonic": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time Monotonic"
+        },
+        "prohibited_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prohibited Columns",
+          "type": "array"
+        },
+        "normalized_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Normalized Columns",
+          "type": "array"
+        },
+        "alias_mapping": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Alias Mapping",
+          "type": "object"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/DataQualityFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "status": {
+          "default": "PASS",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "backend",
+        "row_count",
+        "column_count",
+        "numeric_signal_count"
+      ],
+      "title": "TelemetryProfile",
+      "type": "object"
+    },
+    "UnifiedCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "effect_id": {
+          "title": "Effect Id",
+          "type": "string"
+        },
+        "support_engines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Support Engines",
+          "type": "array"
+        },
+        "contradicting_engines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Contradicting Engines",
+          "type": "array"
+        },
+        "screening_score": {
+          "default": 0.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Screening Score",
+          "type": "number"
+        },
+        "evidence_summary": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Summary",
+          "type": "array"
+        }
+      },
+      "required": [
+        "effect_id"
+      ],
+      "title": "UnifiedCandidate",
+      "type": "object"
+    },
+    "UnifiedDiagnosisStatus": {
+      "enum": [
+        "DIAGNOSED",
+        "NORMAL",
+        "AMBIGUOUS",
+        "UNKNOWN_FAULT",
+        "INSUFFICIENT_DATA",
+        "DATA_ERROR",
+        "CONFLICTING_EVIDENCE"
+      ],
+      "title": "UnifiedDiagnosisStatus",
+      "type": "string"
+    },
+    "UnifiedInputMode": {
+      "enum": [
+        "PAIRED",
+        "SINGLE_TRACE"
+      ],
+      "title": "UnifiedInputMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-unified-diagnosis.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "input_mode": {
+      "$ref": "#/$defs/UnifiedInputMode"
+    },
+    "backend": {
+      "title": "Backend",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/UnifiedDiagnosisStatus"
+    },
+    "conclusion_effect_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Conclusion Effect Ids",
+      "type": "array"
+    },
+    "primary_effect_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Primary Effect Id"
+    },
+    "primary_subsystem": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Primary Subsystem"
+    },
+    "primary_component": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Primary Component"
+    },
+    "estimated_onset_time_s": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Estimated Onset Time S"
+    },
+    "onset_status": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Onset Status"
+    },
+    "estimated_severity": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Estimated Severity"
+    },
+    "severity_score": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Severity Score"
+    },
+    "diagnostic_evidence": {
+      "items": {
+        "$ref": "#/$defs/DiagnosticEvidence"
+      },
+      "title": "Diagnostic Evidence",
+      "type": "array"
+    },
+    "resolution_basis": {
+      "title": "Resolution Basis",
+      "type": "string"
+    },
+    "data_quality": {
+      "items": {
+        "$ref": "#/$defs/TelemetryProfile"
+      },
+      "title": "Data Quality",
+      "type": "array"
+    },
+    "engine_runs": {
+      "items": {
+        "$ref": "#/$defs/EngineRunRecord"
+      },
+      "title": "Engine Runs",
+      "type": "array"
+    },
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/UnifiedCandidate"
+      },
+      "title": "Candidates",
+      "type": "array"
+    },
+    "routing_decisions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Routing Decisions",
+      "type": "array"
+    },
+    "labels_used": {
+      "default": false,
+      "title": "Labels Used",
+      "type": "boolean"
+    },
+    "truth_used": {
+      "default": false,
+      "title": "Truth Used",
+      "type": "boolean"
+    },
+    "deterministic": {
+      "default": true,
+      "title": "Deterministic",
+      "type": "boolean"
+    },
+    "claim_boundary": {
+      "default": "Unified laboratory diagnosis orchestration. Screening scores are deterministic evidence coverage, not calibrated probabilities, causal proof, flight qualification, or safety approval.",
+      "title": "Claim Boundary",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "input_mode",
+    "backend",
+    "status",
+    "resolution_basis",
+    "data_quality",
+    "engine_runs"
+  ],
+  "title": "UnifiedDiagnosisResult",
+  "type": "object"
+}

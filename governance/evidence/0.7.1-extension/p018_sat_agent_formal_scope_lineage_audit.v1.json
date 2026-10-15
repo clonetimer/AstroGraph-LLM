@@ -1,0 +1,114 @@
+{
+  "schema_version": "astrograph.p018.sat-agent-formal-scope-lineage-audit.v1",
+  "generated_at": "2026-08-02T14:34:30.417614+00:00",
+  "stage": "P018_S0_ZERO_FIT",
+  "status": "FORMAL_CATALOG_PASS_DIAGNOSIS_LINEAGE_BLOCKED",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "source_count": 1,
+  "input_bindings": {
+    "diagnosis_scope": {
+      "path": "protocols/acceptance/diagnosis_scope.json",
+      "sha256": "cf917a9e8529811cf07cb59548bf3ea5461546a99c42f742d4dc0e0510aa06bc"
+    },
+    "fault_taxonomy": {
+      "path": "protocols/acceptance/fault_taxonomy.json",
+      "sha256": "3f966c58a813fdb70e26711647a44d6ea854d06c3c725dd9aa2d16c3be0ef413"
+    },
+    "coverage_matrix": {
+      "path": "protocols/acceptance/coverage_matrix.json",
+      "sha256": "9bc0cebda74852c27149cededb99df087b35872f3bfdf47c075dae8bb487d7c0"
+    },
+    "source_catalog_report": {
+      "path": "${SAT_AGENT_PLATFORM_ROOT}/reports/object_scenario_coverage.json",
+      "sha256": "fe22ba89ea4dbbb764310fec5b138c3604528b8aed904c810b401fa9e9b42ae1"
+    },
+    "semantic_validation": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_semantic_contract_validation.post_repair.v1.json",
+      "sha256": "337c7344d239d1033d30b805925c3f07cbe72110dc44b0ea4d15eccf105fc57c"
+    }
+  },
+  "formal_catalog_join": {
+    "status": "PASS",
+    "denominators": {
+      "frozen_object_count": 31,
+      "frozen_scenario_row_count": 93,
+      "frozen_fault_effect_occurrence_count": 145,
+      "frozen_unique_effect_id_count": 135,
+      "source_object_count": 31,
+      "source_scenario_record_count": 93,
+      "source_non_nominal_effect_occurrence_count": 145
+    },
+    "duplicate_checks": {
+      "frozen_object_id_duplicate_count": 0,
+      "source_object_id_duplicate_count": 0,
+      "frozen_scenario_key_duplicate_count": 0,
+      "source_scenario_record_duplicate_count": 0,
+      "fault_id_duplicate_count": 0
+    },
+    "exact_comparison": {
+      "object_record_missing_from_source_count": 0,
+      "object_record_extra_in_source_count": 0,
+      "scenario_record_missing_from_source_count": 0,
+      "scenario_record_extra_in_source_count": 0,
+      "taxonomy_vs_coverage_missing_count": 0,
+      "taxonomy_vs_coverage_extra_count": 0,
+      "taxonomy_vs_source_missing_count": 0,
+      "taxonomy_vs_source_extra_count": 0
+    },
+    "source_report_controls": {
+      "gate_status": "PASS",
+      "technical_baseline_status": "PASS",
+      "issue_count": 0,
+      "blocker_count": 0
+    },
+    "failure_fields": []
+  },
+  "public_semantic_binding": {
+    "status": "PARTIAL",
+    "binding_kind": "EXACT_FROZEN_PRIMARY_CAPABILITY_TO_PASSING_PUBLIC_SEMANTIC_PROFILE",
+    "semantic_profile_count": 9,
+    "passing_semantic_profile_count": 9,
+    "exact_primary_capability_profile_count": 7,
+    "non_primary_or_unmatched_profile_count": 2,
+    "formal_object_denominator": 31,
+    "exactly_bound_formal_object_count": 7,
+    "unbound_formal_object_count": 24,
+    "formal_scenario_row_denominator": 93,
+    "associated_formal_scenario_row_count": 21,
+    "formal_fault_effect_occurrence_denominator": 145,
+    "associated_formal_fault_effect_occurrence_count": 32,
+    "materialized_formal_episode_count": 0,
+    "materialized_formal_episode_binding_status": "NOT_ESTABLISHED",
+    "g1_mechanism_class_field_present_row_count": 0,
+    "g1_mechanism_class_mapping_status": "NOT_ESTABLISHED_DO_NOT_INFER",
+    "interpretation": "Associated formal rows are catalog rows for objects with an exact passing public semantic profile. They are not materialized scenario episodes, do not establish diagnosis labels, and do not map effects to G1 mechanism classes."
+  },
+  "denominator_identity_guard": {
+    "formal_fault_effect_denominator": 145,
+    "report_matrix_unique_physical_trace_fingerprint_count": 145,
+    "same_numeric_value_is_coincidental": true,
+    "interchangeable_or_joinable": false,
+    "interpretation": "Fault/effect occurrences are catalog identities; physical trace fingerprints are content-deduplication results. Neither is a diagnosis performance denominator at S0."
+  },
+  "execution_receipt": {
+    "read_only_aggregate_metadata_audit": true,
+    "telemetry_row_read_count": 0,
+    "label_or_truth_value_read_count": 0,
+    "model_fit_count": 0,
+    "threshold_selection_count": 0,
+    "split_creation_count": 0,
+    "seed_creation_or_reservation_count": 0,
+    "formal_hidden_acceptance_truth_accessed": false,
+    "formal_denominator_changed": false
+  },
+  "decision": {
+    "formal_catalog_join": "PASS",
+    "formal_semantic_binding": "PARTIAL",
+    "diagnosis_episode_lineage_qualified": false,
+    "stage_s1_fit_authorized": false,
+    "stage_b_authorized": false,
+    "g2_pass": false,
+    "g3_pass": false
+  },
+  "claim_boundary": "S0 catalog and structural semantic-binding audit only. A PASS catalog join proves identifier/association consistency, not episode materialization, identifiability, diagnosis performance, G2, G3, Stage S1 or Stage B."
+}

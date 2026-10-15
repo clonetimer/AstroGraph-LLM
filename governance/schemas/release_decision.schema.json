@@ -1,0 +1,97 @@
+{
+  "$defs": {
+    "ReleaseDecisionStatus": {
+      "enum": [
+        "ACCEPT",
+        "REJECT",
+        "ESCALATE",
+        "BLOCKED"
+      ],
+      "title": "ReleaseDecisionStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-release-decision.v2",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "decision_id": {
+      "minLength": 1,
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Contract Sha256",
+      "type": "string"
+    },
+    "candidate_id": {
+      "minLength": 1,
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "gate_run_id": {
+      "minLength": 1,
+      "title": "Gate Run Id",
+      "type": "string"
+    },
+    "gate_evidence_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Gate Evidence Sha256",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/ReleaseDecisionStatus"
+    },
+    "reasons": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Reasons",
+      "type": "array"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blockers",
+      "type": "array"
+    },
+    "requires_human_review": {
+      "title": "Requires Human Review",
+      "type": "boolean"
+    },
+    "claim_boundary": {
+      "minLength": 1,
+      "title": "Claim Boundary",
+      "type": "string"
+    },
+    "decided_at": {
+      "title": "Decided At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision_id",
+    "contract_id",
+    "contract_sha256",
+    "candidate_id",
+    "gate_run_id",
+    "gate_evidence_sha256",
+    "status",
+    "reasons",
+    "requires_human_review",
+    "claim_boundary"
+  ],
+  "title": "ReleaseDecision",
+  "type": "object"
+}

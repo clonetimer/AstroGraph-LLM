@@ -1,0 +1,8 @@
+{
+  "schema_version": "astrograph-problem-stack-view.v1",
+  "generated_at": "2026-09-16T00:00:00+00:00",
+  "ledger_record_count": 0,
+  "blocker_count": 0,
+  "active": [],
+  "delivery_state": "CLEAN_CURRENT_SOURCE_NO_HISTORICAL_LEDGER"
+}

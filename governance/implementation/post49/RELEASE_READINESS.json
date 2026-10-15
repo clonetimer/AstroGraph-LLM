@@ -1,0 +1,161 @@
+{
+  "schema_version": "astrograph-post49-stable-release-readiness.v1",
+  "version": "0.7.1.post49",
+  "release_class": "STABLE_SOFTWARE_RELEASE",
+  "release_state": "STABLE_CURRENT_SOURCE_DELIVERY_WITH_DECLARED_PROFILE_GATES_AND_EXTERNAL_QUALIFICATION_DEPENDENCIES",
+  "automatic_production_promotion": false,
+  "diagnostic_qualification_promoted_by_post49": false,
+  "production_model_weights_modified_by_post49": false,
+  "active_kg_modified_by_post49": false,
+  "confirmed_memory_modified_by_post49": false,
+  "formal_document_vote_enabled_by_post49": false,
+  "scenarios": [
+    {
+      "id": 1,
+      "name": "ADCS_and_sat_replay_reproducibility",
+      "status": "SUPPORTED_WITH_PROTOCOL_BOUNDARY",
+      "evidence": [
+        "stage79",
+        "stage74",
+        "stage75",
+        "tests/implementation/p1_p4/test_replay.py"
+      ],
+      "boundary": "ADCS current evidence is retrospective/used-cohort reproducibility; PHM/sat replay is retrospective and truth/activation aware. New independent ADCS trajectory groups are still required for a fresh generalization claim."
+    },
+    {
+      "id": 2,
+      "name": "single_parameter_detection_and_possible_cause",
+      "status": "SUPPORTED_WITH_SEMANTIC_BOUNDARY",
+      "evidence": [
+        "stage80",
+        "stage85",
+        "tests/implementation/p1_p4/test_generic_series_and_capabilities.py"
+      ],
+      "boundary": "Numeric anomaly detection is generic. Cause candidates require a registered/explicit parameter semantic mapping and remain provisional when knowledge is E0."
+    },
+    {
+      "id": 3,
+      "name": "single_parameter_detection_classification_and_cause",
+      "status": "PROFILE_GATED_PARTIAL",
+      "evidence": [
+        "stage82",
+        "stage85",
+        "tests/implementation/p1_p4/test_generic_dev19_stages.py"
+      ],
+      "boundary": "No universal single-signal classifier is claimed. Classification is available only for empirically qualified/admitted profiles; non-identifiable or unsupported signals must abstain."
+    },
+    {
+      "id": 4,
+      "name": "multi_parameter_detection_localization_classification_and_possible_cause",
+      "status": "SUPPORTED_EXACT_ADCS_PROFILE",
+      "evidence": [
+        "dev63-source-continuity",
+        "stage83",
+        "stage85"
+      ],
+      "boundary": "The frozen 33-channel ADCS P2 profile can execute detection, affected-component localization and fault classification through strict admission. Localization is not root-cause proof and formal diagnostic voting remains separately governed. Partial/mismatched profiles degrade safely."
+    },
+    {
+      "id": 5,
+      "name": "document_parse_answer_library_memory_and_graph_proposal",
+      "status": "SUPPORTED_WITH_EXTERNAL_PROVIDER_BOUNDARY",
+      "evidence": [
+        "stage86",
+        "tests/implementation/p1_p4/test_document_dev20_stages.py"
+      ],
+      "boundary": "Native text/document governance, RAG, reviewed proposals and non-voting knowledge workflows are implemented. Real MinerU/Anything2Ontology domain-quality qualification remains an external-provider requirement; active KG updates remain governed."
+    },
+    {
+      "id": 6,
+      "name": "data_plus_literature_joint_diagnosis_context",
+      "status": "SUPPORTED_NONVOTING_JOINT_EVIDENCE",
+      "evidence": [
+        "stage87",
+        "stage213",
+        "stage217",
+        "tests/implementation/p1_p4/test_dev47_reviewed_claim_joint_evidence.py"
+      ],
+      "boundary": "MODEL, KG, LITERATURE and CORE branches are traceable in a joint evidence package. Retrieved/reviewed literature remains non-voting for committed core diagnosis unless a future independently qualified governed promotion authorizes otherwise."
+    },
+    {
+      "id": 7,
+      "name": "expert_correction_controlled_self_evolution",
+      "status": "SUPPORTED_CONTROLLED_EVOLUTION_TO_PREFLIGHT",
+      "evidence": [
+        "stage228",
+        "stage237",
+        "stage272",
+        "stage277",
+        "stage282",
+        "stage287",
+        "stage292"
+      ],
+      "boundary": "Expert correction can produce evidence-bound failure cases and six-layer improvement candidates, sealed challengers, exact evaluation receipts, governed review packets and rollback-covered promotion preflight. Production promotion remains a human/governance gate; online self-rewriting is not enabled."
+    },
+    {
+      "id": 8,
+      "name": "continuous_open_set_and_active_diagnosis",
+      "status": "SUPPORTED_WITH_CONTROL_ACTION_BOUNDARY",
+      "evidence": [
+        "stage90",
+        "tests/implementation/p1_p4/test_continuous_dev22_stage.py"
+      ],
+      "boundary": "Case timeline and next-best-observation suggestions are supported, with abstention/unknown boundaries from model decision policy. Suggested observations never authorize spacecraft control actions."
+    }
+  ],
+  "external_dependencies": [
+    {
+      "id": "ADCS_NEW_INDEPENDENT_TRAJECTORY_GROUP",
+      "status": "REQUIRED_FOR_NEW_GENERALIZATION_CONFIRMATION",
+      "blocks": "fresh independent ADCS performance/generalization claim",
+      "does_not_block": "current used-cohort replay and exact-profile runtime contract"
+    },
+    {
+      "id": "REAL_MINERU_A2O_DOMAIN_QUALITY",
+      "status": "EXTERNAL_PROVIDER_QUALIFICATION_REQUIRED",
+      "blocks": "production claim for arbitrary complex PDF/ontology extraction quality",
+      "does_not_block": "native text processing, adapter contracts, review-only knowledge proposals"
+    },
+    {
+      "id": "GENERIC_CLASSIFIER_LOCALIZER_PROFILE_COVERAGE",
+      "status": "DATA_AND_MODEL_PROFILE_REQUIRED",
+      "blocks": "universal classification/localization for arbitrary parameter names",
+      "does_not_block": "generic detection or exact admitted domain profiles"
+    },
+    {
+      "id": "INDEPENDENT_DOCUMENT_FUSION_DECISION_TRUTH",
+      "status": "REQUIRED_BEFORE_ANY_FORMAL_LITERATURE_VOTE_PROMOTION",
+      "blocks": "turning document claim shadow/non-voting context into a formal fusion vote",
+      "does_not_block": "non-voting joint evidence, reviewed stance display and expert evidence references"
+    }
+  ],
+  "stability_contract": {
+    "functional_baseline": "0.7.1.post49 stable runtime/source",
+    "allowed_delta": "Exclude historical records and initialize mutable governance ledgers empty; preserve runtime, models, data, knowledge assets, current admission contracts and scenario boundaries.",
+    "protected_runtime_assets": [
+      "models/",
+      "data/",
+      "reference/",
+      "benchmarks/"
+    ],
+    "claim_boundary": "Current source delivery packaging does not create new diagnostic, provider, flight, causal or safety qualification."
+  },
+  "documentation_state": {
+    "status": "CURRENT_ONLY_DELIVERY",
+    "current_index": "docs/CURRENT_DOCS.json",
+    "policy": "docs/DOCUMENT_STATUS_POLICY.md",
+    "history_included": false,
+    "history_may_override_current": false,
+    "current_surface_stale_archived_path_references": 0
+  },
+  "delivery_profile": "post49-current-delivery-source-r1",
+  "history_records_included": false,
+  "software_functionality_delta": "NONE; packaging/governance/documentation pruning only, plus current-delivery-aware governance health checks.",
+  "delivery_source_profile": {
+    "profile_id": "post49-current-delivery-source-r1",
+    "historical_records_included": false,
+    "validation": "governance/implementation/post49/DELIVERY_VALIDATION.json",
+    "history_audit": "DELIVERY_AUDIT.json",
+    "functional_claims_unchanged": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": "astrograph-phm-v6-fault-class-map.v1",
+  "mappings": {
+    "comm_data_downlink_link_loss": "COMM_DOWNLINK_SERVICE_LOSS",
+    "eps_battery_capacity_loss": "EPS_BATTERY_CAPACITY_LOSS",
+    "eps_solar_string_open": "EPS_SOLAR_ARRAY_STRING_FAILURE",
+    "thermal_heater_stuck_on": "THERMAL_HEATER_STUCK_ON",
+    "thermal_radiator_rejection_loss": "THERMAL_RADIATOR_REJECTION_LOSS"
+  },
+  "unmapped_policy": "UNSUPPORTED_DATASET_CLASS_MUST_REMAIN_VISIBLE_AND_MUST_NOT_BE_RENAMED",
+  "claim_boundary": "Only strict dataset-to-registered-ontology correspondences are mapped. Twelve v6 classes require new or refined ontology nodes."
+}

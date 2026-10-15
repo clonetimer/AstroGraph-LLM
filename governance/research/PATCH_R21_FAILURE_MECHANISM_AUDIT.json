@@ -1,0 +1,41 @@
+{
+  "schema_version": "astrograph-r21-failure-mechanism-audit.v1",
+  "status": "PASS",
+  "purpose": "READ_ONLY_DECOMPOSITION",
+  "inference_rerun": false,
+  "frozen_external_file_count": 79,
+  "frozen_bytes_status": "PASS",
+  "reports": {
+    "DXC": {
+      "path": "R21/results/dxc_failure_mechanism_report.json",
+      "file_sha256": "e352f7c22bb1f68d6ecef0684d7a91bf17c85c7ad868aae5fb98ef62e202c439"
+    },
+    "OPS": {
+      "path": "R21/results/ops_failure_mechanism_report.json",
+      "file_sha256": "e86d460a2800a4717974b715168ce22cf9e0eda29c62b0011651c783ea839193"
+    },
+    "ESA": {
+      "path": "R21/results/esa_failure_mechanism_report.json",
+      "file_sha256": "b36cb64395dd5e50a0dc80038cdc1950b49384064ddea13ce6a897339385b291"
+    }
+  },
+  "reproduced_invariants": {
+    "DXC_fault_element_recall_micro": 0.3315508021390374,
+    "DXC_faulty_case_any_overlap": 0.4636363636363636,
+    "OPS_scored": 422,
+    "OPS_blocked": 107,
+    "OPS_blocked_anomaly": 3,
+    "OPS_blocked_nominal": 104,
+    "ESA_decision_points": 73641,
+    "ESA_alarm_points": 0,
+    "ESA_true_events": 4,
+    "ESA_FN_events": 4
+  },
+  "evidence_limits": [
+    "DXC component/mode mismatch categories are set-comparison proxies, not proof of an ontology cause.",
+    "OPS blocked cases are not missing completely at random; covered-subset metrics cannot stand in for all-case performance.",
+    "ESA historical score vectors were not retained. Frozen cache range evidence identifies below-threshold response without regenerating predictions; raw aggregation causality remains unproven."
+  ],
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "f1b22f852275268639cd60747239918498bf251d907bab1b75b8320e4caf2c88"
+}

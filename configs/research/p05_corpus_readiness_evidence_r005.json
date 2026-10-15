@@ -1,0 +1,20 @@
+{
+  "schema_version": "astrograph-p05-corpus-readiness-evidence.v3",
+  "assessment_id": "p05-document-corpus-readiness-r005",
+  "evidence": {
+    "coverage": {"path": "governance/evidence/research/document_corpus/coverage_r001/audit_receipt.json", "sha256": "bd6399f582c01d6a8d183fe96473fa0645eb19c0db2eaeaefb34a84040d7701f"},
+    "corpus_build": {"path": "governance/evidence/research/document_corpus/development_r003/build_receipt.json", "sha256": "6cf8512636fb44642682f8dfcf1cfc0df7cf5b4494902e7b98690f9b7a0199a4"},
+    "corpus_audit": {"path": "governance/evidence/research/document_corpus/development_r003/audit_receipt.json", "sha256": "fcdc4b5516c510584b7db26aaeefb41e9cb15c0f15ec7cfa168770d133fd4d5b"},
+    "rebuild": {"path": "governance/evidence/research/document_corpus/development_r003/rebuild_verification.json", "sha256": "13699083bf8ba3494904ba8d3ecf962cf2012f020a3582e809d313bae0551424"},
+    "sidechannel": {"path": "governance/evidence/research/document_corpus/label_sidechannel_r001/report_after_mitigation.json", "sha256": "73adc590f37f251113aa9952aecf892826c77b19d6c3f5f8abddcd7c7866e9ab"},
+    "multimodal": {"path": ".astrograph-state/research/document_corpus/multimodal_gold_review_blank_freeze_r001.json", "sha256": "b197a22c3fc9ac58e4f2eeb45d60b67405fb372c19e8d85809debc6e072c760f"},
+    "chunking": {"path": ".astrograph-state/research/document_corpus/chunking_gold_review_blank_freeze_r004.json", "sha256": "cedabd367a5ec11d136e545bd1f6055a98b9ef4952933c5d0139958886cde201"},
+    "early_design_gold": {"path": ".astrograph-state/research/document_corpus/early_design_gold_review_blank_freeze_r002.json", "sha256": "40c444536f16cae79f7ee7eefcc1c8036de54dd519956a35bc8bdd42b5146fc5"},
+    "scan_review": {"path": "governance/evidence/research/document_corpus/vlm_scan_transcription_review_r001/decision_freeze.json", "sha256": "aab768f54136f4d7be1d4ca6a6009d7883a55217bec8b8ee853c624e170a94e4"},
+    "corpus_manifest": {"path": ".astrograph-state/research/document_corpus/development_r003/manifest.json", "sha256": "3c2c9481d9a686ae1bff78ed9288a85246851ea47db9c7bda2197f3a7e356889"},
+    "controlled_rewrite": {"path": ".astrograph-state/research/document_corpus/confusion_controlled_rewrites_full_r003/receipt.json", "sha256": "339af46e7e3f049a8a5bdf2afb6f60a23a2d83be1aa4a0e6adc8ed1219c0a91d"},
+    "controlled_rewrite_review": {"path": ".astrograph-state/research/document_corpus/confusion_controlled_rewrites_full_r003/blank_review_freeze.json", "sha256": "bec0dff9ea19b0f4a013a36be6f6504e2ae209aa7d9a4e31aa184edbbc355d70"},
+    "approved_claims": {"path": "governance/evidence/research/document_corpus/approved_tbox_claim_release_r001/claim_release.json", "sha256": "f70733deb5ee065e1291626353d3ba706a058f95e63f208118310fc90224ba33"}
+  },
+  "claim_boundary": "Adds the source-span-bound 22 project-owner-approved MANIFESTS_AS TBox claims. They are publishable ontology associations only: not episode evidence, actual causality, Active-KG publication, calibration evidence or runtime votes. All other human-gold and corpus-freeze blockers remain fail-closed."
+}

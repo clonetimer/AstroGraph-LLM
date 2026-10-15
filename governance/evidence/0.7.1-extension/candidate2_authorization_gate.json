@@ -1,0 +1,24 @@
+{
+  "schema_version": "astrograph-candidate-authorization-gate.v1",
+  "request_id": "P015-CANDIDATE-2-AUTHORIZATION-001",
+  "technical_status": "PASS",
+  "status": "PASS",
+  "checks": {
+    "all_bound_artifact_hashes_match": true,
+    "candidate_ordinal_within_budget": true,
+    "old_validation_seed_exhausted": true,
+    "new_validation_seed_predeclared": true,
+    "thresholds_unchanged": true,
+    "denominators_unchanged": true,
+    "independent_evaluator_is_timer": true,
+    "approval_present": true,
+    "approval_reviewer_matches": true,
+    "source_attestation_hash_matches": true,
+    "source_attestation_binds_preapproval_request": true,
+    "source_attestation_identity_matches": true,
+    "approval_attestation_is_verbatim_source": true,
+    "approval_declarations_cover_frozen_request": true,
+    "approval_timestamp_present": true
+  },
+  "claim_boundary": "Validates authorization integrity only. PASS permits candidate-2 implementation but does not promote a model or establish T-310, T-311, G3 or G4."
+}

@@ -1,0 +1,31 @@
+schema_version: phm.fault_contract.v1
+fault_id: EPS_SOLAR_ARRAY_STRING_FAILURE
+name_zh: 太阳阵单串失效
+subsystem: EPS
+component: solar_array
+fault_type: discrete_fault
+mechanism: 一个或多个并联发电串退出，使可用串数和阵端电流阶跃下降，并通过净功率传播至电池SOC。
+injection_target: WholeSpacecraftParameterEventController.solar_array_string_failure
+parameters:
+  failed_strings: {unit: count, nominal: 1, range: [1, 3], source: engineering_assumption}
+direct_channels:
+  - status.eps.solar_array_available_strings
+  - sensor.eps.solar_array_current_a
+component_response_channels:
+  - estimate.eps.solar_array_power_w
+  - sensor.eps.solar_array_voltage_v
+subsystem_propagation_channels:
+  - sensor.eps.battery_current_a
+  - estimate.eps.battery_soc
+confusable_faults:
+  - EPS_SOLAR_ARRAY_EFFICIENCY_LOSS
+  - EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  available_string_count_must_drop: true
+  minimum_current_delta_a: 0.2
+  minimum_power_delta_w: 5.0
+known_limits:
+  - 采用等效并联串比例缩放，不包含旁路二极管、单体I-V曲线和局部热斑。
+  - 阵端电压由工程虚拟传感器给出，当前主要故障证据是串状态和电流阶跃。

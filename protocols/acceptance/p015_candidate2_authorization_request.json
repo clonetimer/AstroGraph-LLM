@@ -1,0 +1,94 @@
+{
+  "schema_version": "astrograph-candidate-authorization-request.v1",
+  "request_id": "P015-CANDIDATE-2-AUTHORIZATION-001",
+  "problem_id": "P-015",
+  "requested_reviewer": "Timer",
+  "bound_artifacts": [
+    {
+      "path": "configs/diagnosis/generic_head_calibration_protocol.v1.json",
+      "sha256": "b296b579fdbc08e58933a52bcd2129719404966993452f93caf8ae09dae63240"
+    },
+    {
+      "path": "governance/evidence/0.7.1-extension/generic_head_technical_validation.v1.json",
+      "sha256": "60bc39e3dacda713b9a5e34420b958b4a0bbaae7cdc4b0084a628a2c49368e78"
+    },
+    {
+      "path": "governance/evidence/0.7.1-extension/generic_mechanism_fit_calibration.v1.json",
+      "sha256": "e6aebe57528ffa5b715ee12ececcb9c2c86fd98a6cda11b1d2a5077646cd0e10"
+    },
+    {
+      "path": "protocols/acceptance/diagnosis_scope.json",
+      "sha256": "cf917a9e8529811cf07cb59548bf3ea5461546a99c42f742d4dc0e0510aa06bc"
+    },
+    {
+      "path": "protocols/acceptance/fault_taxonomy.json",
+      "sha256": "3f966c58a813fdb70e26711647a44d6ea854d06c3c725dd9aa2d16c3be0ef413"
+    },
+    {
+      "path": "protocols/acceptance/coverage_matrix.json",
+      "sha256": "9bc0cebda74852c27149cededb99df087b35872f3bfdf47c075dae8bb487d7c0"
+    },
+    {
+      "path": "protocols/acceptance/metric_policy.json",
+      "sha256": "4ceb52f6c1892cd8b416c2a62500f1ca14adec209ba69d53eef655e0583e94e1"
+    },
+    {
+      "path": "protocols/acceptance/reasoning_rubric.json",
+      "sha256": "c930b9f8c4f6fd8cce84b145126f47abd80f803dab3333ce7770f5baf45b7fc3"
+    }
+  ],
+  "candidate": {
+    "ordinal": 2,
+    "maximum_candidates": 3,
+    "model_path": "SEGMENTED_GRAY_BOX_EVIDENCE_PLUS_L2_LOGISTIC_HEAD",
+    "development_seed": 20260820,
+    "calibration_seed": 20270820,
+    "exhausted_validation_seed": 20280820,
+    "new_single_use_validation_seed": 20290820,
+    "new_seed_frozen_before_candidate_implementation": true,
+    "formal_hidden_truth_used": false,
+    "ensemble_allowed": false,
+    "fallback_allowed": false,
+    "maximum_runtime_seconds": 600,
+    "maximum_retries_per_error": 2
+  },
+  "unchanged_thresholds": {
+    "detection_accuracy": 0.98,
+    "classification_accuracy": 0.9,
+    "localization_accuracy": 0.95,
+    "reasoning_correctness": 0.9,
+    "known_class_retention": 0.98,
+    "open_set_rejection": 0.98,
+    "open_set_alpha": 0.02
+  },
+  "denominators": {
+    "normal": 240,
+    "known": 720,
+    "open_set": 720,
+    "total": 1680,
+    "known_mechanisms": ["CAPACITY_LOSS", "DRIFT", "LEAKAGE"],
+    "open_set_mechanisms": ["BIAS", "INTERMITTENT", "STUCK"]
+  },
+  "prohibited_actions": [
+    "Use validation seed 20280820 for candidate-2 fitting, tuning, feature selection or threshold selection",
+    "Run validation seed 20280820 again",
+    "Delete, skip or xfail a validation case",
+    "Change any declared denominator",
+    "Merge any mechanism class",
+    "Expand UNKNOWN or OOD membership",
+    "Lower any frozen threshold",
+    "Use labels, truth, case IDs or file paths at runtime",
+    "Introduce an ensemble, fallback or legacy exact-fault router",
+    "Treat this authorization as candidate promotion or G3/G4 acceptance"
+  ],
+  "requested_attestation_text_zh": "我已审阅 P-015、首个候选的拟合证据和单次冻结技术验证结果。我授权在 P-015 下启动第 2/3 个候选。G1.1 五项冻结制品、机制类别、指标阈值、全部分母和资源上限保持不变。候选 2 沿用 development seed 20260820 与 calibration seed 20270820；已耗尽的 validation seed 20280820 永久只保留为失败证据，禁止训练、调参、特征选择、阈值选择或再次验证。我授权在候选实现前冻结 20290820 为唯一新技术验证种子，继续不读取正式 hidden-acceptance 真值。候选 2 仅允许分段灰盒物理证据加单一 L2 逻辑回归头，不允许集成、回退或旧精确故障路由。所有失败继续计入原分母。本授权不预认定候选 2、P-014、P-015、T-310、T-311、G3 或 G4 通过，结果仍须由 Timer 独立审阅。",
+  "approval": {
+    "status": "APPROVED",
+    "reviewer": "Timer",
+    "reviewed_at_utc": "2026-08-02T05:10:04Z",
+    "attestation_text_zh": "Timer 审批：\n\n我已审阅 P-015、首个候选的拟合证据和单次冻结技术验证结果。\n\n我授权在 P-015 下启动第 2/3 个候选，并确认：\n\n1. G1.1 的 diagnosis_scope、fault_taxonomy、coverage_matrix、\n   metric_policy 和 reasoning_rubric 保持不变；\n2. 已知机制仍为 CAPACITY_LOSS、DRIFT、LEAKAGE；\n   开放集仍为 BIAS、INTERMITTENT、STUCK，不允许合并或扩大；\n3. detection 0.98、classification 0.90、localization 0.95、\n   reasoning 0.90、known retention 0.98、open-set rejection 0.98\n   等阈值和全部分母保持不变；\n4. development seed 20260820 和 calibration seed 20270820 保持不变；\n   已耗尽的 validation seed 20280820 永久只保留为失败证据，\n   禁止用于候选 2 的训练、调参、特征选择、阈值选择或再次验收；\n5. 授权将 20290820 预先冻结为候选 2 唯一的新技术验证种子，\n   仍不使用正式 hidden-acceptance 真值；\n6. 候选 2 使用分段灰盒参数/扰动证据和单一 L2 逻辑回归头，\n   不允许集成、回退、旧精确故障路由或第二套隐式生产模型；\n7. 候选总数不得超过 3，单次运行预算仍为 600 秒，\n   所有运行失败继续计为指标失败；\n8. 本审批不预认定候选 2、T-310、T-311、P-014、P-015 或 G3 PASS；\n   结果仍须由 Timer 在冻结协议下独立审阅。",
+    "source_attestation_path": "protocols/acceptance/p015_candidate2_timer_attestation.json",
+    "source_attestation_sha256": "827eaa6f0d1e86999531b1f3af95d0113bfb1431218a8d0a2451bd3e3e882bae"
+  },
+  "claim_boundary": "Timer authorization permits candidate-2 implementation under the frozen request only. It does not promote a model or establish P-014, P-015, T-310, T-311, G3 or G4."
+}

@@ -1,0 +1,52 @@
+# Local-only evidence, private datasets, and workspace session files
+local_evidence/
+/data/diagnosis_runs/
+*.local.json
+.claude/
+.venv/
+venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Python/build caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Regenerable model artifacts and logs
+*.joblib
+*.pkl
+*.pt
+*.ckpt
+*.h5
+*.onnx
+*.log
+!examples/result_log_review/operations.log
+
+# Integration runs are local and reproducible. Curated compact receipts belong
+# under governance/evidence/research rather than the runtime output directory.
+scripts/integration/out/
+
+# Generated data artifacts (regenerable, large; user decision 2026-08-07)
+# Frozen splits are regenerable deterministically (seed frozen in code, e.g.
+# joint-detection-v1 SEED=20260806) — kept out of VCS like root /data/.
+/data/
+
+# AstroGraph runtime state must live outside immutable source/data assets.
+/.astrograph-state/
+
+# Local JS dependencies are installed from the pinned offline PPL packages.
+node_modules/
+
+# Local acceptance workspaces are not release source.
+/runs/
+
+# Checked-in synthetic acceptance logs (otherwise *.log would be ignored).
+!examples/platform_acceptance_cases_v1/TC*/operations.log

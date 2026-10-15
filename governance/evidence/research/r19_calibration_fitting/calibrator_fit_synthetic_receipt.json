@@ -1,0 +1,56 @@
+{
+  "calibration_dataset_id": "calib-r19",
+  "calibration_dataset_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "calibration_id": "temp-r19",
+  "claim_boundary": "Fit receipt binds one deterministic post-hoc temperature scaler to CALIBRATION_FIT independent groups only. Fit improvement does not establish held-out calibration, shift transfer, selective-risk safety, or release qualification.",
+  "class_universe": [
+    "A",
+    "B"
+  ],
+  "class_universe_sha256": "969503a81ba54252a02f728270fc90469f52f99ab2ca9af86a1532ac35e79c89",
+  "fit_context_set_sha256": "586a73d4db6d2a3c1ed4b0057e435cce35832d460b0e3ad98bd3ac4ff732a3e2",
+  "fit_equal_group_macro_nll_after": 0.46753614251817677,
+  "fit_equal_group_macro_nll_before": 0.4813798648518949,
+  "fit_group_count": 8,
+  "fit_group_ids": [
+    "fit-g0",
+    "fit-g1",
+    "fit-g2",
+    "fit-g3",
+    "fit-g4",
+    "fit-g5",
+    "fit-g6",
+    "fit-g7"
+  ],
+  "fit_group_set_sha256": "7372ba95f723d632cb0019e387a317b14b9ad1e4baa45c5f19353186d6300835",
+  "fit_improved_nll": true,
+  "fit_objective": "EQUAL_INDEPENDENT_GROUP_MACRO_NLL",
+  "fit_partition": "CALIBRATION_FIT",
+  "fit_positive_group_count_by_class": {
+    "A": 4,
+    "B": 4
+  },
+  "fit_prediction_set_sha256": "deffab856b98030721c5278f0cb2442a191e982c3101293fad8f83e3405650e8",
+  "fit_sample_count": 8,
+  "fit_truth_set_sha256": "66cc0f57fe25c2fb53dc93563611232847f5c39d2130f350d0448ab2e91c9e5e",
+  "input_semantics": "UNCALIBRATED_CLASS_PROBABILITY",
+  "method": "TEMPERATURE_SCALING_ON_LOG_PROBABILITIES",
+  "minimum_positive_groups_per_class": 2,
+  "model_artifact_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+  "model_id": "model-r19",
+  "model_version": "1",
+  "optimizer": {
+    "coarse_points": 121,
+    "deterministic": true,
+    "method": "LOG_SPACE_COARSE_GRID_PLUS_GOLDEN_SECTION",
+    "refine_iterations": 80
+  },
+  "output_semantics": "CALIBRATED_CLASS_PROBABILITY_CANDIDATE",
+  "receipt_sha256": "93c83722941d6f4aac0c0a3bc85df6d532e8d82805c05176685b2562adb96f1e",
+  "schema_version": "astrograph-probability-calibrator-fit-receipt.v1",
+  "temperature": 1.303429199369053,
+  "temperature_bounds": [
+    0.05,
+    20.0
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "astrograph-r22-prepackage-gate.v1",
+  "status": "READY_FOR_NEW_HOLDOUT_BLOCKED_DATASET",
+  "replication_plan_sha256": "f3fb9db86150b49037575843eedc4720b2d9c446324b623a93d6a84987c4ae62",
+  "base_repairs": {
+    "BASE-R22-01": "CURRENT_DOCUMENT_GOVERNANCE_REPAIRED",
+    "BASE-R22-02": "EXECUTOR_SOURCE_BINDING_DRIFT_CAUGHT_AND_REFROZEN_BEFORE_NEW_HOLDOUT",
+    "BASE-R22-03": "LEGACY_SYNTHETIC_UNIT_FIXTURES_NOW_DECLARE_R21_PROVENANCE_SCOPE"
+  },
+  "tests": {
+    "r22_dedicated": "11 passed",
+    "legacy_provenance_fixture_repair": "36 passed",
+    "r20_r21_r22_with_external_receipts": "98 passed",
+    "collect_only": "3515 collected / 0 collection errors",
+    "distribution_inventory_evidence": "23 passed",
+    "chromium": "3 passed",
+    "production_js": "10 syntax checks passed",
+    "r17_r19_score_calibration_fusion": "80 passed"
+  },
+  "documentation_freshness": "PASS",
+  "source_only_delivery": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+  "strict_bundled_delivery": "FAIL_EXPECTED_8_ARCHIVE_DEPENDENCIES",
+  "new_holdout_admitted": false,
+  "real_replication_performance_generated": false,
+  "external_validation_receipt_generated": false,
+  "full_suite_executed": false,
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "8f234191bc7636f9ff63a37617e1f3b404e8a424dcabd5f9f4a440e56bcfe9cb"
+}

@@ -1,0 +1,654 @@
+{
+  "schema_version": "astrograph-source-consolidation.v1",
+  "patch_id": "PATCH-R14",
+  "baseline_policy": "ONLY_FINAL_PATCH_R13_ARTIFACTS_ARE_TRUSTED_PARENTS",
+  "parent_artifacts": {
+    "backend": {
+      "filename": "AstroGraph_0.7.1_post49_working_patch13_source.zip",
+      "sha256": "9a46a8b6ced89170e617b332ff644415baba4a1404f20fe0f4a83ec59e90e23a",
+      "managed_file_count": 2475
+    },
+    "complete_platform": {
+      "filename": "AstroGraph_0.7.1_post49_UI_v0.12.13_working_patch.zip",
+      "sha256": "e35e849cdf3239d8a95476e74302c33facfd0b89afb0da6df2f83daa4d6f7888",
+      "managed_file_count": 2556
+    }
+  },
+  "comparison": {
+    "filesystem_file_count_backend": 2476,
+    "filesystem_file_count_complete_platform": 2557,
+    "backend_only_file_count": 0,
+    "platform_only_file_count": 81,
+    "same_path_content_difference_count": 30,
+    "backend_only_files": [],
+    "platform_only_files": [
+      {
+        "path": "HEADLESS_INTERFACE.md",
+        "sha256": "fea1a3067b62e593667e582df44560a55801cc54f73f27928de634d1175d4e04",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "HISTORICAL_DIAGNOSTICS_V0.11.md",
+        "sha256": "12a945a84460ac37066730caf179cfaef047f218216e29383ec75cad7d8641e8",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "IMPLEMENTATION_LEDGER_V0.10.md",
+        "sha256": "a638cda2ee9b251572f345267dea7a734422cf9f352d377cebe8ed6eb71adb81",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "IMPLEMENTATION_LEDGER_V0.11.md",
+        "sha256": "3a5eca8458244de2fda93d17488b1957b56910f58353bfbdef8148c86a7e07f4",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "IMPLEMENTATION_LEDGER_V0.12.md",
+        "sha256": "afc2a94f8db714270e1760efd00f5442536bc86fa6264479f0f0c5e19d68206c",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "IMPLEMENTATION_LEDGER_V0.9.md",
+        "sha256": "0736060a91d3289cdf289591f453776d8b268250e02be6a9d28bc8300396281f",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "MULTIDIMENSIONAL_DIAGNOSTICS_V0.10.md",
+        "sha256": "42b88f4fc1be7ba201a7fc60401bb4a20f334d2ed63ef731dddbf75affc861e1",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "NEO4J_AGENT_TOOL_V0.9.md",
+        "sha256": "6a1d290210eb2aba16ee620613dd2992e28520476205f6a6922bfee03ce0d28e",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "PLUGIN_EVALUATION_RESEARCH_FIGURE_PIPELINE.md",
+        "sha256": "88f9d340827b0f0f6bcae2690fd25eed613f14a9033d5ce6516bb0e0ca062141",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "SQLITE_CONTROL_PLANE_V0.9.md",
+        "sha256": "54cb280cc482ed32922edf206bc45dc5972e8ed0be7ae5d3a2a353529af848e2",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "TEMPORAL_LOCALIZATION_V0.10.md",
+        "sha256": "b06c3972d42e3305303b1a68b25ba003fdd48b98bd8ab12d68435ca31f2cc8fa",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "TEMPORAL_LOCALIZATION_V0.11.md",
+        "sha256": "6f2891f1dfe058de69a214ab08a8c20ec8a9c44a5fd7d74aecfe18bc8dbcaac0",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "TEMPORAL_LOCALIZATION_V0.9.md",
+        "sha256": "62100e54d3d4bdba2bd94a636a229efaf2f42c4b5f39f16c72695c220920e8ef",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "TOOL_PROVIDER_ARCHITECTURE_V0.9.md",
+        "sha256": "5be2ffeb9fef2e342819557a4157f08920cfe0c427495afd5122b98a497f6e8b",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.1.md",
+        "sha256": "7fdc8d5aa6bc11cd1559e6f2e6279394b529af24094906b1eca4645fdb9faad7",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.10.md",
+        "sha256": "3afd91ba1dfde89c1af77853af2c8563b15230782bd58a810f273bc22da3baba",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.11.md",
+        "sha256": "6840821e41c2f8e83715252e81d42479a8b37e7ae96ce1f67779ddc7c2697cd2",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.12.md",
+        "sha256": "fb3dab590c5d1ca8e1961a28e791fc8992c799c7c55d13761e3323e04580bf80",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.2.md",
+        "sha256": "898a729f5ae1ca7eb6820970009bfefebbbb37ee7ab9b6dc16826e5455be83de",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.3.md",
+        "sha256": "9c103522a78bf8fba0038851b262557f9d5b6a984fbeb9e1dbb478608f0bbf01",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.4.md",
+        "sha256": "5346c2ac9d351218a3cbe9d689c21ea7deea93993bb71947aa5e6809d8bf133f",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.5.md",
+        "sha256": "c33bb5a717f46ba3615037e7eac8da9d2dfc2e2720e0b0d5bc675f751e3da366",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.6.md",
+        "sha256": "3b683ad637bd91b14dffdf7de032119a668b3e0f1ea80e568e2679c2f43e4787",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.7.md",
+        "sha256": "48fec5b96a4d5bd51162e415c674df6c5bd47d633bb815091b655e6c14ec4df6",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.8.md",
+        "sha256": "8b3301ff8ef806a990326e9f1cca797272ab2fbf40e7cb22230509006f2984c1",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_EVALUATION_V0.9.md",
+        "sha256": "a4b7ea4faec88dc057161fc3b35ed9205e8efb1fb0ca2faf573c777636f2a8a9",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN.md",
+        "sha256": "6f148c0b30ccb3e01074c4f0e8210367d115e668c765759ec3584fd7fedef745",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.10.md",
+        "sha256": "05b1b47e31781c5215b22b8728f6a0909094a2fadfd046376a0960f98723244a",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.11.md",
+        "sha256": "60a6b37e1d32b27ee2e7f0f50026f6c590a3ebff4ca05e79ed512c83af2f16b5",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.12.md",
+        "sha256": "746719a5677bb0d5e6128423cb131642efe20ddaa70d7e873a1877f2da4b3b3c",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.2.md",
+        "sha256": "57c130d65bfd278b988187e8de32c18ff0f43780d76cc9ba0cbf9276d3dfb5b6",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.3.md",
+        "sha256": "e3e2042c42fb127e404dac2e51f95b3a6b46eb162f7f343437fa63c1c2fef105",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.4.md",
+        "sha256": "185475df0b401578b1e32f4fae8cbbae561f85b189b0c7ac5b7ac1af89e7abed",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.5.md",
+        "sha256": "ecdde85f77fedd8b3f0b93452375705c38d02185c558495ba7b22d8d9ec8d869",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.6.md",
+        "sha256": "eb21e98b1e7177e714f4a802d1de064b1ac5dc26cb9d055279ab25c40f66f785",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.7.md",
+        "sha256": "6953b3f8b22731025e9c18ae6e38fb9d63206a0b56f3732a3f6e3d26079f4281",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.8.md",
+        "sha256": "e05ce773a8eb571844801ede2be8f7975e9ceca5e793c8fc79f53001742b748d",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "UI_IMPLEMENTATION_PLAN_V0.9.md",
+        "sha256": "0e81f02c4d2d677d0369f9ce951c6737520b72dcbe5c29e9bf722500fd7f3f8f",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "docs/AGENT_TOOL_PLUGINS.md",
+        "sha256": "e4778abbbcaa2d1140ea21ca6a5274f4be39d39981b537fa0092f76ccff30315",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "docs/MAINTENANCE_INPUT_CONTRACT_R9.md",
+        "sha256": "6b4e8910a878ceb9ca14ebc3b9794b857e60c4e57abbada81b167d5609306703",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "docs/MAINTENANCE_SUPPLEMENTAL_EVIDENCE_R10.md",
+        "sha256": "3fee13461c2524ec2e907fa6b2a13aaa4f9654566535b6fb4e5acb2b580fe63e",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "examples/agent_tool_plugin_example.py",
+        "sha256": "862014f7a0357a1d70a8655208dda4cf3e7ad9d8f943bd81bd884a66eec9dcc1",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/maintenance_input_admission.py",
+        "sha256": "c8b8818559efeecc1307b4de1c1a4cf95720f455e1daff3f8fe0b40ea5570740",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/maintenance_presentation.py",
+        "sha256": "b815cb0bb0ab8790d0b8970aa8fac7ed1ed2fedae321f30f15cacedc78cbd3f7",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/multidimensional_diagnostics.py",
+        "sha256": "b3e35f9a8068f1e237c792d1a707a2048b0a8b1513fefb696401402500c70faa",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/operator_vocabulary.py",
+        "sha256": "9635b878337426547b7509ae97f92e8f29b01a13b46aa5fec8e75d1ba747e974",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/platform_agent.py",
+        "sha256": "405e852989b95b37aab7179cbdeacea19714e3603e2b13a995b01a1f3456fea4",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/platform_cli.py",
+        "sha256": "6766ff2da186d777d9ba9cdbf0b8b76948a4527e0039fa846e90a89961ea1e6a",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/platform_llm_probe.py",
+        "sha256": "1980acd7bfccbdf02a1774e61fa4ae315b6ed9a0ac99f9688f327cdb6afded3a",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/platform_secrets.py",
+        "sha256": "9e2eef2653b9119c3bcfcfb03e9beebc562abc424389c5286e92bc6a2e9f2d2b",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/platform_state.py",
+        "sha256": "e2a617f64133e2775c1f788b64d4d94b2f4f0e9b29692789e31977cb0ae1de51",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/platform_tools.py",
+        "sha256": "a684b95deb1a948adee02f3c6a386be0a895ad04aeb630019dd6df497b338809",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/platform_visualization.py",
+        "sha256": "83652397621b6eade0bf12e1f6cca203dc0cd02e05c1012751ff364a1535a80c",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/integrations/temporal_localization.py",
+        "sha256": "0c55c8a1448b55253d13a4834c6f2cbee5241392858604e63c07d04362f3b52a",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_agent.js",
+        "sha256": "f131248f9bf701c15eda4f36f226de52bd88f8374a3c3920e5e501550dc9b761",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_agent_live.js",
+        "sha256": "259fcf7368179a6429b70a651aba116437e777ec4f797e294e18c3f1efecbb4a",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_core.js",
+        "sha256": "6eb9935f92167d77cf7a7c8fb0d7e683005ce250c55cda388d678037a48ccba2",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_dashboard.js",
+        "sha256": "171ae9ebebf4bdaa478514195c7c3a11561028e15fe864cac9ba30d9368d40c8",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_job.js",
+        "sha256": "efe10d792f00f8d258e736dce96814c30f5ac434000d5a49e59e46e67c511548",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_knowledge.js",
+        "sha256": "380da9c0675f83c2239f1b57d33ad7fecf1a1a686f9529e2b18f30ca39632f05",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_report.js",
+        "sha256": "48e740932df10e86b004a5d24cbbd59f259e2817b15a82f0408084cf62bc263b",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_shell.js",
+        "sha256": "d171ecb07e07912e5c29bce2902d6310b71f947200f7296fe10c410f5f8f8da7",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_system.js",
+        "sha256": "279f25277a190ef0f54562666403c34225629a8b9f74366660178a014352fc2f",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_ui.css",
+        "sha256": "bce557f714b14b45a037fd23b2883d90576d8ec2c85966e0fca0c4cb253aacc5",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_ui.html",
+        "sha256": "bd7c5d1e4e123b5c1a0df0ec5691998fcda2b10b17a9753efd937e980fd61f41",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/resources/platform_ui.js",
+        "sha256": "6cdaa35533e83d883da5bc963e2a25ab9c5987b9c01916c3b5697049c253a111",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/tools/neo4j_maintenance.py",
+        "sha256": "6e9b75ed4ee9bebb2ac0082a0e9a5a1a58cf720b8c927bc60efc611517aad419",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "src/astrograph/tools/providers.py",
+        "sha256": "0db24508b5d8f49825a2242b9be4847e0625d540d1a8e9f09fcc435069d7f64c",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/implementation/__init__.py",
+        "sha256": "34cfc90da2bf3a44f050378759d2a42e213dd676e5b2e4fddfa23424191bb9b4",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/implementation/acceptance/__init__.py",
+        "sha256": "34cfc90da2bf3a44f050378759d2a42e213dd676e5b2e4fddfa23424191bb9b4",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/implementation/mission/__init__.py",
+        "sha256": "34cfc90da2bf3a44f050378759d2a42e213dd676e5b2e4fddfa23424191bb9b4",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_maintenance_evidence_contract.py",
+        "sha256": "809f54328da168fc2bba46a7ae61ff245e06422d3c0ad2556c5b5bdc5536479e",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_platform_ui_assets.py",
+        "sha256": "0d322843eae2a92b28ede9333cc14d6dcb5c290cf7179adc7abecedb66bc4bc6",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_platform_ui_maintenance_first.py",
+        "sha256": "7f0a646185599937b5863072181b86aeac2c077886604f2cf699c02d64f6748a",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_platform_ui_v012_stability.py",
+        "sha256": "73d4eb14d2192428448745454f7d117cb03ee03a7cfc32dc5c2bc04f59383dd1",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_platform_ui_v04_tool_plugins.py",
+        "sha256": "e437461dad7ddb0b6d2f9d9b1ec4ea5f88cc1c1c995fb1171099fb754b07a3b4",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_platform_v010_multidimensional.py",
+        "sha256": "7e29bc1da5b0ebfcd6c8504bb02b6effa4f02f69b64b26186bb9dda2779e55f4",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_platform_v011_temporal_history.py",
+        "sha256": "838ea2a384375967a9daf8a06daac7dcdb3a4dbfc92e5db5da717e3498deb96e",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_platform_v09_maintenance.py",
+        "sha256": "1c0745b2a241c09f0f35232786e0949b7255f71ecbb580a874b821485544d87c",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/test_upstream_recompute_platform_r13.py",
+        "sha256": "7ae8f025d98a0a4765312952ccf79ece390b0b95d851ef470e8fd69d06d5a5d0",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      },
+      {
+        "path": "tests/ui/test_platform_browser_behavior.py",
+        "sha256": "187ef10f54fb6af8daa195a3321ed2942c3360cbd15b1cdb6eaa059b6ea39845",
+        "decision": "INCLUDE_PLATFORM_EXTENSION"
+      }
+    ],
+    "same_path_decisions": [
+      {
+        "path": "CHANGELOG.md",
+        "backend_sha256": "8d2f4aca17a125226cf495e03e79e64c2e454b300de974c7be981c006c93bdfe",
+        "ui_sha256": "399f5e4e420e37886f4411d2d26ed3dd2883dde81aa1763b5e6e3696e51525e1",
+        "category": "DOCUMENTATION_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "DELIVERY_AUDIT.json",
+        "backend_sha256": "607d76008021b68758cac9bb4075d2bcc0ef58478e77b433c045843f0464a5ec",
+        "ui_sha256": "6aefd0466591494905339dd458558bfa8b52cf54f53ce21e1246351a60d18616",
+        "category": "DISTRIBUTION_METADATA_REGENERATE",
+        "decision": "REGENERATE_FROM_UNIFIED_TREE"
+      },
+      {
+        "path": "FILELIST.txt",
+        "backend_sha256": "e14685e7d4594bae6da2e673153abecb2706df3f3513e70408db65c584bc7532",
+        "ui_sha256": "b0ec91661b417da0696ab920f804b957a0d38cb14564257ad363eb8801ccd2a8",
+        "category": "DISTRIBUTION_METADATA_REGENERATE",
+        "decision": "REGENERATE_FROM_UNIFIED_TREE"
+      },
+      {
+        "path": "README.md",
+        "backend_sha256": "2c247a369a4e78d24b783007319b465037e7da7b95749f81555d38ba9d6318a6",
+        "ui_sha256": "fa5a0b1b1059cfae9aa30ec17353e21fcbc7077c057d9fa1ba27e91201656c70",
+        "category": "DOCUMENTATION_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "RUN_GUIDE.md",
+        "backend_sha256": "56cfdfe674eb67ce235043e1479413e23a9fd022463361a36fd87d567838a10e",
+        "ui_sha256": "30fe127ccf1bbf67eb431d84a079016bf878c59163bf0b6eceb9eb7a1a6d5ee4",
+        "category": "DOCUMENTATION_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "SHA256SUMS.txt",
+        "backend_sha256": "a3bc1c9f493302af35fa6974887420031a99162c8a08b899c74997e698ce066d",
+        "ui_sha256": "688e169a3e4af076635ee8cadedea4c570e0e9ae3678475583a5756bd9c31ec2",
+        "category": "DISTRIBUTION_METADATA_REGENERATE",
+        "decision": "REGENERATE_FROM_UNIFIED_TREE"
+      },
+      {
+        "path": "SOURCE_MANIFEST.json",
+        "backend_sha256": "b821cda31393bfa0ed5be69e686ff6fa7f6509eecf16b84ca8ef342dccb2a59e",
+        "ui_sha256": "317622c4691cf051dd282395ea1d09a47b04c1c77f2213350249f9ad17cd4d45",
+        "category": "DISTRIBUTION_METADATA_REGENERATE",
+        "decision": "REGENERATE_FROM_UNIFIED_TREE"
+      },
+      {
+        "path": "START_HERE.md",
+        "backend_sha256": "44a75a4ab05419b05a0f04165d1cb1840d3eb93f51ac797162821dc29c439510",
+        "ui_sha256": "48fe5e4011e9fad7066a33d7ce224ad838e8b09738c4a9f51b68d691d2776613",
+        "category": "DOCUMENTATION_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "platform.env.example",
+        "backend_sha256": "b22750f1eac7d1adeaa0f0b916c632061e5c3d1b112dc1d03cb1e304ceb35916",
+        "ui_sha256": "78cc70b1122b8b83216f1928be28126247d4eaa5c4ebe483b91a819a7d269139",
+        "category": "PACKAGING_OR_PLATFORM_CONFIG",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "pyproject.toml",
+        "backend_sha256": "9e65552a53be15e2c83982991058e43868e23d3d70ae76f4d4b7734b944489c8",
+        "ui_sha256": "df3fcec55e5a453b5d23b302ab0b44847362021938b5eddf2bbee71d448b81ea",
+        "category": "PACKAGING_OR_PLATFORM_CONFIG",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/agents/mission/modes.py",
+        "backend_sha256": "77ff2653fc3ff2a2d3bbeaa110f3ec2ac8c9041c7642b01bc82dd15708eb5a99",
+        "ui_sha256": "b26cc351c633b8883d6746830e62832c61c92f1fdbd64ca4ccaa421bc136a8a3",
+        "category": "OPTIONAL_AGENT_TOOLING_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/agents/mission/service.py",
+        "backend_sha256": "e08e41b9d628c764675eac0ce9f1b6b193ce93361061dc4ed5fe8f5a5dd87613",
+        "ui_sha256": "c628cd63b922ff19ce69454355c1150e66e6c8c1e54c9ffffb84585c303afdb3",
+        "category": "OPTIONAL_AGENT_TOOLING_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/api.py",
+        "backend_sha256": "c6ad106c3cafc778f925ccef31c61fc1188d0aff90a28320e634f1f8f2738e7f",
+        "ui_sha256": "058a22c097722007799a9cb76652d4a736f8d67e782b8f0f3da185e3868d2d81",
+        "category": "PLATFORM_CONTROL_PLANE_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/integrations/platform_knowledge.py",
+        "backend_sha256": "56cf0da8c4a78a9fb006855d708a660d879a4239c62daafc435406553dd4b9a3",
+        "ui_sha256": "c48fae6255c7dc8c2f3f4424548661895fa638d695df659430f65756527f6bc0",
+        "category": "PLATFORM_CONTROL_PLANE_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/integrations/upload_report.py",
+        "backend_sha256": "95676443bc630739b8562528b5c14cc502c75b978abb63b44889cc73da5e1cc0",
+        "ui_sha256": "3b506ddf95333a8d5a6726272a70034f9d8f7de070295e53f819d6252a81e447",
+        "category": "PLATFORM_CONTROL_PLANE_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/llm/openai_compatible.py",
+        "backend_sha256": "6baae8642b4e545c5d92db475797f6871576ad56f12e49f157d1ceff062b58ab",
+        "ui_sha256": "c5d9750ae542514e57685eddba26276e676c400d89ba95a7b0398466b834af25",
+        "category": "OPTIONAL_AGENT_TOOLING_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/security.py",
+        "backend_sha256": "5578e09f9bf390770eb8305e2bf78dfec753730ce7f8aa71cbc33be252f1801d",
+        "ui_sha256": "b3fe142926ef6f3ddd2279c96b6fb988e3ce61b5c1ea013a852f7e50b470c565",
+        "category": "PLATFORM_CONTROL_PLANE_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/tools/__init__.py",
+        "backend_sha256": "5ec0e6d1a60de618fdc8e5a1dc7a5d4a1f263ef2cc4b7a7f74e538f7cfad64fc",
+        "ui_sha256": "1fcaae40d5dbad0f7fba0d90c44a1eff55d4976c95c64b03f5fbafd1719fbf1a",
+        "category": "OPTIONAL_AGENT_TOOLING_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "src/astrograph/tools/plugins.py",
+        "backend_sha256": "85eff00fb249b3c196371d27fdda20e1768438589aac5a346b19c7a3dc15c3bd",
+        "ui_sha256": "34e4018f30ac764ead04ec9ae3e2a4f6b7fc4ba9fed5600a8ba876c798a028ee",
+        "category": "OPTIONAL_AGENT_TOOLING_EXTENSION",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/assurance/test_ablation_and_artifacts.py",
+        "backend_sha256": "fa310421ed61f6a21111d10939cd21301c2a35861383370cb652f8632eb01193",
+        "ui_sha256": "701fae2309f047a00b0e0d7ee56167fc72070515a78c3bc3eb205a9ef32a103c",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/implementation/mission/test_modes.py",
+        "backend_sha256": "b43330444afc45f940b0ee42ac5027ff206cc5f02eab93b293ee13dbdb68d5ba",
+        "ui_sha256": "633ac95a28db7d9220e76419ea1fec25a5f3ca3bc094139661303dd7c452b1ec",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/implementation/mission/test_runtime_tool_contracts.py",
+        "backend_sha256": "258547def2421fb38671a1a75c175879947396b0cceefd46c67079b943af2c42",
+        "ui_sha256": "60435199c3a6734faa5083129d99ee3bd4bc060a7bb9a1805cb2aee87c41070c",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/implementation/p1_p4/test_dev47_reviewed_claim_joint_evidence.py",
+        "backend_sha256": "60c679ce71a7364760c892ad49370aae41197a9d75653e2b7c59e6db127fccae",
+        "ui_sha256": "bbe38b2b27e561a71c564593ebf5a3a5f8df8ccd4322a7f99797f6e51bb9669d",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/test_design_diagnostic_harness.py",
+        "backend_sha256": "60be6c325ce2950cba5735421ea0a526eb2f54a6850deeef26995ee408dc02d5",
+        "ui_sha256": "e41fa86b8510348fdc6eb6ce4e8cc523de1d986614f6f977fcd5de43281dd3ba",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/test_maintenance_governed_rerun.py",
+        "backend_sha256": "93405aa2cd68fdfdf8ad47adcef6024882a08a18d16ab35c64e79a6116b7e30e",
+        "ui_sha256": "f0b82bdb242b1480b73d9e244be9cdaca4ccead4ddc481d9e9369f528b018536",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/test_maintenance_production_rerun.py",
+        "backend_sha256": "4372b1e32cf63538770f46d198eb8cbb6241962ada176e47ea16810965c73d22",
+        "ui_sha256": "bc47e6607c07a1acc1a9d141b228d7cd59a4e1b4abc5f6e7cdea6bbd0369505c",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/test_openai_compatible_backend.py",
+        "backend_sha256": "3eeb72572c9a59d033929692ab06b19b56a3f3bc6c203d531003d445f68ffffd",
+        "ui_sha256": "d361c78a2cf396827f04b1eae132a5e250d721bcc16cd522c534287b1765e4b2",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/test_r13_stability_hardening.py",
+        "backend_sha256": "a13641db09e05aec7247df724a390dc39b3d68f31cb9156afddea152436c72f4",
+        "ui_sha256": "fff666d24ba1d65f421d6a40ee879925a88102ff660b3a086cb573077971d2c4",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/test_sat_sim_pipeline_closure.py",
+        "backend_sha256": "1a2edf250e5c135473d915f507c79788d805a72e7ea8c1b87efad5233caab7a7",
+        "ui_sha256": "050a3f440398e9412ab9cc2e850bf33ce4ca4d3745ae6e17187773041b860942",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      },
+      {
+        "path": "tests/test_upload_report_platform.py",
+        "backend_sha256": "08726ddfa74d98567d732ab074c02f3fc4ad44a8fcef56c53d85c36e3ae3f322",
+        "ui_sha256": "79c9ec04e9f77d2c78377f09e7b367d8a9930112fbd83e57d18aa9d4871cfac5",
+        "category": "TEST_SUPERSET",
+        "decision": "UI_COMPLETE_SOURCE_CANONICAL"
+      }
+    ]
+  },
+  "canonical_tree": {
+    "strategy": "COMPLETE_PLATFORM_AS_STRUCTURAL_SUPERSET_WITH_SINGLE_CANONICAL_SHARED_SOURCE",
+    "reason": "The final R13 backend has no unique file absent from the complete platform artifact. Platform-only files are control-plane/UI/maintenance additions. Same-path source differences are platform extensions or synchronized tests/docs; distribution metadata is regenerated after consolidation.",
+    "one_source_tree": true,
+    "separate_backend_source_tree_allowed": false,
+    "platform_is_optional_runtime_capability": true,
+    "sat_agent_is_optional_upstream_provider": true,
+    "matlab_simulink_is_optional_upstream_provider": true
+  },
+  "claim_boundary": "Source consolidation removes duplicate source-of-truth maintenance. It does not establish diagnostic efficacy, confirmatory performance, flight qualification, or formal release eligibility."
+}

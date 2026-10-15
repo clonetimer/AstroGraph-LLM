@@ -1,0 +1,28 @@
+{
+  "bootstrap_replicates": 2000,
+  "claim_boundary": "DRAFT only. Non-inferiority margin, rejection loss and policy thresholds must be chosen from development evidence or domain cost, never groups 4/9.",
+  "development_groups": [
+    "3",
+    "8"
+  ],
+  "forbidden_post_hoc_groups": [
+    "4",
+    "9"
+  ],
+  "independent_unit": "MONTE_CARLO_GROUP",
+  "multiplicity_method": "HIERARCHICAL",
+  "noninferiority_margin": null,
+  "plan_id": "B006_ROUTE_A_PRIMARY_ANALYSIS_DRAFT_R001",
+  "primary_contrast": "COVERAGE_AWARE_A7_MINUS_DATA_ONLY_A0",
+  "primary_endpoint": "GROUP_LEVEL_SELECTIVE_RISK",
+  "schema_version": "astrograph-primary-analysis-plan.v1",
+  "secondary_endpoints": [
+    "IDENTIFICATION_ACCURACY",
+    "NLL",
+    "BRIER",
+    "ECE",
+    "AURC",
+    "WORST_GROUP_ACCURACY"
+  ],
+  "status": "DRAFT"
+}

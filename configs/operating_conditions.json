@@ -1,0 +1,28 @@
+{
+  "schema_version": "astrograph-operating-condition-catalog.v1",
+  "catalog_version": "astrograph-condition-catalog-0.3.1-e0",
+  "evidence_level": "E0",
+  "review_status": "provisional",
+  "thresholds": {
+    "active_fraction": 0.8,
+    "inactive_fraction": 0.2,
+    "solar_current_active_a": 0.05,
+    "payload_active_threshold": 0.5,
+    "downlink_rate_active_bps": 1.0,
+    "attitude_torque_maneuver_nm": 0.05,
+    "gyro_rate_maneuver_rad_s": 0.01
+  },
+  "conditions": [
+    {"condition_id": "SUNLIGHT", "dimension": "orbit_phase", "display_name_zh": "日照期", "description": "太阳阵具有可观测输出的轨道区段"},
+    {"condition_id": "ECLIPSE", "dimension": "orbit_phase", "display_name_zh": "地影期", "description": "太阳阵无有效输出的轨道区段"},
+    {"condition_id": "ORBIT_PHASE_TRANSITION", "dimension": "orbit_phase", "display_name_zh": "轨道光照过渡", "description": "窗口跨越日照与地影边界"},
+    {"condition_id": "PAYLOAD_ACTIVE", "dimension": "payload_mode", "display_name_zh": "载荷工作", "description": "窗口内载荷大部分时间工作"},
+    {"condition_id": "PAYLOAD_IDLE", "dimension": "payload_mode", "display_name_zh": "载荷空闲", "description": "窗口内载荷大部分时间关闭"},
+    {"condition_id": "PAYLOAD_TRANSITION", "dimension": "payload_mode", "display_name_zh": "载荷模式过渡", "description": "窗口跨越载荷开关边界"},
+    {"condition_id": "DOWNLINK_ACTIVE", "dimension": "communication_mode", "display_name_zh": "下行工作", "description": "窗口内发射机或下行速率大部分时间有效"},
+    {"condition_id": "DOWNLINK_IDLE", "dimension": "communication_mode", "display_name_zh": "下行空闲", "description": "窗口内下行链路大部分时间未工作"},
+    {"condition_id": "DOWNLINK_TRANSITION", "dimension": "communication_mode", "display_name_zh": "下行模式过渡", "description": "窗口跨越下行开关边界"},
+    {"condition_id": "ATTITUDE_MANEUVER", "dimension": "attitude_mode", "display_name_zh": "姿态机动", "description": "控制力矩或角速度超过工程阈值"},
+    {"condition_id": "STEADY_POINTING", "dimension": "attitude_mode", "display_name_zh": "稳定指向", "description": "姿态控制处于低动态工作状态"}
+  ]
+}

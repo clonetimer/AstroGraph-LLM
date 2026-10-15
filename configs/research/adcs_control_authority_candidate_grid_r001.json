@@ -1,0 +1,1735 @@
+{
+  "calibration_groups": [
+    0,
+    1,
+    2,
+    5,
+    6,
+    7
+  ],
+  "candidate_count": 60,
+  "contract": {
+    "calibration_groups": [
+      0,
+      1,
+      2,
+      5,
+      6,
+      7
+    ],
+    "claim_boundary": "Development-only digital-twin actuator-delivery evidence. Applied torque/current observability is assumed by this dataset and is not established for flight hardware.",
+    "contract_id": "ADCS-CONTROL-AUTHORITY-R001",
+    "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+    "current_command_activity_a": 0.02,
+    "development_groups": [
+      3,
+      8
+    ],
+    "excluded_groups": [
+      4,
+      9
+    ],
+    "notification_buffer_points": 3,
+    "runtime_ground_truth_access": false,
+    "schema_version": "astrograph-control-authority-contract.v1",
+    "score_cap": 2.0,
+    "score_semantics": "MAX_ACTIVITY_GATED_TORQUE_OR_CURRENT_DELIVERY_LOSS",
+    "torque_command_activity_nm": 0.0008,
+    "warmup_points": 31
+  },
+  "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+  "design_disclosure": "The candidate family was defined after B012 exposed actuator/control-authority misses. Thresholds, evidence windows and hit counts are development choices; they are not preregistered.",
+  "development_groups": [
+    3,
+    8
+  ],
+  "excluded_groups": [
+    4,
+    9
+  ],
+  "grid_sha256": "7156249ee9262947e1eedf213e0f450443013f1cb50b221753af8a1aa3ed0dc1",
+  "groups_4_9_read": false,
+  "policies": [
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-01E1F4F04CF6C67924E2",
+      "policy_sha256": "fd99b2b35bc881fdf0e27a3ffac753a8fbfcb7d59086db421602e6731877d840",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-35BB9B8C71EBE60C5416",
+      "policy_sha256": "f4e193e4cea73eb25a3cf473f33aa3e134c742fd1531204b7983b280c893e6cd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-3505694B75F7D471A7CE",
+      "policy_sha256": "1a0d11c9ec21cbf9966169d35cd501babe58086e0785f32acfdc86129466b7e1",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-A2CCCDD137695B5228BA",
+      "policy_sha256": "c2b0e2b76ebb3c106a30e80fca2fb45c8e7f11e438976976d5d9421e982aea61",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-5489938B3812EB346BDE",
+      "policy_sha256": "2dd001c636475b212ab6a54c69ecd39607931b0cc8989f22fc67ee6a555ce165",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-DED25BD2DC51B98B4238",
+      "policy_sha256": "b3496c0be8d06ba2e7de86ebec52d8dca1de4e939e315e77ed36310292e132b9",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-2D1F765AD02EF853DE3B",
+      "policy_sha256": "e05558efa719d253728a4afba3f4d39912fe2ac9f8c51d9727d6c2517a99c6a8",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-3BD63BDD7DE89F95A818",
+      "policy_sha256": "eb54b505be94183a3cb8be82bebf0b66bc462207e7078ee9a6a30544f431f483",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-6E23DBB1EFD9C1DEC768",
+      "policy_sha256": "2fd03a537a3261556707d4c4b275830ffbcfaa4a6a456c8a6d0d85543ba6c2bb",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-684F336152D3F893C55E",
+      "policy_sha256": "b815cc7abbc866deeb416afbd6e8260c268314eca48e91fc436a46ab3b737633",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-7725557F0AA340B69A89",
+      "policy_sha256": "041b72dfd68148e71ead444140e9e2891a791973cb7565dc3ba31c602aac8d9c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-8D914FEADF952DDBC75D",
+      "policy_sha256": "31b7a73100ad790cc51ab5ad9ae76de6e3c2885dbb1349c0f732d1f5d9fc9fd3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-D12524F70A23605B40D3",
+      "policy_sha256": "a2aff4e47d555a05d349d1a19a942d6fce0179fdc7f7331e4db3222d1f8791bd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-632026EE7BAE4EC1B7CA",
+      "policy_sha256": "7f593800be5eff56f50ceb806624b477d274c587cfdd4eb150854a59e74f5f1b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-EBE633D2D2366B169D5D",
+      "policy_sha256": "58d1ff1fb5727ff16386ab19c770f586d4d300665adf5ff84460663d9eb48f72",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.5,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-E5FE9C096143C679F4FD",
+      "policy_sha256": "171ff8c39ef38db7b7c8a1bb7533254bc79de77b89cd527a176a09b340ad1b4f",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-3310E18DD1B87EFBE10A",
+      "policy_sha256": "45586aabbcf1bb997b2236c742c59d2b91e4f81fb8ee13c9e9caa58b1b394759",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-55E3B94D955DB6D10D8F",
+      "policy_sha256": "a58566695c9cb950a29e540b114a46a4c207dda75b80e0ed0da00c80ff819fd3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-3EB10149ADC91C2578D9",
+      "policy_sha256": "f22474e3edb1b257247410edc40ce6dfc8beb92c6f65db71390583a334b9f711",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-B8B4E68BDA789BEB383C",
+      "policy_sha256": "8d3e59db1fe9ed1f52a0489661c9014760801cf7d93c1bae3749ce14e72f67d7",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-ADAA768C89F2C6C7E9B5",
+      "policy_sha256": "ce81769c622f3a2fd43f55e8916eed5dd102dac61b873f65793f913802abf62c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-BEECCE1870424EEFE8D5",
+      "policy_sha256": "72d414e5da518bedc79c50a328c38a1046434d58a40df17911a1878c613988e3",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-E480AA9CE99E98EBD13F",
+      "policy_sha256": "f1f45498be93872612f9e4b9143e26157e517871ea760f96bbd65ef8e419faa9",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-86DF90C81C0EDDAAEE95",
+      "policy_sha256": "9ca9cbf13ae553d42c1862023cc15149eb6e61e41c0ce77da1b975258dfa3a53",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-57FAC281035E4978B488",
+      "policy_sha256": "a0826b7eaee425f375fa188d7b622d8fa8b9b9d1dfff8dd2bfecd29b3b351243",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-7D0D3661895A0EC4AACB",
+      "policy_sha256": "82384d56ca5626f14be9a143886a5d051e4cd117b7024e80d9ad7ebb31199a23",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-2A3D2A512198DDAEB85A",
+      "policy_sha256": "c26783b1497cc933fb37c74d719f80f7f27030c746c2b815245b7e3339748ce6",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-19B057C74C8C1F8BFBC6",
+      "policy_sha256": "d1106b76567c2640c147b58bedae821fd48f5e53df9bcbbe3f185fbb3b2a7b08",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-439A8DCFABEE9FCB891B",
+      "policy_sha256": "0cc86f006684017606918b423df5dc7eb57f9ac29d1a6456db9480f8d94d926b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-08640600BCE38156CD8A",
+      "policy_sha256": "7f50f2e14a96475b1826cc23fab6e3e7dba0655aeef7e4221e8eb8d64a838f29",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.75,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-A09768E180BF5FDCD42E",
+      "policy_sha256": "f2911656b51b2afe5c19f3123004e3c294d392f31dc8219252b334ea360ac714",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-FA11760D6A16C0289A9E",
+      "policy_sha256": "89a756710b969334aa629a4dd80bfbb52855da8203104df32980b996191a7a6e",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-E8AD293AD3743EFA778A",
+      "policy_sha256": "3edc8918a3a076aac20356a8a9b886b40819fa2052d94c6846618e7ecf82c761",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-43892C40AFE5CF8AD500",
+      "policy_sha256": "b4876328ee3850b83be6d1945226002610b2b495ec072daef8c1790a8715b628",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-26C8291F99A8E262E535",
+      "policy_sha256": "d53c27062c0c001e0d70446f44178f2c06db6b61aa982186926d704993ee07b1",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-3B9C45137CDBAA602ED1",
+      "policy_sha256": "981b669cee9a3b06919b967b9cb6d259d0960783710b7484feedf2ebab9cb708",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-757B2B4F8CACDFBC03AC",
+      "policy_sha256": "259b943fd98b580802781c24e2ea98f2fbf974fda176101e23ef09bb948f9177",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-35EC185A62A1FED70E10",
+      "policy_sha256": "6bf49164ddb6ec3f7eaf83b3d74e8b42ec3b933fd56c277278fcf85850884d98",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-6038B14DC79D908CAFCA",
+      "policy_sha256": "03c681b9af616e36cf5f4af33593a11c76029a8f3c4fa400842e26fa3d0c5a71",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-036ED6730EC66D6040C8",
+      "policy_sha256": "111477fd5ce1dfed9aac76901a9f8cb02b6556aeeef91e095e54188ef852b4ef",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-633046581253DFBAEACD",
+      "policy_sha256": "b5dd561f7b876b1a0cb14e1a59dbfaf484e2df9941b5e8b1fabb0ae275106c6f",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-5609F7B04E922F6D44EE",
+      "policy_sha256": "7d58dd461398885fedeee2c416559014dd747adaa59704016afaf642f5918fa0",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-D978368B48C1AD5663E0",
+      "policy_sha256": "902a493901944666c55ca3a6f91a25b5d28c3d46e7b2c2360ca5ae0b3f738066",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-DF2FCBFC04D6D1ABA70F",
+      "policy_sha256": "5c2813595d33582e8901a3038d2c8915c9457d4920b503a370f44095cbb58725",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-506E5AC5EC939F8356F9",
+      "policy_sha256": "a3d0c0fecece19069bec84dbcf4ff1c735a59f9ffc4b43fe75b8728b65415dbd",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 0.9,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-8EA799FF1329DA53CBB6",
+      "policy_sha256": "83f0e4417b4684b3e8253a8f7f60d9ce13eb84109c42eb66e40d573bb3658a2a",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-ADD601F256B8289BD575",
+      "policy_sha256": "6fc514c0e60c2413c2bdc81e1dfa7e53fae40040f082f6b44f004da195473f0b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 3,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-D434247A0340676BDDDA",
+      "policy_sha256": "79dd96e9ba876531ef53423d2f7193c14b921b9a2745c7c5c2aeace8fb8ceb54",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-64FBF9CCF06F5FC0861C",
+      "policy_sha256": "72195562d66f12fc42c16d49f2eaea4b24cf6d9d8c8007c64c933311c3e6953d",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-C407C02A598DCBBFFD15",
+      "policy_sha256": "e5b0dcff3d58e54588c3ceb1e16ad03230da4b126ae2c3efb1e2910488037ab7",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-FC6BE71BF32D68B40C8E",
+      "policy_sha256": "2ffc27c988f9473cd45d79a77ae69c106d55d3c7dbb2736743e2c4dcbb1b9504",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 5,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-E9B63FBBA6E2FBAC38ED",
+      "policy_sha256": "9b60247165b858c8d6ead59a1520072203c6d0e668e0531eb1328e36de207356",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-D7E0D016D6AFC14BE8CE",
+      "policy_sha256": "421373dcf3522af2baaddd520c1a3ae8d8394cceb72b83c5ec4a35a84447428c",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-481882FCA83B88BE9ACE",
+      "policy_sha256": "674bfaa593fc1ef8d1ecbb07367141e65b1d7e4e9173eca6b68cc1f656e60891",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-CF68E0772F88686A72C1",
+      "policy_sha256": "361a8290dc7d8d168d1757326687fc4ea069514c6b743a33c4d2412cae39fd3b",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 10,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-53DE2BE142E25F96CDD6",
+      "policy_sha256": "4c26447c84ad6688ea4d0c705626c0707df5bdf24e40a817a91cee1c26039d49",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 1,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-461ECA72067F51D7A897",
+      "policy_sha256": "8a1a337bfd1f8835680455b43fd2d5faef5f47cdd05418d44a9872476e9d3a86",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 2,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-7D48AB8E1A3446644FEC",
+      "policy_sha256": "001a473861beff81c3e2f7ce6029f95929ff7b8353915918fd99bb50c11aa2fa",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 3,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-9479AB6942D9FFFDAE47",
+      "policy_sha256": "a1efed5dab3f5e29c804c756ce819134341acec446ae0f6c2edc9c618e70ba40",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    },
+    {
+      "calibration_groups": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "contract_sha256": "f7e87b487b781186e0f5e74bfea9f4fa13e8202d4532cb93b06a8e4e9e48551c",
+      "development_groups": [
+        3,
+        8
+      ],
+      "evidence_window_points": 20,
+      "excluded_groups": [
+        4,
+        9
+      ],
+      "minimum_hits": 4,
+      "notification_buffer_points": 3,
+      "policy_id": "CAP-EC4BADBD14746E926F2C",
+      "policy_sha256": "d77c70e15a9618dae8a1fab7e066519755bac872ca8faec1a1220b1bd22261b4",
+      "runtime_ground_truth_access": false,
+      "schema_version": "astrograph-control-authority-policy.v1",
+      "threshold": 1.0,
+      "warmup_points": 31
+    }
+  ],
+  "schema_version": "astrograph-b013-control-authority-candidate-grid.v1"
+}

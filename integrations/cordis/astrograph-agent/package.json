@@ -1,0 +1,22 @@
+{
+  "name": "@astrograph/cordis-agent",
+  "version": "0.1.0-b009-wip",
+  "private": true,
+  "type": "module",
+  "description": "Cordis/Harness adapter for the AstroGraph content-addressed capability server.",
+  "exports": {
+    ".": "./src/index.mjs",
+    "./presets": "./src/presets.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "fresh-load": "node test/fresh-plugin-load.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "astrograph": {
+    "projectStatus": "B009_WIP_DEVELOPMENT_EVIDENCE",
+    "protocolVersion": "astrograph-capability-protocol.v1"
+  }
+}

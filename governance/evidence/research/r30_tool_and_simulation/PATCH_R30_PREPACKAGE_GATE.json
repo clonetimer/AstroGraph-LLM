@@ -1,0 +1,44 @@
+{
+  "agent_authority_expanded_to_release": false,
+  "chromium": {
+    "failed": 0,
+    "passed": 3
+  },
+  "distribution_inventory_cleanup_evidence": {
+    "failed": 0,
+    "passed": 20
+  },
+  "documentation_freshness": "PASS",
+  "external_validation_generated": false,
+  "full_collect_only": {
+    "collected": 3578,
+    "collection_errors": 0
+  },
+  "production_default_changed": false,
+  "production_js": {
+    "modules": 10,
+    "status": "PASS"
+  },
+  "r20_r30_research_chain": {
+    "failed": 0,
+    "passed": 157,
+    "skipped": 1
+  },
+  "r30_direct": {
+    "failed": 0,
+    "passed": 10
+  },
+  "receipt_sha256": "cdd20c4958561f70b10952dd090b0ff3af228101f5de9b984e8fef6ac98d876a",
+  "schema_version": "astrograph-r30-prepackage-gate.v1",
+  "source_integrity_before_machine_gate": {
+    "errors": [],
+    "verified_files": 2805
+  },
+  "source_only_delivery_evidence": "PASS_WITH_EXTERNAL_DEPENDENCIES",
+  "status": "PASS_PREPACKAGE",
+  "stop_rule": "NO_PARAMETER_OR_RULE_OPTIMIZATION_ON_R30_SYNTHETIC_BLIND_OUTCOMES",
+  "strict_require_bundled": {
+    "dependency_count": 8,
+    "status": "FAIL_AS_DESIGNED"
+  }
+}

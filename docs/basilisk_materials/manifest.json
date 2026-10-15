@@ -1,0 +1,84 @@
+{
+  "schema_version": "astrograph-basilisk-materials.v1",
+  "created_at": "2026-09-08T11:08:57.043806+00:00",
+  "scope": "BASILISK_SIMULATION_ONLY",
+  "local_basilisk_version": "2.11.0+satfix1",
+  "online_documentation_version": "2.11.1",
+  "source_repository_git": "sat has no .git; exact source hashes are authoritative",
+  "source_files": [
+    {
+      "path": "/mnt/PRO6000_disk/Timer/sat/src/sat_sim/bsk_engine/project_native_modules.py",
+      "snapshot": "source-snapshots/src/sat_sim/bsk_engine/project_native_modules.py",
+      "sha256": "2fa5e544e18d62cb9b08c214cf0e55cd669fd66bf00559bfa6d73f5ae2ef6597"
+    },
+    {
+      "path": "/mnt/PRO6000_disk/Timer/sat/scripts/generate_whole_spacecraft_adcs_eps_dataset.py",
+      "snapshot": "source-snapshots/scripts/generate_whole_spacecraft_adcs_eps_dataset.py",
+      "sha256": "704219bfdc92b823b14981ad363b920ebc6f37a6038dd8fddf41637059c0136f"
+    },
+    {
+      "path": "/mnt/PRO6000_disk/Timer/sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py",
+      "snapshot": "source-snapshots/scripts/generate_whole_spacecraft_phm_dataset_v6.py",
+      "sha256": "956f07dabfaf600729aa61385dc1901504d33e137912288020f3253538020252"
+    },
+    {
+      "path": "/mnt/PRO6000_disk/Timer/sat/src/components/transmitter/faults.py",
+      "snapshot": "source-snapshots/src/components/transmitter/faults.py",
+      "sha256": "05790a8c5a0552eab8c202ab1f96ac3e94eb7a43512aff35a7817e28b65911ae"
+    },
+    {
+      "path": "/mnt/PRO6000_disk/Timer/sat/src/components/transmitter/runner.py",
+      "snapshot": "source-snapshots/src/components/transmitter/runner.py",
+      "sha256": "fab3c02c70814abdbb86eeb8d39a9814158b8b30bf1d45350856a1531f6a2afd"
+    },
+    {
+      "path": "/mnt/PRO6000_disk/Timer/sat/src/components/transmitter/builder.py",
+      "snapshot": "source-snapshots/src/components/transmitter/builder.py",
+      "sha256": "1243adb41330d2edf2e73a2d7315d26e7f34a16cffc83932986a6d3000cea5ea"
+    },
+    {
+      "path": "/mnt/PRO6000_disk/Timer/sat/tests/test_unified_native_event_migration.py",
+      "snapshot": "source-snapshots/tests/test_unified_native_event_migration.py",
+      "sha256": "f2c8cafcfb81341135e02a3f0ac69485792e1255fec327d4edebcf0a1e31ed8d"
+    },
+    {
+      "path": "/mnt/PRO6000_disk/Timer/sat/src/sat_sim/bsk_engine/types.py",
+      "snapshot": "source-snapshots/src/sat_sim/bsk_engine/types.py",
+      "sha256": "f2499280ad75e78caa11fbb56de272cfede5effc9f6cd31c426637e79c6785f3"
+    }
+  ],
+  "web_sources": [
+    {
+      "url": "https://avslab.github.io/basilisk/examples/index.html",
+      "verified_with": "official documentation via web tool",
+      "http_status": 200,
+      "content_sha256": "861a158323eb10a9c6e5ca9176397eae8a6a57794c67b9337cddf68c2c2c2e64"
+    },
+    {
+      "url": "https://avslab.github.io/basilisk/examples/scenarioAttitudeFeedbackRW.html",
+      "verified_with": "official documentation via web tool",
+      "http_status": 200,
+      "content_sha256": "34b641af45d87d5be5856f1559f6d20794faa5a0dac9d8eddc5e94acf114d201"
+    },
+    {
+      "url": "https://avslab.github.io/basilisk/examples/BskSim/scenarios/scenario_AddRWFault.html",
+      "verified_with": "official documentation via web tool",
+      "http_status": 200,
+      "content_sha256": "0be5e5c949155a82d167ad6295f0b795270320a1c807656bc3f083a0ec6eacc7"
+    },
+    {
+      "url": "https://avslab.github.io/basilisk/Documentation/simulation/power/simpleBattery/simpleBattery.html",
+      "verified_with": "official documentation via web tool",
+      "http_status": 200,
+      "content_sha256": "89b28f5fa7579482c1e3d08b2b010254bef92177abc68cb7ce1392ae2996fc35"
+    },
+    {
+      "url": "https://avslab.github.io/basilisk/Documentation/simulation/dynamics/reactionWheels/reactionWheelStateEffector.html",
+      "verified_with": "official documentation via web tool",
+      "http_status": 200,
+      "content_sha256": "969d1c599ff4300ffe3aaba60efbd11765085c209829e5cde1393bb92d7256de"
+    }
+  ],
+  "real_hardware_material_required": false,
+  "human_approvals_added": 0
+}

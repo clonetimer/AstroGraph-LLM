@@ -1,0 +1,127 @@
+{
+  "$defs": {
+    "TaskStep": {
+      "additionalProperties": false,
+      "properties": {
+        "step_id": {
+          "minLength": 1,
+          "title": "Step Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/TaskStepStatus",
+          "default": "PLANNED"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "error_code": {
+          "default": "",
+          "title": "Error Code",
+          "type": "string"
+        },
+        "notes": {
+          "default": "",
+          "title": "Notes",
+          "type": "string"
+        }
+      },
+      "required": [
+        "step_id",
+        "description"
+      ],
+      "title": "TaskStep",
+      "type": "object"
+    },
+    "TaskStepStatus": {
+      "enum": [
+        "PLANNED",
+        "IN_PROGRESS",
+        "COMPLETED",
+        "FAILED",
+        "BLOCKED",
+        "SKIPPED"
+      ],
+      "title": "TaskStepStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-task-board.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "board_id": {
+      "minLength": 1,
+      "title": "Board Id",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Contract Sha256",
+      "type": "string"
+    },
+    "goal": {
+      "minLength": 1,
+      "title": "Goal",
+      "type": "string"
+    },
+    "planned_steps": {
+      "items": {
+        "$ref": "#/$defs/TaskStep"
+      },
+      "minItems": 1,
+      "title": "Planned Steps",
+      "type": "array"
+    },
+    "missing_inputs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Inputs",
+      "type": "array"
+    },
+    "scope_changes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scope Changes",
+      "type": "array"
+    },
+    "deliverability": {
+      "minLength": 1,
+      "title": "Deliverability",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "board_id",
+    "contract_id",
+    "contract_sha256",
+    "goal",
+    "planned_steps",
+    "deliverability"
+  ],
+  "title": "TaskBoard",
+  "type": "object"
+}

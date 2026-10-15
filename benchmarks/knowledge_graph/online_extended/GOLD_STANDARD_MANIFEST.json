@@ -1,0 +1,13 @@
+{
+  "schema_version": "astrograph-kg-gold-online-v058.v1",
+  "node_count": 168,
+  "edge_count": 435,
+  "negative_constraint_count": 12,
+  "query_count": 32,
+  "composite_query_count": 4,
+  "formal_fault_count": 16,
+  "composite_template_count": 4,
+  "dangling_edge_count": 0,
+  "passed": true,
+  "claim_boundary": "E0 gold standard for 16 formal single-fault candidates and 4 UNVERIFIED composite research templates; not flight evidence."
+}

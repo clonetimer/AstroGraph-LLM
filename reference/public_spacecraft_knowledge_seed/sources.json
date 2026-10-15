@@ -1,0 +1,145 @@
+[
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-2026-ADCS",
+    "kind": "public_technical_survey",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA S3VI",
+    "title": "NASA State-of-the-Art of Small Spacecraft Technology 2026 — 5.0 Guidance, Navigation, and Control",
+    "url": "https://www.nasa.gov/smallsat-institute/sst-soa/guidance-navigation-and-control/",
+    "verified_via_public_page": true,
+    "year": 2026
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-2026-EPS",
+    "kind": "public_technical_survey",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA S3VI",
+    "title": "NASA State-of-the-Art of Small Spacecraft Technology 2026 — 3.0 Power",
+    "url": "https://www.nasa.gov/smallsat-institute/sst-soa/power-subsystems/",
+    "verified_via_public_page": true,
+    "year": 2026
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-2026-THERM",
+    "kind": "public_technical_survey",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA S3VI",
+    "title": "NASA State-of-the-Art of Small Spacecraft Technology 2026 — 7.0 Thermal Control",
+    "url": "https://www.nasa.gov/smallsat-institute/sst-soa/thermal-control/",
+    "verified_via_public_page": true,
+    "year": 2026
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-2026-PROP",
+    "kind": "public_technical_survey",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA S3VI",
+    "title": "NASA State-of-the-Art of Small Spacecraft Technology 2026 — 4.0 In-Space Propulsion",
+    "url": "https://www.nasa.gov/smallsat-institute/sst-soa/in-space_propulsion/",
+    "verified_via_public_page": true,
+    "year": 2026
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-2026-COMM",
+    "kind": "public_technical_survey",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA S3VI",
+    "title": "NASA State-of-the-Art of Small Spacecraft Technology 2026 — 9.0 Communications",
+    "url": "https://www.nasa.gov/smallsat-institute/sst-soa/soa-communications/",
+    "verified_via_public_page": true,
+    "year": 2026
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-2026-AVIONICS",
+    "kind": "public_technical_survey",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA S3VI",
+    "title": "NASA State-of-the-Art of Small Spacecraft Technology 2026 — 8.0 Small Spacecraft Avionics",
+    "url": "https://www.nasa.gov/smallsat-institute/sst-soa/small-spacecraft-avionics/",
+    "verified_via_public_page": true,
+    "year": 2026
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-2026-GROUND",
+    "kind": "public_technical_survey",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA S3VI",
+    "title": "NASA State-of-the-Art of Small Spacecraft Technology 2026 — 11.0 Ground Data Systems and Mission Operations",
+    "url": "https://www.nasa.gov/smallsat-institute/sst-soa/ground-data-systems-and-mission-operations/",
+    "verified_via_public_page": true,
+    "year": 2026
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-CUBESAT101",
+    "kind": "public_textbook",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA CubeSat Launch Initiative",
+    "title": "CubeSat 101: Basic Concepts and Processes for First-Time CubeSat Developers (2017)",
+    "url": "https://www3.nasa.gov/sites/default/files/atoms/files/nasa_csli_cubesat_101_508.pdf",
+    "verified_via_public_page": true,
+    "year": 2017
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "NASA-FDIR",
+    "kind": "public_guidance",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "NASA",
+    "title": "NASA Software Engineering Handbook 9.07 Fault Detection and Response",
+    "url": "https://swehb.nasa.gov/spaces/SWEHBVD/pages/102695798/9.07%2BFault%2BDetection%2Band%2BResponse",
+    "verified_via_public_page": true,
+    "year": null
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "ECSS-AOCS",
+    "kind": "public_standard_scope",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "ECSS",
+    "title": "ECSS-E-ST-60-30C Satellite attitude and orbit control system requirements (2013)",
+    "url": "https://ecss.nl/standard/ecss-e-st-60-30c-satellite-attitude-and-orbit-control-system-aocs-requirements/",
+    "verified_via_public_page": true,
+    "year": 2013
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "ECSS-THERM",
+    "kind": "public_standard_scope",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "ECSS",
+    "title": "ECSS-E-ST-31C Thermal control (2008)",
+    "url": "https://ecss.nl/standard/ecss-e-st-31c-thermal-control/",
+    "verified_via_public_page": true,
+    "year": 2008
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "ECSS-PROP",
+    "kind": "public_standard_scope",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "ECSS",
+    "title": "ECSS-E-ST-35-01C Liquid and electric propulsion for spacecraft (2008)",
+    "url": "https://ecss.nl/standard/ecss-e-st-35-01c-liquid-and-electric-propulsion-for-spacecraft/",
+    "verified_via_public_page": true,
+    "year": 2008
+  },
+  {
+    "accessed_on": "2026-10-08",
+    "id": "ECSS-PUS",
+    "kind": "public_standard_scope",
+    "note": "文献原文未随包再分发；标注的摘要均非逐字引文",
+    "org": "ECSS",
+    "title": "ECSS-E-ST-70-41C Telemetry and telecommand packet utilization (2016)",
+    "url": "https://ecss.nl/standard/ecss-e-st-70-41c-space-engineering-telemetry-and-telecommand-packet-utilization-15-april-2016/",
+    "verified_via_public_page": true,
+    "year": 2016
+  }
+]

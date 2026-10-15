@@ -1,0 +1,26 @@
+{
+  "schema_version": "sat-agent-paired-physics-validation.v1",
+  "case_id": "eps_capacity_a",
+  "scenario_id": "eps_battery_capacity_loss",
+  "status": "PASS",
+  "nominal_source_gate_status": "PASS",
+  "nominal_reasons": [],
+  "effect_source_gate_status": "PASS",
+  "effect_reasons": [],
+  "trend": {
+    "status": "PASS",
+    "field": "battery_soc",
+    "aggregate": "final",
+    "direction": "different",
+    "nominal_value": 0.6156304113471956,
+    "effect_value": 0.8794720162102795,
+    "delta": 0.26384160486308383,
+    "relative_delta": 0.42857142857142855,
+    "absolute_delta_min": 1e-08,
+    "relative_delta_min": 1e-08,
+    "direction_ok": true,
+    "threshold_ok": true
+  },
+  "fault_spec_count": 1,
+  "claim_boundary": "Paired laboratory counterfactual trend validation; not flight qualification."
+}

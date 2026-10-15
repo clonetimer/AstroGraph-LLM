@@ -1,0 +1,800 @@
+{
+  "schema_version": "astrograph-episode-evidence-bundle.v1",
+  "episode": {
+    "episode_id": "EP-7097BAAA88A457F4D473",
+    "run_id": "nominal",
+    "paired_nominal_run_id": "nominal",
+    "start_s": 0.0,
+    "end_s": 120.0,
+    "interval": "closed",
+    "source": "label-free full-run nominal analysis",
+    "source_is_label_free": true,
+    "operating_condition": {
+      "runtime_id": "phm-whole-spacecraft-minimal-runtime-v1.1"
+    }
+  },
+  "response_window": null,
+  "domain_id": "WHOLE_SPACECRAFT_ONLINE",
+  "analysis_wheel_index": 0,
+  "analysis_component_instance": "WHOLE_SPACECRAFT",
+  "selected_wheel_index": null,
+  "selected_component_instance": null,
+  "wheel_selection_status": "NOT_APPLICABLE",
+  "component_selection_status": "NO_MECHANISM_DETECTED",
+  "analysis_metadata": {
+    "generic_anomaly_field_count": 0,
+    "generic_anomaly_fields": [],
+    "supported_mechanism_detected": false,
+    "labels_and_truth_excluded_from_features": true,
+    "runtime_mechanism_fields_are_E0_only": true
+  },
+  "feature_definitions": [
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-HEATER-MISMATCH-V1",
+      "name": "指令关闭而加热器开启比例",
+      "source_field_template": "status.thermal.heater_on",
+      "aggregation": "TRUE_FRACTION",
+      "unit": "1",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-closed-window-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-HEATER-CURRENT-V1",
+      "name": "加热器电流均值",
+      "source_field_template": "sensor.thermal.heater_current_a",
+      "aggregation": "MEAN_VALUE",
+      "unit": "A",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-closed-window-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-STAR-INVALID-V1",
+      "name": "星敏无效比例",
+      "source_field_template": "status.adcs.star_tracker_valid",
+      "aggregation": "FALSE_FRACTION",
+      "unit": "1",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-closed-window-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-STAR-UNLOCKED-V1",
+      "name": "星敏失锁比例",
+      "source_field_template": "status.adcs.star_tracker_locked",
+      "aggregation": "FALSE_FRACTION",
+      "unit": "1",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-closed-window-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-STAR-AGE-V1",
+      "name": "星敏数据龄期最大值",
+      "source_field_template": "sensor.adcs.star_tracker_data_age_s",
+      "aggregation": "MAX_VALUE",
+      "unit": "s",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-closed-window-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-STAR-FUSION-V1",
+      "name": "融合模式最小值",
+      "source_field_template": "status.adcs.sensor_fusion_mode_code",
+      "aggregation": "MIN_VALUE",
+      "unit": "code",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-closed-window-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-RW-DRAG-V1",
+      "name": "反作用轮有效拖曳系数峰值",
+      "source_field_template": "adcs.rw.effective_drag_nms_0",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m*s",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-mechanism-state-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-RW-CURRENT-RESIDUAL-V1",
+      "name": "反作用轮电流配对残差峰值",
+      "source_field_template": "sensor.adcs.rw.motor_current_a_0",
+      "aggregation": "MAX_ABS_PAIRED_RESIDUAL",
+      "unit": "A",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-paired-residual-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-RW-TORQUE-LOSS-RATIO-V1",
+      "name": "反作用轮最大力矩能力下降比例",
+      "source_field_template": "adcs.rw.effective_max_torque_nm_0",
+      "aggregation": "MAX_VALUE",
+      "unit": "1",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-mechanism-state-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    },
+    {
+      "schema_version": "astrograph-feature-definition.v1",
+      "feature_definition_id": "FD-ONLINE-RW-AVAILABLE-MIN-V1",
+      "name": "反作用轮可用状态最小值",
+      "source_field_template": "status.adcs.rw.available_0",
+      "aggregation": "MIN_VALUE",
+      "unit": "bool",
+      "window_scope": "episode",
+      "algorithm_version": "runtime-closed-window-v1",
+      "required_semantics": [],
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1"
+      ],
+      "claim_boundary": "E0 runtime feature only; not flight calibrated."
+    }
+  ],
+  "feature_results": [
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-7EC6865CA7333AC74227",
+      "feature_definition_id": "FD-ONLINE-HEATER-MISMATCH-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "status.thermal.heater_on",
+      "component_instance": "THERMAL_HEATER",
+      "value": 0.0,
+      "unit": "1",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-closed-window-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.400725+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-2E408CC5C50DE2800D7C",
+      "feature_definition_id": "FD-ONLINE-HEATER-CURRENT-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "sensor.thermal.heater_current_a",
+      "component_instance": "THERMAL_HEATER",
+      "value": 0.002611570247933885,
+      "unit": "A",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-closed-window-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.401014+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-0CBD7FDD468278EFAD86",
+      "feature_definition_id": "FD-ONLINE-STAR-INVALID-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "status.adcs.star_tracker_valid",
+      "component_instance": "STAR_TRACKER",
+      "value": 0.0,
+      "unit": "1",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-closed-window-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.402029+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-DE2AC986AF7EC19FE00B",
+      "feature_definition_id": "FD-ONLINE-STAR-UNLOCKED-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "status.adcs.star_tracker_locked",
+      "component_instance": "STAR_TRACKER",
+      "value": 0.0,
+      "unit": "1",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-closed-window-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.402667+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-9B5FEB508F448E4B0439",
+      "feature_definition_id": "FD-ONLINE-STAR-AGE-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "sensor.adcs.star_tracker_data_age_s",
+      "component_instance": "STAR_TRACKER",
+      "value": 0.0,
+      "unit": "s",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-closed-window-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.402952+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-32721C8B0F0A4FE233C1",
+      "feature_definition_id": "FD-ONLINE-STAR-FUSION-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "status.adcs.sensor_fusion_mode_code",
+      "component_instance": "STAR_TRACKER",
+      "value": 1.0,
+      "unit": "code",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-closed-window-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.403207+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-6703AF8CEBFBC5DA264C",
+      "feature_definition_id": "FD-ONLINE-RW-DRAG-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "adcs.rw.effective_drag_nms_0",
+      "component_instance": "RW0",
+      "value": 0.0,
+      "unit": "N*m*s",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-mechanism-state-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.404225+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-133E033914E3F23E69E7",
+      "feature_definition_id": "FD-ONLINE-RW-CURRENT-RESIDUAL-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "sensor.adcs.rw.motor_current_a_0",
+      "component_instance": "RW0",
+      "value": 0.0,
+      "unit": "A",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-paired-residual-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.404476+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-E084E5E5ACD36B7B6590",
+      "feature_definition_id": "FD-ONLINE-RW-TORQUE-LOSS-RATIO-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "adcs.rw.effective_max_torque_nm_0",
+      "component_instance": "RW0",
+      "value": 0.0,
+      "unit": "1",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-mechanism-state-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.405987+00:00"
+    },
+    {
+      "schema_version": "astrograph-feature-result.v1",
+      "feature_result_id": "FR-F45C71A5EDF2FB0EAA0E",
+      "feature_definition_id": "FD-ONLINE-RW-AVAILABLE-MIN-V1",
+      "run_id": "nominal",
+      "paired_nominal_run_id": "nominal",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "resolved_field": "status.adcs.rw.available_0",
+      "component_instance": "RW0",
+      "value": 1.0,
+      "unit": "bool",
+      "window_start_s": 0.0,
+      "window_end_s": 120.0,
+      "sample_count": 121,
+      "algorithm_version": "runtime-closed-window-v1",
+      "input_data_sha256": "29e3d39b195b2f752e31f5efd041e7ac9bedae94bfe30ba5583aa92bed0a8634",
+      "quality_flags": [],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406305+00:00"
+    }
+  ],
+  "evidence_definitions": [
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-HEATER-MISMATCH-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "name": "指令关闭而实际开启",
+      "feature_definition_id": "FD-ONLINE-HEATER-MISMATCH-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.9,
+      "threshold_unit": "1",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-HEATER-CURRENT-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "name": "加热器电流超过最低效果门槛",
+      "feature_definition_id": "FD-ONLINE-HEATER-CURRENT-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.2,
+      "threshold_unit": "A",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-STAR-INVALID-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "name": "星敏数据无效",
+      "feature_definition_id": "FD-ONLINE-STAR-INVALID-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.9,
+      "threshold_unit": "1",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-STAR-UNLOCKED-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "name": "星敏失锁",
+      "feature_definition_id": "FD-ONLINE-STAR-UNLOCKED-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.9,
+      "threshold_unit": "1",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-STAR-AGE-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "name": "星敏数据龄期超限",
+      "feature_definition_id": "FD-ONLINE-STAR-AGE-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 30.0,
+      "threshold_unit": "s",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-STAR-FUSION-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "name": "融合切换到陀螺递推",
+      "feature_definition_id": "FD-ONLINE-STAR-FUSION-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 2.0,
+      "threshold_unit": "code",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-RW-FRICTION-DIRECT-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "运行时有效拖曳系数增大",
+      "feature_definition_id": "FD-ONLINE-RW-DRAG-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.001,
+      "threshold_unit": "N*m*s",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-RW-FRICTION-CURRENT-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "name": "电流相对配对正常运行发生变化",
+      "feature_definition_id": "FD-ONLINE-RW-CURRENT-RESIDUAL-V1",
+      "role": "SUPPORTING",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.005,
+      "threshold_unit": "A",
+      "critical": false,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-RW-TORQUE-LOSS-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "最大力矩能力下降",
+      "feature_definition_id": "FD-ONLINE-RW-TORQUE-LOSS-RATIO-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.1,
+      "threshold_unit": "1",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "schema_version": "astrograph-evidence-definition.v1",
+      "evidence_definition_id": "ED-ONLINE-RW-TORQUE-AVAILABLE-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "轮仍保持可用以排除卡滞",
+      "feature_definition_id": "FD-ONLINE-RW-AVAILABLE-MIN-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 1.0,
+      "threshold_unit": "bool",
+      "critical": true,
+      "evidence_level": "E0",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "applicable_condition_ids": [],
+      "claim_boundary": "E0 online integration threshold; not a flight-certified diagnostic limit."
+    }
+  ],
+  "evidence_facts": [
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-AE84B53E6CA21ADC5A45",
+      "evidence_definition_id": "ED-ONLINE-HEATER-MISMATCH-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_result_id": "FR-7EC6865CA7333AC74227",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "NOT_SATISFIED",
+      "observed_value": 0.0,
+      "threshold_value": 0.9,
+      "unit": "1",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 0 1; condition GREATER_OR_EQUAL 0.9 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406370+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-D0ED06A2ED4E27CBC317",
+      "evidence_definition_id": "ED-ONLINE-HEATER-CURRENT-V1",
+      "target_fault_id": "THERMAL_HEATER_STUCK_ON",
+      "feature_result_id": "FR-2E408CC5C50DE2800D7C",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "NOT_SATISFIED",
+      "observed_value": 0.002611570247933885,
+      "threshold_value": 0.2,
+      "unit": "A",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 0.00261157 A; condition GREATER_OR_EQUAL 0.2 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406391+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-803BF7C72978EDBCE26D",
+      "evidence_definition_id": "ED-ONLINE-STAR-INVALID-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "feature_result_id": "FR-0CBD7FDD468278EFAD86",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "NOT_SATISFIED",
+      "observed_value": 0.0,
+      "threshold_value": 0.9,
+      "unit": "1",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 0 1; condition GREATER_OR_EQUAL 0.9 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406407+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-A6CC036AD13F39F9AC48",
+      "evidence_definition_id": "ED-ONLINE-STAR-UNLOCKED-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "feature_result_id": "FR-DE2AC986AF7EC19FE00B",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "NOT_SATISFIED",
+      "observed_value": 0.0,
+      "threshold_value": 0.9,
+      "unit": "1",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 0 1; condition GREATER_OR_EQUAL 0.9 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406421+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-1A5E2A938BE74BF5FE97",
+      "evidence_definition_id": "ED-ONLINE-STAR-AGE-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "feature_result_id": "FR-9B5FEB508F448E4B0439",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "NOT_SATISFIED",
+      "observed_value": 0.0,
+      "threshold_value": 30.0,
+      "unit": "s",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 0 s; condition GREATER_OR_EQUAL 30 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406436+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-36F5A3AC4FAFB4A5B9F0",
+      "evidence_definition_id": "ED-ONLINE-STAR-FUSION-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "feature_result_id": "FR-32721C8B0F0A4FE233C1",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "NOT_SATISFIED",
+      "observed_value": 1.0,
+      "threshold_value": 2.0,
+      "unit": "code",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 1 code; condition GREATER_OR_EQUAL 2 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406450+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-6B661A64C9122541D926",
+      "evidence_definition_id": "ED-ONLINE-RW-FRICTION-DIRECT-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "feature_result_id": "FR-6703AF8CEBFBC5DA264C",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "NOT_SATISFIED",
+      "observed_value": 0.0,
+      "threshold_value": 0.001,
+      "unit": "N*m*s",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 0 N*m*s; condition GREATER_OR_EQUAL 0.001 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406464+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-9760DFB09B74BF854992",
+      "evidence_definition_id": "ED-ONLINE-RW-FRICTION-CURRENT-V1",
+      "target_fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "feature_result_id": "FR-133E033914E3F23E69E7",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "SUPPORTING",
+      "status": "NOT_SATISFIED",
+      "observed_value": 0.0,
+      "threshold_value": 0.005,
+      "unit": "A",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 0 A; condition GREATER_OR_EQUAL 0.005 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406478+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-8A596A0F7CD5A23F3841",
+      "evidence_definition_id": "ED-ONLINE-RW-TORQUE-LOSS-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "feature_result_id": "FR-E084E5E5ACD36B7B6590",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "NOT_SATISFIED",
+      "observed_value": 0.0,
+      "threshold_value": 0.1,
+      "unit": "1",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 0 1; condition GREATER_OR_EQUAL 0.1 is not met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406491+00:00"
+    },
+    {
+      "schema_version": "astrograph-evidence-fact.v1",
+      "evidence_fact_id": "EF-CC3C3891FF403C723210",
+      "evidence_definition_id": "ED-ONLINE-RW-TORQUE-AVAILABLE-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "feature_result_id": "FR-F45C71A5EDF2FB0EAA0E",
+      "episode_id": "EP-7097BAAA88A457F4D473",
+      "role": "REQUIRED",
+      "status": "SATISFIED",
+      "observed_value": 1.0,
+      "threshold_value": 1.0,
+      "unit": "bool",
+      "comparison": "GREATER_OR_EQUAL",
+      "explanation": "Observed 1 bool; condition GREATER_OR_EQUAL 1 is met.",
+      "source_refs": [
+        "PHM whole-spacecraft minimal runtime v1.1",
+        "AstroGraph V0.5.3 validated effect matrix"
+      ],
+      "claim_type": "DERIVED",
+      "created_at": "2026-07-20T08:06:37.406507+00:00"
+    }
+  ],
+  "source_protocol_hashes": {
+    "dataset_contract.json": "81c945b27d1e6ee83d5d01fa3d71d5ac585777cb1f187be8a0323fd22ed8f570",
+    "telemetry_dictionary.csv": "3251e12d96a63f83b25fc5f8c4badfac2b6d975558ff93f5c812b483708e7f5f",
+    "telemetry_physical_semantics_v1.csv": "6aa1c78c518ae4d8662ced9569d4207f6fecda0c67cf9ef7110caa06a66b07ff",
+    "physical_semantics_contract.json": "155e2d7ba0ef335e60eefd6a74425e002c710b3091a04d35afcc0dfdadbfcdc0"
+  },
+  "evaluation_metadata": {
+    "scenario_for_evaluation_only": "nominal",
+    "simulation_event_count_context": 0
+  },
+  "claim_boundary": "E0 online simulation-to-diagnosis integration evidence; runtime mechanism state is not a flight telemetry claim."
+}

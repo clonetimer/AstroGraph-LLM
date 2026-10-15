@@ -1,0 +1,116 @@
+{
+  "schema_version": "astrograph-evidence-calibration-receipt.v1",
+  "receipt_id": "phm-v6.0-executable-evidence-expansion-20260830",
+  "dataset_id": "whole_spacecraft_phm_dataset_v6_0",
+  "runtime_evidence_package_version": "2.0.0",
+  "selection_protocol": {
+    "independent_group_key": "sample_index",
+    "development_group_ids": [3, 8],
+    "untouched_group_ids": [0, 1, 2, 4, 5, 6, 7, 9],
+    "nominal_pair_key": ["subsystem", "sample_index"],
+    "operator_scope": "full_run paired finite samples",
+    "label_use_boundary": "condition_id is used only in this offline calibration receipt to separate target and non-target rows; runtime evidence reads telemetry only"
+  },
+  "source_hashes": {
+    "dataset_manifest.json": "617f7eeddd96d6091b83497b6ebc8e18a7697f3e61584fde41c5c0684abc41ec",
+    "sample_index.csv": "8363824e515084e695c0a715854b4e3b0489cac3353a9cb82c6bf63c2fd77b08",
+    "audit/causal_observability_report.json": "854585cd908216130c8417932b6a9ad19dd4605d25e451ab530b9971f4223ce9",
+    "audit/fault_admission_report.json": "609bc0fe7fa34c331839d09c4887de18b8d752ea4bee63e3171361107d4fe3bf"
+  },
+  "faults": {
+    "EPS_BATTERY_CAPACITY_LOSS": {
+      "dataset_condition_id": "eps_battery_capacity_loss",
+      "development": {
+        "target_count": 6,
+        "non_target_count": 96,
+        "features": {
+          "battery_energy_mean_abs_paired_residual_wh": {"threshold": 5.0, "target_min": 22.59017177971471, "target_max": 40.29175564503975, "non_target_max": 2.184309677831213},
+          "battery_soc_mean_abs_paired_residual": {"threshold": 0.02, "target_min": 0.047682325581395346, "target_max": 0.11208489999999995, "non_target_max": 0.013430033222591327}
+        },
+        "joint_target_pass_count": 6,
+        "joint_non_target_pass_count": 0
+      },
+      "untouched_screen": {
+        "target_count": 24,
+        "non_target_count": 384,
+        "features": {
+          "battery_energy_mean_abs_paired_residual_wh": {"target_min": 8.525006591619098, "target_max": 43.13657342595636, "non_target_max": 1.980330835644721},
+          "battery_soc_mean_abs_paired_residual": {"target_min": 0.04460513333333333, "target_max": 0.1391628428093645, "non_target_max": 0.01244986622073578}
+        },
+        "joint_target_pass_count": 24,
+        "joint_non_target_pass_count": 0
+      }
+    },
+    "EPS_SOLAR_ARRAY_STRING_FAILURE": {
+      "dataset_condition_id": "eps_solar_string_open",
+      "source_threshold_ref": "reference/evidence_sources/solar_array_string_failure.yaml#acceptance.minimum_power_delta_w",
+      "development": {
+        "target_count": 6,
+        "non_target_count": 96,
+        "features": {
+          "solar_power_mean_abs_paired_residual_w": {"threshold": 5.0, "target_min": 39.57333333333333, "target_max": 82.51196013289041, "non_target_max": 0.00033333333333336173}
+        },
+        "joint_target_pass_count": 6,
+        "joint_non_target_pass_count": 0
+      },
+      "untouched_screen": {
+        "target_count": 24,
+        "non_target_count": 384,
+        "features": {
+          "solar_power_mean_abs_paired_residual_w": {"target_min": 31.617, "target_max": 74.78260869565217, "non_target_max": 0.0}
+        },
+        "joint_target_pass_count": 24,
+        "joint_non_target_pass_count": 0
+      }
+    },
+    "COMM_DOWNLINK_SERVICE_LOSS": {
+      "dataset_condition_id": "comm_data_downlink_link_loss",
+      "development": {
+        "target_count": 6,
+        "non_target_count": 96,
+        "features": {
+          "downlink_active_mean_abs_paired_residual": {"threshold": 0.35, "target_min": 0.4766666666666667, "target_max": 0.6511627906976745, "non_target_max": 0.0},
+          "command_residual_mean_abs_paired_residual_bps": {"threshold": 500000.0, "target_min": 715000.0, "target_max": 971760.7973421927, "non_target_max": 748625.73089701}
+        },
+        "joint_target_pass_count": 6,
+        "joint_non_target_pass_count": 0,
+        "disambiguation": "command residual alone overlaps transmitter-rate loss, so the executable rule requires the downlink-active paired residual conjunct"
+      },
+      "untouched_screen": {
+        "target_count": 24,
+        "non_target_count": 384,
+        "features": {
+          "downlink_active_mean_abs_paired_residual": {"target_min": 0.391304347826087, "target_max": 0.6511627906976745, "non_target_max": 0.0},
+          "command_residual_mean_abs_paired_residual_bps": {"target_min": 586956.5217391305, "target_max": 971760.7973421927, "non_target_max": 734120.5813953489}
+        },
+        "joint_target_pass_count": 24,
+        "joint_non_target_pass_count": 0
+      }
+    },
+    "THERMAL_RADIATOR_REJECTION_LOSS": {
+      "dataset_condition_id": "thermal_radiator_rejection_loss",
+      "development": {
+        "target_count": 6,
+        "non_target_count": 96,
+        "features": {
+          "radiator_rejected_power_mean_abs_paired_residual_w": {"threshold": 5.0, "target_min": 27.648766980113827, "target_max": 43.88139503919827, "non_target_max": 1.0678685612409036},
+          "electronics_temperature_mean_paired_residual_k": {"threshold": 1.0, "target_min": 1.3636439267886857, "target_max": 2.369666666666667, "non_target_max": 0.7690515806988354}
+        },
+        "joint_target_pass_count": 6,
+        "joint_non_target_pass_count": 0
+      },
+      "untouched_screen": {
+        "target_count": 24,
+        "non_target_count": 384,
+        "features": {
+          "radiator_rejected_power_mean_abs_paired_residual_w": {"target_min": 28.21030804608413, "target_max": 50.00028258716301, "non_target_max": 1.0702504066536562},
+          "electronics_temperature_mean_paired_residual_k": {"target_min": 1.4252086811352258, "target_max": 2.691597337770383, "non_target_max": 0.762063227953411}
+        },
+        "joint_target_pass_count": 24,
+        "joint_non_target_pass_count": 0
+      }
+    }
+  },
+  "decision": "ACCEPT_FOR_E0_DATASET_SCOPED_RUNTIME_EVIDENCE",
+  "claim_boundary": "This receipt qualifies deterministic paired-telemetry rules only for PHM v6.0 synthetic E0 use. It does not establish flight thresholds, physical causality, cross-dataset transfer, production qualification, or evidence for the twelve semantic-only dataset classes."
+}

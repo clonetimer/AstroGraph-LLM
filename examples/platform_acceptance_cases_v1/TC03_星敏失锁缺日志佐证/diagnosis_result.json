@@ -1,0 +1,5 @@
+{
+  "case_id": "SYNTH-ADCS-003",
+  "candidate_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+  "diagnostic_summary": "上游诊断怀疑星敏感器失锁，但缺少配套的传感器状态日志。"
+}

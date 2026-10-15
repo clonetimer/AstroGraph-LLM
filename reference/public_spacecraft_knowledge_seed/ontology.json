@@ -1,0 +1,57 @@
+{
+  "allowed_triples": [
+    [
+      "COMPONENT",
+      "SUSCEPTIBLE_TO",
+      "FAILURE_MECHANISM"
+    ],
+    [
+      "FAULT_MODE",
+      "ASSOCIATED_WITH",
+      "FAILURE_MECHANISM"
+    ],
+    [
+      "FAILURE_MECHANISM",
+      "MANIFESTS_AS",
+      "SYMPTOM"
+    ],
+    [
+      "FAULT_MODE",
+      "INDICATED_BY",
+      "SYMPTOM"
+    ],
+    [
+      "FAULT_MODE",
+      "CHECKED_BY",
+      "VERIFICATION"
+    ],
+    [
+      "FAULT_MODE",
+      "MITIGATED_BY",
+      "ACTION"
+    ],
+    [
+      "ACTION",
+      "REQUIRES",
+      "CONDITION"
+    ]
+  ],
+  "definitions": {
+    "ASSOCIATED_WITH": "候选故障与可能机理关联，不代表已确诊",
+    "CHECKED_BY": "提出可供人工审核的检查项，非强制处置",
+    "INDICATED_BY": "故障候选与异常征兆的线索关联",
+    "MANIFESTS_AS": "机理可能表现的可观测征兆",
+    "MITIGATED_BY": "仅为辅助处置方案，不具备控制授权",
+    "REQUIRES": "采取任何建议措施前需要确认的条件",
+    "SUSCEPTIBLE_TO": "部件相关的可能失效机理，并不表示实际发生"
+  },
+  "entity_types": [
+    "FAULT_MODE",
+    "COMPONENT",
+    "FAILURE_MECHANISM",
+    "SYMPTOM",
+    "VERIFICATION",
+    "ACTION",
+    "CONDITION"
+  ]
+}

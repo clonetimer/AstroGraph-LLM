@@ -1,0 +1,89 @@
+{
+  "schema_version": "astrograph.p018.sat-agent-public-provenance-authorization-request.v1",
+  "request_id": "P018-SAT-AGENT-PUBLIC-PROVENANCE-001",
+  "problem_id": "P-018",
+  "requested_reviewer": "PROJECT_OWNER",
+  "recorded_on": "2026-08-02",
+  "status": "PENDING_PROJECT_OWNER_APPROVAL",
+  "stage": "P018_S0_ZERO_FIT",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "source_count": 1,
+  "evidence_bindings": {
+    "formal_scope_lineage_audit": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_formal_scope_lineage_audit.v1.json",
+      "sha256": "d98e1f9bd35be4753877d26f8c1009d1cb997620b8a0e1ce28955b4e0e564d7b"
+    },
+    "holdout_materialization_audit": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_holdout_materialization_audit.v1.json",
+      "sha256": "d20d32196bbfc176f59c6c93599e64c34cab5ea15ef69f18e7c1d74bc628447d"
+    },
+    "semantic_profile_gap_audit": {
+      "path": "governance/evidence/0.7.1-extension/p018_sat_agent_semantic_profile_gap_audit.v1.json",
+      "sha256": "1794ed6b80f13b8c68cb1bf2682a9d4662792cc54fe6da6fa8ee97b597e68c16"
+    },
+    "public_provenance_schema": {
+      "path": "protocols/integration/sat_agent_public_episode_provenance.v1.schema.json",
+      "sha256": "7c58bc687a694191fe6a8f434bdaaeea740ef99e315e6167bcd37e3c08e278c2"
+    }
+  },
+  "problem_statement": {
+    "formal_catalog_join": "PASS_31_OBJECTS_93_SCENARIOS_145_EFFECT_OCCURRENCES",
+    "exact_public_semantic_profile_binding": "PARTIAL_7_OF_31_FORMAL_OBJECTS",
+    "missing_exact_semantic_profile_count": 24,
+    "missing_profiles_with_safe_common_public_fields": 21,
+    "missing_profiles_blocked_by_incomplete_explicit_time": 3,
+    "additional_missing_explicit_time_entity_count": 14,
+    "additional_missing_time_capability_count": 4,
+    "additional_missing_time_target_manifest_sha256": "ab817674837bb6c47249464104b9de96b877b806c3e607fdbb5996fa7a5f34e0",
+    "preregistered_holdout_axis_count": 6,
+    "currently_active_holdout_axis_count": 0,
+    "materialized_formal_episode_count": 0,
+    "interpretation": "The completed 57-file repair fixed the previously authorized denominator only. This later header audit found 14 additional missing-time entities across four formal capabilities outside that 237-projection target set; they are new failures and are not covered by the prior authorization."
+  },
+  "requested_authority": {
+    "astrograph_zero_fit_profile_design": {
+      "already_authorized_under_s0": true,
+      "scope": "Manually review and add component-specific declarative profiles and semantic maps for the 21 capabilities whose current public headers and explicit time axes are structurally sufficient.",
+      "automatic_field_name_to_semantic_inference_authorized": false,
+      "model_feature_selection_or_fit_authorized": false
+    },
+    "sat_agent_source_changes": {
+      "requested": true,
+      "allowed_changes_if_approved": [
+        "Freeze a dry-run plan for exactly the 14 additional missing explicit-time entities bound by target manifest SHA-256 ab817674837bb6c47249464104b9de96b877b806c3e607fdbb5996fa7a5f34e0, then add only explicit per-row time_s under a declared endpoint rule while preserving row count, row order and all non-time physical bytes.",
+        "Add the sat_agent_public_episode_provenance.v1 structural metadata contract to future public exports and generator/source code, with every field marked model_input_eligible=false and split_grouping_only=true.",
+        "Run source-side non-fitting validation in the independent Sat-Agent environment and emit aggregate/hash receipts into AstroGraph."
+      ],
+      "existing_export_provenance_backfill_authorized": false,
+      "reason_existing_backfill_is_separate": "An exact before/after target inventory, file hashes and preservation plan must be submitted before mutating existing manifest bundles.",
+      "source_write_root": "D:/Project/test_sat/sat_agent_platform"
+    }
+  },
+  "mandatory_preservation_rules": [
+    "Keep the completed 57-file repair and all earlier failures immutable; do not expand its authorization retroactively.",
+    "Keep all 14 newly discovered missing-time entities in the new denominator; any repair failure remains a failure.",
+    "Do not add labels, truth, fault/effect identity, severity, onset, seed, split, target identity, case/path identity, simulator answers or outcome-derived proxies.",
+    "Do not use opaque provenance IDs, hashes, capability IDs, backend IDs or family IDs as learned inputs, gates, routers, feature-selection variables or outcome proxies.",
+    "Do not infer semantic quantity, port role or archetype solely from field names; every new AstroGraph mapping requires a manual contract review and tests.",
+    "Do not delete, skip, deduplicate out of a denominator, merge classes, expand UNKNOWN, lower thresholds or reuse exhausted validation seeds.",
+    "Do not materialize a split, create a seed, fit/calibrate a model, generate formal open classes, run technical validation, access hidden truth or start Stage S1/Stage B."
+  ],
+  "acceptance_receipts_required": [
+    "Exact 14-target dry-run repair plan with opaque target hashes, endpoint rules and non-time payload hashes before source mutation.",
+    "Post-write receipt proving changed=authorized, backups=authorized, non-time bytes preserved, row counts/order unchanged and all explicit time axes finite/strictly increasing.",
+    "Generator/schema tests proving every future provenance record validates and prohibited fields fail closed.",
+    "AstroGraph adapter test proving provenance is excluded from list_channels/read_range and cannot reach a model or dynamic gate.",
+    "Rerun of the full structural denominator, formal 31/93/145 join, semantic-profile coverage and grouped-holdout materialization audit without any fit or seed."
+  ],
+  "not_authorized_by_this_request": [
+    "Existing export provenance backfill before a separately reviewed exact target plan",
+    "Any label/truth/fault identity addition or use",
+    "Any model fit, calibration, threshold/conformal selection or feature selection",
+    "Any split assignment, development/calibration/validation seed or formal open-set generation",
+    "Stage S1, Stage B, technical validation, hidden acceptance or production binding",
+    "G2, G3, cross-source, flight, in-orbit, hardware or real-spacecraft PASS claims"
+  ],
+  "approval_text_requested_zh": "项目负责人审批：我已审阅 P-018 正式目录谱系审计、holdout 物化审计、语义 profile 缺口审计及 sat_agent_public_episode_provenance.v1。授权在 D:\\Project\\test_sat\\sat_agent_platform 内进行两类 S0 源端工作：第一，先冻结精确 dry-run 计划，再仅修复缺口审计绑定的 14 条新增缺失显式时间轴记录，保持其完整分母、行数、行序和全部非时间物理数据；第二，为未来公开导出增加不含标签、真值、故障/效应身份、严重度、onset、seed、split、目标/案例/路径身份、答案代理或结果派生值的 episode provenance 元数据，并保证全部 provenance 字段 model_input_eligible=false、split_grouping_only=true。现有导出 provenance 回填须在精确目标清单和保存计划另行审阅后再授权。本审批不授权标签/真值使用、模型拟合/校准/特征选择、实际 split、任何新 seed、正式开放类、技术验证、Stage S1、Stage B、生产绑定或 G2/G3 PASS；既有 57 条修复、全部失败证据、G1.1 五项制品、类别、阈值、分母、600 秒预算和耗尽种子禁用规则保持不变。",
+  "decision": "PENDING_PROJECT_OWNER_APPROVAL_NO_SAT_AGENT_WRITE_PERMITTED",
+  "claim_boundary": "Approval request only. Until the project owner records approval, no additional Sat-Agent source or export write is permitted. AstroGraph may continue only truth-blind, zero-fit manual semantic-profile design under the existing S0 scope."
+}

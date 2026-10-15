@@ -1,0 +1,32 @@
+{
+  "schema_version": "astrograph-birrf-dependence-design.v1",
+  "design_id": "birrf-dependence-r18.v1",
+  "baseline_config": {
+    "data_weight": 1.0,
+    "forward_weight": 1.0,
+    "backward_weight": 1.0,
+    "data_smoothing": 60.0,
+    "forward_smoothing": 60.0,
+    "backward_smoothing": 60.0
+  },
+  "required_policy_variants": [
+    "FULL",
+    "DATA_ONLY",
+    "FORWARD_ONLY",
+    "BACKWARD_ONLY",
+    "NO_DATA",
+    "NO_FORWARD",
+    "NO_BACKWARD"
+  ],
+  "inferential_unit": "independent_group_id",
+  "uncertainty_method": "INDEPENDENT_GROUP_PERCENTILE_BOOTSTRAP_DESCRIPTIVE",
+  "bootstrap_resamples": 2000,
+  "bootstrap_seed": 20260918,
+  "primary_outputs": [
+    "equal_group_macro_accuracy",
+    "full_minus_variant_equal_group_accuracy_delta",
+    "group_direction_sign_test",
+    "top1_disagreement_case_count"
+  ],
+  "claim_boundary": "Leave-branch-out sensitivity/dependence audit only. It does not identify causal source value, calibrated fusion weights, posterior fault probability, or release qualification."
+}

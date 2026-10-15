@@ -1,0 +1,43 @@
+{
+  "schema_version": "phm.telemetry_physical_semantics.v1.2",
+  "field_count": 67,
+  "reference_frames": {
+    "B": "spacecraft body frame",
+    "N": "inertial frame",
+    "R": "attitude reference frame"
+  },
+  "rw_installation": {
+    "0": {
+      "component_instance": "RW0",
+      "body_axis": "+Bx",
+      "gsHat_B": "[1,0,0]"
+    },
+    "1": {
+      "component_instance": "RW1",
+      "body_axis": "+By",
+      "gsHat_B": "[0,1,0]"
+    },
+    "2": {
+      "component_instance": "RW2",
+      "body_axis": "+Bz",
+      "gsHat_B": "[0,0,1]"
+    }
+  },
+  "sensor_alignment": {
+    "imu_platform_to_body_dcm": "identity",
+    "star_tracker_case_to_body_dcm": "identity"
+  },
+  "attitude_error": {
+    "state": "sigma_BR (body B relative to reference R)",
+    "reported_angle_deg": "4*atan(norm(sigma_BR))",
+    "signed": false
+  },
+  "event_window": {
+    "interval": "closed",
+    "notation": "[start_s,end_s]",
+    "implementation": "start_s <= time_s <= end_s"
+  },
+  "claim_boundary": "Definitions describe the E0 project synthetic spacecraft only; not a target spacecraft ICD or flight-hardware installation matrix.",
+  "extension_source": "whole-spacecraft all-fault runtime v1.1 and D3 thermal/star fault protocols",
+  "protocol_version": "1.2"
+}

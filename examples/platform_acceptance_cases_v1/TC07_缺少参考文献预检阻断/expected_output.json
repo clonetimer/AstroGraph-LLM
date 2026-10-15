@@ -1,0 +1,13 @@
+{
+  "preflight_can_start": false,
+  "expect_no_report": true,
+  "reason": "references 缺失，校验应阻断",
+  "case_id": "TC07_缺少参考文献预检阻断",
+  "description": "只上传诊断结果和日志，不能开始任务",
+  "upload_files": [
+    "diagnosis_result.json",
+    "operations.log"
+  ],
+  "equipment_scope": "LAB_NEGATIVE_V1",
+  "manifest": "analysis_input.json"
+}

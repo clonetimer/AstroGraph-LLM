@@ -1,0 +1,83 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-change-request.v2",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "request_id": {
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Contract Sha256",
+      "type": "string"
+    },
+    "candidate_id": {
+      "minLength": 1,
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "summary": {
+      "minLength": 1,
+      "title": "Summary",
+      "type": "string"
+    },
+    "rationale": {
+      "minLength": 1,
+      "title": "Rationale",
+      "type": "string"
+    },
+    "changed_paths": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Changed Paths",
+      "type": "array"
+    },
+    "expected_metric_impacts": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Expected Metric Impacts",
+      "type": "object"
+    },
+    "risks": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Risks",
+      "type": "array"
+    },
+    "rollback_plan": {
+      "minLength": 1,
+      "title": "Rollback Plan",
+      "type": "string"
+    },
+    "requested_at": {
+      "title": "Requested At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_id",
+    "contract_id",
+    "contract_sha256",
+    "candidate_id",
+    "summary",
+    "rationale",
+    "changed_paths",
+    "rollback_plan"
+  ],
+  "title": "ChangeRequest",
+  "type": "object"
+}

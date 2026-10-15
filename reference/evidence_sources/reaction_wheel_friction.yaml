@@ -1,0 +1,44 @@
+schema_version: phm.fault_contract.v1
+fault_id: ADCS_RW_FRICTION_INCREASE
+name_zh: 反作用轮摩擦增大
+subsystem: ADCS
+component: reaction_wheel_0
+fault_type: fault
+mechanism: 目标轮附加粘性阻力矩，阻力矩与轮速反向并进入实际施加力矩。
+injection_target: ReactionWheelCommandFaultManager.rw_friction_degradation
+parameters:
+  wheel_index:
+    unit: index
+    nominal: 0
+    range: [0, 2]
+  drag_nms:
+    unit: N*m*s
+    nominal: 0.003
+    range: [0.001, 0.006]
+direct_channels:
+  - estimate.adcs.rw.friction_torque_nm_0
+  - sensor.adcs.rw.motor_current_a_0
+component_response_channels:
+  - sensor.adcs.rw.speed_rad_s_0
+  - sensor.adcs.rw.winding_temp_c_0
+subsystem_propagation_channels:
+  - sensor.adcs.gyro_rate_rad_s_x
+  - sensor.adcs.gyro_rate_rad_s_y
+  - sensor.adcs.gyro_rate_rad_s_z
+confusable_faults:
+  - ADCS_RW_JAM
+  - ADCS_RW_TORQUE_AUTHORITY_LOSS
+supported_conditions:
+  - attitude_maneuver
+  - steady_pointing_with_nonzero_wheel_speed
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  expected_signal: estimate.adcs.rw.friction_torque_nm_0
+  expected_direction: increase_in_absolute_value
+  minimum_delta: 0.001
+  unit: N*m
+known_limits:
+  - 摩擦采用粘性阻力模型，不代表轴承全部摩擦机理。
+  - 电机电流和摩擦力矩为项目定义虚拟传感器/机载估计，不是飞行标定值。
+  - 当前轮电机功耗未闭环反馈到 EPS 母线。

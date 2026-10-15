@@ -1,0 +1,60 @@
+{
+  "schema_version": "astrograph.p018.sat-agent-time-axis-export-repair.v1",
+  "protocol_id": "P018-SAT-AGENT-TIME-AXIS-EXPORT-REPAIR-001",
+  "status": "PROPOSED_SOURCE_WRITE_NOT_AUTHORIZED",
+  "stage": "P018_S0_ZERO_FIT",
+  "source_id": "SAT_AGENT_PLATFORM",
+  "source_count": 1,
+  "problem": {
+    "field_compatible_entity_denominator": 237,
+    "missing_explicit_time_axis_entity_count": 57,
+    "declared_profile_missing_entity_count": 50,
+    "cross_profile_compatible_missing_entity_count": 7,
+    "alternative_explicit_time_field_entity_count": 0,
+    "consumer_side_time_synthesis_authorized": false,
+    "affected_capability_counts": {
+      "component.battery.v1": 10,
+      "subsystem.thermal.source_native.v1": 36,
+      "subsystem.eps.unified_native.v1": 2,
+      "whole_spacecraft.composite_digital_twin.v1": 2,
+      "whole_spacecraft.unified_native.v1": 7
+    }
+  },
+  "required_source_export_change": {
+    "schema": "protocols/integration/sat_agent_public_time_axis.v1.schema.json",
+    "public_telemetry_field": "time_s",
+    "unit": "s",
+    "storage_policy": "EXPLICIT_COLUMN_PER_TELEMETRY_ROW",
+    "monotonicity": "STRICTLY_INCREASING",
+    "endpoint_policy_must_be_declared_per_export_family": true,
+    "manifest_sample_interval_may_replace_explicit_column": false,
+    "row_index_may_replace_explicit_column": false
+  },
+  "preservation_requirements": [
+    "Keep all 57 affected entities in the before/after denominator.",
+    "Preserve row order and row count for every affected telemetry file.",
+    "Preserve every non-time public physical value byte-for-byte after canonical serialization.",
+    "Do not add labels, truth, fault identity, target identity, split, seed or simulator-answer proxy fields.",
+    "Record original and repaired telemetry hashes plus a non-time physical-payload hash.",
+    "Declare the endpoint convention for each export family instead of inferring one global convention.",
+    "Retain the original BLOCKED evidence and record every failed repair as a failure."
+  ],
+  "acceptance_checks": [
+    "All 57 repaired exports contain finite time_s values for every row.",
+    "time_s is strictly increasing within every export.",
+    "The declared endpoint policy agrees with the explicit first and last time values.",
+    "The non-time physical-payload hash matches the pre-repair receipt.",
+    "AstroGraph semantic validation retains denominator 237 and reports the repaired result without fitting a model.",
+    "Truth-isolation and answer-proxy scans remain PASS."
+  ],
+  "authorization_boundary": {
+    "astrograph_contract_and_test_engineering_authorized": true,
+    "sat_agent_source_write_authorized": false,
+    "model_fit_or_calibration_authorized": false,
+    "new_seed_authorized": false,
+    "stage_s1_authorized": false,
+    "stage_b_authorized": false,
+    "required_next_authority": "PROJECT_OWNER_SAT_AGENT_EXPORT_WRITE_APPROVAL"
+  },
+  "claim_boundary": "Zero-fit source-contract repair proposal only. It does not authorize modifying Sat-Agent, fitting a model, changing a denominator, entering Stage S1 or claiming G2/G3 PASS."
+}

@@ -1,0 +1,34 @@
+{
+  "claim_scope": "PROPOSAL_TO_UNIT_VALIDATED_ONLY",
+  "edges": [
+    {
+      "from": "verify_source",
+      "to": "propose"
+    },
+    {
+      "from": "propose",
+      "to": "unit_validate"
+    }
+  ],
+  "nodes": [
+    {
+      "capability": "artifact.verify",
+      "id": "verify_source"
+    },
+    {
+      "capability": "evidence.card.propose",
+      "id": "propose"
+    },
+    {
+      "capability": "evidence.card.validate",
+      "id": "unit_validate"
+    }
+  ],
+  "profile": "EVIDENCE_CURATION",
+  "project_status": "B009_WIP_DEVELOPMENT_EVIDENCE",
+  "schema_version": "astrograph-agent-workflow.v1",
+  "workflow_status": "PROPOSAL_AND_STRUCTURAL_VALIDATION_ONLY",
+  "excluded_future_steps": ["evidence.predicate.compile", "evidence.review.request"],
+  "structural_validation_not_scientific_validation": true,
+  "workflow_id": "astrograph-evidence-curation-v1"
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "astrograph-plugin-spec.v1",
+  "plugin_id": "synthetic.inspect",
+  "version": "0.1.0",
+  "module_file": "synthetic_tools.py",
+  "function_name": "synthetic_inspect",
+  "artifact_sha256": "eabf9a58179c3596ed179afee8552d6dcd2da913f1e5289df4dc77e327f7ea5a",
+  "tool": {
+    "tool_id": "synthetic.inspect",
+    "input_schema": {
+      "type": "object",
+      "required": [
+        "request",
+        "registered_fault_ids",
+        "derived_observations"
+      ],
+      "additionalProperties": true
+    },
+    "output_schema": {
+      "type": "object"
+    },
+    "tool_version": "0.1.0",
+    "deterministic": true,
+    "side_effect_level": "READ_ONLY",
+    "required_permissions": [
+      "RUN_DIAGNOSIS"
+    ],
+    "timeout_s": 5.0,
+    "retry_count": 0,
+    "execution_mode": "ISOLATED_PROCESS",
+    "max_payload_bytes": 2000000,
+    "max_output_bytes": 2000000
+  }
+}

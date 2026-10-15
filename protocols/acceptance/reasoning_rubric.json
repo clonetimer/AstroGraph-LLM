@@ -1,0 +1,24 @@
+{
+  "dimensions": [
+    {
+      "id": "evidence_grounding",
+      "weight": 0.3
+    },
+    {
+      "id": "causal_consistency",
+      "weight": 0.3
+    },
+    {
+      "id": "uncertainty_calibration",
+      "weight": 0.2
+    },
+    {
+      "id": "claim_boundary",
+      "weight": 0.2
+    }
+  ],
+  "independent_review_required": true,
+  "minimum_score": 0.9,
+  "protocol_version": "G1.1",
+  "schema_version": "astrograph-reasoning-rubric.v1"
+}

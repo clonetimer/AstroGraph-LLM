@@ -1,0 +1,19 @@
+{
+  "format": "external-source-registry-v1",
+  "dataset_id": "whole-spacecraft-adcs-v5.2.2",
+  "sources": [
+    {
+      "source_id": "sat-agent.adcs-v5_2_2-generator",
+      "logical_uri": "source://sat-agent.adcs-v5_2_2-generator",
+      "resolver": {
+        "root_env": "ASTROGRAPH_SAT_AGENT_ROOT",
+        "relative_path": "scripts/generate_whole_spacecraft_adcs_eps_dataset_v522.py"
+      },
+      "integrity": {
+        "sha256": null,
+        "status": "UNVERIFIED_EXTERNAL_SOURCE"
+      },
+      "claim_boundary": "The generator is maintained outside this distribution. Set ASTROGRAPH_SAT_AGENT_ROOT to resolve it; no content hash was available in the supplied evidence bundle, so provenance remains explicitly unverified until a hash-frozen source snapshot is registered."
+    }
+  ]
+}

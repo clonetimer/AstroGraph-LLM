@@ -1,0 +1,1361 @@
+{
+  "diagnosis": {
+    "alternatives": [],
+    "blocking_conflicts": [],
+    "calibrated_probability": null,
+    "candidate_explanations": [
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": true,
+        "dependency_adjusted": true,
+        "fault_id": "ADCS_IMU_AXIS_DROPOUT",
+        "fusion_rank": 1,
+        "fusion_score": 0.03278688524590164,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-SENSOR-SINGLE-GYRO-AXIS-ZERO-V1",
+              "ADCS_IMU_AXIS_DROPOUT"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_IMU_AXIS_DROPOUT",
+              "ED-SENSOR-SINGLE-GYRO-AXIS-ZERO-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "SUPPORTED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {
+          "DATA_DRIVEN": 0.01639344262295082,
+          "KG_BACKWARD": 0.00819672131147541,
+          "KG_FORWARD": 0.00819672131147541
+        },
+        "selected": true,
+        "source_ranks": {
+          "DATA_DRIVEN": 1,
+          "KG_BACKWARD": 1,
+          "KG_FORWARD": 1
+        },
+        "supporting_evidence_ids": [
+          "EF-D4B6AECB5919C79B1387"
+        ]
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_IMU_OUTPUT_ZERO",
+        "fusion_rank": 2,
+        "fusion_score": 0.016129032258064516,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-SENSOR-ALL-IMU-OUTPUT-ZERO-V1",
+              "ADCS_IMU_OUTPUT_ZERO"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_IMU_OUTPUT_ZERO",
+              "ED-SENSOR-ALL-IMU-OUTPUT-ZERO-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [
+          "ED-SENSOR-ALL-IMU-OUTPUT-ZERO-V1"
+        ],
+        "reciprocal_contributions": {
+          "DATA_DRIVEN": 0.016129032258064516
+        },
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 2,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_GYRO_BIAS_DRIFT",
+        "fusion_rank": 3,
+        "fusion_score": 0.015873015873015872,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-SENSOR-ALIGNED-GYRO-BIAS-V1",
+              "ADCS_GYRO_BIAS_DRIFT"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_GYRO_BIAS_DRIFT",
+              "ED-SENSOR-ALIGNED-GYRO-BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [
+          "ED-SENSOR-ALIGNED-GYRO-BIAS-V1"
+        ],
+        "reciprocal_contributions": {
+          "DATA_DRIVEN": 0.015873015873015872
+        },
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 3,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_IMU_GYRO_NOISE_AMPLIFICATION",
+        "fusion_rank": 4,
+        "fusion_score": 0.015625,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {
+          "DATA_DRIVEN": 0.015625
+        },
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 4,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_CONTROL_LOOP_AUTHORITY_LOSS",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_RW_JAM",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-0-ADCS_RW_JAM-V1",
+              "ADCS_RW_JAM"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-1-ADCS_RW_JAM-V1",
+              "ADCS_RW_JAM"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-2-ADCS_RW_JAM-V1",
+              "ADCS_RW_JAM"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-3-ADCS_RW_JAM-V1",
+              "ADCS_RW_JAM"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_JAM",
+              "ED-RW-WINDOW-0-ADCS_RW_JAM-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_JAM",
+              "ED-RW-WINDOW-1-ADCS_RW_JAM-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_JAM",
+              "ED-RW-WINDOW-2-ADCS_RW_JAM-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_JAM",
+              "ED-RW-WINDOW-3-ADCS_RW_JAM-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_RW_SPEED_SENSOR_BIAS",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-0-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+              "ADCS_RW_SPEED_SENSOR_BIAS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-1-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+              "ADCS_RW_SPEED_SENSOR_BIAS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-2-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+              "ADCS_RW_SPEED_SENSOR_BIAS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-3-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+              "ADCS_RW_SPEED_SENSOR_BIAS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_SPEED_SENSOR_BIAS",
+              "ED-RW-WINDOW-0-ADCS_RW_SPEED_SENSOR_BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_SPEED_SENSOR_BIAS",
+              "ED-RW-WINDOW-1-ADCS_RW_SPEED_SENSOR_BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_SPEED_SENSOR_BIAS",
+              "ED-RW-WINDOW-2-ADCS_RW_SPEED_SENSOR_BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_SPEED_SENSOR_BIAS",
+              "ED-RW-WINDOW-3-ADCS_RW_SPEED_SENSOR_BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-0-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-1-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-2-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-3-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+              "ED-RW-WINDOW-0-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+              "ED-RW-WINDOW-1-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+              "ED-RW-WINDOW-2-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+              "ED-RW-WINDOW-3-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_STAR_SOLUTION_BIAS",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-ADCS-V522-STAR-UNAVAILABLE-FRESH-V1",
+              "ADCS_STAR_TRACKER_DROPOUT"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-ADCS-V522-STAR-UNAVAILABLE-VALID-V1",
+              "ADCS_STAR_TRACKER_DROPOUT"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_STAR_TRACKER_DROPOUT",
+              "ED-ADCS-V522-STAR-UNAVAILABLE-FRESH-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_STAR_TRACKER_DROPOUT",
+              "ED-ADCS-V522-STAR-UNAVAILABLE-VALID-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [
+          "ED-ADCS-V522-STAR-UNAVAILABLE-FRESH-V1",
+          "ED-ADCS-V522-STAR-UNAVAILABLE-VALID-V1"
+        ],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_STAR_TRACKER_STUCK_AT_LAST",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-SENSOR-STAR-FROZEN-OUTPUT-V1",
+              "ADCS_STAR_TRACKER_STUCK_AT_LAST"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_STAR_TRACKER_STUCK_AT_LAST",
+              "ED-SENSOR-STAR-FROZEN-OUTPUT-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [
+          "ED-SENSOR-STAR-FROZEN-OUTPUT-V1"
+        ],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_SUN_SENSOR_CELL_DEGRADATION",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_SUN_SENSOR_SATURATION",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_SUN_VECTOR_UNAVAILABLE",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      }
+    ],
+    "candidate_fault_ids": [
+      "ADCS_IMU_AXIS_DROPOUT"
+    ],
+    "candidate_overflow": false,
+    "candidate_set_is_confirmed_class": false,
+    "claim_boundary": "Diagnostic hypothesis at the configured fault granularity; not flight qualification or independently confirmed ground truth.",
+    "control_actions_authorized": false,
+    "data_top_fault_ids": [
+      "ADCS_IMU_AXIS_DROPOUT"
+    ],
+    "decision_changed_data_top": false,
+    "detected": true,
+    "detector_mechanism_disagreement": false,
+    "fusion_top_fault_id": "ADCS_IMU_AXIS_DROPOUT",
+    "knowledge_top_fault_ids": [
+      "ADCS_IMU_AXIS_DROPOUT"
+    ],
+    "knowledge_verified": true,
+    "policy_id": "evidence-aware-fusion.v1",
+    "quality_warnings": [
+      "DATA_CONFLICT_GATE_SKIPPED_UNCALIBRATED_SCORE=UNCALIBRATED_CLASS_PROBABILITY",
+      "EVIDENCE_LINEAGE_DEPENDENCY_ADJUSTED=1",
+      "KG_BRANCH_HIGH_CORRELATION=1.000"
+    ],
+    "reason_codes": [
+      "FUSED_HYPOTHESIS_WITH_EXECUTABLE_SUPPORT"
+    ],
+    "requires_discriminating_evidence": false,
+    "root_cause_confirmed": false,
+    "schema_version": "astrograph-fusion-diagnostic-decision.v1",
+    "score_semantics": "RECIPROCAL_RANK_SCORE_NOT_PROBABILITY",
+    "selected_fault_id": "ADCS_IMU_AXIS_DROPOUT",
+    "status": "SUPPORTED_SINGLETON",
+    "working_hypothesis_basis": "CURRENT_DIAGNOSTIC_HYPOTHESIS",
+    "working_hypothesis_fault_id": "ADCS_IMU_AXIS_DROPOUT",
+    "working_hypothesis_is_confirmed": false
+  },
+  "explanation": {
+    "candidate_explanations": [
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": true,
+        "dependency_adjusted": true,
+        "fault_id": "ADCS_IMU_AXIS_DROPOUT",
+        "fusion_rank": 1,
+        "fusion_score": 0.03278688524590164,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-SENSOR-SINGLE-GYRO-AXIS-ZERO-V1",
+              "ADCS_IMU_AXIS_DROPOUT"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_IMU_AXIS_DROPOUT",
+              "ED-SENSOR-SINGLE-GYRO-AXIS-ZERO-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "SUPPORTED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {
+          "DATA_DRIVEN": 0.01639344262295082,
+          "KG_BACKWARD": 0.00819672131147541,
+          "KG_FORWARD": 0.00819672131147541
+        },
+        "selected": true,
+        "source_ranks": {
+          "DATA_DRIVEN": 1,
+          "KG_BACKWARD": 1,
+          "KG_FORWARD": 1
+        },
+        "supporting_evidence_ids": [
+          "EF-D4B6AECB5919C79B1387"
+        ]
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_IMU_OUTPUT_ZERO",
+        "fusion_rank": 2,
+        "fusion_score": 0.016129032258064516,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-SENSOR-ALL-IMU-OUTPUT-ZERO-V1",
+              "ADCS_IMU_OUTPUT_ZERO"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_IMU_OUTPUT_ZERO",
+              "ED-SENSOR-ALL-IMU-OUTPUT-ZERO-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [
+          "ED-SENSOR-ALL-IMU-OUTPUT-ZERO-V1"
+        ],
+        "reciprocal_contributions": {
+          "DATA_DRIVEN": 0.016129032258064516
+        },
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 2,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_GYRO_BIAS_DRIFT",
+        "fusion_rank": 3,
+        "fusion_score": 0.015873015873015872,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-SENSOR-ALIGNED-GYRO-BIAS-V1",
+              "ADCS_GYRO_BIAS_DRIFT"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_GYRO_BIAS_DRIFT",
+              "ED-SENSOR-ALIGNED-GYRO-BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [
+          "ED-SENSOR-ALIGNED-GYRO-BIAS-V1"
+        ],
+        "reciprocal_contributions": {
+          "DATA_DRIVEN": 0.015873015873015872
+        },
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 3,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_IMU_GYRO_NOISE_AMPLIFICATION",
+        "fusion_rank": 4,
+        "fusion_score": 0.015625,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {
+          "DATA_DRIVEN": 0.015625
+        },
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 4,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_CONTROL_LOOP_AUTHORITY_LOSS",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_RW_JAM",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-0-ADCS_RW_JAM-V1",
+              "ADCS_RW_JAM"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-1-ADCS_RW_JAM-V1",
+              "ADCS_RW_JAM"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-2-ADCS_RW_JAM-V1",
+              "ADCS_RW_JAM"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-3-ADCS_RW_JAM-V1",
+              "ADCS_RW_JAM"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_JAM",
+              "ED-RW-WINDOW-0-ADCS_RW_JAM-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_JAM",
+              "ED-RW-WINDOW-1-ADCS_RW_JAM-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_JAM",
+              "ED-RW-WINDOW-2-ADCS_RW_JAM-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_JAM",
+              "ED-RW-WINDOW-3-ADCS_RW_JAM-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_RW_SPEED_SENSOR_BIAS",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-0-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+              "ADCS_RW_SPEED_SENSOR_BIAS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-1-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+              "ADCS_RW_SPEED_SENSOR_BIAS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-2-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+              "ADCS_RW_SPEED_SENSOR_BIAS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-3-ADCS_RW_SPEED_SENSOR_BIAS-V1",
+              "ADCS_RW_SPEED_SENSOR_BIAS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_SPEED_SENSOR_BIAS",
+              "ED-RW-WINDOW-0-ADCS_RW_SPEED_SENSOR_BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_SPEED_SENSOR_BIAS",
+              "ED-RW-WINDOW-1-ADCS_RW_SPEED_SENSOR_BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_SPEED_SENSOR_BIAS",
+              "ED-RW-WINDOW-2-ADCS_RW_SPEED_SENSOR_BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_SPEED_SENSOR_BIAS",
+              "ED-RW-WINDOW-3-ADCS_RW_SPEED_SENSOR_BIAS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-0-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-1-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-2-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-RW-WINDOW-3-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1",
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+              "ED-RW-WINDOW-0-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+              "ED-RW-WINDOW-1-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+              "ED-RW-WINDOW-2-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+              "ED-RW-WINDOW-3-ADCS_RW_TORQUE_AUTHORITY_LOSS-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "SUPPORTED_BY"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_STAR_SOLUTION_BIAS",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-ADCS-V522-STAR-UNAVAILABLE-FRESH-V1",
+              "ADCS_STAR_TRACKER_DROPOUT"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ED-ADCS-V522-STAR-UNAVAILABLE-VALID-V1",
+              "ADCS_STAR_TRACKER_DROPOUT"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_STAR_TRACKER_DROPOUT",
+              "ED-ADCS-V522-STAR-UNAVAILABLE-FRESH-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_STAR_TRACKER_DROPOUT",
+              "ED-ADCS-V522-STAR-UNAVAILABLE-VALID-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [
+          "ED-ADCS-V522-STAR-UNAVAILABLE-FRESH-V1",
+          "ED-ADCS-V522-STAR-UNAVAILABLE-VALID-V1"
+        ],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_STAR_TRACKER_STUCK_AT_LAST",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [
+          {
+            "entity_ids": [
+              "ED-SENSOR-STAR-FROZEN-OUTPUT-V1",
+              "ADCS_STAR_TRACKER_STUCK_AT_LAST"
+            ],
+            "query_plan_id": "GQF-64DCF47F42141B8BD074",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          },
+          {
+            "entity_ids": [
+              "ADCS_STAR_TRACKER_STUCK_AT_LAST",
+              "ED-SENSOR-STAR-FROZEN-OUTPUT-V1"
+            ],
+            "query_plan_id": "GQB-92B7603CF6C1A5E95E42",
+            "relations": [
+              "REQUIRES_EVIDENCE"
+            ]
+          }
+        ],
+        "knowledge_state": "UNKNOWN_OR_INCOMPLETE",
+        "missing_required_definition_ids": [
+          "ED-SENSOR-STAR-FROZEN-OUTPUT-V1"
+        ],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2,
+          "KG_FORWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_SUN_SENSOR_CELL_DEGRADATION",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_SUN_SENSOR_SATURATION",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      },
+      {
+        "contradicting_evidence_ids": [],
+        "data_top": false,
+        "dependency_adjusted": false,
+        "fault_id": "ADCS_SUN_VECTOR_UNAVAILABLE",
+        "fusion_rank": 5,
+        "fusion_score": 0.0,
+        "graph_paths": [],
+        "knowledge_state": "UNCOVERED",
+        "missing_required_definition_ids": [],
+        "reciprocal_contributions": {},
+        "selected": false,
+        "source_ranks": {
+          "DATA_DRIVEN": 5,
+          "KG_BACKWARD": 2
+        },
+        "supporting_evidence_ids": []
+      }
+    ],
+    "conclusion": "ADCS_IMU_AXIS_DROPOUT：有可执行机理支持的诊断假设。不代表已确认或唯一根因。",
+    "evidence_ids": [
+      "EF-D4B6AECB5919C79B1387"
+    ],
+    "generation": "DETERMINISTIC_EVIDENCE_REPORT",
+    "limitations": [
+      "BiRRF 分数不是故障概率。",
+      "相似案例和未核实文档不是当前设备观测。",
+      "未授权设备控制；结论仍需独立核实。"
+    ],
+    "reason_codes": [
+      "FUSED_HYPOTHESIS_WITH_EXECUTABLE_SUPPORT"
+    ]
+  },
+  "stopping_reason": "DECISION_REACHED"
+}

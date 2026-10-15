@@ -1,0 +1,32 @@
+schema_version: phm.fault_contract.v1
+fault_id: THERMAL_TEMPERATURE_SENSOR_BIAS
+name_zh: 温度传感器偏置或漂移
+subsystem: thermal_control
+component: payload_temperature_sensor
+fault_type: sensor_fault
+mechanism: 仅在温度测量消息中叠加偏置；真实热节点、热功率和EPS状态不改变。
+injection_target: TemperatureSensorFaultInjector.temperatureOutMsg
+parameters:
+  bias_c: {unit: degC, nominal: 5.0, range: [-10.0, 10.0], source: engineering_assumption}
+direct_channels:
+  - sensor.thermal.payload_temp_c
+component_response_channels:
+  - sensor.thermal.radiator_temp_c
+subsystem_propagation_channels:
+  - sensor.eps.battery_temp_c
+  - sensor.eps.battery_current_a
+confusable_faults:
+  - THERMAL_HEATER_STUCK_ON
+  - THERMAL_RADIATOR_REJECTION_LOSS
+  - PAYLOAD_ABNORMAL_HEAT
+evidence_level: E0
+source: engineering_assumption
+acceptance:
+  minimum_measured_bias_c: 1.0
+  maximum_true_temperature_delta_c: 0.000001
+  maximum_soc_delta: 0.000001
+  negative_physical_propagation_required: true
+known_limits:
+  - 当前没有同位置双冗余温度传感器，根因裁决依赖热模型及其他温度通道一致性。
+  - 偏置幅值和漂移规律未经过目标硬件标定。
+  - 仿真内部真实温度只用于验收证据，不进入项目A原始遥测特征。

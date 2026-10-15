@@ -1,0 +1,96 @@
+{
+  "claim_boundary": "No currently available dataset is designated untouched confirmatory. A future sealed campaign requires a new dataset ID and preregistration receipt.",
+  "records": [
+    {
+      "confirmatory_ready": false,
+      "dataset_id": "ADCS_V5_2_2_INTERNAL",
+      "evaluator_implementation": "SHARED",
+      "generator_implementation": "SHARED",
+      "hidden_truth_until_prediction_freeze": false,
+      "label_source": "SHARED",
+      "notes": [
+        "Internal synthetic development dataset; groups 4/9 permanently post-hoc."
+      ],
+      "previously_accessed": true,
+      "randomization": "PARTIAL",
+      "scenario_design": "SHARED",
+      "schema_version": "astrograph-dataset-independence.v1"
+    },
+    {
+      "confirmatory_ready": false,
+      "dataset_id": "PHM_V6_0_INTERNAL",
+      "evaluator_implementation": "SHARED",
+      "generator_implementation": "SHARED",
+      "hidden_truth_until_prediction_freeze": false,
+      "label_source": "SHARED",
+      "notes": [
+        "Internal synthetic development dataset."
+      ],
+      "previously_accessed": true,
+      "randomization": "PARTIAL",
+      "scenario_design": "SHARED",
+      "schema_version": "astrograph-dataset-independence.v1"
+    },
+    {
+      "confirmatory_ready": false,
+      "dataset_id": "SAT_PLATFORM_BASILISK_EXISTING",
+      "evaluator_implementation": "SHARED",
+      "generator_implementation": "PARTIAL",
+      "hidden_truth_until_prediction_freeze": false,
+      "label_source": "SHARED",
+      "notes": [
+        "External simulation kernel but AstroGraph-coupled scenario design and existing inspected outputs."
+      ],
+      "previously_accessed": true,
+      "randomization": "PARTIAL",
+      "scenario_design": "SHARED",
+      "schema_version": "astrograph-dataset-independence.v1"
+    },
+    {
+      "confirmatory_ready": false,
+      "dataset_id": "NASA_SMAP_MSL",
+      "evaluator_implementation": "INDEPENDENT",
+      "generator_implementation": "INDEPENDENT",
+      "hidden_truth_until_prediction_freeze": false,
+      "label_source": "INDEPENDENT",
+      "notes": [
+        "External real telemetry benchmark, now accessed for adapter audit; task-level development/external audit only."
+      ],
+      "previously_accessed": true,
+      "randomization": "UNKNOWN",
+      "scenario_design": "INDEPENDENT",
+      "schema_version": "astrograph-dataset-independence.v1"
+    },
+    {
+      "confirmatory_ready": false,
+      "dataset_id": "ESA_MISSION1_LIGHTWEIGHT",
+      "evaluator_implementation": "INDEPENDENT",
+      "generator_implementation": "INDEPENDENT",
+      "hidden_truth_until_prediction_freeze": false,
+      "label_source": "INDEPENDENT",
+      "notes": [
+        "External real telemetry, accessed for quarantine audit; anonymized semantics."
+      ],
+      "previously_accessed": true,
+      "randomization": "UNKNOWN",
+      "scenario_design": "INDEPENDENT",
+      "schema_version": "astrograph-dataset-independence.v1"
+    },
+    {
+      "confirmatory_ready": false,
+      "dataset_id": "NASA_DXC09_ADAPT",
+      "evaluator_implementation": "INDEPENDENT",
+      "generator_implementation": "INDEPENDENT",
+      "hidden_truth_until_prediction_freeze": false,
+      "label_source": "INDEPENDENT",
+      "notes": [
+        "External physical EPS testbed data, accessed for representation-group audit."
+      ],
+      "previously_accessed": true,
+      "randomization": "UNKNOWN",
+      "scenario_design": "INDEPENDENT",
+      "schema_version": "astrograph-dataset-independence.v1"
+    }
+  ],
+  "schema_version": "astrograph-dataset-independence-audit.v1"
+}

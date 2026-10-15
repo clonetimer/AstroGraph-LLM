@@ -1,0 +1,28 @@
+{
+  "schema_version": "astrograph-sat-sim-catalog-release.v1",
+  "model_version": "0.6.5-catalog-model",
+  "model_file": "sat_sim_catalog.joblib",
+  "model_sha256": "ab6792058e7f956f1dfbf63a028aa5e76f189f8e490b492178c6bf3ae7afee32",
+  "training_datasets": [
+    {
+      "dataset_id": "SAT-SIM-FAULT-DEVELOPMENT",
+      "manifest_sha256": "ec73a3118be5195ea992a4339dde22a4b53914c1e4b505339a2b58ae067a4865",
+      "truth_sha256": "b12721a4f30884b825b23a474a5ec3b4aed3163d39e4ffcf2501860c27feb64b"
+    },
+    {
+      "dataset_id": "SAT-SIM-FAULT-HOLDOUT",
+      "manifest_sha256": "c1b286576f69c1b3e271262a1ac8e1962e3d7c4e8f20af4711fede54b9a3ab75",
+      "truth_sha256": "bfd48d02ba45d435cdcb01cbf509aaa11a2fbd1c7e88f61cbdfe529f320f91d9"
+    }
+  ],
+  "validation_informed_change": "Removed the non-trained 0.75 resolver vote gate after post-freeze validation exposed one bearing/compound ambiguity; the validation set is excluded from model fitting and is not final evidence.",
+  "inference_contract": {
+    "paired_nominal_required": false,
+    "truth_used": false,
+    "effect_id_used": false,
+    "case_name_used": false,
+    "input": "single Basilisk telemetry CSV + backend identity"
+  },
+  "score_semantics": "ENSEMBLE_VOTE_SHARE_NOT_CALIBRATED_PROBABILITY",
+  "claim_boundary": "Known-catalog single-trace Basilisk laboratory model; no open-set, flight, cross-platform, or calibrated-confidence claim."
+}

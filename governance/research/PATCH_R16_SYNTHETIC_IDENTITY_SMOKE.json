@@ -1,0 +1,28 @@
+{
+  "schema_version": "astrograph-r16-synthetic-runtime-identity-smoke.v1",
+  "patch": "PATCH-R16",
+  "status": "PASS",
+  "synthetic_only": true,
+  "real_confirmatory_performance_result": false,
+  "facts": {
+    "prepare_returncode": 0,
+    "readiness_status": "READY",
+    "case_count": 38,
+    "independent_group_count": 38,
+    "runtime_identity_status": "VALID",
+    "runtime_identity_sha256": "4554a7e46c2c84d90f8b559b72a9776a8e56bb2c397aa80aa38d9eca2c00293e",
+    "model_runtime_attestation_status": "VALID",
+    "model_runtime_identity_sha256": "a09303f9876dd327f589caa2570f0aea04b1b320a668d1d4a293bf50f499b43a",
+    "dataset_snapshot_status": "VALID",
+    "dataset_snapshot_sha256": "43402dfbd7055ca18b98c8f1fdb9ff22f7a581c250cfd83a584040116b10e11e",
+    "launch_plan_schema": "astrograph-llm-method-confirmatory-launch-plan.v6",
+    "runner_argv_present": true,
+    "runner_identity_blockers": [],
+    "formal_runner_dry_run_returncode": 0,
+    "execution_receipt_schema": "astrograph-llm-method-confirmatory-execution-receipt.v4",
+    "execution_receipt_sha256": "7a04feb087cabec20ec6a69eb0bc4c16aeb1b6801d86af8e39bb7c2a73c9a756",
+    "execution_receipt_self_hash_valid": true,
+    "client_cyclonedx_sbom_sha256_present": true
+  },
+  "claim_boundary": "Synthetic protocol/identity-chain smoke only. GPU/model-host attestation was simulated by an external test service; this is not real A0-A7 inference, hardware qualification, producer authentication or diagnostic-performance evidence."
+}

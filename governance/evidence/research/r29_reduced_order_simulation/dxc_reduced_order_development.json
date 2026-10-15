@@ -1,0 +1,1385 @@
+{
+  "schema_version": "astrograph-r29-dxc-reduced-order-development-report.v1",
+  "dataset_id": "DXC09_SAMPLE",
+  "partition": "POST_CONTACT_DEVELOPMENT",
+  "source_system_xml_sha256": "71e5ee01746192f4c7e3fc7784f11f084b73d7fe387df079a97d31ff12adcccf",
+  "source_r28_receipt_sha256": "9dc4e37c327e1d51ba368a1e702c5b986a0fd9c2f53376e54c258b39eaaa64db",
+  "design_sha256": "f9fab9a76fb7b23043e45223b9cf4375d9731405decfe6c5c0c0f2ff0668f83b",
+  "r29_config": {
+    "pre_window_s": 10.0,
+    "post_window_s": 10.0,
+    "temperature_late_start_s": 30.0,
+    "temperature_late_window_s": 30.0,
+    "max_topology_hops": 5,
+    "max_failed_bulbs_per_branch": 3,
+    "min_voltage_rms_v": 80.0,
+    "max_voltage_relative_change": 0.08,
+    "min_current_drop_a": 0.05,
+    "min_current_drop_z": 6.0,
+    "current_noise_floor_a": 0.01,
+    "temperature_noise_floor_f": 0.5,
+    "max_power_relative_error": 0.6,
+    "min_temperature_cooling_z": 3.0,
+    "command_guard_s": 2.0,
+    "unresolved_reason_required": "SENSOR_OFFSET_UNCORROBORATED_PHYSICAL_RESPONSE_UNRESOLVED"
+  },
+  "simulation_provider_source_sha256": "d855c4196b8a901f068eeff9b8734ebac204d5bdbc60d594ede5cdbeaf8dec3e",
+  "diagnosis_source_sha256": "3977a535bbd8e140d2a919161ff514d90585719762b76e5214523e865f07bf89",
+  "integration_adapter_sha256": "130adce8e943706eb133ca143774a6db11960ebe297b9d622facf9d04f812a77",
+  "split_policy": "Same already-contacted DXC09 Sample DEVELOPMENT groups; no independent validation slice remains.",
+  "partitions": {
+    "SELECTION": {
+      "r28_metrics": {
+        "case_count": 11,
+        "fault_element_precision_micro": 1.0,
+        "fault_element_recall_micro": 1.0,
+        "fault_element_f1_micro": 1.0,
+        "component_precision_micro": 1.0,
+        "component_recall_micro": 1.0,
+        "component_f1_micro": 1.0,
+        "exact_fault_set_rate": 1.0,
+        "faulty_case_any_fault_element_overlap_rate": 1.0,
+        "mean_predicted_fault_count": 1.6363636363636365,
+        "diagnostic_resolution_rate": 1.0,
+        "unresolved_case_count": 0,
+        "resolved_exact_fault_set_rate": 1.0
+      },
+      "r29_metrics": {
+        "case_count": 11,
+        "fault_element_precision_micro": 1.0,
+        "fault_element_recall_micro": 1.0,
+        "fault_element_f1_micro": 1.0,
+        "component_precision_micro": 1.0,
+        "component_recall_micro": 1.0,
+        "component_f1_micro": 1.0,
+        "exact_fault_set_rate": 1.0,
+        "faulty_case_any_fault_element_overlap_rate": 1.0,
+        "mean_predicted_fault_count": 1.6363636363636365,
+        "diagnostic_resolution_rate": 1.0,
+        "unresolved_case_count": 0,
+        "resolved_exact_fault_set_rate": 1.0
+      },
+      "r29_case_rows": [
+        {
+          "case_id": "Exp_627_pb_t2f",
+          "group_id": "cd2f34c76df70f012fefd0fd1d56fdbb1310cb6e6520fd96078a4e6f476fd968",
+          "true_fault_ids": [
+            "E242:Offset"
+          ],
+          "r28_predicted_fault_ids": [
+            "E242:Offset"
+          ],
+          "predicted_fault_ids": [
+            "E242:Offset"
+          ],
+          "first_alarm_time_s": 115.501,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "8ea42f690784d0801298d0e15972579b54f9cb3cf5b11023701218b59f271e79",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_628_pb_t2f",
+          "group_id": "3f29bcb05b2c0ed2a24ec82ca594cef8b44275d8d0f73c34b193196966409669",
+          "true_fault_ids": [
+            "E265:Stuck"
+          ],
+          "r28_predicted_fault_ids": [
+            "E265:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E265:Stuck"
+          ],
+          "first_alarm_time_s": null,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "f70ab3333cb94f35b71737c001e66ac34e466c700c2f99c5102f3cc3f18e18c1",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_628_pb_t2ff",
+          "group_id": "d4260c382e6442a9a685e5513055d1495c19d4151637347d8c166432d976cb51",
+          "true_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "r28_predicted_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "predicted_fault_ids": [
+            "ESH170:Stuck",
+            "FT520:Offset"
+          ],
+          "first_alarm_time_s": 83.001,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "7cd9654d923b358fcd2a34dd6b5afc65fdcf01a95640f7bec447e4a5e0ff1799",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_630_pb_t2ff",
+          "group_id": "fea940ec32d0b1e9fb992f0b5ed0f3e1b8f93e321b272f607bb6b4711d41b871",
+          "true_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "r28_predicted_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E140:Stuck",
+            "ESH141A:Stuck",
+            "ESH144A:Stuck"
+          ],
+          "first_alarm_time_s": 70.001,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "c7efe716b3a0cddf82e76ce5fdbf3f1bfc58e1a355d0a854acfa9079de4f9f33",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_636_pb_t2f",
+          "group_id": "dc8ceb67c7e4980aee8ea6e37e17be734014b5c2465110fcfa084167950abe24",
+          "true_fault_ids": [
+            "E261:Stuck"
+          ],
+          "r28_predicted_fault_ids": [
+            "E261:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E261:Stuck"
+          ],
+          "first_alarm_time_s": 47.5,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "ea644c547eda65af8dd7cf551e3fada33b7805b7601f35aa9f9e621aca50844b",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_653_pb_t2",
+          "group_id": "3c80ba18d3e330efbcf52190cb8720f15f285201a81208cee4e36527d484019d",
+          "true_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "r28_predicted_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "LGT407:FailedOff"
+          ],
+          "first_alarm_time_s": 203.003,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "5cff464139aa7230f0a1492367c57e7ad7f6e420b7954c4a790e772a7e0bb0a4",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_659_pb_t2",
+          "group_id": "b242cda4cef72a6ec5532649da0152852b1d31f2aa0079478eb79ab41873d471",
+          "true_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "r28_predicted_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "PMP420:FailedOff"
+          ],
+          "first_alarm_time_s": 93.501,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "d54903adaa84deb04ed1a22d43411d24b0353119bc89cafd24255ad8a566869d",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_665_pb_t2ff",
+          "group_id": "ce7d881fbca210793160bd6222c0e49336a7ab28a2945f3dc1eb4b4204623144",
+          "true_fault_ids": [
+            "E281:Stuck",
+            "ST265:Offset"
+          ],
+          "r28_predicted_fault_ids": [
+            "E281:Stuck",
+            "ST265:Offset"
+          ],
+          "predicted_fault_ids": [
+            "E281:Stuck",
+            "ST265:Offset"
+          ],
+          "first_alarm_time_s": 66.001,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "e7ad602147cc843a1a9401da3b3583ceffb3a983d3131c9cbf81eaa760db1b14",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_667_pb_t2ff",
+          "group_id": "67ea98f4628cd4b40587cebbb4aa7b221fe23d52af8b54ff398cc2e2b9078fbe",
+          "true_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "r28_predicted_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "IT167:Offset",
+            "TE502:Stuck"
+          ],
+          "first_alarm_time_s": 73.0,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "e1f1f9d08c6c2025b3c255e454998f8643d3ec752c4041320e1ff54420200de1",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_676_pb_t2",
+          "group_id": "a10d050ef27eb380509a684f08dd6899262a7e44b7d4143a936baa6107864fb7",
+          "true_fault_ids": [
+            "LGT400:FailedOff",
+            "LGT402:FailedOff"
+          ],
+          "r28_predicted_fault_ids": [
+            "LGT400:FailedOff",
+            "LGT402:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "LGT400:FailedOff",
+            "LGT402:FailedOff"
+          ],
+          "first_alarm_time_s": 159.002,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "c9a3b6ac34320a8b84361c56c0d2895c65617daf085807472cf629f5a450aa7d",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_682_pb_t2",
+          "group_id": "cb95078148dda06ddafd4592f3cb8fa3d9ec1b3f6fc51e7b3ba8a5bcde873bde",
+          "true_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "r28_predicted_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "predicted_fault_ids": [
+            "EY172:StuckOpen",
+            "EY173:StuckOpen"
+          ],
+          "first_alarm_time_s": 103.001,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "30f8938183a13c268eae49a127b6e478418335dae0336bfb8d8d088d2c55f6d8",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        }
+      ]
+    },
+    "INTERNAL_REPLAY": {
+      "r28_metrics": {
+        "case_count": 14,
+        "fault_element_precision_micro": 1.0,
+        "fault_element_recall_micro": 0.9375,
+        "fault_element_f1_micro": 0.967741935483871,
+        "component_precision_micro": 1.0,
+        "component_recall_micro": 0.9375,
+        "component_f1_micro": 0.967741935483871,
+        "exact_fault_set_rate": 0.9285714285714286,
+        "faulty_case_any_fault_element_overlap_rate": 0.9285714285714286,
+        "mean_predicted_fault_count": 1.0714285714285714,
+        "diagnostic_resolution_rate": 0.9285714285714286,
+        "unresolved_case_count": 1,
+        "resolved_exact_fault_set_rate": 1.0
+      },
+      "r29_metrics": {
+        "case_count": 14,
+        "fault_element_precision_micro": 1.0,
+        "fault_element_recall_micro": 1.0,
+        "fault_element_f1_micro": 1.0,
+        "component_precision_micro": 1.0,
+        "component_recall_micro": 1.0,
+        "component_f1_micro": 1.0,
+        "exact_fault_set_rate": 1.0,
+        "faulty_case_any_fault_element_overlap_rate": 1.0,
+        "mean_predicted_fault_count": 1.1428571428571428,
+        "diagnostic_resolution_rate": 1.0,
+        "unresolved_case_count": 0,
+        "resolved_exact_fault_set_rate": 1.0
+      },
+      "r29_case_rows": [
+        {
+          "case_id": "Exp_605_pb_fix_t2",
+          "group_id": "79b739c1ebe762282f2c0be9463f7f80acb4b15ad2b5dd4a3e67a89ced5edc11",
+          "true_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "r28_predicted_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "predicted_fault_ids": [
+            "EY175:StuckOpen"
+          ],
+          "first_alarm_time_s": 37.5,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "1da82bb331107277cefaefff457884db4e2541bf26df4125d98ef386ab2f89ef",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_606_pb_fix_t2",
+          "group_id": "b6de9e93cffed4daccf9b099c9c9a53fc87f2761b61a5aa7ed57f7d9d7d4a2b2",
+          "true_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "r28_predicted_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "predicted_fault_ids": [
+            "EY272:StuckOpen"
+          ],
+          "first_alarm_time_s": 203.003,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "f92a6ef021b9197366029dff8f576b01199be4dde622a1f50babfc6715581058",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_610_pb_fix_t2",
+          "group_id": "2c172172529dbe22d357a21d7ca7251bc96e0fd080532674100b7a9bfab5bf5a",
+          "true_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "r28_predicted_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "predicted_fault_ids": [
+            "CB262:FailedOpen"
+          ],
+          "first_alarm_time_s": 95.501,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "9bf18d61c7eaf4a1dcee628cb71528b74f166e93e8bc13c51d17052a6d9b33be",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_614_pb_fix_t2",
+          "group_id": "38384661cbf6d2b2c74e227cb32864495e71fa0f4ba2078828602117441b81a5",
+          "true_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "r28_predicted_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "predicted_fault_ids": [
+            "CB280:FailedOpen"
+          ],
+          "first_alarm_time_s": 63.501,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "becbc4921100eaea60004b8da70f8aea8de356a3184cb1503f37c2ab299e549b",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_616_pb_t2",
+          "group_id": "3c3c2afcbee18abb73d0566339542cfd597975e8ee7b2bb6862ebcde77ade16d",
+          "true_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "r28_predicted_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "INV2:FailedOff"
+          ],
+          "first_alarm_time_s": 126.501,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "a9e8db01b3dc05a802376fbb698c98a56f2363202bf2f63984826add32cc0469",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_620_pb_t2",
+          "group_id": "8c536fb9933fdbf05cbb2bb0d5c889108c69c46bc5a88acad6c179e1aec9601d",
+          "true_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "r28_predicted_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "predicted_fault_ids": [
+            "EY341:StuckOpen"
+          ],
+          "first_alarm_time_s": 196.502,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "8c9cecf98f5a78c4a5656efc00df736bcd59bd84afe96cbebae76f68724d5aa6",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_637_pb_t2f",
+          "group_id": "e83e016dd302e603546514121b025f33def54645b414256dee0dfd65437b071e",
+          "true_fault_ids": [
+            "E240:Stuck"
+          ],
+          "r28_predicted_fault_ids": [
+            "E240:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E240:Stuck"
+          ],
+          "first_alarm_time_s": 146.002,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "1c9e3660aeed33e59434cc40dfc7f0517051c5d40fa476e4f80fd672348d8fcb",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_644_pb_t2f",
+          "group_id": "e969fbc3560dc61ed8ddf0c5a1a8f3e50f3c69473daecd33f3f92f07dce5a884",
+          "true_fault_ids": [
+            "IT267:Stuck"
+          ],
+          "r28_predicted_fault_ids": [
+            "IT267:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "IT267:Stuck"
+          ],
+          "first_alarm_time_s": 33.0,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "9fb11235b9e340f27ca531dd22355f0dba081a9275bb9f42098fb6aec4341981",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_645_pb_t2f",
+          "group_id": "54e4a2b46fec6f070ea149c35ea9a13482435a84bb69f465b1a5d3c505d60ccc",
+          "true_fault_ids": [
+            "E265:Offset"
+          ],
+          "r28_predicted_fault_ids": [
+            "E265:Offset"
+          ],
+          "predicted_fault_ids": [
+            "E265:Offset"
+          ],
+          "first_alarm_time_s": 168.002,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "b9b726a6ed3990f7a68fa5ca82aff6e364c29311df69b961e0f5218cdcb02bfa",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_649_pb_t2f",
+          "group_id": "eeb81c09d12a5d32e33762a371af579171a072c31f89679d839b228fdf789ccd",
+          "true_fault_ids": [
+            "E235:Stuck"
+          ],
+          "r28_predicted_fault_ids": [
+            "E235:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "E235:Stuck"
+          ],
+          "first_alarm_time_s": 157.502,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "7558c1fce19d1778806ad46f91b93dcdc850f4f815962df5dd73f503d0a79544",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_656_pb_t2",
+          "group_id": "8b2e5d88e3bfecd5e1af282321875dbaee8e41cdfb478b97b42ce6ea40808255",
+          "true_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "r28_predicted_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "predicted_fault_ids": [
+            "FAN415:OverSpeed"
+          ],
+          "first_alarm_time_s": 77.001,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "ee7c791d6764dc6734356b10ff51e91562e66c67fde941ab7a7e89c2a7c85158",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_658_pb_t2",
+          "group_id": "99b794b999ea87a177cb5a78bb0350b4177e388f905cbb9d4fdca7df0c3baf25",
+          "true_fault_ids": [
+            "LGT481:FailedOff"
+          ],
+          "r28_predicted_fault_ids": [],
+          "predicted_fault_ids": [
+            "LGT481:FailedOff"
+          ],
+          "first_alarm_time_s": 115.501,
+          "application_status": "RESOLVED_BY_REDUCED_ORDER_PHYSICS",
+          "reason_codes": [
+            "R29_UNIQUE_PHYSICALLY_SUPPORTED_LOAD_CANDIDATE"
+          ],
+          "reduced_order_result_sha256": "26c2bd5c15ed0ca447a74bc4c2d4185831e942b1ae5f0fe294cfa778a9bfb2ea",
+          "selected_diagnosis_id": "R29-CC7A98197B021A6A",
+          "candidate_fits": [
+            {
+              "diagnosis_id": "R29-CC7A98197B021A6A",
+              "fault_ids": [
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 60.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.5018378149726602,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.16240218859772523,
+              "normalized_current_rmse": 4.635997909037464,
+              "normalized_current_mae": 4.5778358183856005,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "814ba64ef167c26e2bf86b937ecb8008880368b1866e176d5039a0fe1b7f82f9",
+              "fit_status": "SUPPORTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-CAD6B52BC5D37757",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT401:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 50.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.4181981791438835,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.005117373682729735,
+              "normalized_current_rmse": 0.7701154070374762,
+              "normalized_current_mae": 0.6632940185454289,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "ad4a1b29e5536876080027448b243d7c09d1dde52760f624662c59e61e3eaf3b",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-9985F960B3D322A2",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT402:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 50.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.4181981791438835,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.005117373682729735,
+              "normalized_current_rmse": 0.7701154070374762,
+              "normalized_current_mae": 0.6632940185454289,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "c28e788b31c99ec5f60b3342fd6ab0aa46a9c4043a0a49f9a765c8e01a07aa0b",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-5858DD644B54E42E",
+              "fault_ids": [
+                "LGT401:FailedOff",
+                "LGT402:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 50.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.4181981791438835,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.005117373682729735,
+              "normalized_current_rmse": 0.7701154070374762,
+              "normalized_current_mae": 0.6632940185454289,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "c4010d6e06be28d3fe73431d6be35e598e38124a3d6f0d0765a7e4f76c721f37",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-F0FCA1BDF1A7C589",
+              "fault_ids": [
+                "LGT411:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 55.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.46001799705827184,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.08625693301570019,
+              "normalized_current_rmse": 2.2898678299485415,
+              "normalized_current_mae": 2.1696659786813086,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "660e73e1fe77516774da47578ad72503c57de736dd67d113542083c49209c240",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-53F7394DAE8DE15F",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT401:FailedOff",
+                "LGT402:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 75.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.6272972687158253,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.32992175087818015,
+              "normalized_current_rmse": 11.825007923356221,
+              "normalized_current_mae": 11.802345337498462,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "ae48af19aa5ef8ad7d44fda6f37bd55fcc355e9cb176077f7dd88eb1a81dd086",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-B0390A42644E2633",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT411:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 80.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.6691170866302136,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.3718016414482939,
+              "normalized_current_rmse": 14.22933780270056,
+              "normalized_current_mae": 14.210515177202767,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "7faf8d50b01a4576912be994b2f8ab1b298562681747028f0bc6908f3f10181b",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-91CAA0B3569AE04F",
+              "fault_ids": [
+                "LGT401:FailedOff",
+                "LGT411:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 80.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.6691170866302136,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.3718016414482939,
+              "normalized_current_rmse": 14.22933780270056,
+              "normalized_current_mae": 14.210515177202767,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "32297b3a81606b4b19c7f8865b326861ac9f1e32d23e715a7c4d32e975aebcdb",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-41BC1F3089DD81C8",
+              "fault_ids": [
+                "LGT402:FailedOff",
+                "LGT411:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 80.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.6691170866302136,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.3718016414482939,
+              "normalized_current_rmse": 14.22933780270056,
+              "normalized_current_mae": 14.210515177202767,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "942a53258f66699a698dd7e3142ab632583763aa4c2bb16682997141965249b3",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-5304EE5492F839CF",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 85.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.710936904544602,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.4087544860689825,
+              "normalized_current_rmse": 16.634778664436098,
+              "normalized_current_mae": 16.618685016907058,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "95f7ea99153554254e52b7d5f32e1d7d3097fbce7aa649687f0317bb9c1d1d88",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-84D7C4A42C19AFDB",
+              "fault_ids": [
+                "LGT401:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 85.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.710936904544602,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.4087544860689825,
+              "normalized_current_rmse": 16.634778664436098,
+              "normalized_current_mae": 16.618685016907058,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "4bd6cb42d4a3f15bd839922602c394662e81b5c2b405d5a5652260aabf93548d",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-127A449B707AC1A4",
+              "fault_ids": [
+                "LGT402:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 85.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.710936904544602,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.4087544860689825,
+              "normalized_current_rmse": 16.634778664436098,
+              "normalized_current_mae": 16.618685016907058,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "437d6645bf1bda4ac1cc9a605e8b733f181285f071806605ba455c2d68daae1e",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-CC6CEB69426E38B6",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT401:FailedOff",
+                "LGT411:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 105.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.8782161762021554,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.5213726791987001,
+              "normalized_current_rmse": 26.261544867264305,
+              "normalized_current_mae": 26.251364375724208,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "ba340dbda5aa49713c227fdaaabf098ca78091b98870bd94c4194410b58d2815",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-EAAD90F679A1798A",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT402:FailedOff",
+                "LGT411:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 105.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.8782161762021554,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.5213726791987001,
+              "normalized_current_rmse": 26.261544867264305,
+              "normalized_current_mae": 26.251364375724208,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "bf579096814c5e8c757de72d893e00b37dac9577923db430e04c391c0853490c",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-90D9D5A46A8327F4",
+              "fault_ids": [
+                "LGT401:FailedOff",
+                "LGT402:FailedOff",
+                "LGT411:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 105.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.8782161762021554,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.5213726791987001,
+              "normalized_current_rmse": 26.261544867264305,
+              "normalized_current_mae": 26.251364375724208,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "895be3fcca283f384a4fde119a09fbb8a0570843b6746c099e2c8c40bf192caa",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-4858DDAE42E9E698",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT401:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 110.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.9200359941165437,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.5431284665078501,
+              "normalized_current_rmse": 28.668857157274324,
+              "normalized_current_mae": 28.659534215428486,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "a630c97167921511cd60acfe3f44567b3d93fd7d739de227b7505d0ec5e78bf2",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-2C18732EE6E144FD",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT402:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 110.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.9200359941165437,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.5431284665078501,
+              "normalized_current_rmse": 28.668857157274324,
+              "normalized_current_mae": 28.659534215428486,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "5541ab43363dc28336de732b533f2bcc4d232ad6adcee5a1d446978db4fea0fe",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-D3930B14BD0B7A1B",
+              "fault_ids": [
+                "LGT401:FailedOff",
+                "LGT402:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 110.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.9200359941165437,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.5431284665078501,
+              "normalized_current_rmse": 28.668857157274324,
+              "normalized_current_mae": 28.659534215428486,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "4ca4f042ece8c8389cb6f6401c30b1252a36982914b44950ee2d0a78999d5c48",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-CB6F26EC4816452B",
+              "fault_ids": [
+                "LGT411:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 115.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.9618558120309321,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.5629924462249001,
+              "normalized_current_rmse": 31.076302347424686,
+              "normalized_current_mae": 31.06770405513279,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "4d55164cac3be335d90d20433704506130dcaaf3bf20c78c15693891ef8269e2",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-7ECE148535877F9D",
+              "fault_ids": [
+                "LGT400:FailedOff",
+                "LGT411:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 140.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 1.1709549016028737,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.641029509399025,
+              "normalized_current_rmse": 43.11474257075723,
+              "normalized_current_mae": 43.10855325365422,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "c708b33ff64bedfeb66e48b5e45a704a066faecdbacbffbda0cfef4368dc1916",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-C41757238B695F5F",
+              "fault_ids": [
+                "LGT401:FailedOff",
+                "LGT411:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 140.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 1.1709549016028737,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.641029509399025,
+              "normalized_current_rmse": 43.11474257075723,
+              "normalized_current_mae": 43.10855325365422,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "f0f5c65fe5267abf34af9f8c5caad3cdba4d7ddff3474dde539f8d1b12e2f1d4",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-50C650B5952BAC47",
+              "fault_ids": [
+                "LGT402:FailedOff",
+                "LGT411:FailedOff",
+                "LGT481:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 140.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 1.1709549016028737,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 0.641029509399025,
+              "normalized_current_rmse": 43.11474257075723,
+              "normalized_current_mae": 43.10855325365422,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402",
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT411"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "55187331c59dd7784275e208ed9f99329fca5ec860e0bff8cbcd4b18f84a6720",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-AD20C4ED441FCC77",
+              "fault_ids": [
+                "LGT400:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 25.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.20909908957194176,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 1.0102347473654594,
+              "normalized_current_rmse": 12.301197827045893,
+              "normalized_current_mae": 12.279353059544425,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT400"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "ec351acac622f26af25e3460d2252b7b9487b1b24fd95846ccc2217e33ee9af9",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-10BA0F145559A172",
+              "fault_ids": [
+                "LGT401:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 25.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.20909908957194176,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 1.0102347473654594,
+              "normalized_current_rmse": 12.301197827045893,
+              "normalized_current_mae": 12.279353059544425,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT401"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "aaf11db96befdebd39f04cdb06fb22dd7752932e8e174cad1caad81087314859",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            },
+            {
+              "diagnosis_id": "R29-43945713CDA26866",
+              "fault_ids": [
+                "LGT402:FailedOff"
+              ],
+              "branch_id": "IT167|E167",
+              "current_sensor_id": "IT167",
+              "voltage_sensor_id": "E167",
+              "total_rated_power_w": 25.0,
+              "observed_current_drop_a": 0.4203382554999999,
+              "expected_current_drop_a": 0.20909908957194176,
+              "current_drop_z": 24.169398340934425,
+              "power_relative_error": 1.0102347473654594,
+              "normalized_current_rmse": 12.301197827045893,
+              "normalized_current_mae": 12.279353059544425,
+              "temperature_supported_fault_ids": [],
+              "temperature_contradiction_codes": [
+                "EXPECTED_COOLING_NOT_OBSERVED:LGT402"
+              ],
+              "position_contradiction_codes": [],
+              "command_contradiction_codes": [],
+              "simulation_trace_sha256": "c87ce32eb9b85766a19801f521c29e39512b57f1ef72087538d4d97de05594f9",
+              "fit_status": "REJECTED",
+              "score_semantics": "REDUCED_ORDER_TRACE_DISTANCE_LOWER_IS_BETTER_NOT_PROBABILITY"
+            }
+          ]
+        },
+        {
+          "case_id": "Exp_692_pb_t2",
+          "group_id": "80ca0220514d04d6fd6c7abeeb8d4d28c18fe5cf54088ad8528054463017199c",
+          "true_fault_ids": [
+            "LGT405:FailedOff",
+            "LGT406:FailedOff"
+          ],
+          "r28_predicted_fault_ids": [
+            "LGT405:FailedOff",
+            "LGT406:FailedOff"
+          ],
+          "predicted_fault_ids": [
+            "LGT405:FailedOff",
+            "LGT406:FailedOff"
+          ],
+          "first_alarm_time_s": 131.502,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "84e1041d545bace4df881917459c3aeee4484f83a1b765a3a598c308a3a91e14",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        },
+        {
+          "case_id": "Exp_696_pb_t2",
+          "group_id": "86be81ece91737401bd5b030cecacf6c7f579f1c15f2fbaf0bff02ce46bf5f6c",
+          "true_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "r28_predicted_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "predicted_fault_ids": [
+            "CB266:FailedOpen",
+            "ST516:Stuck"
+          ],
+          "first_alarm_time_s": 118.502,
+          "application_status": "PASSTHROUGH_R28_RESOLVED",
+          "reason_codes": [
+            "R28_ALREADY_RESOLVED_NO_R29_RERANK"
+          ],
+          "reduced_order_result_sha256": "e7a8515d8d36c14cfd1c7e3097887dc4a269572ba814b87636630f0418a45e50",
+          "selected_diagnosis_id": null,
+          "candidate_fits": []
+        }
+      ]
+    }
+  },
+  "combined_post_contact_development": {
+    "r28_metrics": {
+      "case_count": 25,
+      "fault_element_precision_micro": 1.0,
+      "fault_element_recall_micro": 0.9705882352941176,
+      "fault_element_f1_micro": 0.9850746268656716,
+      "component_precision_micro": 1.0,
+      "component_recall_micro": 0.9705882352941176,
+      "component_f1_micro": 0.9850746268656716,
+      "exact_fault_set_rate": 0.96,
+      "faulty_case_any_fault_element_overlap_rate": 0.96,
+      "mean_predicted_fault_count": 1.32,
+      "diagnostic_resolution_rate": 0.96,
+      "unresolved_case_count": 1,
+      "resolved_exact_fault_set_rate": 1.0
+    },
+    "r29_metrics": {
+      "case_count": 25,
+      "fault_element_precision_micro": 1.0,
+      "fault_element_recall_micro": 1.0,
+      "fault_element_f1_micro": 1.0,
+      "component_precision_micro": 1.0,
+      "component_recall_micro": 1.0,
+      "component_f1_micro": 1.0,
+      "exact_fault_set_rate": 1.0,
+      "faulty_case_any_fault_element_overlap_rate": 1.0,
+      "mean_predicted_fault_count": 1.36,
+      "diagnostic_resolution_rate": 1.0,
+      "unresolved_case_count": 0,
+      "resolved_exact_fault_set_rate": 1.0
+    }
+  },
+  "changed_case_count": 1,
+  "changed_case_ids": [
+    "Exp_658_pb_t2"
+  ],
+  "physics_application_case_count": 1,
+  "physics_application_case_ids": [
+    "Exp_658_pb_t2"
+  ],
+  "unresolved_case_count": 0,
+  "unresolved_case_ids": [],
+  "modeled_scope": [
+    "ADAPT LightBulb*W FailedOff rated-power model parsed from public component type",
+    "candidate-specific branch-current numerical trace under observed VAC boundary condition",
+    "local temperature cooling consistency when a temperature sensor exists",
+    "local relay-position and related-command consistency",
+    "R28 resolved predictions pass through unchanged"
+  ],
+  "numerical_time_series_simulation": true,
+  "continuous_network_solver": false,
+  "agent_required": false,
+  "legacy_r28_retained": true,
+  "runtime_default_changed": false,
+  "competition_or_rematch_regenerated": false,
+  "new_holdout_supplied": false,
+  "stop_rule": "NO_PARAMETER_SEARCH_ON_DXC09_SAMPLE_AFTER_FIXED_R29_DESIGN",
+  "status": "POST_CONTACT_DEVELOPMENT_REDUCED_ORDER_SIMULATION_AUDIT_ONLY",
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R29 was implemented after R28 development outcomes were already observed. The fixed reduced-order resolver is grounded in the public ADAPT graph, rated light-load power and telemetry boundary conditions rather than case-ID rules, but all DXC09 Sample metrics remain post-contact development evidence. It is not VirtualADAPT/Simulink, a full network solver, posterior probability, formal EvidenceFact, or external validation.",
+  "receipt_sha256": "f25192a6fd49ed30061db1dd2a8ac12edbe7d4cc47abd91a9d255761c0a67abd"
+}

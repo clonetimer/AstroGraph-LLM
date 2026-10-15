@@ -1,0 +1,26 @@
+{
+  "schema_version": "phm.minimal_runtime.run.v1",
+  "scenario": "transmitter_output_power_loss",
+  "duration_s": 120.0,
+  "integration_step_s": 1.0,
+  "seed": 20260719,
+  "event_count": 1,
+  "active_event_rows": 61,
+  "row_count": 121,
+  "events": [
+    {
+      "id": "transmitter_output_power_loss",
+      "category": "degradation",
+      "effect": "transmitter_output_power_loss",
+      "target": "transmitter",
+      "start_s": 30.0,
+      "duration_s": 60.0,
+      "parameters": {
+        "rf_power_scale": 0.45
+      }
+    }
+  ],
+  "runtime": "Basilisk official modules + project-native SysModel in one scheduler",
+  "context_of_use": "E0 engineering synthetic whole-spacecraft PHM simulation",
+  "claim_boundary": "Not flight calibrated; no RUL or flight-grade diagnostic claim"
+}

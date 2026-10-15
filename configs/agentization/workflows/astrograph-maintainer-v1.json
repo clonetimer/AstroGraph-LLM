@@ -1,0 +1,34 @@
+{
+  "claim_scope": "SOURCE_AND_PACKAGE_MAINTENANCE",
+  "edges": [
+    {
+      "from": "verify_source",
+      "to": "intake"
+    },
+    {
+      "from": "intake",
+      "to": "audit_p2"
+    }
+  ],
+  "nodes": [
+    {
+      "capability": "artifact.verify",
+      "id": "verify_source"
+    },
+    {
+      "capability": "dataset.intake_archive",
+      "id": "intake"
+    },
+    {
+      "capability": "authoritative_p2.audit",
+      "id": "audit_p2"
+    }
+  ],
+  "profile": "MAINTAINER",
+  "project_status": "B009_WIP_DEVELOPMENT_EVIDENCE",
+  "schema_version": "astrograph-agent-workflow.v1",
+  "workflow_status": "READ_ONLY_MAINTENANCE_AUDIT",
+  "excluded_unsafe_steps": ["maintainer.test_shard", "maintainer.package", "maintainer.fresh_verify"],
+  "structural_validation_not_scientific_validation": true,
+  "workflow_id": "astrograph-maintainer-v1"
+}

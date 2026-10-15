@@ -1,0 +1,159 @@
+{
+  "schema_version": "astrograph-evidence-constraint-catalog.v1",
+  "catalog_version": "evidence-constraints-0.4.2-e0-d3rw",
+  "critical_requirements": [
+    {
+      "requirement_id": "REQ-BATTERY-DIRECT-001",
+      "fault_id": "FAULT_BATTERY_CAPACITY_LOSS",
+      "any_of_anomaly_ids": [
+        "ANOM_BATTERY_VOLTAGE_DEVIATION",
+        "ANOM_BATTERY_CURRENT_DEVIATION",
+        "ANOM_BATTERY_EFFECTIVE_CAPACITY_LOW"
+      ],
+      "minimum_matches": 1,
+      "min_confidence": 0.1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "Battery capacity loss requires at least one battery-local observation.",
+      "evidence_level": "E0"
+    },
+    {
+      "requirement_id": "REQ-SOLAR-DIRECT-001",
+      "fault_id": "FAULT_SOLAR_EFFICIENCY_LOSS",
+      "any_of_anomaly_ids": [
+        "ANOM_SOLAR_CURRENT_DEVIATION",
+        "ANOM_SOLAR_VOLTAGE_DEVIATION",
+        "ANOM_SOLAR_ARRAY_POWER_LOW"
+      ],
+      "minimum_matches": 1,
+      "min_confidence": 0.1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "Solar efficiency diagnosis requires a solar-array-local observation.",
+      "evidence_level": "E0"
+    },
+    {
+      "requirement_id": "REQ-RADIATOR-DIRECT-001",
+      "fault_id": "FAULT_RADIATOR_REJECTION_LOSS",
+      "any_of_anomaly_ids": [
+        "ANOM_RADIATOR_TEMP_DEVIATION",
+        "ANOM_RADIATOR_COEFFICIENT_LOW"
+      ],
+      "minimum_matches": 1,
+      "min_confidence": 0.1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "Radiator rejection loss requires radiator-local evidence.",
+      "evidence_level": "E0"
+    },
+    {
+      "requirement_id": "REQ-RW-DIRECT-001",
+      "fault_id": "FAULT_RW_JAM",
+      "any_of_anomaly_ids": [
+        "ANOM_RW0_SPEED_DEVIATION",
+        "ANOM_RW0_TORQUE_DEVIATION",
+        "ANOM_RW0_CURRENT_DEVIATION"
+      ],
+      "minimum_matches": 1,
+      "min_confidence": 0.1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "Reaction-wheel jam requires at least one wheel-local observation.",
+      "evidence_level": "E0"
+    },
+    {
+      "requirement_id": "REQ-DOWNLINK-DIRECT-001",
+      "fault_id": "FAULT_DOWNLINK_LOSS",
+      "any_of_anomaly_ids": [
+        "ANOM_DOWNLINK_RATE_DEVIATION",
+        "ANOM_RF_POWER_DEVIATION",
+        "ANOM_PACKET_ERROR_INCREASE"
+      ],
+      "minimum_matches": 1,
+      "min_confidence": 0.1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "Downlink loss requires at least one communication-local observation.",
+      "evidence_level": "E0"
+    },
+    {
+      "requirement_id": "REQ-D3-RW-FRICTION-DIRECT-001",
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "any_of_anomaly_ids": [
+        "ANOM_RW_FRICTION_ESTIMATE_HIGH"
+      ],
+      "minimum_matches": 1,
+      "min_confidence": 0.1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "D3 friction-increase diagnosis requires a wheel-local friction estimate anomaly.",
+      "evidence_level": "E0"
+    },
+    {
+      "requirement_id": "REQ-D3-RW-FRICTION-RESPONSE-001",
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "any_of_anomaly_ids": [
+        "ANOM_RW_CURRENT_DEVIATION",
+        "ANOM_RW_SPEED_DEVIATION"
+      ],
+      "minimum_matches": 1,
+      "min_confidence": 0.1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "D3 friction-increase diagnosis requires at least one wheel response channel.",
+      "evidence_level": "E0"
+    },
+    {
+      "requirement_id": "REQ-D3-RW-TORQUE-STATUS-001",
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "any_of_anomaly_ids": [
+        "ANOM_RW_DRIVER_UNAVAILABLE"
+      ],
+      "minimum_matches": 1,
+      "min_confidence": 0.1,
+      "action": "block_diagnosis",
+      "penalty": 0.0,
+      "rationale": "D3 torque-authority-loss diagnosis requires direct wheel availability/driver status evidence.",
+      "evidence_level": "E0"
+    }
+  ],
+  "counter_evidence_rules": [
+    {
+      "rule_id": "CTR-BATTERY-CAPACITY-NORMAL-001",
+      "fault_id": "FAULT_BATTERY_CAPACITY_LOSS",
+      "anomaly_id": "ANOM_BATTERY_CAPACITY_CONFIRMED_NORMAL",
+      "min_confidence": 0.7,
+      "penalty_weight": 0.8,
+      "rationale": "A direct capacity estimate confirmed normal contradicts capacity-loss diagnosis.",
+      "evidence_level": "E0"
+    },
+    {
+      "rule_id": "CTR-DOWNLINK-HEALTHY-001",
+      "fault_id": "FAULT_DOWNLINK_LOSS",
+      "anomaly_id": "ANOM_DOWNLINK_SERVICE_CONFIRMED_HEALTHY",
+      "min_confidence": 0.7,
+      "penalty_weight": 0.8,
+      "rationale": "A confirmed healthy downlink service contradicts downlink-loss diagnosis.",
+      "evidence_level": "E0"
+    },
+    {
+      "rule_id": "CTR-D3-RW-FRICTION-DRIVER-UNAVAILABLE-001",
+      "fault_id": "ADCS_RW_FRICTION_INCREASE",
+      "anomaly_id": "ANOM_RW_DRIVER_UNAVAILABLE",
+      "min_confidence": 0.5,
+      "penalty_weight": 1.2,
+      "rationale": "A confirmed unavailable driver contradicts a pure friction-increase mechanism under the D3 contract.",
+      "evidence_level": "E0"
+    },
+    {
+      "rule_id": "CTR-D3-RW-TORQUE-DRIVER-AVAILABLE-001",
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "anomaly_id": "ANOM_RW_DRIVER_AVAILABLE_CONFIRMED",
+      "min_confidence": 0.5,
+      "penalty_weight": 1.0,
+      "rationale": "A confirmed available driver contradicts torque-authority loss under the D3 contract.",
+      "evidence_level": "E0"
+    }
+  ],
+  "claim_boundary": "E0 engineering constraints for D0/D1 plus D3 reaction-wheel synthetic data; not calibrated probability or flight rule."
+}

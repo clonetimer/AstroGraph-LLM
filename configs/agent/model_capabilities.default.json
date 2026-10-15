@@ -1,0 +1,63 @@
+{
+  "schema_version": "astrograph-model-capability-catalog.v1",
+  "entries": [
+    {
+      "capability_id": "generic-robust-baseline-detection-v1",
+      "model_id": "astrograph-robust-baseline-deviation",
+      "model_version": "1",
+      "domain": "generic",
+      "tasks": [
+        "detection"
+      ],
+      "runtime_kind": "BUILTIN_GENERIC",
+      "channel_match": "ANY_NUMERIC",
+      "required_channels": [],
+      "units": {},
+      "artifact_manifest": null,
+      "online_eligible": true,
+      "retrospective_only": false,
+      "priority": 100,
+      "claim_boundary": "Generic robust deviation detector only; no learned fault classification or localization is implied."
+    },
+    {
+      "capability_id": "adcs-p2-native-host-bound-v2",
+      "model_id": "adcs-p2-innovation-residual-tcn",
+      "model_version": "0.7.1.post24-candidate.2-order-recovered",
+      "domain": "adcs",
+      "tasks": [
+        "detection",
+        "localization",
+        "classification"
+      ],
+      "runtime_kind": "OAG_NATIVE",
+      "channel_match": "HOST_BOUND_ONLY",
+      "required_channels": [],
+      "units": {},
+      "artifact_manifest": null,
+      "online_eligible": true,
+      "retrospective_only": false,
+      "priority": 200,
+      "claim_boundary": "Execution requires the existing hash-approved native ADCS model and its exact provider channel contract."
+    },
+    {
+      "capability_id": "phm-v60-extra-trees-retrospective-v1",
+      "model_id": "phm-v60-extra-trees-retrospective-screening",
+      "model_version": "2026.09.14-dev13",
+      "domain": "phm",
+      "tasks": [
+        "detection",
+        "localization",
+        "classification"
+      ],
+      "runtime_kind": "PHM_RETROSPECTIVE_BUNDLE",
+      "channel_match": "REQUIRED_SUBSET",
+      "required_channels": [],
+      "units": {},
+      "artifact_manifest": "models/phm_v6_0/promoted_extra_trees_v1/manifest.json",
+      "online_eligible": false,
+      "retrospective_only": true,
+      "priority": 300,
+      "claim_boundary": "Retrospective post-activation trace screening only; not an unknown-onset online or flight-qualified model."
+    }
+  ]
+}

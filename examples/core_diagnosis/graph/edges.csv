@@ -1,0 +1,4 @@
+edge_id,source_id,relation,target_id,properties_json
+EDGE_E_A,A,REQUIRES_EVIDENCE,E_A,{}
+EDGE_E_B,B,REQUIRES_EVIDENCE,E_B,{}
+EDGE_E_CA,A,CONTRADICTED_BY,E_CA,{}

@@ -1,0 +1,80 @@
+{
+  "agent_required": false,
+  "auto_override_enabled": false,
+  "base_r30_shared_extension_finding": "BASE-R31-01_ADDITIVE_SHARED_R30_TOOL_AND_MECHANISM_HOSTS",
+  "base_r30_zip_sha256": "c42fcda321d225e2d8be557674a2bec683ce68e3614e66829797b5fdfddbe7a4",
+  "blind_campaign": {
+    "accuracy": 1.0,
+    "case_count": 80,
+    "failed_off_recall": 1.0,
+    "flow_blocked_recall": 1.0,
+    "macro_f1": 1.0,
+    "prediction_set_sha256": "8f7ef4641e4230bfed87d7885fd445b44d071f06fec70ab7e6dffde9e6575dfb",
+    "status": "SYNTHETIC_BLIND_EVENT_CONDITIONAL_PROTOCOL_EVIDENCE_NOT_EXTERNAL_VALIDATION",
+    "truth_set_sha256": "b8556a28795111c552da69abf05575176ee8ab6200195bb7ac13f399cac4bec6"
+  },
+  "claim_boundary": "R31 implements a truth-blind WaterPump reduced-order mechanism corroborator and synthetic event-conditional mode-classification protocol. It does not establish end-to-end detection, DXC external validation, SOTA, calibrated probability, full network simulation, HIL or flight qualification.",
+  "core_role": "PRIMARY_PATH_PHYSICS_CORROBORATOR_NO_AUTO_OVERRIDE",
+  "data_exposure": {
+    "dxc09_sample_usage": "AUDIT_ONLY_TRUTH_ALIGNED_WINDOW",
+    "dxc_competition_rematch_regenerated": false,
+    "esa_seen_external_regenerated": false,
+    "synthetic_truth_join_after_prediction_freeze": true
+  },
+  "formal_evidence_eligible": false,
+  "mechanism_registry": {
+    "coverage": {
+      "by_model_class": {
+        "BATTERY_DEGRADATION": 3,
+        "INVERTER_OUTPUT_COLLAPSE": 2,
+        "PASSIVE_LOAD_FAILED_OFF": 2,
+        "PUMP_FLOW_RESPONSE": 4,
+        "RESISTIVE_LOAD_FAILED_OFF": 10,
+        "ROTATING_MACHINE_SPEED_RESPONSE": 8,
+        "SENSOR_MEASUREMENT_FAULT": 100,
+        "SWITCH_STATE_TRANSITION": 93
+      },
+      "catalog_component_count": 173,
+      "catalog_fault_mode_instance_count": 222,
+      "declared_only_count": 5,
+      "modeled_fault_mode_coverage": 1.0,
+      "modeled_fault_mode_instance_count": 222,
+      "numerical_reduced_order_count": 14,
+      "numerical_reduced_order_coverage_of_fault_universe": 0.06306306306306306,
+      "qualitative_state_response_count": 203
+    },
+    "registry_sha256": "56c7301db993fc94185018da5d0c5bcd39452f8f9808b85a01e0d3bd86010c30"
+  },
+  "patch_id": "PATCH-R31",
+  "public_sample_audit": {
+    "case_count": 2,
+    "mode_agreement_rate": 1.0,
+    "receipt_sha256": "e8790fc3f49ad5912d286f53b42140768e5d266ec99f141517e764c54cae683a",
+    "status": "TRUTH_ALIGNED_PUBLIC_SAMPLE_MECHANISM_FIT_AUDIT_NOT_ONLINE_DIAGNOSIS"
+  },
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "7dc056cbcd658670f068365c80fe8b1fad063a1250ad07824608706fc614d8b6",
+  "schema_version": "astrograph-r31-waterpump-mechanism-protocol.v1",
+  "source_bindings": {
+    "configs/evaluation/dxc_r31_waterpump_reduced_order.v1.json": "6ce5f092044bc6ae26f42d516c5c16f69df57eea8a18195a78a94b7ea56509d5",
+    "docs/ASTROGRAPH_AGENT_TOOL_SPECIFICATION_R31.md": "c4fe699720caa7741e482846612b94bac228cdbad8e4469ef23bd047cd2919f4",
+    "docs/ASTROGRAPH_R31_WATERPUMP_REDUCED_ORDER_SIMULATION.md": "e1fcee9ced43c3dc0e723d939f4056420a80a1e6f4b552ac7d1b499e3ea57cf3",
+    "scripts/experiments/run_r31_pump_blind_campaign.py": "f4e04609115d4ace01d0d256d7465a5e08d62c3e4ea90c096c553bb8569acb8e",
+    "scripts/experiments/run_r31_waterpump_mechanism_audit.py": "791b6c87b43b54feccf3e9983916f9ee3de841965f9f12d9dbf1a5a05776d57f",
+    "src/astrograph/diagnosis/dxc_pump_reduced_order.py": "840b5ac885f8a5d75d6c1b16ce352ca2505b1e00070fd6447f2a8474b6ee166e",
+    "src/astrograph/evaluation/dxc_r31_waterpump.py": "a42f75a012c428fd26d9ac11567ef8053e2984784534f0ca338f0a135ec7f99a",
+    "src/astrograph/evaluation/r31_pump_blind_campaign.py": "919c2dda21a157cfbfc43860419bb1deeffe09659857a9ddc45fc5c018bb9a95",
+    "src/astrograph/governance/agent_tool_specification.py": "9add05d736e54f408a8e043de3ec8c686283609ede3253d1d69214ebfe47b705",
+    "src/astrograph/investigation/diagnostic_probes.py": "92651257a38fafe79fb5bd08e0e30a942ec762d420c1d4494e2d505a3025d93f",
+    "src/astrograph/simulation/adapt_component_model_registry.py": "ad6dfbad0e8fd7f62ba32b2c1f445bf8348cfd0ffa83f403e2d92770423a6ce7",
+    "src/astrograph/simulation/adapt_pump_reduced_order.py": "4c05016d903f63ab0d81badf18a9efccd3524640f2aa6cdacd529276a44a88eb"
+  },
+  "status": "FROZEN_SECOND_NUMERICAL_MECHANISM_FAMILY_SYNTHETIC_PROTOCOL",
+  "stop_rule": "NO_PARAMETER_OR_RULE_OPTIMIZATION_ON_R31_PUMP_BLIND_OR_DXC09_SAMPLE_OUTCOMES",
+  "tool_catalog": {
+    "catalog_sha256": "637f4e94d4847c24c9e4ed44b71d5ffb1fc875c6225f0df0db87e34242c74074",
+    "count": 46,
+    "policy_version": "R31-v1"
+  },
+  "waterpump_provider_id": "adapt-waterpump-reduced-order-v1"
+}

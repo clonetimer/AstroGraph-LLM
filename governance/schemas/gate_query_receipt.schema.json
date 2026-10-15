@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-gate-query-receipt.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "receipt_id": {
+      "minLength": 1,
+      "title": "Receipt Id",
+      "type": "string"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Contract Sha256",
+      "type": "string"
+    },
+    "candidate_id": {
+      "minLength": 1,
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "query_index": {
+      "minimum": 1,
+      "title": "Query Index",
+      "type": "integer"
+    },
+    "state_id": {
+      "minLength": 1,
+      "title": "State Id",
+      "type": "string"
+    },
+    "reserved_at": {
+      "title": "Reserved At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "receipt_id",
+    "contract_id",
+    "contract_sha256",
+    "candidate_id",
+    "query_index",
+    "state_id"
+  ],
+  "title": "GateQueryReceipt",
+  "type": "object"
+}

@@ -1,0 +1,114 @@
+{
+  "queries": [
+    {
+      "query_id": "Q-ADCS_RW_JAM-REQUIRED",
+      "question": "反作用轮卡滞需要哪些关键可执行证据？",
+      "start_node_id": "ADCS_RW_JAM",
+      "expected_relation": "REQUIRES_EVIDENCE",
+      "expected_target_ids": [
+        "ED-ONLINE-RW-JAM-DRIVER-V1",
+        "ED-ONLINE-RW-JAM-UNAVAILABLE-V1"
+      ]
+    },
+    {
+      "query_id": "Q-ADCS_RW_JAM-SUPPORTING",
+      "question": "反作用轮卡滞有哪些非关键支持证据？",
+      "start_node_id": "ADCS_RW_JAM",
+      "expected_relation": "SUPPORTED_BY",
+      "expected_target_ids": []
+    },
+    {
+      "query_id": "Q-EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE-REQUIRED",
+      "question": "电池内阻增大需要哪些关键可执行证据？",
+      "start_node_id": "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE",
+      "expected_relation": "REQUIRES_EVIDENCE",
+      "expected_target_ids": [
+        "ED-ONLINE-BATTERY-IR-SCALE-V1",
+        "ED-ONLINE-BATTERY-OHMIC-LOSS-V1"
+      ]
+    },
+    {
+      "query_id": "Q-EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE-SUPPORTING",
+      "question": "电池内阻增大有哪些非关键支持证据？",
+      "start_node_id": "EPS_BATTERY_INTERNAL_RESISTANCE_INCREASE",
+      "expected_relation": "SUPPORTED_BY",
+      "expected_target_ids": [
+        "ED-ONLINE-BATTERY-IR-ESTIMATE-V1"
+      ]
+    },
+    {
+      "query_id": "Q-EPS_SOLAR_ARRAY_STRING_FAILURE-REQUIRED",
+      "question": "太阳阵字符串失效需要哪些关键可执行证据？",
+      "start_node_id": "EPS_SOLAR_ARRAY_STRING_FAILURE",
+      "expected_relation": "REQUIRES_EVIDENCE",
+      "expected_target_ids": [
+        "ED-ONLINE-SOLAR-CURRENT-DROP-V1",
+        "ED-ONLINE-SOLAR-STRING-DROP-V1"
+      ]
+    },
+    {
+      "query_id": "Q-EPS_SOLAR_ARRAY_STRING_FAILURE-SUPPORTING",
+      "question": "太阳阵字符串失效有哪些非关键支持证据？",
+      "start_node_id": "EPS_SOLAR_ARRAY_STRING_FAILURE",
+      "expected_relation": "SUPPORTED_BY",
+      "expected_target_ids": [
+        "ED-ONLINE-SOLAR-POWER-DROP-V1"
+      ]
+    },
+    {
+      "query_id": "Q-ADCS_GYRO_BIAS_DRIFT-REQUIRED",
+      "question": "陀螺零偏漂移需要哪些关键可执行证据？",
+      "start_node_id": "ADCS_GYRO_BIAS_DRIFT",
+      "expected_relation": "REQUIRES_EVIDENCE",
+      "expected_target_ids": [
+        "ED-ONLINE-GYRO-BIAS-V1",
+        "ED-ONLINE-GYRO-RATE-V1"
+      ]
+    },
+    {
+      "query_id": "Q-ADCS_GYRO_BIAS_DRIFT-SUPPORTING",
+      "question": "陀螺零偏漂移有哪些非关键支持证据？",
+      "start_node_id": "ADCS_GYRO_BIAS_DRIFT",
+      "expected_relation": "SUPPORTED_BY",
+      "expected_target_ids": []
+    },
+    {
+      "query_id": "Q-COMM_TRANSMITTER_OUTPUT_POWER_LOSS-REQUIRED",
+      "question": "发射机输出功率下降需要哪些关键可执行证据？",
+      "start_node_id": "COMM_TRANSMITTER_OUTPUT_POWER_LOSS",
+      "expected_relation": "REQUIRES_EVIDENCE",
+      "expected_target_ids": [
+        "ED-ONLINE-TX-RF-POWER-DROP-V1",
+        "ED-ONLINE-TX-RF-SCALE-V1"
+      ]
+    },
+    {
+      "query_id": "Q-COMM_TRANSMITTER_OUTPUT_POWER_LOSS-SUPPORTING",
+      "question": "发射机输出功率下降有哪些非关键支持证据？",
+      "start_node_id": "COMM_TRANSMITTER_OUTPUT_POWER_LOSS",
+      "expected_relation": "SUPPORTED_BY",
+      "expected_target_ids": [
+        "ED-ONLINE-TX-DOWNLINK-DROP-V1"
+      ]
+    },
+    {
+      "query_id": "Q-DATA_STORAGE_WRITE_FAILURE-REQUIRED",
+      "question": "存储写入失效需要哪些关键可执行证据？",
+      "start_node_id": "DATA_STORAGE_WRITE_FAILURE",
+      "expected_relation": "REQUIRES_EVIDENCE",
+      "expected_target_ids": [
+        "ED-ONLINE-STORAGE-AVAILABLE-V1",
+        "ED-ONLINE-STORAGE-WRITE-RATIO-V1"
+      ]
+    },
+    {
+      "query_id": "Q-DATA_STORAGE_WRITE_FAILURE-SUPPORTING",
+      "question": "存储写入失效有哪些非关键支持证据？",
+      "start_node_id": "DATA_STORAGE_WRITE_FAILURE",
+      "expected_relation": "SUPPORTED_BY",
+      "expected_target_ids": [
+        "ED-ONLINE-STORAGE-INTEGRAL-V1"
+      ]
+    }
+  ]
+}

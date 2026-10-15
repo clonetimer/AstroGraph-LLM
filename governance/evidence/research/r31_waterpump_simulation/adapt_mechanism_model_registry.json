@@ -1,0 +1,5789 @@
+{
+  "claim_boundary": "Mechanism-model coverage catalogue. Numerical execution exists only where executable_provider_id is set. Qualitative/declarative entries are not simulated trajectories, calibrated probabilities, formal EvidenceFacts, or release authority.",
+  "coverage": {
+    "by_model_class": {
+      "BATTERY_DEGRADATION": 3,
+      "INVERTER_OUTPUT_COLLAPSE": 2,
+      "PASSIVE_LOAD_FAILED_OFF": 2,
+      "PUMP_FLOW_RESPONSE": 4,
+      "RESISTIVE_LOAD_FAILED_OFF": 10,
+      "ROTATING_MACHINE_SPEED_RESPONSE": 8,
+      "SENSOR_MEASUREMENT_FAULT": 100,
+      "SWITCH_STATE_TRANSITION": 93
+    },
+    "catalog_component_count": 173,
+    "catalog_fault_mode_instance_count": 222,
+    "declared_only_count": 5,
+    "modeled_fault_mode_coverage": 1.0,
+    "modeled_fault_mode_instance_count": 222,
+    "numerical_reduced_order_count": 14,
+    "numerical_reduced_order_coverage_of_fault_universe": 0.06306306306306306,
+    "qualitative_state_response_count": 203
+  },
+  "models": [
+    {
+      "command_ids": [],
+      "component_id": "BAT1",
+      "component_type": "Battery2x12V100AH",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "DC_VOLTAGE_DROOP_UNDER_LOAD",
+        "CAPACITY_MARGIN_DECREASE"
+      ],
+      "fault_id": "BAT1:Degraded",
+      "fault_mode": "Degraded",
+      "fidelity": "DECLARED_ONLY_NOT_EXECUTABLE",
+      "formal_evidence_eligible": false,
+      "model_class": "BATTERY_DEGRADATION",
+      "model_id": "ADAPT-MECH-BAT1-Degraded",
+      "observable_component_ids": [
+        "TE128",
+        "TE129",
+        "E135",
+        "ISH136"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "AVAILABLE_CAPACITY_OR_TERMINAL_VOLTAGE_MARGIN_DECREASE",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "BAT2",
+      "component_type": "Battery2x12V100AH",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "DC_VOLTAGE_DROOP_UNDER_LOAD",
+        "CAPACITY_MARGIN_DECREASE"
+      ],
+      "fault_id": "BAT2:Degraded",
+      "fault_mode": "Degraded",
+      "fidelity": "DECLARED_ONLY_NOT_EXECUTABLE",
+      "formal_evidence_eligible": false,
+      "model_class": "BATTERY_DEGRADATION",
+      "model_id": "ADAPT-MECH-BAT2-Degraded",
+      "observable_component_ids": [
+        "TE228",
+        "TE229",
+        "E235",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "AVAILABLE_CAPACITY_OR_TERMINAL_VOLTAGE_MARGIN_DECREASE",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "BAT3",
+      "component_type": "Battery2x12V50AH",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "DC_VOLTAGE_DROOP_UNDER_LOAD",
+        "CAPACITY_MARGIN_DECREASE"
+      ],
+      "fault_id": "BAT3:Degraded",
+      "fault_mode": "Degraded",
+      "fidelity": "DECLARED_ONLY_NOT_EXECUTABLE",
+      "formal_evidence_eligible": false,
+      "model_class": "BATTERY_DEGRADATION",
+      "model_id": "ADAPT-MECH-BAT3-Degraded",
+      "observable_component_ids": [
+        "TE328",
+        "TE329",
+        "E335"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "AVAILABLE_CAPACITY_OR_TERMINAL_VOLTAGE_MARGIN_DECREASE",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY136_OP"
+      ],
+      "component_id": "CB136",
+      "component_type": "CircuitBreaker70AmpCmd",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB136:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB136-FailedOpen",
+      "observable_component_ids": [
+        "ISH136",
+        "E135",
+        "TE128",
+        "TE129"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY136_OP"
+      ],
+      "component_id": "CB136",
+      "component_type": "CircuitBreaker70AmpCmd",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB136:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB136-StuckClosed",
+      "observable_component_ids": [
+        "ISH136",
+        "E135",
+        "TE128",
+        "TE129"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "CB162",
+      "component_type": "CircuitBreaker70Amp",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB162:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB162-FailedOpen",
+      "observable_component_ids": [
+        "ISH162"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "CB166",
+      "component_type": "CircuitBreaker10Amp",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB166:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB166-FailedOpen",
+      "observable_component_ids": [
+        "ISH166",
+        "E165",
+        "E167",
+        "IT167",
+        "ST165",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "CB180",
+      "component_type": "CircuitBreaker4Amp",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB180:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB180-FailedOpen",
+      "observable_component_ids": [
+        "ISH180",
+        "E181",
+        "IT181",
+        "ESH183",
+        "ESH184"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY236_OP"
+      ],
+      "component_id": "CB236",
+      "component_type": "CircuitBreaker70AmpCmd",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB236:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB236-FailedOpen",
+      "observable_component_ids": [
+        "ISH236",
+        "E235",
+        "E240",
+        "IT240",
+        "ESH241A",
+        "ESH244A",
+        "TE228",
+        "TE229"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY236_OP"
+      ],
+      "component_id": "CB236",
+      "component_type": "CircuitBreaker70AmpCmd",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB236:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB236-StuckClosed",
+      "observable_component_ids": [
+        "ISH236",
+        "E235",
+        "E240",
+        "IT240",
+        "ESH241A",
+        "ESH244A",
+        "TE228",
+        "TE229"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "CB262",
+      "component_type": "CircuitBreaker70Amp",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB262:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB262-FailedOpen",
+      "observable_component_ids": [
+        "ISH262",
+        "E261",
+        "IT261",
+        "ESH260A",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "CB266",
+      "component_type": "CircuitBreaker10Amp",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB266:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB266-FailedOpen",
+      "observable_component_ids": [
+        "ISH266",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "CB280",
+      "component_type": "CircuitBreaker4Amp",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB280:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB280-FailedOpen",
+      "observable_component_ids": [
+        "ISH280",
+        "E261",
+        "E281",
+        "IT261",
+        "IT281",
+        "ESH260A",
+        "ESH283",
+        "ESH284",
+        "ISH262"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY336_OP"
+      ],
+      "component_id": "CB336",
+      "component_type": "CircuitBreaker70AmpCmd",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB336:FailedOpen",
+      "fault_mode": "FailedOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB336-FailedOpen",
+      "observable_component_ids": [
+        "ISH336",
+        "E340",
+        "IT340",
+        "ESH341A",
+        "ESH344A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_FAILEDOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY336_OP"
+      ],
+      "component_id": "CB336",
+      "component_type": "CircuitBreaker70AmpCmd",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "CB336:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-CB336-StuckClosed",
+      "observable_component_ids": [
+        "ISH336",
+        "E340",
+        "IT340",
+        "ESH341A",
+        "ESH344A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "DC482",
+      "component_type": "Resistor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE"
+      ],
+      "fault_id": "DC482:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "DECLARED_ONLY_NOT_EXECUTABLE",
+      "formal_evidence_eligible": false,
+      "model_class": "PASSIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-DC482-FailedOff",
+      "observable_component_ids": [
+        "ESH183"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "CONDUCTIVE_PATH_TO_OPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "DC485",
+      "component_type": "Resistor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE"
+      ],
+      "fault_id": "DC485:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "DECLARED_ONLY_NOT_EXECUTABLE",
+      "formal_evidence_eligible": false,
+      "model_class": "PASSIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-DC485-FailedOff",
+      "observable_component_ids": [
+        "ESH284"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "CONDUCTIVE_PATH_TO_OPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E135",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E135:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E135-Offset",
+      "observable_component_ids": [
+        "ISH136",
+        "TE128",
+        "TE129"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E135",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E135:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E135-Stuck",
+      "observable_component_ids": [
+        "ISH136",
+        "TE128",
+        "TE129"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E140",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E140:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E140-Offset",
+      "observable_component_ids": [
+        "IT140",
+        "ESH141A",
+        "ESH144A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E140",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E140:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E140-Stuck",
+      "observable_component_ids": [
+        "IT140",
+        "ESH141A",
+        "ESH144A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E142",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E142:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E142-Offset",
+      "observable_component_ids": [
+        "ESH141A",
+        "ESH160A",
+        "ESH241A",
+        "ESH341A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E142",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E142:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E142-Stuck",
+      "observable_component_ids": [
+        "ESH141A",
+        "ESH160A",
+        "ESH241A",
+        "ESH341A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E161",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E161:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E161-Offset",
+      "observable_component_ids": [
+        "IT161",
+        "ESH160A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E161",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E161:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E161-Stuck",
+      "observable_component_ids": [
+        "IT161",
+        "ESH160A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E165",
+      "component_type": "ACVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E165:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E165-Offset",
+      "observable_component_ids": [
+        "ST165",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E165",
+      "component_type": "ACVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E165:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E165-Stuck",
+      "observable_component_ids": [
+        "ST165",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E167",
+      "component_type": "ACVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E167:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E167-Offset",
+      "observable_component_ids": [
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E167",
+      "component_type": "ACVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E167:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E167-Stuck",
+      "observable_component_ids": [
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E181",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E181:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E181-Offset",
+      "observable_component_ids": [
+        "IT181",
+        "ESH183",
+        "ESH184",
+        "ISH180"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E181",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E181:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E181-Stuck",
+      "observable_component_ids": [
+        "IT181",
+        "ESH183",
+        "ESH184",
+        "ISH180"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E235",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E235:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E235-Offset",
+      "observable_component_ids": [
+        "ISH236",
+        "TE228",
+        "TE229"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E235",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E235:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E235-Stuck",
+      "observable_component_ids": [
+        "ISH236",
+        "TE228",
+        "TE229"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E240",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E240:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E240-Offset",
+      "observable_component_ids": [
+        "IT240",
+        "ESH241A",
+        "ESH244A",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E240",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E240:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E240-Stuck",
+      "observable_component_ids": [
+        "IT240",
+        "ESH241A",
+        "ESH244A",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E242",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E242:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E242-Offset",
+      "observable_component_ids": [
+        "ESH144A",
+        "ESH244A",
+        "ESH260A",
+        "ESH344A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E242",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E242:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E242-Stuck",
+      "observable_component_ids": [
+        "ESH144A",
+        "ESH244A",
+        "ESH260A",
+        "ESH344A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E261",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E261:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E261-Offset",
+      "observable_component_ids": [
+        "IT261",
+        "ESH260A",
+        "ISH262",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E261",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E261:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E261-Stuck",
+      "observable_component_ids": [
+        "IT261",
+        "ESH260A",
+        "ISH262",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E265",
+      "component_type": "ACVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E265:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E265-Offset",
+      "observable_component_ids": [
+        "ST265"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E265",
+      "component_type": "ACVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E265:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E265-Stuck",
+      "observable_component_ids": [
+        "ST265"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E267",
+      "component_type": "ACVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E267:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E267-Offset",
+      "observable_component_ids": [
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E267",
+      "component_type": "ACVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E267:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E267-Stuck",
+      "observable_component_ids": [
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E281",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E281:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E281-Offset",
+      "observable_component_ids": [
+        "IT281",
+        "ESH283",
+        "ESH284",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E281",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E281:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E281-Stuck",
+      "observable_component_ids": [
+        "IT281",
+        "ESH283",
+        "ESH284",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E335",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E335:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E335-Offset",
+      "observable_component_ids": [
+        "TE328",
+        "TE329"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E335",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E335:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E335-Stuck",
+      "observable_component_ids": [
+        "TE328",
+        "TE329"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E340",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E340:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E340-Offset",
+      "observable_component_ids": [
+        "IT340",
+        "ESH341A",
+        "ESH344A",
+        "ISH336"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "E340",
+      "component_type": "DCVoltageSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "E340:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-E340-Stuck",
+      "observable_component_ids": [
+        "IT340",
+        "ESH341A",
+        "ESH344A",
+        "ISH336"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH141A",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH141A:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH141A-Stuck",
+      "observable_component_ids": [
+        "E140",
+        "E142",
+        "IT140"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH144A",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH144A:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH144A-Stuck",
+      "observable_component_ids": [
+        "E140",
+        "E242",
+        "IT140"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH160A",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH160A:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH160A-Stuck",
+      "observable_component_ids": [
+        "E142",
+        "E161",
+        "IT161"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH170",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH170:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH170-Stuck",
+      "observable_component_ids": [
+        "E167",
+        "IT167",
+        "XT167"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH171",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH171:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH171-Stuck",
+      "observable_component_ids": [
+        "E167",
+        "IT167",
+        "XT167"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH172",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH172:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH172-Stuck",
+      "observable_component_ids": [
+        "E167",
+        "IT167",
+        "XT167"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH173",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH173:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH173-Stuck",
+      "observable_component_ids": [
+        "E167",
+        "IT167",
+        "XT167"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH174",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH174:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH174-Stuck",
+      "observable_component_ids": [
+        "E167",
+        "IT167",
+        "XT167"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH175",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH175:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH175-Stuck",
+      "observable_component_ids": [
+        "E167",
+        "IT167",
+        "XT167"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH183",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH183:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH183-Stuck",
+      "observable_component_ids": [
+        "E181",
+        "IT181"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH184",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH184:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH184-Stuck",
+      "observable_component_ids": [
+        "E181",
+        "IT181"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH241A",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH241A:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH241A-Stuck",
+      "observable_component_ids": [
+        "E142",
+        "E240",
+        "IT240"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH244A",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH244A:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH244A-Stuck",
+      "observable_component_ids": [
+        "E240",
+        "E242",
+        "IT240"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH260A",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH260A:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH260A-Stuck",
+      "observable_component_ids": [
+        "E242",
+        "E261",
+        "IT261"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH270",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH270:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH270-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "XT267"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH271",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH271:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH271-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "XT267"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH272",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH272:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH272-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "XT267"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH273",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH273:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH273-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "XT267"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH274",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH274:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH274-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "XT267"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH275",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH275:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH275-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "XT267"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH283",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH283:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH283-Stuck",
+      "observable_component_ids": [
+        "E281",
+        "IT281"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH284",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH284:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH284-Stuck",
+      "observable_component_ids": [
+        "E281",
+        "IT281"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH341A",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH341A:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH341A-Stuck",
+      "observable_component_ids": [
+        "E142",
+        "E340",
+        "IT340"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ESH344A",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ESH344A:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ESH344A-Stuck",
+      "observable_component_ids": [
+        "E242",
+        "E340",
+        "IT340"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY141_CL"
+      ],
+      "component_id": "EY141",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY141:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY141-StuckClosed",
+      "observable_component_ids": [
+        "ESH141A",
+        "E140",
+        "E142",
+        "IT140",
+        "ESH144A",
+        "ESH160A",
+        "ESH241A",
+        "ESH341A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY141_CL"
+      ],
+      "component_id": "EY141",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY141:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY141-StuckOpen",
+      "observable_component_ids": [
+        "ESH141A",
+        "E140",
+        "E142",
+        "IT140",
+        "ESH144A",
+        "ESH160A",
+        "ESH241A",
+        "ESH341A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY144_CL"
+      ],
+      "component_id": "EY144",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY144:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY144-StuckClosed",
+      "observable_component_ids": [
+        "ESH144A",
+        "E140",
+        "E242",
+        "IT140",
+        "ESH141A",
+        "ESH244A",
+        "ESH260A",
+        "ESH344A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY144_CL"
+      ],
+      "component_id": "EY144",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY144:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY144-StuckOpen",
+      "observable_component_ids": [
+        "ESH144A",
+        "E140",
+        "E242",
+        "IT140",
+        "ESH141A",
+        "ESH244A",
+        "ESH260A",
+        "ESH344A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY160_CL"
+      ],
+      "component_id": "EY160",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY160:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY160-StuckClosed",
+      "observable_component_ids": [
+        "ESH160A",
+        "E142",
+        "E161",
+        "IT161",
+        "ESH141A",
+        "ESH241A",
+        "ESH341A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY160_CL"
+      ],
+      "component_id": "EY160",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY160:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY160-StuckOpen",
+      "observable_component_ids": [
+        "ESH160A",
+        "E142",
+        "E161",
+        "IT161",
+        "ESH141A",
+        "ESH241A",
+        "ESH341A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY170_CL"
+      ],
+      "component_id": "EY170",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY170:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY170-StuckClosed",
+      "observable_component_ids": [
+        "ESH170",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166",
+        "LT500",
+        "TE500",
+        "TE501",
+        "TE502"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY170_CL"
+      ],
+      "component_id": "EY170",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY170:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY170-StuckOpen",
+      "observable_component_ids": [
+        "ESH170",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166",
+        "LT500",
+        "TE500",
+        "TE501",
+        "TE502"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY171_CL"
+      ],
+      "component_id": "EY171",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY171:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY171-StuckClosed",
+      "observable_component_ids": [
+        "ESH171",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166",
+        "ST515"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY171_CL"
+      ],
+      "component_id": "EY171",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY171:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY171-StuckOpen",
+      "observable_component_ids": [
+        "ESH171",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166",
+        "ST515"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY172_CL"
+      ],
+      "component_id": "EY172",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY172:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY172-StuckClosed",
+      "observable_component_ids": [
+        "ESH172",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY172_CL"
+      ],
+      "component_id": "EY172",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY172:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY172-StuckOpen",
+      "observable_component_ids": [
+        "ESH172",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY173_CL"
+      ],
+      "component_id": "EY173",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY173:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY173-StuckClosed",
+      "observable_component_ids": [
+        "ESH173",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY173_CL"
+      ],
+      "component_id": "EY173",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY173:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY173-StuckOpen",
+      "observable_component_ids": [
+        "ESH173",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY174_CL"
+      ],
+      "component_id": "EY174",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY174:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY174-StuckClosed",
+      "observable_component_ids": [
+        "ESH174",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH175",
+        "FT525",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY174_CL"
+      ],
+      "component_id": "EY174",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY174:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY174-StuckOpen",
+      "observable_component_ids": [
+        "ESH174",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH175",
+        "FT525",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY175_CL"
+      ],
+      "component_id": "EY175",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY175:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY175-StuckClosed",
+      "observable_component_ids": [
+        "ESH175",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ISH166",
+        "TE511"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY175_CL"
+      ],
+      "component_id": "EY175",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY175:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY175-StuckOpen",
+      "observable_component_ids": [
+        "ESH175",
+        "E167",
+        "IT167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ISH166",
+        "TE511"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY183_CL"
+      ],
+      "component_id": "EY183",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY183:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY183-StuckClosed",
+      "observable_component_ids": [
+        "ESH183",
+        "E181",
+        "IT181",
+        "ESH184",
+        "ISH180"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY183_CL"
+      ],
+      "component_id": "EY183",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY183:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY183-StuckOpen",
+      "observable_component_ids": [
+        "ESH183",
+        "E181",
+        "IT181",
+        "ESH184",
+        "ISH180"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY184_CL"
+      ],
+      "component_id": "EY184",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY184:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY184-StuckClosed",
+      "observable_component_ids": [
+        "ESH184",
+        "E181",
+        "IT181",
+        "ESH183",
+        "ISH180"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY184_CL"
+      ],
+      "component_id": "EY184",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY184:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY184-StuckOpen",
+      "observable_component_ids": [
+        "ESH184",
+        "E181",
+        "IT181",
+        "ESH183",
+        "ISH180"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY241_CL"
+      ],
+      "component_id": "EY241",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY241:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY241-StuckClosed",
+      "observable_component_ids": [
+        "ESH241A",
+        "E142",
+        "E240",
+        "IT240",
+        "ESH141A",
+        "ESH160A",
+        "ESH244A",
+        "ESH341A",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY241_CL"
+      ],
+      "component_id": "EY241",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY241:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY241-StuckOpen",
+      "observable_component_ids": [
+        "ESH241A",
+        "E142",
+        "E240",
+        "IT240",
+        "ESH141A",
+        "ESH160A",
+        "ESH244A",
+        "ESH341A",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY244_CL"
+      ],
+      "component_id": "EY244",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY244:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY244-StuckClosed",
+      "observable_component_ids": [
+        "ESH244A",
+        "E240",
+        "E242",
+        "IT240",
+        "ESH144A",
+        "ESH241A",
+        "ESH260A",
+        "ESH344A",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY244_CL"
+      ],
+      "component_id": "EY244",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY244:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY244-StuckOpen",
+      "observable_component_ids": [
+        "ESH244A",
+        "E240",
+        "E242",
+        "IT240",
+        "ESH144A",
+        "ESH241A",
+        "ESH260A",
+        "ESH344A",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY260_CL"
+      ],
+      "component_id": "EY260",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY260:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY260-StuckClosed",
+      "observable_component_ids": [
+        "ESH260A",
+        "E242",
+        "E261",
+        "IT261",
+        "ESH144A",
+        "ESH244A",
+        "ESH344A",
+        "ISH262",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY260_CL"
+      ],
+      "component_id": "EY260",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY260:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY260-StuckOpen",
+      "observable_component_ids": [
+        "ESH260A",
+        "E242",
+        "E261",
+        "IT261",
+        "ESH144A",
+        "ESH244A",
+        "ESH344A",
+        "ISH262",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY270_CL"
+      ],
+      "component_id": "EY270",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY270:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY270-StuckClosed",
+      "observable_component_ids": [
+        "ESH270",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "FT520",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY270_CL"
+      ],
+      "component_id": "EY270",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY270:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY270-StuckOpen",
+      "observable_component_ids": [
+        "ESH270",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "FT520",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY271_CL"
+      ],
+      "component_id": "EY271",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY271:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY271-StuckClosed",
+      "observable_component_ids": [
+        "ESH271",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266",
+        "TE510"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY271_CL"
+      ],
+      "component_id": "EY271",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY271:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY271-StuckOpen",
+      "observable_component_ids": [
+        "ESH271",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266",
+        "TE510"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY272_CL"
+      ],
+      "component_id": "EY272",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY272:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY272-StuckClosed",
+      "observable_component_ids": [
+        "ESH272",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY272_CL"
+      ],
+      "component_id": "EY272",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY272:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY272-StuckOpen",
+      "observable_component_ids": [
+        "ESH272",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY273_CL"
+      ],
+      "component_id": "EY273",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY273:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY273-StuckClosed",
+      "observable_component_ids": [
+        "ESH273",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY273_CL"
+      ],
+      "component_id": "EY273",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY273:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY273-StuckOpen",
+      "observable_component_ids": [
+        "ESH273",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY274_CL"
+      ],
+      "component_id": "EY274",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY274:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY274-StuckClosed",
+      "observable_component_ids": [
+        "ESH274",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH275",
+        "ISH266",
+        "LT505",
+        "TE505",
+        "TE506",
+        "TE507"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY274_CL"
+      ],
+      "component_id": "EY274",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY274:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY274-StuckOpen",
+      "observable_component_ids": [
+        "ESH274",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH275",
+        "ISH266",
+        "LT505",
+        "TE505",
+        "TE506",
+        "TE507"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY275_CL"
+      ],
+      "component_id": "EY275",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY275:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY275-StuckClosed",
+      "observable_component_ids": [
+        "ESH275",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ISH266",
+        "ST516"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY275_CL"
+      ],
+      "component_id": "EY275",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY275:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY275-StuckOpen",
+      "observable_component_ids": [
+        "ESH275",
+        "E267",
+        "IT267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ISH266",
+        "ST516"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY283_CL"
+      ],
+      "component_id": "EY283",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY283:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY283-StuckClosed",
+      "observable_component_ids": [
+        "ESH283",
+        "E281",
+        "IT281",
+        "ESH284",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY283_CL"
+      ],
+      "component_id": "EY283",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY283:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY283-StuckOpen",
+      "observable_component_ids": [
+        "ESH283",
+        "E281",
+        "IT281",
+        "ESH284",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY284_CL"
+      ],
+      "component_id": "EY284",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY284:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY284-StuckClosed",
+      "observable_component_ids": [
+        "ESH284",
+        "E281",
+        "IT281",
+        "ESH283",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY284_CL"
+      ],
+      "component_id": "EY284",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY284:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY284-StuckOpen",
+      "observable_component_ids": [
+        "ESH284",
+        "E281",
+        "IT281",
+        "ESH283",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY341_CL"
+      ],
+      "component_id": "EY341",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY341:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY341-StuckClosed",
+      "observable_component_ids": [
+        "ESH341A",
+        "E142",
+        "E340",
+        "IT340",
+        "ESH141A",
+        "ESH160A",
+        "ESH241A",
+        "ESH344A",
+        "ISH336"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY341_CL"
+      ],
+      "component_id": "EY341",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY341:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY341-StuckOpen",
+      "observable_component_ids": [
+        "ESH341A",
+        "E142",
+        "E340",
+        "IT340",
+        "ESH141A",
+        "ESH160A",
+        "ESH241A",
+        "ESH344A",
+        "ISH336"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY344_CL"
+      ],
+      "component_id": "EY344",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY344:StuckClosed",
+      "fault_mode": "StuckClosed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY344-StuckClosed",
+      "observable_component_ids": [
+        "ESH344A",
+        "E242",
+        "E340",
+        "IT340",
+        "ESH144A",
+        "ESH244A",
+        "ESH260A",
+        "ESH341A",
+        "ISH336"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKCLOSED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [
+        "EY344_CL"
+      ],
+      "component_id": "EY344",
+      "component_type": "Relay",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "EY344:StuckOpen",
+      "fault_mode": "StuckOpen",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-EY344-StuckOpen",
+      "observable_component_ids": [
+        "ESH344A",
+        "E242",
+        "E340",
+        "IT340",
+        "ESH144A",
+        "ESH244A",
+        "ESH260A",
+        "ESH341A",
+        "ISH336"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCKOPEN",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FAN415",
+      "component_type": "LargeFan",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "SPEED_RESPONSE",
+        "CURRENT_RESPONSE",
+        "DOWNSTREAM_AIRFLOW_OR_THERMAL_RESPONSE"
+      ],
+      "fault_id": "FAN415:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "ROTATING_MACHINE_SPEED_RESPONSE",
+      "model_id": "ADAPT-MECH-FAN415-FailedOff",
+      "observable_component_ids": [
+        "ST515",
+        "ESH171"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "ROTATING_MACHINE_MODE_FAILEDOFF",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FAN415",
+      "component_type": "LargeFan",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "SPEED_RESPONSE",
+        "CURRENT_RESPONSE",
+        "DOWNSTREAM_AIRFLOW_OR_THERMAL_RESPONSE"
+      ],
+      "fault_id": "FAN415:OverSpeed",
+      "fault_mode": "OverSpeed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "ROTATING_MACHINE_SPEED_RESPONSE",
+      "model_id": "ADAPT-MECH-FAN415-OverSpeed",
+      "observable_component_ids": [
+        "ST515",
+        "ESH171"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "ROTATING_MACHINE_MODE_OVERSPEED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FAN415",
+      "component_type": "LargeFan",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "SPEED_RESPONSE",
+        "CURRENT_RESPONSE",
+        "DOWNSTREAM_AIRFLOW_OR_THERMAL_RESPONSE"
+      ],
+      "fault_id": "FAN415:UnderSpeed",
+      "fault_mode": "UnderSpeed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "ROTATING_MACHINE_SPEED_RESPONSE",
+      "model_id": "ADAPT-MECH-FAN415-UnderSpeed",
+      "observable_component_ids": [
+        "ST515",
+        "ESH171"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "ROTATING_MACHINE_MODE_UNDERSPEED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FAN416",
+      "component_type": "LargeFan",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "SPEED_RESPONSE",
+        "CURRENT_RESPONSE",
+        "DOWNSTREAM_AIRFLOW_OR_THERMAL_RESPONSE"
+      ],
+      "fault_id": "FAN416:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "ROTATING_MACHINE_SPEED_RESPONSE",
+      "model_id": "ADAPT-MECH-FAN416-FailedOff",
+      "observable_component_ids": [
+        "ST516",
+        "ESH275"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "ROTATING_MACHINE_MODE_FAILEDOFF",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FAN416",
+      "component_type": "LargeFan",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "SPEED_RESPONSE",
+        "CURRENT_RESPONSE",
+        "DOWNSTREAM_AIRFLOW_OR_THERMAL_RESPONSE"
+      ],
+      "fault_id": "FAN416:OverSpeed",
+      "fault_mode": "OverSpeed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "ROTATING_MACHINE_SPEED_RESPONSE",
+      "model_id": "ADAPT-MECH-FAN416-OverSpeed",
+      "observable_component_ids": [
+        "ST516",
+        "ESH275"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "ROTATING_MACHINE_MODE_OVERSPEED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FAN416",
+      "component_type": "LargeFan",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "SPEED_RESPONSE",
+        "CURRENT_RESPONSE",
+        "DOWNSTREAM_AIRFLOW_OR_THERMAL_RESPONSE"
+      ],
+      "fault_id": "FAN416:UnderSpeed",
+      "fault_mode": "UnderSpeed",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "ROTATING_MACHINE_SPEED_RESPONSE",
+      "model_id": "ADAPT-MECH-FAN416-UnderSpeed",
+      "observable_component_ids": [
+        "ST516",
+        "ESH275"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "ROTATING_MACHINE_MODE_UNDERSPEED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FAN480",
+      "component_type": "SmallFan",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "SPEED_RESPONSE",
+        "CURRENT_RESPONSE",
+        "DOWNSTREAM_AIRFLOW_OR_THERMAL_RESPONSE"
+      ],
+      "fault_id": "FAN480:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "ROTATING_MACHINE_SPEED_RESPONSE",
+      "model_id": "ADAPT-MECH-FAN480-FailedOff",
+      "observable_component_ids": [
+        "ESH172"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "ROTATING_MACHINE_MODE_FAILEDOFF",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FAN483",
+      "component_type": "SmallFan",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "SPEED_RESPONSE",
+        "CURRENT_RESPONSE",
+        "DOWNSTREAM_AIRFLOW_OR_THERMAL_RESPONSE"
+      ],
+      "fault_id": "FAN483:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "ROTATING_MACHINE_SPEED_RESPONSE",
+      "model_id": "ADAPT-MECH-FAN483-FailedOff",
+      "observable_component_ids": [
+        "ESH272"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "ROTATING_MACHINE_MODE_FAILEDOFF",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FT520",
+      "component_type": "FlowTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "FT520:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-FT520-Offset",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FT520",
+      "component_type": "FlowTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "FT520:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-FT520-Stuck",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FT525",
+      "component_type": "FlowTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "FT525:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-FT525-Offset",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "FT525",
+      "component_type": "FlowTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "FT525:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-FT525-Stuck",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "INV1",
+      "component_type": "Inverter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "AC_VOLTAGE_COLLAPSE",
+        "AC_FREQUENCY_LOSS",
+        "DOWNSTREAM_CURRENT_CHANGE"
+      ],
+      "fault_id": "INV1:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "INVERTER_OUTPUT_COLLAPSE",
+      "model_id": "ADAPT-MECH-INV1-FailedOff",
+      "observable_component_ids": [
+        "E165",
+        "ST165",
+        "ISH162",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "AC_OUTPUT_ENERGIZED_TO_OFF",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "INV2",
+      "component_type": "Inverter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "AC_VOLTAGE_COLLAPSE",
+        "AC_FREQUENCY_LOSS",
+        "DOWNSTREAM_CURRENT_CHANGE"
+      ],
+      "fault_id": "INV2:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "INVERTER_OUTPUT_COLLAPSE",
+      "model_id": "ADAPT-MECH-INV2-FailedOff",
+      "observable_component_ids": [
+        "E265",
+        "ST265",
+        "ISH262"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "AC_OUTPUT_ENERGIZED_TO_OFF",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH136",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH136:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH136-Stuck",
+      "observable_component_ids": [
+        "E135"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH162",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH162:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH162-Stuck",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH166",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH166:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH166-Stuck",
+      "observable_component_ids": [
+        "E165",
+        "E167",
+        "IT167",
+        "ST165",
+        "XT167"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH180",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH180:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH180-Stuck",
+      "observable_component_ids": [
+        "E181",
+        "IT181"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH236",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH236:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH236-Stuck",
+      "observable_component_ids": [
+        "E235",
+        "E240",
+        "IT240"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH262",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH262:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH262-Stuck",
+      "observable_component_ids": [
+        "E261",
+        "IT261"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH266",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH266:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH266-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "XT267"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH280",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH280:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH280-Stuck",
+      "observable_component_ids": [
+        "E261",
+        "E281",
+        "IT261",
+        "IT281"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ISH336",
+      "component_type": "PositionSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "POSITION_STATE_CONSISTENCY",
+        "DOWNSTREAM_ENERGIZATION_CHANGE"
+      ],
+      "fault_id": "ISH336:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SWITCH_STATE_TRANSITION",
+      "model_id": "ADAPT-MECH-ISH336-Stuck",
+      "observable_component_ids": [
+        "E340",
+        "IT340"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "DISCRETE_SWITCH_OR_POSITION_MODE_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT140",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT140:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT140-Offset",
+      "observable_component_ids": [
+        "E140",
+        "ESH141A",
+        "ESH144A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT140",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT140:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT140-Stuck",
+      "observable_component_ids": [
+        "E140",
+        "ESH141A",
+        "ESH144A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT161",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT161:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT161-Offset",
+      "observable_component_ids": [
+        "E161",
+        "ESH160A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT161",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT161:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT161-Stuck",
+      "observable_component_ids": [
+        "E161",
+        "ESH160A"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT167",
+      "component_type": "ACCurrentTransmitter12",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT167:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT167-Offset",
+      "observable_component_ids": [
+        "E167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT167",
+      "component_type": "ACCurrentTransmitter12",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT167:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT167-Stuck",
+      "observable_component_ids": [
+        "E167",
+        "XT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT181",
+      "component_type": "DCCurrentTransmitter12",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT181:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT181-Offset",
+      "observable_component_ids": [
+        "E181",
+        "ESH183",
+        "ESH184",
+        "ISH180"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT181",
+      "component_type": "DCCurrentTransmitter12",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT181:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT181-Stuck",
+      "observable_component_ids": [
+        "E181",
+        "ESH183",
+        "ESH184",
+        "ISH180"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT240",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT240:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT240-Offset",
+      "observable_component_ids": [
+        "E240",
+        "ESH241A",
+        "ESH244A",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT240",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT240:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT240-Stuck",
+      "observable_component_ids": [
+        "E240",
+        "ESH241A",
+        "ESH244A",
+        "ISH236"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT261",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT261:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT261-Offset",
+      "observable_component_ids": [
+        "E261",
+        "ESH260A",
+        "ISH262",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT261",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT261:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT261-Stuck",
+      "observable_component_ids": [
+        "E261",
+        "ESH260A",
+        "ISH262",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT267",
+      "component_type": "ACCurrentTransmitter12",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT267:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT267-Offset",
+      "observable_component_ids": [
+        "E267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT267",
+      "component_type": "ACCurrentTransmitter12",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT267:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT267-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "XT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT281",
+      "component_type": "DCCurrentTransmitter12",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT281:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT281-Offset",
+      "observable_component_ids": [
+        "E281",
+        "ESH283",
+        "ESH284",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT281",
+      "component_type": "DCCurrentTransmitter12",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT281:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT281-Stuck",
+      "observable_component_ids": [
+        "E281",
+        "ESH283",
+        "ESH284",
+        "ISH280"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT340",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT340:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT340-Offset",
+      "observable_component_ids": [
+        "E340",
+        "ESH341A",
+        "ESH344A",
+        "ISH336"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "IT340",
+      "component_type": "DCCurrentTransmitter50",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "IT340:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-IT340-Stuck",
+      "observable_component_ids": [
+        "E340",
+        "ESH341A",
+        "ESH344A",
+        "ISH336"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT400",
+      "component_type": "LightBulb25W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT400:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT400-FailedOff",
+      "observable_component_ids": [
+        "LT500",
+        "TE500",
+        "ESH170",
+        "TE501",
+        "TE502"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT401",
+      "component_type": "LightBulb25W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT401:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT401-FailedOff",
+      "observable_component_ids": [
+        "LT500",
+        "TE501",
+        "ESH170",
+        "TE500",
+        "TE502"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT402",
+      "component_type": "LightBulb25W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT402:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT402-FailedOff",
+      "observable_component_ids": [
+        "LT500",
+        "TE502",
+        "ESH170",
+        "TE500",
+        "TE501"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT405",
+      "component_type": "LightBulb25W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT405:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT405-FailedOff",
+      "observable_component_ids": [
+        "LT505",
+        "TE505",
+        "ESH274",
+        "TE506",
+        "TE507"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT406",
+      "component_type": "LightBulb25W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT406:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT406-FailedOff",
+      "observable_component_ids": [
+        "LT505",
+        "TE506",
+        "ESH274",
+        "TE505",
+        "TE507"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT407",
+      "component_type": "LightBulb25W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT407:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT407-FailedOff",
+      "observable_component_ids": [
+        "LT505",
+        "TE507",
+        "ESH274",
+        "TE505",
+        "TE506"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT410",
+      "component_type": "LightBulb60W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT410:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT410-FailedOff",
+      "observable_component_ids": [
+        "TE510",
+        "ESH271"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT411",
+      "component_type": "LightBulb55W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT411:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT411-FailedOff",
+      "observable_component_ids": [
+        "TE511",
+        "ESH175"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT481",
+      "component_type": "LightBulb60W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT481:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT481-FailedOff",
+      "observable_component_ids": [
+        "ESH173"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LGT484",
+      "component_type": "LightBulb60W",
+      "executable_provider_id": "adapt-resistive-lightbulb-reduced-order-v1",
+      "expected_response_codes": [
+        "BRANCH_CURRENT_DECREASE",
+        "LOCAL_TEMPERATURE_COOLING",
+        "LIGHT_OUTPUT_LOSS"
+      ],
+      "fault_id": "LGT484:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "RESISTIVE_LOAD_FAILED_OFF",
+      "model_id": "ADAPT-MECH-LGT484-FailedOff",
+      "observable_component_ids": [
+        "ESH273"
+      ],
+      "parameter_source": "COMPONENT_TYPE_RATED_WATTS_PLUS_HOST_BOUND_BRANCH_VOLTAGE_CURRENT",
+      "state_transition": "ENERGIZED_TO_OPEN_LOAD_ZERO_BRANCH_POWER",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LT500",
+      "component_type": "LightSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "LT500:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-LT500-Offset",
+      "observable_component_ids": [
+        "TE500",
+        "TE501",
+        "TE502"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LT500",
+      "component_type": "LightSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "LT500:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-LT500-Stuck",
+      "observable_component_ids": [
+        "TE500",
+        "TE501",
+        "TE502"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LT505",
+      "component_type": "LightSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "LT505:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-LT505-Offset",
+      "observable_component_ids": [
+        "TE505",
+        "TE506",
+        "TE507"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "LT505",
+      "component_type": "LightSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "LT505:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-LT505-Stuck",
+      "observable_component_ids": [
+        "TE505",
+        "TE506",
+        "TE507"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "PMP420",
+      "component_type": "WaterPump",
+      "executable_provider_id": "adapt-waterpump-reduced-order-v1",
+      "expected_response_codes": [
+        "FLOW_RESPONSE",
+        "CURRENT_RESPONSE"
+      ],
+      "fault_id": "PMP420:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "PUMP_FLOW_RESPONSE",
+      "model_id": "ADAPT-MECH-PMP420-FailedOff",
+      "observable_component_ids": [
+        "FT520",
+        "ESH270"
+      ],
+      "parameter_source": "ADAPT_XML_WATERPUMP_NOMINAL_WATTS_FLOW_PLUS_HOST_BOUND_CURRENT_VOLTAGE_FLOW",
+      "state_transition": "PUMP_MODE_FAILEDOFF",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "PMP420",
+      "component_type": "WaterPump",
+      "executable_provider_id": "adapt-waterpump-reduced-order-v1",
+      "expected_response_codes": [
+        "FLOW_RESPONSE",
+        "CURRENT_RESPONSE"
+      ],
+      "fault_id": "PMP420:FlowBlocked",
+      "fault_mode": "FlowBlocked",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "PUMP_FLOW_RESPONSE",
+      "model_id": "ADAPT-MECH-PMP420-FlowBlocked",
+      "observable_component_ids": [
+        "FT520",
+        "ESH270"
+      ],
+      "parameter_source": "ADAPT_XML_WATERPUMP_NOMINAL_WATTS_FLOW_PLUS_HOST_BOUND_CURRENT_VOLTAGE_FLOW",
+      "state_transition": "PUMP_MODE_FLOWBLOCKED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "PMP425",
+      "component_type": "WaterPump",
+      "executable_provider_id": "adapt-waterpump-reduced-order-v1",
+      "expected_response_codes": [
+        "FLOW_RESPONSE",
+        "CURRENT_RESPONSE"
+      ],
+      "fault_id": "PMP425:FailedOff",
+      "fault_mode": "FailedOff",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "PUMP_FLOW_RESPONSE",
+      "model_id": "ADAPT-MECH-PMP425-FailedOff",
+      "observable_component_ids": [
+        "FT525",
+        "ESH174"
+      ],
+      "parameter_source": "ADAPT_XML_WATERPUMP_NOMINAL_WATTS_FLOW_PLUS_HOST_BOUND_CURRENT_VOLTAGE_FLOW",
+      "state_transition": "PUMP_MODE_FAILEDOFF",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "PMP425",
+      "component_type": "WaterPump",
+      "executable_provider_id": "adapt-waterpump-reduced-order-v1",
+      "expected_response_codes": [
+        "FLOW_RESPONSE",
+        "CURRENT_RESPONSE"
+      ],
+      "fault_id": "PMP425:FlowBlocked",
+      "fault_mode": "FlowBlocked",
+      "fidelity": "NUMERICAL_REDUCED_ORDER",
+      "formal_evidence_eligible": false,
+      "model_class": "PUMP_FLOW_RESPONSE",
+      "model_id": "ADAPT-MECH-PMP425-FlowBlocked",
+      "observable_component_ids": [
+        "FT525",
+        "ESH174"
+      ],
+      "parameter_source": "ADAPT_XML_WATERPUMP_NOMINAL_WATTS_FLOW_PLUS_HOST_BOUND_CURRENT_VOLTAGE_FLOW",
+      "state_transition": "PUMP_MODE_FLOWBLOCKED",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ST165",
+      "component_type": "ACFrequencyTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "ST165:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-ST165-Offset",
+      "observable_component_ids": [
+        "E165",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ST165",
+      "component_type": "ACFrequencyTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "ST165:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-ST165-Stuck",
+      "observable_component_ids": [
+        "E165",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ST265",
+      "component_type": "ACFrequencyTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "ST265:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-ST265-Offset",
+      "observable_component_ids": [
+        "E265"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ST265",
+      "component_type": "ACFrequencyTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "ST265:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-ST265-Stuck",
+      "observable_component_ids": [
+        "E265"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ST515",
+      "component_type": "SpeedTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "ST515:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-ST515-Offset",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ST515",
+      "component_type": "SpeedTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "ST515:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-ST515-Stuck",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ST516",
+      "component_type": "SpeedTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "ST516:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-ST516-Offset",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "ST516",
+      "component_type": "SpeedTransmitter",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "ST516:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-ST516-Stuck",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE128",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE128:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE128-Offset",
+      "observable_component_ids": [
+        "TE129",
+        "E135"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE128",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE128:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE128-Stuck",
+      "observable_component_ids": [
+        "TE129",
+        "E135"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE129",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE129:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE129-Offset",
+      "observable_component_ids": [
+        "TE128",
+        "E135"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE129",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE129:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE129-Stuck",
+      "observable_component_ids": [
+        "TE128",
+        "E135"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE133",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE133:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE133-Offset",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE133",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE133:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE133-Stuck",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE228",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE228:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE228-Offset",
+      "observable_component_ids": [
+        "TE229",
+        "E235"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE228",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE228:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE228-Stuck",
+      "observable_component_ids": [
+        "TE229",
+        "E235"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE229",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE229:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE229-Offset",
+      "observable_component_ids": [
+        "TE228",
+        "E235"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE229",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE229:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE229-Stuck",
+      "observable_component_ids": [
+        "TE228",
+        "E235"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE328",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE328:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE328-Offset",
+      "observable_component_ids": [
+        "TE329",
+        "E335"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE328",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE328:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE328-Stuck",
+      "observable_component_ids": [
+        "TE329",
+        "E335"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE329",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE329:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE329-Offset",
+      "observable_component_ids": [
+        "TE328",
+        "E335"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE329",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE329:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE329-Stuck",
+      "observable_component_ids": [
+        "TE328",
+        "E335"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE500",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE500:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE500-Offset",
+      "observable_component_ids": [
+        "LT500"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE500",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE500:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE500-Stuck",
+      "observable_component_ids": [
+        "LT500"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE501",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE501:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE501-Offset",
+      "observable_component_ids": [
+        "LT500"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE501",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE501:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE501-Stuck",
+      "observable_component_ids": [
+        "LT500"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE502",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE502:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE502-Offset",
+      "observable_component_ids": [
+        "LT500"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE502",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE502:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE502-Stuck",
+      "observable_component_ids": [
+        "LT500"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE505",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE505:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE505-Offset",
+      "observable_component_ids": [
+        "LT505"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE505",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE505:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE505-Stuck",
+      "observable_component_ids": [
+        "LT505"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE506",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE506:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE506-Offset",
+      "observable_component_ids": [
+        "LT505"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE506",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE506:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE506-Stuck",
+      "observable_component_ids": [
+        "LT505"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE507",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE507:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE507-Offset",
+      "observable_component_ids": [
+        "LT505"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE507",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE507:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE507-Stuck",
+      "observable_component_ids": [
+        "LT505"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE510",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE510:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE510-Offset",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE510",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE510:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE510-Stuck",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE511",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE511:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE511-Offset",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "TE511",
+      "component_type": "TemperatureSensor",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "TE511:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-TE511-Stuck",
+      "observable_component_ids": [],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "XT167",
+      "component_type": "PhaseAngleTransducer",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "XT167:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-XT167-Offset",
+      "observable_component_ids": [
+        "E167",
+        "IT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "XT167",
+      "component_type": "PhaseAngleTransducer",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "XT167:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-XT167-Stuck",
+      "observable_component_ids": [
+        "E167",
+        "IT167",
+        "ESH170",
+        "ESH171",
+        "ESH172",
+        "ESH173",
+        "ESH174",
+        "ESH175",
+        "ISH166"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "XT267",
+      "component_type": "PhaseAngleTransducer",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "XT267:Offset",
+      "fault_mode": "Offset",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-XT267-Offset",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_OFFSET",
+      "truth_independent": true
+    },
+    {
+      "command_ids": [],
+      "component_id": "XT267",
+      "component_type": "PhaseAngleTransducer",
+      "executable_provider_id": null,
+      "expected_response_codes": [
+        "MEASUREMENT_ONLY_CHANGE",
+        "PHYSICAL_NEIGHBOR_NONRESPONSE_EXPECTED"
+      ],
+      "fault_id": "XT267:Stuck",
+      "fault_mode": "Stuck",
+      "fidelity": "QUALITATIVE_STATE_RESPONSE",
+      "formal_evidence_eligible": false,
+      "model_class": "SENSOR_MEASUREMENT_FAULT",
+      "model_id": "ADAPT-MECH-XT267-Stuck",
+      "observable_component_ids": [
+        "E267",
+        "IT267",
+        "ESH270",
+        "ESH271",
+        "ESH272",
+        "ESH273",
+        "ESH274",
+        "ESH275",
+        "ISH266"
+      ],
+      "parameter_source": "ADAPT_XML_TOPOLOGY_AND_FAULT_MODE",
+      "state_transition": "MEASUREMENT_CHANNEL_STUCK",
+      "truth_independent": true
+    }
+  ],
+  "registry_sha256": "56c7301db993fc94185018da5d0c5bcd39452f8f9808b85a01e0d3bd86010c30",
+  "schema_version": "astrograph-adapt-mechanism-model-registry.v1",
+  "source_catalog_sha256": "be7e651f3bd34c82d5f266a314181fc80860c6c27f0b65ef78c2768861815269"
+}

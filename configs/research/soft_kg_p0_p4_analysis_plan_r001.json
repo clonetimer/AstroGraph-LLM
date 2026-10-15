@@ -1,0 +1,23 @@
+{
+  "schema_version": "astrograph-soft-kg-p0-p4-analysis-plan.v1",
+  "plan_id": "soft-kg-p0-p4-r001",
+  "status": "FROZEN_BEFORE_CONFIRMATORY_EXECUTION",
+  "development_selection_groups": [3, 8],
+  "posthoc_forbidden_groups": [4, 9],
+  "methods": [
+    "A0_DATA_ONLY",
+    "HARD_RULE_ONLY",
+    "FIXED_BIRRF",
+    "BRANCH_SUPPRESSION",
+    "COVERAGE_SCALING",
+    "CONTEXTUAL_GATED_BIRRF",
+    "PSL_STYLE_SOFT_KG_CHALLENGER",
+    "DEEPPROBLOG_STYLE_CONTROL",
+    "SEMANTIC_LOSS_STYLE_CONTROL"
+  ],
+  "primary_metrics": ["macro_f1", "balanced_accuracy", "nll", "brier", "ece", "aurc", "worst_group_accuracy", "failure_to_abstain", "branch_error_correlation"],
+  "selection_rule": "Eligible only if macro_f1 >= A0-0.01 and worst_group_accuracy >= A0-0.01; then minimize AURC, Brier, ECE in that order.",
+  "confirmatory_sources": ["new_monte_carlo_groups", "independent_generator", "external_simulator", "HIL"],
+  "runtime_activation_allowed": false,
+  "claim_boundary": "Development and research comparison only; no Runtime, Dataset Profile, KG or BiRRF default mutation."
+}

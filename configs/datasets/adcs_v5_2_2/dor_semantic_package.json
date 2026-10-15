@@ -1,0 +1,71 @@
+{
+  "schema_version": "astrograph-dor-semantic-package.v1",
+  "package_id": "whole-spacecraft-adcs-v5.2.2-dor-semantics",
+  "version": "1.0.0",
+  "domain": "spacecraft_adcs_synthetic_v5_2_2",
+  "faults": [
+    {
+      "fault_id": "ADCS_RW_JAM",
+      "target_component_id": "REACTION_WHEEL_CLUSTER",
+      "component_kind": "ACTUATOR",
+      "component_type": "reaction_wheel_cluster",
+      "subsystem": "ADCS",
+      "fault_mode": "jamming",
+      "category": "DISCRETE",
+      "exclusion_group": "reaction_wheel_cluster_mode",
+      "source_refs": [
+        "configs/datasets/adcs_v5_2_2/runtime_evidence.json#ADCS_RW_JAM",
+        "configs/datasets/adcs_v5_2_2/fault_class_map.json#adcs_rw_jamming"
+      ]
+    },
+    {
+      "fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "target_component_id": "REACTION_WHEEL_CLUSTER",
+      "component_kind": "ACTUATOR",
+      "component_type": "reaction_wheel_cluster",
+      "subsystem": "ADCS",
+      "fault_mode": "torque_path_open",
+      "category": "DISCRETE",
+      "exclusion_group": "reaction_wheel_cluster_mode",
+      "source_refs": [
+        "configs/datasets/adcs_v5_2_2/runtime_evidence.json#ADCS_RW_TORQUE_AUTHORITY_LOSS",
+        "configs/datasets/adcs_v5_2_2/fault_class_map.json#adcs_rw_torque_path_open"
+      ]
+    },
+    {
+      "fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "target_component_id": "STAR_TRACKER_0",
+      "component_kind": "SENSOR",
+      "component_type": "star_tracker",
+      "subsystem": "ADCS",
+      "fault_mode": "solution_unavailable",
+      "category": "SENSOR",
+      "exclusion_group": "star_tracker_0_health_mode",
+      "source_refs": [
+        "configs/datasets/adcs_v5_2_2/runtime_evidence.json#ADCS_STAR_TRACKER_DROPOUT",
+        "configs/datasets/adcs_v5_2_2/fault_class_map.json#adcs_star_solution_unavailable"
+      ]
+    },
+    {
+      "fault_id": "ADCS_GYRO_BIAS_DRIFT",
+      "target_component_id": "IMU",
+      "component_kind": "SENSOR",
+      "component_type": "inertial_measurement_unit",
+      "subsystem": "ADCS",
+      "fault_mode": "gyro_bias_step_bounded_as_drift",
+      "category": "PARAMETRIC",
+      "exclusion_group": "imu_gyro_health_mode",
+      "source_refs": [
+        "configs/datasets/adcs_v5_2_2/runtime_evidence.json#ADCS_GYRO_BIAS_DRIFT",
+        "configs/datasets/adcs_v5_2_2/fault_class_map.json#adcs_gyro_bias_step"
+      ]
+    }
+  ],
+  "source_refs": [
+    "configs/datasets/adcs_v5_2_2/runtime_evidence.json",
+    "configs/datasets/adcs_v5_2_2/fault_class_map.json",
+    "configs/datasets/adcs_v5_2_2/diagnosis_hierarchy.json",
+    "source://sat-agent.adcs-v5_2_2-generator"
+  ],
+  "claim_boundary": "Configuration-bound E0 mapping for four audited v5.2.2 correspondences. It does not extend AstroGraph coverage to the other ten dataset fault classes and does not establish causal root cause."
+}

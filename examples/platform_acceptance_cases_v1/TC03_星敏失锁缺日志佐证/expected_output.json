@@ -1,0 +1,21 @@
+{
+  "preflight_can_start": true,
+  "run_status": "SUCCEEDED",
+  "review_status": "REVIEW_REQUIRED",
+  "top_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+  "candidate_count": 1,
+  "candidate_status_by_fault": {
+    "ADCS_STAR_TRACKER_DROPOUT": "PROVISIONAL_UNCORROBORATED"
+  },
+  "require_missing_log_gap": true,
+  "must_have_hypotheses": true,
+  "case_id": "TC03_星敏失锁缺日志佐证",
+  "description": "上游给出已知候选，但日志没有关键线索，必须保留不确定性",
+  "upload_files": [
+    "diagnosis_result.json",
+    "operations.log",
+    "reference.md"
+  ],
+  "equipment_scope": "LAB_ADCS_V2",
+  "manifest": "analysis_input.json"
+}

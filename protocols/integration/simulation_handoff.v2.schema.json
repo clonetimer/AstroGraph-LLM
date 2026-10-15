@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrograph.local/schemas/simulation_handoff.v2.schema.json",
+  "title": "Sat-Agent to AstroGraph simulation handoff v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "handoff_id", "case_id", "telemetry", "nominal_reference", "isolation", "provenance", "qualification", "claim_boundary"],
+  "properties": {
+    "schema_version": {"const": "simulation_handoff.v2"},
+    "handoff_id": {"type": "string", "minLength": 1},
+    "case_id": {"type": "string", "pattern": "^CASE-[0-9]{3,}$"},
+    "telemetry": {"$ref": "#/$defs/file"},
+    "nominal_reference": {"$ref": "#/$defs/file"},
+    "isolation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["truth_available_to_diagnosis", "labels_removed", "answer_proxy_metadata_removed"],
+      "properties": {
+        "truth_available_to_diagnosis": {"const": false},
+        "labels_removed": {"const": true},
+        "answer_proxy_metadata_removed": {"const": true}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_result_sha256", "source_nominal_sha256", "source_telemetry_sha256", "config_sha256", "seed_sha256"],
+      "properties": {
+        "source_result_sha256": {"$ref": "#/$defs/sha256"},
+        "source_nominal_sha256": {"$ref": "#/$defs/sha256"},
+        "source_telemetry_sha256": {"$ref": "#/$defs/sha256"},
+        "config_sha256": {"$ref": "#/$defs/sha256"},
+        "seed_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "qualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_validation", "physics_gate", "conservation_gate", "data_grade", "intended_use"],
+      "properties": {
+        "source_validation": {"const": "PASS"},
+        "physics_gate": {"const": "PASS"},
+        "conservation_gate": {"enum": ["PASS", "NOT_APPLICABLE"]},
+        "data_grade": {"enum": ["RESEARCH_ONLY", "ENGINEERING_VALIDATED", "ACCEPTANCE_ELIGIBLE"]},
+        "intended_use": {"enum": ["diagnostic_integration_evaluation", "training", "hidden_acceptance"]}
+      }
+    },
+    "claim_boundary": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256", "rows", "fields"],
+      "properties": {
+        "file": {"type": "string", "pattern": "^[^/\\\\]+$"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "rows": {"type": "integer", "minimum": 1},
+        "fields": {"type": "array", "minItems": 1, "items": {"type": "string"}, "contains": {"const": "time_s"}}
+      }
+    }
+  }
+}

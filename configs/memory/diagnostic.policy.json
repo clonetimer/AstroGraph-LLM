@@ -1,0 +1,11 @@
+{
+  "schema_version": "astrograph-memory-policy.v1",
+  "profile_sha256": "cb3d7e7be4d90493f957de05c39892a7965284713ff4e75ee774c660615c5d17",
+  "approved_reviewers": [
+    "ground-truth-reviewer"
+  ],
+  "max_cases": 5,
+  "commit_end_reasons": [
+    "completed"
+  ]
+}

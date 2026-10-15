@@ -1,0 +1,147 @@
+{
+  "project_status": "B009_WIP_DEVELOPMENT_EVIDENCE",
+  "schema_version": "astrograph-optional-signal-toolkit-catalog.v1",
+  "selection_policy": "Selective admission; documentation is not performance evidence.",
+  "toolkits": [
+    {
+      "admission": "REJECT_DEFAULT",
+      "allowed_profiles": [
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "librosa",
+      "rationale": "Audio-domain assumptions; only admit a narrowly justified spectral transform adapter.",
+      "scientific_claim": "NONE",
+      "source_note": "librosa-audio-signal-analysis.md",
+      "source_note_sha256": "2c0c947be39ac0abbc5a6bf1b7a05dcfd327bc39c108e0b18be99e7674b112bd"
+    },
+    {
+      "admission": "OPTIONAL_RESEARCH",
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "merlion",
+      "rationale": "Potential baseline/calibration utility; development/external-task profiles only.",
+      "scientific_claim": "NONE",
+      "source_note": "merlion-salesforce-time-series-ml-library.md",
+      "source_note_sha256": "6dff6e3bc39beb7a163ebf563255cd106bc2973d581c526da60d74f1aaa282a4"
+    },
+    {
+      "admission": "OPTIONAL_RESEARCH",
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "pyod",
+      "rationale": "Broad outlier baselines; never a confirmatory policy source without frozen development selection.",
+      "scientific_claim": "NONE",
+      "source_note": "pyod-python-outlier-detection-library.md",
+      "source_note_sha256": "1fec5c631ce327375b75b99d7bf695d5b2397af310ec041e1a6780523407397b"
+    },
+    {
+      "admission": "OPTIONAL_DETERMINISTIC_TRANSFORM",
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "pywavelets",
+      "rationale": "Admit only with pinned wavelet, level, boundary mode, channel units and feature contract.",
+      "scientific_claim": "NONE",
+      "source_note": "pywavelets-discrete-wavelet-transform.md",
+      "source_note_sha256": "aba42bf7ad40836aa8956eef303fac2e04d2835ebfd7ae5752447f11f25f5aa9"
+    },
+    {
+      "admission": "QUARANTINE_EVALUATION",
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "tods",
+      "rationale": "Automated pipeline and dependency surface require separate reproducibility review.",
+      "scientific_claim": "NONE",
+      "source_note": "tods-automated-time-series-outlier-detection.md",
+      "source_note_sha256": "d17f6add386a618e7e2ef6bd0ebc47e392659fe7c20130910d19e6a040269460"
+    },
+    {
+      "admission": "OPTIONAL_RESEARCH",
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "tsfel",
+      "rationale": "Feature extraction candidate; prevent trajectory leakage and feature-selection on post-hoc data.",
+      "scientific_claim": "NONE",
+      "source_note": "tsfel-time-series-feature-extraction-library.md",
+      "source_note_sha256": "cb6f30711beb09573c9d7477f5b74961deff1f7c9d7823aec11d7bb602c7d125"
+    },
+    {
+      "admission": "OPTIONAL_RESEARCH",
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "tsfresh",
+      "rationale": "Feature extraction candidate; selection must be group-folded and development-only.",
+      "scientific_claim": "NONE",
+      "source_note": "tsfresh-time-series-feature-extraction.md",
+      "source_note_sha256": "c1fb1caec240844ba24acd6856e08aef68b5a1ece03a668adb98e0042bec6e2f"
+    },
+    {
+      "admission": "REFERENCE_ONLY",
+      "allowed_profiles": [
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "usad",
+      "rationale": "Research architecture reference; do not activate unverified third-party training code in core.",
+      "scientific_claim": "NONE",
+      "source_note": "usad-adversarial-autoencoder-anomaly-detection.md",
+      "source_note_sha256": "079a77313b7a51b8c73f26ff3362d08765505f83ea9b49f2e666d80ddd5daee5"
+    },
+    {
+      "admission": "OPTIONAL_BASELINE",
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "adtk",
+      "rationale": "Simple anomaly baseline pack after maintenance/dependency audit.",
+      "scientific_claim": "NONE",
+      "source_note": "adtk-anomaly-detection-toolkit.md",
+      "source_note_sha256": "8f7710491967810bf922ed99d6d426167ab4972471d89be176d841bca45450a3"
+    },
+    {
+      "admission": "REFERENCE_ONLY",
+      "allowed_profiles": [
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "anomaly_transformer",
+      "rationale": "Method candidate requiring independent implementation, calibration and group-level validation.",
+      "scientific_claim": "NONE",
+      "source_note": "anomaly-transformer-association-discrepancy.md",
+      "source_note_sha256": "7fc6e92d4d403ffbec2523fa4d70db2bafab228bccd01f9c955b7b9968d1a50b"
+    },
+    {
+      "admission": "OPTIONAL_INFRASTRUCTURE",
+      "allowed_profiles": [
+        "DEVELOPMENT",
+        "MAINTAINER"
+      ],
+      "installed_by_default": false,
+      "name": "bytewax",
+      "rationale": "Streaming execution candidate; not scientific evidence and not part of the numerical core.",
+      "scientific_claim": "NONE",
+      "source_note": "bytewax-python-stream-processing.md",
+      "source_note_sha256": "51dad9a308de918c141c56b16d5a051aeef0a8adcb0b364959b3e04476c667fa"
+    }
+  ]
+}

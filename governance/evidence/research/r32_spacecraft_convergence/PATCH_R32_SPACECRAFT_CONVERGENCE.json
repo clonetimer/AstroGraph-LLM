@@ -1,0 +1,178 @@
+{
+  "schema_version": "astrograph-spacecraft-scope-convergence-decision.v1",
+  "release_scope": "SPACECRAFT_ENGINEERING",
+  "software_feature_freeze": "PASS",
+  "diagnostic_external_qualification": "BLOCKED",
+  "stable_engineering_candidate": "PASS",
+  "next_phase": "ASTROGRAPH_BENCH_UI",
+  "core_feature_expansion_frozen": true,
+  "dataset_decisions": [
+    {
+      "dataset_id": "ADCS_V5_2_2",
+      "domain_role": "whole_spacecraft_multistage_diagnosis",
+      "functional_status": "STRONG_ENGINEERING_BENCHMARK",
+      "evidence_status": "COMPLETE_TEST_WITH_OPERATIONAL_LIMITATION",
+      "current_algorithm": "frozen residual-TCN innovation v2",
+      "observed_metrics": {
+        "detection_macro_f1": 0.9241150455233861,
+        "localization_macro_f1": 0.9774252494027138,
+        "classification_macro_f1": 0.9558407619663842,
+        "end_to_end_macro_f1": 0.9159497891156329,
+        "fault_event_recall": 1.0,
+        "false_alarm_episodes_per_hour": 79.22397567684958
+      },
+      "operational_limitations": [
+        "false-alarm episode burden remains high for autonomous operational FDIR"
+      ],
+      "qualification_blockers": [
+        "new independent trajectory groups required for a fresh generalization claim"
+      ],
+      "source_artifacts": [
+        "governance/evidence/research/r32_spacecraft_convergence/R24_BENCHMARK_SNAPSHOT.json",
+        "configs/dataset_profiles/adcs_v5_2_2.json"
+      ]
+    },
+    {
+      "dataset_id": "PHM_V6_0",
+      "domain_role": "spacecraft_trace_summary_diagnosis",
+      "functional_status": "STRONG_ENGINEERING_BENCHMARK",
+      "evidence_status": "COMPLETE_TEST_WITH_PROTOCOL_BOUNDARY",
+      "current_algorithm": "frozen ExtraTrees cascade",
+      "observed_metrics": {
+        "detection_macro_f1": 0.899,
+        "localization_macro_f1": 1.0,
+        "classification_macro_f1": 1.0,
+        "end_to_end_macro_f1": 0.967
+      },
+      "operational_limitations": [
+        "current benchmark is retrospective/trace-summary and does not establish unknown-onset continuous FDIR"
+      ],
+      "qualification_blockers": [
+        "unknown-onset online validation remains outstanding"
+      ],
+      "source_artifacts": [
+        "governance/evidence/research/r32_spacecraft_convergence/R24_BENCHMARK_SNAPSHOT.json",
+        "configs/dataset_profiles/phm_v6_0.json"
+      ]
+    },
+    {
+      "dataset_id": "OPS_SAT",
+      "domain_role": "spacecraft_telemetry_segment_anomaly_classification",
+      "functional_status": "FROZEN_CANDIDATE_AVAILABLE",
+      "evidence_status": "STRONG_DEVELOPMENT_REMEDIATION_NOT_NEW_EXTERNAL",
+      "current_algorithm": "18-feature RF100 candidate",
+      "observed_metrics": {
+        "development_confirmatory_f0_5": 0.902,
+        "development_confirmatory_mcc": 0.858,
+        "development_confirmatory_auroc": 0.988,
+        "development_confirmatory_aupr": 0.943
+      },
+      "operational_limitations": [
+        "official 529-segment external test was already exposed and is not reused for candidate selection"
+      ],
+      "qualification_blockers": [
+        "genuinely new OPS-like holdout required before external-performance promotion"
+      ],
+      "source_artifacts": [
+        "governance/evidence/research/r32_spacecraft_convergence/R24_BENCHMARK_SNAPSHOT.json",
+        "configs/evaluation/r22_replication_preregistration.v1.json"
+      ]
+    },
+    {
+      "dataset_id": "ESA_MISSION1",
+      "domain_role": "spacecraft_short_transient_anomaly_detection",
+      "functional_status": "FROZEN_CANDIDATE_AVAILABLE",
+      "evidence_status": "LEGACY_EXTERNAL_NEGATIVE_PLUS_HIGH_RESOLUTION_DEVELOPMENT_REMEDIATION",
+      "current_algorithm": "R26 frozen high-resolution fast branch with legacy 5-minute slow branch retained",
+      "observed_metrics": {
+        "legacy_seen_confirmatory_event_recall": 0.0,
+        "legacy_seen_confirmatory_tp": 0,
+        "legacy_seen_confirmatory_fn": 4,
+        "high_resolution_development_event_recall": 1.0,
+        "high_resolution_development_alarm_group_precision": 0.9,
+        "high_resolution_development_f0_5": 0.9183673469387754
+      },
+      "operational_limitations": [
+        "current improvement has not been evaluated on a genuinely new Mission1-like holdout",
+        "lightweight six-channel observability remains an inherent ceiling for some anomalies"
+      ],
+      "qualification_blockers": [
+        "new high-resolution ESA holdout required before replacing the preserved negative external result"
+      ],
+      "source_artifacts": [
+        "governance/evidence/research/r25_remediation/esa_high_resolution_development.json",
+        "governance/evidence/research/r26_remediation/esa_frozen_detector.json"
+      ]
+    },
+    {
+      "dataset_id": "DXC_ADAPT",
+      "domain_role": "spacecraft_model_based_fault_isolation_and_mechanism_diagnosis",
+      "functional_status": "MECHANISM_DIAGNOSIS_AVAILABLE",
+      "evidence_status": "LEGACY_EXTERNAL_NEGATIVE_PLUS_POST_CONTACT_DEVELOPMENT_REMEDIATION",
+      "current_algorithm": "R29 reduced-order core + R31 pump physics corroborator; legacy statistical branch retained",
+      "observed_metrics": {
+        "legacy_competition_exact_set": 0.0,
+        "legacy_rematch_exact_set": 0.0,
+        "r28_contacted_development_fault_f1": 0.985075,
+        "r28_contacted_development_exact_set": 0.96,
+        "r29_contacted_development_exact_set": 1.0,
+        "numerical_mechanism_coverage": 0.06306306
+      },
+      "operational_limitations": [
+        "R27-R31 gains are development/synthetic evidence and do not overwrite R20 external failures",
+        "numerical mechanism-model coverage is intentionally partial; qualitative registration is broader than executable simulation"
+      ],
+      "qualification_blockers": [
+        "genuinely new ADAPT/DXC holdout required before external-performance promotion"
+      ],
+      "source_artifacts": [
+        "governance/evidence/research/r28_forward_simulation/dxc_forward_simulation_development.json",
+        "governance/evidence/research/r29_reduced_order_simulation/dxc_reduced_order_development.json",
+        "governance/evidence/research/r31_waterpump_simulation/report.json"
+      ]
+    },
+    {
+      "dataset_id": "SAT_ENGINEERING_ASSET",
+      "domain_role": "spacecraft_engineering_graph_asset",
+      "functional_status": "GRAPH_ASSET_AVAILABLE",
+      "evidence_status": "STRUCTURAL_GRAPH_AUDIT",
+      "current_algorithm": "deterministic engineering-asset graph construction",
+      "observed_metrics": {
+        "nodes": 186,
+        "edges": 133,
+        "fault_component_exact_links": "54/61",
+        "signal_exact_links": "67/106"
+      },
+      "operational_limitations": [
+        "unresolved labels remain unresolved instead of fuzzy/LLM forced linking"
+      ],
+      "qualification_blockers": [],
+      "source_artifacts": [
+        "governance/evidence/research/r32_spacecraft_convergence/R24_BENCHMARK_SNAPSHOT.json"
+      ]
+    }
+  ],
+  "core_functional_blockers": [],
+  "external_qualification_blockers": [
+    "ADCS_V5_2_2:new independent trajectory groups required for a fresh generalization claim",
+    "DXC_ADAPT:genuinely new ADAPT/DXC holdout required before external-performance promotion",
+    "ESA_MISSION1:new high-resolution ESA holdout required before replacing the preserved negative external result",
+    "OPS_SAT:genuinely new OPS-like holdout required before external-performance promotion",
+    "PHM_V6_0:unknown-onset online validation remains outstanding"
+  ],
+  "roadmap_only_items": [
+    "additional numerical mechanism families beyond current spacecraft convergence scope",
+    "non-spacecraft datasets and any domain-specific capabilities derived from them",
+    "high-fidelity automatic Simulink/Basilisk/VirtualADAPT backends beyond current provider contracts",
+    "formal literature-voting promotion",
+    "flight/HIL/target-hardware qualification"
+  ],
+  "claim_boundary": [
+    "R32 software feature freeze means core spacecraft engineering capabilities are present and governed; it is not a claim that all branches are independently externally validated.",
+    "ADCS/PHM test evidence, OPS/ESA/DXC development evidence, and legacy external negatives retain their original protocol semantics.",
+    "No new holdout is manufactured from already exposed partitions.",
+    "No flight, safety, calibrated-probability, autonomous-control, or formal Probe evidence authority is granted.",
+    "After a PASS software feature-freeze gate, new domain/core features move to roadmap and active development transitions to AstroGraph-Bench/UI plus independent validation campaigns."
+  ],
+  "decision_sha256": "39fdb6774c3c15468f3e4d092ebb6de937bcc738cc7b9a6aa2c2057fd99e6a66"
+}

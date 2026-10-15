@@ -1,0 +1,2384 @@
+{
+  "catalog_sha256": "637f4e94d4847c24c9e4ed44b71d5ffb1fc875c6225f0df0db87e34242c74074",
+  "global_invariants": {
+    "agent_release_authority": false,
+    "arbitrary_channels_windows_thresholds_for_probes": false,
+    "arbitrary_database_queries": false,
+    "arbitrary_file_paths": false,
+    "arbitrary_python": false,
+    "core_detection_must_not_depend_on_optional_agent_probe": true,
+    "offline_truth_access_is_segregated_from_online_diagnosis": true,
+    "probe_formal_evidence_authority": false,
+    "tool_registry_snapshot_sealed_per_task": true,
+    "unregistered_tool_execution": false
+  },
+  "policy_version": "R31-v1",
+  "runtime_extension_policy": {
+    "dynamic_oag_evidence_checks": {
+      "formal_evidence": "ONLY_THROUGH_DETERMINISTIC_EVIDENCE_COMPILER; TOOL_OUTPUT_ALONE_IS_NOT_RELEASE_AUTHORITY",
+      "pattern": "telemetry.compute:<feature_definition_id> / registered EvidenceCheckTool",
+      "selection": "INTERNAL_AGENT_SELECTS_PREBUILT_CHECK"
+    },
+    "hot_reload_scope": "FUTURE_REGISTRY_SNAPSHOTS_ONLY",
+    "plugin_execution": "ISOLATED_PROCESS_SHA256_PINNED",
+    "plugin_review_status_required": "APPROVED",
+    "runtime_plugin_tools_must_conform_to": "ToolSpec + plugin manifest allow-listed tasks/work-modes",
+    "trusted_plugins_supported": true
+  },
+  "schema_version": "astrograph-agent-tool-governance-catalog.v1",
+  "tools": [
+    {
+      "agent_selectable": false,
+      "allowed_tasks": [],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TOOLREGISTRY_JSON_SCHEMA_AND_WORKFLOW_CONTEXT_PERMISSION_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "NONE",
+      "display_name": "d3_rw.evidence.build",
+      "evidence_authority": "BUILD_FORMAL_EVIDENCE_DETERMINISTICALLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "required": [
+          "d3_delivery_path",
+          "run_id",
+          "protocol_root",
+          "evidence_catalog_path"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "HOST_ORCHESTRATED",
+      "notes": [
+        "Not automatically exposed as a MissionAgent optional tool."
+      ],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "SEALED_TOOLREGISTRY_SNAPSHOT_WITH_VERSION_PINS",
+      "purpose": "Registered deterministic workflow tool d3_rw.evidence.build.",
+      "required_permissions": [
+        "READ_DATA",
+        "READ_KNOWLEDGE"
+      ],
+      "runtime_tool_id": "d3_rw.evidence.build",
+      "side_effect_level": "READ_ONLY",
+      "surface": "LOW_LEVEL_AGENTIC_REGISTRY",
+      "tool_key": "agentic-registry:d3_rw.evidence.build",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": false,
+      "allowed_tasks": [],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TOOLREGISTRY_JSON_SCHEMA_AND_WORKFLOW_CONTEXT_PERMISSION_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "NONE",
+      "display_name": "d3_thermal_star.evidence.build",
+      "evidence_authority": "BUILD_FORMAL_EVIDENCE_DETERMINISTICALLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "required": [
+          "delivery_path",
+          "run_id",
+          "protocol_root",
+          "evidence_catalog_path"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "HOST_ORCHESTRATED",
+      "notes": [
+        "Not automatically exposed as a MissionAgent optional tool."
+      ],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "SEALED_TOOLREGISTRY_SNAPSHOT_WITH_VERSION_PINS",
+      "purpose": "Registered deterministic workflow tool d3_thermal_star.evidence.build.",
+      "required_permissions": [
+        "READ_DATA",
+        "READ_KNOWLEDGE"
+      ],
+      "runtime_tool_id": "d3_thermal_star.evidence.build",
+      "side_effect_level": "READ_ONLY",
+      "surface": "LOW_LEVEL_AGENTIC_REGISTRY",
+      "tool_key": "agentic-registry:d3_thermal_star.evidence.build",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": false,
+      "allowed_tasks": [],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TOOLREGISTRY_JSON_SCHEMA_AND_WORKFLOW_CONTEXT_PERMISSION_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "DETERMINISTIC_CORE_EXECUTION",
+      "display_name": "diagnosis.invoke_core",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "required": [
+          "wheel_evidence"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "HOST_ORCHESTRATED",
+      "notes": [
+        "Not automatically exposed as a MissionAgent optional tool."
+      ],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "SEALED_TOOLREGISTRY_SNAPSHOT_WITH_VERSION_PINS",
+      "purpose": "Registered deterministic workflow tool diagnosis.invoke_core.",
+      "required_permissions": [
+        "RUN_DIAGNOSIS"
+      ],
+      "runtime_tool_id": "diagnosis.invoke_core",
+      "side_effect_level": "READ_ONLY",
+      "surface": "LOW_LEVEL_AGENTIC_REGISTRY",
+      "tool_key": "agentic-registry:diagnosis.invoke_core",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": false,
+      "allowed_tasks": [],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TOOLREGISTRY_JSON_SCHEMA_AND_WORKFLOW_CONTEXT_PERMISSION_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "DETERMINISTIC_CORE_EXECUTION",
+      "display_name": "diagnosis.invoke_thermal_star_core",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "required": [
+          "evidence_facts"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "HOST_ORCHESTRATED",
+      "notes": [
+        "Not automatically exposed as a MissionAgent optional tool."
+      ],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "SEALED_TOOLREGISTRY_SNAPSHOT_WITH_VERSION_PINS",
+      "purpose": "Registered deterministic workflow tool diagnosis.invoke_thermal_star_core.",
+      "required_permissions": [
+        "RUN_DIAGNOSIS"
+      ],
+      "runtime_tool_id": "diagnosis.invoke_thermal_star_core",
+      "side_effect_level": "READ_ONLY",
+      "surface": "LOW_LEVEL_AGENTIC_REGISTRY",
+      "tool_key": "agentic-registry:diagnosis.invoke_thermal_star_core",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": false,
+      "allowed_tasks": [],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TOOLREGISTRY_JSON_SCHEMA_AND_WORKFLOW_CONTEXT_PERMISSION_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "NONE",
+      "display_name": "evidence.catalog.read",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "required": [
+          "evidence_catalog_path"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "HOST_ORCHESTRATED",
+      "notes": [
+        "Not automatically exposed as a MissionAgent optional tool."
+      ],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "SEALED_TOOLREGISTRY_SNAPSHOT_WITH_VERSION_PINS",
+      "purpose": "Registered deterministic workflow tool evidence.catalog.read.",
+      "required_permissions": [
+        "READ_KNOWLEDGE"
+      ],
+      "runtime_tool_id": "evidence.catalog.read",
+      "side_effect_level": "READ_ONLY",
+      "surface": "LOW_LEVEL_AGENTIC_REGISTRY",
+      "tool_key": "agentic-registry:evidence.catalog.read",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": false,
+      "allowed_tasks": [],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TOOLREGISTRY_JSON_SCHEMA_AND_WORKFLOW_CONTEXT_PERMISSION_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "evidence_graph.build",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "required": [
+          "bundle",
+          "hypothesis_set",
+          "decision_record"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "HOST_ORCHESTRATED",
+      "notes": [
+        "Not automatically exposed as a MissionAgent optional tool."
+      ],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "SEALED_TOOLREGISTRY_SNAPSHOT_WITH_VERSION_PINS",
+      "purpose": "Registered deterministic workflow tool evidence_graph.build.",
+      "required_permissions": [
+        "READ_DATA",
+        "READ_KNOWLEDGE"
+      ],
+      "runtime_tool_id": "evidence_graph.build",
+      "side_effect_level": "READ_ONLY",
+      "surface": "LOW_LEVEL_AGENTIC_REGISTRY",
+      "tool_key": "agentic-registry:evidence_graph.build",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": false,
+      "allowed_tasks": [],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TOOLREGISTRY_JSON_SCHEMA_AND_WORKFLOW_CONTEXT_PERMISSION_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "semantics.validate",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "required": [
+          "protocol_root"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "HOST_ORCHESTRATED",
+      "notes": [
+        "Not automatically exposed as a MissionAgent optional tool."
+      ],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "SEALED_TOOLREGISTRY_SNAPSHOT_WITH_VERSION_PINS",
+      "purpose": "Registered deterministic workflow tool semantics.validate.",
+      "required_permissions": [
+        "READ_DATA"
+      ],
+      "runtime_tool_id": "semantics.validate",
+      "side_effect_level": "READ_ONLY",
+      "surface": "LOW_LEVEL_AGENTIC_REGISTRY",
+      "tool_key": "agentic-registry:semantics.validate",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "PROBE_ID_ONLY_FROM_HOST_CATALOG",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "execute_diagnostic_probe",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Execute exactly one host-bound probe by probe_id; model-defined channels, windows and thresholds are forbidden.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "execute_diagnostic_probe",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:execute_diagnostic_probe",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "inspect_candidate_fusion",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Inspect the governed data/rule/KG candidate fusion result.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "inspect_candidate_fusion",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:inspect_candidate_fusion",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "inspect_deterministic_core",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Inspect the independent deterministic diagnosis and its evidence references.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "inspect_deterministic_core",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:inspect_deterministic_core",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "inspect_evidence_status",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Summarize executable evidence facts, roles, statuses, and missing items.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "inspect_evidence_status",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:inspect_evidence_status",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "inspect_experience_context",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Inspect separately approved experience and memory reuse context.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "inspect_experience_context",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:inspect_experience_context",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "inspect_kg_support",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Inspect episode-bound KG evidence and directional associations.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "inspect_kg_support",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:inspect_kg_support",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "inspect_probe_catalog",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Inspect host-approved deterministic diagnostic probes available for this episode.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "inspect_probe_catalog",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:inspect_probe_catalog",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "inspect_retrieval_context",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Inspect admitted pre-generation document and ontology context.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "inspect_retrieval_context",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:inspect_retrieval_context",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "inspect_verification_plan",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Inspect unresolved evidence and the deterministic verification plan.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "inspect_verification_plan",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:inspect_verification_plan",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "NO_FREEFORM_TOOL_ARGUMENTS; INPUT_ARTIFACTS_ARE_HOST_BOUND",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "synthesize_hypotheses",
+      "evidence_authority": "READ_FORMAL_EVIDENCE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_CAPABILITY_NO_FREEFORM_EXECUTION",
+      "notes": [],
+      "output_schema": {
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "Stop investigation and synthesize hypotheses from the recorded trajectory.",
+      "required_permissions": [
+        "READ_ONLY"
+      ],
+      "runtime_tool_id": "synthesize_hypotheses",
+      "side_effect_level": "READ_ONLY",
+      "surface": "CONTROLLED_DIAGNOSTIC_CAPABILITY",
+      "tool_key": "diagnostic-capability:synthesize_hypotheses",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "replay"
+      ],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "NONE",
+      "display_name": "数据集回放",
+      "evidence_authority": "OFFLINE_EVALUATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=实验"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "离线回放带真值数据集，用于实验评估，不作为在线诊断。",
+      "required_permissions": [
+        "READ_DATA",
+        "RUN_EXPERIMENT"
+      ],
+      "runtime_tool_id": "dataset.replay",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:dataset.replay",
+      "truth_access_policy": "OFFLINE_EVALUATION_ONLY"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "DETERMINISTIC_CORE_EXECUTION",
+      "display_name": "综合诊断",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=维护"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "综合遥测、知识与规则证据，形成维护人员可复核的故障候选；不会绕过人工复核门槛。",
+      "required_permissions": [
+        "READ_DATA",
+        "READ_KNOWLEDGE",
+        "RUN_DIAGNOSIS"
+      ],
+      "runtime_tool_id": "diagnosis.fuse",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:diagnosis.fuse",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "build_knowledge",
+        "diagnose",
+        "infer_candidate",
+        "replay",
+        "research",
+        "train_model"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "文档整理（工程）",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=工程"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "保守清洗文本，保留数字、单位、否定词和来源。",
+      "required_permissions": [
+        "READ_ARTIFACTS"
+      ],
+      "runtime_tool_id": "document.clean",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:document.clean",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "build_knowledge",
+        "diagnose",
+        "infer_candidate",
+        "replay",
+        "research",
+        "train_model"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "文档解析（工程）",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=工程"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "把受支持文档转换为可检索文本，同时保留来源工件。",
+      "required_permissions": [
+        "READ_ARTIFACTS"
+      ],
+      "runtime_tool_id": "document.convert",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:document.convert",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [],
+      "allowed_work_modes": [
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "可证伪探索提案",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=探索"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "仅在创造模式生成隔离的、可证伪的离线假设；不进入诊断投票。",
+      "required_permissions": [
+        "READ_ARTIFACTS",
+        "WRITE_ARTIFACTS"
+      ],
+      "runtime_tool_id": "exploration.propose",
+      "side_effect_level": "WRITE_ARTIFACT",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:exploration.propose",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "build_knowledge"
+      ],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": false,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "候选知识图构建",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=知识"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "把来源约束的信息整理为待审核图候选，不直接发布到 Active KG。",
+      "required_permissions": [
+        "READ_ARTIFACTS",
+        "WRITE_ARTIFACTS"
+      ],
+      "runtime_tool_id": "graph.build",
+      "side_effect_level": "WRITE_ARTIFACT",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:graph.build",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "证据关系检查（工程）",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=工程"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "检查诊断证据之间的已登记关系，主要用于工程审计。",
+      "required_permissions": [
+        "READ_KNOWLEDGE"
+      ],
+      "runtime_tool_id": "graph.reason",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:graph.reason",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "按现象查找相关故障",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "anomaly_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "anomaly_ids"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=维护"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "根据已观测到的异常现象，在本机知识图谱中查找相关故障候选，作为复核线索。",
+      "required_permissions": [
+        "READ_KNOWLEDGE"
+      ],
+      "runtime_tool_id": "knowledge.graph.match_observations",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:knowledge.graph.match_observations",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "故障机理追溯",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "fault_id": {
+            "type": "string"
+          },
+          "max_nodes": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "fault_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=维护"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "沿设备、现象和故障关系查看可能的传播路径，帮助解释为什么当前现象与候选故障相关。",
+      "required_permissions": [
+        "READ_KNOWLEDGE"
+      ],
+      "runtime_tool_id": "knowledge.graph.mechanism",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:knowledge.graph.mechanism",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "build_knowledge",
+        "diagnose",
+        "infer_candidate",
+        "replay",
+        "research",
+        "train_model"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": false,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "查找外部技术资料",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=维护"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "通过主机配置的 PaperSeek 查询外部文献；不接触遥测真值。",
+      "required_permissions": [
+        "READ_ARTIFACTS"
+      ],
+      "runtime_tool_id": "literature.search",
+      "side_effect_level": "EXTERNAL_IO",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:literature.search",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose",
+        "replay"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "模型适配检查（工程）",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=工程"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "检查当前通道与已登记模型合同是否兼容；发现兼容性不等于授权执行。",
+      "required_permissions": [
+        "READ_DATA"
+      ],
+      "runtime_tool_id": "model.capabilities",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:model.capabilities",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "DETERMINISTIC_CORE_EXECUTION",
+      "display_name": "兼容模型执行（工程）",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=工程"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "只通过主机绑定的兼容提供方执行已准入模型。",
+      "required_permissions": [
+        "READ_DATA",
+        "RUN_DIAGNOSIS"
+      ],
+      "runtime_tool_id": "model.execute_compatible",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:model.execute_compatible",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "DETERMINISTIC_CORE_EXECUTION",
+      "display_name": "模型运行（工程）",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=工程"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "准备受治理的原生 ADCS/PHM 推理，或对通用时序执行带语义边界的检测。",
+      "required_permissions": [
+        "READ_DATA",
+        "RUN_DIAGNOSIS"
+      ],
+      "runtime_tool_id": "model.infer",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:model.infer",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "infer_candidate"
+      ],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "候选模型推理",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=实验"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "用离线候选模型和精确通道合同执行无真值推理。",
+      "required_permissions": [
+        "READ_DATA"
+      ],
+      "runtime_tool_id": "model.infer_candidate",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:model.infer_candidate",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "train_model"
+      ],
+      "allowed_work_modes": [],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "NONE",
+      "display_name": "离线模型训练",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=实验"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "仅在明确审批的离线三任务训练清单上训练候选模型。",
+      "required_permissions": [
+        "RUN_EXPERIMENT"
+      ],
+      "runtime_tool_id": "model.train",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:model.train",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "build_knowledge",
+        "diagnose",
+        "infer_candidate",
+        "replay",
+        "research",
+        "train_model"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "生成诊断记录",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=维护"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "把已冻结的诊断结果整理成可保存、可审计的诊断记录。",
+      "required_permissions": [
+        "RENDER_REPORT"
+      ],
+      "runtime_tool_id": "output.structured",
+      "side_effect_level": "WRITE_ARTIFACT",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:output.structured",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "build_knowledge",
+        "diagnose",
+        "infer_candidate",
+        "replay",
+        "research",
+        "train_model"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "TASK_SNAPSHOT_SCHEMA_BOUND; HOST_VALIDATES_PATHS/DATA/PROVIDERS; MODEL_CANNOT_NAME_PYTHON_CALLABLE",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "CANDIDATE_OR_CONTEXT_ONLY",
+      "display_name": "查找本任务技术资料",
+      "evidence_authority": "NONE",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_TOOL_ID_SCHEMA_BOUNDED_INPUT",
+      "notes": [
+        "UI category=维护"
+      ],
+      "output_schema": {
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "HOST_BOUND_OR_REGISTRY_SNAPSHOT",
+      "purpose": "只在当前任务已转换的本地文档中检索来源片段。",
+      "required_permissions": [
+        "READ_ARTIFACTS"
+      ],
+      "runtime_tool_id": "rag.retrieve",
+      "side_effect_level": "READ_ONLY",
+      "surface": "MISSION_PLATFORM",
+      "tool_key": "mission:rag.retrieve",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "COMMAND_RESPONSE_RESIDUAL",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Review host-bound commanded versus observed response residual.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "COMMAND_RESPONSE_RESIDUAL",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:COMMAND_RESPONSE_RESIDUAL",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "DXC_EXPECTED_RESPONSE_REVIEW",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Mirror the frozen R27 expected-response ranking.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "DXC_EXPECTED_RESPONSE_REVIEW",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:DXC_EXPECTED_RESPONSE_REVIEW",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "DXC_FORWARD_SIMULATION_REVIEW",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Mirror the frozen R28 qualitative forward-model decision.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "DXC_FORWARD_SIMULATION_REVIEW",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:DXC_FORWARD_SIMULATION_REVIEW",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "DXC_REDUCED_ORDER_SIMULATION_REVIEW",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Mirror the frozen R29 numerical reduced-order simulation decision.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "DXC_REDUCED_ORDER_SIMULATION_REVIEW",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:DXC_REDUCED_ORDER_SIMULATION_REVIEW",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "DXC_WATERPUMP_REDUCED_ORDER_SIMULATION_REVIEW",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Mirror the frozen R31 WaterPump current/flow reduced-order corroboration decision.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "DXC_WATERPUMP_REDUCED_ORDER_SIMULATION_REVIEW",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:DXC_WATERPUMP_REDUCED_ORDER_SIMULATION_REVIEW",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "EVIDENCE_THRESHOLD_MARGIN",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Recompute distance from an already-frozen evidence threshold.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "EVIDENCE_THRESHOLD_MARGIN",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:EVIDENCE_THRESHOLD_MARGIN",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "LAG_CORRELATION",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Review a host-bound lagged association over admitted arrays.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "LAG_CORRELATION",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:LAG_CORRELATION",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "MINIMAL_DIAGNOSIS_REVIEW",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Review deterministic conflicts and bounded minimal diagnoses.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "MINIMAL_DIAGNOSIS_REVIEW",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:MINIMAL_DIAGNOSIS_REVIEW",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "OSCILLATION_SIGNATURE",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Review a host-bound oscillation signature.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "OSCILLATION_SIGNATURE",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:OSCILLATION_SIGNATURE",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "PRE_POST_CHANGE",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Review a host-bound before/after time-series change.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "PRE_POST_CHANGE",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:PRE_POST_CHANGE",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "SATURATION_LIMIT_CHECK",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Review whether admitted values approach a frozen saturation limit.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "SATURATION_LIMIT_CHECK",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:SATURATION_LIMIT_CHECK",
+      "truth_access_policy": "FORBIDDEN"
+    },
+    {
+      "agent_selectable": true,
+      "allowed_tasks": [
+        "diagnose"
+      ],
+      "allowed_work_modes": [
+        "normal",
+        "thinking",
+        "creative"
+      ],
+      "arbitrary_channel_allowed": false,
+      "arbitrary_database_query_allowed": false,
+      "arbitrary_file_path_allowed": false,
+      "arbitrary_python_allowed": false,
+      "arbitrary_threshold_allowed": false,
+      "arbitrary_window_allowed": false,
+      "argument_contract": "ALL_CHANNELS/WINDOWS/THRESHOLDS/MODELS/SOURCE_IDENTITY_HOST_BOUND_BEFORE_AGENT_SELECTION",
+      "core_prediction_depends_on_agent_call": false,
+      "deterministic": true,
+      "diagnosis_authority": "SHADOW_REVIEW_ONLY",
+      "display_name": "SIMULATION_COUNTERFACTUAL_REVIEW",
+      "evidence_authority": "SHADOW_DERIVED_OBSERVATION_ONLY",
+      "failure_policy": "FAIL_CLOSED",
+      "formal_release_authority": false,
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "probe_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "probe_id"
+        ],
+        "type": "object"
+      },
+      "invocation_authority": "AGENT_SELECTS_HOST_BOUND_PROBE_ID_ONLY",
+      "notes": [],
+      "output_schema": {
+        "required": [
+          "probe_id",
+          "kind",
+          "status",
+          "formal_evidence_eligible",
+          "formal_evidence_generated"
+        ],
+        "type": "object"
+      },
+      "provenance_requirement": "CONTENT_BOUND_DIAGNOSTIC_PROBE_SPEC_AND_SOURCE_ARTIFACT_SHA256",
+      "purpose": "Compare host-admitted observed and counterfactual simulation traces.",
+      "required_permissions": [
+        "DETERMINISTIC_SHADOW_EXECUTE"
+      ],
+      "runtime_tool_id": "SIMULATION_COUNTERFACTUAL_REVIEW",
+      "side_effect_level": "READ_ONLY_SHADOW",
+      "surface": "DIAGNOSTIC_PROBE",
+      "tool_key": "probe:SIMULATION_COUNTERFACTUAL_REVIEW",
+      "truth_access_policy": "FORBIDDEN"
+    }
+  ]
+}

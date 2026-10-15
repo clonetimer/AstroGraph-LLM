@@ -1,0 +1,52 @@
+{
+  "authority": {
+    "agent_may_modify_search_bounds_or_simulation_inputs": false,
+    "new_probe_formal_evidence_eligible": false,
+    "simulation_review_formal_evidence_eligible": false
+  },
+  "baseline_r22_source_zip_sha256": "cccedaf1448adebbe60134cfe03c286297ce055f31758a1b99b6903e439b066c",
+  "claim_boundary": "R23 implements structural graph/model-diagnosis/simulation-review capability and protocol evidence only. Diagnostic improvement must be measured under a newly frozen admissible evaluation protocol.",
+  "code_sha256": {
+    "scripts/experiments/build_r23_asset_inventory.py": "ee5501065ed9735507a3e2c7285903bf508191c3ee606f22df6b8b2df63a0a9f",
+    "scripts/experiments/build_r23_engineering_asset_graph.py": "31512f044e312c0ee61e96af49f394914a104c6e466fab51d00de5b84b83dcc5",
+    "src/astrograph/diagnosis/model_based.py": "cce8c1d18e5bc2c92a4c31b57810371c8d647df531960dd7443cc959b8c89f4a",
+    "src/astrograph/diagnosis/model_simulation.py": "d2039abac11cf44a6fddd7ca51f42e791e270e64a9eb728afe0691cd0aecf7c1",
+    "src/astrograph/evaluation/nasa_adapt_adapter.py": "52bbf399176fa98f943aa6c68a8016751a3bd582129af93e39877caa45c51538",
+    "src/astrograph/evaluation/r23_assets.py": "19c6f10431b7dea430b7a9e4e93c48e0e0b1868590c732aa844e918b10ad0b5e",
+    "src/astrograph/investigation/diagnostic_probes.py": "98b693df3eae5f5280aa0b79c44fed8eead83c8e118b4daf3d44b6922db9d8c7",
+    "src/astrograph/knowledge/engineering_asset_graph.py": "e9495abde207ccd24037234e4713546a645268a8b64ea3297f8fb1840af80c62",
+    "src/astrograph/knowledge/system_model_graph.py": "444b4664b42962f3f0d5f7efaa4fa9f8a684e6a0a6bdfb2b43bf239a092995cc",
+    "src/astrograph/simulation/diagnostic_provider.py": "d094bf0e12b7f6c1ac5aaadcff09d1dcbeef0bc67c498bfa8565b765ea2278fc"
+  },
+  "data_exposure": {
+    "adcs_phm_embedded_evaluation_reused_for_selection": false,
+    "ops_esa_r22_algorithm_identity_changed": false,
+    "r20_r21_seen_external_reused_for_selection": false
+  },
+  "evidence_artifact_sha256": {
+    "governance/evidence/research/r23_graph_sim_diagnosis/PATCH_R23_ASSET_INVENTORY.json": "d0a9061b79d93c4cad1811a4b5d0f3707ccbd0565e48886886367542d9bee69d",
+    "governance/evidence/research/r23_graph_sim_diagnosis/PATCH_R23_DXC_SYSTEM_GRAPH_AUDIT.json": "52afe9584d7514bbdf852f5f5387a889a20638114bad3b726b21567ac8b7ca37",
+    "governance/evidence/research/r23_graph_sim_diagnosis/PATCH_R23_ENGINEERING_ASSET_GRAPH.json": "49fbeab663d79a87326d2b872295496d5eba1bf0aea0a47ed976c0525c3b2da0",
+    "governance/evidence/research/r23_graph_sim_diagnosis/PATCH_R23_MODEL_SIMULATION_SYNTHETIC_RECEIPT.json": "2a8c20950303c4d185e37d58a4dd4920258ac26bad44a384b8362fc9ab696b89"
+  },
+  "performance_claim": "NO_NEW_REAL_EXTERNAL_PERFORMANCE_CLAIM",
+  "prepackage_first_gate": {
+    "delivery_evidence_source_only": "PASS_WITH_EXTERNAL_DEPENDENCIES / 8 external historical archives / 0 consistency errors",
+    "delivery_evidence_strict_bundled": "FAIL as designed / same 8 external historical archives",
+    "documentation_freshness": "PASS",
+    "source_verify": "2719 files verified / 0 errors"
+  },
+  "qualification": "NOT_FLIGHT_QUALIFIED",
+  "receipt_sha256": "6d3b807f5d6d175dd89864a676d98ca579512ddd4bc701cee31374e84d9a092d",
+  "schema_version": "astrograph-r23-implementation-receipt.v1",
+  "status": "IMPLEMENTED_PRE_HOLDOUT_ENGINEERING_REMEDIATION",
+  "tests": {
+    "chromium_behavior": "3 passed",
+    "distribution_inventory_delivery_group": "15 passed",
+    "documentation_freshness": "PASS",
+    "full_collect_only": "3529 tests / 0 collection errors",
+    "production_es_modules_node_check": "10 PASS",
+    "r20_r22_source_only_family": "98 passed / 1 skipped",
+    "r23_expanded_affected_domain": "66 passed / 3 skipped"
+  }
+}

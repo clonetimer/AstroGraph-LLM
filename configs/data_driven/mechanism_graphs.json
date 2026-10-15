@@ -1,0 +1,28 @@
+{
+  "schema_version": "astrograph-data-driven-mechanism-graphs.v1",
+  "graphs": {
+    "adcs_v5_2_2": {
+      "nodes": ["control_loop", "imu", "reaction_wheel", "star_tracker", "sun_sensor"],
+      "edges": [
+        {"source": "control_loop", "target": "imu", "bidirectional": true, "relation": "estimation_feedback", "evidence": ["configs/datasets/adcs_v5_2_2/diagnosis_hierarchy.json", "external:sat/scripts/generate_whole_spacecraft_adcs_eps_dataset_v522.py"]},
+        {"source": "control_loop", "target": "reaction_wheel", "bidirectional": true, "relation": "command_response", "evidence": ["configs/datasets/adcs_v5_2_2/isgn_mechanism_atlas.json", "external:sat/scripts/generate_whole_spacecraft_adcs_eps_dataset_v522.py"]},
+        {"source": "control_loop", "target": "star_tracker", "bidirectional": true, "relation": "attitude_solution_feedback", "evidence": ["configs/datasets/adcs_v5_2_2/isgn_mechanism_atlas.json", "external:sat/scripts/generate_whole_spacecraft_adcs_eps_dataset_v522.py"]},
+        {"source": "control_loop", "target": "sun_sensor", "bidirectional": true, "relation": "sun_vector_feedback", "evidence": ["configs/datasets/adcs_v5_2_2/diagnosis_hierarchy.json", "external:sat/scripts/generate_whole_spacecraft_adcs_eps_dataset_v522.py"]}
+      ],
+      "claim_boundary": "Research architecture prior for synthetic ADCS v5.2.2 only. Edges express high-level command/feedback coupling, not learned causality, fault propagation proof, or flight topology."
+    },
+    "phm_v6_0": {
+      "nodes": ["adcs", "eps", "payload", "comm_data", "thermal", "propulsion"],
+      "edges": [
+        {"source": "adcs", "target": "payload", "bidirectional": true, "relation": "pointing_enable_context", "evidence": ["external:sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py:_spacecraft_parameters payload_max_pointing_error_deg"]},
+        {"source": "adcs", "target": "comm_data", "bidirectional": true, "relation": "pointing_enable_context", "evidence": ["external:sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py:_spacecraft_parameters comm_max_pointing_error_deg"]},
+        {"source": "eps", "target": "payload", "bidirectional": true, "relation": "power_supply_and_load", "evidence": ["external:sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py:FAMILY_PREFIXES eps/payload"]},
+        {"source": "eps", "target": "comm_data", "bidirectional": true, "relation": "power_supply_and_load", "evidence": ["external:sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py:FAMILY_PREFIXES eps/comm_data"]},
+        {"source": "eps", "target": "thermal", "bidirectional": true, "relation": "heater_power_and_thermal_state", "evidence": ["external:sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py:FAMILY_PREFIXES thermal"]},
+        {"source": "eps", "target": "propulsion", "bidirectional": true, "relation": "power_state_context", "evidence": ["external:sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py:FAMILY_PREFIXES propulsion"]},
+        {"source": "payload", "target": "comm_data", "bidirectional": true, "relation": "generated_data_flow", "evidence": ["external:sat/scripts/generate_whole_spacecraft_phm_dataset_v6.py:FAMILY_PREFIXES payload/comm_data"]}
+      ],
+      "claim_boundary": "Research architecture prior for synthetic PHM v6.0 only. Edges reflect simulator-level observable coupling; they are not flight causal claims and are never fitted from evaluation folds."
+    }
+  }
+}

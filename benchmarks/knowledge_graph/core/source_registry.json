@@ -1,0 +1,28 @@
+{
+  "sources": [
+    {
+      "source_id": "SRC-0130FC8007C6A8DA",
+      "source_ref": "src/astrograph/diagnosis/reaction_wheel.py",
+      "evidence_level": "E0",
+      "review_status": "PROVISIONAL"
+    },
+    {
+      "source_id": "SRC-4FD2FB3BA1A34B99",
+      "source_ref": "protocols/phm_project_a/telemetry_physical_semantics_v1.csv",
+      "evidence_level": "E0",
+      "review_status": "PROVISIONAL"
+    },
+    {
+      "source_id": "SRC-9463602797455964",
+      "source_ref": "configs/reaction_wheel_diagnosis_rules.json",
+      "evidence_level": "E0",
+      "review_status": "PROVISIONAL"
+    },
+    {
+      "source_id": "SRC-AC367F86A57EF26E",
+      "source_ref": "reference/evidence_sources/reaction_wheel_validation.json",
+      "evidence_level": "E0",
+      "review_status": "PROVISIONAL"
+    }
+  ]
+}

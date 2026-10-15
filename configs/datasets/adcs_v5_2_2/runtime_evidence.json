@@ -1,0 +1,264 @@
+{
+  "schema_version": "astrograph-configured-runtime-evidence.v1",
+  "package_id": "whole-spacecraft-adcs-v5.2.2",
+  "version": "1.0.0",
+  "source_schema_sha256": "929889977f99f3c990d724dc85c180acf99e2caad829ce6217bd475ed7294e54",
+  "domain_id": "ADCS_V5_2_2",
+  "analysis_component_instance": "ADCS",
+  "episode_mode": "full_run",
+  "time_axis": {
+    "source_field": "time_s",
+    "source_unit": "s"
+  },
+  "channels": [
+    {
+      "source_field": "adcs.rw.command_execution_residual_norm_nm",
+      "semantic_channel_id": "asset.adcs.reaction_wheel_cluster.command_execution_residual_norm",
+      "component_instance": "REACTION_WHEEL_CLUSTER",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "adcs.rw.speed_response_residual_norm_nm",
+      "semantic_channel_id": "asset.adcs.reaction_wheel_cluster.speed_response_residual_norm",
+      "component_instance": "REACTION_WHEEL_CLUSTER",
+      "source_unit": "N*m",
+      "canonical_unit": "N*m",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "adcs.star_tracker.valid",
+      "semantic_channel_id": "asset.adcs.star_tracker_0.solution_valid",
+      "component_instance": "STAR_TRACKER_0",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "adcs.star_tracker.solution_fresh",
+      "semantic_channel_id": "asset.adcs.star_tracker_0.solution_fresh",
+      "component_instance": "STAR_TRACKER_0",
+      "source_unit": "1",
+      "canonical_unit": "1",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.01
+    },
+    {
+      "source_field": "adcs.innovation.star_gyro_rate_residual_norm_rad_s",
+      "semantic_channel_id": "asset.adcs.estimator.star_gyro_rate_residual_norm",
+      "component_instance": "ADCS_ESTIMATOR",
+      "source_unit": "rad/s",
+      "canonical_unit": "rad/s",
+      "direction": 1,
+      "required": true,
+      "max_missing_fraction": 0.02
+    }
+  ],
+  "feature_definitions": [
+    {
+      "feature_definition_id": "FD-ADCS-V522-RW-COMMAND-RESIDUAL-MAX-V1",
+      "name": "反作用轮指令执行残差范数峰值",
+      "source_field_template": "asset.adcs.reaction_wheel_cluster.command_execution_residual_norm",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-max-value@0.5.13",
+      "source_refs": [
+        "whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json"
+      ],
+      "claim_boundary": "E0 synthetic dataset feature; not a flight-calibrated health metric."
+    },
+    {
+      "feature_definition_id": "FD-ADCS-V522-RW-SPEED-RESIDUAL-MAX-V1",
+      "name": "反作用轮速度响应残差范数峰值",
+      "source_field_template": "asset.adcs.reaction_wheel_cluster.speed_response_residual_norm",
+      "aggregation": "MAX_VALUE",
+      "unit": "N*m",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-max-value@0.5.13",
+      "source_refs": [
+        "whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json"
+      ],
+      "claim_boundary": "E0 synthetic dataset feature; not a flight-calibrated health metric."
+    },
+    {
+      "feature_definition_id": "FD-ADCS-V522-STAR-VALID-FALSE-FRACTION-V1",
+      "name": "星敏解有效标志为假的比例",
+      "source_field_template": "asset.adcs.star_tracker_0.solution_valid",
+      "aggregation": "FALSE_FRACTION",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-false-fraction@0.5.13",
+      "source_refs": [
+        "whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json"
+      ],
+      "claim_boundary": "E0 synthetic dataset feature; not a flight-calibrated health metric."
+    },
+    {
+      "feature_definition_id": "FD-ADCS-V522-STAR-FRESH-FALSE-FRACTION-V1",
+      "name": "星敏解新鲜标志为假的比例",
+      "source_field_template": "asset.adcs.star_tracker_0.solution_fresh",
+      "aggregation": "FALSE_FRACTION",
+      "unit": "1",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-false-fraction@0.5.13",
+      "source_refs": [
+        "whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json"
+      ],
+      "claim_boundary": "E0 synthetic dataset feature; not a flight-calibrated health metric."
+    },
+    {
+      "feature_definition_id": "FD-ADCS-V522-STAR-GYRO-INNOVATION-MAX-V1",
+      "name": "星敏陀螺角速度创新范数峰值",
+      "source_field_template": "asset.adcs.estimator.star_gyro_rate_residual_norm",
+      "aggregation": "MAX_VALUE",
+      "unit": "rad/s",
+      "window_scope": "full_run",
+      "algorithm_version": "builtin-max-value@0.5.13",
+      "source_refs": [
+        "whole_spacecraft_adcs_paired_dataset_v5_2_2/dataset_manifest.json"
+      ],
+      "claim_boundary": "E0 synthetic dataset feature; not a flight-calibrated health metric."
+    }
+  ],
+  "evidence_definitions": [
+    {
+      "evidence_definition_id": "ED-ADCS-V522-RW-JAM-COMMAND-RESIDUAL-V1",
+      "target_fault_id": "ADCS_RW_JAM",
+      "name": "轮组指令执行残差达到卡滞回归门槛",
+      "feature_definition_id": "FD-ADCS-V522-RW-COMMAND-RESIDUAL-MAX-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.3,
+      "threshold_unit": "N*m",
+      "critical": true,
+      "source_refs": [
+        "v5.2.2 synthetic regression calibration"
+      ],
+      "claim_boundary": "E0 dataset-specific engineering threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-RW-JAM-SPEED-RESIDUAL-V1",
+      "target_fault_id": "ADCS_RW_JAM",
+      "name": "轮组速度响应残差达到卡滞回归门槛",
+      "feature_definition_id": "FD-ADCS-V522-RW-SPEED-RESIDUAL-MAX-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.05,
+      "threshold_unit": "N*m",
+      "critical": true,
+      "source_refs": [
+        "v5.2.2 synthetic regression calibration"
+      ],
+      "claim_boundary": "E0 dataset-specific engineering threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-RW-TORQUE-OPEN-LOWER-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "轮组指令执行残差超过开路最低门槛",
+      "feature_definition_id": "FD-ADCS-V522-RW-COMMAND-RESIDUAL-MAX-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.0005,
+      "threshold_unit": "N*m",
+      "critical": true,
+      "source_refs": [
+        "v5.2.2 synthetic regression calibration"
+      ],
+      "claim_boundary": "E0 dataset-specific engineering threshold; confounded by acquisition transients."
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-RW-TORQUE-OPEN-UPPER-V1",
+      "target_fault_id": "ADCS_RW_TORQUE_AUTHORITY_LOSS",
+      "name": "轮组指令执行残差低于卡滞区间",
+      "feature_definition_id": "FD-ADCS-V522-RW-COMMAND-RESIDUAL-MAX-V1",
+      "role": "REQUIRED",
+      "comparison": "LESS_OR_EQUAL",
+      "threshold": 0.25,
+      "threshold_unit": "N*m",
+      "critical": true,
+      "source_refs": [
+        "v5.2.2 synthetic regression calibration"
+      ],
+      "claim_boundary": "E0 dataset-specific engineering threshold; confounded by acquisition transients."
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-STAR-UNAVAILABLE-VALID-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "name": "星敏解长期无效",
+      "feature_definition_id": "FD-ADCS-V522-STAR-VALID-FALSE-FRACTION-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.5,
+      "threshold_unit": "1",
+      "critical": true,
+      "source_refs": [
+        "v5.2.2 observable status semantics"
+      ],
+      "claim_boundary": "E0 dataset-specific engineering threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-STAR-UNAVAILABLE-FRESH-V1",
+      "target_fault_id": "ADCS_STAR_TRACKER_DROPOUT",
+      "name": "星敏解长期不新鲜",
+      "feature_definition_id": "FD-ADCS-V522-STAR-FRESH-FALSE-FRACTION-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 0.5,
+      "threshold_unit": "1",
+      "critical": true,
+      "source_refs": [
+        "v5.2.2 observable status semantics"
+      ],
+      "claim_boundary": "E0 dataset-specific engineering threshold; not a flight-certified diagnostic limit."
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-GYRO-BIAS-INNOVATION-LOWER-V1",
+      "target_fault_id": "ADCS_GYRO_BIAS_DRIFT",
+      "name": "星敏陀螺创新超过偏置最低门槛",
+      "feature_definition_id": "FD-ADCS-V522-STAR-GYRO-INNOVATION-MAX-V1",
+      "role": "REQUIRED",
+      "comparison": "GREATER_OR_EQUAL",
+      "threshold": 4e-05,
+      "threshold_unit": "rad/s",
+      "critical": true,
+      "source_refs": [
+        "v5.2.2 synthetic regression calibration"
+      ],
+      "claim_boundary": "Dataset class is a bias step while the registered ontology node is broader bias drift; E0 correspondence only."
+    },
+    {
+      "evidence_definition_id": "ED-ADCS-V522-GYRO-BIAS-INNOVATION-UPPER-V1",
+      "target_fault_id": "ADCS_GYRO_BIAS_DRIFT",
+      "name": "星敏陀螺创新低于严重轮故障区间",
+      "feature_definition_id": "FD-ADCS-V522-STAR-GYRO-INNOVATION-MAX-V1",
+      "role": "REQUIRED",
+      "comparison": "LESS_OR_EQUAL",
+      "threshold": 0.01,
+      "threshold_unit": "rad/s",
+      "critical": true,
+      "source_refs": [
+        "v5.2.2 synthetic regression calibration"
+      ],
+      "claim_boundary": "E0 dataset-specific engineering threshold; star-gyro innovation upper band is conjunctively bounded by RW command residual <= 0.33 so ADCS_GYRO_BIAS_DRIFT never fires on wheel jam (frozen ADCS v5.2.2 disambiguation study 20260824). Not a flight-certified limit.",
+      "and_feature_conditions": [
+        {
+          "schema_version": "astrograph-conjunctive-feature-condition.v1",
+          "feature_definition_id": "FD-ADCS-V522-RW-COMMAND-RESIDUAL-MAX-V1",
+          "comparison": "LESS_OR_EQUAL",
+          "threshold": 0.33,
+          "threshold_unit": "N*m"
+        }
+      ]
+    }
+  ],
+  "claim_boundary": "Configuration-driven E0 evidence for the synthetic ADCS v5.2.2 dataset. Full-run thresholds are engineering regression gates, not calibrated flight limits. Runtime mapping is label-free."
+}

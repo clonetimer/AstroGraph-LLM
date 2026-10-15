@@ -1,0 +1,58 @@
+{
+  "queries": [
+    {
+      "query_id": "Q-CRT-EPS_CAPACITY_PLUS_SOLAR-MEMBERS",
+      "start_node_id": "CRT-EPS_CAPACITY_PLUS_SOLAR",
+      "expected_relation": "HAS_MEMBER_CANDIDATE",
+      "expected_target_ids": [
+        "EPS_BATTERY_CAPACITY_LOSS",
+        "EPS_SOLAR_ARRAY_EFFICIENCY_LOSS"
+      ]
+    },
+    {
+      "query_id": "Q-CRT-RADIATOR_PLUS_HEATER-MEMBERS",
+      "start_node_id": "CRT-RADIATOR_PLUS_HEATER",
+      "expected_relation": "HAS_MEMBER_CANDIDATE",
+      "expected_target_ids": [
+        "THERMAL_HEATER_STUCK_ON",
+        "THERMAL_RADIATOR_REJECTION_LOSS"
+      ]
+    },
+    {
+      "query_id": "Q-CRT-RW_FRICTION_PLUS_STAR_TRACKER-MEMBERS",
+      "start_node_id": "CRT-RW_FRICTION_PLUS_STAR_TRACKER",
+      "expected_relation": "HAS_MEMBER_CANDIDATE",
+      "expected_target_ids": [
+        "ADCS_RW_FRICTION_INCREASE",
+        "ADCS_STAR_TRACKER_DROPOUT"
+      ]
+    },
+    {
+      "query_id": "Q-CRT-TRANSMITTER_PLUS_STORAGE_WRITE-MEMBERS",
+      "start_node_id": "CRT-TRANSMITTER_PLUS_STORAGE_WRITE",
+      "expected_relation": "HAS_MEMBER_CANDIDATE",
+      "expected_target_ids": [
+        "COMM_TRANSMITTER_OUTPUT_POWER_LOSS",
+        "DATA_STORAGE_WRITE_FAILURE"
+      ]
+    }
+  ],
+  "templates": {
+    "eps_capacity_plus_solar": [
+      "EPS_BATTERY_CAPACITY_LOSS",
+      "EPS_SOLAR_ARRAY_EFFICIENCY_LOSS"
+    ],
+    "radiator_plus_heater": [
+      "THERMAL_RADIATOR_REJECTION_LOSS",
+      "THERMAL_HEATER_STUCK_ON"
+    ],
+    "rw_friction_plus_star_tracker": [
+      "ADCS_RW_FRICTION_INCREASE",
+      "ADCS_STAR_TRACKER_DROPOUT"
+    ],
+    "transmitter_plus_storage_write": [
+      "COMM_TRANSMITTER_OUTPUT_POWER_LOSS",
+      "DATA_STORAGE_WRITE_FAILURE"
+    ]
+  }
+}

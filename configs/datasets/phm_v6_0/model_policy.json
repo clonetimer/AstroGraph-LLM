@@ -1,0 +1,17 @@
+{
+  "schema_version": "astrograph-phm-v60-model-policy.v1",
+  "dataset_id": "whole_spacecraft_phm_dataset_v6_0",
+  "default_replay_strategy": "promoted_extra_trees",
+  "promoted_bundle_id": "phm-v6.0-extra-trees-retrospective-screening-v1",
+  "promoted_bundle_path": "models/phm_v6_0/promoted_extra_trees_v1",
+  "allowed_replay_strategies": [
+    "promoted_extra_trees",
+    "adaptive",
+    "legacy_lr"
+  ],
+  "promotion_scope": "RETROSPECTIVE_KNOWN_ACTIVATION_TRACE_SCREENING_DEFAULT",
+  "unknown_onset_runtime_strategy_unchanged": true,
+  "formal_release_allowed": false,
+  "rollback_strategy": "adaptive",
+  "claim_boundary": "The promoted default applies only to PHM v6.0 retrospective post-activation trace-summary replay. It does not replace unknown-onset causal-window evaluation and does not constitute flight or safety qualification."
+}

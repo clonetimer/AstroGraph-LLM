@@ -1,0 +1,20 @@
+{
+  "calibrator_method": "TEMPERATURE_SCALING_ON_LOG_PROBABILITIES",
+  "claim_boundary": "Protocol/implementation receipt only. No real model calibration, external-validation performance, HIL/flight qualification or release authority is asserted.",
+  "design_sha256": "955ba1e989730e370b09ab67bc9a125bdfa3f34c258fdabe1af3a670006bdc49",
+  "fit_objective": "EQUAL_INDEPENDENT_GROUP_MACRO_NLL",
+  "legacy_probability_receipt_formal_promotion_eligible": false,
+  "patch": "PATCH-R19",
+  "real_calibration_executed": false,
+  "receipt_sha256": "a0f384d3b016ac59e5dc245209d1489462e674910a7677c210d7b3c15f241eeb",
+  "required_partitions": [
+    "CALIBRATION_FIT",
+    "DEVELOPMENT_SELECTION",
+    "CONFIRMATORY_EVALUATION",
+    "EXTERNAL_VALIDATION"
+  ],
+  "schema_version": "astrograph-r19-research-protocol-receipt.v1",
+  "synthetic_fit_receipt_sha256": "93c83722941d6f4aac0c0a3bc85df6d532e8d82805c05176685b2562adb96f1e",
+  "synthetic_protocol_receipt_sha256": "165f35c41007889a68e00cba7ec66f96bc592c6bc378403e050a1b69e7404fb4",
+  "synthetic_qualification_receipt_sha256": "eeb48ed21594f4f7c45771ffb0459c935a4a35f7bcc5a6df1b2ba4d109f6ff6e"
+}

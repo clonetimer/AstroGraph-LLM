@@ -1,0 +1,91 @@
+{
+  "$id": "astrograph-soft-calibration-selection-receipt.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "dataset_id",
+    "runtime_evidence_package_sha256",
+    "source_hashes",
+    "protocol",
+    "selected_evidence_definition_ids",
+    "group_episode_counts",
+    "observation_sha256",
+    "candidate_metrics",
+    "selected_candidate_policy_sha256",
+    "decision",
+    "freeze_eligible",
+    "freeze_blockers",
+    "claim_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "astrograph-soft-calibration-selection-receipt.v1"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "runtime_evidence_package_sha256": {"$ref": "#/$defs/sha256"},
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": {"$ref": "#/$defs/sha256"}
+    },
+    "protocol": {
+      "$ref": "soft_evidence_calibration_selection_protocol.schema.json"
+    },
+    "selected_evidence_definition_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "group_episode_counts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 1}
+    },
+    "observation_sha256": {"$ref": "#/$defs/sha256"},
+    "candidate_metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/candidate_metric"}
+    },
+    "selected_candidate_policy_sha256": {"$ref": "#/$defs/sha256"},
+    "decision": {"const": "DEVELOPMENT_SELECTED_NOT_FROZEN"},
+    "freeze_eligible": {"const": false},
+    "freeze_blockers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "receipt_sha256": {
+      "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+    },
+    "claim_boundary": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "candidate_metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_width_multiplier",
+        "candidate_policy_sha256",
+        "observation_count",
+        "group_macro_brier",
+        "worst_group_brier",
+        "group_brier"
+      ],
+      "properties": {
+        "transition_width_multiplier": {"type": "number", "exclusiveMinimum": 0},
+        "candidate_policy_sha256": {"$ref": "#/$defs/sha256"},
+        "observation_count": {"type": "integer", "minimum": 1},
+        "group_macro_brier": {"type": "number", "minimum": 0, "maximum": 1},
+        "worst_group_brier": {"type": "number", "minimum": 0, "maximum": 1},
+        "group_brier": {
+          "type": "object",
+          "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    }
+  }
+}

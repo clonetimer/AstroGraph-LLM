@@ -1,0 +1,92 @@
+{
+  "schema_version": "astrograph-r28-algorithm-architecture-receipt.v1",
+  "patch_id": "PATCH-R28",
+  "base_r27_observed_source_zip_sha256": "8a4f3c52c0f7f8448c3cf7c29ed919650912d7fc45f9fdeeb1072195f3879a45",
+  "base_r27_declared_source_zip_sha256": "db7175b99a674ed1d229a73feeb94d595039611f880e706f942103bf9643931b",
+  "base_zip_byte_identity_matches_artifact_record": false,
+  "base_identity_finding": "BASE-R28-01_INHERITED_PACKAGING_IDENTITY_MISMATCH",
+  "base_source_internal_integrity": {
+    "verified_files": 2760,
+    "errors": 0,
+    "status": "PASS"
+  },
+  "architecture": "LEGACY_RETAINED_PLUS_R27_DETERMINISTIC_BRANCH_PLUS_R28_FORWARD_MODEL_REFINEMENT_PLUS_OPTIONAL_AGENT_SHADOW_REVIEW",
+  "legacy_branch_retained": true,
+  "r27_branch_retained": true,
+  "runtime_default_changed": false,
+  "r28_agent_required": false,
+  "r28_formal_evidence_eligible": false,
+  "continuous_physics_simulator": false,
+  "simulation_semantics": "QUALITATIVE_COMPONENT_MODE_FORWARD_SIMULATION",
+  "score_semantics": "DETERMINISTIC_FORWARD_MODEL_FIT_NOT_PROBABILITY",
+  "agent_review_kind": "DXC_FORWARD_SIMULATION_REVIEW",
+  "agent_review_read_only": true,
+  "development_report_receipt_sha256": "9dc4e37c327e1d51ba368a1e702c5b986a0fd9c2f53376e54c258b39eaaa64db",
+  "development_report_file_sha256": "d067bf19523f92f6f976be086fdf88f787a32e5bbd85ee9b72c81204ba8248c2",
+  "combined_post_contact_development_r27_metrics": {
+    "case_count": 25,
+    "fault_element_precision_micro": 0.84375,
+    "fault_element_recall_micro": 0.7941176470588235,
+    "fault_element_f1_micro": 0.8181818181818182,
+    "component_precision_micro": 0.84375,
+    "component_recall_micro": 0.7941176470588235,
+    "component_f1_micro": 0.8181818181818182,
+    "exact_fault_set_rate": 0.8,
+    "faulty_case_any_fault_element_overlap_rate": 0.84,
+    "mean_predicted_fault_count": 1.28,
+    "early_first_alarm_case_count": 3,
+    "post_injection_first_alarm_case_count": 21,
+    "no_alarm_case_count": 1,
+    "post_injection_first_alarm_rate": 0.84,
+    "median_post_injection_delay_s": 0.34499999999999886
+  },
+  "combined_post_contact_development_r28_metrics": {
+    "case_count": 25,
+    "fault_element_precision_micro": 1.0,
+    "fault_element_recall_micro": 0.9705882352941176,
+    "fault_element_f1_micro": 0.9850746268656716,
+    "component_precision_micro": 1.0,
+    "component_recall_micro": 0.9705882352941176,
+    "component_f1_micro": 0.9850746268656716,
+    "exact_fault_set_rate": 0.96,
+    "faulty_case_any_fault_element_overlap_rate": 0.96,
+    "mean_predicted_fault_count": 1.32,
+    "diagnostic_resolution_rate": 0.96,
+    "unresolved_case_count": 1,
+    "resolved_exact_fault_set_rate": 1.0
+  },
+  "source_identities": {
+    "core": {
+      "size": 23889,
+      "sha256": "d083a552f5e0abf95f87f4f79702c2db88f838b9e476604aae28164744165ee8"
+    },
+    "adapter": {
+      "size": 4383,
+      "sha256": "d474b20f0b03dd91b8ecdc578f5429c91c7e1bfe89502b8de480f703bceed04d"
+    },
+    "probe": {
+      "size": 28085,
+      "sha256": "a482442c3a162a1f7c4844c4fd40e07f0eb353bdbacc0c00e0a3b4294a41d0e7"
+    },
+    "runner": {
+      "size": 9117,
+      "sha256": "82a28c9e4566e82d401e912b409e60bf0e0412f55246b718dbf70c18324e241a"
+    },
+    "forward_config": {
+      "size": 1035,
+      "sha256": "85e8d47870d8f9119d648c02b68446df05e2ade22fda72f47c4d07d0b819161a"
+    },
+    "algorithm_policy": {
+      "size": 1750,
+      "sha256": "24bfaaa18a23beeffdd29dfad9fd502edd0ae777ea063a90600878d6dc27a6a0"
+    },
+    "development_report": {
+      "size": 61438,
+      "sha256": "d067bf19523f92f6f976be086fdf88f787a32e5bbd85ee9b72c81204ba8248c2"
+    }
+  },
+  "status": "POST_CONTACT_DEVELOPMENT_PRIMARY_CANDIDATE_REQUIRES_NEW_HOLDOUT",
+  "qualification": "NOT_EXTERNAL_VALIDATION_NOT_PRODUCTION_DEFAULT_NOT_FLIGHT_QUALIFIED",
+  "claim_boundary": "R28 metrics are post-contact development evidence only. The forward model is deterministic core logic, not Agent authority and not a continuous physics simulator. Competition/Rematch were not rerun; production default remains unchanged.",
+  "receipt_sha256": "89484e52772453d37d5f630dd6e9eb63582f3bc0cf62a48b978efea61b6c2e5b"
+}

@@ -1,0 +1,38 @@
+{
+  "alignment_contract_sha256": "3401562b77d06153df153bce79fcf67d1d7d3a9d8ed99dcd1097b243a05e56c9",
+  "candidate_grid_sha256": "4d46799af8b419793199cb4395b6a2925e5c48685e2311a3f4d57ef4bdb0ddac",
+  "claim_boundary": "Frozen on groups 3/8 development variants only. This policy addresses bounded prefix-alignable timing shift and declared scale-relative noise. Arbitrary cross-Monte-Carlo reference robustness, fault identification, KG gain, external validity, HIL, safety, flight, and confirmation remain unestablished.",
+  "development_groups": [
+    3,
+    8
+  ],
+  "development_result_sha256": "8e30493091611fc96ee12c5171753b09514f081517bac9151a6296215bc03c04",
+  "excluded_groups": [
+    4,
+    9
+  ],
+  "groups_4_9_read": false,
+  "historical_p2_required": false,
+  "new_confirmatory_evidence": "NONE",
+  "package_id": "ADCS-MT-TEMPORAL-POLICY-R001",
+  "package_sha256": "af6d2ee5f125d59524449f6004c9297160258a918abf803ce663902e23e66f30",
+  "project_status": "B009_WIP_DEVELOPMENT_EVIDENCE",
+  "runtime_ground_truth_access": false,
+  "scale_contract_sha256": "08841507643ce16bc488b4cb10c52f5e94edfbd68f86c8dbe0059ed3bf83735b",
+  "schema_version": "astrograph-adcs-mismatch-tolerant-policy-package.v1",
+  "selected_policy": {
+    "alignment_fit_max": 0.08,
+    "alignment_out_of_envelope_action": "ABSTAIN",
+    "claim_boundary": "Development-selected bounded mismatch policy. Selection uses groups 3/8 and predeclared development stress variants only; it is not confirmatory and does not authorize groups 4/9 tuning.",
+    "maximum_source_missing_fraction": 1.0,
+    "no_alarm_action": "ABSTAIN",
+    "notification_buffer_points": 3,
+    "policy_id": "ADCS-MT-R001-F0.08-T0.06-P1",
+    "policy_sha256": "b7bfe456a88a9e21d24b3daf2c6c2d35aaeff896b634f5017dfe4ca017ca09d4",
+    "schema_version": "astrograph-mismatch-tolerant-temporal-policy.v1",
+    "trigger_persistence_points": 1,
+    "trigger_threshold": 0.06,
+    "warmup_points": 31
+  },
+  "selected_policy_receipt_sha256": "2891c9f502a5aa096baec02103cbcf4bcc3370ee01b51ce05bb86a4ebe4482ef"
+}

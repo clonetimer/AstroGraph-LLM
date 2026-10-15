@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astrograph.local/schemas/model-admission-receipt-v1.json",
+  "title": "AdmissionReceipt",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "astrograph-model-admission-receipt.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "receipt_id": {
+      "minLength": 1,
+      "title": "Receipt Id",
+      "type": "string"
+    },
+    "admission_id": {
+      "minLength": 1,
+      "title": "Admission Id",
+      "type": "string"
+    },
+    "admission_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Admission Manifest Sha256",
+      "type": "string"
+    },
+    "feature_contract_id": {
+      "minLength": 1,
+      "title": "Feature Contract Id",
+      "type": "string"
+    },
+    "feature_contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Feature Contract Sha256",
+      "type": "string"
+    },
+    "feature_schema_id": {
+      "minLength": 1,
+      "title": "Feature Schema Id",
+      "type": "string"
+    },
+    "original_input_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Original Input Sha256",
+      "type": "string"
+    },
+    "admitted_payload_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Admitted Payload Sha256",
+      "type": "string"
+    },
+    "observation_scope_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Observation Scope Sha256",
+      "type": "string"
+    },
+    "provider_episode_token": {
+      "minLength": 1,
+      "title": "Provider Episode Token",
+      "type": "string"
+    },
+    "source_evidence_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Evidence Ids",
+      "type": "array"
+    },
+    "correlation_group_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Correlation Group Ids",
+      "type": "array"
+    },
+    "signer_key_id": {
+      "minLength": 1,
+      "title": "Signer Key Id",
+      "type": "string"
+    },
+    "signature_hmac_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Signature Hmac Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "receipt_id",
+    "admission_id",
+    "admission_manifest_sha256",
+    "feature_contract_id",
+    "feature_contract_sha256",
+    "feature_schema_id",
+    "original_input_sha256",
+    "admitted_payload_sha256",
+    "observation_scope_sha256",
+    "provider_episode_token",
+    "source_evidence_ids",
+    "correlation_group_ids",
+    "signer_key_id",
+    "signature_hmac_sha256"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "astrograph-mission-settings.v1",
+  "project_root": ".",
+  "read_roots": [
+    "."
+  ],
+  "output_root": "../astrograph-agent-runs",
+  "planner": "llm_assisted",
+  "max_checks": 3,
+  "max_optional_actions": 2,
+  "max_llm_calls": 6,
+  "domain": "adcs",
+  "evidence_profile": "sensor-checks",
+  "approved_model_sha256": [
+    "39062457c1ed6d68c1478afa1d125ba54b80a6e07936de0a4078dca865852732"
+  ],
+  "allow_external_literature": false,
+  "allow_a2o": false,
+  "allow_mineru": false,
+  "llm_config": "configs/agent/llm.local.example.json",
+  "model_capability_registry": "configs/agent/model_capabilities.default.json"
+}

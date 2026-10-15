@@ -1,0 +1,37 @@
+{
+  "schema_version": "astrograph-current-delivery-validation.v1",
+  "release": "0.7.1.post49",
+  "profile": "post49-current-delivery-source-r1",
+  "status": "PASS",
+  "tests": {
+    "stable_smoke": {
+      "passed": 19,
+      "failed": 0,
+      "scope": "runtime/governance/model/API software smoke"
+    },
+    "scenario_function_regression": {
+      "passed": 139,
+      "failed": 0,
+      "scope": "replay + generic series + admitted execution + document + continuous diagnosis + feedback + controlled evolution"
+    },
+    "adcs_governed_config_regression": {
+      "passed": 64,
+      "failed": 0,
+      "scope": "RW/evidence/runtime/governance/model/API selected regression"
+    },
+    "document_freshness": {
+      "status": "PASS",
+      "history_records_included": false
+    }
+  },
+  "functional_correction": {
+    "issue": "post49-docs-r1 documentation normalization had changed four hash-sensitive ADCS evidence JSON files.",
+    "resolution": "restored original 0.7.1.post49 stable bytes; did not broaden any hash whitelist or requalify altered files.",
+    "verified_sha256": {
+      "configs/research/zero_authority.v1.json": "27c25dcdcf2deb05c475ae32132a6e4c137658c714afd4c22e90262bc7deecef",
+      "configs/datasets/adcs_v5_2_2/runtime_window_integrated_evidence.json": "6ee2ab138a1001e00db509796eef68df6540c93fb457f543aa6bd9a24ca74148"
+    }
+  },
+  "history_audit": "DELIVERY_AUDIT.json",
+  "claim_boundary": "Software/package functional regression only; no new performance evidence."
+}

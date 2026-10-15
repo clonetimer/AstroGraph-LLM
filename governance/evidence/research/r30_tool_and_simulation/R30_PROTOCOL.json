@@ -1,0 +1,45 @@
+{
+  "agent_authority": {
+    "agent_release_authority": false,
+    "arbitrary_paths": false,
+    "arbitrary_probe_channels_windows_thresholds": false,
+    "arbitrary_python": false,
+    "core_detection_depends_on_optional_agent_probe": false,
+    "probe_formal_evidence_authority": false
+  },
+  "base_r29_zip_sha256": "81d4306792e8f55bc5041397e7339b02711da96c8b29cc16dfa4a5d7dcbee939",
+  "blind_metrics": {
+    "case_count": 48,
+    "double_fault_exact_accuracy": 0.75,
+    "exact_set_accuracy": 0.75,
+    "fault_element_f1": 0.8251748251748252,
+    "fault_element_precision": 0.8309859154929577,
+    "fault_element_recall": 0.8194444444444444,
+    "single_fault_exact_accuracy": 0.75
+  },
+  "blind_prediction_set_sha256": "6ad01b18530add6e59a09ebb552afdee0a039d141739e6b5d3b6e85d5b4f4272",
+  "blind_truth_set_sha256": "e21d164449b0933ddba77a2e6530f00ccc755e4194a464b664d9dc516c23d711",
+  "claim_boundary": "R30 standardizes Agent tool authority, records mechanism-model coverage, and exercises a truth-separated synthetic simulation protocol. It does not establish DXC/mission external validation, SOTA, calibrated probability, HIL or flight qualification.",
+  "data_exposure": {
+    "dxc_competition_rematch_regenerated": false,
+    "esa_seen_external_regenerated": false,
+    "r30_blind_campaign_external_validation": false,
+    "r30_blind_truth_join_after_prediction_freeze": true
+  },
+  "mechanism_registry_sha256": "f6b9cc722997a1b259bb5b56c7506b4c7f23b8c81d4975363acc0d5f280cc382",
+  "receipt_sha256": "6866caa200750ac914cf5cd2765dfccfca92f60768d5d4f59d3a10581418e8ed",
+  "schema_version": "astrograph-r30-tool-mechanism-simulation-protocol.v1",
+  "source_bindings": {
+    "docs/ASTROGRAPH_AGENT_TOOL_SPECIFICATION_R30.md": "e9ebb9b8f86f0a0f7520b8db1f2e5e8a6165b404fa030fbe246d30c7164089ed",
+    "docs/ASTROGRAPH_R30_MECHANISM_MODEL_AND_BLIND_SIMULATION.md": "bf9510d0279fa0a1b0ce3bc1cd951cbf1e11975636b335ca3158e0d4a59c121a",
+    "scripts/experiments/export_r30_adapt_mechanism_model_registry.py": "b9cc0317fc10a7b84c944924dfc64e87c10f406bd90aa9345eee90d987eea77b",
+    "scripts/experiments/run_r30_simulation_blind_campaign.py": "366997fe79e7d3762bfabb6a8f511b0606c2ee6dbc229efd13122f9dddb1493c",
+    "scripts/tools/export_agent_tool_governance.py": "2d19485f7128d54bab64b2b32daaa019a620106bbf2749fac6b867e2b66bcc37",
+    "src/astrograph/evaluation/r30_simulation_blind_campaign.py": "05d4b01df3e5ecf486763d2b122b4dd1e80eea9400c437a58acb7cbb7a4ea818",
+    "src/astrograph/governance/agent_tool_specification.py": "999cdb462a0afb45604eea973e36da1680f44980170c4e0b6aefb8e7b0c8a647",
+    "src/astrograph/simulation/adapt_component_model_registry.py": "e03da33458908435c38bbed352dd81e5e12cf807fe91fd5a4c69e790512d637c"
+  },
+  "status": "FROZEN_ENGINEERING_GOVERNANCE_AND_SYNTHETIC_PROTOCOL",
+  "stop_rule": "NO_PARAMETER_OR_RULE_OPTIMIZATION_ON_R30_SYNTHETIC_BLIND_OUTCOMES",
+  "tool_catalog_sha256": "901c9368d73b22022cc9f760226cc1387a9ebc0946239286228a4c0814468a08"
+}

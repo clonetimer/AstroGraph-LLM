@@ -1,0 +1,15 @@
+{
+  "case_count": 48,
+  "claim_boundary": "Predictions are frozen before hidden synthetic truth is joined. Generator uses perturbed load parameters and measurement noise, but shares the same broad resistive-load physics family as the diagnoser. This is a simulator/model-mismatch protocol smoke, not independent DXC/mission validation, SOTA evidence, calibrated probability, HIL or flight qualification.",
+  "double_fault_exact_accuracy": 0.75,
+  "exact_set_accuracy": 0.75,
+  "fault_element_f1": 0.8251748251748252,
+  "fault_element_precision": 0.8309859154929577,
+  "fault_element_recall": 0.8194444444444444,
+  "prediction_set_sha256": "6ad01b18530add6e59a09ebb552afdee0a039d141739e6b5d3b6e85d5b4f4272",
+  "schema_version": "astrograph-r30-synthetic-blind-simulation-campaign.v1",
+  "seed": 3001,
+  "single_fault_exact_accuracy": 0.75,
+  "status": "SYNTHETIC_BLIND_PROTOCOL_EVIDENCE_NOT_EXTERNAL_VALIDATION",
+  "truth_set_sha256": "e21d164449b0933ddba77a2e6530f00ccc755e4194a464b664d9dc516c23d711"
+}

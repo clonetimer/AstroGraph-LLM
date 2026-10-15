@@ -1,0 +1,3003 @@
+{
+  "claim_boundary": "Registry-derived engineering graph. Exact unique links are admitted; unresolved labels are retained. Identifier hierarchy is naming structure, not a claimed physical dependency or causal edge.",
+  "edges": [
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.euler_angle[1]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.euler_angle[2]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.euler_angle[3]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.p_wheel"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.quan[1]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.quan[2]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.quan[3]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.quan[4]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.tau_c[1]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.tau_c[2]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.tau_c[3]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.tau_dump[1]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.tau_dump[2]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.tau_dump[3]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel1.h"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel1.i"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel1.n"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel1.tau"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel2.h"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel2.i"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel2.n"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel2.tau"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel3.h"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel3.i"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel3.n"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel3.tau"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel4.h"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel4.i"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel4.n"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:adcs",
+      "target_id": "signal:sat.adcs.wheel.wheel4.tau"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:adcs",
+      "target_id": "component:adcs.gyro"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:adcs",
+      "target_id": "component:adcs.reaction_wheel.1"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:adcs",
+      "target_id": "component:adcs.reaction_wheel.2"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:adcs",
+      "target_id": "component:adcs.reaction_wheel.3"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:adcs",
+      "target_id": "component:adcs.reaction_wheel.4"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:adcs",
+      "target_id": "component:adcs.star_tracker"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:adcs",
+      "target_id": "component:adcs.sun_sensor"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.1",
+      "target_id": "fault:18c77f9f68d4a6c8b6fa"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.1",
+      "target_id": "fault:1eb909b471233af8b27e"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.1",
+      "target_id": "fault:48a0cf4469ece1e57b80"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.1",
+      "target_id": "fault:7b633ac0241e497ade9a"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.1",
+      "target_id": "fault:7c74c9dad98a06fa1571"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.1",
+      "target_id": "fault:87f2ef004774a82b1158"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.1",
+      "target_id": "fault:dee6d70b14eaf46ecf26"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.1",
+      "target_id": "fault:e2b50bbca9bd031e430e"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.2",
+      "target_id": "fault:00a4cdd78c8e0ee18440"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.2",
+      "target_id": "fault:13a9137dbbdf07447140"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.2",
+      "target_id": "fault:1e920702761620f03d17"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.2",
+      "target_id": "fault:428f6388d608701578cf"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.2",
+      "target_id": "fault:6a2a7de0df866e609387"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.2",
+      "target_id": "fault:c50b34ef8a3f7e7252ba"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.2",
+      "target_id": "fault:c946ab23655e2afea0b5"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.2",
+      "target_id": "fault:d486eb6de5bd0d1b9750"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.3",
+      "target_id": "fault:09dc1cc5b494b5747d77"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.3",
+      "target_id": "fault:42d51a6bcb194938b50d"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.3",
+      "target_id": "fault:871608cf78a1c58493e7"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.3",
+      "target_id": "fault:9b31301597d4ef1a8909"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.3",
+      "target_id": "fault:a13bbb5c293d9abcea29"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.3",
+      "target_id": "fault:b9dbc4982771d1f5ecf4"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.3",
+      "target_id": "fault:bbf527473cd1836732f0"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.3",
+      "target_id": "fault:be2816ec6032934a3abf"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.4",
+      "target_id": "fault:00da4262cf486708a716"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.4",
+      "target_id": "fault:257cb9f052b1bcda4779"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.4",
+      "target_id": "fault:6491f01acac15e7122de"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.4",
+      "target_id": "fault:86bca6ecd93f9bc444cc"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.4",
+      "target_id": "fault:ad41cdc78d2cca5b06f5"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.4",
+      "target_id": "fault:c517c8af7259bb173585"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.4",
+      "target_id": "fault:de10717085da5bbe82c9"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.reaction_wheel.4",
+      "target_id": "fault:e6311ff396f557ae5f1a"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.star_tracker",
+      "target_id": "fault:31d81a9cb315a0bae135"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.star_tracker",
+      "target_id": "fault:8d33078fb683223d06eb"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.star_tracker",
+      "target_id": "fault:a0eb3f2c30bfc5bc8aba"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.star_tracker",
+      "target_id": "fault:b3420ece15558ec84235"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.star_tracker",
+      "target_id": "fault:d8b73ea2c2ae2a259381"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.sun_sensor",
+      "target_id": "fault:018bc4540e6cd252f3ca"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.sun_sensor",
+      "target_id": "fault:6716f0d569f34f48a8ee"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.sun_sensor",
+      "target_id": "fault:725da554e5f6f8db9688"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.sun_sensor",
+      "target_id": "fault:b400517082feadcd3492"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:adcs.sun_sensor",
+      "target_id": "fault:beab41e0d5c00e5aa7d2"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.elements.aop"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.elements.ecc"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.elements.inc"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.elements.raan"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.elements.semi_a"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.elements.ta"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.hat_r_ss[1]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.hat_r_ss[2]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.hat_r_ss[3]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.states.vx"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.states.vy"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.states.vz"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.states.x"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.states.y"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.states.z"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.sun_flag"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:orbit",
+      "target_id": "signal:sat.orbit.thrust_req"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:power",
+      "target_id": "signal:sat.power.adcs_power_ok"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:power",
+      "target_id": "signal:sat.power.bus_ok"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:power",
+      "target_id": "signal:sat.power.comm_power_ok"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:power",
+      "target_id": "signal:sat.power.prop_power_ok"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:power",
+      "target_id": "signal:sat.power.soc"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:power",
+      "target_id": "signal:sat.power.v_bus"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:power",
+      "target_id": "component:power.battery"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:power",
+      "target_id": "component:power.bus"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:power",
+      "target_id": "component:power.solar_array"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:power.bus",
+      "target_id": "fault:3d93f2e822e944403a28"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:power.bus",
+      "target_id": "fault:960d29ad07201761753b"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:power.solar_array",
+      "target_id": "fault:2ec6f69d8764e15c1fda"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:power.solar_array",
+      "target_id": "fault:b5748cbbce9dcec68ec1"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:propulsion",
+      "target_id": "signal:sat.propulsion.ax_thr"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:propulsion",
+      "target_id": "signal:sat.propulsion.ay_thr"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:propulsion",
+      "target_id": "signal:sat.propulsion.az_thr"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:propulsion",
+      "target_id": "signal:sat.propulsion.p_prop"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:propulsion",
+      "target_id": "signal:sat.propulsion.tau_et[1]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:propulsion",
+      "target_id": "signal:sat.propulsion.tau_et[2]"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:propulsion",
+      "target_id": "signal:sat.propulsion.tau_et[3]"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:propulsion",
+      "target_id": "component:propulsion.chemical"
+    },
+    {
+      "binding_semantics": "LONGEST_EXACT_DOTTED_IDENTIFIER_PREFIX",
+      "relation": "IDENTIFIER_HIERARCHY_PARENT",
+      "source_id": "component:propulsion",
+      "target_id": "component:propulsion.electric"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:propulsion.chemical",
+      "target_id": "fault:14a7580223ece90bb3c7"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:propulsion.chemical",
+      "target_id": "fault:1d69ee6349cc268861fb"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:propulsion.chemical",
+      "target_id": "fault:1d8274b4594f9fc0533b"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:propulsion.chemical",
+      "target_id": "fault:951cea9ca712598bd779"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:propulsion.electric",
+      "target_id": "fault:29075b3c8d8d09c29c36"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:propulsion.electric",
+      "target_id": "fault:4aaf218d54e9a1596bcb"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:propulsion.electric",
+      "target_id": "fault:aa71dd874ab249fae68e"
+    },
+    {
+      "binding_semantics": "EXACT_UNIQUE_COMPONENT_DISPLAY_NAME",
+      "relation": "HAS_DECLARED_FAULT",
+      "source_id": "component:propulsion.electric",
+      "target_id": "fault:d9963d6165630f6b75eb"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:ttc",
+      "target_id": "signal:sat.ttc.az_rad"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:ttc",
+      "target_id": "signal:sat.ttc.comm_req"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:ttc",
+      "target_id": "signal:sat.ttc.downlink_enable"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:ttc",
+      "target_id": "signal:sat.ttc.el_rad"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:ttc",
+      "target_id": "signal:sat.ttc.range_m"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:ttc",
+      "target_id": "signal:sat.ttc.range_rate"
+    },
+    {
+      "binding_semantics": "EXACT_TELEMETRY_GROUP_TO_COMPONENT_ID",
+      "relation": "HAS_TELEMETRY_SIGNAL",
+      "source_id": "component:ttc",
+      "target_id": "signal:sat.ttc.vizit"
+    }
+  ],
+  "graph_sha256": "a61a22e36164d9ab162ae91b97a6de7917f5800f074c4f312bf7976ccc0b18b6",
+  "nodes": [
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:adcs",
+      "properties": {
+        "component_id": "adcs",
+        "component_type": "subsystem",
+        "display_name": "姿态确定与控制"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:adcs.gyro",
+      "properties": {
+        "component_id": "adcs.gyro",
+        "component_type": "sensor",
+        "display_name": "陀螺"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:adcs.reaction_wheel.1",
+      "properties": {
+        "component_id": "adcs.reaction_wheel.1",
+        "component_type": "actuator",
+        "display_name": "反作用轮1"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:adcs.reaction_wheel.2",
+      "properties": {
+        "component_id": "adcs.reaction_wheel.2",
+        "component_type": "actuator",
+        "display_name": "反作用轮2"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:adcs.reaction_wheel.3",
+      "properties": {
+        "component_id": "adcs.reaction_wheel.3",
+        "component_type": "actuator",
+        "display_name": "反作用轮3"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:adcs.reaction_wheel.4",
+      "properties": {
+        "component_id": "adcs.reaction_wheel.4",
+        "component_type": "actuator",
+        "display_name": "反作用轮4"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:adcs.star_tracker",
+      "properties": {
+        "component_id": "adcs.star_tracker",
+        "component_type": "sensor",
+        "display_name": "星敏感器"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:adcs.sun_sensor",
+      "properties": {
+        "component_id": "adcs.sun_sensor",
+        "component_type": "sensor",
+        "display_name": "太阳敏感器"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:communication",
+      "properties": {
+        "component_id": "communication",
+        "component_type": "subsystem",
+        "display_name": "通信链路"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:orbit",
+      "properties": {
+        "component_id": "orbit",
+        "component_type": "subsystem",
+        "display_name": "轨道与环境"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:power",
+      "properties": {
+        "component_id": "power",
+        "component_type": "subsystem",
+        "display_name": "电源系统"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:power.battery",
+      "properties": {
+        "component_id": "power.battery",
+        "component_type": "component",
+        "display_name": "蓄电池组"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:power.bus",
+      "properties": {
+        "component_id": "power.bus",
+        "component_type": "component",
+        "display_name": "母线"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:power.solar_array",
+      "properties": {
+        "component_id": "power.solar_array",
+        "component_type": "component",
+        "display_name": "太阳翼"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:propulsion",
+      "properties": {
+        "component_id": "propulsion",
+        "component_type": "subsystem",
+        "display_name": "推进系统"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:propulsion.chemical",
+      "properties": {
+        "component_id": "propulsion.chemical",
+        "component_type": "actuator",
+        "display_name": "化学推进"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:propulsion.electric",
+      "properties": {
+        "component_id": "propulsion.electric",
+        "component_type": "actuator",
+        "display_name": "电推进"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:spacecraft",
+      "properties": {
+        "component_id": "spacecraft",
+        "component_type": "system",
+        "display_name": "整星"
+      }
+    },
+    {
+      "kind": "COMPONENT",
+      "node_id": "component:ttc",
+      "properties": {
+        "component_id": "ttc",
+        "component_type": "subsystem",
+        "display_name": "测控"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:00a4cdd78c8e0ee18440",
+      "properties": {
+        "component_label": "反作用轮2",
+        "domain": "反作用轮",
+        "enable_var": "rw2_drop_on",
+        "fault_label": "力矩掉线",
+        "time_var": "rw2_drop_time",
+        "value_var": "rw2_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:00da4262cf486708a716",
+      "properties": {
+        "component_label": "反作用轮4",
+        "domain": "反作用轮",
+        "enable_var": "rw4_deg_on",
+        "fault_label": "力矩退化",
+        "time_var": "rw4_deg_time",
+        "value_var": "rw4_deg_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:018bc4540e6cd252f3ca",
+      "properties": {
+        "component_label": "太阳敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "dss_drift_on",
+        "fault_label": "漂移",
+        "time_var": "dss_drift_time",
+        "value_var": "dss_drift_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:09dc1cc5b494b5747d77",
+      "properties": {
+        "component_label": "反作用轮3",
+        "domain": "反作用轮",
+        "enable_var": "rw3_slow_on",
+        "fault_label": "力矩迟缓",
+        "time_var": "rw3_slow_time",
+        "value_var": "rw3_slow_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:13a9137dbbdf07447140",
+      "properties": {
+        "component_label": "反作用轮2",
+        "domain": "反作用轮",
+        "enable_var": "rw2_bias_on",
+        "fault_label": "摩擦力矩加性",
+        "time_var": "rw2_bias_time",
+        "value_var": "rw2_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:14a7580223ece90bb3c7",
+      "properties": {
+        "component_label": "化学推进",
+        "domain": "推进系统",
+        "enable_var": "cT_delay_on",
+        "fault_label": "推力延迟",
+        "time_var": "cT_delay_time",
+        "value_var": "cT_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:1521691f31c57e2d9945",
+      "properties": {
+        "component_label": "蓄电池",
+        "domain": "电源系统",
+        "enable_var": "bat_bias_on",
+        "fault_label": "容量衰减加性",
+        "time_var": "bat_bias_time",
+        "value_var": "bat_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:18c77f9f68d4a6c8b6fa",
+      "properties": {
+        "component_label": "反作用轮1",
+        "domain": "反作用轮",
+        "enable_var": "rw1_slow_on",
+        "fault_label": "力矩迟缓",
+        "time_var": "rw1_slow_time",
+        "value_var": "rw1_slow_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:1d69ee6349cc268861fb",
+      "properties": {
+        "component_label": "化学推进",
+        "domain": "推进系统",
+        "enable_var": "cT_drop_on",
+        "fault_label": "推力掉线",
+        "time_var": "cT_drop_time",
+        "value_var": "cT_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:1d8274b4594f9fc0533b",
+      "properties": {
+        "component_label": "化学推进",
+        "domain": "推进系统",
+        "enable_var": "cT_deg_on",
+        "fault_label": "推力退化",
+        "time_var": "cT_deg_time",
+        "value_var": "cT_deg_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:1e920702761620f03d17",
+      "properties": {
+        "component_label": "反作用轮2",
+        "domain": "反作用轮",
+        "enable_var": "rw2_lock_on",
+        "fault_label": "力矩锁定",
+        "time_var": "rw2_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:1eb909b471233af8b27e",
+      "properties": {
+        "component_label": "反作用轮1",
+        "domain": "反作用轮",
+        "enable_var": "rw1_fric_on",
+        "fault_label": "摩擦力矩乘性",
+        "time_var": "rw1_fric_time",
+        "value_var": "rw1_fric_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:21abe0aadc16166c267d",
+      "properties": {
+        "component_label": "光纤陀螺",
+        "domain": "姿态传感器",
+        "enable_var": "gyro_drift_on",
+        "fault_label": "漂移",
+        "time_var": "gyro_drift_time",
+        "value_var": "gyro_drift_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:257cb9f052b1bcda4779",
+      "properties": {
+        "component_label": "反作用轮4",
+        "domain": "反作用轮",
+        "enable_var": "rw4_sat_on",
+        "fault_label": "力矩饱和",
+        "time_var": "rw4_sat_time",
+        "value_var": "rw4_sat_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:29075b3c8d8d09c29c36",
+      "properties": {
+        "component_label": "电推进",
+        "domain": "推进系统",
+        "enable_var": "eT_delay_on",
+        "fault_label": "推力延迟",
+        "time_var": "eT_delay_time",
+        "value_var": "eT_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:2ec6f69d8764e15c1fda",
+      "properties": {
+        "component_label": "太阳翼",
+        "domain": "电源系统",
+        "enable_var": "wing_drop_on",
+        "fault_label": "掉线",
+        "time_var": "wing_drop_time",
+        "value_var": "wing_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:31d81a9cb315a0bae135",
+      "properties": {
+        "component_label": "星敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "star_drift_on",
+        "fault_label": "漂移",
+        "time_var": "star_drift_time",
+        "value_var": "star_drift_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:3d93f2e822e944403a28",
+      "properties": {
+        "component_label": "母线",
+        "domain": "电源系统",
+        "enable_var": "Vbus_bias_on",
+        "fault_label": "电压压降",
+        "time_var": "Vbus_bias_time",
+        "value_var": "Vbus_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:428f6388d608701578cf",
+      "properties": {
+        "component_label": "反作用轮2",
+        "domain": "反作用轮",
+        "enable_var": "rw2_fric_on",
+        "fault_label": "摩擦力矩乘性",
+        "time_var": "rw2_fric_time",
+        "value_var": "rw2_fric_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:42d51a6bcb194938b50d",
+      "properties": {
+        "component_label": "反作用轮3",
+        "domain": "反作用轮",
+        "enable_var": "rw3_lock_on",
+        "fault_label": "力矩锁定",
+        "time_var": "rw3_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:48a0cf4469ece1e57b80",
+      "properties": {
+        "component_label": "反作用轮1",
+        "domain": "反作用轮",
+        "enable_var": "rw1_delay_on",
+        "fault_label": "力矩延迟",
+        "time_var": "rw1_delay_time",
+        "value_var": "rw1_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:493fc35f59f4bcad8527",
+      "properties": {
+        "component_label": "蓄电池",
+        "domain": "电源系统",
+        "enable_var": "bat_cap_on",
+        "fault_label": "容量衰减乘性",
+        "time_var": "bat_cap_time",
+        "value_var": "bat_cap_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:4aaf218d54e9a1596bcb",
+      "properties": {
+        "component_label": "电推进",
+        "domain": "推进系统",
+        "enable_var": "eT_deg_on",
+        "fault_label": "推力退化",
+        "time_var": "eT_deg_time",
+        "value_var": "eT_deg_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:6491f01acac15e7122de",
+      "properties": {
+        "component_label": "反作用轮4",
+        "domain": "反作用轮",
+        "enable_var": "rw4_bias_on",
+        "fault_label": "摩擦力矩加性",
+        "time_var": "rw4_bias_time",
+        "value_var": "rw4_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:6716f0d569f34f48a8ee",
+      "properties": {
+        "component_label": "太阳敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "dss_lock_on",
+        "fault_label": "锁定",
+        "time_var": "dss_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:6a2a7de0df866e609387",
+      "properties": {
+        "component_label": "反作用轮2",
+        "domain": "反作用轮",
+        "enable_var": "rw2_sat_on",
+        "fault_label": "力矩饱和",
+        "time_var": "rw2_sat_time",
+        "value_var": "rw2_sat_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:725da554e5f6f8db9688",
+      "properties": {
+        "component_label": "太阳敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "dss_delay_on",
+        "fault_label": "延迟",
+        "time_var": "dss_delay_time",
+        "value_var": "dss_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:7b633ac0241e497ade9a",
+      "properties": {
+        "component_label": "反作用轮1",
+        "domain": "反作用轮",
+        "enable_var": "rw1_lock_on",
+        "fault_label": "力矩锁定",
+        "time_var": "rw1_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:7c74c9dad98a06fa1571",
+      "properties": {
+        "component_label": "反作用轮1",
+        "domain": "反作用轮",
+        "enable_var": "rw1_sat_on",
+        "fault_label": "力矩饱和",
+        "time_var": "rw1_sat_time",
+        "value_var": "rw1_sat_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:86705ab46762136a0a0f",
+      "properties": {
+        "component_label": "光纤陀螺",
+        "domain": "姿态传感器",
+        "enable_var": "gyro_drop_on",
+        "fault_label": "掉线",
+        "time_var": "gyro_drop_time",
+        "value_var": "gyro_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:86bca6ecd93f9bc444cc",
+      "properties": {
+        "component_label": "反作用轮4",
+        "domain": "反作用轮",
+        "enable_var": "rw4_delay_on",
+        "fault_label": "力矩延迟",
+        "time_var": "rw4_delay_time",
+        "value_var": "rw4_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:871608cf78a1c58493e7",
+      "properties": {
+        "component_label": "反作用轮3",
+        "domain": "反作用轮",
+        "enable_var": "rw3_deg_on",
+        "fault_label": "力矩退化",
+        "time_var": "rw3_deg_time",
+        "value_var": "rw3_deg_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:87f2ef004774a82b1158",
+      "properties": {
+        "component_label": "反作用轮1",
+        "domain": "反作用轮",
+        "enable_var": "rw1_drop_on",
+        "fault_label": "力矩掉线",
+        "time_var": "rw1_drop_time",
+        "value_var": "rw1_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:8d33078fb683223d06eb",
+      "properties": {
+        "component_label": "星敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "star_drop_on",
+        "fault_label": "掉线",
+        "time_var": "star_drop_time",
+        "value_var": "star_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:951cea9ca712598bd779",
+      "properties": {
+        "component_label": "化学推进",
+        "domain": "推进系统",
+        "enable_var": "cT_lock_on",
+        "fault_label": "推力锁定",
+        "time_var": "cT_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:960d29ad07201761753b",
+      "properties": {
+        "component_label": "母线",
+        "domain": "电源系统",
+        "enable_var": "Vbus_drop_on",
+        "fault_label": "掉线",
+        "time_var": "Vbus_drop_time",
+        "value_var": "Vbus_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:9b31301597d4ef1a8909",
+      "properties": {
+        "component_label": "反作用轮3",
+        "domain": "反作用轮",
+        "enable_var": "rw3_delay_on",
+        "fault_label": "力矩延迟",
+        "time_var": "rw3_delay_time",
+        "value_var": "rw3_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:a0eb3f2c30bfc5bc8aba",
+      "properties": {
+        "component_label": "星敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "star_bias_on",
+        "fault_label": "偏差",
+        "time_var": "star_bias_time",
+        "value_var": "star_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:a13bbb5c293d9abcea29",
+      "properties": {
+        "component_label": "反作用轮3",
+        "domain": "反作用轮",
+        "enable_var": "rw3_sat_on",
+        "fault_label": "力矩饱和",
+        "time_var": "rw3_sat_time",
+        "value_var": "rw3_sat_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:a422fe38bbf4120ec976",
+      "properties": {
+        "component_label": "光纤陀螺",
+        "domain": "姿态传感器",
+        "enable_var": "gyro_lock_on",
+        "fault_label": "锁定",
+        "time_var": "gyro_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:aa71dd874ab249fae68e",
+      "properties": {
+        "component_label": "电推进",
+        "domain": "推进系统",
+        "enable_var": "eT_drop_on",
+        "fault_label": "推力掉线",
+        "time_var": "eT_drop_time",
+        "value_var": "eT_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:ad41cdc78d2cca5b06f5",
+      "properties": {
+        "component_label": "反作用轮4",
+        "domain": "反作用轮",
+        "enable_var": "rw4_fric_on",
+        "fault_label": "摩擦力矩乘性",
+        "time_var": "rw4_fric_time",
+        "value_var": "rw4_fric_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:b3420ece15558ec84235",
+      "properties": {
+        "component_label": "星敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "star_lock_on",
+        "fault_label": "锁定",
+        "time_var": "star_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:b400517082feadcd3492",
+      "properties": {
+        "component_label": "太阳敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "dss_drop_on",
+        "fault_label": "掉线",
+        "time_var": "dss_drop_time",
+        "value_var": "dss_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:b5748cbbce9dcec68ec1",
+      "properties": {
+        "component_label": "太阳翼",
+        "domain": "电源系统",
+        "enable_var": "wing_deg_on",
+        "fault_label": "输出退化",
+        "time_var": "wing_deg_time",
+        "value_var": "wing_deg_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:b8e5feb0d7ec662694ec",
+      "properties": {
+        "component_label": "光纤陀螺",
+        "domain": "姿态传感器",
+        "enable_var": "gyro_bias_on",
+        "fault_label": "偏差",
+        "time_var": "gyro_bias_time",
+        "value_var": "gyro_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:b9dbc4982771d1f5ecf4",
+      "properties": {
+        "component_label": "反作用轮3",
+        "domain": "反作用轮",
+        "enable_var": "rw3_fric_on",
+        "fault_label": "摩擦力矩乘性",
+        "time_var": "rw3_fric_time",
+        "value_var": "rw3_fric_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:bbc212038b619b5b6513",
+      "properties": {
+        "component_label": "光纤陀螺",
+        "domain": "姿态传感器",
+        "enable_var": "gyro_delay_on",
+        "fault_label": "延迟",
+        "time_var": "gyro_delay_time",
+        "value_var": "gyro_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:bbf527473cd1836732f0",
+      "properties": {
+        "component_label": "反作用轮3",
+        "domain": "反作用轮",
+        "enable_var": "rw3_drop_on",
+        "fault_label": "力矩掉线",
+        "time_var": "rw3_drop_time",
+        "value_var": "rw3_drop_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:be2816ec6032934a3abf",
+      "properties": {
+        "component_label": "反作用轮3",
+        "domain": "反作用轮",
+        "enable_var": "rw3_bias_on",
+        "fault_label": "摩擦力矩加性",
+        "time_var": "rw3_bias_time",
+        "value_var": "rw3_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:beab41e0d5c00e5aa7d2",
+      "properties": {
+        "component_label": "太阳敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "dss_bias_on",
+        "fault_label": "偏差",
+        "time_var": "dss_bias_time",
+        "value_var": "dss_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:c50b34ef8a3f7e7252ba",
+      "properties": {
+        "component_label": "反作用轮2",
+        "domain": "反作用轮",
+        "enable_var": "rw2_deg_on",
+        "fault_label": "力矩退化",
+        "time_var": "rw2_deg_time",
+        "value_var": "rw2_deg_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:c517c8af7259bb173585",
+      "properties": {
+        "component_label": "反作用轮4",
+        "domain": "反作用轮",
+        "enable_var": "rw4_lock_on",
+        "fault_label": "力矩锁定",
+        "time_var": "rw4_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:c946ab23655e2afea0b5",
+      "properties": {
+        "component_label": "反作用轮2",
+        "domain": "反作用轮",
+        "enable_var": "rw2_delay_on",
+        "fault_label": "力矩延迟",
+        "time_var": "rw2_delay_time",
+        "value_var": "rw2_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:d486eb6de5bd0d1b9750",
+      "properties": {
+        "component_label": "反作用轮2",
+        "domain": "反作用轮",
+        "enable_var": "rw2_slow_on",
+        "fault_label": "力矩迟缓",
+        "time_var": "rw2_slow_time",
+        "value_var": "rw2_slow_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:d8b73ea2c2ae2a259381",
+      "properties": {
+        "component_label": "星敏感器",
+        "domain": "姿态传感器",
+        "enable_var": "star_delay_on",
+        "fault_label": "延迟",
+        "time_var": "star_delay_time",
+        "value_var": "star_delay_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:d9963d6165630f6b75eb",
+      "properties": {
+        "component_label": "电推进",
+        "domain": "推进系统",
+        "enable_var": "eT_lock_on",
+        "fault_label": "推力锁定",
+        "time_var": "eT_lock_time",
+        "value_var": ""
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:de10717085da5bbe82c9",
+      "properties": {
+        "component_label": "反作用轮4",
+        "domain": "反作用轮",
+        "enable_var": "rw4_slow_on",
+        "fault_label": "力矩迟缓",
+        "time_var": "rw4_slow_time",
+        "value_var": "rw4_slow_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:dee6d70b14eaf46ecf26",
+      "properties": {
+        "component_label": "反作用轮1",
+        "domain": "反作用轮",
+        "enable_var": "rw1_deg_on",
+        "fault_label": "力矩退化",
+        "time_var": "rw1_deg_time",
+        "value_var": "rw1_deg_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:e2b50bbca9bd031e430e",
+      "properties": {
+        "component_label": "反作用轮1",
+        "domain": "反作用轮",
+        "enable_var": "rw1_bias_on",
+        "fault_label": "摩擦力矩加性",
+        "time_var": "rw1_bias_time",
+        "value_var": "rw1_bias_value"
+      }
+    },
+    {
+      "kind": "FAULT",
+      "node_id": "fault:e6311ff396f557ae5f1a",
+      "properties": {
+        "component_label": "反作用轮4",
+        "domain": "反作用轮",
+        "enable_var": "rw4_drop_on",
+        "fault_label": "力矩掉线",
+        "time_var": "rw4_drop_time",
+        "value_var": "rw4_drop_value"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.dss_vector[1]",
+      "properties": {
+        "column_name": "runtime__adcs__dss_vector__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.adcs.dss_vector[1]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.dss_vector[2]",
+      "properties": {
+        "column_name": "runtime__adcs__dss_vector__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.adcs.dss_vector[2]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.dss_vector[3]",
+      "properties": {
+        "column_name": "runtime__adcs__dss_vector__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.adcs.dss_vector[3]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.gyro_rate[1]",
+      "properties": {
+        "column_name": "runtime__adcs__gyro_rate__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.adcs.gyro_rate[1]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "rad/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.gyro_rate[2]",
+      "properties": {
+        "column_name": "runtime__adcs__gyro_rate__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.adcs.gyro_rate[2]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "rad/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.gyro_rate[3]",
+      "properties": {
+        "column_name": "runtime__adcs__gyro_rate__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.adcs.gyro_rate[3]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "rad/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.star_quaternion[1]",
+      "properties": {
+        "column_name": "runtime__adcs__star_quaternion__1",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "runtime.adcs.star_quaternion[1]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.star_quaternion[2]",
+      "properties": {
+        "column_name": "runtime__adcs__star_quaternion__2",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "runtime.adcs.star_quaternion[2]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.star_quaternion[3]",
+      "properties": {
+        "column_name": "runtime__adcs__star_quaternion__3",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "runtime.adcs.star_quaternion[3]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.star_quaternion[4]",
+      "properties": {
+        "column_name": "runtime__adcs__star_quaternion__4",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "runtime.adcs.star_quaternion[4]",
+        "telemetry_group": "adcs_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.adcs.star_valid",
+      "properties": {
+        "column_name": "runtime__adcs__star_valid",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "runtime.adcs.star_valid",
+        "telemetry_group": "adcs_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.power.battery_current_A",
+      "properties": {
+        "column_name": "runtime__power__battery_current_A",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.power.battery_current_A",
+        "telemetry_group": "power_runtime",
+        "unit": "A"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.power.battery_voltage_V",
+      "properties": {
+        "column_name": "runtime__power__battery_voltage_V",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.power.battery_voltage_V",
+        "telemetry_group": "power_runtime",
+        "unit": "V"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.power.load_current_A",
+      "properties": {
+        "column_name": "runtime__power__load_current_A",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.power.load_current_A",
+        "telemetry_group": "power_runtime",
+        "unit": "A"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.power.load_power_W",
+      "properties": {
+        "column_name": "runtime__power__load_power_W",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.power.load_power_W",
+        "telemetry_group": "power_runtime",
+        "unit": "W"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.power.solar_current_A",
+      "properties": {
+        "column_name": "runtime__power__solar_current_A",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.power.solar_current_A",
+        "telemetry_group": "power_runtime",
+        "unit": "A"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.power.solar_power_W",
+      "properties": {
+        "column_name": "runtime__power__solar_power_W",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.power.solar_power_W",
+        "telemetry_group": "power_runtime",
+        "unit": "W"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.chemical_thrust_actual_N",
+      "properties": {
+        "column_name": "runtime__propulsion__chemical_thrust_actual_N",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.propulsion.chemical_thrust_actual_N",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "N"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.chemical_thrust_request",
+      "properties": {
+        "column_name": "runtime__propulsion__chemical_thrust_request",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "runtime.propulsion.chemical_thrust_request",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.electric_power_W",
+      "properties": {
+        "column_name": "runtime__propulsion__electric_power_W",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.propulsion.electric_power_W",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "W"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.electric_torque_actual[1]",
+      "properties": {
+        "column_name": "runtime__propulsion__electric_torque_actual__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.propulsion.electric_torque_actual[1]",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.electric_torque_actual[2]",
+      "properties": {
+        "column_name": "runtime__propulsion__electric_torque_actual__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.propulsion.electric_torque_actual[2]",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.electric_torque_actual[3]",
+      "properties": {
+        "column_name": "runtime__propulsion__electric_torque_actual__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.propulsion.electric_torque_actual[3]",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.electric_torque_command[1]",
+      "properties": {
+        "column_name": "runtime__propulsion__electric_torque_command__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.propulsion.electric_torque_command[1]",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.electric_torque_command[2]",
+      "properties": {
+        "column_name": "runtime__propulsion__electric_torque_command__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.propulsion.electric_torque_command[2]",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:runtime.propulsion.electric_torque_command[3]",
+      "properties": {
+        "column_name": "runtime__propulsion__electric_torque_command__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "runtime.propulsion.electric_torque_command[3]",
+        "telemetry_group": "propulsion_runtime",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.FDIR_ID",
+      "properties": {
+        "column_name": "sat__FDIR_ID",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.FDIR_ID",
+        "telemetry_group": "fdir",
+        "unit": "code"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.euler_angle[1]",
+      "properties": {
+        "column_name": "sat__adcs__euler_angle__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.euler_angle[1]",
+        "telemetry_group": "adcs",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.euler_angle[2]",
+      "properties": {
+        "column_name": "sat__adcs__euler_angle__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.euler_angle[2]",
+        "telemetry_group": "adcs",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.euler_angle[3]",
+      "properties": {
+        "column_name": "sat__adcs__euler_angle__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.euler_angle[3]",
+        "telemetry_group": "adcs",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.p_wheel",
+      "properties": {
+        "column_name": "sat__adcs__p_wheel",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.p_wheel",
+        "telemetry_group": "adcs",
+        "unit": "W"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.quan[1]",
+      "properties": {
+        "column_name": "sat__adcs__quan__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.quan[1]",
+        "telemetry_group": "adcs",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.quan[2]",
+      "properties": {
+        "column_name": "sat__adcs__quan__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.quan[2]",
+        "telemetry_group": "adcs",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.quan[3]",
+      "properties": {
+        "column_name": "sat__adcs__quan__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.quan[3]",
+        "telemetry_group": "adcs",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.quan[4]",
+      "properties": {
+        "column_name": "sat__adcs__quan__4",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.quan[4]",
+        "telemetry_group": "adcs",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.tau_c[1]",
+      "properties": {
+        "column_name": "sat__adcs__tau_c__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.tau_c[1]",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.tau_c[2]",
+      "properties": {
+        "column_name": "sat__adcs__tau_c__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.tau_c[2]",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.tau_c[3]",
+      "properties": {
+        "column_name": "sat__adcs__tau_c__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.tau_c[3]",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.tau_dump[1]",
+      "properties": {
+        "column_name": "sat__adcs__tau_dump__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.tau_dump[1]",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.tau_dump[2]",
+      "properties": {
+        "column_name": "sat__adcs__tau_dump__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.tau_dump[2]",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.tau_dump[3]",
+      "properties": {
+        "column_name": "sat__adcs__tau_dump__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.tau_dump[3]",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel1.h",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel1__h",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel1.h",
+        "telemetry_group": "adcs",
+        "unit": "N*m*s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel1.i",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel1__i",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel1.i",
+        "telemetry_group": "adcs",
+        "unit": "A"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel1.n",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel1__n",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel1.n",
+        "telemetry_group": "adcs",
+        "unit": "rad/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel1.tau",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel1__tau",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel1.tau",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel2.h",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel2__h",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel2.h",
+        "telemetry_group": "adcs",
+        "unit": "N*m*s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel2.i",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel2__i",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel2.i",
+        "telemetry_group": "adcs",
+        "unit": "A"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel2.n",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel2__n",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel2.n",
+        "telemetry_group": "adcs",
+        "unit": "rad/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel2.tau",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel2__tau",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel2.tau",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel3.h",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel3__h",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel3.h",
+        "telemetry_group": "adcs",
+        "unit": "N*m*s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel3.i",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel3__i",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel3.i",
+        "telemetry_group": "adcs",
+        "unit": "A"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel3.n",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel3__n",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel3.n",
+        "telemetry_group": "adcs",
+        "unit": "rad/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel3.tau",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel3__tau",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel3.tau",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel4.h",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel4__h",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel4.h",
+        "telemetry_group": "adcs",
+        "unit": "N*m*s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel4.i",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel4__i",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel4.i",
+        "telemetry_group": "adcs",
+        "unit": "A"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel4.n",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel4__n",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel4.n",
+        "telemetry_group": "adcs",
+        "unit": "rad/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.adcs.wheel.wheel4.tau",
+      "properties": {
+        "column_name": "sat__adcs__wheel__wheel4__tau",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.adcs.wheel.wheel4.tau",
+        "telemetry_group": "adcs",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.comm.FSPL_dB",
+      "properties": {
+        "column_name": "sat__comm__FSPL_dB",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.comm.FSPL_dB",
+        "telemetry_group": "comm",
+        "unit": "dB"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.comm.Pr_dBW",
+      "properties": {
+        "column_name": "sat__comm__Pr_dBW",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.comm.Pr_dBW",
+        "telemetry_group": "comm",
+        "unit": "dBW"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.comm.SNR_dB",
+      "properties": {
+        "column_name": "sat__comm__SNR_dB",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.comm.SNR_dB",
+        "telemetry_group": "comm",
+        "unit": "dB"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.comm.comm_load",
+      "properties": {
+        "column_name": "sat__comm__comm_load",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.comm.comm_load",
+        "telemetry_group": "comm",
+        "unit": "W"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.comm.link_ok",
+      "properties": {
+        "column_name": "sat__comm__link_ok",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.comm.link_ok",
+        "telemetry_group": "comm",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.mode.adcs_allow",
+      "properties": {
+        "column_name": "sat__mode__adcs_allow",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.mode.adcs_allow",
+        "telemetry_group": "mode",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.mode.alloc_mode",
+      "properties": {
+        "column_name": "sat__mode__alloc_mode",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.mode.alloc_mode",
+        "telemetry_group": "mode",
+        "unit": "code"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.mode.comm_allow",
+      "properties": {
+        "column_name": "sat__mode__comm_allow",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.mode.comm_allow",
+        "telemetry_group": "mode",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.mode.mode_code",
+      "properties": {
+        "column_name": "sat__mode__mode_code",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.mode.mode_code",
+        "telemetry_group": "mode",
+        "unit": "code"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.mode.prop_allow",
+      "properties": {
+        "column_name": "sat__mode__prop_allow",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.mode.prop_allow",
+        "telemetry_group": "mode",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.mode.steady",
+      "properties": {
+        "column_name": "sat__mode__steady",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.mode.steady",
+        "telemetry_group": "mode",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.elements.aop",
+      "properties": {
+        "column_name": "sat__orbit__elements__aop",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.elements.aop",
+        "telemetry_group": "orbit",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.elements.ecc",
+      "properties": {
+        "column_name": "sat__orbit__elements__ecc",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.elements.ecc",
+        "telemetry_group": "orbit",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.elements.inc",
+      "properties": {
+        "column_name": "sat__orbit__elements__inc",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.elements.inc",
+        "telemetry_group": "orbit",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.elements.raan",
+      "properties": {
+        "column_name": "sat__orbit__elements__raan",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.elements.raan",
+        "telemetry_group": "orbit",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.elements.semi_a",
+      "properties": {
+        "column_name": "sat__orbit__elements__semi_a",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.elements.semi_a",
+        "telemetry_group": "orbit",
+        "unit": "m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.elements.ta",
+      "properties": {
+        "column_name": "sat__orbit__elements__ta",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.elements.ta",
+        "telemetry_group": "orbit",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.hat_r_ss[1]",
+      "properties": {
+        "column_name": "sat__orbit__hat_r_ss__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.hat_r_ss[1]",
+        "telemetry_group": "orbit",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.hat_r_ss[2]",
+      "properties": {
+        "column_name": "sat__orbit__hat_r_ss__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.hat_r_ss[2]",
+        "telemetry_group": "orbit",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.hat_r_ss[3]",
+      "properties": {
+        "column_name": "sat__orbit__hat_r_ss__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.hat_r_ss[3]",
+        "telemetry_group": "orbit",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.states.vx",
+      "properties": {
+        "column_name": "sat__orbit__states__vx",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.states.vx",
+        "telemetry_group": "orbit",
+        "unit": "m/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.states.vy",
+      "properties": {
+        "column_name": "sat__orbit__states__vy",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.states.vy",
+        "telemetry_group": "orbit",
+        "unit": "m/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.states.vz",
+      "properties": {
+        "column_name": "sat__orbit__states__vz",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.states.vz",
+        "telemetry_group": "orbit",
+        "unit": "m/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.states.x",
+      "properties": {
+        "column_name": "sat__orbit__states__x",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.states.x",
+        "telemetry_group": "orbit",
+        "unit": "m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.states.y",
+      "properties": {
+        "column_name": "sat__orbit__states__y",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.states.y",
+        "telemetry_group": "orbit",
+        "unit": "m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.states.z",
+      "properties": {
+        "column_name": "sat__orbit__states__z",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.orbit.states.z",
+        "telemetry_group": "orbit",
+        "unit": "m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.sun_flag",
+      "properties": {
+        "column_name": "sat__orbit__sun_flag",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.orbit.sun_flag",
+        "telemetry_group": "orbit",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.orbit.thrust_req",
+      "properties": {
+        "column_name": "sat__orbit__thrust_req",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.orbit.thrust_req",
+        "telemetry_group": "orbit",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.power.adcs_power_ok",
+      "properties": {
+        "column_name": "sat__power__adcs_power_ok",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.power.adcs_power_ok",
+        "telemetry_group": "power",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.power.bus_ok",
+      "properties": {
+        "column_name": "sat__power__bus_ok",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.power.bus_ok",
+        "telemetry_group": "power",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.power.comm_power_ok",
+      "properties": {
+        "column_name": "sat__power__comm_power_ok",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.power.comm_power_ok",
+        "telemetry_group": "power",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.power.prop_power_ok",
+      "properties": {
+        "column_name": "sat__power__prop_power_ok",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.power.prop_power_ok",
+        "telemetry_group": "power",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.power.soc",
+      "properties": {
+        "column_name": "sat__power__soc",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.power.soc",
+        "telemetry_group": "power",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.power.v_bus",
+      "properties": {
+        "column_name": "sat__power__v_bus",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.power.v_bus",
+        "telemetry_group": "power",
+        "unit": "V"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.propulsion.ax_thr",
+      "properties": {
+        "column_name": "sat__propulsion__ax_thr",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.propulsion.ax_thr",
+        "telemetry_group": "propulsion",
+        "unit": "m/s^2"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.propulsion.ay_thr",
+      "properties": {
+        "column_name": "sat__propulsion__ay_thr",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.propulsion.ay_thr",
+        "telemetry_group": "propulsion",
+        "unit": "m/s^2"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.propulsion.az_thr",
+      "properties": {
+        "column_name": "sat__propulsion__az_thr",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.propulsion.az_thr",
+        "telemetry_group": "propulsion",
+        "unit": "m/s^2"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.propulsion.p_prop",
+      "properties": {
+        "column_name": "sat__propulsion__p_prop",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.propulsion.p_prop",
+        "telemetry_group": "propulsion",
+        "unit": "W"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.propulsion.tau_et[1]",
+      "properties": {
+        "column_name": "sat__propulsion__tau_et__1",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.propulsion.tau_et[1]",
+        "telemetry_group": "propulsion",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.propulsion.tau_et[2]",
+      "properties": {
+        "column_name": "sat__propulsion__tau_et__2",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.propulsion.tau_et[2]",
+        "telemetry_group": "propulsion",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.propulsion.tau_et[3]",
+      "properties": {
+        "column_name": "sat__propulsion__tau_et__3",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.propulsion.tau_et[3]",
+        "telemetry_group": "propulsion",
+        "unit": "N*m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.t",
+      "properties": {
+        "column_name": "sat__t",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.t",
+        "telemetry_group": "platform",
+        "unit": "s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.ttc.az_rad",
+      "properties": {
+        "column_name": "sat__ttc__az_rad",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.ttc.az_rad",
+        "telemetry_group": "ttc",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.ttc.comm_req",
+      "properties": {
+        "column_name": "sat__ttc__comm_req",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.ttc.comm_req",
+        "telemetry_group": "ttc",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.ttc.downlink_enable",
+      "properties": {
+        "column_name": "sat__ttc__downlink_enable",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.ttc.downlink_enable",
+        "telemetry_group": "ttc",
+        "unit": "1"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.ttc.el_rad",
+      "properties": {
+        "column_name": "sat__ttc__el_rad",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.ttc.el_rad",
+        "telemetry_group": "ttc",
+        "unit": "rad"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.ttc.range_m",
+      "properties": {
+        "column_name": "sat__ttc__range_m",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.ttc.range_m",
+        "telemetry_group": "ttc",
+        "unit": "m"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.ttc.range_rate",
+      "properties": {
+        "column_name": "sat__ttc__range_rate",
+        "online_eligible": true,
+        "sample_kind": "continuous",
+        "signal_id": "sat.ttc.range_rate",
+        "telemetry_group": "ttc",
+        "unit": "m/s"
+      }
+    },
+    {
+      "kind": "SIGNAL",
+      "node_id": "signal:sat.ttc.vizit",
+      "properties": {
+        "column_name": "sat__ttc__vizit",
+        "online_eligible": true,
+        "sample_kind": "discrete",
+        "signal_id": "sat.ttc.vizit",
+        "telemetry_group": "ttc",
+        "unit": "1"
+      }
+    }
+  ],
+  "schema_version": "astrograph-engineering-asset-graph.v1",
+  "source_artifact_sha256": "6fa48167dce60fe90a6a81c7ecf712eec62f164218185eb9cdf1b91aea1cc276",
+  "summary": {
+    "edge_count": 133,
+    "formal_evidence_eligible": false,
+    "node_count": 186,
+    "unresolved_fault_component_label_count": 2,
+    "unresolved_signal_group_count": 7
+  },
+  "unresolved_fault_component_labels": [
+    "光纤陀螺",
+    "蓄电池"
+  ],
+  "unresolved_signal_groups": [
+    "adcs_runtime",
+    "comm",
+    "fdir",
+    "mode",
+    "platform",
+    "power_runtime",
+    "propulsion_runtime"
+  ]
+}

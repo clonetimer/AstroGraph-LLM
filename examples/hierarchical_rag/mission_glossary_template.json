@@ -1,0 +1,19 @@
+{
+  "schema_version": "astrograph-reviewed-mission-glossary.v1",
+  "equipment_scope": "SAT-A_ADCS_V2",
+  "review": {
+    "status": "PENDING_REVIEW",
+    "reviewer": "REPLACE_WITH_APPROVED_REVIEWER",
+    "truth_source_ref": "REPLACE_WITH_INDEPENDENT_MANUAL_OR_APPROVAL_RECORD"
+  },
+  "concepts": [
+    {
+      "id": "tacho_pulse_channel",
+      "aliases": ["测速脉冲输入", "tachometer pulse input", "转速脉冲"]
+    },
+    {
+      "id": "reaction_wheel_bearing",
+      "aliases": ["飞轮轴承组件", "reaction wheel bearing assembly"]
+    }
+  ]
+}

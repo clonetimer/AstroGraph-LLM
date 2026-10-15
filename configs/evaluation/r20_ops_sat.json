@@ -1,0 +1,16 @@
+{
+  "schema_version": "astrograph-r20-ops-sat-plan.v1",
+  "evaluation_task_id": "OPS_SAT_TELEMETRY_SEGMENT_ANOMALY_DETECTION_V1",
+  "hash_prefix": "OPS-SAT:",
+  "partition_hash": "sha256(prefix+segment UTF8); first 8 hex digits modulo 100",
+  "train_partition_upper_bounds": [[60,"MODEL_TRAIN"],[75,"CALIBRATION_FIT"],[90,"DEVELOPMENT_SELECTION"],[100,"CONFIRMATORY_EVALUATION"]],
+  "official_train_zero_partition": "EXTERNAL_VALIDATION",
+  "raw_detector": "AstroGraph MultiMetricWindowDetector; single-channel adapter; baseline_fraction=0.2; minimum_channels=1; window_length_samples=16; stride_samples=4",
+  "feature_detector": "MODEL_TRAIN nominal-only per-channel median/MAD; max robust z score; unseen channel blocked",
+  "threshold_selection_partition": "DEVELOPMENT_SELECTION",
+  "threshold_objective": "F0.5; ties prefer lower FP then higher threshold",
+  "raw_threshold_grid": [1,35,55,70,85,100,101],
+  "feature_threshold_grid": [1,2,3,4,6,8,12,20,50,100,1000],
+  "probability_metrics_allowed": false,
+  "qualification": "NOT_FLIGHT_QUALIFIED"
+}

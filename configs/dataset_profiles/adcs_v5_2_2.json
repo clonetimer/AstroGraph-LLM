@@ -1,0 +1,72 @@
+{
+  "schema_version": "astrograph-dataset-profile.v3",
+  "profile_id": "adcs.v5_2_2",
+  "version": "3.1.0",
+  "dataset_id": "whole_spacecraft_adcs_paired_dataset_v5_2_2",
+  "source_layout": {
+    "source_adapter_id": "simulation.completed_run.v1",
+    "telemetry_filename": "telemetry.csv",
+    "nominal_required": true,
+    "time_axis_field": "time_s"
+  },
+  "protocol_root_path": "protocols/phm_project_a",
+  "runtime_evidence_builder_id": "configured.package.v1",
+  "reference_scope": {
+    "kind": "ASSET_LOCAL",
+    "identity_basis": "SYNTHETIC_DATASET_DOMAIN",
+    "asset_id": "simulated-spacecraft.adcs-v5_2_2",
+    "fleet_group_id": null,
+    "member_asset_ids": [],
+    "commissioning_receipt_asset_role": null,
+    "claim_boundary": "Calibration and statistical references are local to the ADCS v5.2.2 synthetic dataset domain; no physical-asset or cross-dataset exchangeability is claimed."
+  },
+  "assets": {
+    "runtime_evidence": {
+      "path": "configs/datasets/adcs_v5_2_2/runtime_evidence.json",
+      "sha256": "176877c85b516b3e52027960e26544dba9f2c406676bafefef0c69f97f32b144"
+    },
+    "candidate_universe": {
+      "path": "configs/datasets/adcs_v5_2_2/candidate_universe.json",
+      "sha256": "ce31891023a447b35ec3ba5f28e110cda8a678b7d11e2899dfe4a31e9d4b4166"
+    },
+    "fault_class_map": {
+      "path": "configs/datasets/adcs_v5_2_2/fault_class_map.json",
+      "sha256": "baaa09ba1980ecb55193a582da03e8ab9deced7b009b556d02029a1ab0f725f8"
+    },
+    "diagnosis_hierarchy": {
+      "path": "configs/datasets/adcs_v5_2_2/diagnosis_hierarchy.json",
+      "sha256": "a2cd5ee0a9fcaf70be891d1d8c9e5b97811c92a76260aa533f4e3697f1146b2f"
+    },
+    "fault_ontology_bindings": {
+      "path": "configs/datasets/adcs_v5_2_2/fault_ontology_bindings.json",
+      "sha256": "643b0caa467dd348bb9c891128729d775331ef867bf00bedca91085ecd35ad63"
+    },
+    "generic_fault_ontology": {
+      "path": "configs/knowledge/generic_fault_ontology.json",
+      "sha256": "9ee63040bbacdc5ac9dd7224d642ce51584e309045e47836ff2cc1c59c4fa747"
+    },
+    "component_archetypes": {
+      "path": "configs/semantics/core_component_archetypes.json",
+      "sha256": "5ff38da7af14870d0f526fa7e583a3783ac88e2ad2cb3c47dc8c69dabb0f291d"
+    },
+    "semantic_schema": {
+      "path": "configs/semantics/core_semantic_schema.json",
+      "sha256": "94bdbeb1f6d18bf3da3dbb6863eab53709a8bb470d36d1f5c83e0628d14877a3"
+    },
+    "protocol_contract": {
+      "path": "protocols/phm_project_a/dataset_contract.json",
+      "sha256": "81c945b27d1e6ee83d5d01fa3d71d5ac585777cb1f187be8a0323fd22ed8f570"
+    },
+    "fault_catalog": {
+      "path": "configs/fault_modes/lab_fault_catalog.json",
+      "sha256": "0ef824775ff371d8505c265732a98572621e388e9441545b78af4fca12eff7dc"
+    }
+  },
+  "model_binding": {
+    "selection_mode": "caller_prediction",
+    "model_id": null,
+    "model_version": null
+  },
+  "claim_boundary": "E0 synthetic ADCS v5.2.2 profile; the pinned fault catalog enables evidence-aware pre-generation retrieval but retrieved context remains non-evidentiary. Profile verification does not establish model, knowledge, flight, or release qualification.",
+  "fusion_policy_profile_id": "birrf.engineering-default.v1"
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "astrograph-reaction-wheel-rules.v1",
+  "rule_version": "reaction-wheel-deterministic-e0-v1",
+  "faults": {
+    "ADCS_RW_FRICTION_INCREASE": {
+      "required": [
+        "ANOM_RW_FRICTION_ESTIMATE_HIGH",
+        "ANOM_RW_CURRENT_DEVIATION",
+        "ANOM_RW_SPEED_DEVIATION"
+      ],
+      "requires_wheel_available": true,
+      "confusable_with": [
+        "ADCS_RW_TORQUE_AUTHORITY_LOSS"
+      ]
+    },
+    "ADCS_RW_TORQUE_AUTHORITY_LOSS": {
+      "any_direct": [
+        "ANOM_RW_DRIVER_UNAVAILABLE",
+        "ANOM_RW_ACTUAL_TORQUE_LOSS"
+      ],
+      "confusable_with": [
+        "ADCS_RW_FRICTION_INCREASE"
+      ]
+    }
+  },
+  "safety_policy": {
+    "missing_driver_status_with_shared_response": "AMBIGUOUS",
+    "driver_status_and_friction_conflict": "AMBIGUOUS",
+    "insufficient_mechanism_evidence": "UNKNOWN"
+  },
+  "claim_boundary": "E0 synthetic engineering rules; not flight-certified thresholds or hardware root-cause proof."
+}

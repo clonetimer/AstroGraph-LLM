@@ -1,0 +1,24 @@
+{
+  "schema_version": "astrograph-data-driven-model-manifest.v1",
+  "model_id": "example-autoencoder-attribution",
+  "model_version": "0.1.0-unvalidated",
+  "display_name": "Example anomaly detector with fault attribution",
+  "task_type": "ANOMALY_ATTRIBUTION",
+  "runtime": "ONNX_RUNTIME",
+  "output_semantics": "ANOMALY_ATTRIBUTION",
+  "capabilities": ["FAULT_RANKING", "NORMAL_CLASS", "OOD_SCORE", "TEMPORAL_CONTEXT"],
+  "supported_fault_ids": ["THERMAL_HEATER_STUCK_ON", "THERMAL_RADIATOR_REJECTION_LOSS"],
+  "normal_class_id": "NORMAL",
+  "feature_schema_ids": ["REPLACE_WITH_APPROVED_FEATURE_SCHEMA_ID"],
+  "input_contract": {
+    "payload.sequence": "float[time,channel]",
+    "raw_output": "anomaly_score[0,1] + nonnegative fault_attribution"
+  },
+  "calibration_id": null,
+  "training_dataset_ids": [],
+  "claim_boundary": "Template only. Attribution quality and unknown-fault behavior require independent validation.",
+  "metadata": {
+    "template_only": true,
+    "online_registration_allowed": false
+  }
+}

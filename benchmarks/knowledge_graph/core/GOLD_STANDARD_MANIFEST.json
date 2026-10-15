@@ -1,0 +1,11 @@
+{
+  "schema_version": "astrograph-kg-gold-manifest.v1",
+  "gold_version": "reaction-wheel-e0-v0.6.5",
+  "node_count": 52,
+  "edge_count": 84,
+  "negative_constraint_count": 4,
+  "query_count": 4,
+  "catalog_version": "reaction-wheel-e0-v0.6.5",
+  "review_status": "PROVISIONAL_ENGINEERING_GOLD",
+  "claim_boundary": "Gold standard is derived from project-approved E0 synthetic protocols and executable evidence. It is independent of the evaluated LLM output but is not a flight-qualified ontology."
+}

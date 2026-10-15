@@ -1,0 +1,266 @@
+{
+  "schema_version": "astrograph-unified-runtime-evaluation.v1",
+  "trusted_audit_sha256": "f25a8e1c3aef6521a5dc2def18f3482f54a88090587cf71a1d5e548f1debf75b",
+  "dataset_tree_sha256": "0d0599be9ff78a1f0074d5af0b7ad76a111692ce5fcac4ab5f0f286f81c85975",
+  "case_count": 6,
+  "exact_diagnosis_count": 4,
+  "safe_non_conclusion_count": 2,
+  "false_diagnosis_count": 0,
+  "data_error_count": 0,
+  "label_or_truth_use_count": 0,
+  "cli_api_mismatch_count": 0,
+  "batch_api_mismatch_count": 0,
+  "deterministic_replay_mismatch_count": 0,
+  "status_counts": {
+    "CONFLICTING_EVIDENCE": 2,
+    "DIAGNOSED": 4
+  },
+  "cli_api_mismatches": [],
+  "batch_api_mismatches": [],
+  "deterministic_replay_mismatches": [],
+  "cases": [
+    {
+      "case_id": "eps_capacity_a",
+      "truth_effect_id": "eps_battery_capacity_loss",
+      "status": "DIAGNOSED",
+      "primary_effect_id": "eps_battery_capacity_loss",
+      "resolution_basis": "CROSS_ENGINE_CORROBORATION",
+      "exact_diagnosis": true,
+      "false_diagnosis": false,
+      "safe_non_conclusion": false,
+      "labels_used": false,
+      "truth_used": false,
+      "engine_runs": [
+        {
+          "engine_id": "paired_physical_signatures",
+          "execution_status": "EXECUTED",
+          "status": "AMBIGUOUS",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "paired_multifault_signatures",
+          "execution_status": "EXECUTED",
+          "status": "KNOWN_FAULT",
+          "detected_effect_ids": [
+            "eps_battery_capacity_loss"
+          ]
+        },
+        {
+          "engine_id": "single_trace_catalog_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "single_trace_open_set_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        }
+      ]
+    },
+    {
+      "case_id": "eps_capacity_b",
+      "truth_effect_id": "eps_battery_capacity_loss",
+      "status": "DIAGNOSED",
+      "primary_effect_id": "eps_battery_capacity_loss",
+      "resolution_basis": "CROSS_ENGINE_CORROBORATION",
+      "exact_diagnosis": true,
+      "false_diagnosis": false,
+      "safe_non_conclusion": false,
+      "labels_used": false,
+      "truth_used": false,
+      "engine_runs": [
+        {
+          "engine_id": "paired_physical_signatures",
+          "execution_status": "EXECUTED",
+          "status": "AMBIGUOUS",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "paired_multifault_signatures",
+          "execution_status": "EXECUTED",
+          "status": "KNOWN_FAULT",
+          "detected_effect_ids": [
+            "eps_battery_capacity_loss"
+          ]
+        },
+        {
+          "engine_id": "single_trace_catalog_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "single_trace_open_set_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        }
+      ]
+    },
+    {
+      "case_id": "rw_bearing_a",
+      "truth_effect_id": "adcs_rw_bearing_seizure",
+      "status": "CONFLICTING_EVIDENCE",
+      "primary_effect_id": null,
+      "resolution_basis": "MULTIPLE_EFFECTS_WITH_AMBIGUOUS_PAIR_SIGNATURE",
+      "exact_diagnosis": false,
+      "false_diagnosis": false,
+      "safe_non_conclusion": true,
+      "labels_used": false,
+      "truth_used": false,
+      "engine_runs": [
+        {
+          "engine_id": "paired_physical_signatures",
+          "execution_status": "EXECUTED",
+          "status": "AMBIGUOUS",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "paired_multifault_signatures",
+          "execution_status": "EXECUTED",
+          "status": "KNOWN_FAULT",
+          "detected_effect_ids": [
+            "comm_data_downlink_link_loss",
+            "payload_instrument_off"
+          ]
+        },
+        {
+          "engine_id": "single_trace_catalog_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "single_trace_open_set_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        }
+      ]
+    },
+    {
+      "case_id": "rw_bearing_b",
+      "truth_effect_id": "adcs_rw_bearing_seizure",
+      "status": "CONFLICTING_EVIDENCE",
+      "primary_effect_id": null,
+      "resolution_basis": "MULTIPLE_EFFECTS_WITH_AMBIGUOUS_PAIR_SIGNATURE",
+      "exact_diagnosis": false,
+      "false_diagnosis": false,
+      "safe_non_conclusion": true,
+      "labels_used": false,
+      "truth_used": false,
+      "engine_runs": [
+        {
+          "engine_id": "paired_physical_signatures",
+          "execution_status": "EXECUTED",
+          "status": "AMBIGUOUS",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "paired_multifault_signatures",
+          "execution_status": "EXECUTED",
+          "status": "KNOWN_FAULT",
+          "detected_effect_ids": [
+            "comm_data_downlink_link_loss",
+            "payload_instrument_off"
+          ]
+        },
+        {
+          "engine_id": "single_trace_catalog_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "single_trace_open_set_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        }
+      ]
+    },
+    {
+      "case_id": "thermal_heater_a",
+      "truth_effect_id": "thermal_heater_stuck_on",
+      "status": "DIAGNOSED",
+      "primary_effect_id": "thermal_heater_stuck_on",
+      "resolution_basis": "CROSS_ENGINE_CORROBORATION",
+      "exact_diagnosis": true,
+      "false_diagnosis": false,
+      "safe_non_conclusion": false,
+      "labels_used": false,
+      "truth_used": false,
+      "engine_runs": [
+        {
+          "engine_id": "paired_physical_signatures",
+          "execution_status": "EXECUTED",
+          "status": "AMBIGUOUS",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "paired_multifault_signatures",
+          "execution_status": "EXECUTED",
+          "status": "KNOWN_FAULT",
+          "detected_effect_ids": [
+            "thermal_heater_stuck_on"
+          ]
+        },
+        {
+          "engine_id": "single_trace_catalog_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "single_trace_open_set_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        }
+      ]
+    },
+    {
+      "case_id": "thermal_heater_b",
+      "truth_effect_id": "thermal_heater_stuck_on",
+      "status": "DIAGNOSED",
+      "primary_effect_id": "thermal_heater_stuck_on",
+      "resolution_basis": "CROSS_ENGINE_CORROBORATION",
+      "exact_diagnosis": true,
+      "false_diagnosis": false,
+      "safe_non_conclusion": false,
+      "labels_used": false,
+      "truth_used": false,
+      "engine_runs": [
+        {
+          "engine_id": "paired_physical_signatures",
+          "execution_status": "EXECUTED",
+          "status": "AMBIGUOUS",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "paired_multifault_signatures",
+          "execution_status": "EXECUTED",
+          "status": "KNOWN_FAULT",
+          "detected_effect_ids": [
+            "thermal_heater_stuck_on"
+          ]
+        },
+        {
+          "engine_id": "single_trace_catalog_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        },
+        {
+          "engine_id": "single_trace_open_set_model",
+          "execution_status": "SKIPPED",
+          "status": "NOT_APPLICABLE",
+          "detected_effect_ids": []
+        }
+      ]
+    }
+  ],
+  "claim_boundary": "Trusted minimum campaign runtime interoperability and fail-closed routing only; not broad diagnosis accuracy, open-set calibration, causal proof, flight qualification, or safety approval."
+}

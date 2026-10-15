@@ -1,0 +1,17 @@
+{
+  "schema_version": "astrograph-p05-corpus-readiness-evidence.v1",
+  "assessment_id": "p05-document-corpus-readiness-r001",
+  "evidence": {
+    "coverage": {"path": "governance/evidence/research/document_corpus/coverage_r001/audit_receipt.json", "sha256": "bd6399f582c01d6a8d183fe96473fa0645eb19c0db2eaeaefb34a84040d7701f"},
+    "corpus_build": {"path": "governance/evidence/research/document_corpus/development_r002/build_receipt.json", "sha256": "3d0be47e8fa11ebeeac86bc9cee4f2cfe136816665db505baeab2d4ad77dd58e"},
+    "corpus_audit": {"path": "governance/evidence/research/document_corpus/development_r002/audit_receipt.json", "sha256": "3542ad04b447060a23e67b159aca4aa39c7c032aac737c25aba3b543f2793430"},
+    "rebuild": {"path": "governance/evidence/research/document_corpus/development_r002/rebuild_verification.json", "sha256": "d1f9bd07f88073ef93592c7454f6c0f5b1d309840741f06bd89cb60ac65a8903"},
+    "sidechannel": {"path": "governance/evidence/research/document_corpus/label_sidechannel_r001/report_after_mitigation.json", "sha256": "73adc590f37f251113aa9952aecf892826c77b19d6c3f5f8abddcd7c7866e9ab"},
+    "multimodal": {"path": "governance/evidence/research/document_corpus/multimodal_contract_r001/build_receipt.json", "sha256": "20c8898c4f52d129e1b69538fd62e36aaef56d5b5312c9307fdddaa27b684a75"},
+    "chunking": {"path": "governance/evidence/research/document_corpus/chunking_benchmark_r001/receipt.json", "sha256": "e821177ffa59d482d2120c2891108884b1200f91e8a6b5a08a133a8dc11b562c"},
+    "early_design_gold": {"path": "governance/evidence/research/document_corpus/early_design_report_r001/human_gold_review_template.json", "sha256": "144a0c59edf24b6525b473429ce478686fecef51e2fbb73cedc1214cf3d0f4d7"},
+    "scan_review": {"path": "governance/evidence/research/document_corpus/vlm_scan_transcription_review_r001/decision_freeze.json", "sha256": "aab768f54136f4d7be1d4ca6a6009d7883a55217bec8b8ee853c624e170a94e4"},
+    "corpus_manifest": {"path": ".astrograph-state/research/document_corpus/development_r002/manifest.json", "sha256": "95851e1aed21ec8b7fcbcba3d32326430756c380d024ebd73a4bbe2756b64b28"}
+  },
+  "claim_boundary": "Evidence inventory for the ten P0.5 acceptance gates; listing an artifact is not proof that its gate passed."
+}

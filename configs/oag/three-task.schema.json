@@ -1,0 +1,425 @@
+{
+  "$defs": {
+    "EvidenceProjectionReceipt": {
+      "additionalProperties": false,
+      "description": "Hash bindings emitted by the native paired-frame bridge, not a signature.",
+      "properties": {
+        "schema_version": {
+          "const": "astrograph-native-projection.v1",
+          "default": "astrograph-native-projection.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "source_window_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Window Sha256",
+          "type": "string"
+        },
+        "nominal_window_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Nominal Window Sha256",
+          "type": "string"
+        },
+        "model_input_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Model Input Sha256",
+          "type": "string"
+        },
+        "evidence_bundle_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Bundle Sha256",
+          "type": "string"
+        },
+        "feature_input_hashes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Feature Input Hashes",
+          "type": "object"
+        },
+        "model_artifact_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Model Artifact Sha256",
+          "type": "string"
+        },
+        "evidence_package_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Package Sha256",
+          "type": "string"
+        },
+        "window_start_s": {
+          "title": "Window Start S",
+          "type": "number"
+        },
+        "window_end_s": {
+          "title": "Window End S",
+          "type": "number"
+        },
+        "construction": {
+          "const": "NATIVE_PAIRED_FRAME_PROJECTIONS",
+          "default": "NATIVE_PAIRED_FRAME_PROJECTIONS",
+          "title": "Construction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_window_sha256",
+        "nominal_window_sha256",
+        "model_input_sha256",
+        "evidence_bundle_sha256",
+        "feature_input_hashes",
+        "model_artifact_sha256",
+        "evidence_package_sha256",
+        "window_start_s",
+        "window_end_s"
+      ],
+      "title": "EvidenceProjectionReceipt",
+      "type": "object"
+    },
+    "FaultRanking": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "astrograph-fault-ranking.v2",
+          "enum": [
+            "astrograph-fault-ranking.v1",
+            "astrograph-fault-ranking.v2"
+          ],
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "ranking_id": {
+          "minLength": 1,
+          "title": "Ranking Id",
+          "type": "string"
+        },
+        "episode_id": {
+          "minLength": 1,
+          "title": "Episode Id",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/RankingSource"
+        },
+        "score_semantics": {
+          "$ref": "#/$defs/ScoreSemantics",
+          "default": "RANKING_SCORE"
+        },
+        "calibration_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Calibration Id"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/RankedFault"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "producer_id": {
+          "minLength": 1,
+          "title": "Producer Id",
+          "type": "string"
+        },
+        "producer_version": {
+          "minLength": 1,
+          "title": "Producer Version",
+          "type": "string"
+        },
+        "claim_boundary": {
+          "default": "Engineering candidate ranking; scores are not calibrated flight probabilities.",
+          "title": "Claim Boundary",
+          "type": "string"
+        },
+        "kg_fault_coverage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/KGFaultCoverageDeclaration"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "title": "Metadata",
+          "type": "object"
+        }
+      },
+      "required": [
+        "ranking_id",
+        "episode_id",
+        "source",
+        "producer_id",
+        "producer_version"
+      ],
+      "title": "FaultRanking",
+      "type": "object"
+    },
+    "KGFaultCoverageDeclaration": {
+      "additionalProperties": false,
+      "description": "Content-addressable declaration of executable KG/rule capability.\n\nThis is intentionally distinct from the candidates emitted for one episode.\nA top-k ranking may be short while the underlying evidence package supports a\nbroad fault universe; conversely, a ranker may enumerate zero-score candidates\nthat have no executable evidence.  Only this declaration is admissible for the\nfault-universe coverage guard.",
+      "properties": {
+        "schema_version": {
+          "const": "astrograph-kg-fault-coverage-declaration.v1",
+          "default": "astrograph-kg-fault-coverage-declaration.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "coverage_basis": {
+          "default": "EXECUTABLE_POSITIVE_EVIDENCE_DEFINITIONS",
+          "enum": [
+            "EXECUTABLE_POSITIVE_EVIDENCE_DEFINITIONS",
+            "REVIEWED_CALIBRATED_DOCUMENT_CLAIM_MAPPINGS"
+          ],
+          "title": "Coverage Basis",
+          "type": "string"
+        },
+        "source_artifact_id": {
+          "minLength": 1,
+          "title": "Source Artifact Id",
+          "type": "string"
+        },
+        "source_artifact_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Artifact Sha256",
+          "type": "string"
+        },
+        "supported_fault_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Fault Ids",
+          "type": "array"
+        },
+        "evidence_definition_ids_by_fault": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Evidence Definition Ids By Fault",
+          "type": "object"
+        },
+        "claim_boundary": {
+          "default": "Declares executable positive-vote evidence-schema capability only. It does not assert that evidence is present or satisfied in a particular episode, and it is not a performance, causal, or qualification claim.",
+          "title": "Claim Boundary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_artifact_id",
+        "source_artifact_sha256"
+      ],
+      "title": "KGFaultCoverageDeclaration",
+      "type": "object"
+    },
+    "RankedFault": {
+      "additionalProperties": false,
+      "properties": {
+        "fault_id": {
+          "minLength": 1,
+          "title": "Fault Id",
+          "type": "string"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "source": {
+          "$ref": "#/$defs/RankingSource"
+        },
+        "evidence_fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Fact Ids",
+          "type": "array"
+        },
+        "source_evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Evidence Ids",
+          "type": "array"
+        },
+        "correlation_group_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Correlation Group Ids",
+          "type": "array"
+        },
+        "lineage_complete": {
+          "default": false,
+          "title": "Lineage Complete",
+          "type": "boolean"
+        },
+        "contributes_to_fusion": {
+          "default": true,
+          "title": "Contributes To Fusion",
+          "type": "boolean"
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "title": "Metadata",
+          "type": "object"
+        }
+      },
+      "required": [
+        "fault_id",
+        "rank",
+        "score",
+        "source"
+      ],
+      "title": "RankedFault",
+      "type": "object"
+    },
+    "RankingSource": {
+      "enum": [
+        "DATA_DRIVEN",
+        "KG_FORWARD",
+        "KG_BACKWARD"
+      ],
+      "title": "RankingSource",
+      "type": "string"
+    },
+    "ScoreSemantics": {
+      "description": "Meaning of the numeric ``score`` carried by one source ranking.",
+      "enum": [
+        "RANKING_SCORE",
+        "UNCALIBRATED_CLASS_PROBABILITY",
+        "CALIBRATED_CLASS_PROBABILITY",
+        "EVIDENCE_STRENGTH",
+        "EVIDENCE_COVERAGE"
+      ],
+      "title": "ScoreSemantics",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Predictions are model output, never substituted for observed evidence.",
+  "properties": {
+    "schema_version": {
+      "const": "astrograph-three-task-context.v1",
+      "default": "astrograph-three-task-context.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "episode_id": {
+      "minLength": 1,
+      "title": "Episode Id",
+      "type": "string"
+    },
+    "prediction_id": {
+      "minLength": 1,
+      "title": "Prediction Id",
+      "type": "string"
+    },
+    "model_id": {
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "model_version": {
+      "minLength": 1,
+      "title": "Model Version",
+      "type": "string"
+    },
+    "input_data_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Input Data Sha256",
+      "type": "string"
+    },
+    "window_start_s": {
+      "title": "Window Start S",
+      "type": "number"
+    },
+    "window_end_s": {
+      "title": "Window End S",
+      "type": "number"
+    },
+    "detection_probability": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Detection Probability",
+      "type": "number"
+    },
+    "detection_threshold": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Detection Threshold",
+      "type": "number"
+    },
+    "detected": {
+      "title": "Detected",
+      "type": "boolean"
+    },
+    "component_probabilities": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Component Probabilities",
+      "type": "object"
+    },
+    "predicted_component": {
+      "minLength": 1,
+      "title": "Predicted Component",
+      "type": "string"
+    },
+    "classification_ranking": {
+      "$ref": "#/$defs/FaultRanking"
+    },
+    "evidence_projection": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceProjectionReceipt"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "interpretation": {
+      "const": "MODEL_OUTPUT_NOT_OBSERVATION",
+      "default": "MODEL_OUTPUT_NOT_OBSERVATION",
+      "title": "Interpretation",
+      "type": "string"
+    }
+  },
+  "required": [
+    "episode_id",
+    "prediction_id",
+    "model_id",
+    "model_version",
+    "input_data_sha256",
+    "window_start_s",
+    "window_end_s",
+    "detection_probability",
+    "detection_threshold",
+    "detected",
+    "component_probabilities",
+    "predicted_component",
+    "classification_ranking"
+  ],
+  "title": "ThreeTaskResult",
+  "type": "object"
+}

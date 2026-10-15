@@ -1,0 +1,78 @@
+{
+  "additionalProperties": false,
+  "description": "Source-group split and named review travel with each supervised example.",
+  "properties": {
+    "example_id": {
+      "minLength": 1,
+      "title": "Example Id",
+      "type": "string"
+    },
+    "task": {
+      "enum": [
+        "ONTOLOGY_EXTRACTION",
+        "RETRIEVAL_QUERY",
+        "DIAGNOSTIC_REPORT"
+      ],
+      "title": "Task",
+      "type": "string"
+    },
+    "source_group": {
+      "minLength": 1,
+      "title": "Source Group",
+      "type": "string"
+    },
+    "split": {
+      "enum": [
+        "train",
+        "validation",
+        "test"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "input": {
+      "additionalProperties": true,
+      "title": "Input",
+      "type": "object"
+    },
+    "expected": {
+      "additionalProperties": true,
+      "title": "Expected",
+      "type": "object"
+    },
+    "source_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Sha256",
+      "type": "string"
+    },
+    "source_artifact_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Artifact Sha256",
+      "type": "string"
+    },
+    "reviewer": {
+      "minLength": 1,
+      "title": "Reviewer",
+      "type": "string"
+    },
+    "review_status": {
+      "const": "APPROVED",
+      "title": "Review Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "example_id",
+    "task",
+    "source_group",
+    "split",
+    "input",
+    "expected",
+    "source_sha256",
+    "source_artifact_sha256",
+    "reviewer",
+    "review_status"
+  ],
+  "title": "TrainingExample",
+  "type": "object"
+}

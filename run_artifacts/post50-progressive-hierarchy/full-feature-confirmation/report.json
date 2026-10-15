@@ -1,0 +1,2697 @@
+{
+  "schema_version": "astrograph-adcs-v522-deep-comparison.v1",
+  "split_audit": {
+    "schema_version": "astrograph-adcs-v522-split-audit.v1",
+    "primary_group_key": "trajectory_pair_id",
+    "assignment": "sample_index modulo 5; train={0,1,2}, validation={3}, test={4}",
+    "group_overlap": {
+      "train_validation": [],
+      "train_test": [],
+      "validation_test": []
+    },
+    "group_overlap_count": 0,
+    "splits": {
+      "train": {
+        "trajectory_count": 546,
+        "fault_trajectory_count": 528,
+        "nominal_trajectory_count": 18,
+        "trajectory_group_count": 18,
+        "scenario_counts": {
+          "attitude_acquisition_post_settle": 132,
+          "attitude_acquisition_transient": 132,
+          "nominal_baseline": 18,
+          "propulsive_maneuver_preburn_settled": 132,
+          "steady_pointing_payload_settled": 132
+        },
+        "class_counts": {
+          "adcs_control_loop_failure": 24,
+          "adcs_gyro_bias_step": 24,
+          "adcs_imu_axis_dropout": 24,
+          "adcs_imu_gyro_noise_amplification": 24,
+          "adcs_imu_total_output_zero": 48,
+          "adcs_rw_jamming": 24,
+          "adcs_rw_speed_sensor_fault": 24,
+          "adcs_rw_torque_path_open": 48,
+          "adcs_star_solution_constant_bias": 24,
+          "adcs_star_solution_unavailable": 120,
+          "adcs_star_tracker_stuck_at_last": 24,
+          "adcs_sun_sensor_cell_failure": 24,
+          "adcs_sun_sensor_saturation": 24,
+          "adcs_sun_vector_unavailable": 72,
+          "nominal": 18
+        }
+      },
+      "validation": {
+        "trajectory_count": 182,
+        "fault_trajectory_count": 176,
+        "nominal_trajectory_count": 6,
+        "trajectory_group_count": 6,
+        "scenario_counts": {
+          "attitude_acquisition_post_settle": 44,
+          "attitude_acquisition_transient": 44,
+          "nominal_baseline": 6,
+          "propulsive_maneuver_preburn_settled": 44,
+          "steady_pointing_payload_settled": 44
+        },
+        "class_counts": {
+          "adcs_control_loop_failure": 8,
+          "adcs_gyro_bias_step": 8,
+          "adcs_imu_axis_dropout": 8,
+          "adcs_imu_gyro_noise_amplification": 8,
+          "adcs_imu_total_output_zero": 16,
+          "adcs_rw_jamming": 8,
+          "adcs_rw_speed_sensor_fault": 8,
+          "adcs_rw_torque_path_open": 16,
+          "adcs_star_solution_constant_bias": 8,
+          "adcs_star_solution_unavailable": 40,
+          "adcs_star_tracker_stuck_at_last": 8,
+          "adcs_sun_sensor_cell_failure": 8,
+          "adcs_sun_sensor_saturation": 8,
+          "adcs_sun_vector_unavailable": 24,
+          "nominal": 6
+        }
+      },
+      "test": {
+        "trajectory_count": 182,
+        "fault_trajectory_count": 176,
+        "nominal_trajectory_count": 6,
+        "trajectory_group_count": 6,
+        "scenario_counts": {
+          "attitude_acquisition_post_settle": 44,
+          "attitude_acquisition_transient": 44,
+          "nominal_baseline": 6,
+          "propulsive_maneuver_preburn_settled": 44,
+          "steady_pointing_payload_settled": 44
+        },
+        "class_counts": {
+          "adcs_control_loop_failure": 8,
+          "adcs_gyro_bias_step": 8,
+          "adcs_imu_axis_dropout": 8,
+          "adcs_imu_gyro_noise_amplification": 8,
+          "adcs_imu_total_output_zero": 16,
+          "adcs_rw_jamming": 8,
+          "adcs_rw_speed_sensor_fault": 8,
+          "adcs_rw_torque_path_open": 16,
+          "adcs_star_solution_constant_bias": 8,
+          "adcs_star_solution_unavailable": 40,
+          "adcs_star_tracker_stuck_at_last": 8,
+          "adcs_sun_sensor_cell_failure": 8,
+          "adcs_sun_sensor_saturation": 8,
+          "adcs_sun_vector_unavailable": 24,
+          "nominal": 6
+        }
+      }
+    },
+    "frozen_counts_match": true,
+    "status": "PASS"
+  },
+  "window_counts": {
+    "train": 32148,
+    "validation": 12408,
+    "test": 51324
+  },
+  "selection": "validation weighted macro-F1: detection .2 + localization .3 + classification .5",
+  "preprocessing": {
+    "schema_version": "astrograph-channel-preprocessor.v1",
+    "method": "standard",
+    "fit_scope": "train_only",
+    "channel_count": 49,
+    "clipped_channel_count": 0,
+    "normalized_clip": null,
+    "finite_state": true
+  },
+  "feature_profile": "full",
+  "feature_columns": [
+    "adcs.pointing_error_deg",
+    "adcs.sensor.gyro_measured_rad_s_x",
+    "adcs.sensor.gyro_measured_rad_s_y",
+    "adcs.sensor.gyro_measured_rad_s_z",
+    "adcs.sensor.imu.valid",
+    "adcs.sensor.gyro_axis_valid_x",
+    "adcs.sensor.gyro_axis_valid_y",
+    "adcs.sensor.gyro_axis_valid_z",
+    "adcs.star_tracker.valid",
+    "adcs.star_tracker.solution_fresh",
+    "adcs.sun_sensor.valid",
+    "adcs.sun_sensor.saturated",
+    "adcs.sun_sensor.cell_healthy",
+    "adcs.rw.command_execution_residual_norm_nm",
+    "adcs.rw.speed_response_residual_norm_nm",
+    "adcs.rw.speed_sensor_invalid_count",
+    "adcs.sensor.gyro_invalid_axis_count",
+    "adcs.rw.measured_speed_rad_s_0",
+    "adcs.rw.measured_speed_rad_s_1",
+    "adcs.rw.measured_speed_rad_s_2",
+    "adcs.rw.measured_speed_rad_s_3",
+    "adcs.rw.command_torque_nm_0",
+    "adcs.rw.command_torque_nm_1",
+    "adcs.rw.command_torque_nm_2",
+    "adcs.rw.command_torque_nm_3",
+    "adcs.rw.motor_current_a_0",
+    "adcs.rw.motor_current_a_1",
+    "adcs.rw.motor_current_a_2",
+    "adcs.rw.motor_current_a_3",
+    "adcs.innovation.star_gyro_rate_residual_rad_s_x",
+    "adcs.innovation.star_gyro_rate_residual_rad_s_y",
+    "adcs.innovation.star_gyro_rate_residual_rad_s_z",
+    "adcs.innovation.star_gyro_rate_residual_norm_rad_s",
+    "adcs.rw.command_execution_residual_nm_0",
+    "adcs.rw.command_execution_residual_nm_1",
+    "adcs.rw.command_execution_residual_nm_2",
+    "adcs.rw.command_execution_residual_nm_3",
+    "adcs.rw.speed_response_residual_nm_0",
+    "adcs.rw.speed_response_residual_nm_1",
+    "adcs.rw.speed_response_residual_nm_2",
+    "adcs.rw.speed_response_residual_nm_3",
+    "adcs.rw.commanded_current_a_0",
+    "adcs.rw.commanded_current_a_1",
+    "adcs.rw.commanded_current_a_2",
+    "adcs.rw.commanded_current_a_3",
+    "adcs.rw.applied_current_a_0",
+    "adcs.rw.applied_current_a_1",
+    "adcs.rw.applied_current_a_2",
+    "adcs.rw.applied_current_a_3"
+  ],
+  "alarm_policy_mode": "hysteresis",
+  "external_nominal_root": "/mnt/PRO6000_disk/Timer/sat/data/generated/adcs_nominal_envelope_confirmation_seed20260925",
+  "development_nominal_root": "/mnt/PRO6000_disk/Timer/sat/data/generated/adcs_nominal_envelope_development_seed20260923",
+  "development_nominal_partition_policy": "indices 0,1,2,5,6,7 augment train; 3,4,8,9 augment validation",
+  "models": [
+    {
+      "family": "logistic_detector_progressive_hierarchical_gat_tcn_hierarchy_blend",
+      "detection": {
+        "accuracy": 0.804945054945055,
+        "balanced_accuracy": 0.8665342363481229,
+        "macro_f1": 0.7900440772228563
+      },
+      "localization": {
+        "accuracy": 0.90982295221843,
+        "balanced_accuracy": 0.8783224910364668,
+        "macro_f1": 0.8828504783208297
+      },
+      "classification_oracle_component": {
+        "accuracy": 0.9847482935153583,
+        "balanced_accuracy": 0.9836954005431922,
+        "macro_f1": 0.9816581623819164
+      },
+      "classification_predicted_component": {
+        "accuracy": 0.9002506399317406,
+        "balanced_accuracy": 0.8621516113727896,
+        "macro_f1": 0.8642498238061054
+      },
+      "isolation": {
+        "accuracy": 0.9002506399317406,
+        "balanced_accuracy": 0.8621516113727896,
+        "macro_f1": 0.8642498238061054
+      },
+      "end_to_end_15_class": {
+        "accuracy": 0.7989439638375808,
+        "balanced_accuracy": 0.699121051445842,
+        "macro_f1": 0.7313075405517195
+      },
+      "failure_attribution": {
+        "fault_windows": 37504,
+        "first_wrong_stage_detection": 10011,
+        "first_wrong_stage_localization": 126,
+        "first_wrong_stage_classification": 182,
+        "fully_correct_fault_windows": 27185
+      },
+      "delay": {
+        "eligible_fault_trajectories": 176,
+        "detected_trajectories": 142,
+        "detection_coverage": 0.8068181818181818,
+        "mean_delay_s": 11.408450704225352,
+        "median_delay_s": 8.0
+      },
+      "alarm_event_metrics": {
+        "eligible_fault_events": 176,
+        "detected_fault_events": 142,
+        "fault_event_recall": 0.8068181818181818,
+        "mean_detection_delay_s": 11.408450704225352,
+        "median_detection_delay_s": 8.0,
+        "p95_detection_delay_s": 24.0,
+        "healthy_windows": 13820,
+        "false_alarm_windows": 0,
+        "false_alarm_window_rate": 0.0,
+        "healthy_exposure_hours": 3.837222222222222,
+        "false_alarm_episodes": 0,
+        "false_alarm_episodes_per_hour": 0.0
+      },
+      "detection_threshold": 0.99,
+      "conditioning_mode": "hard",
+      "mechanism": "graph-free global detector plus reviewed parameter-to-part-to-component-to-functional-module-to-subsystem-to-spacecraft gated attention for localization/classification",
+      "evaluation_audit": {
+        "schema_version": "astrograph-three-task-evaluation-audit.v1",
+        "evaluation_unit": "causal_window",
+        "group_key": "sample_id",
+        "selection_boundary": "report_only; test truth and group identifiers are evaluator-side only",
+        "overall": {
+          "detection": {
+            "n_items": 51324,
+            "accuracy": 0.804945054945055,
+            "macro_f1": 0.7900440772228563,
+            "macro_recall": 0.8665342363481229,
+            "balanced_accuracy": 0.8665342363481229,
+            "evaluated_class_count": 2,
+            "frozen_ontology_class_count": 2,
+            "per_class": {
+              "0": {
+                "support": 13820,
+                "true_positive": 13820,
+                "false_positive": 10011,
+                "false_negative": 0,
+                "precision": 0.5799169149427217,
+                "recall": 1.0,
+                "f1": 0.7341106477915593
+              },
+              "1": {
+                "support": 37504,
+                "true_positive": 27493,
+                "false_positive": 0,
+                "false_negative": 10011,
+                "precision": 1.0,
+                "recall": 0.7330684726962458,
+                "f1": 0.8459775066541533
+              }
+            }
+          },
+          "localization": {
+            "n_items": 37504,
+            "accuracy": 0.90982295221843,
+            "macro_f1": 0.8828504783208295,
+            "macro_recall": 0.8783224910364668,
+            "balanced_accuracy": 0.8783224910364668,
+            "evaluated_class_count": 5,
+            "frozen_ontology_class_count": 5,
+            "per_class": {
+              "control_loop": {
+                "support": 1722,
+                "true_positive": 1176,
+                "false_positive": 226,
+                "false_negative": 546,
+                "precision": 0.8388017118402282,
+                "recall": 0.6829268292682927,
+                "f1": 0.7528809218950064
+              },
+              "imu": {
+                "support": 8513,
+                "true_positive": 7830,
+                "false_positive": 171,
+                "false_negative": 683,
+                "precision": 0.9786276715410573,
+                "recall": 0.9197697638905203,
+                "f1": 0.9482863025311856
+              },
+              "reaction_wheel": {
+                "support": 6812,
+                "true_positive": 6417,
+                "false_positive": 2659,
+                "false_negative": 395,
+                "precision": 0.7070295284266197,
+                "recall": 0.9420140927774515,
+                "f1": 0.8077794561933535
+              },
+              "star_tracker": {
+                "support": 11959,
+                "true_positive": 10380,
+                "false_positive": 326,
+                "false_negative": 1579,
+                "precision": 0.9695497851671959,
+                "recall": 0.8679655489589431,
+                "f1": 0.9159497021839841
+              },
+              "sun_sensor": {
+                "support": 8498,
+                "true_positive": 8319,
+                "false_positive": 0,
+                "false_negative": 179,
+                "precision": 1.0,
+                "recall": 0.9789362202871263,
+                "f1": 0.9893560088006185
+              }
+            }
+          },
+          "classification": {
+            "n_items": 37504,
+            "accuracy": 0.9002506399317406,
+            "macro_f1": 0.8642498238061054,
+            "macro_recall": 0.8621516113727897,
+            "balanced_accuracy": 0.8621516113727897,
+            "evaluated_class_count": 14,
+            "frozen_ontology_class_count": 14,
+            "per_class": {
+              "adcs_control_loop_failure": {
+                "support": 1722,
+                "true_positive": 1176,
+                "false_positive": 226,
+                "false_negative": 546,
+                "precision": 0.8388017118402282,
+                "recall": 0.6829268292682927,
+                "f1": 0.7528809218950064
+              },
+              "adcs_gyro_bias_step": {
+                "support": 1696,
+                "true_positive": 1023,
+                "false_positive": 311,
+                "false_negative": 673,
+                "precision": 0.7668665667166417,
+                "recall": 0.6031839622641509,
+                "f1": 0.6752475247524753
+              },
+              "adcs_imu_axis_dropout": {
+                "support": 1710,
+                "true_positive": 1693,
+                "false_positive": 24,
+                "false_negative": 17,
+                "precision": 0.9860221316249272,
+                "recall": 0.9900584795321637,
+                "f1": 0.9880361832506566
+              },
+              "adcs_imu_gyro_noise_amplification": {
+                "support": 1703,
+                "true_positive": 1653,
+                "false_positive": 96,
+                "false_negative": 50,
+                "precision": 0.9451114922813036,
+                "recall": 0.9706400469759249,
+                "f1": 0.9577056778679026
+              },
+              "adcs_imu_total_output_zero": {
+                "support": 3404,
+                "true_positive": 3164,
+                "false_positive": 37,
+                "false_negative": 240,
+                "precision": 0.9884411121524523,
+                "recall": 0.9294947121034077,
+                "f1": 0.9580620741862226
+              },
+              "adcs_rw_jamming": {
+                "support": 1696,
+                "true_positive": 1696,
+                "false_positive": 2,
+                "false_negative": 0,
+                "precision": 0.9988221436984688,
+                "recall": 1.0,
+                "f1": 0.9994107248084856
+              },
+              "adcs_rw_speed_sensor_fault": {
+                "support": 1710,
+                "true_positive": 1701,
+                "false_positive": 9,
+                "false_negative": 9,
+                "precision": 0.9947368421052631,
+                "recall": 0.9947368421052631,
+                "f1": 0.9947368421052631
+              },
+              "adcs_rw_torque_path_open": {
+                "support": 3406,
+                "true_positive": 3017,
+                "false_positive": 2651,
+                "false_negative": 389,
+                "precision": 0.5322865208186309,
+                "recall": 0.8857897827363477,
+                "f1": 0.6649768569539343
+              },
+              "adcs_star_solution_constant_bias": {
+                "support": 1718,
+                "true_positive": 178,
+                "false_positive": 355,
+                "false_negative": 1540,
+                "precision": 0.3339587242026266,
+                "recall": 0.10360884749708964,
+                "f1": 0.1581519324744558
+              },
+              "adcs_star_solution_unavailable": {
+                "support": 8534,
+                "true_positive": 8459,
+                "false_positive": 20,
+                "false_negative": 75,
+                "precision": 0.9976412312772732,
+                "recall": 0.9912116240918678,
+                "f1": 0.99441603479692
+              },
+              "adcs_star_tracker_stuck_at_last": {
+                "support": 1707,
+                "true_positive": 1684,
+                "false_positive": 10,
+                "false_negative": 23,
+                "precision": 0.9940968122786304,
+                "recall": 0.9865260691271236,
+                "f1": 0.9902969714789768
+              },
+              "adcs_sun_sensor_cell_failure": {
+                "support": 1704,
+                "true_positive": 1661,
+                "false_positive": 0,
+                "false_negative": 43,
+                "precision": 1.0,
+                "recall": 0.9747652582159625,
+                "f1": 0.987221396731055
+              },
+              "adcs_sun_sensor_saturation": {
+                "support": 1695,
+                "true_positive": 1654,
+                "false_positive": 0,
+                "false_negative": 41,
+                "precision": 1.0,
+                "recall": 0.975811209439528,
+                "f1": 0.987757539564049
+              },
+              "adcs_sun_vector_unavailable": {
+                "support": 5099,
+                "true_positive": 5004,
+                "false_positive": 0,
+                "false_negative": 95,
+                "precision": 1.0,
+                "recall": 0.9813688958619338,
+                "f1": 0.9905968524200732
+              }
+            }
+          },
+          "end_to_end": {
+            "n_items": 51324,
+            "accuracy": 0.7989439638375808,
+            "macro_f1": 0.7313075405517198,
+            "macro_recall": 0.6991210514458419,
+            "balanced_accuracy": 0.6991210514458419,
+            "evaluated_class_count": 15,
+            "frozen_ontology_class_count": 15,
+            "per_class": {
+              "normal": {
+                "support": 13820,
+                "true_positive": 13820,
+                "false_positive": 10011,
+                "false_negative": 0,
+                "precision": 0.5799169149427217,
+                "recall": 1.0,
+                "f1": 0.7341106477915593
+              },
+              "adcs_control_loop_failure": {
+                "support": 1722,
+                "true_positive": 549,
+                "false_positive": 0,
+                "false_negative": 1173,
+                "precision": 1.0,
+                "recall": 0.31881533101045295,
+                "f1": 0.48348745046235136
+              },
+              "adcs_gyro_bias_step": {
+                "support": 1696,
+                "true_positive": 343,
+                "false_positive": 157,
+                "false_negative": 1353,
+                "precision": 0.686,
+                "recall": 0.20224056603773585,
+                "f1": 0.3123861566484517
+              },
+              "adcs_imu_axis_dropout": {
+                "support": 1710,
+                "true_positive": 1542,
+                "false_positive": 0,
+                "false_negative": 168,
+                "precision": 1.0,
+                "recall": 0.9017543859649123,
+                "f1": 0.948339483394834
+              },
+              "adcs_imu_gyro_noise_amplification": {
+                "support": 1703,
+                "true_positive": 1356,
+                "false_positive": 25,
+                "false_negative": 347,
+                "precision": 0.9818971759594497,
+                "recall": 0.7962419260129184,
+                "f1": 0.8793774319066148
+              },
+              "adcs_imu_total_output_zero": {
+                "support": 3404,
+                "true_positive": 3031,
+                "false_positive": 0,
+                "false_negative": 373,
+                "precision": 1.0,
+                "recall": 0.8904230317273796,
+                "f1": 0.942035742035742
+              },
+              "adcs_rw_jamming": {
+                "support": 1696,
+                "true_positive": 1637,
+                "false_positive": 0,
+                "false_negative": 59,
+                "precision": 1.0,
+                "recall": 0.9652122641509434,
+                "f1": 0.9822982298229823
+              },
+              "adcs_rw_speed_sensor_fault": {
+                "support": 1710,
+                "true_positive": 1388,
+                "false_positive": 0,
+                "false_negative": 322,
+                "precision": 1.0,
+                "recall": 0.8116959064327486,
+                "f1": 0.8960619754680439
+              },
+              "adcs_rw_torque_path_open": {
+                "support": 3406,
+                "true_positive": 0,
+                "false_positive": 124,
+                "false_negative": 3406,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "adcs_star_solution_constant_bias": {
+                "support": 1718,
+                "true_positive": 0,
+                "false_positive": 0,
+                "false_negative": 1718,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "adcs_star_solution_unavailable": {
+                "support": 8534,
+                "true_positive": 7967,
+                "false_positive": 2,
+                "false_negative": 567,
+                "precision": 0.9997490274814907,
+                "recall": 0.9335598781345208,
+                "f1": 0.9655214203478155
+              },
+              "adcs_star_tracker_stuck_at_last": {
+                "support": 1707,
+                "true_positive": 1527,
+                "false_positive": 0,
+                "false_negative": 180,
+                "precision": 1.0,
+                "recall": 0.8945518453427065,
+                "f1": 0.9443413729128015
+              },
+              "adcs_sun_sensor_cell_failure": {
+                "support": 1704,
+                "true_positive": 1568,
+                "false_positive": 0,
+                "false_negative": 136,
+                "precision": 1.0,
+                "recall": 0.92018779342723,
+                "f1": 0.9584352078239609
+              },
+              "adcs_sun_sensor_saturation": {
+                "support": 1695,
+                "true_positive": 1577,
+                "false_positive": 0,
+                "false_negative": 118,
+                "precision": 1.0,
+                "recall": 0.9303834808259587,
+                "f1": 0.9639364303178484
+              },
+              "adcs_sun_vector_unavailable": {
+                "support": 5099,
+                "true_positive": 4700,
+                "false_positive": 0,
+                "false_negative": 399,
+                "precision": 1.0,
+                "recall": 0.9217493626201216,
+                "f1": 0.9592815593427901
+              }
+            }
+          },
+          "detection_aupr": 0.988205131696433,
+          "detection_calibration": {
+            "ece": 0.03967780694136496,
+            "bin_edges": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "bins": [
+              {
+                "left": 0.0,
+                "right": 0.1,
+                "count": 3963,
+                "accuracy": 0.045672470350744385,
+                "mean_confidence": 0.039732187407322976,
+                "absolute_gap": 0.0059402829434214086
+              },
+              {
+                "left": 0.1,
+                "right": 0.2,
+                "count": 916,
+                "accuracy": 0.20851528384279475,
+                "mean_confidence": 0.15800547150805527,
+                "absolute_gap": 0.05050981233473947
+              },
+              {
+                "left": 0.2,
+                "right": 0.3,
+                "count": 1289,
+                "accuracy": 0.287044220325834,
+                "mean_confidence": 0.2486250540653433,
+                "absolute_gap": 0.03841916626049069
+              },
+              {
+                "left": 0.3,
+                "right": 0.4,
+                "count": 2186,
+                "accuracy": 0.4011893870082342,
+                "mean_confidence": 0.34765496261056583,
+                "absolute_gap": 0.05353442439766837
+              },
+              {
+                "left": 0.4,
+                "right": 0.5,
+                "count": 1174,
+                "accuracy": 0.706984667802385,
+                "mean_confidence": 0.44660032130587446,
+                "absolute_gap": 0.26038434649651054
+              },
+              {
+                "left": 0.5,
+                "right": 0.6,
+                "count": 781,
+                "accuracy": 0.6274007682458387,
+                "mean_confidence": 0.549232788603376,
+                "absolute_gap": 0.07816797964246269
+              },
+              {
+                "left": 0.6,
+                "right": 0.7,
+                "count": 1215,
+                "accuracy": 0.4444444444444444,
+                "mean_confidence": 0.6576047164913068,
+                "absolute_gap": 0.2131602720468624
+              },
+              {
+                "left": 0.7,
+                "right": 0.8,
+                "count": 1255,
+                "accuracy": 0.4788844621513944,
+                "mean_confidence": 0.7446483928368861,
+                "absolute_gap": 0.2657639306854917
+              },
+              {
+                "left": 0.8,
+                "right": 0.9,
+                "count": 1357,
+                "accuracy": 0.7582903463522476,
+                "mean_confidence": 0.8537244102591615,
+                "absolute_gap": 0.09543406390691389
+              },
+              {
+                "left": 0.9,
+                "right": 1.0,
+                "count": 37188,
+                "accuracy": 0.973539851565021,
+                "mean_confidence": 0.9926669617579746,
+                "absolute_gap": 0.019127110192953656
+              }
+            ]
+          }
+        },
+        "groups": [
+          {
+            "sample_id": "attitude_acquisition:nominal:mc_04",
+            "window_count": 282,
+            "fault_window_count": 0,
+            "detection_accuracy": 1.0,
+            "end_to_end_accuracy": 1.0,
+            "localization_accuracy": null,
+            "classification_accuracy": null
+          },
+          {
+            "sample_id": "attitude_acquisition:nominal:mc_09",
+            "window_count": 282,
+            "fault_window_count": 0,
+            "detection_accuracy": 1.0,
+            "end_to_end_accuracy": 1.0,
+            "localization_accuracy": null,
+            "classification_accuracy": null
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_actuator_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.34397163120567376,
+            "end_to_end_accuracy": 0.34397163120567376,
+            "localization_accuracy": 0.9351351351351351,
+            "classification_accuracy": 0.9351351351351351
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_actuator_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.3475177304964539,
+            "end_to_end_accuracy": 0.3475177304964539,
+            "localization_accuracy": 0.9456521739130435,
+            "classification_accuracy": 0.9456521739130435
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_control_loop_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.34397163120567376,
+            "end_to_end_accuracy": 0.34397163120567376,
+            "localization_accuracy": 0.9621621621621622,
+            "classification_accuracy": 0.9621621621621622
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_control_loop_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.3475177304964539,
+            "end_to_end_accuracy": 0.3475177304964539,
+            "localization_accuracy": 0.45652173913043476,
+            "classification_accuracy": 0.45652173913043476
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_gyro_bias_step:mc_04",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.3475177304964539,
+            "end_to_end_accuracy": 0.3475177304964539,
+            "localization_accuracy": 0.9782608695652174,
+            "classification_accuracy": 0.9782608695652174
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_gyro_bias_step:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.3475177304964539,
+            "end_to_end_accuracy": 0.3475177304964539,
+            "localization_accuracy": 0.03260869565217391,
+            "classification_accuracy": 0.016304347826086956
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_imu_axis_dropout:mc_04",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 0.9891304347826086,
+            "classification_accuracy": 0.9891304347826086
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_imu_axis_dropout:mc_09",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.8085106382978723,
+            "end_to_end_accuracy": 0.8085106382978723,
+            "localization_accuracy": 0.9945945945945946,
+            "classification_accuracy": 0.9837837837837838
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_imu_noise_burst:mc_04",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.9432624113475178,
+            "end_to_end_accuracy": 0.9432624113475178,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9781420765027322
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_imu_noise_burst:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.7553191489361702,
+            "end_to_end_accuracy": 0.7553191489361702,
+            "localization_accuracy": 0.9728260869565217,
+            "classification_accuracy": 0.9728260869565217
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_imu_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9945945945945946
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_imu_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.994535519125683,
+            "classification_accuracy": 0.994535519125683
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_imu_stuck_at_zero:mc_04",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9890710382513661
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_imu_stuck_at_zero:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.8014184397163121,
+            "end_to_end_accuracy": 0.8014184397163121,
+            "localization_accuracy": 0.9891304347826086,
+            "classification_accuracy": 0.9891304347826086
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_rw_jamming:mc_04",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.9858156028368794,
+            "end_to_end_accuracy": 0.9858156028368794,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_rw_jamming:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.9858156028368794,
+            "end_to_end_accuracy": 0.9858156028368794,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_rw_motor_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.34397163120567376,
+            "end_to_end_accuracy": 0.34397163120567376,
+            "localization_accuracy": 0.9837837837837838,
+            "classification_accuracy": 0.9837837837837838
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_rw_motor_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.34397163120567376,
+            "end_to_end_accuracy": 0.34397163120567376,
+            "localization_accuracy": 0.9459459459459459,
+            "classification_accuracy": 0.9459459459459459
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_rw_speed_sensor_fault:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.9148936170212766,
+            "end_to_end_accuracy": 0.9148936170212766,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_rw_speed_sensor_fault:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.7446808510638298,
+            "end_to_end_accuracy": 0.7446808510638298,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sensor_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9836956521739131
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sensor_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.9113475177304965,
+            "end_to_end_accuracy": 0.9113475177304965,
+            "localization_accuracy": 0.994535519125683,
+            "classification_accuracy": 0.9890710382513661
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_blinding:mc_04",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9836956521739131
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_blinding:mc_09",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.9113475177304965,
+            "end_to_end_accuracy": 0.9113475177304965,
+            "localization_accuracy": 0.994535519125683,
+            "classification_accuracy": 0.9890710382513661
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_dropout:mc_04",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 0.994535519125683,
+            "classification_accuracy": 0.9836065573770492
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_dropout:mc_09",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.9113475177304965,
+            "end_to_end_accuracy": 0.9113475177304965,
+            "localization_accuracy": 0.994535519125683,
+            "classification_accuracy": 0.9890710382513661
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_fov_obstruction:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9837837837837838
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_fov_obstruction:mc_09",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.9113475177304965,
+            "end_to_end_accuracy": 0.9113475177304965,
+            "localization_accuracy": 0.994535519125683,
+            "classification_accuracy": 0.9890710382513661
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_misalignment:mc_04",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.35106382978723405,
+            "end_to_end_accuracy": 0.35106382978723405,
+            "localization_accuracy": 0.04918032786885246,
+            "classification_accuracy": 0.04918032786885246
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_misalignment:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.3475177304964539,
+            "end_to_end_accuracy": 0.3475177304964539,
+            "localization_accuracy": 0.04891304347826087,
+            "classification_accuracy": 0.043478260869565216
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9837837837837838
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.9113475177304965,
+            "end_to_end_accuracy": 0.9113475177304965,
+            "localization_accuracy": 0.9945652173913043,
+            "classification_accuracy": 0.9891304347826086
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_stuck_at_last:mc_04",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.9716312056737588,
+            "end_to_end_accuracy": 0.9716312056737588,
+            "localization_accuracy": 0.9945652173913043,
+            "classification_accuracy": 0.9836956521739131
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_star_tracker_stuck_at_last:mc_09",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.8049645390070922,
+            "end_to_end_accuracy": 0.8049645390070922,
+            "localization_accuracy": 0.994535519125683,
+            "classification_accuracy": 0.9836065573770492
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_cell_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.9645390070921985,
+            "end_to_end_accuracy": 0.9645390070921985,
+            "localization_accuracy": 0.9728260869565217,
+            "classification_accuracy": 0.9728260869565217
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_cell_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.8936170212765957,
+            "end_to_end_accuracy": 0.8936170212765957,
+            "localization_accuracy": 0.9621621621621622,
+            "classification_accuracy": 0.9621621621621622
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_eclipse_blindness:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.9645390070921985,
+            "end_to_end_accuracy": 0.9645390070921985,
+            "localization_accuracy": 0.972972972972973,
+            "classification_accuracy": 0.972972972972973
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_eclipse_blindness:mc_09",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.9042553191489362,
+            "end_to_end_accuracy": 0.9042553191489362,
+            "localization_accuracy": 0.9890710382513661,
+            "classification_accuracy": 0.9890710382513661
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_false_eclipse:mc_04",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.9680851063829787,
+            "end_to_end_accuracy": 0.9680851063829787,
+            "localization_accuracy": 0.9782608695652174,
+            "classification_accuracy": 0.9782608695652174
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_false_eclipse:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.900709219858156,
+            "end_to_end_accuracy": 0.900709219858156,
+            "localization_accuracy": 0.9836956521739131,
+            "classification_accuracy": 0.9836956521739131
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_saturation:mc_04",
+            "window_count": 282,
+            "fault_window_count": 185,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 0.9891891891891892,
+            "classification_accuracy": 0.9891891891891892
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_saturation:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.925531914893617,
+            "end_to_end_accuracy": 0.925531914893617,
+            "localization_accuracy": 0.967391304347826,
+            "classification_accuracy": 0.967391304347826
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 183,
+            "detection_accuracy": 0.9645390070921985,
+            "end_to_end_accuracy": 0.9645390070921985,
+            "localization_accuracy": 0.9726775956284153,
+            "classification_accuracy": 0.9726775956284153
+          },
+          {
+            "sample_id": "attitude_acquisition_post_settle:adcs_sun_sensor_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 184,
+            "detection_accuracy": 0.900709219858156,
+            "end_to_end_accuracy": 0.900709219858156,
+            "localization_accuracy": 0.9836956521739131,
+            "classification_accuracy": 0.9836956521739131
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_actuator_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 265,
+            "detection_accuracy": 0.06028368794326241,
+            "end_to_end_accuracy": 0.06028368794326241,
+            "localization_accuracy": 0.5811320754716981,
+            "classification_accuracy": 0.5811320754716981
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_actuator_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 261,
+            "detection_accuracy": 0.07446808510638298,
+            "end_to_end_accuracy": 0.07446808510638298,
+            "localization_accuracy": 0.8505747126436781,
+            "classification_accuracy": 0.8505747126436781
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_control_loop_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 265,
+            "detection_accuracy": 0.9184397163120568,
+            "end_to_end_accuracy": 0.9184397163120568,
+            "localization_accuracy": 0.9886792452830189,
+            "classification_accuracy": 0.9886792452830189
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_control_loop_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 259,
+            "detection_accuracy": 0.08156028368794327,
+            "end_to_end_accuracy": 0.08156028368794327,
+            "localization_accuracy": 0.9498069498069498,
+            "classification_accuracy": 0.9498069498069498
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_gyro_bias_step:mc_04",
+            "window_count": 282,
+            "fault_window_count": 261,
+            "detection_accuracy": 0.07446808510638298,
+            "end_to_end_accuracy": 0.07446808510638298,
+            "localization_accuracy": 0.9233716475095786,
+            "classification_accuracy": 0.8390804597701149
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_gyro_bias_step:mc_09",
+            "window_count": 282,
+            "fault_window_count": 260,
+            "detection_accuracy": 0.07801418439716312,
+            "end_to_end_accuracy": 0.07801418439716312,
+            "localization_accuracy": 0.023076923076923078,
+            "classification_accuracy": 0.011538461538461539
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_imu_axis_dropout:mc_04",
+            "window_count": 282,
+            "fault_window_count": 261,
+            "detection_accuracy": 0.9609929078014184,
+            "end_to_end_accuracy": 0.9609929078014184,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9961685823754789
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_imu_axis_dropout:mc_09",
+            "window_count": 282,
+            "fault_window_count": 263,
+            "detection_accuracy": 0.8297872340425532,
+            "end_to_end_accuracy": 0.8297872340425532,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9923954372623575
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_imu_noise_burst:mc_04",
+            "window_count": 282,
+            "fault_window_count": 257,
+            "detection_accuracy": 0.7801418439716312,
+            "end_to_end_accuracy": 0.7801418439716312,
+            "localization_accuracy": 0.9961089494163424,
+            "classification_accuracy": 0.9961089494163424
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_imu_noise_burst:mc_09",
+            "window_count": 282,
+            "fault_window_count": 259,
+            "detection_accuracy": 0.5141843971631206,
+            "end_to_end_accuracy": 0.5141843971631206,
+            "localization_accuracy": 0.9768339768339769,
+            "classification_accuracy": 0.888030888030888
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_imu_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 263,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9961977186311787
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_imu_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 258,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9961240310077519
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_imu_stuck_at_zero:mc_04",
+            "window_count": 282,
+            "fault_window_count": 257,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9922178988326849
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_imu_stuck_at_zero:mc_09",
+            "window_count": 282,
+            "fault_window_count": 261,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9885057471264368
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_rw_jamming:mc_04",
+            "window_count": 282,
+            "fault_window_count": 260,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_rw_jamming:mc_09",
+            "window_count": 282,
+            "fault_window_count": 259,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_rw_motor_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 265,
+            "detection_accuracy": 0.06028368794326241,
+            "end_to_end_accuracy": 0.06028368794326241,
+            "localization_accuracy": 0.7547169811320755,
+            "classification_accuracy": 0.7547169811320755
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_rw_motor_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 265,
+            "detection_accuracy": 0.06028368794326241,
+            "end_to_end_accuracy": 0.06028368794326241,
+            "localization_accuracy": 0.7132075471698113,
+            "classification_accuracy": 0.7132075471698113
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_rw_speed_sensor_fault:mc_04",
+            "window_count": 282,
+            "fault_window_count": 262,
+            "detection_accuracy": 0.8794326241134752,
+            "end_to_end_accuracy": 0.8794326241134752,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_rw_speed_sensor_fault:mc_09",
+            "window_count": 282,
+            "fault_window_count": 260,
+            "detection_accuracy": 0.6914893617021277,
+            "end_to_end_accuracy": 0.6914893617021277,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sensor_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 260,
+            "detection_accuracy": 0.9397163120567376,
+            "end_to_end_accuracy": 0.9397163120567376,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9884615384615385
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sensor_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 256,
+            "detection_accuracy": 0.8829787234042553,
+            "end_to_end_accuracy": 0.8829787234042553,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.99609375
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_blinding:mc_04",
+            "window_count": 282,
+            "fault_window_count": 259,
+            "detection_accuracy": 0.9397163120567376,
+            "end_to_end_accuracy": 0.9397163120567376,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9884169884169884
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_blinding:mc_09",
+            "window_count": 282,
+            "fault_window_count": 257,
+            "detection_accuracy": 0.8829787234042553,
+            "end_to_end_accuracy": 0.8829787234042553,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9961089494163424
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_dropout:mc_04",
+            "window_count": 282,
+            "fault_window_count": 258,
+            "detection_accuracy": 0.9397163120567376,
+            "end_to_end_accuracy": 0.9397163120567376,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9883720930232558
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_dropout:mc_09",
+            "window_count": 282,
+            "fault_window_count": 258,
+            "detection_accuracy": 0.8829787234042553,
+            "end_to_end_accuracy": 0.8829787234042553,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9961240310077519
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_fov_obstruction:mc_04",
+            "window_count": 282,
+            "fault_window_count": 265,
+            "detection_accuracy": 0.9361702127659575,
+            "end_to_end_accuracy": 0.9361702127659575,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9886792452830189
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_fov_obstruction:mc_09",
+            "window_count": 282,
+            "fault_window_count": 258,
+            "detection_accuracy": 0.8829787234042553,
+            "end_to_end_accuracy": 0.8829787234042553,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9961240310077519
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_misalignment:mc_04",
+            "window_count": 282,
+            "fault_window_count": 259,
+            "detection_accuracy": 0.08156028368794327,
+            "end_to_end_accuracy": 0.08156028368794327,
+            "localization_accuracy": 0.28185328185328185,
+            "classification_accuracy": 0.28185328185328185
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_misalignment:mc_09",
+            "window_count": 282,
+            "fault_window_count": 262,
+            "detection_accuracy": 0.07092198581560284,
+            "end_to_end_accuracy": 0.07092198581560284,
+            "localization_accuracy": 0.2099236641221374,
+            "classification_accuracy": 0.20610687022900764
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 265,
+            "detection_accuracy": 0.9361702127659575,
+            "end_to_end_accuracy": 0.9361702127659575,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9886792452830189
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 262,
+            "detection_accuracy": 0.8794326241134752,
+            "end_to_end_accuracy": 0.8794326241134752,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9961832061068703
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_stuck_at_last:mc_04",
+            "window_count": 282,
+            "fault_window_count": 259,
+            "detection_accuracy": 0.9539007092198581,
+            "end_to_end_accuracy": 0.9539007092198581,
+            "localization_accuracy": 0.9806949806949807,
+            "classification_accuracy": 0.9806949806949807
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_star_tracker_stuck_at_last:mc_09",
+            "window_count": 282,
+            "fault_window_count": 256,
+            "detection_accuracy": 0.8014184397163121,
+            "end_to_end_accuracy": 0.8014184397163121,
+            "localization_accuracy": 0.984375,
+            "classification_accuracy": 0.984375
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_cell_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 260,
+            "detection_accuracy": 0.9432624113475178,
+            "end_to_end_accuracy": 0.9432624113475178,
+            "localization_accuracy": 0.9807692307692307,
+            "classification_accuracy": 0.9807692307692307
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_cell_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 265,
+            "detection_accuracy": 0.8723404255319149,
+            "end_to_end_accuracy": 0.8723404255319149,
+            "localization_accuracy": 0.9735849056603774,
+            "classification_accuracy": 0.9735849056603774
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_eclipse_blindness:mc_04",
+            "window_count": 282,
+            "fault_window_count": 264,
+            "detection_accuracy": 0.9432624113475178,
+            "end_to_end_accuracy": 0.9432624113475178,
+            "localization_accuracy": 0.9848484848484849,
+            "classification_accuracy": 0.9848484848484849
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_eclipse_blindness:mc_09",
+            "window_count": 282,
+            "fault_window_count": 256,
+            "detection_accuracy": 0.875886524822695,
+            "end_to_end_accuracy": 0.875886524822695,
+            "localization_accuracy": 0.98828125,
+            "classification_accuracy": 0.98828125
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_false_eclipse:mc_04",
+            "window_count": 282,
+            "fault_window_count": 261,
+            "detection_accuracy": 0.9397163120567376,
+            "end_to_end_accuracy": 0.9397163120567376,
+            "localization_accuracy": 0.9808429118773946,
+            "classification_accuracy": 0.9808429118773946
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_false_eclipse:mc_09",
+            "window_count": 282,
+            "fault_window_count": 261,
+            "detection_accuracy": 0.875886524822695,
+            "end_to_end_accuracy": 0.875886524822695,
+            "localization_accuracy": 0.9923371647509579,
+            "classification_accuracy": 0.9923371647509579
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_saturation:mc_04",
+            "window_count": 282,
+            "fault_window_count": 265,
+            "detection_accuracy": 0.950354609929078,
+            "end_to_end_accuracy": 0.950354609929078,
+            "localization_accuracy": 0.9924528301886792,
+            "classification_accuracy": 0.9924528301886792
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_saturation:mc_09",
+            "window_count": 282,
+            "fault_window_count": 259,
+            "detection_accuracy": 0.9042553191489362,
+            "end_to_end_accuracy": 0.9042553191489362,
+            "localization_accuracy": 0.972972972972973,
+            "classification_accuracy": 0.972972972972973
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 258,
+            "detection_accuracy": 0.9468085106382979,
+            "end_to_end_accuracy": 0.9468085106382979,
+            "localization_accuracy": 0.9844961240310077,
+            "classification_accuracy": 0.9844961240310077
+          },
+          {
+            "sample_id": "attitude_acquisition_transient:adcs_sun_sensor_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 262,
+            "detection_accuracy": 0.8723404255319149,
+            "end_to_end_accuracy": 0.8723404255319149,
+            "localization_accuracy": 0.9885496183206107,
+            "classification_accuracy": 0.9885496183206107
+          },
+          {
+            "sample_id": "propulsive_maneuver:nominal:mc_04",
+            "window_count": 282,
+            "fault_window_count": 0,
+            "detection_accuracy": 1.0,
+            "end_to_end_accuracy": 1.0,
+            "localization_accuracy": null,
+            "classification_accuracy": null
+          },
+          {
+            "sample_id": "propulsive_maneuver:nominal:mc_09",
+            "window_count": 282,
+            "fault_window_count": 0,
+            "detection_accuracy": 1.0,
+            "end_to_end_accuracy": 1.0,
+            "localization_accuracy": null,
+            "classification_accuracy": null
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_actuator_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 196,
+            "detection_accuracy": 0.3049645390070922,
+            "end_to_end_accuracy": 0.3049645390070922,
+            "localization_accuracy": 0.9081632653061225,
+            "classification_accuracy": 0.9081632653061225
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_actuator_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 206,
+            "detection_accuracy": 0.2695035460992908,
+            "end_to_end_accuracy": 0.2695035460992908,
+            "localization_accuracy": 0.9563106796116505,
+            "classification_accuracy": 0.9563106796116505
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_control_loop_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 200,
+            "detection_accuracy": 0.4858156028368794,
+            "end_to_end_accuracy": 0.4858156028368794,
+            "localization_accuracy": 0.56,
+            "classification_accuracy": 0.56
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_control_loop_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.9290780141843972,
+            "end_to_end_accuracy": 0.9290780141843972,
+            "localization_accuracy": 0.9571428571428572,
+            "classification_accuracy": 0.9571428571428572
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_gyro_bias_step:mc_04",
+            "window_count": 282,
+            "fault_window_count": 200,
+            "detection_accuracy": 0.851063829787234,
+            "end_to_end_accuracy": 0.8475177304964538,
+            "localization_accuracy": 0.975,
+            "classification_accuracy": 0.955
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_gyro_bias_step:mc_09",
+            "window_count": 282,
+            "fault_window_count": 205,
+            "detection_accuracy": 0.9326241134751773,
+            "end_to_end_accuracy": 0.9326241134751773,
+            "localization_accuracy": 0.9902439024390244,
+            "classification_accuracy": 0.9853658536585366
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_imu_axis_dropout:mc_04",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.8936170212765957,
+            "end_to_end_accuracy": 0.8936170212765957,
+            "localization_accuracy": 0.9904306220095693,
+            "classification_accuracy": 0.9856459330143541
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_imu_axis_dropout:mc_09",
+            "window_count": 282,
+            "fault_window_count": 204,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 0.9950980392156863,
+            "classification_accuracy": 0.9901960784313726
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_imu_noise_burst:mc_04",
+            "window_count": 282,
+            "fault_window_count": 208,
+            "detection_accuracy": 0.8723404255319149,
+            "end_to_end_accuracy": 0.8687943262411347,
+            "localization_accuracy": 0.9855769230769231,
+            "classification_accuracy": 0.9807692307692307
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_imu_noise_burst:mc_09",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.950354609929078,
+            "end_to_end_accuracy": 0.950354609929078,
+            "localization_accuracy": 0.9952153110047847,
+            "classification_accuracy": 0.9808612440191388
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_imu_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 203,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9950738916256158,
+            "classification_accuracy": 0.9901477832512315
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_imu_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 203,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 0.9950738916256158,
+            "classification_accuracy": 0.9950738916256158
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_imu_stuck_at_zero:mc_04",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.8865248226950354,
+            "end_to_end_accuracy": 0.8865248226950354,
+            "localization_accuracy": 0.9904761904761905,
+            "classification_accuracy": 0.9761904761904762
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_imu_stuck_at_zero:mc_09",
+            "window_count": 282,
+            "fault_window_count": 201,
+            "detection_accuracy": 0.9645390070921985,
+            "end_to_end_accuracy": 0.9645390070921985,
+            "localization_accuracy": 0.9950248756218906,
+            "classification_accuracy": 0.9800995024875622
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_rw_jamming:mc_04",
+            "window_count": 282,
+            "fault_window_count": 201,
+            "detection_accuracy": 0.900709219858156,
+            "end_to_end_accuracy": 0.900709219858156,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_rw_jamming:mc_09",
+            "window_count": 282,
+            "fault_window_count": 198,
+            "detection_accuracy": 0.9858156028368794,
+            "end_to_end_accuracy": 0.9858156028368794,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_rw_motor_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.29432624113475175,
+            "end_to_end_accuracy": 0.29432624113475175,
+            "localization_accuracy": 0.9045226130653267,
+            "classification_accuracy": 0.9045226130653267
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_rw_motor_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.29432624113475175,
+            "end_to_end_accuracy": 0.29432624113475175,
+            "localization_accuracy": 0.914572864321608,
+            "classification_accuracy": 0.914572864321608
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_rw_speed_sensor_fault:mc_04",
+            "window_count": 282,
+            "fault_window_count": 208,
+            "detection_accuracy": 0.8297872340425532,
+            "end_to_end_accuracy": 0.8297872340425532,
+            "localization_accuracy": 0.9711538461538461,
+            "classification_accuracy": 0.9615384615384616
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_rw_speed_sensor_fault:mc_09",
+            "window_count": 282,
+            "fault_window_count": 197,
+            "detection_accuracy": 0.9148936170212766,
+            "end_to_end_accuracy": 0.9148936170212766,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sensor_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.9468085106382979,
+            "end_to_end_accuracy": 0.9468085106382979,
+            "localization_accuracy": 0.9904761904761905,
+            "classification_accuracy": 0.9904761904761905
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sensor_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9952380952380953
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_blinding:mc_04",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.9468085106382979,
+            "end_to_end_accuracy": 0.9468085106382979,
+            "localization_accuracy": 0.9899497487437185,
+            "classification_accuracy": 0.9899497487437185
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_blinding:mc_09",
+            "window_count": 282,
+            "fault_window_count": 208,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9951923076923077
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_dropout:mc_04",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.9468085106382979,
+            "end_to_end_accuracy": 0.9468085106382979,
+            "localization_accuracy": 0.9904306220095693,
+            "classification_accuracy": 0.9904306220095693
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_dropout:mc_09",
+            "window_count": 282,
+            "fault_window_count": 208,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9951923076923077
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_fov_obstruction:mc_04",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.9468085106382979,
+            "end_to_end_accuracy": 0.9468085106382979,
+            "localization_accuracy": 0.9904761904761905,
+            "classification_accuracy": 0.9904761904761905
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_fov_obstruction:mc_09",
+            "window_count": 282,
+            "fault_window_count": 197,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9949238578680203
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_misalignment:mc_04",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.25886524822695034,
+            "end_to_end_accuracy": 0.25886524822695034,
+            "localization_accuracy": 0.023923444976076555,
+            "classification_accuracy": 0.009569377990430622
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_misalignment:mc_09",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.2553191489361702,
+            "end_to_end_accuracy": 0.2553191489361702,
+            "localization_accuracy": 0.1523809523809524,
+            "classification_accuracy": 0.1523809523809524
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.9468085106382979,
+            "end_to_end_accuracy": 0.9468085106382979,
+            "localization_accuracy": 0.9904306220095693,
+            "classification_accuracy": 0.9904306220095693
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 208,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9951923076923077
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_stuck_at_last:mc_04",
+            "window_count": 282,
+            "fault_window_count": 206,
+            "detection_accuracy": 0.8936170212765957,
+            "end_to_end_accuracy": 0.8936170212765957,
+            "localization_accuracy": 0.9854368932038835,
+            "classification_accuracy": 0.9854368932038835
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_star_tracker_stuck_at_last:mc_09",
+            "window_count": 282,
+            "fault_window_count": 208,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 0.9951923076923077,
+            "classification_accuracy": 0.9903846153846154
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_cell_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 197,
+            "detection_accuracy": 0.9361702127659575,
+            "end_to_end_accuracy": 0.9361702127659575,
+            "localization_accuracy": 0.9746192893401016,
+            "classification_accuracy": 0.9746192893401016
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_cell_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.9680851063829787,
+            "end_to_end_accuracy": 0.9680851063829787,
+            "localization_accuracy": 0.9748743718592965,
+            "classification_accuracy": 0.9748743718592965
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_eclipse_blindness:mc_04",
+            "window_count": 282,
+            "fault_window_count": 198,
+            "detection_accuracy": 0.925531914893617,
+            "end_to_end_accuracy": 0.925531914893617,
+            "localization_accuracy": 0.9696969696969697,
+            "classification_accuracy": 0.9696969696969697
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_eclipse_blindness:mc_09",
+            "window_count": 282,
+            "fault_window_count": 207,
+            "detection_accuracy": 0.9716312056737588,
+            "end_to_end_accuracy": 0.9716312056737588,
+            "localization_accuracy": 0.9806763285024155,
+            "classification_accuracy": 0.9806763285024155
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_false_eclipse:mc_04",
+            "window_count": 282,
+            "fault_window_count": 196,
+            "detection_accuracy": 0.925531914893617,
+            "end_to_end_accuracy": 0.925531914893617,
+            "localization_accuracy": 0.9693877551020408,
+            "classification_accuracy": 0.9693877551020408
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_false_eclipse:mc_09",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.9716312056737588,
+            "end_to_end_accuracy": 0.9716312056737588,
+            "localization_accuracy": 0.9798994974874372,
+            "classification_accuracy": 0.9798994974874372
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_saturation:mc_04",
+            "window_count": 282,
+            "fault_window_count": 206,
+            "detection_accuracy": 0.9326241134751773,
+            "end_to_end_accuracy": 0.9326241134751773,
+            "localization_accuracy": 0.970873786407767,
+            "classification_accuracy": 0.970873786407767
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_saturation:mc_09",
+            "window_count": 282,
+            "fault_window_count": 198,
+            "detection_accuracy": 0.9609929078014184,
+            "end_to_end_accuracy": 0.9609929078014184,
+            "localization_accuracy": 0.9646464646464646,
+            "classification_accuracy": 0.9646464646464646
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 207,
+            "detection_accuracy": 0.9219858156028369,
+            "end_to_end_accuracy": 0.9219858156028369,
+            "localization_accuracy": 0.966183574879227,
+            "classification_accuracy": 0.966183574879227
+          },
+          {
+            "sample_id": "propulsive_maneuver_preburn_settled:adcs_sun_sensor_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 205,
+            "detection_accuracy": 0.9716312056737588,
+            "end_to_end_accuracy": 0.9716312056737588,
+            "localization_accuracy": 0.9804878048780488,
+            "classification_accuracy": 0.9804878048780488
+          },
+          {
+            "sample_id": "steady_pointing_payload:nominal:mc_04",
+            "window_count": 282,
+            "fault_window_count": 0,
+            "detection_accuracy": 1.0,
+            "end_to_end_accuracy": 1.0,
+            "localization_accuracy": null,
+            "classification_accuracy": null
+          },
+          {
+            "sample_id": "steady_pointing_payload:nominal:mc_09",
+            "window_count": 282,
+            "fault_window_count": 0,
+            "detection_accuracy": 1.0,
+            "end_to_end_accuracy": 1.0,
+            "localization_accuracy": null,
+            "classification_accuracy": null
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_actuator_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 207,
+            "detection_accuracy": 0.26595744680851063,
+            "end_to_end_accuracy": 0.26595744680851063,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_actuator_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 205,
+            "detection_accuracy": 0.2730496453900709,
+            "end_to_end_accuracy": 0.2730496453900709,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_control_loop_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.9184397163120568,
+            "end_to_end_accuracy": 0.4787234042553192,
+            "localization_accuracy": 0.3157894736842105,
+            "classification_accuracy": 0.3157894736842105
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_control_loop_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.2553191489361702,
+            "end_to_end_accuracy": 0.2553191489361702,
+            "localization_accuracy": 0.12857142857142856,
+            "classification_accuracy": 0.12857142857142856
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_gyro_bias_step:mc_04",
+            "window_count": 282,
+            "fault_window_count": 198,
+            "detection_accuracy": 0.2978723404255319,
+            "end_to_end_accuracy": 0.2978723404255319,
+            "localization_accuracy": 0.13131313131313133,
+            "classification_accuracy": 0.13131313131313133
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_gyro_bias_step:mc_09",
+            "window_count": 282,
+            "fault_window_count": 204,
+            "detection_accuracy": 0.2765957446808511,
+            "end_to_end_accuracy": 0.2765957446808511,
+            "localization_accuracy": 0.9754901960784313,
+            "classification_accuracy": 0.9754901960784313
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_imu_axis_dropout:mc_04",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9949748743718593,
+            "classification_accuracy": 0.9949748743718593
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_imu_axis_dropout:mc_09",
+            "window_count": 282,
+            "fault_window_count": 205,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 0.9853658536585366,
+            "classification_accuracy": 0.9853658536585366
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_imu_noise_burst:mc_04",
+            "window_count": 282,
+            "fault_window_count": 203,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 0.9950738916256158,
+            "classification_accuracy": 0.9901477832512315
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_imu_noise_burst:mc_09",
+            "window_count": 282,
+            "fault_window_count": 200,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 0.995,
+            "classification_accuracy": 0.995
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_imu_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9856459330143541
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_imu_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9949748743718593,
+            "classification_accuracy": 0.9899497487437185
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_imu_stuck_at_zero:mc_04",
+            "window_count": 282,
+            "fault_window_count": 200,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9716312056737588,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.97
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_imu_stuck_at_zero:mc_09",
+            "window_count": 282,
+            "fault_window_count": 205,
+            "detection_accuracy": 0.9113475177304965,
+            "end_to_end_accuracy": 0.2765957446808511,
+            "localization_accuracy": 0.9707317073170731,
+            "classification_accuracy": 0.004878048780487805
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_rw_jamming:mc_04",
+            "window_count": 282,
+            "fault_window_count": 201,
+            "detection_accuracy": 0.9858156028368794,
+            "end_to_end_accuracy": 0.9858156028368794,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_rw_jamming:mc_09",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.9858156028368794,
+            "end_to_end_accuracy": 0.9858156028368794,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_rw_motor_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 202,
+            "detection_accuracy": 0.28368794326241137,
+            "end_to_end_accuracy": 0.28368794326241137,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_rw_motor_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 197,
+            "detection_accuracy": 0.30141843971631205,
+            "end_to_end_accuracy": 0.30141843971631205,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_rw_speed_sensor_fault:mc_04",
+            "window_count": 282,
+            "fault_window_count": 205,
+            "detection_accuracy": 0.9680851063829787,
+            "end_to_end_accuracy": 0.9680851063829787,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 1.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_rw_speed_sensor_fault:mc_09",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.9148936170212766,
+            "end_to_end_accuracy": 0.9148936170212766,
+            "localization_accuracy": 1.0,
+            "classification_accuracy": 0.9952153110047847
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sensor_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9952153110047847,
+            "classification_accuracy": 0.9952153110047847
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sensor_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 208,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9951923076923077,
+            "classification_accuracy": 0.9903846153846154
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_blinding:mc_04",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9952380952380953,
+            "classification_accuracy": 0.9952380952380953
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_blinding:mc_09",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9949748743718593,
+            "classification_accuracy": 0.9899497487437185
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_dropout:mc_04",
+            "window_count": 282,
+            "fault_window_count": 202,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.995049504950495,
+            "classification_accuracy": 0.995049504950495
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_dropout:mc_09",
+            "window_count": 282,
+            "fault_window_count": 197,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9949238578680203,
+            "classification_accuracy": 0.9898477157360406
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_fov_obstruction:mc_04",
+            "window_count": 282,
+            "fault_window_count": 203,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9950738916256158,
+            "classification_accuracy": 0.9950738916256158
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_fov_obstruction:mc_09",
+            "window_count": 282,
+            "fault_window_count": 203,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9950738916256158,
+            "classification_accuracy": 0.9901477832512315
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_misalignment:mc_04",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.2553191489361702,
+            "end_to_end_accuracy": 0.2553191489361702,
+            "localization_accuracy": 0.0,
+            "classification_accuracy": 0.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_misalignment:mc_09",
+            "window_count": 282,
+            "fault_window_count": 201,
+            "detection_accuracy": 0.2872340425531915,
+            "end_to_end_accuracy": 0.2872340425531915,
+            "localization_accuracy": 0.0,
+            "classification_accuracy": 0.0
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 196,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9948979591836735,
+            "classification_accuracy": 0.9948979591836735
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 204,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9950980392156863,
+            "classification_accuracy": 0.9901960784313726
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_stuck_at_last:mc_04",
+            "window_count": 282,
+            "fault_window_count": 202,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 0.9900990099009901,
+            "classification_accuracy": 0.9900990099009901
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_star_tracker_stuck_at_last:mc_09",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.9822695035460993,
+            "end_to_end_accuracy": 0.9822695035460993,
+            "localization_accuracy": 0.9952153110047847,
+            "classification_accuracy": 0.9952153110047847
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_cell_failure:mc_04",
+            "window_count": 282,
+            "fault_window_count": 206,
+            "detection_accuracy": 0.9716312056737588,
+            "end_to_end_accuracy": 0.9716312056737588,
+            "localization_accuracy": 0.9805825242718447,
+            "classification_accuracy": 0.9805825242718447
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_cell_failure:mc_09",
+            "window_count": 282,
+            "fault_window_count": 208,
+            "detection_accuracy": 0.9680851063829787,
+            "end_to_end_accuracy": 0.9680851063829787,
+            "localization_accuracy": 0.9759615384615384,
+            "classification_accuracy": 0.9759615384615384
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_eclipse_blindness:mc_04",
+            "window_count": 282,
+            "fault_window_count": 199,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 0.9849246231155779,
+            "classification_accuracy": 0.9849246231155779
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_eclipse_blindness:mc_09",
+            "window_count": 282,
+            "fault_window_count": 203,
+            "detection_accuracy": 0.9716312056737588,
+            "end_to_end_accuracy": 0.9716312056737588,
+            "localization_accuracy": 0.9802955665024631,
+            "classification_accuracy": 0.9802955665024631
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_false_eclipse:mc_04",
+            "window_count": 282,
+            "fault_window_count": 210,
+            "detection_accuracy": 0.9787234042553191,
+            "end_to_end_accuracy": 0.9787234042553191,
+            "localization_accuracy": 0.9904761904761905,
+            "classification_accuracy": 0.9904761904761905
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_false_eclipse:mc_09",
+            "window_count": 282,
+            "fault_window_count": 197,
+            "detection_accuracy": 0.9716312056737588,
+            "end_to_end_accuracy": 0.9716312056737588,
+            "localization_accuracy": 0.9796954314720813,
+            "classification_accuracy": 0.9796954314720813
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_saturation:mc_04",
+            "window_count": 282,
+            "fault_window_count": 202,
+            "detection_accuracy": 0.9645390070921985,
+            "end_to_end_accuracy": 0.9645390070921985,
+            "localization_accuracy": 0.9702970297029703,
+            "classification_accuracy": 0.9702970297029703
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_saturation:mc_09",
+            "window_count": 282,
+            "fault_window_count": 196,
+            "detection_accuracy": 0.9680851063829787,
+            "end_to_end_accuracy": 0.9680851063829787,
+            "localization_accuracy": 0.9744897959183674,
+            "classification_accuracy": 0.9744897959183674
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_signal_loss:mc_04",
+            "window_count": 282,
+            "fault_window_count": 209,
+            "detection_accuracy": 0.975177304964539,
+            "end_to_end_accuracy": 0.975177304964539,
+            "localization_accuracy": 0.9856459330143541,
+            "classification_accuracy": 0.9856459330143541
+          },
+          {
+            "sample_id": "steady_pointing_payload_settled:adcs_sun_sensor_signal_loss:mc_09",
+            "window_count": 282,
+            "fault_window_count": 204,
+            "detection_accuracy": 0.9680851063829787,
+            "end_to_end_accuracy": 0.9680851063829787,
+            "localization_accuracy": 0.9754901960784313,
+            "classification_accuracy": 0.9754901960784313
+          }
+        ]
+      },
+      "parameter_count": 138744,
+      "best_epoch": 3,
+      "best_validation": {
+        "detection_macro_f1": 0.8143301582251566,
+        "detection_selection_score": 0.8090717747402743,
+        "fault_event_recall": 0.8068181818181818,
+        "nominal_trajectory_false_alarm_rate": 0.0,
+        "false_alarm_episodes_per_hour": 0.0,
+        "nominal_trajectory_false_alarm_constraint": 0.05,
+        "meets_nominal_false_alarm_constraint": true,
+        "detector_deep_blend_alpha": 1.0,
+        "detection_threshold": 0.99,
+        "alarm_on_threshold": 0.99,
+        "alarm_off_threshold": 0.89,
+        "alarm_minimum_consecutive": 5,
+        "localization_macro_f1": 0.9037166311131823,
+        "classification_macro_f1": 0.8589589973424715,
+        "hierarchy_blend_alpha": 0.0,
+        "conditioning_mode": "hard",
+        "selection_score": 0.8624088429532453,
+        "epoch": 3,
+        "train_loss": 0.6471091928552659
+      },
+      "training_seconds": 278.66071050900064,
+      "seed": 20260814,
+      "device": "cpu",
+      "batch_size": 512,
+      "maximum_epochs": 3,
+      "minimum_epochs": 0,
+      "early_stop_patience": 2,
+      "epochs_completed": 3,
+      "peak_cuda_memory_bytes": null,
+      "receptive_field": 29,
+      "hierarchy_consistency_weight": 0.0,
+      "gradient_strategy": "sum",
+      "gradient_audit": [],
+      "cuda_device_name": null,
+      "branching_mode": "graph_free_detection_plus_six_level_progressive_gat_diagnosis",
+      "mechanism_graph": {
+        "schema_version": "astrograph-progressive-diagnosis-hierarchy.v1",
+        "graph_id": "adcs_v5_2_2",
+        "parameters": [
+          "pointing_error",
+          "gyro_measurement",
+          "imu_validity",
+          "rw_speed",
+          "rw_torque_command",
+          "rw_current",
+          "rw_execution_residual",
+          "rw_speed_residual",
+          "rw_sensor_validity",
+          "star_validity",
+          "sun_validity"
+        ],
+        "parts": [
+          "attitude_error_signal",
+          "gyro_triad",
+          "imu_health_logic",
+          "wheel_rotor_sensor",
+          "wheel_drive",
+          "wheel_residual_monitor",
+          "star_tracker_head",
+          "sun_sensor_head"
+        ],
+        "components": [
+          "control_loop",
+          "imu",
+          "reaction_wheel",
+          "star_tracker",
+          "sun_sensor"
+        ],
+        "functional_modules": [
+          "attitude_control",
+          "inertial_sensing",
+          "actuation",
+          "optical_sensing"
+        ],
+        "subsystems": [
+          "adcs"
+        ],
+        "spacecraft": "whole_spacecraft",
+        "parameter_groups": [
+          [
+            0
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6,
+            7,
+            16
+          ],
+          [
+            17,
+            18,
+            19,
+            20
+          ],
+          [
+            21,
+            22,
+            23,
+            24
+          ],
+          [
+            25,
+            26,
+            27,
+            28
+          ],
+          [
+            13
+          ],
+          [
+            14
+          ],
+          [
+            15
+          ],
+          [
+            8,
+            9
+          ],
+          [
+            10,
+            11,
+            12
+          ]
+        ],
+        "parameter_part": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          4,
+          5,
+          5,
+          3,
+          6,
+          7
+        ],
+        "part_component": [
+          0,
+          1,
+          1,
+          2,
+          2,
+          2,
+          3,
+          4
+        ],
+        "component_module": [
+          0,
+          1,
+          2,
+          3,
+          3
+        ],
+        "module_subsystem": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "channel_routing": {
+          "pointing_error": [
+            "adcs.pointing_error_deg"
+          ],
+          "gyro_measurement": [
+            "adcs.sensor.gyro_measured_rad_s_x",
+            "adcs.sensor.gyro_measured_rad_s_y",
+            "adcs.sensor.gyro_measured_rad_s_z"
+          ],
+          "imu_validity": [
+            "adcs.sensor.imu.valid",
+            "adcs.sensor.gyro_axis_valid_x",
+            "adcs.sensor.gyro_axis_valid_y",
+            "adcs.sensor.gyro_axis_valid_z",
+            "adcs.sensor.gyro_invalid_axis_count"
+          ],
+          "rw_speed": [
+            "adcs.rw.measured_speed_rad_s_0",
+            "adcs.rw.measured_speed_rad_s_1",
+            "adcs.rw.measured_speed_rad_s_2",
+            "adcs.rw.measured_speed_rad_s_3"
+          ],
+          "rw_torque_command": [
+            "adcs.rw.command_torque_nm_0",
+            "adcs.rw.command_torque_nm_1",
+            "adcs.rw.command_torque_nm_2",
+            "adcs.rw.command_torque_nm_3"
+          ],
+          "rw_current": [
+            "adcs.rw.motor_current_a_0",
+            "adcs.rw.motor_current_a_1",
+            "adcs.rw.motor_current_a_2",
+            "adcs.rw.motor_current_a_3"
+          ],
+          "rw_execution_residual": [
+            "adcs.rw.command_execution_residual_norm_nm"
+          ],
+          "rw_speed_residual": [
+            "adcs.rw.speed_response_residual_norm_nm"
+          ],
+          "rw_sensor_validity": [
+            "adcs.rw.speed_sensor_invalid_count"
+          ],
+          "star_validity": [
+            "adcs.star_tracker.valid",
+            "adcs.star_tracker.solution_fresh"
+          ],
+          "sun_validity": [
+            "adcs.sun_sensor.valid",
+            "adcs.sun_sensor.saturated",
+            "adcs.sun_sensor.cell_healthy"
+          ]
+        },
+        "claim_boundary": "Synthetic ADCS engineering hierarchy used as a reviewed routing prior. It is neither learned causality nor evidence of flight-level topology.",
+        "topology_fit_scope": "configuration_only; no telemetry values or labels used"
+      },
+      "graph_diagnostics": {
+        "hierarchy_levels": [
+          "parameter",
+          "part",
+          "component",
+          "functional_module",
+          "subsystem",
+          "whole_spacecraft"
+        ],
+        "level_counts": [
+          11,
+          8,
+          5,
+          4,
+          1,
+          1
+        ],
+        "top_down_gates": [
+          0.09302855283021927,
+          0.09302855283021927,
+          0.10269363969564438
+        ],
+        "detection_uses_graph": false,
+        "topology_fit_scope": "reviewed configuration only; no telemetry values or labels"
+      },
+      "independent_nominal_envelope": {
+        "trajectory_count": 30,
+        "window_count": 3060,
+        "alarmed_trajectory_count": 0,
+        "trajectory_false_alarm_rate": 0.0,
+        "false_alarm_window_count": 0,
+        "window_false_positive_rate": 0.0,
+        "false_alarm_windows_per_hour": 0.0,
+        "alarmed_trajectory_ids": [],
+        "selection_frozen_before_cohort_scoring": true
+      },
+      "detector": "class-balanced logistic regression on causal-window summary",
+      "hierarchy_blend_alpha": 0.0,
+      "detector_deep_blend_alpha": 1.0,
+      "alarm_policy": {
+        "on_threshold": 0.99,
+        "off_threshold": 0.89,
+        "minimum_consecutive": 5
+      },
+      "alarm_policy_mode": "hysteresis",
+      "validation_history": [
+        {
+          "detection_macro_f1": 0.7417556535586214,
+          "detection_selection_score": 0.7753676051584955,
+          "fault_event_recall": 0.7897727272727273,
+          "nominal_trajectory_false_alarm_rate": 0.0,
+          "false_alarm_episodes_per_hour": 0.0,
+          "nominal_trajectory_false_alarm_constraint": 0.05,
+          "meets_nominal_false_alarm_constraint": true,
+          "detector_deep_blend_alpha": 1.0,
+          "detection_threshold": 0.975,
+          "alarm_on_threshold": 0.975,
+          "alarm_off_threshold": 0.875,
+          "alarm_minimum_consecutive": 10,
+          "localization_macro_f1": 0.8864633603728717,
+          "classification_macro_f1": 0.8117326823164597,
+          "hierarchy_blend_alpha": 1.0,
+          "conditioning_mode": "hard",
+          "selection_score": 0.8268788703017904,
+          "epoch": 1,
+          "train_loss": 1.668935189625955
+        },
+        {
+          "detection_macro_f1": 0.8060990680178999,
+          "detection_selection_score": 0.8026251749508245,
+          "fault_event_recall": 0.8011363636363636,
+          "nominal_trajectory_false_alarm_rate": 0.0,
+          "false_alarm_episodes_per_hour": 0.0,
+          "nominal_trajectory_false_alarm_constraint": 0.05,
+          "meets_nominal_false_alarm_constraint": true,
+          "detector_deep_blend_alpha": 1.0,
+          "detection_threshold": 0.99,
+          "alarm_on_threshold": 0.99,
+          "alarm_off_threshold": 0.89,
+          "alarm_minimum_consecutive": 5,
+          "localization_macro_f1": 0.8973190640495604,
+          "classification_macro_f1": 0.8546371057907967,
+          "hierarchy_blend_alpha": 0.75,
+          "conditioning_mode": "hard",
+          "selection_score": 0.8570393071004314,
+          "epoch": 2,
+          "train_loss": 0.7911287731564844
+        },
+        {
+          "detection_macro_f1": 0.8143301582251566,
+          "detection_selection_score": 0.8090717747402743,
+          "fault_event_recall": 0.8068181818181818,
+          "nominal_trajectory_false_alarm_rate": 0.0,
+          "false_alarm_episodes_per_hour": 0.0,
+          "nominal_trajectory_false_alarm_constraint": 0.05,
+          "meets_nominal_false_alarm_constraint": true,
+          "detector_deep_blend_alpha": 1.0,
+          "detection_threshold": 0.99,
+          "alarm_on_threshold": 0.99,
+          "alarm_off_threshold": 0.89,
+          "alarm_minimum_consecutive": 5,
+          "localization_macro_f1": 0.9037166311131823,
+          "classification_macro_f1": 0.8589589973424715,
+          "hierarchy_blend_alpha": 0.0,
+          "conditioning_mode": "hard",
+          "selection_score": 0.8624088429532453,
+          "epoch": 3,
+          "train_loss": 0.6471091928552659
+        }
+      ]
+    }
+  ],
+  "claim_boundary": "Single-seed architecture screening on E0 synthetic data; no production promotion."
+}
