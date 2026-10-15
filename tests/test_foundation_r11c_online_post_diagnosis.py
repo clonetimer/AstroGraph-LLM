@@ -33,7 +33,7 @@ class Spy:
         }
 
 
-def execute(tmp_path, service=None, review=None):
+def execute(tmp_path, service=None, review=None, allow_llm=False):
     event = SimulationRunCompleted(
         event_id="SYNTHETIC-R11C-HEATER", run_id="heater_stuck_on",
         run_dir=str(ROOT / "tests/fixtures/online_base/heater_stuck_on"),
@@ -53,7 +53,7 @@ def execute(tmp_path, service=None, review=None):
             "artifact_output_dir": str(tmp_path / "online"),
             "shadow_mode": True, "reasoner_mode": "rule",
         },
-        execution_policy=ExecutionPolicy(deterministic_only=True, allow_llm=False),
+        execution_policy=ExecutionPolicy(deterministic_only=not allow_llm, allow_llm=allow_llm),
         permission_scope=permissions,
     )
     context = WorkflowContext(
@@ -99,7 +99,7 @@ def test_online_post_result_records_sidecar_without_changing_core_artifacts(tmp_
 
 def test_opt_in_runtime_entrypoint_calls_after_persist_without_changing_result(tmp_path):
     spy = Spy()
-    result = execute(tmp_path, service=spy)
+    result = execute(tmp_path, service=spy, allow_llm=True)
     assert len(spy.calls) == 1
     assert result.output_payload["structured_diagnosis_output"]["output_sha256"]
     assert (tmp_path / "online/post_diagnosis/online_explanation_receipt.json").exists()
@@ -127,7 +127,7 @@ def test_tampered_structured_output_and_run_identity_never_reach_model(tmp_path)
 
 def test_failed_model_call_is_isolated_from_successful_online_result(tmp_path):
     spy = Spy(fail=True)
-    result = execute(tmp_path, service=spy)
+    result = execute(tmp_path, service=spy, allow_llm=True)
     assert len(spy.calls) == 1
     receipt = json.loads(
         (tmp_path / "online/post_diagnosis/online_explanation_receipt.json").read_text()
@@ -137,3 +137,10 @@ def test_failed_model_call_is_isolated_from_successful_online_result(tmp_path):
     assert "SECRET_INTERNAL_MODEL_HOST_ERROR" not in json.dumps(receipt)
     assert result.status == ExecutionStatus.SUCCEEDED
     assert audit_artifact_dir(tmp_path / "online").manifest_valid
+
+def test_deterministic_policy_blocks_even_configured_optional_llm(tmp_path):
+    spy = Spy()
+    result = execute(tmp_path, service=spy, allow_llm=False)
+    assert result.status == ExecutionStatus.SUCCEEDED
+    assert not spy.calls
+    assert not (tmp_path / "online/post_diagnosis/online_explanation_receipt.json").exists()
