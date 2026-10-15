@@ -36,4 +36,8 @@ jobs:
             tests/test_platform_knowledge_enrichment.py \
             tests/test_upload_report_platform.py \
             tests/test_design_diagnostic_harness.py \
-            tests/test_foundation_r11b3_oag_post_diagnosis.py
+            tests/test_foundation_r11b3_oag_post_diagnosis.py \
+            tests/test_foundation_r11c_online_post_diagnosis.py \
+            tests/test_online_acceptance.py \
+            tests/test_whole_spacecraft_runtime_dag.py \
+            tests/test_online_hybrid_tool_registry.py
