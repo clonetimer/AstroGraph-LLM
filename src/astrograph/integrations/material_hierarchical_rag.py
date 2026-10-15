@@ -183,19 +183,42 @@ class HierarchicalMaterialIndex:
 
     @staticmethod
     def _graph_hints(fault_id: str, fault_name: str,
-                     approved_edges: Sequence[Mapping[str, Any]]) -> list[str]:
-        """Only directly connected, independently reviewed scoped node labels."""
+                     approved_edges: Sequence[Mapping[str, Any]], *,
+                     equipment_scope: str | None,
+                     snapshot: int | None = None) -> list[str]:
+        """Expand only from independently reviewed, scope-bound positive edges.
+
+        Untrusted graph suggestions and negative/contested claims must never
+        expand a live retrieval query.  A reverse neighbor is a *lookup hint*,
+        not a reversed causal statement.  Contradictions veto that exact triple.
+        """
+        from astrograph.retrieval.approved_community_search import _edge_ok
+
+        if not equipment_scope or equipment_scope.upper() in {"UNKNOWN", "UNSPECIFIED"}:
+            return []
+        eligible = [edge for edge in approved_edges if _edge_ok(
+            edge, equipment_scope, snapshot=snapshot, allow_negated=True)
+            and edge.get('claim_modality') in (None, 'REFERENCE_ASSERTION_REQUIRES_REVIEW')]
+        conflicts = {
+            (edge['source']['entity_id'], edge['relation_type'], edge['target']['entity_id'])
+            for edge in eligible if edge['polarity'] == 'NEGATED'
+        }
         names = {_norm(fault_id), _norm(fault_name)}
         hints: list[str] = []
-        for edge in approved_edges:
-            if edge.get("polarity") not in {"AFFIRMATIVE", "POSITIVE"}:
+        for edge in sorted(eligible, key=lambda e: str(e.get('proposal_id', ''))):
+            if edge['polarity'] != 'AFFIRMATIVE' or edge.get('claim_modality') == 'HYPOTHETICAL_OR_CONDITIONAL':
                 continue
-            source, target = edge.get("source") or {}, edge.get("target") or {}
-            for near, far in ((source, target), (target, source)):
-                labels = [near.get("name", ""), near.get("entity_id", ""),
-                          *(near.get("aliases") or [])]
-                if any(_norm(label) in names for label in labels):
-                    hint = str(far.get("name", "")).strip()
+            triple = (edge['source']['entity_id'], edge['relation_type'], edge['target']['entity_id'])
+            if triple in conflicts:
+                continue
+            for near, far in ((edge['source'], edge['target']), (edge['target'], edge['source'])):
+                # A graph node with a coincidental alias is not a valid fault anchor.
+                if near.get('entity_type') != 'FAULT_MODE':
+                    continue
+                labels = [near.get('name', ''), near.get('entity_id', ''),
+                          *(near.get('aliases') or [])]
+                if any(_norm(str(label)) in names for label in labels if label):
+                    hint = str(far.get('name', '')).strip()
                     if 3 <= len(hint) <= 100 and hint not in hints:
                         hints.append(hint)
                         if len(hints) >= 6:
@@ -243,9 +266,11 @@ class HierarchicalMaterialIndex:
                  semantic_ids: Sequence[str] = (),
                  approved_edges: Sequence[Mapping[str, Any]] = (),
                  equipment_scope: str | None = None,
+                 graph_snapshot: int | None = None,
                  budgets: RetrievalBudgets | None = None) -> dict[str, Any]:
         limits = budgets or RetrievalBudgets()
-        hints = self._graph_hints(fault_id, fault_name, approved_edges)
+        hints = self._graph_hints(fault_id, fault_name, approved_edges,
+                                  equipment_scope=equipment_scope, snapshot=graph_snapshot)
         extra_concepts, glossary_receipt = load_pinned_domain_lexicon(equipment_scope)
         plan, expansion = self._plan(base_query, fault_id=fault_id,
                                       fault_name=fault_name,
@@ -409,6 +434,121 @@ class HierarchicalMaterialIndex:
                               else "SUCCEEDED" if hits else "NO_RELEVANT_PASSAGES")
         skeleton["hits"] = hits
         return skeleton
+
+
+    @staticmethod
+    def retrieve_reviewed_counterevidence(*, fault_id: str, fault_name: str,
+                                          approved_edges: Sequence[Mapping[str, Any]],
+                                          equipment_scope: str | None,
+                                          graph_snapshot: int | None = None,
+                                          limit: int = 12) -> dict[str, Any]:
+        """Expose signed, independently reviewed *source statements* for review.
+
+        This is NOT an automatic fault refutation. Only directly fault-anchored
+        negative or contradictory triples are returned; a missing graph relation
+        is never equated with a negative claim. Provenance remains on each quote.
+        """
+        from astrograph.integrations.material_multihop import _scoped_approved
+
+        if not 1 <= limit <= 32:
+            raise ValueError("counterevidence limit must be 1..32")
+        scope = str(equipment_scope or "UNKNOWN").upper()
+        empty = {'schema_version': 'astrograph-reviewed-counterevidence-rag.v1',
+                 'status': 'ABSTAIN_NO_REVIEWED_COUNTERCLAIM',
+                 'fault_id': fault_id, 'items': [],
+                 'negative_claim_is_not_current_observation': True,
+                 'automatic_diagnostic_vote_allowed': False}
+        if scope in {"UNKNOWN", "UNSPECIFIED"}:
+            return {**empty, 'status': 'ABSTAIN_EQUIPMENT_SCOPE_REQUIRED'}
+        eligible, _blocked = _scoped_approved(approved_edges, scope)
+        eligible = [e for e in eligible if graph_snapshot is None
+                    or e.get('snapshot') is None
+                    or (type(e['snapshot']) is int and 0 <= e['snapshot'] <= graph_snapshot)]
+        polarity_by_triple: dict[tuple[str, str, str], set[str]] = defaultdict(set)
+        for e in eligible:
+            if e['claim_modality'] != 'REFERENCE_ASSERTION_REQUIRES_REVIEW':
+                continue
+            triple = (e['source']['entity_id'], e['relation_type'],
+                      e['target']['entity_id'])
+            polarity_by_triple[triple].add(e['polarity'])
+        names = {_norm(fault_id), _norm(fault_name)}
+        rows = []
+        for e in sorted(eligible, key=lambda record: record['edge_id']):
+            triple = (e['source']['entity_id'],e['relation_type'],
+                      e['target']['entity_id'])
+            conflicted = (e['claim_modality'] == 'REFERENCE_ASSERTION_REQUIRES_REVIEW'
+                          and len(polarity_by_triple[triple]) > 1)
+            if not conflicted and e['polarity'] != 'NEGATED':
+                continue
+            if not any(node.get('entity_type') == 'FAULT_MODE' and
+                    names.intersection({_norm(str(label)) for label in
+                      [node.get('name'),*(node.get('aliases') or [])] if label})
+                    for node in (e['source'],e['target'])):
+                continue
+            rows.append({
+                'edge_id': e['edge_id'], 'polarity': e['polarity'],
+                'status': ('CONDITIONAL_NEGATION_REQUIRES_REVIEW'
+                           if e['claim_modality'] == 'HYPOTHETICAL_OR_CONDITIONAL'
+                           else 'REVIEWED_CONFLICTING_TRIPLE' if conflicted
+                           else 'REVIEWED_NEGATIVE_RELATION'),
+                'relation_type': e['relation_type'],
+                'subject': e['source']['name'], 'object': e['target']['name'],
+                'quote': e['evidence_quote'],
+                'source_sha256': e['provenance']['source_sha256'],
+                'source_locators': list(e['provenance']['source_locators']),
+                'truth_source_ref': e['truth_source_ref'],
+                'claim_modality': e['claim_modality'],
+                'observed_telemetry_fact': False,
+            })
+        return {**empty, 'status': 'REVIEWED_COUNTERCLAIMS_FOUND' if rows else
+                empty['status'], 'items': rows[:limit],
+                'truncated': len(rows) > limit}
+
+    def retrieve_contrastive(self, *, base_query: str, fault_id: str,
+                             fault_name: str, competitor_fault_id: str,
+                             competitor_fault_name: str,
+                             approved_edges: Sequence[Mapping[str, Any]] = (),
+                             equipment_scope: str | None = None,
+                             graph_snapshot: int | None = None,
+                             budgets: RetrievalBudgets | None = None) -> dict[str, Any]:
+        """A two-sided literature comparison, not a diagnosis or negative vote.
+
+        Each side uses exactly the same governed corpus and budgets. References
+        appearing only on one side are *discrimination review pointers*, not
+        proof that the other hypothesis is false. Shared sources are explicitly
+        flagged to avoid counting them as independent corroboration.
+        """
+        if not fault_id or not competitor_fault_id or fault_id == competitor_fault_id:
+            raise ValueError("contrastive retrieval requires two distinct candidate IDs")
+        common = dict(approved_edges=approved_edges,
+                      equipment_scope=equipment_scope,
+                      graph_snapshot=graph_snapshot, budgets=budgets)
+        primary = self.retrieve(base_query=base_query, fault_id=fault_id,
+                                fault_name=fault_name, **common)
+        alternative = self.retrieve(base_query=base_query,
+                                    fault_id=competitor_fault_id,
+                                    fault_name=competitor_fault_name, **common)
+        primary_sources = {h['source_sha256'] for h in primary['hits']}
+        alternative_sources = {h['source_sha256'] for h in alternative['hits']}
+        return {
+            'schema_version': 'astrograph-contrastive-material-rag.v1',
+            'status': 'REVIEW_POINTERS_AVAILABLE' if primary['hits'] or alternative['hits']
+                      else 'ABSTAIN_NO_RELEVANT_PASSAGES',
+            'primary_fault_id': fault_id,
+            'competitor_fault_id': competitor_fault_id,
+            'primary': primary, 'competitor': alternative,
+            'shared_source_sha256': sorted(primary_sources & alternative_sources),
+            'primary_only_chunk_ids': sorted(
+                {h['knowledge_id'] for h in primary['hits']} -
+                {h['knowledge_id'] for h in alternative['hits']}),
+            'competitor_only_chunk_ids': sorted(
+                {h['knowledge_id'] for h in alternative['hits']} -
+                {h['knowledge_id'] for h in primary['hits']}),
+            'status_boundary': 'NON_VOTING_DIFFERENTIAL_LITERATURE_POINTERS',
+            'evidence_absence_is_not_refutation': True,
+            'current_root_cause_proven': False,
+            'automatic_control_authorized': False,
+        }
 
 
 __all__ = ["HierarchicalMaterialIndex", "RetrievalBudgets", "SCHEMA"]

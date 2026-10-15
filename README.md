@@ -281,3 +281,25 @@ python scripts/launch_logged_tests.py status foundation-smoke
 ```
 
 启动命令立即返回；完整标准输出/错误输出写入 `validation_logs/foundation-smoke/output.log`。作业结束会**原子写入** `validation_logs/foundation-smoke/done.json`，包含退出码、结束时间与日志路径。CI 或外部文件监视器可以将 `done.json` 作为完成触发条件；它不会自行向 ChatGPT 会话推送消息。若需要复跑，请使用新的作业名称，避免覆盖历史日志。出现 FAILED 或超时必须检查日志，不能按 PASS 处理。正式验收应额外校验原始数据与 SHA256 清单。
+
+## 附录：R3 文献检索与 GraphRAG 证据审查（开发候选）
+
+R3 以基础加固 R2 为基线，不改变正式故障排名、当前遥测证据权属或自动控制权限。
+
+- **文献处理**：Markdown 原文、DOCX/PDF 的结构化解析保持原文定位、内容哈希和审核状态。Markdown 图片的 `alt` 描述即使关联到真实图片文件，也始终属于**待独立审核**内容，不能自动成为可信图文证据；相对素材路径不能逃逸 `asset_root`（包括符号链接逃逸）。
+- **型号与审批**：材料检索的图谱扩展词须来自**正确设备范围、独立审核、来源可追溯、未冲突、非条件性**的图谱关系。未经审核的关系不能通过查询扩展进入可信材料检索通道。
+- **历史知识版本**：图谱边的 `snapshot` 是**该关系获批准的版本号**，不是失效时间。已生效关系在后续查询版本仍应可见；不能提前使用未来批准关系。撤销由快照绑定的知识库读取过程执行，不能仅以比较版本号推断撤销状态。
+- **反证检索**：`HierarchicalMaterialIndex.retrieve_reviewed_counterevidence` 单独给出已审核否定关系、冲突关系及条件性否定关系的原文与 SHA256 定位；不把“未检索到支持”解释为“存在反证”，也不参与正式故障投票。
+- **竞争检索**：`retrieve_contrastive` 比较两个既有上游候选的引用片段，标记共享的文献来源和两侧不同的片段。只供人工鉴别，不能自行引入新故障类别。
+- **双向图谱**：`evaluate_bidirectional_hypotheses` 列出候选→预期症状的**正向已审核路径**和遥测日志文本线索→候选的**反向检索指针**。后者不证明反向因果；同一症状关联多个故障时在 `bidirectional_graph_comparison.shared_symptoms` 中显示歧义。
+- **正式限制**：不把日志字符串命中视为传感器观测经验证，不把文献关系当成当前飞行器的确定根因，不自动开具维护/控制命令。来源明确但语义不确定的声明仍需后续逐条语义核验和专家复核。
+
+定向回归采用独立进程与原子完成标记：
+
+```powershell
+python scripts/launch_logged_tests.py start --timeout 800 rag-r3 -- python -m pytest -q tests/test_foundation_r3_literature_bidirectional.py tests/test_material_knowledge_fusion.py tests/test_material_multihop_reasoning.py tests/test_next_rag_community_vectors_multimodal.py tests/test_structured_document_retrieval.py
+python scripts/launch_logged_tests.py status rag-r3
+Get-Content validation_logs\rag-r3\output.log -Tail 30
+```
+
+更多源文件、接口边界、风险与回归范围见 `docs/implementation/ASTROGRAPH_R3_LITERATURE_RETRIEVAL_GRAPHRAG_AUDIT.md`。R3 仍是**开发候选**，不可将定向回归通过表述为真实航天场景诊断性能已经提高。

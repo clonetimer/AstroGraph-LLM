@@ -24,8 +24,10 @@ def _edge_ok(edge: Mapping[str, Any], scope: str, *,
     source_sha = str(provenance.get('source_sha256', ''))
     endpoints = [edge.get(part) for part in ('source', 'target')]
     return (edge.get('equipment_scope') == scope
-        and (snapshot is None or edge.get('snapshot') is None or edge.get('snapshot') == snapshot)
+        and (snapshot is None or edge.get('snapshot') is None or
+             (type(edge.get('snapshot')) is int and 0 <= edge['snapshot'] <= snapshot))
         and edge.get('review_status') == 'INDEPENDENTLY_REVIEWED_REFERENCE_RELATION'
+        and edge.get('claim_modality') in (None, 'REFERENCE_ASSERTION_REQUIRES_REVIEW')
         and (edge.get('polarity') == 'AFFIRMATIVE' or
              (allow_negated and edge.get('polarity') == 'NEGATED'))
         and edge.get('conflict_status') not in {'CONTESTED_BY_APPROVED_REFERENCE', 'DISPUTED'}
@@ -90,9 +92,10 @@ def build_approved_community_reports(*, reviewed_edges: Sequence[Mapping[str, An
     if len(reviewed_edges) > max_edges:
         skeleton['status'] = 'ABSTAIN_GRAPH_INDEX_LIMIT_EXCEEDED'
         return skeleton
-    # Conflict vetoes require the *same* scope, snapshot and independently
-    # reviewed provenance as the affirmative edge. Unreviewed or cross-model
-    # negations must not suppress valid, model-specific evidence.
+    # Approved edge.snapshot is the approval's VERSION, not the snapshot
+    # requested by the reader. Revisions <= requested are visible unless
+    # retracted; the frozen source graph is responsible for retraction filtering.
+    # Negations from other models or future revisions cannot veto valid claims.
     eligible_edges = [edge for edge in reviewed_edges
                       if _edge_ok(edge, equipment_scope, snapshot=snapshot, allow_negated=True)]
     polarities: dict[tuple[str,str,str], set[str]] = defaultdict(set)

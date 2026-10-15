@@ -198,6 +198,134 @@ def _log_observations(lines: Sequence[SourceLine], symptom: Mapping[str, Any]) -
             'lexical_match_only':True,'sensor_observation_verified':False}
 
 
+def evaluate_bidirectional_hypotheses(*, candidates: Sequence[Mapping[str, Any]],
+                                      equipment_scope: str | None,
+                                      log_lines: Sequence[SourceLine],
+                                      reviewed_edges: Sequence[Mapping[str, Any]] = (),
+                                      snapshot: int | None = None,
+                                      max_hops: int = 3) -> dict[str, Any]:
+    """Forward expectations + observed-symptom reverse *retrieval*, without inverse causality.
+
+    This is intentionally a bounded shadow comparison. Model-released edges,
+    negative relations, mixed-scope claims, conditional relations and paths
+    containing reverse association never become positive expectations. Textual
+    telemetry cues are not independently validated sensor observations.
+    """
+    if not 1 <= max_hops <= MAX_HOPS:
+        raise ValueError('maximum graph reasoning depth is 3')
+    if not 1 <= len(candidates) <= 12:
+        raise ValueError('one to twelve competing candidates required')
+    scope = str(equipment_scope or 'UNKNOWN').upper()
+    result: dict[str, Any] = {
+        'schema_version': 'astrograph-bidirectional-graph-review.v1',
+        'status': 'ABSTAIN_NO_APPROVED_PATH', 'equipment_scope': scope,
+        'snapshot': snapshot, 'candidates': [], 'reverse_observation_index': [],
+        'shared_symptoms': [], 'blocked_edge_count': 0,
+        'current_root_cause_proven': False, 'automatic_control_authorized': False,
+        'claim_boundary': 'REVIEWED_REFERENCE_PATHS_AND_UNVERIFIED_TEXT_CUES_ONLY',
+        'diagnostic_vote_allowed': False,
+    }
+    if scope in {'UNKNOWN', 'UNSPECIFIED'} or not re.fullmatch(r'[A-Z0-9][A-Z0-9_.:-]{1,79}',scope):
+        result['status'] = 'ABSTAIN_EQUIPMENT_SCOPE_REQUIRED'
+        result['candidates'] = [{
+            'fault_id': str(row.get('fault_id') or ''),
+            'fault_name': str(row.get('fault_name') or ''),
+            'expected_symptoms': [], 'forward_path_count': 0,
+            'validated_root_cause': False,
+            'status': 'ABSTAIN_EQUIPMENT_SCOPE_REQUIRED',
+        } for row in candidates]
+        return result
+    approved, blocked = _scoped_approved(reviewed_edges, scope)
+    # A pinned graph read may carry earlier snapshot references; if the caller
+    # supplies a snapshot, never admit edges bound to a different one.
+    scoped = [e for e in approved if snapshot is None or e.get('snapshot') is None
+              or (type(e['snapshot']) is int and 0 <= e['snapshot'] <= snapshot)]
+    result['blocked_edge_count'] = len(blocked) + len(approved) - len(scoped)
+    signed = defaultdict(set)
+    for e in scoped:
+        if e['claim_modality'] != 'REFERENCE_ASSERTION_REQUIRES_REVIEW':
+            continue
+        signed[(e['source']['entity_id'],e['relation_type'],
+                e['target']['entity_id'])].add(e['polarity'])
+    # Do not build paths through a contradicting edge and then only reject the
+    # last hop. A conflict anywhere on a route makes the route unusable.
+    usable = [e for e in scoped if e['polarity'] == 'AFFIRMATIVE'
+              and e['claim_modality'] == 'REFERENCE_ASSERTION_REQUIRES_REVIEW'
+              and signed[(e['source']['entity_id'],e['relation_type'],
+                          e['target']['entity_id'])] == {'AFFIRMATIVE'}]
+    seen_faults: set[str] = set()
+    observations: dict[str, dict[str, Any]] = {}
+    symptom_to_faults: dict[str, set[str]] = defaultdict(set)
+    for item in candidates:
+        fault_id = str(item.get('fault_id') or '')
+        fault_name = str(item.get('fault_name') or '')
+        if not fault_id or fault_id in seen_faults:
+            raise ValueError('candidate IDs must be nonempty and unique')
+        seen_faults.add(fault_id)
+        seeds = set()
+        labels = {_normal(fault_id), _normal(fault_name)}
+        for edge in usable:
+            for node in (edge['source'], edge['target']):
+                if node.get('entity_type') == 'FAULT_MODE' and labels.intersection(
+                    {_normal(str(x)) for x in [node.get('name'),
+                                               *(node.get('aliases') or [])] if x}):
+                    seeds.add(node['entity_id'])
+        paths = _graph_paths(usable, seeds, layer='REVIEWED_FORWARD_EXPECTATION',
+                             max_hops=max_hops, max_paths=MAX_PATHS)
+        valid = [path for path in paths
+                 if path['terminal_entity']['entity_type'] == 'SYMPTOM'
+                 and not path['contains_reverse_association']
+                 and all(hop['direction'] == 'FORWARD' for hop in path['hops'])]
+        # Multiple paths to one symptom are not independent confirmations.
+        grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for path in valid:
+            grouped[path['terminal_entity']['id']].append(path)
+        symptom_rows = []
+        for symptom_id in sorted(grouped):
+            path_group = grouped[symptom_id]
+            symptom = path_group[0]['terminal_entity']
+            cues = _log_observations(log_lines, symptom)
+            reference_sources = sorted({hop['provenance']['source_sha256']
+                  for path in path_group for hop in path['hops']})
+            row = {'symptom_id': symptom_id, 'symptom_name': symptom['name'],
+                   'path_ids': [path['path_id'] for path in path_group],
+                   'reference_source_sha256': reference_sources,
+                   'supporting_log_cue_ids': [v['evidence_id'] for v in cues['supporting']],
+                   'contradicting_log_cue_ids': [v['evidence_id'] for v in cues['contradicting']],
+                   'sensor_observation_verified': False,
+                   'matching_semantics': 'EXACT_TEXT_CUE_NOT_SENSOR_VALIDATION'}
+            symptom_rows.append(row)
+            symptom_to_faults[symptom_id].add(fault_id)
+            if cues['supporting'] or cues['contradicting']:
+                entry = observations.setdefault(symptom_id, {
+                    'symptom_id': symptom_id, 'symptom_name': symptom['name'],
+                    'supporting_log_cue_ids': row['supporting_log_cue_ids'],
+                    'contradicting_log_cue_ids': row['contradicting_log_cue_ids'],
+                    'candidate_fault_ids': set(),
+                    'reverse_direction_is_causal': False})
+                entry['candidate_fault_ids'].add(fault_id)
+        result['candidates'].append({
+            'fault_id': fault_id, 'fault_name': fault_name,
+            'expected_symptoms': symptom_rows,
+            'missing_symptom_cue_ids': [x['symptom_id'] for x in symptom_rows
+                                        if not x['supporting_log_cue_ids']
+                                        and not x['contradicting_log_cue_ids']],
+            'forward_path_count': len(valid),
+            'validated_root_cause': False,
+        })
+    result['shared_symptoms'] = [
+        {'symptom_id': sid, 'candidate_fault_ids': sorted(ids)}
+        for sid, ids in sorted(symptom_to_faults.items()) if len(ids) > 1]
+    result['reverse_observation_index'] = [
+        {**row, 'candidate_fault_ids': sorted(row['candidate_fault_ids'])}
+        for _, row in sorted(observations.items())]
+    if result['reverse_observation_index']:
+        result['status'] = 'LEXICAL_REVERSE_POINTERS_REQUIRE_OBSERVATION_VALIDATION'
+    elif any(item['expected_symptoms'] for item in result['candidates']):
+        result['status'] = 'FORWARD_EXPECTATIONS_ONLY_NO_OBSERVATION_CUE'
+    return result
+
+
 def evaluate_multihop(*, fault_id: str, fault_name: str, equipment_scope: str | None,
                       log_lines: Sequence[SourceLine], reviewed_edges: Sequence[Mapping[str,Any]] = (),
                       snapshot: int | None = None, public_graph_path: Path | None = None,

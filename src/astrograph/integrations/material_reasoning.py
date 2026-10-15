@@ -21,7 +21,9 @@ from astrograph.integrations.platform_knowledge import UploadedDocumentKnowledge
 from astrograph.integrations.result_log_review import SourceLine, _rules, load_manifest, read_lines
 from astrograph.integrations.material_case_memory import MaterialCaseMemory
 from astrograph.integrations.material_graph_builder import build_material_graph
-from astrograph.integrations.material_multihop import evaluate_multihop, default_public_graph_path
+from astrograph.integrations.material_multihop import (
+    evaluate_multihop, evaluate_bidirectional_hypotheses, default_public_graph_path,
+)
 from astrograph.integrations.material_hierarchical_rag import HierarchicalMaterialIndex, RetrievalBudgets
 
 MATERIAL_REASONING_VERSION = 'astrograph-material-knowledge-fusion.v1'
@@ -325,6 +327,33 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             community_index['llm_summary_status']='FAILED_'+type(exc).__name__
     community_global=global_community_search(community_index,
         ' '.join(queries)[:4000])
+    # Graph evidence is compared across the host-supplied candidate set only.
+    # Reverse symptom lookup is non-voting and never proposes new fault IDs.
+    bidirectional = evaluate_bidirectional_hypotheses(
+        candidates=candidates[:12], equipment_scope=manifest.equipment_scope,
+        log_lines=log_lines, reviewed_edges=approved_edges, snapshot=prior_snapshot,
+    ) if candidates else {'status': 'NO_CANDIDATES', 'candidates': []}
+    bidirectional_by_id = {row['fault_id']: row for row in bidirectional['candidates']}
+    contrastive_by_id = {}
+    if len(candidates) >= 2:
+        first, second = candidates[:2]
+        comparison = hierarchy.retrieve_contrastive(
+            base_query=' '.join(queries[:2])[:900],
+            fault_id=first['fault_id'], fault_name=first['fault_name'],
+            competitor_fault_id=second['fault_id'],
+            competitor_fault_name=second['fault_name'],
+            approved_edges=approved_edges, equipment_scope=manifest.equipment_scope,
+            graph_snapshot=prior_snapshot, budgets=rag_limits,
+        )
+        # Report bounded pointers, not a second duplicate source-text payload.
+        contrastive_by_id[first['fault_id']] = {
+            'competitor_fault_id': second['fault_id'],
+            'primary_only_chunk_ids': comparison['primary_only_chunk_ids'],
+            'competitor_only_chunk_ids': comparison['competitor_only_chunk_ids'],
+            'shared_source_sha256': comparison['shared_source_sha256'],
+            'diagnostic_vote_allowed': False,
+            'status': comparison['status'],
+        }
     items=[]
     for n,candidate in enumerate(candidates):
         rule=rules.get(candidate['fault_id'])
@@ -336,7 +365,13 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             semantic_ids=semantic_orders[n],
             approved_edges=approved_edges,
             equipment_scope=manifest.equipment_scope,
+            graph_snapshot=prior_snapshot,
             budgets=rag_limits,
+        )
+        retrieved['reviewed_counterevidence'] = hierarchy.retrieve_reviewed_counterevidence(
+            fault_id=candidate['fault_id'], fault_name=candidate['fault_name'],
+            approved_edges=approved_edges, equipment_scope=manifest.equipment_scope,
+            graph_snapshot=prior_snapshot,
         )
         global_candidate=global_community_search(community_index, query)
         logs=_log_events(log_lines,candidate,rule)
@@ -402,6 +437,8 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             'graph_evidence_paths':graph_cross_checks,'historical_confirmed_cases':cases,
             'approved_document_graph':reviewed_graph,
             'multi_hop':multi_hop,
+            'bidirectional_graph_review': bidirectional_by_id.get(candidate['fault_id'], {}),
+            'contrastive_reference_review': contrastive_by_id.get(candidate['fault_id'], {}),
             'evidence_assessment':{
                 'upstream_assertion_ids':list(candidate.get('diagnosis_source_ids') or []),
                 'supporting_log_cue_ids':logs['supporting_ids'],
@@ -470,6 +507,16 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             'source_group_id':source_group_id,'equipment_scope':manifest.equipment_scope or 'UNKNOWN',
             'document_ingestion':ingestion,'semantic_backend':semantic_status,
             'global_community_retrieval':community_global,
+            'bidirectional_graph_comparison': {
+                'schema_version': bidirectional['schema_version'] if 'schema_version' in bidirectional
+                    else 'astrograph-bidirectional-graph-review.v1',
+                'status': bidirectional['status'],
+                'shared_symptoms': bidirectional.get('shared_symptoms', []),
+                'reverse_observation_index': bidirectional.get('reverse_observation_index', []),
+                'current_root_cause_proven': False,
+                'automatic_control_authorized': False,
+                'diagnostic_vote_allowed': False,
+            },
             'global_community_index':{
                 key: value for key,value in community_index.items() if key!='reports'},
             'retrieval_architecture':{
@@ -478,6 +525,9 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
                 'keyword_channels':['BM25','CHAR_NGRAM'],
                 'vector_channel':'LOCAL_SENTENCE_TRANSFORMERS_WITH_OPTIONAL_SQLITE_PERSISTENCE',
                 'graph_channel':'APPROVED_GRAPH_COMMUNITY_GLOBAL_SEARCH_AND_SEPARATE_MULTIHOP',
+                'r3_enhancements':['REVIEWED_SIGNED_COUNTERCLAIMS',
+                    'BOUNDED_CONTRASTIVE_DOCUMENT_RETRIEVAL',
+                    'BIDIRECTIONAL_NONCAUSAL_GRAPH_REVIEW'],
                 'global_community_summaries_implemented':'EXTRACTIVE_REVIEWED_EDGE_COMMUNITY_REPORTS',
                 'cross_document_community_clustering_implemented':bool(community_index.get('community_count')),
                 'index_truncated':hierarchy.truncated,
