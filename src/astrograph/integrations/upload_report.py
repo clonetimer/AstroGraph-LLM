@@ -45,6 +45,7 @@ from astrograph.integrations.sat_sim_pipeline import (
     SatSimPipelineClosureRequest,
     SatSimPipelineClosureWorkflow,
 )
+from astrograph.integrations.post_diagnosis_explanation import run_frozen_post_diagnosis_explanation
 from astrograph.integrations.platform_knowledge import PlatformKnowledgeConfig, PlatformKnowledgeEnrichmentService
 from astrograph.integrations.platform_secrets import PlatformSecretStore
 from astrograph.integrations.platform_state import PlatformStateRepository
@@ -1243,7 +1244,9 @@ class UploadReportJobStore:
         )
         knowledge: dict[str, Any]
         try:
-            knowledge = knowledge_service.enrich(
+            knowledge = run_frozen_post_diagnosis_explanation(
+                source_kind="RESULT_LOG_REVIEW", source_id=job_id,
+                knowledge_service=knowledge_service,
                 task=job["task"], diagnosis_snapshot=snapshot,
                 document_paths=roles["references"], output_root=output / "knowledge",
                 material_review_context=reasoning,
@@ -1407,7 +1410,9 @@ class UploadReportJobStore:
                     "核心候选已冻结；开始文档检索与结构化大模型解释",
                     llm_call_status=("PENDING" if knowledge_service.llm_backend is not None else "NOT_CONFIGURED"),
                 )
-                knowledge = knowledge_service.enrich(
+                knowledge = run_frozen_post_diagnosis_explanation(
+                    source_kind="PUBLIC_CASE", source_id=job_id,
+                    knowledge_service=knowledge_service,
                     task=job["task"], diagnosis_snapshot=diagnosis_snapshot,
                     document_paths=knowledge_paths, output_root=output / "knowledge",
                 )
@@ -1474,7 +1479,9 @@ class UploadReportJobStore:
                     "核心候选已冻结；开始文档检索与结构化大模型解释",
                     llm_call_status=("PENDING" if knowledge_service.llm_backend is not None else "NOT_CONFIGURED"),
                 )
-                knowledge = knowledge_service.enrich(
+                knowledge = run_frozen_post_diagnosis_explanation(
+                    source_kind="SAT_SIM_PIPELINE", source_id=job_id,
+                    knowledge_service=knowledge_service,
                     task=job["task"], diagnosis_snapshot=diagnosis_snapshot,
                     document_paths=knowledge_paths, output_root=output / "knowledge",
                 )
