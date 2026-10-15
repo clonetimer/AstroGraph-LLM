@@ -48,7 +48,9 @@ def wire_server(*, selection="valid", generated="valid"):
                           "rid": self.headers.get("X-Request-Id")})
             user = json.loads(request["messages"][-1]["content"])["payload"]
             if "frozen_candidate_ids" in user and "available_tools" in user:
-                if selection == "unknown":
+                if selection == "empty":
+                    value = {"actions": []}
+                elif selection == "unknown":
                     value = {"actions": [{"tool_id": "material.graph.check_context",
                                           "fault_id": "FOREIGN", "path_id": "BENCH-PATH"}]}
                 elif selection == "invalid_schema":
@@ -117,6 +119,10 @@ def test_real_http_two_pass_tool_receipts_and_temporal_reasoning(tmp_path):
     assert report["generation"]["status"] == "SUCCEEDED"
     investigation = report["generation"]["material_tool_investigation"]
     assert [x["status"] for x in investigation["calls"]] == ["SUCCEEDED"] * 3
+    audit = investigation["review_coverage_audit"]
+    assert audit["status"] == "REVIEW_COVERAGE_INCOMPLETE"
+    assert audit["checks_matching_opportunities"] == 3
+    assert audit["review_gaps"][0]["tool_id"] == "material.rag.compare_hypotheses"
     assert investigation["calls"][1]["output"]["observed_flight_conditions_verified"] is False
     assert investigation["calls"][2]["output"]["actual_telemetry_event_alignment_verified"] is False
     final = json.loads(calls[-1]["body"]["messages"][-1]["content"])["payload"]
@@ -162,3 +168,16 @@ def test_wire_cross_task_review_cannot_reach_tool_selector(tmp_path):
     user = json.loads(calls[0]["body"]["messages"][-1]["content"])["payload"]
     assert user["material_reasoning"]["tool_investigation"]["status"] == "DENIED_TASK_BINDING"
     assert user["material_reasoning"].get("reviewed_causal_chains") is None
+
+
+def test_wire_model_no_tool_selection_has_explicit_missed_review_receipt(tmp_path):
+    with wire_server(selection="empty") as (url, calls):
+        report, _ = invoke(tmp_path, url)
+    assert len(calls) == 2
+    investigation = report["generation"]["material_tool_investigation"]
+    audit = investigation["review_coverage_audit"]
+    assert audit["status"] == "MODEL_DECLINED_AVAILABLE_REVIEW"
+    assert audit["checks_missing_in_visible_list"] >= 3
+    assert not investigation["current_root_cause_proven"]
+    final = json.loads(calls[-1]["body"]["messages"][-1]["content"])["payload"]
+    assert final["material_reasoning"]["tool_investigation"]["review_coverage_audit"] == audit
