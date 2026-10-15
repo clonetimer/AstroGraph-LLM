@@ -155,9 +155,13 @@ def run_online_post_diagnosis_explanation(
             output_root=root / "knowledge", knowledge_service=knowledge_service,
             material_review_context=material_review_context,
         )
-        receipt["status"] = "SUCCEEDED"
         receipt["knowledge_status"] = str(explanation.get("status", "UNKNOWN"))
         receipt["generation_status"] = str((explanation.get("generation") or {}).get("status", "UNKNOWN"))
+        if receipt["generation_status"] == "FAILED":
+            receipt["status"] = "FAILED_CLOSED"
+            receipt["reason_code"] = "EXPLANATION_BACKEND_FAILED"
+        else:
+            receipt["status"] = "SUCCEEDED"
         receipt["review_binding"] = deepcopy(explanation.get("post_diagnosis_binding") or {})
     except Exception as exc:
         receipt["status"] = "FAILED_CLOSED"
