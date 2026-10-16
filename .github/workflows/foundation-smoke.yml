@@ -44,4 +44,5 @@ jobs:
             tests/test_foundation_r11d_model_wire_protocol.py \
             tests/test_openai_compatible_backend.py \
             tests/test_foundation_r11e_investigation_quality.py \
-            tests/test_foundation_r11f_blind_material_campaign.py
+            tests/test_foundation_r11f_blind_material_campaign.py \
+            tests/test_foundation_r11f_cli_and_separate_scoring.py
