@@ -158,6 +158,7 @@ def run_blind_material_campaign(
                     "case_id": case.case_id, "group_id": case.group_id, "arm": arm,
                     "status": result.get("status"), "model_status": generation.get("status"),
                     "abstained": explanation.get("abstained"),
+                    "abstention_semantics": "FROZEN_CANDIDATE_SCHEMA_NOT_ROOT_CAUSE_ABSTENTION",
                     "claim_count": len(explanation.get("claims") or []),
                     "citation_reference_validation": generation.get("citation_reference_validation"),
                     "semantic_hallucination_assessment": generation.get("semantic_hallucination_assessment"),
@@ -215,12 +216,24 @@ def score_blind_material_reviews(
     if set(scores) != keys:
         raise ValueError("BLIND_REVIEWS_INCOMPLETE")
     by_arm = {}
+    model_success_by_arm = {}
     for arm in ARM_ORDER:
         subset = [score for (case_id, name), score in scores.items() if name == arm]
-        by_arm[arm] = {metric: round(sum(r[metric] for r in subset) / len(subset), 4)
-                       for metric in measures}
+        count_success = sum(c.get("model_status") == "SUCCEEDED"
+                            for c in cells if c["arm"] == arm)
+        model_success_by_arm[arm] = count_success
+        by_arm[arm] = {
+            **{metric: round(sum(r[metric] for r in subset) / len(subset), 4)
+               for metric in measures},
+            "model_success_cases": count_success,
+            "model_failure_or_unavailable_cases": len(subset) - count_success,
+        }
+    valid_comparison = all(row.get("model_status") == "SUCCEEDED" for row in cells)
     return {"schema_version": "astrograph-material-llm-blind-human-scoring.v1",
             "arms": by_arm, "rated_cells": len(scores),
+            "complete_model_generation_for_all_cells": valid_comparison,
+            "interpretation_warning": (None if valid_comparison else
+                "MISSING_OR_FAILED_MODEL_GENERATIONS; descriptive ratings cannot establish model quality gain"),
             "diagnostic_accuracy_gain": None,
             "diagnostic_accuracy_gain_reason": "FROZEN_FAULT_CANDIDATES_IDENTICAL_ACROSS_ARMS",
             "rating_origin": "EXTERNAL_AFTER_RUN_HUMAN_ADJUDICATION_REQUIRED",
