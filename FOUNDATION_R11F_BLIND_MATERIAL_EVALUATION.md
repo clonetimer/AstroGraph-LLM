@@ -81,6 +81,8 @@ python scripts/score_r11f_blind_material_campaign.py \
 ```
 The scoring step checks the hash of the frozen campaign manifest, rejects missing/duplicate/foreign ratings and never calls a model. It writes a single `human_scores.json` without overwriting existing scores.
 
+The scoring report additionally includes `model_success_cases`, `model_failure_or_unavailable_cases`, and `complete_model_generation_for_all_cells`. If any arm/case failed to generate, a warning prevents interpretation of descriptive ratings as a completed model-quality comparison. The LLM output Schema's `abstained` field is coupled to the **frozen diagnosis candidate**, so independent uncertainty and root-cause abstention must be judged in the expert rubric instead of using that field as an accuracy metric.
+
 **Limitation:** this initial reviewer format exposes arm names, so this is a **label-blinded model-input experiment, not a fully assessor-blinded study**. A later registered protocol can export anonymized answer packets and conceal arms from independent reviewers. Do not make a statistical superiority claim from one or a few synthetic cases.
 
 ## Engineering verification
