@@ -6,6 +6,13 @@ import urllib.request
 import urllib.error
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Prevent accidental forwarding of API credentials to redirected hosts."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise ValueError("HTTP_REDIRECT_NOT_ALLOWED")
+
+
 def main():
     captured={}
     config={}
@@ -17,7 +24,11 @@ def main():
                         separators=(",",":"),allow_nan=False).encode("utf-8")
         req=urllib.request.Request(config["url"],data=body,
             headers={"Content-Type":"application/json",**config["headers"]},method="POST")
-        with urllib.request.urlopen(req,timeout=config["timeout_s"]) as response:
+        # urllib's default redirect handler can forward Authorization headers.
+        # Provider endpoint changes must be explicit configuration changes.
+        with urllib.request.build_opener(_NoRedirect()).open(
+            req, timeout=config["timeout_s"]
+        ) as response:
             length=response.headers.get("Content-Length")
             if length and int(length)>limit:raise ValueError("HTTP_RESPONSE_TOO_LARGE")
             raw=response.read(limit+1)
@@ -35,7 +46,8 @@ def main():
         exc.close()
         out={"ok":False,"error":"HTTP_STATUS_"+str(exc.code)}
     except Exception as exc:
-        code=str(exc) if str(exc)=="HTTP_RESPONSE_TOO_LARGE" else type(exc).__name__
+        code=(str(exc) if str(exc) in {"HTTP_RESPONSE_TOO_LARGE", "HTTP_REDIRECT_NOT_ALLOWED"}
+              else type(exc).__name__)
         out={"ok":False,"error":code}
     out.update(captured)
     sys.stdout.write(json.dumps(out,ensure_ascii=False))

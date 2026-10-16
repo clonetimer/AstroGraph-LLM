@@ -1,0 +1,48 @@
+name: Foundation smoke (source-only)
+on:
+  push:
+    branches: [dev/foundation-r11-integration]
+  pull_request:
+    branches: [main]
+jobs:
+  source-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[platform,test]"
+      - name: Source-only RAG / GraphRAG / LLM bridge regression
+        run: |
+          python -m pytest -q --astrograph-test-profile source-only \
+            tests/test_candidate_selection.py \
+            tests/test_pre_reasoning_retrieval.py \
+            tests/test_foundation_r3_literature_bidirectional.py \
+            tests/test_foundation_r4_competition_claim_guard.py \
+            tests/test_foundation_r5_reported_observations.py \
+            tests/test_foundation_r6_observation_retrieval.py \
+            tests/test_foundation_r7_causal_claims.py \
+            tests/test_foundation_r8_causal_differential.py \
+            tests/test_foundation_r9_reviewed_applicability.py \
+            tests/test_foundation_r10_temporal_causal.py \
+            tests/test_foundation_r11_material_llm_tool_integration.py \
+            tests/test_foundation_r11b_task_bound_explanations.py \
+            tests/test_foundation_r11b2_post_diagnosis_bridge.py \
+            tests/test_platform_knowledge_enrichment.py \
+            tests/test_upload_report_platform.py \
+            tests/test_design_diagnostic_harness.py \
+            tests/test_foundation_r11b3_oag_post_diagnosis.py \
+            tests/test_foundation_r11c_online_post_diagnosis.py \
+            tests/test_online_acceptance.py \
+            tests/test_whole_spacecraft_runtime_dag.py \
+            tests/test_online_hybrid_tool_registry.py \
+            tests/test_foundation_r11d_model_wire_protocol.py \
+            tests/test_openai_compatible_backend.py \
+            tests/test_foundation_r11e_investigation_quality.py \
+            tests/test_foundation_r11f_blind_material_campaign.py \
+            tests/test_foundation_r11f_cli_and_separate_scoring.py

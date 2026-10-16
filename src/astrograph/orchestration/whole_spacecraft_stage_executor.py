@@ -996,6 +996,7 @@ class WholeSpacecraftOnlineStageExecutor:
             config=request.document_claim_shadow,
             episode_id=evidence.bundle.episode.episode_id,
             registered_fault_ids=registered_fault_ids,
+            observation_time_s=evidence.bundle.episode.end_s,
         )
         if document_claim_shadow.status != "DISABLED":
             traces.append(self._trace("rebuild_document_claim_ranking_in_shadow", {

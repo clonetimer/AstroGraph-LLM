@@ -7,7 +7,7 @@ control advice is auto-approved and no numeric 'fault probability' is made up.
 """
 from __future__ import annotations
 
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import datetime
 import hashlib
 import json
@@ -21,10 +21,20 @@ from astrograph.integrations.platform_knowledge import UploadedDocumentKnowledge
 from astrograph.integrations.result_log_review import SourceLine, _rules, load_manifest, read_lines
 from astrograph.integrations.material_case_memory import MaterialCaseMemory
 from astrograph.integrations.material_graph_builder import build_material_graph
-from astrograph.integrations.material_multihop import evaluate_multihop, default_public_graph_path
+from astrograph.integrations.material_multihop import (
+    evaluate_multihop, evaluate_bidirectional_hypotheses, evaluate_causal_chains, default_public_graph_path,
+)
 from astrograph.integrations.material_hierarchical_rag import HierarchicalMaterialIndex, RetrievalBudgets
 
 MATERIAL_REASONING_VERSION = 'astrograph-material-knowledge-fusion.v1'
+
+
+def _graph_review_hops() -> int:
+    """Administrator-only opt-in; historical default remains three hops."""
+    value = os.environ.get('ASTROGRAPH_MATERIAL_GRAPH_MAX_HOPS', '3').strip()
+    if value not in {'3', '4'}:
+        raise ValueError('ASTROGRAPH_MATERIAL_GRAPH_MAX_HOPS must be 3 or 4')
+    return int(value)
 _DATE = re.compile(r'\b(20\d\d-\d\d-\d\d[T ]\d\d:\d\d:\d\d(?:\.\d+)?(?:Z|[+-]\d\d:?\d\d)?)\b')
 _NEGATIVE = re.compile(r'\b(?:no|not|normal|nominal|cleared|clear|resolved|recovered|within.range)\b|(?:正常|恢复|未出现|未发现|无异常|已排除|已解除)', re.I)
 _WARNING = re.compile(r'\b(?:warn|warning|error|critical|failed|fault|timeout|alarm)\b|(?:告警|异常|故障|超时|报警|失效)', re.I)
@@ -251,6 +261,97 @@ def _graph_retrieve(candidate_ids: list[str]) -> dict[str, Any]:
                 'error_message':str(exc)[:300],'active_kg_modified':False}
 
 
+def build_competing_hypothesis_review(items: list[dict[str, Any]],
+                                      shared_symptoms: list[dict[str, Any]]) -> dict[str, Any]:
+    """Deterministic competition table; references cannot change the diagnosis.
+
+    Absence of a retrieved passage, log keyword or expected symptom is a
+    missing check, never an observed negative or proof of another candidate.
+    """
+    rows = []
+    for item in items[:12]:
+        bidir = item.get('bidirectional_graph_review') or {}
+        log = item.get('log_evidence_matrix') or {}
+        reviewed = ((item.get('reference_retrieval') or {})
+                    .get('reviewed_counterevidence') or {})
+        rows.append({
+            'fault_id': item['fault_id'],
+            'fault_name': item['fault_name'],
+            'supporting_log_cue_ids': list(dict.fromkeys(log.get('supporting_ids') or []))[:12],
+            'opposing_log_cue_ids': list(dict.fromkeys(log.get('contradicting_ids') or []))[:12],
+            'approved_negative_relation_ids': [x['edge_id'] for x in reviewed.get('items', [])[:12]],
+            'missing_expected_symptom_ids': list(bidir.get('missing_symptom_cue_ids') or [])[:16],
+            'shared_symptom_ids': sorted({x['symptom_id'] for x in shared_symptoms
+                 if item['fault_id'] in x.get('candidate_fault_ids', [])})[:16],
+            'contrastive_reference': dict(item.get('contrastive_reference_review') or {}),
+            'current_root_cause_confirmed': False,
+            'status': 'NON_VOTING_DIFFERENTIAL_REVIEW',
+        })
+    # Causal path endpoints offer a non-voting DIFFERENTIAL over the already
+    # frozen candidate set, not a new diagnosis or a counterfactual proof.
+    # Avoid awarding extra votes for multiple citations of the same symptom.
+    causal_index: dict[str, dict[str, list[dict[str, Any]]]] = {}
+    symptom_owners: dict[str, set[str]] = defaultdict(set)
+    truncated_candidates: list[str] = []
+    for item in items[:12]:
+        fid = item['fault_id']
+        review = ((item.get('multi_hop') or {}).get('causal_chain_review') or {})
+        if review.get('search_truncated'):
+            truncated_candidates.append(fid)
+        symptom_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for chain in (review.get('chains') or [])[:32]:
+            sid = str(chain.get('terminal_symptom_id') or '')
+            if not sid or not chain.get('structural_claim_chain_valid'):
+                continue
+            symptom_groups[sid].append(chain)
+            symptom_owners[sid].add(fid)
+        causal_index[fid] = symptom_groups
+    causal_rows = []
+    for item in items[:12]:
+        fid = item['fault_id']
+        groups = causal_index[fid]
+        causal_rows.append({
+            'fault_id': fid,
+            'candidate_specific_reference_symptoms': [
+                {'symptom_id':sid, 'chain_ids':sorted({p['path_id'] for p in paths})[:8],
+                 'cross_document_context_unverified':any(
+                     p.get('cross_document_mechanism_splice',False) for p in paths)}
+                for sid,paths in sorted(groups.items()) if symptom_owners[sid] == {fid}
+            ][:24],
+            'shared_reference_symptom_ids': sorted(
+                sid for sid in groups if len(symptom_owners[sid]) > 1)[:24],
+            'missing_reference_or_observation_is_not_counterevidence': True,
+            'current_fault_observation_verified': False,
+            'causal_path_count': sum(len(paths) for paths in groups.values()),
+        })
+    causal_differential = {
+        'schema_version':'astrograph-causal-hypothesis-differential.v1',
+        'status': ('PARTIAL_REFERENCE_COVERAGE' if truncated_candidates
+                   else 'REFERENCE_PATHS_FOR_COMPARISON' if symptom_owners
+                   else 'NO_REVIEWED_CAUSAL_PATHS'),
+        'candidates':causal_rows,
+        'shared_reference_symptom_ids': sorted(
+            sid for sid, owners in symptom_owners.items() if len(owners) > 1)[:24],
+        'truncated_candidate_fault_ids':truncated_candidates,
+        'candidate_specific_only_within_supplied_frozen_set':True,
+        'no_counterfactual_causation_inferred':True,
+        'current_root_cause_proven':False,
+        'diagnostic_vote_allowed':False,
+        'automatic_control_authorized':False,
+    }
+    return {
+        'schema_version': 'astrograph-competing-hypothesis-review.v1',
+        'status': 'READY_FOR_EXPERT_COMPARISON' if len(rows) >= 2 else
+            'SINGLE_OR_NO_HYPOTHESIS',
+        'candidates': rows, 'shared_symptoms': shared_symptoms[:24],
+        'causal_path_differential': causal_differential,
+        'missing_cue_is_not_negative_evidence': True,
+        'reviewed_negative_claim_is_not_current_observation': True,
+        'diagnostic_vote_allowed': False,
+        'automatic_control_authorized': False,
+    }
+
+
 def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
                                review: dict[str, Any], memory: MaterialCaseMemory | None = None,
                                source_group_id: str = '') -> dict[str, Any]:
@@ -325,6 +426,35 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             community_index['llm_summary_status']='FAILED_'+type(exc).__name__
     community_global=global_community_search(community_index,
         ' '.join(queries)[:4000])
+    # Graph evidence is compared across the host-supplied candidate set only.
+    # Reverse symptom lookup is non-voting and never proposes new fault IDs.
+    graph_hops = _graph_review_hops()
+    bidirectional = evaluate_bidirectional_hypotheses(
+        candidates=candidates[:12], equipment_scope=manifest.equipment_scope,
+        log_lines=log_lines, reviewed_edges=approved_edges, snapshot=prior_snapshot,
+        max_hops=graph_hops,
+    ) if candidates else {'status': 'NO_CANDIDATES', 'candidates': []}
+    bidirectional_by_id = {row['fault_id']: row for row in bidirectional['candidates']}
+    contrastive_by_id = {}
+    if len(candidates) >= 2:
+        first, second = candidates[:2]
+        comparison = hierarchy.retrieve_contrastive(
+            base_query=' '.join(queries[:2])[:900],
+            fault_id=first['fault_id'], fault_name=first['fault_name'],
+            competitor_fault_id=second['fault_id'],
+            competitor_fault_name=second['fault_name'],
+            approved_edges=approved_edges, equipment_scope=manifest.equipment_scope,
+            graph_snapshot=prior_snapshot, budgets=rag_limits,
+        )
+        # Report bounded pointers, not a second duplicate source-text payload.
+        contrastive_by_id[first['fault_id']] = {
+            'competitor_fault_id': second['fault_id'],
+            'primary_only_chunk_ids': comparison['primary_only_chunk_ids'],
+            'competitor_only_chunk_ids': comparison['competitor_only_chunk_ids'],
+            'shared_source_sha256': comparison['shared_source_sha256'],
+            'diagnostic_vote_allowed': False,
+            'status': comparison['status'],
+        }
     items=[]
     for n,candidate in enumerate(candidates):
         rule=rules.get(candidate['fault_id'])
@@ -336,7 +466,13 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             semantic_ids=semantic_orders[n],
             approved_edges=approved_edges,
             equipment_scope=manifest.equipment_scope,
+            graph_snapshot=prior_snapshot,
             budgets=rag_limits,
+        )
+        retrieved['reviewed_counterevidence'] = hierarchy.retrieve_reviewed_counterevidence(
+            fault_id=candidate['fault_id'], fault_name=candidate['fault_name'],
+            approved_edges=approved_edges, equipment_scope=manifest.equipment_scope,
+            graph_snapshot=prior_snapshot,
         )
         global_candidate=global_community_search(community_index, query)
         logs=_log_events(log_lines,candidate,rule)
@@ -365,7 +501,14 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             fault_id=candidate['fault_id'],fault_name=candidate['fault_name'],
             equipment_scope=manifest.equipment_scope,log_lines=log_lines,
             reviewed_edges=approved_edges,snapshot=prior_snapshot,
-            public_graph_path=default_public_graph_path(),max_hops=3)
+            public_graph_path=default_public_graph_path(),max_hops=graph_hops)
+        # Independent R7 layer: association paths and causal document claims
+        # must never share a field that implies causal proof or an authorized vote.
+        multi_hop['causal_chain_review'] = evaluate_causal_chains(
+            fault_id=candidate['fault_id'], fault_name=candidate['fault_name'],
+            equipment_scope=manifest.equipment_scope, reviewed_edges=approved_edges,
+            snapshot=prior_snapshot, max_hops=graph_hops,
+        )
         if hierarchy.truncated:
             multi_hop['knowledge_gap_codes'].append('REFERENCE_CORPUS_NOT_FULLY_INDEXED')
             # Retrieval truncation does not erase independent graph evidence,
@@ -402,6 +545,8 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             'graph_evidence_paths':graph_cross_checks,'historical_confirmed_cases':cases,
             'approved_document_graph':reviewed_graph,
             'multi_hop':multi_hop,
+            'bidirectional_graph_review': bidirectional_by_id.get(candidate['fault_id'], {}),
+            'contrastive_reference_review': contrastive_by_id.get(candidate['fault_id'], {}),
             'evidence_assessment':{
                 'upstream_assertion_ids':list(candidate.get('diagnosis_source_ids') or []),
                 'supporting_log_cue_ids':logs['supporting_ids'],
@@ -470,6 +615,18 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
             'source_group_id':source_group_id,'equipment_scope':manifest.equipment_scope or 'UNKNOWN',
             'document_ingestion':ingestion,'semantic_backend':semantic_status,
             'global_community_retrieval':community_global,
+            'competing_hypothesis_review': build_competing_hypothesis_review(
+                items, bidirectional.get('shared_symptoms', [])),
+            'bidirectional_graph_comparison': {
+                'schema_version': bidirectional['schema_version'] if 'schema_version' in bidirectional
+                    else 'astrograph-bidirectional-graph-review.v1',
+                'status': bidirectional['status'],
+                'shared_symptoms': bidirectional.get('shared_symptoms', []),
+                'reverse_observation_index': bidirectional.get('reverse_observation_index', []),
+                'current_root_cause_proven': False,
+                'automatic_control_authorized': False,
+                'diagnostic_vote_allowed': False,
+            },
             'global_community_index':{
                 key: value for key,value in community_index.items() if key!='reports'},
             'retrieval_architecture':{
@@ -478,6 +635,9 @@ def analyze_material_knowledge(*, expanded: Path, manifest_path: Path,
                 'keyword_channels':['BM25','CHAR_NGRAM'],
                 'vector_channel':'LOCAL_SENTENCE_TRANSFORMERS_WITH_OPTIONAL_SQLITE_PERSISTENCE',
                 'graph_channel':'APPROVED_GRAPH_COMMUNITY_GLOBAL_SEARCH_AND_SEPARATE_MULTIHOP',
+                'r3_enhancements':['REVIEWED_SIGNED_COUNTERCLAIMS',
+                    'BOUNDED_CONTRASTIVE_DOCUMENT_RETRIEVAL',
+                    'BIDIRECTIONAL_NONCAUSAL_GRAPH_REVIEW'],
                 'global_community_summaries_implemented':'EXTRACTIVE_REVIEWED_EDGE_COMMUNITY_REPORTS',
                 'cross_document_community_clustering_implemented':bool(community_index.get('community_count')),
                 'index_truncated':hierarchy.truncated,

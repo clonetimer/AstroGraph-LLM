@@ -45,7 +45,7 @@ class CandidateSignal(BaseModel):
     missing_evidence_definition_ids: list[str] = Field(default_factory=list)
     source: CandidateSource = "REFERENCE_HYPOTHESIS_SET"
     source_rank: int | None = Field(default=None, ge=1)
-    source_score: float | None = None
+    source_score: float | None = Field(default=None, allow_inf_nan=False)
     source_score_semantics: str | None = None
 
 

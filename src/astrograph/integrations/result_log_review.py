@@ -570,8 +570,8 @@ def render_result_log_markdown(job: dict[str, Any], result: dict[str, Any], know
         lines.extend(["", "## 可选知识 / LLM 辅助解释（仅供复核）", ""])
         lines.append(f"- 检索与生成状态：`{knowledge.get('status', 'UNKNOWN')}` / `{(knowledge.get('generation') or {}).get('status', 'UNKNOWN')}`")
         model_explanation = knowledge.get("model_explanation") or {}
-        if model_explanation.get("status") == "AVAILABLE_REQUIRES_EXPERT_REVIEW":
-            lines.extend(["", "### 大模型综合处置结果（需专家复核）", ""])
+        if model_explanation.get("status") == "EXTRACTIVE_REVIEW_ONLY":
+            lines.extend(["", "### 大模型来源原文摘录（非诊断结论，需专家复核）", ""])
             lines.append(f"- 综合判断：{safe(model_explanation.get('summary'))}")
             for claim in (model_explanation.get("claims") or [])[:12]:
                 citations = ", ".join(str(item) for item in (claim.get("citation_ids") or []))

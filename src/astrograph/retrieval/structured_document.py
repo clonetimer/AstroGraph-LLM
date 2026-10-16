@@ -223,11 +223,23 @@ class SectionFirstDocumentIngestor:
             if image:
                 flush(index - 1)
                 alt, uri = image.groups()
-                path = Path(asset_root, uri) if asset_root and not re.match(r"^[a-z]+://", uri) else None
-                asset_hash = hashlib.sha256(path.read_bytes()).hexdigest() if path and path.is_file() else None
-                reviewed = bool(alt.strip()) and asset_hash is not None
-                if not reviewed:
-                    warnings.append(f"IMAGE_REPRESENTATION_REVIEW_REQUIRED:{index}")
+                # Never resolve a document-controlled link outside the explicit
+                # asset directory (including absolute paths and symlink escapes).
+                # The image alt text is author-supplied, NOT an independent
+                # human-verified caption even when the image bytes exist.
+                path = None
+                asset_hash = None
+                if asset_root is not None and not re.match(r"^[a-z][a-z0-9+.-]*:", uri, re.I):
+                    root = Path(asset_root).resolve()
+                    candidate = (root / uri).resolve()
+                    if candidate.is_relative_to(root) and candidate.is_file():
+                        path = candidate
+                    elif not candidate.is_relative_to(root):
+                        warnings.append(f"IMAGE_ASSET_OUTSIDE_ROOT_BLOCKED:{index}")
+                if path is not None:
+                    asset_hash = self._file_sha256(path)
+                reviewed = False
+                warnings.append(f"IMAGE_REPRESENTATION_REVIEW_REQUIRED:{index}")
                 ordinal += 1
                 elements.append(DocumentElement(
                     element_id=f"element:{ordinal:05d}", kind=DocumentElementKind.IMAGE,

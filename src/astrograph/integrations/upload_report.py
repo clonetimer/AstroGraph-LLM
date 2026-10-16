@@ -45,6 +45,7 @@ from astrograph.integrations.sat_sim_pipeline import (
     SatSimPipelineClosureRequest,
     SatSimPipelineClosureWorkflow,
 )
+from astrograph.integrations.post_diagnosis_explanation import run_frozen_post_diagnosis_explanation
 from astrograph.integrations.platform_knowledge import PlatformKnowledgeConfig, PlatformKnowledgeEnrichmentService
 from astrograph.integrations.platform_secrets import PlatformSecretStore
 from astrograph.integrations.platform_state import PlatformStateRepository
@@ -1227,6 +1228,7 @@ class UploadReportJobStore:
             "status": review["status"],
             "candidate_fault_id": review["top_fault_id"],
             "candidate_fault_ids": [x["fault_id"] for x in review["candidates"]],
+            "material_source_group_id": job_id,
             "location_candidates": [],
             "evidence": [
                 {"evidence_id": x["evidence_id"], "field": x["filename"],
@@ -1242,7 +1244,9 @@ class UploadReportJobStore:
         )
         knowledge: dict[str, Any]
         try:
-            knowledge = knowledge_service.enrich(
+            knowledge = run_frozen_post_diagnosis_explanation(
+                source_kind="RESULT_LOG_REVIEW", source_id=job_id,
+                knowledge_service=knowledge_service,
                 task=job["task"], diagnosis_snapshot=snapshot,
                 document_paths=roles["references"], output_root=output / "knowledge",
                 material_review_context=reasoning,
@@ -1379,14 +1383,62 @@ class UploadReportJobStore:
                                           output=output / "oag", job_id=job_id,
                                           service=knowledge_service)
                 diagnosis_snapshot = self._oag_diagnosis_snapshot(result)
-                oag_knowledge = result.get("knowledge_enrichment") or result.get("knowledge") or {}
+                # Run post-harness explanation separately: the OAG native model
+                # budget, frozen diagnosis, and hash-chained audit stay unchanged.
+                # OAG owns PaperSeek and ontology extraction. Here only the local
+                # uploaded reference docs and configured LLM can be reused.
+                from astrograph.oag.contracts import content_hash as oag_content_hash
+                core_result_sha256 = oag_content_hash(result)
+                post_config = knowledge_service.config.model_copy(update={
+                    "paperseek_url": None, "paperseek_source_root": None,
+                    "a2o_enabled": False,
+                })
+                post_service = PlatformKnowledgeEnrichmentService(
+                    config=post_config, llm_backend=knowledge_service.llm_backend,
+                )
                 self._set_stage(
                     job_id, "POST_DIAGNOSIS_KNOWLEDGE",
-                    "OAG 诊断与知识增强完成；准备执行 Agent 工作模式",
-                    llm_call_status=str((oag_knowledge.get("generation") or {}).get("status") or "UNKNOWN"),
+                    "OAG 诊断已冻结；执行独立的后诊断 RAG/LLM 解释",
+                    llm_call_status=("PENDING" if post_service.llm_backend is not None else "NOT_CONFIGURED"),
+                )
+                try:
+                    knowledge = run_frozen_post_diagnosis_explanation(
+                        source_kind="OAG_DIAGNOSTIC", source_id=job_id,
+                        task=job["task"], diagnosis_snapshot=diagnosis_snapshot,
+                        document_paths=knowledge_paths, output_root=output / "knowledge",
+                        knowledge_service=post_service,
+                    )
+                except Exception as exc:
+                    # Optional explanation cannot erase a validated OAG result.
+                    knowledge = {
+                        "status": "FAILED_CLOSED",
+                        "generation": {"status": "FAILED"},
+                        "error": {"type": type(exc).__name__},
+                        "diagnostic_candidate_can_be_overridden": False,
+                        "active_kg_modified": False,
+                        "post_diagnosis_binding": {"source_kind": "OAG_DIAGNOSTIC", "status": "NOT_AVAILABLE"},
+                    }
+                if oag_content_hash(result) != core_result_sha256:
+                    raise ValueError("OAG_CORE_RESULT_MUTATED_BY_POST_DIAGNOSIS")
+                _json_write(output / "oag_post_diagnosis.json", knowledge)
+                self._set_stage(
+                    job_id, "POST_DIAGNOSIS_KNOWLEDGE",
+                    "OAG 后诊断解释完成；准备执行 Agent 工作模式",
+                    llm_call_status=str((knowledge.get("generation") or {}).get("status") or "UNKNOWN"),
                 )
                 markdown = render_oag_report(result)
+                final = knowledge.get("final_explanation") or {}
+                markdown += (
+                    "\n\n## 独立后诊断 RAG/LLM 补充解释\n\n"
+                    f"- 后增强状态：`{knowledge.get('status', 'UNKNOWN')}`\n"
+                    f"- LLM 状态：`{(knowledge.get('generation') or {}).get('status', 'UNKNOWN')}`\n"
+                    f"- 解释来源：`{final.get('source', 'NONE')}`\n"
+                    f"- 审核图谱工具：`{(knowledge.get('post_diagnosis_binding') or {}).get('status', 'NOT_AVAILABLE')}`\n"
+                    "- 该补充报告不修改 OAG 冻结候选、证据、Harness 审计链或在轨发布资格。\n"
+                )
                 analysis = {"artifact_kind": artifact_kind, "oag_result": result,
+                            "knowledge_enrichment": knowledge,
+                            "oag_core_result_sha256": core_result_sha256,
                             "effect_guard": {"task_text_used_for_diagnosis": False,
                                              "supplemental_text_used_for_diagnosis": False,
                                              "active_kg_modified": False}}
@@ -1406,7 +1458,9 @@ class UploadReportJobStore:
                     "核心候选已冻结；开始文档检索与结构化大模型解释",
                     llm_call_status=("PENDING" if knowledge_service.llm_backend is not None else "NOT_CONFIGURED"),
                 )
-                knowledge = knowledge_service.enrich(
+                knowledge = run_frozen_post_diagnosis_explanation(
+                    source_kind="PUBLIC_CASE", source_id=job_id,
+                    knowledge_service=knowledge_service,
                     task=job["task"], diagnosis_snapshot=diagnosis_snapshot,
                     document_paths=knowledge_paths, output_root=output / "knowledge",
                 )
@@ -1473,7 +1527,9 @@ class UploadReportJobStore:
                     "核心候选已冻结；开始文档检索与结构化大模型解释",
                     llm_call_status=("PENDING" if knowledge_service.llm_backend is not None else "NOT_CONFIGURED"),
                 )
-                knowledge = knowledge_service.enrich(
+                knowledge = run_frozen_post_diagnosis_explanation(
+                    source_kind="SAT_SIM_PIPELINE", source_id=job_id,
+                    knowledge_service=knowledge_service,
                     task=job["task"], diagnosis_snapshot=diagnosis_snapshot,
                     document_paths=knowledge_paths, output_root=output / "knowledge",
                 )

@@ -24,10 +24,15 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, field_validator, model_validator
 
 from astrograph.llm import OpenAICompatibleConfig, OpenAICompatibleStructuredBackend
+from astrograph.retrieval.reported_observations import review_numbered_observations
+from astrograph.retrieval.observation_balanced import retrieve_observation_balanced
 from astrograph.integrations.process_control import run_managed_subprocess
 from astrograph.oag.paperseek_http import PaperSeekConfig, PaperSeekHTTPClient
 from astrograph.oag.paperseek_cli import PaperSeekCLIConfig, PaperSeekCLIClient
 from astrograph.retrieval.structured_document import SectionFirstDocumentIngestor
+from astrograph.tools.material_review import (
+    summarize_material_causal_review, execute_material_tool_plan,
+)
 
 
 PLATFORM_KNOWLEDGE_SCHEMA_VERSION = "astrograph-platform-knowledge-enrichment.v1"
@@ -103,6 +108,62 @@ def _bm25(query_terms: list[str], documents: list[list[str]]) -> list[float]:
     return scores
 
 
+
+def bind_frozen_material_review(
+    diagnosis_snapshot: dict[str, Any],
+    material_review_context: dict[str, Any] | None,
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    """Fail closed if a reviewed material bundle is not bound to this diagnosis.
+
+    The caller owns the frozen candidates and task identity. A material bundle is
+    evidence, not an authority to add candidates, change the active run or widen
+    what the LLM may see. Do not echo mismatched IDs into public receipts.
+    """
+    if material_review_context is None:
+        return None, {"status": "NOT_AVAILABLE_NO_APPROVED_MATERIAL_REVIEW",
+                      "diagnostic_vote_allowed": False}
+
+    def denied(reason: str) -> tuple[None, dict[str, Any]]:
+        return None, {"status": "DENIED_TASK_BINDING", "reason_code": reason,
+                      "diagnostic_vote_allowed": False}
+
+    if not isinstance(material_review_context, dict):
+        return denied("INVALID_MATERIAL_REVIEW")
+    rows = material_review_context.get("candidates")
+    if not isinstance(rows, list) or not rows or len(rows) > 12:
+        return denied("MATERIAL_CANDIDATES_INVALID")
+    material_ids = [row.get("fault_id") if isinstance(row, dict) else None for row in rows]
+    if any(not isinstance(fid, str) or not fid or len(fid) > 160 for fid in material_ids):
+        return denied("MATERIAL_CANDIDATES_INVALID")
+    if len(set(material_ids)) != len(material_ids):
+        return denied("MATERIAL_CANDIDATES_DUPLICATED")
+
+    frozen_ids = diagnosis_snapshot.get("candidate_fault_ids")
+    if isinstance(frozen_ids, list) and frozen_ids:
+        if any(not isinstance(fid, str) or not fid for fid in frozen_ids):
+            return denied("FROZEN_CANDIDATES_INVALID")
+        if set(material_ids) != set(frozen_ids) or len(material_ids) != len(frozen_ids):
+            return denied("FROZEN_CANDIDATES_MISMATCH")
+    else:
+        # Old single-candidate entrypoints have no list. Never allow them to
+        # smuggle an independent set of competing material candidates.
+        if len(material_ids) != 1 or material_ids[0] != diagnosis_snapshot.get("candidate_fault_id"):
+            return denied("FROZEN_CANDIDATES_NOT_BOUND")
+
+    top_id = diagnosis_snapshot.get("candidate_fault_id")
+    if top_id is not None and top_id not in material_ids:
+        return denied("FROZEN_TOP_CANDIDATE_MISMATCH")
+    review_group = material_review_context.get("source_group_id")
+    snapshot_group = diagnosis_snapshot.get("material_source_group_id")
+    if review_group is not None or snapshot_group is not None:
+        if not isinstance(review_group, str) or not review_group or review_group != snapshot_group:
+            return denied("MATERIAL_SOURCE_GROUP_MISMATCH")
+    return material_review_context, {
+        "status": "BOUND_FROZEN_DIAGNOSIS", "candidate_count": len(material_ids),
+        "source_group_checked": review_group is not None,
+        "diagnostic_vote_allowed": False,
+    }
+
 class PlatformKnowledgeClaim(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
     kind: Literal["OBSERVATION", "LOCAL_KNOWLEDGE", "LITERATURE", "ONTOLOGY_CANDIDATE", "HYPOTHESIS", "MATERIAL_LOG_CUE", "MATERIAL_REFERENCE", "GRAPH_ASSOCIATION", "CONFIRMED_CASE"]
@@ -156,6 +217,7 @@ class PlatformKnowledgeConfig(BaseModel):
     a2o_python_executable: str | None = None
     a2o_timeout_s: float = Field(default=900.0, gt=0, le=7200)
     require_configured_services: bool = False
+    material_tool_calls_enabled: bool = False  # Explicit opt-in: an additional bounded LLM selection call.
 
     @classmethod
     def from_environment(cls) -> "PlatformKnowledgeConfig":
@@ -185,6 +247,7 @@ class PlatformKnowledgeConfig(BaseModel):
             a2o_python_executable=os.environ.get("ASTROGRAPH_PLATFORM_A2O_PYTHON") or None,
             a2o_timeout_s=number("ASTROGRAPH_PLATFORM_A2O_TIMEOUT_S", "900"),
             require_configured_services=yes("ASTROGRAPH_PLATFORM_REQUIRE_KNOWLEDGE_SERVICES"),
+            material_tool_calls_enabled=yes("ASTROGRAPH_PLATFORM_MATERIAL_TOOL_CALLS_ENABLED"),
         )
 
 
@@ -1001,7 +1064,11 @@ class PlatformKnowledgeEnrichmentService:
         material_review_context: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         output_root.mkdir(parents=True, exist_ok=True)
+        material_review_context, material_binding = bind_frozen_material_review(
+            diagnosis_snapshot, material_review_context,
+        )
         timings: dict[str, float] = {}
+        reported_observations = review_numbered_observations(task)
 
         local_started = time.monotonic()
         local_index = UploadedDocumentKnowledgeIndex(top_k=self.config.local_top_k)
@@ -1009,7 +1076,10 @@ class PlatformKnowledgeEnrichmentService:
         controlled_query = _diagnosis_search_text(diagnosis_snapshot)
         # The task can narrow explanation retrieval, never candidate generation.
         retrieval_query = " ".join([controlled_query, task.strip()[:1000]]).strip()
-        local_hits = local_index.retrieve(retrieval_query, chunks)
+        local_hits, retrieval_strategy = retrieve_observation_balanced(
+            local_index, chunks, controlled_query=controlled_query, task=task,
+            observation_ledger=reported_observations,
+        )
         retrieval_quality = _local_retrieval_quality(diagnosis_snapshot, local_hits, ingestion)
         timings["local_parse_and_retrieval"] = round(time.monotonic() - local_started, 6)
 
@@ -1068,13 +1138,58 @@ class PlatformKnowledgeEnrichmentService:
             }
         else:
             try:
+                causal_review_for_llm = (
+                    summarize_material_causal_review(material_review_context)
+                    if material_review_context else None
+                )
+                tool_investigation = {"status": (
+                    "DISABLED" if material_review_context else material_binding["status"]
+                ), "diagnostic_vote_allowed": False}
+                if material_review_context and self.config.material_tool_calls_enabled:
+                    try:
+                        tool_investigation = execute_material_tool_plan(
+                            backend=self.llm_backend, material_review=material_review_context,
+                            run_id=hashlib.sha256(
+                                json.dumps(diagnosis_snapshot, sort_keys=True, default=str).encode("utf-8")
+                            ).hexdigest()[:16],
+                        )
+                    except Exception as tool_exc:
+                        # Tool selection failure cannot expand knowledge authority.
+                        tool_investigation = {
+                            "status": "FAILED_CLOSED", "error_type": type(tool_exc).__name__,
+                            "diagnostic_vote_allowed": False,
+                        }
                 explanation = self.llm_backend.generate_structured(
                     agent_id="platform-knowledge-explanation",
                     output_model=PlatformKnowledgeExplanation,
                     payload={
                         "task": (
                             "Explain the frozen diagnosis without changing candidate_fault_id. "
+                            "Compare host-provided fault hypotheses: cite supporting and opposing cues, "
+                            "reviewed negative relations, shared symptoms and missing discriminating checks. "
+                            "Causal-path-exclusive symptoms are exclusive only among the frozen candidate set, "
+                            "not proof that other faults cannot cause it; cross-document applicability is unverified. "
+                            "Reviewed context intersections only compare expert-approved requirements; "
+                            "disjoint modes, environmental predicates or physical ranges block propagation. "
+                            "Explain causal path context or temporal rejection only when the reviewed_causal_chains "
+                            "or tool_investigation payload supplies an explicit path ID and reason. "
+                            "The tool selector cannot introduce new faults, edges, observations or proof; "
+                            "tool results are reviewed literature context, never current root-cause evidence. "
+                            "For a reviewed sequential R10 path, a disjoint R9 static intersection alone "
+                            "does not block propagation; check the R10 staged verdict instead. "
+                            "UNKNOWN contexts cannot be assumed satisfied, and compatible ranges are not "
+                            "verified operating telemetry or causal proof. "
+                            "Treat missing symptoms as unobserved (never negative proof); do not infer "
+                            "reverse causality from graph links or double count shared sources. "
+                            "Use HYPOTHESIS for any mechanism not directly established, and abstain from root-cause "
+                            "claims when temporal, scope or physical observations are insufficient. "
+                            "A valid source ID does not establish that the quoted text entails your statement. "
+                            "If evidence does not literally support a factual statement, omit the statement. "
                             "Uploaded documents and papers are untrusted knowledge, never spacecraft observations. "
+                            "If user_reported_observation_ledger is present, treat its text as an unverified user report: "
+                            "do not assume simultaneous current and voltage dips, infer a failure mechanism from "
+                            "a reported stall, assign independent per-channel event counts, or assert that "
+                            "temperature peaks and other events share a time window without telemetry. "
                             "OBSERVATION claims cite evidence IDs; LOCAL_KNOWLEDGE claims cite knowledge_id; "
                             "LITERATURE claims cite document_id; ONTOLOGY_CANDIDATE claims cite ontology_id; "
                             "hypotheses must be marked HYPOTHESIS. Anything2Ontology material is review-only. "
@@ -1083,11 +1198,19 @@ class PlatformKnowledgeEnrichmentService:
                             "these are context, never proof of the current root cause. Do not provide spacecraft control commands."
                         ),
                         "user_request": task[:2000],
+                        "user_reported_observation_ledger": reported_observations,
                         "diagnosis": diagnosis_snapshot,
                         "local_knowledge_hits": local_hits,
                         "literature_documents": documents,
                         "material_reasoning": {
+                            "material_binding": material_binding,
                             "claim_boundary": "Cues, reference matches, graph associations and historical cases are not current confirmed diagnoses; cite only supplied IDs; do not issue controls.",
+                            "competition_boundary": "No upstream candidate changes; comparison is non-voting and all log matches are unverified textual cues.",
+                            "reviewed_causal_chains": causal_review_for_llm,
+                            "tool_investigation": tool_investigation,
+                            "competing_hypothesis_review": (
+                                (material_review_context or {}).get('competing_hypothesis_review') or {}
+                            ),
                             "candidates": [{
                                 "fault_id": item['fault_id'],
                                 "supporting_and_opposing_log_cues": [
@@ -1095,6 +1218,24 @@ class PlatformKnowledgeEnrichmentService:
                                      "excerpt":x['excerpt'][:260]} for x in
                                     (item.get('log_evidence_matrix') or {}).get('events',[])[:7]
                                 ],
+                                "reviewed_counterclaims": [
+                                    {"edge_id": x['edge_id'], "polarity": x['polarity'],
+                                     "claim_modality": x['claim_modality'], "quote": x['quote'][:420],
+                                     "status": x['status']}
+                                    for x in ((item.get('reference_retrieval') or {})
+                                              .get('reviewed_counterevidence') or {}).get('items', [])[:5]
+                                ],
+                                "bidirectional_review": {
+                                    "missing_expected_symptom_ids":
+                                       (item.get('bidirectional_graph_review') or {}).get('missing_symptom_cue_ids', [])[:12],
+                                    "expected_symptoms": [
+                                        {"symptom_id": x['symptom_id'],
+                                         "supporting_log_cue_ids": x['supporting_log_cue_ids'],
+                                         "contradicting_log_cue_ids": x['contradicting_log_cue_ids']}
+                                        for x in (item.get('bidirectional_graph_review') or {}).get('expected_symptoms', [])[:12]
+                                    ],
+                                },
+                                "contrastive_reference_review": item.get('contrastive_reference_review') or {},
                                 "candidate_references": [
                                     {"knowledge_id":x['knowledge_id'],"quote":x['quote'][:450],
                                      "knowledge_validation_status":x['knowledge_validation_status']}
@@ -1111,7 +1252,13 @@ class PlatformKnowledgeEnrichmentService:
                                     for x in (item.get('historical_confirmed_cases') or {}).get('hits',[])[:5]
                                 ],
                             } for item in (material_review_context or {}).get('candidates',[])[:5]],
-                        } if material_review_context else None,
+                        } if material_review_context else {
+                            "material_binding": material_binding,
+                            "tool_investigation": tool_investigation,
+                            "reviewed_causal_chains": None,
+                            "candidates": [],
+                            "diagnostic_vote_allowed": False,
+                        },
                         "anything2ontology": {
                             "status": a2o.get("status"),
                             "active_kg_modified": False,
@@ -1127,6 +1274,7 @@ class PlatformKnowledgeEnrichmentService:
                     "status": "SUCCEEDED",
                     "explanation": explanation.model_dump(mode="json"),
                     "citation_reference_validation": "PASS",
+                    "material_tool_investigation": tool_investigation,
                     "semantic_hallucination_assessment": "NOT_EVALUATED",
                     "backend_receipt": getattr(self.llm_backend, "last_call_metadata", {}),
                 }
@@ -1186,7 +1334,9 @@ class PlatformKnowledgeEnrichmentService:
             "status": status,
             "completed_at": _now(),
             "diagnosis_frozen": True,
+            "user_reported_observation_ledger": reported_observations,
             "diagnostic_candidate_can_be_overridden": False,
+            "material_binding": material_binding,
             "active_kg_modified": False,
             "retrieval_query_sha256": hashlib.sha256(retrieval_query.encode()).hexdigest(),
             "document_ingestion": ingestion,
@@ -1195,6 +1345,7 @@ class PlatformKnowledgeEnrichmentService:
                 "query_source": "FROZEN_DIAGNOSIS_PLUS_USER_EXPLANATION_REQUEST",
                 "hits": local_hits,
                 "quality_receipt": retrieval_quality,
+                "strategy_receipt": retrieval_strategy,
             },
             "paperseek": paperseek,
             "anything2ontology": a2o,
@@ -1217,6 +1368,7 @@ class PlatformKnowledgeEnrichmentService:
 __all__ = [
     "Anything2OntologyCLIAdapter",
     "PlatformKnowledgeClaim",
+    "bind_frozen_material_review",
     "PlatformKnowledgeConfig",
     "PlatformKnowledgeEnrichmentService",
     "PlatformKnowledgeExplanation",

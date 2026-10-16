@@ -1,8 +1,39 @@
+> R11-A 大模型工具桥接（候选版）：已审核材料对照、R7 因果路径、R9 工况与 R10 时序检查成为任务绑定的只读工具；可选择性开启模型工具选择（默认关闭），无论是否开启都会向 LLM 提供精简路径校验和阻断原因。公开报告只显示确定性审查结论，不将文献因果关系当成卫星已证实根因：[`FOUNDATION_R11_LLM_MATERIAL_TOOLS.md`](FOUNDATION_R11_LLM_MATERIAL_TOOLS.md)。
+> R10 时序感知因果链：独立审核阶段状态与时间范围，防止合法跨工况传播被 R9 静态交集误杀；未认证飞行故障：[`FOUNDATION_R10_TEMPORAL_CAUSAL.md`](FOUNDATION_R10_TEMPORAL_CAUSAL.md)。
+> R8 因果语义方向、跨文献上下文及竞争假设差异审查（开发候选）：[`FOUNDATION_R8_CAUSAL_DIFFERENTIAL.md`](FOUNDATION_R8_CAUSAL_DIFFERENTIAL.md)。
+> R6 逐条现象检索与多阶段机理图谱（开发候选）：[`FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md`](FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md)。
+> R5 自然语言故障现象输入预审（开发候选）：[`FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md`](FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md)。
+> R4 文献与故障假设增强候选版说明：[`FOUNDATION_R4_COMPETITION_AND_CLAIM_AUDIT.md`](FOUNDATION_R4_COMPETITION_AND_CLAIM_AUDIT.md)。
+
 # AstroGraph 使用步骤
 
 AstroGraph 是一个面向航天器故障研判的本地 Web 工作台。用户可以上传已有诊断结果、运行日志和参考文献，选择规则引擎或已配置的大模型生成原因分析、证据说明和处置建议，再由领域专家完成复核。
 
 > 系统输出用于辅助研判，不代表故障已经工程确诊，也不会自动向设备下发控制指令。
+
+## R6：多现象均衡检索与可选四跳机理审查（不直接确诊）
+
+编号现象现在会分别执行局部资料检索，同时保留联合查询。多路命中经有界去重和 RRF 融合，返回每条现象的词法覆盖收据；资料本身仍需审核，不能作为当前设备已经失效的证据。
+
+图谱允许生成“机理→机理”的**待审核关联**；缺省三跳不变。管理员需要主动设置下列环境变量才允许四跳路径探索，所有路径仍需型号、来源与独立审批门禁：
+
+```powershell
+$env:ASTROGRAPH_MATERIAL_GRAPH_MAX_HOPS = "4"
+python -m pytest -q tests/test_foundation_r6_observation_retrieval.py
+```
+
+请勿把已经公布的故障调查答案加入检索语料再用同一案例宣布“盲测准确率提升”。对应的完整说明见 [`FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md`](FOUNDATION_R6_MULTI_VIEW_RETRIEVAL.md)。
+
+## R5：仅有故障现象文字时的安全预审（不执行正式诊断）
+
+用户如果只有编号的文字现象，可先检查原文是否被完整保留，再决定是否上传已有诊断结果、运行日志和参考文献进行正式材料复核。**仅提供文字不能证明故障根因，也不能把文本预审结果当作已核实的遥测。**
+
+```powershell
+python scripts/review_reported_observations.py --file examples/r5_south_solar_wing_observations.txt --output observation_preview.json
+python -m pytest -q tests/test_foundation_r5_reported_observations.py
+```
+
+当前演示保留“3次跌落”“181°C”“150°C”“南太阳翼调整时堵转”等原话及原文哈希，不自行判断时序同步、温度是否超限或机械根因。详见 [`FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md`](FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md)。
 
 ## 1. 运行环境
 
@@ -72,8 +103,7 @@ $env:ASTROGRAPH_PORT = "8081"
 ```powershell
 $env:ASTROGRAPH_PLATFORM_ROOT = Join-Path $PWD "runs\command-center"
 ```
-- 用户名：v3admin
-- 密码：AstroGraph_UIReview_2026!
+已有账户的用户名和密码由管理员自行设定；本项目不提供默认登录凭据。请勿将测试账户凭据写入 README 或提交至版本库。
 
 如果换成新的目录，系统会把它视为全新环境，需要重新初始化管理员。
 
@@ -271,3 +301,47 @@ SSH 隧道是独立进程，停止 AstroGraph 不会自动关闭隧道。如不�
 ### 为什么报告没有直接给出确定根因
 
 当材料缺失、证据互相矛盾或引用无法支持结论时，系统会保留“证据不足”或待复核状态。这是为了避免把模型推测当成已经证实的工程事实。
+
+## 附录：耗时测试采用日志文件与完成标记
+
+为了避免在交互终端持续打印输出，可用独立进程执行长时间验证（Windows PowerShell / Linux 均可用）：
+
+```powershell
+python scripts/launch_logged_tests.py start --timeout 600 foundation-smoke -- python -m pytest -q tests/test_document_claim_fusion_adapter.py
+python scripts/launch_logged_tests.py status foundation-smoke
+```
+
+启动命令立即返回；完整标准输出/错误输出写入 `validation_logs/foundation-smoke/output.log`。作业结束会**原子写入** `validation_logs/foundation-smoke/done.json`，包含退出码、结束时间与日志路径。CI 或外部文件监视器可以将 `done.json` 作为完成触发条件；它不会自行向 ChatGPT 会话推送消息。若需要复跑，请使用新的作业名称，避免覆盖历史日志。出现 FAILED 或超时必须检查日志，不能按 PASS 处理。正式验收应额外校验原始数据与 SHA256 清单。
+
+## 附录：R3 文献检索与 GraphRAG 证据审查（开发候选）
+
+R3 以基础加固 R2 为基线，不改变正式故障排名、当前遥测证据权属或自动控制权限。
+
+- **文献处理**：Markdown 原文、DOCX/PDF 的结构化解析保持原文定位、内容哈希和审核状态。Markdown 图片的 `alt` 描述即使关联到真实图片文件，也始终属于**待独立审核**内容，不能自动成为可信图文证据；相对素材路径不能逃逸 `asset_root`（包括符号链接逃逸）。
+- **型号与审批**：材料检索的图谱扩展词须来自**正确设备范围、独立审核、来源可追溯、未冲突、非条件性**的图谱关系。未经审核的关系不能通过查询扩展进入可信材料检索通道。
+- **历史知识版本**：图谱边的 `snapshot` 是**该关系获批准的版本号**，不是失效时间。已生效关系在后续查询版本仍应可见；不能提前使用未来批准关系。撤销由快照绑定的知识库读取过程执行，不能仅以比较版本号推断撤销状态。
+- **反证检索**：`HierarchicalMaterialIndex.retrieve_reviewed_counterevidence` 单独给出已审核否定关系、冲突关系及条件性否定关系的原文与 SHA256 定位；不把“未检索到支持”解释为“存在反证”，也不参与正式故障投票。
+- **竞争检索**：`retrieve_contrastive` 比较两个既有上游候选的引用片段，标记共享的文献来源和两侧不同的片段。只供人工鉴别，不能自行引入新故障类别。
+- **双向图谱**：`evaluate_bidirectional_hypotheses` 列出候选→预期症状的**正向已审核路径**和遥测日志文本线索→候选的**反向检索指针**。后者不证明反向因果；同一症状关联多个故障时在 `bidirectional_graph_comparison.shared_symptoms` 中显示歧义。
+- **正式限制**：不把日志字符串命中视为传感器观测经验证，不把文献关系当成当前飞行器的确定根因，不自动开具维护/控制命令。来源明确但语义不确定的声明仍需后续逐条语义核验和专家复核。
+
+定向回归采用独立进程与原子完成标记：
+
+```powershell
+python scripts/launch_logged_tests.py start --timeout 800 rag-r3 -- python -m pytest -q tests/test_foundation_r3_literature_bidirectional.py tests/test_material_knowledge_fusion.py tests/test_material_multihop_reasoning.py tests/test_next_rag_community_vectors_multimodal.py tests/test_structured_document_retrieval.py
+python scripts/launch_logged_tests.py status rag-r3
+Get-Content validation_logs\rag-r3\output.log -Tail 30
+```
+
+更多源文件、接口边界、风险与回归范围见 `docs/implementation/ASTROGRAPH_R3_LITERATURE_RETRIEVAL_GRAPHRAG_AUDIT.md`。R3 仍是**开发候选**，不可将定向回归通过表述为真实航天场景诊断性能已经提高。
+
+## 附录：R7 已审核因果声明链（开发候选）
+
+基于 R6 的文献审核图谱，R7 将 `CAUSES` / `CONTRIBUTES_TO` 与原来的 `ASSOCIATED_WITH` 严格区分。
+符合原文定位与独立审批要求的 `CAUSES` 边，可在固定型号、快照和管理员指定深度下，形成**独立的文献因果声明链**；否定、条件未知、反向遍历、跨型号、未经审核的关联边不能补齐该链。
+返回结果位于材料诊断候选的 `multi_hop.causal_chain_review`，每一跳包含原文和来源审核收据；任何结果均不代表本星已确诊，不改变故障排名或自动控制权限。
+更多边界、已知限制与回归方法参见 `FOUNDATION_R7_CAUSAL_CLAIMS.md`。
+
+## R9: Reviewed cause-chain operating context (development candidate)
+
+R9 adds optional **expert-approved**, structured applicability annotations on independently reviewed causal reference edges. The CAUSES path evaluator checks intersections of operating modes, environmental regimes and supported unit-normalized physical parameter ranges, blocking contradictory cross-document paths. Old edges without these annotations remain readable but are explicitly classified as **context not fully reviewed**; compatible annotations are *not* evidence that the spacecraft satisfied those conditions. No graph path gains diagnosis-voting or control authority. API and known limitations: [`FOUNDATION_R9_CONTEXT_CONSTRAINTS.md`](FOUNDATION_R9_CONTEXT_CONSTRAINTS.md).

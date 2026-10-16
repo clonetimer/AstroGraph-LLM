@@ -15,11 +15,13 @@ from pathlib import Path
 import re
 from typing import Any, Mapping, Sequence
 
-from astrograph.integrations.material_graph_builder import ALLOWED_TRIPLES, _normal
+from astrograph.integrations.material_graph_builder import ALLOWED_TRIPLES, _normal, causal_quotation_defects
+from astrograph.integrations.material_applicability import assess_contexts, contexts_provably_disjoint
+from astrograph.integrations.material_temporal import assess_temporal_causal_path, normalize_reviewed_temporal
 from astrograph.integrations.result_log_review import SourceLine
 
 SCHEMA_VERSION = 'astrograph-material-multihop-reasoning.v1'
-MAX_HOPS = 3
+MAX_HOPS = 4  # Opt-in for reviewed multi-stage mechanisms; API default stays 3.
 MAX_PATHS = 32
 MAX_GRAPH_EDGES = 10000
 _NEGATIVE = re.compile(r'(?i)\b(?:no|not|normal|nominal|cleared|resolved|recovered)\b|未出现|未发现|无异常|正常|恢复|已排除|已解除|否认|不存在')
@@ -57,6 +59,15 @@ def _scoped_approved(edges: Sequence[Mapping[str, Any]], equipment_scope: str) -
             reasons.append('INVALID_POLARITY')
         if edge.get('claim_modality') not in {'REFERENCE_ASSERTION_REQUIRES_REVIEW', 'HYPOTHETICAL_OR_CONDITIONAL'}:
             reasons.append('UNKNOWN_MODALITY')
+        reasons.extend(causal_quotation_defects(edge))
+        if edge.get('reviewed_temporal') is not None:
+            try:
+                normalize_reviewed_temporal(edge['reviewed_temporal'], equipment_scope=equipment_scope)
+            except (ValueError, TypeError, KeyError, OverflowError):
+                reasons.append('INVALID_REVIEWED_TEMPORAL')
+        if edge.get('reviewed_applicability') is not None:
+            context_review = assess_contexts([edge], equipment_scope=equipment_scope)
+            reasons.extend(context_review['conflict_reasons'])
         if reasons:
             blocked.append({'edge_id': edge_id or 'UNKNOWN', 'reasons': reasons})
             continue
@@ -64,8 +75,12 @@ def _scoped_approved(edges: Sequence[Mapping[str, Any]], equipment_scope: str) -
         eligible.append({'edge_id': edge_id, 'source': dict(src), 'target': dict(dst),
                          'relation_type': edge['relation_type'], 'polarity': edge['polarity'],
                          'claim_modality': edge['claim_modality'], 'provenance': dict(prov),
+                         'condition_quote': edge.get('condition_quote'),
+                         'reviewed_applicability': edge.get('reviewed_applicability'),
+                         'reviewed_temporal': edge.get('reviewed_temporal'),
                          'evidence_quote': str(edge['evidence_quote'])[:1000],
                          'reviewer': edge['reviewer'], 'truth_source_ref': edge['truth_source_ref'],
+                         'source_group_id': edge.get('source_group_id'),
                          'equipment_scope': equipment_scope, 'snapshot': edge.get('snapshot'),
                          'knowledge_layer': 'EXPERT_APPROVED_MODEL_BOUND'})
     if len(edges) > MAX_GRAPH_EDGES:
@@ -123,7 +138,7 @@ def _graph_paths(edges: Sequence[dict[str, Any]], seed_ids: set[str], *, layer: 
                  max_hops: int = 3, max_paths: int = MAX_PATHS) -> list[dict[str, Any]]:
     """Enumerate bounded simple paths; record any inverse hop explicitly."""
     if not 1 <= max_hops <= MAX_HOPS:
-        raise ValueError('maximum graph reasoning depth is 3')
+        raise ValueError('maximum graph reasoning depth is 4')
     adjacency = defaultdict(list)
     for edge in sorted(edges, key=lambda item:item['edge_id']):
         src = edge['source'].get('entity_id') or edge['source'].get('id')
@@ -198,13 +213,141 @@ def _log_observations(lines: Sequence[SourceLine], symptom: Mapping[str, Any]) -
             'lexical_match_only':True,'sensor_observation_verified':False}
 
 
+def evaluate_bidirectional_hypotheses(*, candidates: Sequence[Mapping[str, Any]],
+                                      equipment_scope: str | None,
+                                      log_lines: Sequence[SourceLine],
+                                      reviewed_edges: Sequence[Mapping[str, Any]] = (),
+                                      snapshot: int | None = None,
+                                      max_hops: int = 3) -> dict[str, Any]:
+    """Forward expectations + observed-symptom reverse *retrieval*, without inverse causality.
+
+    This is intentionally a bounded shadow comparison. Model-released edges,
+    negative relations, mixed-scope claims, conditional relations and paths
+    containing reverse association never become positive expectations. Textual
+    telemetry cues are not independently validated sensor observations.
+    """
+    if not 1 <= max_hops <= MAX_HOPS:
+        raise ValueError('maximum graph reasoning depth is 3')
+    if not 1 <= len(candidates) <= 12:
+        raise ValueError('one to twelve competing candidates required')
+    scope = str(equipment_scope or 'UNKNOWN').upper()
+    result: dict[str, Any] = {
+        'schema_version': 'astrograph-bidirectional-graph-review.v1',
+        'status': 'ABSTAIN_NO_APPROVED_PATH', 'equipment_scope': scope,
+        'snapshot': snapshot, 'candidates': [], 'reverse_observation_index': [],
+        'shared_symptoms': [], 'blocked_edge_count': 0,
+        'current_root_cause_proven': False, 'automatic_control_authorized': False,
+        'claim_boundary': 'REVIEWED_REFERENCE_PATHS_AND_UNVERIFIED_TEXT_CUES_ONLY',
+        'diagnostic_vote_allowed': False,
+    }
+    if scope in {'UNKNOWN', 'UNSPECIFIED'} or not re.fullmatch(r'[A-Z0-9][A-Z0-9_.:-]{1,79}',scope):
+        result['status'] = 'ABSTAIN_EQUIPMENT_SCOPE_REQUIRED'
+        result['candidates'] = [{
+            'fault_id': str(row.get('fault_id') or ''),
+            'fault_name': str(row.get('fault_name') or ''),
+            'expected_symptoms': [], 'forward_path_count': 0,
+            'validated_root_cause': False,
+            'status': 'ABSTAIN_EQUIPMENT_SCOPE_REQUIRED',
+        } for row in candidates]
+        return result
+    approved, blocked = _scoped_approved(reviewed_edges, scope)
+    # A pinned graph read may carry earlier snapshot references; if the caller
+    # supplies a snapshot, never admit edges bound to a different one.
+    scoped = [e for e in approved if snapshot is None or e.get('snapshot') is None
+              or (type(e['snapshot']) is int and 0 <= e['snapshot'] <= snapshot)]
+    result['blocked_edge_count'] = len(blocked) + len(approved) - len(scoped)
+    signed = defaultdict(set)
+    for e in scoped:
+        if e['claim_modality'] != 'REFERENCE_ASSERTION_REQUIRES_REVIEW':
+            continue
+        signed[(e['source']['entity_id'],e['relation_type'],
+                e['target']['entity_id'])].add(e['polarity'])
+    # Do not build paths through a contradicting edge and then only reject the
+    # last hop. A conflict anywhere on a route makes the route unusable.
+    usable = [e for e in scoped if e['polarity'] == 'AFFIRMATIVE'
+              and e['claim_modality'] == 'REFERENCE_ASSERTION_REQUIRES_REVIEW'
+              and signed[(e['source']['entity_id'],e['relation_type'],
+                          e['target']['entity_id'])] == {'AFFIRMATIVE'}]
+    seen_faults: set[str] = set()
+    observations: dict[str, dict[str, Any]] = {}
+    symptom_to_faults: dict[str, set[str]] = defaultdict(set)
+    for item in candidates:
+        fault_id = str(item.get('fault_id') or '')
+        fault_name = str(item.get('fault_name') or '')
+        if not fault_id or fault_id in seen_faults:
+            raise ValueError('candidate IDs must be nonempty and unique')
+        seen_faults.add(fault_id)
+        seeds = set()
+        labels = {_normal(fault_id), _normal(fault_name)}
+        for edge in usable:
+            for node in (edge['source'], edge['target']):
+                if node.get('entity_type') == 'FAULT_MODE' and labels.intersection(
+                    {_normal(str(x)) for x in [node.get('name'),
+                                               *(node.get('aliases') or [])] if x}):
+                    seeds.add(node['entity_id'])
+        paths = _graph_paths(usable, seeds, layer='REVIEWED_FORWARD_EXPECTATION',
+                             max_hops=max_hops, max_paths=MAX_PATHS)
+        valid = [path for path in paths
+                 if path['terminal_entity']['entity_type'] == 'SYMPTOM'
+                 and not path['contains_reverse_association']
+                 and all(hop['direction'] == 'FORWARD' for hop in path['hops'])]
+        # Multiple paths to one symptom are not independent confirmations.
+        grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for path in valid:
+            grouped[path['terminal_entity']['id']].append(path)
+        symptom_rows = []
+        for symptom_id in sorted(grouped):
+            path_group = grouped[symptom_id]
+            symptom = path_group[0]['terminal_entity']
+            cues = _log_observations(log_lines, symptom)
+            reference_sources = sorted({hop['provenance']['source_sha256']
+                  for path in path_group for hop in path['hops']})
+            row = {'symptom_id': symptom_id, 'symptom_name': symptom['name'],
+                   'path_ids': [path['path_id'] for path in path_group],
+                   'reference_source_sha256': reference_sources,
+                   'supporting_log_cue_ids': [v['evidence_id'] for v in cues['supporting']],
+                   'contradicting_log_cue_ids': [v['evidence_id'] for v in cues['contradicting']],
+                   'sensor_observation_verified': False,
+                   'matching_semantics': 'EXACT_TEXT_CUE_NOT_SENSOR_VALIDATION'}
+            symptom_rows.append(row)
+            symptom_to_faults[symptom_id].add(fault_id)
+            if cues['supporting'] or cues['contradicting']:
+                entry = observations.setdefault(symptom_id, {
+                    'symptom_id': symptom_id, 'symptom_name': symptom['name'],
+                    'supporting_log_cue_ids': row['supporting_log_cue_ids'],
+                    'contradicting_log_cue_ids': row['contradicting_log_cue_ids'],
+                    'candidate_fault_ids': set(),
+                    'reverse_direction_is_causal': False})
+                entry['candidate_fault_ids'].add(fault_id)
+        result['candidates'].append({
+            'fault_id': fault_id, 'fault_name': fault_name,
+            'expected_symptoms': symptom_rows,
+            'missing_symptom_cue_ids': [x['symptom_id'] for x in symptom_rows
+                                        if not x['supporting_log_cue_ids']
+                                        and not x['contradicting_log_cue_ids']],
+            'forward_path_count': len(valid),
+            'validated_root_cause': False,
+        })
+    result['shared_symptoms'] = [
+        {'symptom_id': sid, 'candidate_fault_ids': sorted(ids)}
+        for sid, ids in sorted(symptom_to_faults.items()) if len(ids) > 1]
+    result['reverse_observation_index'] = [
+        {**row, 'candidate_fault_ids': sorted(row['candidate_fault_ids'])}
+        for _, row in sorted(observations.items())]
+    if result['reverse_observation_index']:
+        result['status'] = 'LEXICAL_REVERSE_POINTERS_REQUIRE_OBSERVATION_VALIDATION'
+    elif any(item['expected_symptoms'] for item in result['candidates']):
+        result['status'] = 'FORWARD_EXPECTATIONS_ONLY_NO_OBSERVATION_CUE'
+    return result
+
+
 def evaluate_multihop(*, fault_id: str, fault_name: str, equipment_scope: str | None,
                       log_lines: Sequence[SourceLine], reviewed_edges: Sequence[Mapping[str,Any]] = (),
                       snapshot: int | None = None, public_graph_path: Path | None = None,
                       max_hops: int = 3) -> dict[str, Any]:
     """GraphRAG evidence chain + fail-closed uncertainty/abstention contract."""
     if not 1 <= max_hops <= MAX_HOPS:
-        raise ValueError('max_hops must be between 1 and 3')
+        raise ValueError('max_hops must be between 1 and 4')
     scope = str(equipment_scope or 'UNKNOWN').upper()
     valid_scope = scope not in {'UNKNOWN','UNSPECIFIED'} and bool(re.fullmatch(r'[A-Z0-9][A-Z0-9_.:-]{1,79}',scope))
     approved, blocked = _scoped_approved(reviewed_edges,scope) if valid_scope else ([],[])
@@ -311,6 +454,179 @@ def evaluate_multihop(*, fault_id: str, fault_name: str, equipment_scope: str | 
     }
 
 
+def evaluate_causal_chains(*, fault_id: str, fault_name: str,
+                           equipment_scope: str | None,
+                           reviewed_edges: Sequence[Mapping[str, Any]] = (),
+                           snapshot: int | None = None,
+                           max_hops: int = 3, max_chains: int = 20) -> dict[str, Any]:
+    """R7 explainable causal-CLAIM chains; never a proof of present root cause.
+
+    Only independently approved CAUSES edges in the *forward* direction enter.
+    Conditions, contradictions and future snapshots fail closed. For backward
+    investigation use the existing association index, never invert CAUSES.
+    """
+    if not 1 <= max_hops <= MAX_HOPS or not 1 <= max_chains <= 32:
+        raise ValueError('invalid causal exploration budget')
+    scope = str(equipment_scope or 'UNKNOWN').upper()
+    result: dict[str, Any] = {
+        'schema_version': 'astrograph-material-causal-chain-review.v1',
+        'status': 'ABSTAIN_NO_ELIGIBLE_CAUSAL_CHAIN', 'equipment_scope': scope,
+        'snapshot': snapshot, 'chains': [], 'blocked': [],
+        'current_root_cause_proven': False, 'diagnostic_vote_allowed': False,
+        'automatic_control_authorized': False,
+        'causal_claim_is_not_observed_causation': True,
+        'search_truncated': False, 'search_expansions': 0,
+    }
+    if scope in {'UNKNOWN','UNSPECIFIED'} or not re.fullmatch(r'[A-Z0-9][A-Z0-9_.:-]{1,79}',scope):
+        result['status'] = 'ABSTAIN_EQUIPMENT_SCOPE_REQUIRED'
+        return result
+    approved, blocked = _scoped_approved(reviewed_edges,scope)
+    result['blocked'].extend(blocked[:64])
+    scoped=[]
+    for edge in approved:
+        version=edge.get('snapshot')
+        if snapshot is None or version is None or (type(version) is int and 0 <= version <= snapshot):
+            scoped.append(edge)
+        else:
+            result['blocked'].append({'edge_id':edge['edge_id'],
+                                      'reasons':['FUTURE_APPROVAL_SNAPSHOT']})
+    # A node ID cannot denote two different typed entities, even when every
+    # edge was independently approved. Otherwise two unrelated papers could
+    # be spliced through a reused ID while appearing to form a causal chain.
+    node_meanings: dict[str, set[tuple[str,str]]] = defaultdict(set)
+    for edge in scoped:
+        for node in (edge['source'], edge['target']):
+            node_meanings[node['entity_id']].add(
+                (str(node['entity_type']), _normal(str(node['name']))))
+    ambiguous_node_ids={node_id for node_id, meanings in node_meanings.items()
+                        if len(meanings)>1}
+    causes=[]
+    for edge in scoped:
+        if edge['relation_type'] != 'CAUSES':
+            continue
+        if (edge['source']['entity_id'] in ambiguous_node_ids or
+                edge['target']['entity_id'] in ambiguous_node_ids):
+            result['blocked'].append({'edge_id':edge['edge_id'],
+                                      'reasons':['INCONSISTENT_ENTITY_IDENTITY_ACROSS_REFERENCES']})
+            continue
+        causes.append(edge)
+    adjacency: dict[str,list[dict[str, Any]]] = defaultdict(list)
+    for e in causes:
+        reasons=[]
+        if e['polarity'] != 'AFFIRMATIVE':
+            reasons.append('NEGATED_CAUSAL_CLAIM')
+        if any(other['polarity'] != e['polarity'] and
+               other['source']['entity_id'] == e['source']['entity_id'] and
+               other['target']['entity_id'] == e['target']['entity_id'] and
+               not contexts_provably_disjoint(e, other, equipment_scope=scope)
+               for other in causes):
+            reasons.append('CONFLICTED_CAUSAL_CLAIM')
+        if e['claim_modality'] != 'REFERENCE_ASSERTION_REQUIRES_REVIEW' or e.get('condition_quote'):
+            reasons.append('UNVERIFIED_CAUSAL_CONDITION')
+        if reasons:
+            result['blocked'].append({'edge_id':e['edge_id'],'reasons':reasons})
+        else:
+            adjacency[e['source']['entity_id']].append(e)
+    for children in adjacency.values():
+        children.sort(key=lambda e:e['edge_id'])
+    requested = {_normal(fault_id),_normal(fault_name)}
+    seeds={e['source']['entity_id'] for e in causes
+           if e['source']['entity_type']=='FAULT_MODE' and
+           requested.intersection({_normal(str(v)) for v in
+                                   [e['source'].get('name'),*(e['source'].get('aliases') or [])] if v})}
+    if not seeds:
+        result['status'] = 'ABSTAIN_NO_APPROVED_FAULT_CAUSE'
+        return result
+    expansions=0
+    for seed in sorted(seeds):
+        stack=[(seed,(seed,),[])]
+        while stack and expansions < 3000 and len(result['chains']) < max_chains:
+            node, visited, chain=stack.pop()
+            expansions+=1
+            if chain and chain[-1]['target']['entity_type']=='SYMPTOM':
+                context_review = assess_contexts(chain, equipment_scope=scope)
+                temporal_review = assess_temporal_causal_path(chain, equipment_scope=scope)
+                if temporal_review['conflict_reasons']:
+                    result['blocked'].append({'edge_id':chain[-1]['edge_id'],
+                        'reasons': ['INCOMPATIBLE_CAUSAL_PATH_CONTEXT', *temporal_review['conflict_reasons']],
+                        'path_edge_ids': [e['edge_id'] for e in chain]})
+                    continue
+                hops=[{
+                    'edge_id':e['edge_id'],'source_entity_id':e['source']['entity_id'],
+                    'target_entity_id':e['target']['entity_id'],
+                    'source_name':e['source']['name'],'target_name':e['target']['name'],
+                    'relation_type':'CAUSES','direction':'FORWARD',
+                    'evidence_quote':e['evidence_quote'],
+                    'source_sha256':e['provenance']['source_sha256'],
+                    'source_locators':e['provenance']['source_locators'],
+                    'reviewer':e['reviewer'],'truth_source_ref':e['truth_source_ref'],
+                    'source_group_id':e.get('source_group_id'),
+                    'claim_modality':e['claim_modality'],
+                    'condition_quote':e.get('condition_quote'),
+                    'claim_status':'APPROVED_REFERENCE_CAUSAL_CLAIM_NOT_FLIGHT_OBSERVATION',
+                    'condition_status':'NO_EXPLICIT_CONDITION_IN_QUOTED_CLAIM',
+                    'reviewed_applicability': e.get('reviewed_applicability'),
+                    'reviewed_temporal': e.get('reviewed_temporal'),
+                } for e in chain]
+                # Individual document approvals do not prove that distinct
+                # source environments apply together. Surface this especially
+                # for a multi-document mechanism chain instead of silently
+                # assigning it the applicability of any constituent claim.
+                document_hashes = sorted({e['provenance']['source_sha256'] for e in chain})
+                source_groups = sorted({str(e.get('source_group_id')) for e in chain
+                                        if e.get('source_group_id')})
+                cross_document = len(document_hashes) > 1 or len(source_groups) > 1
+                result['chains'].append({
+                    'path_id':_path_id('R7_CAUSAL',chain,['FORWARD']*len(chain)),
+                    'fault_entity_id': seed,
+                    'terminal_symptom_id':chain[-1]['target']['entity_id'],
+                    'hop_count':len(hops),'hops':hops,
+                    'structural_claim_chain_valid':True,
+                    'reference_document_sha256':document_hashes,
+                    'reference_source_group_ids':source_groups,
+                    'cross_document_mechanism_splice':cross_document,
+                    'reviewed_context_consistency':context_review,
+                    'reviewed_temporal_consistency':temporal_review,
+                    'static_same_context_assumption_not_applied': temporal_review['mode']=='REVIEWED_STAGES',
+                    'joint_applicability_verified':False,
+                    'joint_applicability_status':(
+                        'REVIEWED_SEQUENTIAL_CONSTRAINTS_COMPATIBLE_FLIGHT_UNVERIFIED'
+                        if temporal_review['status']=='REVIEWED_SEQUENCE_COMPATIBLE_NOT_FLIGHT_VERIFIED'
+                        else 'REVIEWED_CONSTRAINTS_COMPATIBLE_FLIGHT_UNVERIFIED'
+                        if context_review['status']=='REVIEWED_CONSTRAINTS_MUTUALLY_COMPATIBLE_NOT_FLIGHT_VERIFIED'
+                        else 'CROSS_DOCUMENT_CONTEXT_REQUIRES_INDEPENDENT_VALIDATION'
+                        if cross_document else 'SINGLE_DOCUMENT_CONTEXT_NOT_FLIGHT_VERIFIED'),
+                    'missing_context_is_not_proof_of_compatibility':True,
+                    'causal_proof':False,'current_root_cause_proven':False,
+                    'sensor_observation_verified':False,
+                })
+            if len(chain)>=max_hops:
+                continue
+            for edge in reversed(adjacency.get(node,[])):
+                nxt=edge['target']['entity_id']
+                if nxt not in visited:
+                    extended=[*chain, edge]
+                    context_check=assess_temporal_causal_path(extended, equipment_scope=scope)
+                    if context_check['conflict_reasons']:
+                        result['blocked'].append({'edge_id':edge['edge_id'],
+                            'reasons':['INCOMPATIBLE_CAUSAL_PATH_CONTEXT', *context_check['conflict_reasons']],
+                            'path_edge_ids':[e['edge_id'] for e in extended]})
+                    else:
+                        stack.append((nxt,(*visited,nxt),extended))
+    result['search_expansions']=expansions
+    result['search_truncated']=expansions >= 3000 or len(result['chains']) >= max_chains
+    result['blocked']=result['blocked'][:128]
+    if result['chains']:
+        result['status']=('PARTIAL_REFERENCE_CAUSAL_CHAINS_SEARCH_TRUNCATED'
+                          if result['search_truncated'] else
+                          'APPROVED_REFERENCE_CAUSAL_CHAINS_UNVERIFIED_IN_CASE')
+    elif result['search_truncated']:
+        result['status']='ABSTAIN_CAUSAL_SEARCH_BUDGET_EXHAUSTED'
+    elif result['blocked']:
+        result['status']='ABSTAIN_CAUSAL_CHAINS_BLOCKED'
+    return result
+
+
 def default_public_graph_path() -> Path:
     return Path(__file__).resolve().parents[3] / 'reference' / 'public_spacecraft_knowledge_seed' / 'graph.json'
 
@@ -361,35 +677,38 @@ def apply_material_answer_guard(knowledge: dict[str,Any], reasoning: dict[str,An
         if (raw_generation.get('status') == 'SUCCEEDED'
                 and raw_generation.get('citation_reference_validation') == 'PASS'
                 and isinstance(raw_explanation,dict)):
-            safe_claims=[]
-            for claim in (raw_explanation.get('claims') or [])[:12]:
-                if not isinstance(claim,dict):
-                    continue
-                citation_ids=[str(x)[:240] for x in (claim.get('citation_ids') or [])[:16]]
-                if not citation_ids:
-                    continue
-                safe_claims.append({
-                    'kind':str(claim.get('kind') or 'HYPOTHESIS'),
-                    'text':str(claim.get('text') or '')[:4000],
-                    'citation_ids':citation_ids,
-                })
+            from astrograph.retrieval.material_claim_guard import audit_material_claims
+            claim_audit = audit_material_claims(output, reasoning, raw_explanation)
+            safe_claims = claim_audit['published_extracts']
+            generated['claim_level_audit'] = {
+                key: value for key, value in claim_audit.items() if key != 'published_extracts'
+            }
             model_explanation={
-                'status':'AVAILABLE_REQUIRES_EXPERT_REVIEW',
-                'source':'LLM_GROUNDED',
+                'status':'EXTRACTIVE_REVIEW_ONLY' if safe_claims else 'NO_VERIFIABLE_EXTRACTS',
+                'source':'LLM_EXTRACTIVE_REVIEW',
                 'summary':(
-                    f"大模型生成了 {len(safe_claims)} 条带引用的原因与证据说明；"
-                    "以下内容必须与规则结论、原始材料和已审核图谱共同复核。"
+                    f"已比对 {len(claim_audit['claim_receipts'])} 条模型声明，"
+                    f"仅保留 {len(safe_claims)} 条来源原文完全匹配的摘录；"
+                    '文字一致不等于证明因果关系。'
                 ),
-                'candidate_fault_id':raw_explanation.get('candidate_fault_id'),
+                'candidate_fault_id':(
+                    raw_explanation.get('candidate_fault_id')
+                    if raw_explanation.get('candidate_fault_id') in {
+                        c.get('fault_id') for c in reasoning.get('candidates', [])
+                        if isinstance(c, dict)
+                    } else None
+                ),
                 'abstained':bool(raw_explanation.get('abstained')),
                 'claims':safe_claims,
-                'recommended_review_actions':[str(x)[:1200] for x in (raw_explanation.get('recommended_review_actions') or [])[:12]],
-                'limitations':[str(x)[:1200] for x in (raw_explanation.get('limitations') or [])[:12]],
+                'recommended_review_actions':[],
+                'limitations':['未独立验证原文的因果真值；原始生成内容仅存于服务端审计产物。'],
                 'citation_reference_validation':str(raw_generation.get('citation_reference_validation') or 'NOT_EVALUATED'),
-                'semantic_hallucination_assessment':'NOT_EVALUATED',
+                'semantic_hallucination_assessment':'EXTRACTIVE_ONLY_NOT_ENTAILMENT',
                 'automatic_control_authorized':False,
             }
-            generated['unverified_explanation_withheld_from_report']=False
+            # Keep the unchecked model summary, hypotheses and free-form action
+            # strings out of user-facing reports even when their IDs were valid.
+            generated['unverified_explanation_withheld_from_report']=True
     if raw_generation.get('error') is not None:
         generated['error_details_withheld_from_report']=True
     if raw_generation.get('backend_receipt') is not None:
@@ -405,10 +724,40 @@ def apply_material_answer_guard(knowledge: dict[str,Any], reasoning: dict[str,An
         synthesis['explanation']=None
         synthesis['material_synthesis_withheld_from_report']=True
         output['deterministic_synthesis']=synthesis
+    # R11: only deterministic R7--R10 verdicts may be released as structured
+    # explanations; no generated causal prose or tool-request payload is public.
+    causal_findings=[]
+    for item in (reasoning.get('candidates') or [])[:5]:
+        review=(item.get('multi_hop') or {}).get('causal_chain_review') or {}
+        causal_findings.append({
+            'fault_id':item.get('fault_id'),
+            'approved_reference_paths':[
+                {'path_id':chain.get('path_id'),
+                 'hop_edge_ids':[h.get('edge_id') for h in (chain.get('hops') or [])[:4]],
+                 'context_status':(chain.get('reviewed_context_consistency') or {}).get('status'),
+                 'temporal_status':(chain.get('reviewed_temporal_consistency') or {}).get('status'),
+                 'joint_applicability_status':chain.get('joint_applicability_status'),
+                 'current_root_cause_proven':False}
+                for chain in (review.get('chains') or [])[:4]],
+            'blocked_reference_paths':[
+                {'edge_id':blocked.get('edge_id'),
+                 'path_edge_ids':(blocked.get('path_edge_ids') or [])[:4],
+                 'reason_codes':(blocked.get('reasons') or [])[:8]}
+                for blocked in (review.get('blocked') or [])[:6]],
+            'epistemic_status':'REVIEWED_REFERENCE_CLAIM_NOT_OBSERVED_ROOT_CAUSE',
+            'diagnostic_vote_allowed':False,
+        })
+    output['reviewed_causal_explanations']={
+        'status':'DETERMINISTIC_VERDICTS_ONLY',
+        'candidates':causal_findings,
+        'model_generated_inferences_included':False,
+        'current_root_cause_proven':False,
+        'automatic_control_authorized':False,
+    }
     output['material_answer_guard']={
         'status':'ABSTAIN' if all_abstained else 'PROVISIONAL_ONLY',
         'decisions':decisions, 'unverified_generated_narrative_exposed':False,
-        'validated_structured_model_output_exposed':model_explanation is not None,
+        'validated_structured_model_output_exposed':bool(model_explanation and model_explanation.get('claims')),
         'citation_id_validation_is_not_semantic_verification':True,
         'automatic_control_authorized':False,
         'claim_boundary':'A missing graph edge, negation or unverified reference cannot be filled by an LLM.',

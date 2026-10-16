@@ -188,6 +188,17 @@ def test_dense_score_provider_is_optional_and_fail_closed_when_requested() -> No
         PreReasoningRetrievalService().retrieve(request)
 
 
+@pytest.mark.parametrize('invalid',[float('nan'),float('inf'),float('-inf'),-0.1,1.1,'not-a-score'])
+def test_invalid_dense_scores_fail_closed_instead_of_changing_retrieved_evidence(invalid) -> None:
+    class MalformedProvider:
+        def score(self, *, query, chunks):
+            return {chunks[0].chunk_id: invalid}
+
+    request = _request()
+    with pytest.raises(ValueError, match='dense scores must be finite numbers'):
+        PreReasoningRetrievalService(dense_score_provider=MalformedProvider()).retrieve(request)
+
+
 def test_section_path_can_be_indexed_without_changing_cited_chunk_text() -> None:
     target_text = "Inspect the command response and retain the original citation."
     distractor_text = "Reaction wheel jamming glossary pointer."

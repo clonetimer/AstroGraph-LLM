@@ -1,0 +1,44 @@
+{
+  "schema_version": "astrograph-foundation-r9-changes.v1",
+  "baseline": "astrograph_source_foundation_r8_candidate_20261015.zip",
+  "changed_files": [
+    {
+      "path": "README.md",
+      "sha256": "4947047b4c135bc7ccac583ef74fd5acbf09df6f0e91eaa33f790a11d1aa15d8"
+    },
+    {
+      "path": "FOUNDATION_R9_CONTEXT_CONSTRAINTS.md",
+      "sha256": "c69c1415887423e05442d9576a2f0c78101aa4350ec059e6984a384897304c4b"
+    },
+    {
+      "path": "src/astrograph/integrations/material_applicability.py",
+      "sha256": "a3ec157f13351762069d8beb1c074e412aed38cf655dd77a7f1c9b649ad14785"
+    },
+    {
+      "path": "src/astrograph/integrations/material_case_memory.py",
+      "sha256": "f6bef85df6d8a732e22e30bfae2f6a757d329984b9bdaada37119217e7e44df4"
+    },
+    {
+      "path": "src/astrograph/integrations/material_multihop.py",
+      "sha256": "7bd4c6d83b25c6fb6efb4fb32852272e535ab1e26bf9720c0e2b62949a4f8b75"
+    },
+    {
+      "path": "src/astrograph/integrations/material_graph_release.py",
+      "sha256": "241c3ac3ec9700433c203e3d0f52d3ee1bb2a53a1e358656376a2b19c925d732"
+    },
+    {
+      "path": "src/astrograph/integrations/platform_knowledge.py",
+      "sha256": "ec54ab163eaf6c03c3660c98dcd870f14129491d88289a163792daed4a41ee8a"
+    },
+    {
+      "path": "src/astrograph/llm/task_prompts.py",
+      "sha256": "8e6e3cd3f99ee52c7e0039953bbefe1e1546f5ca3a3d9960b78502140eaf8888"
+    },
+    {
+      "path": "tests/test_foundation_r9_reviewed_applicability.py",
+      "sha256": "fa58fc5cdbeb3e39f25164fdab38f319590ac701f7947bbec6669e673a4a2194"
+    }
+  ],
+  "known_root_cause_label_included": false,
+  "authority": "development candidate; no automatic flight diagnostic vote"
+}

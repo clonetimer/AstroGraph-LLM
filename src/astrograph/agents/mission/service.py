@@ -137,7 +137,7 @@ class _TaskRun:
         self.registry=ToolRegistry();self.step=0;self.limitations=[];self.context_sources=[];self.plugin_tool_ids=set();self.provider_tool_ids=set();self.knowledge_graph_review=None
         self.data=None;self.kernel=None;self.graph_dir=None;self.original=None;self.artifacts={};self.pinned_paths={}
         self.generic_result=None;self.capability_registry=None;self.capability_report=None;self.model_execution_resolver=None;self.model_execution_result=None;self.lifecycle_store=None
-        self.reviewed_claim_enricher=None
+        self.reviewed_claim_enricher=None;self.reviewed_claim_binding=None
         self.context=WorkflowContext(workflow_id="mission."+request.task,run_id=request.task_id,actor="spacecraft-diagnostic-agent",
             permissions=[PermissionScope.READ_DATA,PermissionScope.READ_KNOWLEDGE,PermissionScope.RUN_DIAGNOSIS,
                          PermissionScope.READ_ARTIFACTS,PermissionScope.WRITE_ARTIFACTS,PermissionScope.RENDER_REPORT,
@@ -238,9 +238,11 @@ class _TaskRun:
             if hashes["reviewed_claim_trace"]!=self.s.reviewed_claim_trace_sha256 or hashes["reviewed_claim_mapping"]!=self.s.reviewed_claim_mapping_sha256:
                 raise ValueError("reviewed claim RAG asset hash mismatch")
             self.pinned_paths[str(tp)]=hashes["reviewed_claim_trace"];self.pinned_paths[str(mp)]=hashes["reviewed_claim_mapping"]
-            self.reviewed_claim_enricher=ReviewedClaimRAGEnricher.from_binding(ReviewedClaimRAGBinding(
+            # Bind the hash-pinned assets now, but defer the temporal claim check
+            # until the authenticated diagnosis window has been loaded.
+            self.reviewed_claim_binding=ReviewedClaimRAGBinding(
                 claim_trace_path=str(tp),claim_trace_sha256=hashes["reviewed_claim_trace"],
-                mapping_bundle_path=str(mp),mapping_bundle_sha256=hashes["reviewed_claim_mapping"]))
+                mapping_bundle_path=str(mp),mapping_bundle_sha256=hashes["reviewed_claim_mapping"])
         if self.request.task=="train_model":
             if "training_manifest" not in self.artifacts:raise ValueError("training_manifest artifact required")
             if hashes["training_manifest"] not in self.s.approved_training_manifest_sha256:
@@ -753,8 +755,21 @@ class _TaskRun:
         return self.exploration
 
     def _reviewed_enrich_hits(self, hits):
-        if not hits or self.reviewed_claim_enricher is None:
-            return list(hits or [])
+        if not hits:
+            return []
+        if self.reviewed_claim_enricher is None and self.reviewed_claim_binding is not None:
+            if self.data is None or not hasattr(self.data, "bundle"):
+                # Research/knowledge-building tasks without a diagnosis window
+                # may retrieve context, but must not attach temporal fault stances.
+                return [{**hit, "reviewed_claim_match_status": "INFERENCE_TIME_UNAVAILABLE"}
+                        for hit in hits]
+            self.reviewed_claim_enricher=ReviewedClaimRAGEnricher.from_binding(
+                self.reviewed_claim_binding,
+                observation_time_s=self.data.bundle.episode.end_s,
+                episode_id=self.data.bundle.episode.episode_id,
+            )
+        if self.reviewed_claim_enricher is None:
+            return list(hits)
         return self.reviewed_claim_enricher.enrich_hits(list(hits))
 
     def _structured_output(self):
