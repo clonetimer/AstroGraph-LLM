@@ -111,6 +111,9 @@ def test_scoring_cli_is_separate_from_input_and_never_calls_model(tmp_path):
     scores = json.loads((root / "human_scores.json").read_text())
     assert scores["diagnostic_accuracy_gain"] is None
     assert scores["rated_cells"] == 4
+    assert scores["complete_model_generation_for_all_cells"] is False
+    assert scores["arms"]["LLM_ONLY"]["model_failure_or_unavailable_cases"] == 1
+    assert scores["interpretation_warning"]
     rerun = subprocess.run(command, capture_output=True, text=True)
     assert rerun.returncode != 0
 
