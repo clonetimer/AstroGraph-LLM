@@ -54,8 +54,11 @@ jobs:
             tests/test_mission_console_integration.py \
             tests/test_external_diagnosis_analysis.py \
             tests/test_external_diagnosis_platform.py \
+            tests/test_external_diagnosis_conversation.py \
+            tests/test_external_llm_transport_updates.py \
             tests/ui/test_external_diagnosis_ui_input.py \
             tests/ui/test_external_diagnosis_ui_output.py \
+            tests/ui/test_external_diagnosis_follow_up_ui.py \
             tests/test_structured_document_retrieval.py \
             tests/test_document_governance_and_docx.py \
             tests/test_multimodal_docx_contract.py

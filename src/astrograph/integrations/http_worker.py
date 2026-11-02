@@ -50,6 +50,7 @@ def main():
               else type(exc).__name__)
         out={"ok":False,"error":code}
     out.update(captured)
-    sys.stdout.write(json.dumps(out,ensure_ascii=False))
+    # This is a machine protocol; a Windows/GBK console encoding must not alter it.
+    sys.stdout.buffer.write(json.dumps(out,ensure_ascii=False).encode("utf-8"))
 
 if __name__=="__main__":main()

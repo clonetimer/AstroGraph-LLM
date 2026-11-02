@@ -3682,8 +3682,9 @@ class UploadReportJobStore:
         return path
 
 
-PLATFORM_UI_ASSET_VERSION = "v0.21.1"
+PLATFORM_UI_ASSET_VERSION = "v0.21.2"
 _PLATFORM_UI_ASSETS = {
+    "external_follow_up.js": "application/javascript; charset=utf-8",
     "platform_ui.css": "text/css; charset=utf-8",
     "platform_ui.js": "application/javascript; charset=utf-8",
     "platform_core.js": "application/javascript; charset=utf-8",

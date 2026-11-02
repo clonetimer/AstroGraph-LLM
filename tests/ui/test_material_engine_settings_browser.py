@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright
 
 RESOURCES=Path(__file__).resolve().parents[2]/'src/astrograph/resources'
 HTML=(RESOURCES/'platform_ui.html').read_text(encoding='utf-8')
-OFFLINE=HTML.replace('<link rel="stylesheet" href="/platform/assets/v0.21.1/platform_ui.css">','').replace('<script type="module" src="/platform/assets/v0.21.1/platform_ui.js"></script>','')
+OFFLINE=HTML.replace('<link rel="stylesheet" href="/platform/assets/v0.21.2/platform_ui.css">','').replace('<script type="module" src="/platform/assets/v0.21.2/platform_ui.js"></script>','')
 CSS=(RESOURCES/'platform_ui.css').read_text(encoding='utf-8')
 NAMES=('platform_core.js','platform_engine_settings.js','platform_shell.js')
 SCRIPTS='\n'.join('\n'.join(line for line in (RESOURCES/name).read_text(encoding='utf-8').splitlines() if not line.startswith('import ')).split('\nexport {')[0] for name in NAMES)

@@ -27,9 +27,9 @@ const model={schema_version:legacy?undefined:'astrograph-external-diagnosis-anal
   source:legacy?'LLM_EXTRACTIVE_REVIEW':'LLM_EXTERNAL_DIAGNOSIS',
   summary:'外部未知候选的分析 <script>alert(1)</script>',
   findings:Array.from({length:24},(_,i)=>({text:'分析依据 '+(i+1),citation_ids:['SRC-1']})),
-  hypotheses:Array.from({length:12},(_,i)=>({title:'待核查假设 '+(i+1),analysis:'未知故障不需要内置故障编码',citation_ids:['SRC-1']})),
+  hypotheses:Array.from({length:12},(_,i)=>({title:'待核查假设 '+(i+1),analysis:'未知故障不需要内置故障编码',citation_ids:['SRC-1'],opposing_citation_ids:['SRC-2'],counterpoints:'反证 <script>反证</script>',assumptions:['前提 <img>'],uncertainty:'不确定性说明',discriminating_check:'区分检查'})),
   claims:[{text:'历史来源摘录',citation_ids:['SRC-1']}],
-  information_gaps:['缺少负载状态'],recommended_review_actions:['请人工核对记录'],
+  information_gaps:['缺少负载状态'],recommended_review_actions:['请人工核对记录'],review_actions:[{check:'核查负载 <img>',rationale:'核查目的',expected_observations:'预期观察',citation_ids:['SRC-2']}],
   sources:[{source_id:'SRC-1',role:'diagnosis_results',filename:'diagnosis<script>.txt',locator:'line:7',sha256:'a'.repeat(64),text:quote},
     {source_id:'SRC-2',role:'log_reports',filename:'unquoted<img>.log',locator:'line:8',sha256:'b'.repeat(64),text:'未被模型引用的完整原文 <script>source()</script>'}],
   citation_reference_validation:status==='BAD_CITATION'?'FAILED':(success||status==='GENERATION_FAILED'?'PASS':'NOT_EVALUATED'),semantic_hallucination_assessment:'NOT_EVALUATED'};
@@ -85,7 +85,7 @@ for(const output of outputs){
   if(status==='INPUT_TOO_LARGE'){assert.ok(output.includes('60000'));assert.ok(!output.includes('更大上下文'));}
   if(success){
     for(const text of ['外部未知候选的分析','&lt;script&gt;','分析依据 24','待核查假设 12',
-      '缺少负载状态','请人工核对记录','diagnosis&lt;script&gt;.txt','line:7','SOURCE_BEGIN','SOURCE_END'])
+      '缺少负载状态','请人工核对记录','反证 &lt;script&gt;','前提 &lt;img&gt;','不确定性说明','区分检查','核查负载 &lt;img&gt;','核查目的','预期观察','diagnosis&lt;script&gt;.txt','line:7','SOURCE_BEGIN','SOURCE_END'])
       assert.ok(output.includes(text),'missing complete output or traceable source: '+text);
   }else{
     assert.ok(output.includes(messages[status]),'distinct status guidance required: '+status);

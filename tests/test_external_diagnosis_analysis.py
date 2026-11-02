@@ -191,3 +191,138 @@ def test_html_and_instructions_remain_sourced_data_and_model_prose(tmp_path):
     assert result["model_explanation"]["summary"] == attack
     assert result["model_explanation"]["analysis_verification"] == "UNVERIFIED_MODEL_ANALYSIS"
     assert result["model_explanation"]["automatic_control_authorized"] is False
+
+
+def enrich_analysis(data):
+    sid = data["hypotheses"][0]["citation_ids"][0]
+    data["hypotheses"][0].update(
+        opposing_citation_ids=[sid], counterpoints="The reported chatter may have another explanation.",
+        assumptions=["The time stamps refer to the same event."],
+        uncertainty="No independent observation was supplied.",
+        discriminating_check="Compare the independent event sequence.",
+    )
+    data["review_actions"] = [{
+        "check": "Compare the independent event sequence.",
+        "rationale": "Distinguish timing errors from physical chatter.",
+        "expected_observations": "Whether the independent record agrees remains to be checked.",
+        "citation_ids": [sid],
+    }]
+
+
+def markdown_for(result, bundle):
+    from astrograph.integrations.external_diagnosis_report import (
+        imported_diagnosis_review, render_external_diagnosis_markdown,
+    )
+    return render_external_diagnosis_markdown(
+        {"job_id": "task-one", "task": "Review the supplied report."},
+        imported_diagnosis_review(bundle), result,
+    )
+
+
+def test_enriched_hypothesis_and_review_action_are_saved_with_overlapping_source_roles(tmp_path):
+    bundle = load(tmp_path)
+    result = run(tmp_path, bundle, Backend(enrich_analysis))
+    assert result["generation"]["status"] == "SUCCEEDED"
+    model = result["model_explanation"]
+    hypothesis = model["hypotheses"][0]
+    assert hypothesis["opposing_citation_ids"] == hypothesis["citation_ids"]
+    assert hypothesis["counterpoints"] == "The reported chatter may have another explanation."
+    assert hypothesis["assumptions"] == ["The time stamps refer to the same event."]
+    assert hypothesis["uncertainty"] == "No independent observation was supplied."
+    assert hypothesis["discriminating_check"] == "Compare the independent event sequence."
+    assert model["review_actions"][0]["expected_observations"] == "Whether the independent record agrees remains to be checked."
+    assert model["recommended_review_actions"] == ["Review the original event sequence."]
+    assert json.loads((tmp_path / "audit/external_diagnosis_analysis.json").read_text()) == result
+
+
+def test_old_provider_output_defaults_to_no_invented_counterevidence_or_actions(tmp_path):
+    bundle = load(tmp_path)
+    result = run(tmp_path, bundle, Backend())
+    assert result["generation"]["status"] == "SUCCEEDED"
+    hypothesis = result["model_explanation"]["hypotheses"][0]
+    assert hypothesis["opposing_citation_ids"] == []
+    assert hypothesis["counterpoints"] == ""
+    assert hypothesis["assumptions"] == []
+    assert hypothesis["uncertainty"] == ""
+    assert hypothesis["discriminating_check"] == ""
+    assert result["model_explanation"]["review_actions"] == []
+    assert "Review the original event sequence." in markdown_for(result, bundle)
+
+
+@pytest.mark.parametrize("target", ["opposition", "action"])
+def test_new_foreign_citations_fail_closed(tmp_path, target):
+    def change(data):
+        enrich_analysis(data)
+        if target == "opposition":
+            data["hypotheses"][0]["opposing_citation_ids"] = ["foreign-source"]
+        else:
+            data["review_actions"][0]["citation_ids"] = ["foreign-source"]
+    bundle = load(tmp_path)
+    result = run(tmp_path, bundle, Backend(change))
+    assert result["generation"]["reason_code"] == "CITATION_REFERENCE_INVALID"
+    assert result["generation"]["citation_reference_validation"] == "FAILED"
+    assert "summary" not in result["model_explanation"]
+    assert result["model_explanation"]["sources"] == bundle["sources"]
+
+
+@pytest.mark.parametrize("target", ["opposition", "action"])
+def test_new_duplicate_citations_fail_closed(tmp_path, target):
+    def change(data):
+        enrich_analysis(data)
+        row, field = ((data["hypotheses"][0], "opposing_citation_ids") if target == "opposition"
+                      else (data["review_actions"][0], "citation_ids"))
+        row[field] *= 2
+    result = run(tmp_path, load(tmp_path), Backend(change))
+    assert result["generation"]["reason_code"] == "MODEL_OUTPUT_INVALID"
+    assert "summary" not in result["model_explanation"]
+
+
+@pytest.mark.parametrize("field,value", [
+    ("check", ""), ("rationale", ""), ("expected_observations", ""),
+    ("citation_ids", []), ("check", "x" * 4001),
+    ("rationale", "x" * 4001), ("expected_observations", "x" * 4001),
+])
+def test_structured_review_action_requires_bounded_text_and_citations(tmp_path, field, value):
+    def change(data):
+        enrich_analysis(data)
+        data["review_actions"][0][field] = value
+    result = run(tmp_path, load(tmp_path), Backend(change))
+    assert result["generation"]["reason_code"] == "MODEL_OUTPUT_INVALID"
+    assert "review_actions" not in result["model_explanation"]
+
+
+def test_markdown_preserves_and_escapes_every_enriched_field_and_legacy_action(tmp_path):
+    attack = '<script>alert(1)</script> [go](javascript:alert(2)) ![pic](x) `code` *bold*'
+    def change(data):
+        enrich_analysis(data)
+        hypothesis = data["hypotheses"][0]
+        for field in ["counterpoints", "uncertainty", "discriminating_check"]:
+            hypothesis[field] = field + " " + attack
+        hypothesis["assumptions"] = ["assumption " + attack]
+        for field in ["check", "rationale", "expected_observations"]:
+            data["review_actions"][0][field] = field + " " + attack
+    bundle = load(tmp_path)
+    result = run(tmp_path, bundle, Backend(change))
+    assert result["generation"]["status"] == "SUCCEEDED"
+    markdown = markdown_for(result, bundle)
+    escaped = '&lt;script&gt;alert(1)&lt;/script&gt; \\[go\\](javascript:alert(2)) !\\[pic\\](x) \\`code\\` \\*bold\\*'
+    for label in ["counterpoints", "uncertainty", "discriminating\\_check", "assumption", "check", "rationale", "expected\\_observations"]:
+        assert label + " " + escaped in markdown
+    assert "Review the original event sequence." in markdown
+    assert "反向依据" in markdown
+    assert "结构化核查建议" in markdown
+    assert "引用检查仅确认来源归属" in markdown
+    assert "<script>" not in markdown
+    assert markdown.count(bundle["sources"][0]["source_id"]) >= 4
+
+
+def test_stored_legacy_report_without_enriched_keys_still_exports(tmp_path):
+    bundle = load(tmp_path)
+    result = run(tmp_path, bundle, Backend())
+    for key in ["opposing_citation_ids", "counterpoints", "assumptions", "uncertainty", "discriminating_check"]:
+        result["model_explanation"]["hypotheses"][0].pop(key, None)
+    result["model_explanation"].pop("review_actions", None)
+    markdown = markdown_for(result, bundle)
+    assert "Thermal contact instability" in markdown
+    assert "Review the original event sequence." in markdown
+    assert "结构化核查建议" not in markdown

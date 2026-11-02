@@ -60,6 +60,25 @@ class ExternalDiagnosisFinding(_CitedText):
 class ExternalDiagnosisHypothesis(_CitedText):
     title: str = Field(min_length=1, max_length=240)
     analysis: str = Field(min_length=1, max_length=4000)
+    opposing_citation_ids: list[CitationId] = Field(default_factory=list)
+    counterpoints: str = Field(default="", max_length=4000)
+    assumptions: list[Annotated[str, Field(min_length=1, max_length=4000)]] = Field(
+        default_factory=list, max_length=12)
+    uncertainty: str = Field(default="", max_length=4000)
+    discriminating_check: str = Field(default="", max_length=4000)
+
+    @field_validator("opposing_citation_ids")
+    @classmethod
+    def unique_opposing_citations(cls, value: list[str]) -> list[str]:
+        # A single supplied passage may contain both supporting and opposing
+        # statements. Only duplicates within this list are invalid.
+        return cls.unique_citations(value)
+
+
+class ExternalDiagnosisReviewAction(_CitedText):
+    check: str = Field(min_length=1, max_length=4000)
+    rationale: str = Field(min_length=1, max_length=4000)
+    expected_observations: str = Field(min_length=1, max_length=4000)
 
 
 class ExternalDiagnosisAnalysis(_StrictModel):
@@ -68,6 +87,7 @@ class ExternalDiagnosisAnalysis(_StrictModel):
     hypotheses: list[ExternalDiagnosisHypothesis] = Field(max_length=12)
     information_gaps: list[str]
     recommended_review_actions: list[str]
+    review_actions: list[ExternalDiagnosisReviewAction] = Field(default_factory=list, max_length=24)
 
 
 class _Source(_StrictModel):
@@ -207,8 +227,10 @@ def run_external_diagnosis_analysis(
     except Exception:
         return finish("FAILED", "MODEL_OUTPUT_INVALID")
     allowed_ids = {source["source_id"] for source in bundle["sources"]}
-    if any(not set(item.citation_ids).issubset(allowed_ids)
-           for item in [*analysis.findings, *analysis.hypotheses]):
+    citation_lists = [item.citation_ids for item in
+                      [*analysis.findings, *analysis.hypotheses, *analysis.review_actions]]
+    citation_lists.extend(item.opposing_citation_ids for item in analysis.hypotheses)
+    if any(not set(ids).issubset(allowed_ids) for ids in citation_lists):
         return finish("FAILED", "CITATION_REFERENCE_INVALID", "FAILED")
     explanation.update(analysis.model_dump(mode="json"))
     return finish("SUCCEEDED", citation_status="PASS")

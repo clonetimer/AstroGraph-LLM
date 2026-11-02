@@ -86,7 +86,7 @@
             <div class="assistant-welcome" id="assistant-welcome"><div class="orbit-badge">✧</div><h1>针对已有报告追问证据</h1><div class="welcome-prompts"><button type="button" data-chat-suggest="查看当前报告中的可能原因">可能原因</button><button type="button" data-chat-suggest="推荐哪些核查和处置步骤？">处置建议</button><button type="button" data-chat-suggest="有哪些日志和文献证据？">证据依据</button><button type="button" data-chat-suggest="根因为什么还不能确诊？">证据缺口</button></div></div>
           </div>
           <div class="quick-links" id="assistant-quick-links"><button type="button" class="btn" id="quick-resume">继续上次任务</button><button type="button" class="btn" id="quick-demo" data-min-role="operator">载入演示案例</button><button type="button" class="btn" id="quick-history">最近报告</button></div>
-          <div class="composer-wrap"><form id="chat-form" class="composer"><textarea id="chat-text" rows="2" maxlength="700" placeholder="针对当前分析报告提问…" aria-label="针对当前报告提问"></textarea><div class="composer-bottom"><div class="composer-links"><button type="button" id="chat-add-material" class="text-btn" data-min-role="operator">＋ 上传材料</button><button type="button" id="chat-open-report" class="text-btn">查看报告</button></div><button type="submit" class="send-btn" aria-label="发送问题">↑</button></div></form></div>
+          <div class="composer-wrap"><form id="chat-form" class="composer"><textarea id="chat-text" rows="2" maxlength="4000" placeholder="针对当前分析报告提问…" aria-label="针对当前报告提问"></textarea><div class="composer-bottom"><div class="composer-links"><button type="button" id="chat-add-material" class="text-btn" data-min-role="operator">＋ 上传材料</button><button type="button" id="chat-open-report" class="text-btn">查看报告</button></div><button type="submit" id="chat-send" class="send-btn" aria-label="发送问题">↑</button></div></form><p id="chat-status" role="status" aria-live="polite"></p></div>
         </section>
         <section class="screen analysis-screen" id="screen-upload">
           <div class="analysis-shell">
@@ -195,6 +195,7 @@
   </dialog>
   <dialog class="modal" id="demo-modal"><h2>载入演示案例</h2><div id="demo-list"></div><form method="dialog"><button class="btn">关闭</button></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="/platform/mission/assets/mission_console.js?v=20261012-analysis-engines"></script>
+  <script src="/platform/mission/assets/external_follow_up.js?v=20261102"></script>
+  <script type="module" src="/platform/mission/assets/mission_console.js?v=20261102-source-bound-follow-up"></script>
 </body>
 </html>

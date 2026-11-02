@@ -90,6 +90,10 @@ class OutputTruncatedError(StructuredBackendError):
     pass
 
 
+class ModelRefusalError(StructuredBackendError):
+    pass
+
+
 class OpenAICompatibleConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -264,8 +268,11 @@ class OpenAICompatibleStructuredBackend:
     def _message_content(document: dict[str, Any]) -> tuple[str, str | None]:
         try:
             choice = document["choices"][0]
-            content = choice["message"]["content"]
             finish_reason = choice.get("finish_reason")
+            message = choice["message"]
+            if message.get("refusal") or finish_reason == "content_filter":
+                raise ModelRefusalError("MODEL_REFUSAL: provider declined or filtered this response")
+            content = message["content"]
         except (KeyError, IndexError, TypeError) as exc:
             raise StructuredBackendError(f"invalid OpenAI-compatible response shape: {document}") from exc
         if isinstance(content, str):
@@ -1082,6 +1089,16 @@ class OpenAICompatibleStructuredBackend:
                 except Exception as exc:
                     message = f"{strategy}/attempt-{repair_index + 1}: {type(exc).__name__}: {exc}"
                     errors.append(message)
+                    if isinstance(exc, ModelRefusalError):
+                        # Refusal is terminal, not malformed JSON to repair or bypass.
+                        self.last_call_metadata = {
+                            "status": "REFUSED", "strategy": strategy,
+                            "latency_s": round(time.perf_counter() - started, 6),
+                            "attempts": attempts, "request_ids": list(request_ids),
+                            "errors": errors, "failure_category": "MODEL_REFUSAL",
+                        }
+                        self.call_history.append(dict(self.last_call_metadata))
+                        raise
                     if isinstance(exc, (AttemptBudgetExceeded, ExecutionDeadlineExceeded, OutputBudgetError)):
                         self.last_call_metadata = {"status":"BUDGET_REJECTED", "attempts":attempts,"errors":errors,"output_budget":getattr(exc,"budget",{})}
                         self.call_history.append(dict(self.last_call_metadata))

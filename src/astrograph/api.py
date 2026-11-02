@@ -41,6 +41,9 @@ from astrograph.integrations.upload_report import (
     platform_html,
 )
 from astrograph.integrations.platform_state import PlatformStateRepository
+from astrograph.integrations.external_diagnosis_conversation import (
+    ConversationConflict, FollowUpRequest, ask_follow_up, get_conversation,
+)
 from astrograph.integrations.platform_secrets import PlatformSecretStore
 from astrograph.integrations.material_engine_settings import (
     MaterialEngineRegistry, MaterialEngineSettings, EngineUpdateRequest,
@@ -945,6 +948,7 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
         allowed = {
             "mission_console.css": "text/css",
             "mission_console.js": "application/javascript",
+            "external_follow_up.js": "application/javascript",
             "mission_demo_cases.json": "application/json",
             "home.css": "text/css",
             "home.js": "application/javascript",
@@ -1963,6 +1967,26 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
         except ValueError as exc:
             raise StateConflictError(str(exc), details={"job_id": job_id}) from exc
+
+    @app.get("/v1/platform/jobs/{job_id}/follow-up")
+    def get_external_report_follow_up(job_id: str, response: Response) -> dict:
+        response.headers["Cache-Control"] = "no-store"
+        try:
+            return get_conversation(get_upload_report_store(), job_id)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail="Platform job not found", headers={"Cache-Control": "no-store"}) from exc
+        except ConversationConflict as exc:
+            raise HTTPException(status_code=409, detail=str(exc), headers={"Cache-Control": "no-store"}) from exc
+
+    @app.post("/v1/platform/jobs/{job_id}/follow-up")
+    def ask_external_report_follow_up(job_id: str, request: FollowUpRequest, response: Response) -> dict:
+        response.headers["Cache-Control"] = "no-store"
+        try:
+            return ask_follow_up(get_upload_report_store(), job_id, **request.model_dump())
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail="Platform job not found", headers={"Cache-Control": "no-store"}) from exc
+        except ConversationConflict as exc:
+            raise HTTPException(status_code=409, detail=str(exc), headers={"Cache-Control": "no-store"}) from exc
 
     @app.get("/v1/platform/jobs/{job_id}/visualization")
     def get_upload_report_visualization(job_id: str) -> dict:

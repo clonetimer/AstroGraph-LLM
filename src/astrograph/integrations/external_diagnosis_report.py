@@ -66,10 +66,28 @@ def render_external_diagnosis_markdown(
         for hypothesis in model["hypotheses"]:
             lines.extend([f"### {_text(hypothesis['title'])}", "", _text(hypothesis["analysis"]), "",
                           "依据：" + ", ".join(f"`{sid}`" for sid in hypothesis["citation_ids"]), ""])
+            if hypothesis.get("opposing_citation_ids"):
+                lines.extend(["反向依据：" + ", ".join(
+                    f"`{sid}`" for sid in hypothesis["opposing_citation_ids"]), ""])
+            for title, field in (("反向解释与限制", "counterpoints"),
+                                 ("不确定性", "uncertainty"),
+                                 ("区分性核查", "discriminating_check")):
+                if hypothesis.get(field):
+                    lines.extend([f"{title}：{_text(hypothesis[field])}", ""])
+            if hypothesis.get("assumptions"):
+                lines.extend(["前提假设：", "",
+                              *[f"- {_text(item)}" for item in hypothesis["assumptions"]], ""])
         for title, field in (("缺失信息", "information_gaps"), ("建议核查", "recommended_review_actions")):
             lines.extend([f"## {title}", ""])
             lines.extend([f"- {_text(item)}" for item in model[field]] or ["模型未列出此项。"])
             lines.append("")
+        if model.get("review_actions"):
+            lines.extend(["## 结构化核查建议", ""])
+            for action in model["review_actions"]:
+                lines.extend([f"### {_text(action['check'])}", "",
+                              f"核查目的：{_text(action['rationale'])}", "",
+                              f"预期观察：{_text(action['expected_observations'])}", "",
+                              "依据：" + ", ".join(f"`{sid}`" for sid in action["citation_ids"]), ""])
     else:
         message = {
             "NOT_CONFIGURED": "尚未配置可用的大模型；外部报告已导入，未生成模型分析。",

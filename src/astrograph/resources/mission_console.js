@@ -1,6 +1,6 @@
 /* AstroGraph Mission Console · live API only, no simulated diagnosis or LLM text.
  * Authentication: in-memory bearer credential; HttpOnly expert cookie + CSRF.
- * Evidence-grounded chat: deterministic views over the immutable job report.
+ * External report questions call the source-bound LLM; legacy reports use local retrieval.
  */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
@@ -13,7 +13,8 @@ const roleRights={viewer:['viewer'],operator:['viewer','operator'],reviewer:['vi
 const S={overview:null,demos:null,selectedEvent:null,token:'',identity:null,expert:null,engine:null,jobId:'',report:null,reportTab:'conclusion',graph:null,graphCode:'',files:{diagnosis_results:[],log_reports:[],references:[]},preflight:null,preflightId:'',busy:false,authMode:'local',knowledgeTab:'graph',graphEdgeId:'',accountInit:false,autoTimer:null,uploadRevision:0,openRequest:0,commandRequest:0,analysisEngines:[],analysisEngineId:'rules',analysisEngineLoaded:false};
 let toastTimeout;
 let welcomeMarkup='';
-function resetConversation(){const host=$('#conversation');if(host)host.innerHTML=welcomeMarkup;}
+let externalConversation=null,externalConversationKey=null,externalConversationRevision=null,externalConversationReport=null;
+function resetConversation(){externalConversation?.dispose();externalConversation=null;externalConversationKey=null;externalConversationRevision=null;externalConversationReport=null;const host=$('#conversation');if(host)host.innerHTML=welcomeMarkup;const send=$('#chat-send'),status=$('#chat-status');if(send)send.disabled=false;if(status)status.textContent='';}
 function toast(message){const e=$('#toast');e.textContent=String(message);e.classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>e.classList.remove('show'),3000)}
 async function api(path,init={}){
   const headers=new Headers(init.headers||{});
@@ -72,6 +73,8 @@ function clearPrivateWorkspace(){
   S.files={diagnosis_results:[],log_reports:[],references:[]};S.uploadRevision++;clearTimeout(S.autoTimer);
   try{localStorage.removeItem('astrograph-mission-job-id')}catch{}
   resetConversation();
+  // Bearer credentials may share a subject; drafts belong to this authentication session.
+  globalThis.ExternalDiagnosisFollowUp?.clearDrafts();
   const textarea=$('#chat-text');if(textarea)textarea.value='';
   const input=$('#mission-task');if(input)input.value='分析故障原因、相关证据、处置措施和待核查项目';
   for(const id of ['mission-diagnosis','mission-logs','mission-references','expert-credential','llm-key']){
@@ -351,10 +354,11 @@ function externalDiagnosisAnalysisHtml(model,generation,escape){
     return `<details class="model-citation-source"><summary>${escape(source.filename)} · ${escape(source.locator)} · ${escape(id)}</summary><pre class="evidence-source-text" style="white-space:pre-wrap;overflow-wrap:anywhere">${escape(source.text)}</pre><small>SHA-256 ${escape(source.sha256)}</small></details>`;
   }).join('');
   const findings=(model.findings||[]).map(item=>`<li><p>${escape(item.text)}</p>${citations(item.citation_ids)}</li>`).join('');
-  const hypotheses=(model.hypotheses||[]).map(item=>`<li><h4>${escape(item.title)}</h4><p>${escape(item.analysis)}</p>${citations(item.citation_ids)}</li>`).join('');
+  const hypotheses=(model.hypotheses||[]).map(item=>`<li><h4>${escape(item.title)}</h4><p>${escape(item.analysis)}</p>${citations(item.citation_ids)}${item.counterpoints?`<h5>反证与替代解释</h5><p>${escape(item.counterpoints)}</p>`:''}${item.opposing_citation_ids?.length?`<h5>相反依据</h5>${citations(item.opposing_citation_ids)}`:''}${item.assumptions?.length?`<h5>成立前提</h5><ul>${item.assumptions.map(text=>`<li>${escape(text)}</li>`).join('')}</ul>`:''}${item.uncertainty?`<h5>不确定性</h5><p>${escape(item.uncertainty)}</p>`:''}${item.discriminating_check?`<h5>区分性核查</h5><p>${escape(item.discriminating_check)}</p>`:''}</li>`).join('');
+  const richActions=(model.review_actions||[]).map(item=>`<li><h4>${escape(item.check)}</h4><p>核查目的：${escape(item.rationale)}</p><p>预期观察：${escape(item.expected_observations)}</p>${citations(item.citation_ids)}</li>`).join('');
   const gaps=(model.information_gaps||[]).map(text=>`<li>${escape(text)}</li>`).join('');
   const actions=(model.recommended_review_actions||[]).map(text=>`<li>${escape(text)}</li>`).join('');
-  return `<section class="panel card card-pad model-result"><div class="model-result-head"><h2>大模型对外部诊断结果的分析</h2><span class="chip">需专家复核</span></div><section class="model-summary"><h3>外部诊断材料分析摘要</h3><p>${escape(model.summary)}</p></section>${findings?`<section><h3>原文依据与分析</h3><ol>${findings}</ol></section>`:''}${hypotheses?`<section><h3>待核查假设</h3><ol>${hypotheses}</ol></section>`:''}${gaps?`<section><h3>仍缺少的信息</h3><ul>${gaps}</ul></section>`:''}${actions?`<section><h3>建议复核步骤</h3><ol>${actions}</ol></section>`:''}<p class="model-safety-line">引用编号检查已通过；模型解释和假设仍需人工核对，不能据此自动执行设备操作。</p></section>${sourcePanel}`;
+  return `<section class="panel card card-pad model-result"><div class="model-result-head"><h2>大模型对外部诊断结果的分析</h2><span class="chip">需专家复核</span></div><section class="model-summary"><h3>外部诊断材料分析摘要</h3><p>${escape(model.summary)}</p></section>${findings?`<section><h3>原文依据与分析</h3><ol>${findings}</ol></section>`:''}${hypotheses?`<section><h3>待核查假设</h3><ol>${hypotheses}</ol></section>`:''}${gaps?`<section><h3>仍缺少的信息</h3><ul>${gaps}</ul></section>`:''}${richActions?`<section><h3>有依据的核查建议</h3><ol>${richActions}</ol></section>`:''}${actions?`<section><h3>建议复核步骤</h3><ol>${actions}</ol></section>`:''}<p class="model-safety-line">引用编号检查已通过；模型解释和假设仍需人工核对，不能据此自动执行设备操作。</p></section>${sourcePanel}`;
 }
 function extractiveModelExplanationHtml(model,generation,escape){
   if(model.status!=='EXTRACTIVE_REVIEW_ONLY'||generation.status!=='SUCCEEDED')return '';
@@ -378,6 +382,7 @@ function renderModelExplanation(report,knowledge,review){
 }
 function renderReport(){const host=$('#report-content');for(const id of ['report-export-json','report-export-md'])$('#'+id).hidden=!S.report;if(!S.report){updateActionSummary();host.innerHTML='<div class="empty">请选择已完成的任务，或上传材料生成报告。</div>';$('#report-job-label').textContent='未选择任务';return}
   const report=S.report,cases=candidates(),review=report.analysis?.material_reasoning||{},knowledge=report.analysis?.knowledge_enrichment||{};
+  ensureExternalConversation();
   $('#report-job-label').textContent=report.job_id||S.jobId;updateActionSummary();
   if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'&&S.reportTab==='conclusion'){host.innerHTML=renderModelExplanation(report,knowledge,review);return}
   if(S.reportTab==='conclusion'){
@@ -459,7 +464,32 @@ function say(kind,title,text,link){const box=document.createElement('div');box.c
   if(link){const jump=document.createElement('button');jump.className='resource';jump.type='button';jump.textContent='查看报告与完整出处 →';jump.onclick=()=>{if(link.tab){S.reportTab=link.tab;$$('[data-report-tab]').forEach(b=>b.classList.toggle('active',b.dataset.reportTab===link.tab))}useView(link.route)};box.append(jump)}
   $('#conversation').append(box);box.scrollIntoView({block:'nearest',behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 }
-function sendChat(){const q=$('#chat-text').value.trim();if(!q)return;$('#assistant-welcome')?.remove();say('user','',q);$('#chat-text').value='';const reply=materialReply(q);say('assistant',reply.title,reply.text,reply)}
+function ensureExternalConversation(){
+  const report=S.report,F=globalThis.ExternalDiagnosisFollowUp;
+  if(!F||report?.analysis?.analysis_mode!=='EXTERNAL_DIAGNOSIS_ANALYSIS'){if(externalConversation)resetConversation();const send=$('#chat-send');if(send)send.disabled=false;return null;}
+  const inputHash=report.analysis.knowledge_enrichment?.model_explanation?.input_sha256;
+  if(!inputHash)return null;
+  const subject=S.identity?.subject||'',key=JSON.stringify([subject,report.job_id,inputHash]);
+  if(externalConversation&&externalConversationKey===key&&externalConversationReport===report)return externalConversation;
+  externalConversation?.dispose();externalConversationRevision=null;externalConversationKey=key;externalConversationReport=report;
+  const current=()=>S.report===report&&S.identity?.subject===subject&&externalConversationKey===key;
+  externalConversation=F.create({api,jobId:report.job_id,inputHash,identity:subject,canAsk:can('operator'),current,onChange:c=>{
+    const input=$('#chat-text'),send=$('#chat-send'),status=$('#chat-status');
+    input.value=c.draft;if(send)send.disabled=c.busy||!c.canAsk;
+    input.maxLength=c.limits.max_question_characters;if(status)status.textContent=c.message+' '+c.limitsText;
+    if(externalConversationRevision!==c.state){$('#conversation').innerHTML=F.turnsHtml(c.state)||'<p>围绕当前外部报告继续提问；回答会保留原文引用，不改写报告。</p>';externalConversationRevision=c.state}
+  }});
+  $('#chat-text').value=externalConversation.draft;
+  externalConversation.ready=externalConversation.load();return externalConversation;
+}
+async function sendChat(){
+  const input=$('#chat-text'),q=input.value.trim();if(!q)return;
+  if(S.report?.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'){
+    const c=ensureExternalConversation();if(!c){toast('请重新打开已完成的外部分析报告');return}
+    await c.ready;if(c!==externalConversation)return;c.setDraft(q);await c.submit();return;
+  }
+  $('#assistant-welcome')?.remove();say('user','',q);input.value='';const reply=materialReply(q);say('assistant',reply.title,reply.text,reply)
+}
 
 const eventState = item => {
   const status=item.status||'UNKNOWN';
@@ -676,6 +706,7 @@ function bind(){
   $$('.nav-link').forEach(b=>b.onclick=()=>useView(b.dataset.route));$('#mobile-nav').onclick=()=>$('#sidebar').classList.toggle('mobile-open');
   $('#identity-trigger').onclick=()=>{if(S.authMode==='accounts'){if(S.identity)$('#identity-modal').showModal();else $('#account-modal').showModal()}else $('#identity-modal').showModal()};$('#identity-login').onclick=loginToken;$('#identity-logout').onclick=clearToken;$('#account-form').onsubmit=accountLogin;
   $('#command-first-create').onclick=()=>useView('upload');$('#command-first-demo').onclick=()=>{useView('upload');$('#demo-cards').scrollIntoView({block:'center'});};$('#command-refresh').onclick=loadCommand;$('#command-filter').onchange=renderCommand;$('#command-create').onclick=()=>useView('upload');$('#command-open-history').onclick=()=>useView('history');$('#command-open-review').onclick=()=>useView('review');$('#workbench-open-report').onclick=()=>useView('report');$('#identity-open-users').onclick=()=>{if($('#identity-modal').open)$('#identity-modal').close();useView('users')};
+  $('#chat-text').addEventListener('input',()=>{if(externalConversation)externalConversation.setDraft($('#chat-text').value)});
   $('#chat-form').onsubmit=e=>{e.preventDefault();sendChat()};$('#chat-text').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();sendChat()}};
   $('#chat-add-material').onclick=()=>useView('upload');$('#chat-open-report').onclick=()=>useView('report');
   $('#analysis-thinking-toggle').onclick=()=>{const body=$('#analysis-thinking-body'),expanded=!body.hidden;body.hidden=expanded;$('#analysis-thinking-toggle').setAttribute('aria-expanded',String(!expanded))};
