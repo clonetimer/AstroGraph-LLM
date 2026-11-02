@@ -6,7 +6,7 @@ const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const html = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const qs = value => encodeURIComponent(String(value));
-const statusZH = {SUCCEEDED:'已完成',FAILED:'失败',RUNNING:'执行中',QUEUED:'排队中',REVIEW_REQUIRED:'需复核',ABSTAIN:'无法确诊',PENDING:'待复核',IN_PROGRESS:'复核中',REVIEWED:'已记录复核意见',REVIEWED_WITH_GAPS:'已复核·待补证'};
+const statusZH = {SUCCEEDED:'已完成',FAILED:'失败',RUNNING:'执行中',QUEUED:'排队中',REVIEW_REQUIRED:'需复核',MODEL_NOT_CONFIGURED:'未配置大模型',MODEL_FAILED:'模型分析未完成',MODEL_INPUT_TOO_LARGE:'材料超过分析容量',ABSTAIN:'无法确诊',PENDING:'待复核',IN_PROGRESS:'复核中',REVIEWED:'已记录复核意见',REVIEWED_WITH_GAPS:'已复核·待补证'};
 const domainZH={ADCS:'姿态控制',EPS:'电源',THERMAL:'热控',PROP:'推进',COMM:'通信数传',CDH:'星载计算',PAYLOAD:'有效载荷'};
 const kindZH={COMPONENT:'部件',FAULT_MODE:'故障',FAILURE_MECHANISM:'机理',SYMPTOM:'现象',VERIFICATION:'核查',ACTION:'措施',CONDITION:'条件'};
 const roleRights={viewer:['viewer'],operator:['viewer','operator'],reviewer:['viewer','reviewer'],admin:['viewer','operator','reviewer','admin']};
@@ -181,23 +181,23 @@ async function loadKnowledgeReview(){
 function renderAnalysisEngines(){
   const host=$('#analysis-engine-options'),label=$('#analysis-engine-label');if(!host||!label)return;
   const selected=S.analysisEngines.find(x=>x.engine_id===S.analysisEngineId)||S.analysisEngines.find(x=>x.available)||{engine_id:'rules',name:'规则引擎',kind:'rules'};
-  S.analysisEngineId=selected.engine_id;label.textContent=selected.name||selected.model||'规则引擎';
-  host.innerHTML=S.analysisEngines.map(item=>`<button type="button" class="analysis-engine-option" role="option" data-analysis-engine="${html(item.engine_id)}" aria-selected="${item.engine_id===S.analysisEngineId?'true':'false'}" ${item.available?'':'disabled'}><span class="engine-kind-mark">${item.kind==='llm'?'AI':'R'}</span><span><strong>${html(item.name||item.model||'分析引擎')}</strong><small>${html(item.description||'')}</small></span><span class="engine-selected-mark">${item.engine_id===S.analysisEngineId?'已选':''}</span></button>`).join('')||'<div class="engine-menu-state">当前没有可用处理引擎</div>';
+  S.analysisEngineId=selected.engine_id;label.textContent=selected.kind==='rules'?'仅导入材料':(selected.name||selected.model||'大模型');
+  host.innerHTML=S.analysisEngines.map(item=>`<button type="button" class="analysis-engine-option" role="option" data-analysis-engine="${html(item.engine_id)}" aria-selected="${item.engine_id===S.analysisEngineId?'true':'false'}" ${item.available?'':'disabled'}><span class="engine-kind-mark">${item.kind==='llm'?'AI':'文'}</span><span><strong>${html(item.kind==='rules'?'仅导入材料':(item.name||item.model||'大模型'))}</strong><small>${html(item.kind==='rules'?'保存并查看外部诊断原文；不调用大模型或规则诊断':(item.description||''))}</small></span><span class="engine-selected-mark">${item.engine_id===S.analysisEngineId?'已选':''}</span></button>`).join('')||'<div class="engine-menu-state">当前没有可用处理引擎</div>';
   $$('[data-analysis-engine]').forEach(button=>button.onclick=()=>selectAnalysisEngine(button.dataset.analysisEngine));
 }
 function selectAnalysisEngine(engineId){
   const engine=S.analysisEngines.find(x=>x.engine_id===engineId&&x.available);if(!engine)return;
-  S.analysisEngineLoaded=true;if(S.analysisEngineId!==engineId){S.analysisEngineId=engineId;S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;$('#preflight-results').textContent='';setUploadMessage(`已选择“${engine.name}”，需要重新检查材料。`);schedulePreflight()}
+  S.analysisEngineLoaded=true;if(S.analysisEngineId!==engineId){S.analysisEngineId=engineId;S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;$('#preflight-results').textContent='';setUploadMessage(`已选择“${engine.kind==='rules'?'仅导入材料':engine.name}”，需要重新检查材料。`);schedulePreflight()}
   renderAnalysisEngines();$('#analysis-engine-menu').hidden=true;$('#analysis-engine-toggle').setAttribute('aria-expanded','false');
 }
 async function loadAnalysisEngines(){
   const host=$('#analysis-engine-options');if(host)host.innerHTML='<div class="engine-menu-state">正在读取可用引擎…</div>';
   try{const data=await api('/v1/platform/analysis-engines');S.analysisEngines=(data.engines||[]).filter(x=>x.available!==false);const current=S.analysisEngineLoaded&&S.analysisEngines.some(x=>x.engine_id===S.analysisEngineId)?S.analysisEngineId:data.default_engine_id;S.analysisEngineId=current||'rules';S.analysisEngineLoaded=true;renderAnalysisEngines()}
-  catch(error){S.analysisEngines=[{engine_id:'rules',kind:'rules',name:'规则引擎',description:'大模型配置不可用时的可靠兜底',available:true}];S.analysisEngineId='rules';renderAnalysisEngines();if(host)host.title=error.message}
+  catch(error){S.analysisEngines=[{engine_id:'rules',kind:'rules',name:'仅导入材料',description:'保存原文；未调用大模型或规则诊断',available:true}];S.analysisEngineId='rules';renderAnalysisEngines();if(host)host.title=error.message}
 }
 function getRoleFiles(role){return S.files[role]||[]}
-function schedulePreflight(){clearTimeout(S.autoTimer);const keys=['diagnosis_results','log_reports','references'];
-  if(keys.every(k=>getRoleFiles(k).length)&&can('operator')){setUploadMessage('材料已齐，正在准备检查…');setAnalysisProcess('working','正在检查材料','确认文件能否支持本次分析');S.autoTimer=setTimeout(()=>preflight(),650)}
+function schedulePreflight(){clearTimeout(S.autoTimer);
+  if(getRoleFiles('diagnosis_results').length&&can('operator')){setUploadMessage('诊断结果已添加，正在准备检查…');setAnalysisProcess('working','正在检查材料','确认文件能否支持本次分析');S.autoTimer=setTimeout(()=>preflight(),650)}
 }
 function setAnalysisProcess(mode,title,summary){
   const box=$('#analysis-process');if(!box)return;
@@ -213,13 +213,13 @@ function renderAttachmentTray(){
 function setFiles(role,files){S.uploadRevision++;S.files[role]=Array.from(files);S.preflight=null;S.preflightId='';$('#preflight-results').textContent='';$('#mission-start').disabled=true;$('#analysis-attach-menu').hidden=true;$('#analysis-attach-toggle').setAttribute('aria-expanded','false');renderFileSummary();schedulePreflight()}
 function renderFileSummary(){const keys=['diagnosis_results','log_reports','references'];const targetIds={diagnosis_results:'diagnosis-summary',log_reports:'logs-summary',references:'references-summary'};for(const [k,target] of Object.entries(targetIds))$('#'+target).textContent=getRoleFiles(k).map(f=>f.name).join('、')||'尚未选择';$('#upload-file-count').textContent=Object.values(S.files).reduce((s,a)=>s+a.length,0);
   renderAttachmentTray();
-  const complete=keys.every(k=>getRoleFiles(k).length);
+  const complete=getRoleFiles('diagnosis_results').length>0;
   const step1=$('[data-upload-step="1"]'),step2=$('[data-upload-step="2"]'),step3=$('[data-upload-step="3"]');
   [step1,step2,step3].forEach(x=>x?.classList.remove('active','done'));
   if(complete){step1?.classList.add('done');step2?.classList.add(S.preflight?.can_start?'done':'active');if(S.preflight?.can_start)step3?.classList.add('active')}
   else step1?.classList.add('active');
   if(!complete){const labels={diagnosis_results:'诊断结果',log_reports:'运行日志',references:'参考资料'};
-    const missing=keys.filter(k=>!getRoleFiles(k).length).map(k=>labels[k]);$('#upload-state').textContent='还需添加：'+missing.join('、');setAnalysisProcess('','等待材料',`还差 ${missing.join('、')}`);}
+    const missing=['diagnosis_results'].filter(k=>!getRoleFiles(k).length).map(k=>labels[k]);$('#upload-state').textContent='还需添加：'+missing.join('、');setAnalysisProcess('','等待材料',`还差 ${missing.join('、')}`);}
 }
 async function fetchDemos(){
   if(S.demos)return S.demos;
@@ -238,8 +238,7 @@ function selectDemo(c){if(!c)return;S.uploadRevision++;const prompts={TC01:'反�
 function fileList(){const all=[];for(const role of ['diagnosis_results','log_reports','references'])for(const f of getRoleFiles(role))all.push({role,file:f});return all}
 function validUploads(){
   if(!can('operator'))throw new Error('当前身份没有新建任务权限');
-  const files=fileList();if(files.length<3)throw new Error('请为诊断结果、运行日志和参考文献分别选择文件');
-  for(const role of ['diagnosis_results','log_reports','references'])if(!getRoleFiles(role).length)throw new Error('缺少'+({diagnosis_results:'诊断结果',log_reports:'运行日志',references:'参考文献'}[role]));
+  const files=fileList();if(!getRoleFiles('diagnosis_results').length)throw new Error('请至少添加一份诊断结果；运行日志和参考资料可选');
   if(files.length>30)throw new Error('一次最多上传 30 份材料');
   const suffix={diagnosis_results:/\.(json|csv|txt|md|pdf|docx)$/i,log_reports:/\.(log|json|csv|txt|md|pdf|docx)$/i,references:/\.(txt|md|pdf|docx)$/i};
   for(const {role,file} of files){if(!suffix[role].test(file.name))throw new Error('格式不支持：'+file.name);if(file.size>32*1024*1024)throw new Error('文件大于 32 MiB：'+file.name)}
@@ -257,7 +256,7 @@ async function preflight(){if(S.busy)return;const revision=S.uploadRevision;S.bu
   const files=mappedFiles(validUploads());setUploadMessage('正在安全保存你添加的材料…');setAnalysisProcess('working','正在整理材料','先保存文件，再确认每类材料是否可读');
   const job=await api('/v1/platform/jobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({task:$('#mission-task').value.trim()||'分析故障原因与处置建议',work_mode:'normal',analysis_engine_id:S.analysisEngineId||'rules'})});
   const id=job.job_id;for(const item of files){setUploadMessage(`正在读取：${item.name}`);await api(`/v1/platform/jobs/${qs(id)}/files/${qs(item.name)}`,{method:'PUT',body:item.file})}
-  const manifest={schema_version:'astrograph-result-log-review.v1',diagnosis_results:files.filter(f=>f.role==='diagnosis_results').map(f=>f.name),log_reports:files.filter(f=>f.role==='log_reports').map(f=>f.name),references:files.filter(f=>f.role==='references').map(f=>f.name)};
+  const manifest={schema_version:'astrograph-result-log-review.v1',analysis_mode:'EXTERNAL_DIAGNOSIS_ANALYSIS',diagnosis_results:files.filter(f=>f.role==='diagnosis_results').map(f=>f.name),log_reports:files.filter(f=>f.role==='log_reports').map(f=>f.name),references:files.filter(f=>f.role==='references').map(f=>f.name)};
   const scope=$('#mission-scope').value.trim();if(scope)manifest.equipment_scope=scope;
   setAnalysisProcess('working','正在核对材料','检查诊断、日志和参考资料是否能够互相对应');await api(`/v1/platform/jobs/${qs(id)}/files/analysis_input.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(manifest)});
   const check=await api(`/v1/platform/jobs/${qs(id)}/preflight`,{method:'POST'});if(S.uploadRevision!==revision){setUploadMessage('材料已更新，正在重新检查最新输入。');return;}S.preflight=check;S.preflightId=id;
@@ -335,11 +334,40 @@ function inspectEvidence(index){
 }
 const candidates=()=>S.report?.analysis?.result_log_review?.candidates||[];
 const findings=()=>S.report?.analysis?.result_log_review?.evidence||[];
+function externalDiagnosisAnalysisHtml(model,generation,escape){
+  const roleLabels={diagnosis_results:'诊断结果',log_reports:'运行日志',references:'参考资料'};
+  const imported=(model.sources||[]).map(source=>`<details class="model-imported-source"><summary>${escape(roleLabels[source.role]||source.role)} · ${escape(source.filename)} · ${escape(source.locator)} · ${escape(source.source_id)}</summary><pre class="evidence-source-text" style="white-space:pre-wrap;overflow-wrap:anywhere">${escape(source.text)}</pre><small>材料角色 ${escape(source.role)} · SHA-256 ${escape(source.sha256)}</small></details>`).join('');
+  const sourcePanel=`<section class="panel card card-pad external-imported-material"><details><summary>外部导入材料 · ${(model.sources||[]).length} 个原文片段</summary>${imported||'<p>没有可展示的已导入文本片段。</p>'}</details></section>`;
+  const success=model.status==='AVAILABLE_REQUIRES_EXPERT_REVIEW'&&generation.status==='SUCCEEDED'&&model.citation_reference_validation==='PASS';
+  if(!success){
+    const status=generation.status==='SUCCEEDED'?model.status:(generation.status||model.status||'FAILED');
+    const messages={NOT_CONFIGURED:['尚未配置大模型','请选择并配置可用的大模型服务，再重新运行本次分析。'],INPUT_TOO_LARGE:['输入材料超出分析容量','本次导入原文合计超过固定的 60000 字符上限。请拆分材料后重新分析；本次没有截断原文生成结论。'],FAILED:['大模型分析未完成','模型调用或结构与引用检查未通过。请检查服务配置后重试，已导入材料仍可查看。']};
+    const [title,message]=messages[status]||messages.FAILED;
+    return `<section class="panel card card-pad model-result model-result-unavailable"><h2>${title}</h2><p>${message}</p><p>本次没有可展示的大模型分析结果。</p></section>${sourcePanel}`;
+  }
+  const sources=new Map((model.sources||[]).map(source=>[source.source_id,source]));
+  const citations=ids=>(ids||[]).map(id=>{
+    const source=sources.get(id);if(!source)return `<code>${escape(id)} · 来源不可用</code>`;
+    return `<details class="model-citation-source"><summary>${escape(source.filename)} · ${escape(source.locator)} · ${escape(id)}</summary><pre class="evidence-source-text" style="white-space:pre-wrap;overflow-wrap:anywhere">${escape(source.text)}</pre><small>SHA-256 ${escape(source.sha256)}</small></details>`;
+  }).join('');
+  const findings=(model.findings||[]).map(item=>`<li><p>${escape(item.text)}</p>${citations(item.citation_ids)}</li>`).join('');
+  const hypotheses=(model.hypotheses||[]).map(item=>`<li><h4>${escape(item.title)}</h4><p>${escape(item.analysis)}</p>${citations(item.citation_ids)}</li>`).join('');
+  const gaps=(model.information_gaps||[]).map(text=>`<li>${escape(text)}</li>`).join('');
+  const actions=(model.recommended_review_actions||[]).map(text=>`<li>${escape(text)}</li>`).join('');
+  return `<section class="panel card card-pad model-result"><div class="model-result-head"><h2>大模型对外部诊断结果的分析</h2><span class="chip">需专家复核</span></div><section class="model-summary"><h3>外部诊断材料分析摘要</h3><p>${escape(model.summary)}</p></section>${findings?`<section><h3>原文依据与分析</h3><ol>${findings}</ol></section>`:''}${hypotheses?`<section><h3>待核查假设</h3><ol>${hypotheses}</ol></section>`:''}${gaps?`<section><h3>仍缺少的信息</h3><ul>${gaps}</ul></section>`:''}${actions?`<section><h3>建议复核步骤</h3><ol>${actions}</ol></section>`:''}<p class="model-safety-line">引用编号检查已通过；模型解释和假设仍需人工核对，不能据此自动执行设备操作。</p></section>${sourcePanel}`;
+}
+function extractiveModelExplanationHtml(model,generation,escape){
+  if(model.status!=='EXTRACTIVE_REVIEW_ONLY'||generation.status!=='SUCCEEDED')return '';
+  const claims=(model.claims||[]).map(item=>`<li><p>${escape(item.text)}</p><small>${(item.citation_ids||[]).map(escape).join(' · ')}</small></li>`).join('');
+  return `<section class="panel card card-pad model-result"><h2>大模型来源摘录复核</h2><p>${escape(model.summary||'以下仅为通过来源检查的摘录。')}</p><ol>${claims}</ol><p>原文摘录不等于已证明因果关系，仍需专家复核。</p></section>`;
+}
 function renderModelExplanation(report,knowledge,review){
-  const engine=report.analysis_engine||{},model=knowledge.model_explanation||{};
-  if(engine.kind!=='llm')return '<div class="engine-result-note"><span>本次处理引擎</span><strong>规则引擎</strong><p>依据诊断结果、日志、上传文献和内置已审核图谱生成可复核结论。</p></div>';
+  const engine=report.analysis_engine||{},model=knowledge.model_explanation||{},generation=knowledge.generation||{};
+  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'||model.schema_version==='astrograph-external-diagnosis-analysis.v1')return externalDiagnosisAnalysisHtml(model,generation,html);
+  const extracts=extractiveModelExplanationHtml(model,generation,html);if(extracts)return extracts;
+  if(engine.kind!=='llm'&&model.status!=='AVAILABLE_REQUIRES_EXPERT_REVIEW')return '<div class="engine-result-note"><span>本次处理引擎</span><strong>规则引擎</strong><p>依据诊断结果、日志、上传文献和内置已审核图谱生成可复核结论。</p></div>';
   const engineName=engine.name||engine.model||'大模型';
-  if(model.status!=='AVAILABLE_REQUIRES_EXPERT_REVIEW')return `<section class="panel model-result model-result-unavailable"><div class="model-result-head"><div><span>大模型处置结果</span><h2>${html(engineName)}</h2></div><span class="chip">已回退到规则引擎</span></div><p>所选模型没有返回通过结构与引用检查的结果。下方仍显示规则引擎结论，避免把失败或无法核验的文本当成处置依据。</p></section>`;
+  if(model.status!=='AVAILABLE_REQUIRES_EXPERT_REVIEW')return `<section class="panel model-result model-result-unavailable"><div class="model-result-head"><div><span>大模型处置结果</span><h2>${html(engineName)}</h2></div><span class="chip">无可展示的模型结果</span></div><p>所选模型没有返回通过结构与引用检查的结果。请核对模型服务与引用检查状态；下方材料复核结果独立保留。</p></section>`;
   const claims=(model.claims||[]).filter(x=>x.text);const actions=model.recommended_review_actions||[];
   const uploaded=((knowledge.local_retrieval||{}).hits||[]).length;
   const graphPaths=(review.candidates||[]).reduce((sum,item)=>sum+((item.graph_evidence_paths||[]).length),0);
@@ -351,6 +379,7 @@ function renderModelExplanation(report,knowledge,review){
 function renderReport(){const host=$('#report-content');for(const id of ['report-export-json','report-export-md'])$('#'+id).hidden=!S.report;if(!S.report){updateActionSummary();host.innerHTML='<div class="empty">请选择已完成的任务，或上传材料生成报告。</div>';$('#report-job-label').textContent='未选择任务';return}
   const report=S.report,cases=candidates(),review=report.analysis?.material_reasoning||{},knowledge=report.analysis?.knowledge_enrichment||{};
   $('#report-job-label').textContent=report.job_id||S.jobId;updateActionSummary();
+  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'&&S.reportTab==='conclusion'){host.innerHTML=renderModelExplanation(report,knowledge,review);return}
   if(S.reportTab==='conclusion'){
     const cards=cases.length?cases.map(c=>{const causes=(c.cause_hypotheses||[]),measures=(c.handling_measures||[]),checks=(c.verification_checks||[]);return `<article class="panel report-block report-narrative"><div class="result-lead"><span>目前最值得核查的方向</span><strong>${html(c.fault_name||'尚未形成明确故障方向')}</strong></div><section class="report-section"><h3>为什么会这样判断</h3>${causes.map(x=>`<p>${html(x.text)}</p>`).join('')||'<p>现有材料还不足以支持具体的故障原因，因此系统没有补造解释。</p>'}</section><section class="report-section"><h3>建议先做什么</h3><ul class="list">${measures.map(x=>`<li><span class="measure-tag">${html(/检查|核对|查看|记录|比对|读取/.test(x.action||'')&&!/重启|切换|复位|卸载|执行|发送指令/.test(x.action||'')?'可以先核查':/重启|切换|复位|卸载|执行|发送指令/.test(x.action||'')?'需要审批':'分析建议')}</span>${html(x.action)}</li>`).join('')||'<li>先补充独立证据，再请领域专家复核。</li>'}</ul></section>${checks.length?`<section class="report-section"><h3>怎样确认</h3><ol class="list">${checks.map(x=>`<li>${html(x)}</li>`).join('')}</ol></section>`:''}<details class="detail-row technical-details"><summary>查看技术标识与系统状态</summary><div class="report-meta"><span class="chip">故障标识：${html(c.fault_id)}</span><span class="chip">${html(c.status==='PROVISIONAL_LOG_CUE'?'日志线索仍需核验':'还缺少独立日志佐证')}</span></div></details></article>`}).join(''):'<div class="panel"><div class="empty">现有材料没有形成可信的故障方向。系统不会仅凭零散日志或参考资料编造结论。</div></div>';
     const abstain=review.answer_policy?.all_candidates_abstained!==false;
@@ -359,8 +388,9 @@ function renderReport(){const host=$('#report-content');for(const id of ['report
   }else if(S.reportTab==='evidence'){
     const rows=findings().map(e=>`<div class="evidence-row"><strong>${html(e.evidence_id||'')} · ${html(e.filename||'')} · ${html(e.locator||'')}</strong><p>${html(e.excerpt||'')}</p></div>`).join('');
     const ingest=knowledge.document_ingestion||[];
-    host.innerHTML=`<div class="panel report-block"><h2>日志与文献证据</h2>${rows||'<div class="empty">尚无可定位的日志或文献片段。</div>'}</div><div class="panel report-block"><h2>文档解析与检索</h2>${ingest.map(d=>`<div class="evidence-row"><strong>${html(d.filename)}</strong><small>${html(d.parser||'')} · ${html(d.chunk_count||0)} 片段</small></div>`).join('')||'<div class="empty">当前没有文档解析信息。</div>'}</div>`;
+    host.innerHTML=`<div class="panel report-block"><h2>诊断报告、日志与参考资料</h2>${rows||'<div class="empty">尚无可定位的日志或文献片段。</div>'}</div><div class="panel report-block"><h2>文档解析与检索</h2>${ingest.map(d=>`<div class="evidence-row"><strong>${html(d.filename)}</strong><small>${html(d.parser||'')} · ${html(d.chunk_count||0)} 片段</small></div>`).join('')||'<div class="empty">当前没有文档解析信息。</div>'}</div>`;
   }else if(S.reportTab==='reasoning'){
+    if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'){host.innerHTML='<div class="panel"><h2>分析范围</h2><p>本次为外部文本分析，未执行图谱推理。</p><p>请在分析结论中查看模型假设与原文依据。</p></div>';return}
     const rs=review.candidates||[];
     const gapNames={NO_APPROVED_MODEL_KG:'缺少同型号已审图谱',MISSING_INDEPENDENT_SYMPTOM_OBSERVATION:'缺少独立日志佐证',LOG_CONTRADICTION_REQUIRES_REVIEW:'日志中存在反证',PUBLIC_SEED_REQUIRES_MODEL_SPECIFIC_REVIEW:'公开图谱尚需型号级审核',CONFLICTED_NEGATED_CONDITIONAL_OR_REVERSE_PATH:'图谱存在争议或不能正向推断的路径',INVALID_APPROVED_RELATION_PROVENANCE:'已审关系的来源不完整'};
     const chains=rs.map(item=>{const hop=item.multi_hop||{};
@@ -379,6 +409,14 @@ function updateActionSummary(){
   const host=$('#action-summary');if(!host)return;
   const report=S.report,cases=candidates();
   if(!report){host.hidden=true;return}host.hidden=false;
+  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'){
+    const knowledge=report.analysis.knowledge_enrichment||{},model=knowledge.model_explanation||{};
+    const complete=model.status==='AVAILABLE_REQUIRES_EXPERT_REVIEW'&&knowledge.generation?.status==='SUCCEEDED'&&model.citation_reference_validation==='PASS';
+    $('#action-judgment').textContent=complete?'外部诊断结果的大模型分析已生成':'外部诊断材料已导入，模型分析尚未完成';
+    $('#action-evidence').dataset.decisionCode=complete?'LLM_ANALYSIS_REQUIRES_REVIEW':String(knowledge.generation?.status||'NOT_CONFIGURED');
+    $('#action-evidence').textContent=complete?'可展开引用核对原文，分析假设需专家复核':'请查看模型状态与处理提示';
+    $('#action-risk').textContent='模型分析不代表故障已被独立确认';$('#action-next').textContent='核对来源与模型分析，按信息缺口补充材料';$('#action-approval').textContent='设备操作仍需人工审批';return;
+  }
   const rows=report.analysis?.material_reasoning?.candidates||[];
   const decisions=rows.map(x=>x.multi_hop?.decision||'').filter(Boolean);
   const abstain=decisions.find(x=>x.startsWith('ABSTAIN'))||
@@ -404,7 +442,8 @@ async function exportReport(format){
   }catch(error){toast('导出失败：'+error.message)}
 }
 function materialReply(input){
-  const prompt=input.trim(),report=S.report,cases=candidates();if(!report)return {title:'请选择分析报告',text:'目前没有可引用的分析报告。请先上传诊断结果、运行日志与参考文献，或从任务记录中选择已完成的分析。',route:'upload'};
+  const prompt=input.trim(),report=S.report,cases=candidates();if(!report)return {title:'请选择分析报告',text:'目前没有可引用的分析报告。请先上传诊断结果（运行日志和参考文献可选），或从任务记录中选择已完成的分析。',route:'upload'};
+  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS')return {title:'外部诊断结果分析',text:'请查看本次模型分析中的摘要、原文依据、待核查假设、信息缺口与复核建议；这里不另行计算诊断候选。',route:'report',tab:'conclusion'};
   const cause=/(原因|根因|为什么|故障|机理)/.test(prompt),actions=/(措施|处置|怎么做|检查|核查|建议|步骤)/.test(prompt),evidence=/(证据|日志|文献|引文|来源)/.test(prompt),uncertainty=/(未知|拒答|确诊|不足|风险|反证|缺口)/.test(prompt),graph=/(图谱|多跳|推理|关联)/.test(prompt);
   if(![cause,actions,evidence,uncertainty,graph].some(Boolean))return {title:'当前问题没有足够的报告依据',text:'目前的对话仅用于查询已生成报告的原因、措施、证据、知识图谱和不确定性。未检索到相关字段时，我不会自行补充根因。',route:'report'};
   if(graph){const rows=report.analysis?.material_reasoning?.candidates||[];return {title:'图谱推理',text:rows.length?rows.map(r=>`${r.fault_id||'候选'}：${r.multi_hop?.decision||r.multi_hop?.status||'无已审完整路径'}`).join('\n'):'未形成已审多跳因果路径。',route:'report',tab:'reasoning'}}
@@ -428,6 +467,7 @@ const eventState = item => {
   if(status==='SUCCEEDED'&&item.manual_review_status==='REVIEWED_WITH_GAPS')return {tone:'attention',label:'复核后待补证',next:'补齐证据',rank:2};
   if(status==='FAILED')return {tone:'blocked',label:'执行失败',next:'核查失败原因',rank:0};
   if(['RUNNING','QUEUED'].includes(status))return {tone:'progress',label:statusZH[status]||status,next:'查看任务进度',rank:1};
+  if(item.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'&&String(item.diagnosis_disposition||'').startsWith('MODEL_'))return {tone:'attention',label:statusZH[item.diagnosis_disposition]||'模型分析待处理',next:item.diagnosis_disposition==='MODEL_INPUT_TOO_LARGE'?'拆分导入材料':'查看模型配置与分析状态',rank:2};
   if(status==='SUCCEEDED'&&(item.requires_human_review||/ABSTAIN|REVIEW|INSUFFICIENT|UNKNOWN|BLOCK/.test(String(item.diagnosis_disposition||''))))return {tone:'attention',label:'待人工复核',next:'复核证据与原因',rank:2};
   if(status==='SUCCEEDED')return {tone:'complete',label:'已生成报告',next:'查看决策报告',rank:3};
   return {tone:'attention',label:'待启动',next:'检查材料',rank:1};
@@ -470,7 +510,7 @@ function renderSelectedEvent(item){
  if(!item){el.innerHTML='<div class="event-choose">选择一条事件，查看证据与处置状态。</div>';next.innerHTML='<div class="next-step-empty">点击事件直接进入研判</div>';return;}
  const state=item.state||eventState(item);
  const abstain=String(item.diagnosis_disposition||'').startsWith('ABSTAIN');
- const evidence=abstain?'证据不足 · 无法确诊':item.status==='SUCCEEDED'?'报告需复核':'证据待获取';
+ const evidence=item.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'?(statusZH[item.diagnosis_disposition]||'外部材料已导入'):abstain?'证据不足 · 无法确诊':item.status==='SUCCEEDED'?'报告需复核':'证据待获取';
  el.innerHTML=`<div class="event-focus"><h3>${html(item.fault_name||item.task||item.job_id)}</h3><div class="event-focus-id" title="${html(item.job_id)}">${html(item.job_id)}</div><div class="event-focus-grid"><div><span>证据</span><strong>${html(evidence)}</strong></div><div><span>风险</span><strong>未评定</strong></div><div><span>责任人</span><strong>未指派</strong></div></div></div>`;
  next.innerHTML=`<div class="next-priority"><span>下一步</span><strong>${html(state.next)}</strong></div><div class="next-action-bar"><span class="execution-lock">处置未授权自动执行</span><button type="button" class="btn primary" id="next-open-event">进入研判 →</button></div>`;
  $('#next-open-event').onclick=()=>enterEvent(item);
@@ -505,6 +545,14 @@ function renderWorkbench(){
    if($('#workbench-create'))$('#workbench-create').onclick=()=>useView('upload');$('#workbench-back').onclick=()=>useView('command');return;
  }
  $('#workbench-job').textContent=report.job_id||S.jobId;
+ if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'){
+   const knowledge=report.analysis.knowledge_enrichment||{},model=knowledge.model_explanation||{};
+   if(context)context.innerHTML='<div><span>分析类型</span><strong>外部诊断结果分析</strong></div><div><span>复核状态</span><strong>需人工复核</strong></div>';
+   host.innerHTML='<div class="section-label">外部诊断材料</div><p>查看模型对原文的分析、假设、信息缺口和来源。</p>';
+   evidence.innerHTML=renderModelExplanation(report,knowledge,{});
+   const available=model.status==='AVAILABLE_REQUIRES_EXPERT_REVIEW'&&knowledge.generation?.status==='SUCCEEDED'&&model.citation_reference_validation==='PASS';
+   actions.innerHTML='<h3>复核建议</h3><ul>'+((available?model.recommended_review_actions||[]:[]).map(text=>'<li>'+html(text)+'</li>').join('')||'<li>请先查看模型分析状态。</li>')+'</ul><p>设备操作仍需人工审批。</p>';return;
+ }
  const cases=candidates(),proof=findings();const reason=report.analysis?.material_reasoning||{};
  const decisions=(reason.candidates||[]).map(c=>c.multi_hop?.decision||'');const abstain=decisions.some(d=>d.startsWith('ABSTAIN'))||reason.answer_policy?.all_candidates_abstained!==false;
  host.innerHTML=`<div class="section-label">任务状态</div><ol class="case-timeline"><li>上传与预检 <b>完成</b></li><li>证据检索 <b>完成</b></li><li>机理研判 <b>${abstain?'证据不足':'待核验'}</b></li><li>专家核验 <b>待复核</b></li></ol><div class="section-label">故障候选</div>${cases.map(c=>`<div class="fault-chip"><strong>${html(c.fault_name||c.fault_id)}</strong><small>${html(c.fault_id)}</small></div>`).join('')||'<div class="empty">未形成候选</div>'}`;

@@ -98,17 +98,17 @@
             <div class="analysis-thread" aria-live="polite">
               <article class="analysis-message assistant-message">
                 <div class="analysis-avatar" aria-hidden="true">A</div>
-                <div><strong>我可以帮你研判这次异常</strong><p>请描述你观察到的现象，并附上诊断结果、运行日志和参考资料。文件内容可以是表格、日志或普通文档，不需要把数据整理成 JSON 再输入。</p></div>
+                <div><strong>我可以帮你研判这次异常</strong><p>请描述你需要分析的问题，并附上外部诊断结果；运行日志和参考资料可选。文件内容可以是表格、日志或普通文档，不需要把数据整理成 JSON 再输入。</p></div>
               </article>
               <section class="analysis-process" id="analysis-process" aria-label="分析过程">
-                <button class="thinking-toggle" id="analysis-thinking-toggle" type="button" aria-expanded="true"><span class="thinking-pulse" aria-hidden="true"></span><span><b id="analysis-process-title">等待材料</b><small id="analysis-process-summary">描述问题并添加三类材料后，我会自动检查</small></span><span aria-hidden="true">⌄</span></button>
+                <button class="thinking-toggle" id="analysis-thinking-toggle" type="button" aria-expanded="true"><span class="thinking-pulse" aria-hidden="true"></span><span><b id="analysis-process-title">等待材料</b><small id="analysis-process-summary">三类材料中，诊断结果必填；添加后会自动检查</small></span><span aria-hidden="true">⌄</span></button>
                 <div class="thinking-body" id="analysis-thinking-body">
                   <ol class="thinking-steps">
                     <li data-upload-step="1" class="active"><b>1</b><span><strong>理解任务</strong><small>读取自然语言问题和设备信息</small></span></li>
-                    <li data-upload-step="2"><b>2</b><span><strong>检查材料</strong><small>确认诊断、日志和参考资料是否齐全</small></span></li>
+                    <li data-upload-step="2"><b>2</b><span><strong>检查材料</strong><small>确认诊断结果和已添加的辅助材料是否可读</small></span></li>
                     <li data-upload-step="3"><b>3</b><span><strong>形成结论</strong><small>整理证据、风险与下一步建议</small></span></li>
                   </ol>
-                  <div class="upload-message" id="upload-state" aria-live="polite">还需：诊断结果、运行日志、参考资料</div>
+                  <div class="upload-message" id="upload-state" aria-live="polite">请添加诊断结果；运行日志和参考资料可选</div>
                   <div id="preflight-results"></div>
                   <div class="progress-line" id="mission-progress" hidden><div class="progress-inner" id="mission-progress-inner"></div></div>
                 </div>
@@ -127,15 +127,15 @@
                     <button class="paperclip-button" id="analysis-attach-toggle" type="button" aria-expanded="false" aria-controls="analysis-attach-menu" aria-label="添加分析材料"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8.5 12.7l6.3-6.3a3.25 3.25 0 014.6 4.6l-8.2 8.2a5 5 0 01-7.1-7.1l8-8"/></svg><span>添加材料</span></button>
                     <div class="attachment-menu" id="analysis-attach-menu" hidden>
                       <p>选择材料类型</p>
-                      <label for="mission-diagnosis"><strong>诊断结果</strong><small>诊断软件或算法给出的判断</small></label>
-                      <label for="mission-logs"><strong>运行日志</strong><small>设备运行记录、遥测或告警</small></label>
-                      <label for="mission-references"><strong>参考资料</strong><small>手册、规程或相关文献</small></label>
+                      <label for="mission-diagnosis"><strong>诊断结果 · 必填</strong><small>外部诊断软件或算法给出的判断</small></label>
+                      <label for="mission-logs"><strong>运行日志 · 可选</strong><small>设备运行记录或告警</small></label>
+                      <label for="mission-references"><strong>参考资料 · 可选</strong><small>手册、规程或相关文献</small></label>
                     </div>
                   </div>
                   <div class="analysis-engine-control">
                     <button class="analysis-engine-button" id="analysis-engine-toggle" type="button" aria-expanded="false" aria-controls="analysis-engine-menu">
                       <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="4"/><path d="M9 9h6v6H9zM9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/></svg>
-                      <span><small>处理引擎</small><strong id="analysis-engine-label">规则引擎</strong></span>
+                      <span><small>处理引擎</small><strong id="analysis-engine-label">仅导入材料</strong></span>
                       <span class="engine-chevron" aria-hidden="true">⌄</span>
                     </button>
                     <div class="analysis-engine-menu" id="analysis-engine-menu" role="listbox" aria-label="选择分析处理引擎" hidden>

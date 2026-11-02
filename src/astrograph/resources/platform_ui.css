@@ -373,3 +373,10 @@ html[data-font-band="xlarge"] .dw-review-status-overview-grid{grid-template-colu
 .report-review-existing strong,.report-review-existing span{display:block;font-size:calc(14px * var(--font-scale));overflow-wrap:anywhere}
 .review-scope-note{margin:0;color:#455c72;background:#f3f6fa;border-radius:8px;padding:11px 13px}
 @media(max-width:760px){.report-review-cta,.report-review-queue-item{flex-wrap:wrap}.report-review-cta .btn,.report-review-queue-item .btn{width:100%}}
+
+/* External report citations remain readable on narrow displays. */
+.model-citation-source,.model-imported-source{margin:12px 0;min-width:0;overflow-wrap:anywhere}
+.model-citation-source summary,.model-imported-source summary,.external-imported-material summary{cursor:pointer;line-height:1.6;overflow-wrap:anywhere}
+.model-result>section:not(.model-summary){margin:0 23px;padding:16px 0}
+.model-result>section li{line-height:1.7;margin-bottom:12px;overflow-wrap:anywhere}
+.external-imported-material{margin-top:16px;overflow-wrap:anywhere}

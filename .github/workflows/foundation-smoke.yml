@@ -3,7 +3,7 @@ on:
   push:
     branches: [dev/foundation-r11-integration]
   pull_request:
-    branches: [main]
+    branches: [main, dev/foundation-r11-integration]
 jobs:
   source-smoke:
     runs-on: ubuntu-latest
@@ -13,6 +13,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Install source and test dependencies
         run: |
           python -m pip install --upgrade pip
@@ -45,4 +48,14 @@ jobs:
             tests/test_openai_compatible_backend.py \
             tests/test_foundation_r11e_investigation_quality.py \
             tests/test_foundation_r11f_blind_material_campaign.py \
-            tests/test_foundation_r11f_cli_and_separate_scoring.py
+            tests/test_foundation_r11f_cli_and_separate_scoring.py \
+            tests/test_result_log_review.py \
+            tests/test_material_multihop_reasoning.py \
+            tests/test_mission_console_integration.py \
+            tests/test_external_diagnosis_analysis.py \
+            tests/test_external_diagnosis_platform.py \
+            tests/ui/test_external_diagnosis_ui_input.py \
+            tests/ui/test_external_diagnosis_ui_output.py \
+            tests/test_structured_document_retrieval.py \
+            tests/test_document_governance_and_docx.py \
+            tests/test_multimodal_docx_contract.py

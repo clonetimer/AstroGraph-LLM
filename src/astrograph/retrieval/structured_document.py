@@ -312,6 +312,7 @@ class SectionFirstDocumentIngestor:
         *,
         maximum_archive_entries: int = 10_000,
         maximum_uncompressed_bytes: int = 256 * 1024 * 1024,
+        include_headings: bool = False,
     ) -> tuple[list[DocumentElement], list[str], DocxParseAudit]:
         """Parse DOCX natively without flattening it through PDF or Markdown."""
 
@@ -375,6 +376,18 @@ class SectionFirstDocumentIngestor:
                                 "source_locator": f"word/document.xml#paragraph:{block_index}",
                             }
                         )
+                        if include_headings:
+                            ordinal += 1
+                            elements.append(DocumentElement(
+                                element_id=f"element:{ordinal:05d}",
+                                kind=DocumentElementKind.TEXT,
+                                section_path=[item[1] for item in heading_stack],
+                                text_representation=text,
+                                source_locator=f"word/document.xml#paragraph:{block_index}",
+                                representation_method="docx-native-heading",
+                                representation_reviewed=True,
+                                style_id=style_id, style_name=style_name,
+                            ))
                         continue
 
                     blips = list(child.iter(self._a + "blip"))
@@ -752,9 +765,10 @@ class SectionFirstDocumentIngestor:
         source_id: str,
         knowledge_version: str,
         document_descriptor: GovernedDocumentDescriptor | None = None,
+        include_headings: bool = False,
     ) -> tuple[StructuredDocumentIngestion, DocxParseAudit]:
         source_path = Path(path).resolve()
-        elements, warnings, audit = self.parse_docx(source_path)
+        elements, warnings, audit = self.parse_docx(source_path, include_headings=include_headings)
         ingestion = self.ingest_elements(
             source_id=source_id,
             source_uri=str(source_path),

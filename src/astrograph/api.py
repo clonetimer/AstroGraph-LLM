@@ -1462,8 +1462,9 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
                 {
                     "kind": "RESULT_LOG_REVIEW",
                     "required": ["analysis_input.json (astrograph-result-log-review.v1)",
-                                 "diagnosis_results", "log_reports", "references"],
-                    "diagnosis": "material-first root cause hypotheses, log corroboration and cited handling advice; no telemetry required",
+                                 "diagnosis_results"],
+                    "optional": ["log_reports", "references"],
+                    "diagnosis": "external diagnosis text analysis or legacy material review; no telemetry required",
                     "formal_release_granted": False,
                 },
                 {
@@ -1483,6 +1484,9 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             "knowledge_documents": [".txt", ".md", ".docx", ".pdf"],
             "result_log_review": {
                 "schema_version": "astrograph-result-log-review.v1",
+                "analysis_modes": ["EXTERNAL_DIAGNOSIS_ANALYSIS", "MATERIAL_REVIEW"],
+                "default_manifest_mode": "MATERIAL_REVIEW",
+                "external_analysis_max_source_characters": 60000,
                 "accepted_roles": {
                     "diagnosis_results": [".json", ".csv", ".txt", ".md", ".docx", ".pdf"],
                     "log_reports": [".log", ".json", ".csv", ".txt", ".md", ".docx", ".pdf"],

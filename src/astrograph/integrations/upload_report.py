@@ -622,7 +622,8 @@ class UploadReportJobStore:
             ]]
             model_binding = review["model_binding"]
             details.update({"role_counts": review["role_counts"], "source_receipts": review["files"],
-                            "material_review_only": True})
+                            "analysis_mode": review["analysis_mode"],
+                            "material_review_only": review["analysis_mode"] == "MATERIAL_REVIEW"})
         elif artifact_kind == "PUBLIC_CASE":
             from astrograph.integrations.sat_sim_public_case import _load_public_case
             manifest, telemetry = _load_public_case(paths["case_root"])
@@ -1176,6 +1177,76 @@ class UploadReportJobStore:
         finally:
             launch_lock.unlink(missing_ok=True)
 
+    def _run_external_diagnosis_analysis(
+        self, job_id: str, *, expanded: Path, manifest_path: Path,
+        knowledge_service: PlatformKnowledgeEnrichmentService,
+    ) -> dict[str, Any]:
+        """Import external text and analyse it without executing diagnosis or graph code."""
+        from astrograph.integrations.external_diagnosis_analysis import (
+            load_external_diagnosis_input, run_external_diagnosis_analysis,
+        )
+        from astrograph.integrations.external_diagnosis_report import (
+            imported_diagnosis_review, render_external_diagnosis_markdown,
+        )
+
+        self._set_stage(job_id, "READING_EXTERNAL_DIAGNOSIS", "读取外部诊断文本与来源定位",
+                        artifact_kind="RESULT_LOG_REVIEW")
+        output = self._job_root(job_id) / "output"
+        bundle = load_external_diagnosis_input(
+            task_id=job_id, expanded=expanded, manifest_path=manifest_path,
+        )
+        review = imported_diagnosis_review(bundle)
+        _json_write(output / "external_diagnosis_input.json", bundle)
+        _json_write(output / "result_log_review.json", review)
+        job = self.get(job_id)
+        self._set_stage(job_id, "POST_DIAGNOSIS_KNOWLEDGE", "分析外部诊断文本，生成摘要、假设与核查建议",
+                        llm_call_status="PENDING" if knowledge_service.llm_backend is not None else "NOT_CONFIGURED")
+        knowledge = run_external_diagnosis_analysis(
+            task_id=job_id, task=job["task"], input_bundle=bundle,
+            llm_backend=knowledge_service.llm_backend, output_root=output / "knowledge",
+        )
+        llm_status = knowledge["generation"]["status"]
+        knowledge.update(status=llm_status, diagnostic_candidate_can_be_overridden=False,
+                         active_kg_modified=False)
+        self._set_stage(job_id, "REPORTING", "保存原始材料、模型分析与引用定位", llm_call_status=llm_status)
+        report = {
+            "schema_version": PLATFORM_REPORT_SCHEMA_VERSION,
+            "job_id": job_id, "status": "SUCCEEDED", "task": job["task"],
+            "work_mode": job.get("work_mode", "normal"),
+            "analysis_engine": job.get("analysis_engine") or job.get("llm_runtime"),
+            "artifact_kind": "RESULT_LOG_REVIEW", "completed_at": _now(),
+            "input_files": job["files"],
+            "agent_execution": {"status": "NOT_EXECUTED_EXTERNAL_TEXT_ANALYSIS",
+                                "executed_actions": [], "diagnostic_candidate_modified": False},
+            "analysis": {
+                "artifact_kind": "RESULT_LOG_REVIEW", "analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS",
+                "result_log_review": review, "knowledge_enrichment": knowledge,
+                "effect_guard": {"upstream_result_is_ground_truth": False,
+                                 "diagnosis_calculation_executed": False,
+                                 "raw_telemetry_detection_executed": False,
+                                 "rule_evaluation_executed": False, "graph_reasoning_executed": False,
+                                 "automatic_control_authorized": False, "active_kg_modified": False},
+            },
+            "formal_diagnosis_publishable": False,
+            "claim_boundary": "External report interpretation and model hypotheses; no upstream diagnosis computation.",
+            "visualization": {"status": "NOT_APPLICABLE_DOCUMENT_ONLY", "channel_count": 0},
+        }
+        _json_write(output / "report.json", report)
+        (output / "report.md").write_text(render_external_diagnosis_markdown(job, review, knowledge), encoding="utf-8")
+        _json_write(output / "visualization.json", {
+            "schema_version": "astrograph-platform-visualization.v1", "status": "NOT_APPLICABLE_DOCUMENT_ONLY",
+            "channels": [], "truth_or_labels_used": False,
+        })
+        job.update({"status": "SUCCEEDED", "stage": "COMPLETED",
+                    "stage_detail": "外部报告已保存；模型分析完成" if llm_status == "SUCCEEDED"
+                    else "外部报告已保存；模型分析状态：" + llm_status,
+                    "llm_call_status": llm_status, "artifact_kind": "RESULT_LOG_REVIEW",
+                    "analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS", "completed_at": report["completed_at"],
+                    "report_json": "output/report.json", "report_markdown": "output/report.md"})
+        self._save(job)
+        self._append_event(job_id, "[COMPLETED] 外部诊断报告已保存；模型状态：" + llm_status)
+        return report
+
     def _run_result_log_review(
         self, job_id: str, *, expanded: Path, manifest_path: Path,
         knowledge_service: PlatformKnowledgeEnrichmentService,
@@ -1358,6 +1429,13 @@ class UploadReportJobStore:
             self._set_stage(job_id, "CLASSIFYING_ARTIFACT", "识别可执行诊断工件类型")
             artifact_kind, paths = self._classify(expanded)
             if artifact_kind == "RESULT_LOG_REVIEW":
+                from astrograph.integrations.result_log_review import load_manifest
+                manifest, _roles = load_manifest(expanded, paths["manifest"])
+                if manifest.analysis_mode == "EXTERNAL_DIAGNOSIS_ANALYSIS":
+                    return self._run_external_diagnosis_analysis(
+                        job_id, expanded=expanded, manifest_path=paths["manifest"],
+                        knowledge_service=knowledge_service,
+                    )
                 return self._run_result_log_review(
                     job_id, expanded=expanded, manifest_path=paths["manifest"],
                     knowledge_service=knowledge_service,
@@ -3466,6 +3544,9 @@ class UploadReportJobStore:
             policy = (analysis.get("material_reasoning") or {}).get("answer_policy") or {}
             disposition = ("ABSTAIN" if policy.get("all_candidates_abstained") is not False
                            else "REVIEW_REQUIRED")
+            if analysis.get("analysis_mode") == "EXTERNAL_DIAGNOSIS_ANALYSIS":
+                llm_status = ((analysis.get("knowledge_enrichment") or {}).get("generation") or {}).get("status", "UNKNOWN")
+                disposition = "REVIEW_REQUIRED" if llm_status == "SUCCEEDED" else "MODEL_" + llm_status
             requires_human_review = True
         normalized = str(disposition or "UNKNOWN").upper()
         if any(token in normalized for token in ("REVIEW", "AMBIGUOUS", "INSUFFICIENT")):
@@ -3478,6 +3559,8 @@ class UploadReportJobStore:
             "disposition": disposition,  # v2 compatibility alias
             "release_status": ("FORMAL_RELEASE_ALLOWED" if publishable else "FORMAL_RELEASE_BLOCKED"),
             "requires_human_review": requires_human_review,
+            **({"analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS", "llm_call_status": llm_status}
+               if analysis.get("analysis_mode") == "EXTERNAL_DIAGNOSIS_ANALYSIS" else {}),
         }
 
     def overview(self, *, limit: int = 50) -> dict[str, Any]:
