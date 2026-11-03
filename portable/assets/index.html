@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>AstroGraph · 外部诊断分析工作台</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="AstroGraph 首页"><span class="brand-mark" aria-hidden="true">A<span>✦</span></span><span>AstroGraph<small>外部诊断分析工作台</small></span></a>
+    <div class="header-status"><span class="status-dot" id="service-dot"></span><span id="service-status">正在连接本机工作台</span><span class="local-tag">便携版 · Win10 x64</span></div>
+  </header>
+  <main>
+    <section class="page-intro"><div><p class="eyebrow">EXTERNAL DIAGNOSIS / LLM REVIEW</p><h1>让诊断材料成为有据可查的分析</h1><p class="intro-copy">导入已有诊断，连接模型，逐条核对解读、原因假设与建议。</p></div><div class="history-control"><label for="history">已保存的分析</label><div class="history-row"><select id="history"><option value="">选择历史任务…</option></select><button id="refresh-history" class="icon-button" title="刷新历史任务" aria-label="刷新历史任务">↻</button><a class="text-button" href="/api/backup">备份</a><button id="restore-trigger" class="text-button" type="button">恢复</button><input id="restore-file" type="file" accept=".zip,application/zip" hidden></div></div></section>
+    <div id="global-message" class="notice" role="status" aria-live="polite" hidden></div>
+    <div class="workspace">
+      <aside class="setup-column">
+        <section class="card input-card" aria-labelledby="input-title"><div class="section-heading"><h2 id="input-title"><span class="step">01</span>诊断材料</h2><button type="button" id="load-sample" class="text-button">载入示例</button></div>
+          <p class="muted small">至少提供一份诊断报告；日志与参考资料可选。</p>
+          <label class="field-label" for="paste">粘贴诊断文本</label><textarea id="paste" rows="6" placeholder="在这里粘贴外部诊断结论、现象或已有分析…"></textarea>
+          <div class="inline-fields"><label>文本角色<select id="paste-role"><option value="diagnosis_results">诊断报告</option><option value="log_reports">补充日志</option><option value="references">参考资料</option></select></label><span id="paste-count" class="field-counter">0 字</span></div>
+          <div class="divider-label"><span>或添加文本文件</span></div>
+          <label for="files" class="dropzone" id="dropzone"><span class="upload-symbol" aria-hidden="true">↑</span><strong>选择文件 / 拖放到这里</strong><span>TXT · MD · JSON · CSV · LOG · PDF · DOCX</span><input id="files" type="file" multiple accept=".txt,.md,.json,.csv,.log,.pdf,.docx"></label>
+          <ul id="file-list" class="file-list" aria-label="已选文件"></ul><p id="input-stats" class="small muted">0 份材料 · 0 B / 4 MiB</p>
+          <p class="small muted">每份文件可指定角色和编码；自动识别 UTF-8、UTF-8 BOM 与 UTF-16 BOM。GB18030 请手动选择。最多 8 份诊断、12 份日志、16 份参考；解析文本共 180,000 字；长文分块后综合分析。参考资料支持 TXT / MD / PDF / DOCX，LOG 文件仅作日志。</p>
+          <label class="field-label" for="task">希望重点分析什么 <span class="optional">可修改</span></label><textarea id="task" rows="3" maxlength="4000">解读外部诊断材料，比较可能原因与反向证据，说明不确定性，并提出可核查的后续建议。</textarea>
+        </section>
+        <section class="card connection-card" aria-labelledby="connection-title"><div class="section-heading"><h2 id="connection-title"><span class="step">02</span>模型连接</h2><span id="connection-badge" class="badge neutral">未测试</span></div>
+          <label class="field-label" for="mode">运行方式</label><select id="mode"><option value="local">本地模型 · 离线服务</option><option value="online">在线 API · HTTPS</option></select>
+          <p id="mode-help" class="small muted">需先在本机启动 LM Studio 或 Ollama，并加载模型。模型与服务软件需自行准备。</p>
+          <label class="field-label" for="preset">连接预设</label><select id="preset"><option value="lmstudio">LM Studio · 端口 1234</option><option value="ollama">Ollama · 端口 11434</option><option value="custom">自定义兼容接口</option></select>
+          <label class="field-label" for="base-url">API 基础地址</label><input id="base-url" type="url" spellcheck="false" value="http://127.0.0.1:1234/v1" placeholder="https://api.example.com/v1">
+          <label class="field-label" for="model">模型 ID</label><input id="model" list="models" autocomplete="off" spellcheck="false" placeholder="输入模型 ID，或测试连接后选择"><datalist id="models"></datalist>
+          <label class="field-label" for="api-key">API Key <span class="optional">仅保留在当前页面内存</span></label><input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="本地服务通常可留空">
+          <details class="advanced"><summary>高级参数</summary><div class="inline-fields"><label>最大输出 tokens<input id="max-tokens" type="number" min="128" max="16384" value="4096"></label><label>超时 / 秒<input id="timeout" type="number" min="10" max="600" value="180"></label></div><label class="field-label" for="strategy">结构化输出策略</label><select id="strategy"><option value="auto">自动兼容（推荐）</option><option value="json_schema">JSON Schema</option><option value="json_object">JSON Object</option><option value="plain_json">纯 JSON 提示</option></select></details>
+          <button type="button" id="probe" class="button secondary wide">测试连接 / 读取模型列表</button><p id="probe-status" class="small muted" role="status" aria-live="polite">连接测试只读取模型列表，不生成分析。</p>
+        </section>
+        <div class="start-area"><button id="analyze" type="button" class="button primary wide" disabled>开始分析 <span aria-hidden="true">→</span></button><p id="send-disclosure" class="small muted">材料将发送给所配置的本地模型服务。</p></div>
+      </aside>
+      <section class="output-column" aria-labelledby="output-title">
+        <div class="output-heading"><div><p class="eyebrow">ANALYSIS WORKSPACE</p><h2 id="output-title">分析结果</h2></div><span id="job-badge" class="badge neutral">等待材料</span></div>
+        <div id="empty-state" class="empty-state card"><div class="orbit-art" aria-hidden="true"><span>✦</span><i></i><b></b></div><h3>从一份诊断报告开始</h3><p>在左侧添加材料并连接模型。分析完成后，<br>这里会展示解读、原因假设与对应原文。</p><div class="empty-steps"><span>1 导入材料</span><span>2 配置模型</span><span>3 核对引用</span></div><p class="small muted">工作台启动时不会自动访问任何模型服务。</p></div>
+        <div id="job-progress" class="card progress-card" role="status" aria-live="polite" hidden><span class="spinner" aria-hidden="true"></span><div><strong id="progress-title">正在分析材料</strong><p id="progress-copy">正在等待模型响应与结构检查，请保持本页打开。</p></div></div>
+        <div id="result" hidden>
+          <section class="card report-header"><div class="report-heading"><div><p id="job-meta" class="small muted"></p><h3 id="job-task"></h3></div><div class="download-actions"><a id="download-md" class="button compact" download>下载 MD</a><a id="download-json" class="button compact" download>下载 JSON</a><button id="resume-job" class="button compact secondary" type="button" hidden>继续中断任务</button></div></div><div id="result-status" class="notice" role="status"></div><p class="small muted">模型分析需结合原始材料复核。引用检查仅确认来源归属，不代表观点已被证实。</p></section>
+          <div class="result-grid"><div id="analysis-content" class="analysis-content"></div><aside class="sources-column"><section class="card source-card"><div class="section-heading"><h3>原始材料与引用</h3><span id="source-count" class="badge neutral">0</span></div><p class="small muted">点击分析中的引用编号，定位并高亮原文。</p><div id="source-list"></div></section></aside></div>
+          <section id="follow-up" class="card follow-up" hidden><div class="section-heading"><h3>继续追问</h3><a id="download-conversation" class="text-button" download>下载对话 JSON</a></div><p class="small muted">追问绑定本任务的原始材料。问题和模型回答不作为新增证据，也不会改写原报告。</p><div id="turns"></div><form id="follow-up-form"><label class="field-label" for="question">针对本报告提问</label><textarea id="question" rows="3" maxlength="4000" placeholder="例如：哪些证据支持这个原因？还有哪些相反解释？"></textarea><div class="follow-up-controls"><button id="send-question" class="button primary" type="submit">发送追问</button><button id="reload-conversation" class="text-button" type="button">重新读取记录</button><span id="turn-limit" class="small muted">0 / 12 次记录 · 每问最多 4,000 字</span></div><p id="follow-up-status" class="small muted" role="status" aria-live="polite">使用左侧当前连接设置；重启后需重新输入 API Key。Ctrl + Enter 发送。</p></form></section>
+        </div>
+      </section>
+    </div>
+    <footer>AstroGraph · 外部诊断分析 <span>材料、报告与对话保存在本机；在线模式会将选定材料发送至配置的 API。</span></footer>
+  </main>
+</body>
+</html>

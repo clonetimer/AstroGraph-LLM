@@ -1,0 +1,8 @@
+# Runtime only. Download Windows wheels at build time; never pip-install at startup.
+pydantic==2.14.2
+pydantic-core==2.50.2
+annotated-types==0.8.0
+typing-extensions==4.16.0
+typing-inspection==0.4.4
+
+pypdf==6.21.4

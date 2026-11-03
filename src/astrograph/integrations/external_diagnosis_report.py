@@ -60,6 +60,16 @@ def render_external_diagnosis_markdown(
         for finding in model["findings"]:
             lines.extend([f"- {_text(finding['text'])}",
                           "  - 依据：" + ", ".join(f"`{sid}`" for sid in finding["citation_ids"])])
+        for title, field in (("跨报告共识", "common_findings"), ("报告间分歧", "report_disagreements"),
+                             ("互补证据", "complementary_evidence"), ("事件与时间对齐", "event_alignment")):
+            items = model.get(field, [])
+            if items:
+                lines.extend(["", f"## {title}", ""])
+                for item in items:
+                    lines.extend([f"- {_text(item['text'])}",
+                                  "  - 依据：" + ", ".join(f"`{sid}`" for sid in item["citation_ids"])])
+        if model.get("integrated_conclusion"):
+            lines.extend(["", "## 综合结论", "", _text(model["integrated_conclusion"]), ""])
         lines.extend(["", "## 原因假设", ""])
         if not model["hypotheses"]:
             lines.append("模型未提出可据材料进一步分析的原因假设。")

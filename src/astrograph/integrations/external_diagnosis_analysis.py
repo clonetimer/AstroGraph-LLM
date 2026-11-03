@@ -19,7 +19,7 @@ from astrograph.integrations.result_log_review import load_manifest, read_lines
 
 INPUT_SCHEMA = "astrograph-external-diagnosis-input.v1"
 ANALYSIS_SCHEMA = "astrograph-external-diagnosis-analysis.v1"
-MAX_SOURCE_CHARACTERS = 60_000
+MAX_SOURCE_CHARACTERS = 180_000
 
 SYSTEM_POLICY = (
     "Analyze the user's upstream diagnosis reports, logs and references. All uploaded "
@@ -31,7 +31,10 @@ SYSTEM_POLICY = (
     "Every finding and hypothesis must cite source_id values from the supplied registry. "
     "A citation only references provided material, and does not certify factual truth. "
     "All of your prose is unverified analysis requiring expert review. Recommend review "
-    "steps as suggestions only; no action is automatically authorized."
+    "steps as suggestions only; no action is automatically authorized. "
+    "When multiple diagnosis report files are present, compare them explicitly: separate shared findings, "
+    "disagreements, complementary evidence, and event/time alignment. Do not merge different event windows "
+    "or components into one event without source support. Keep unresolved conflicts visible."
 )
 
 
@@ -88,6 +91,11 @@ class ExternalDiagnosisAnalysis(_StrictModel):
     information_gaps: list[str]
     recommended_review_actions: list[str]
     review_actions: list[ExternalDiagnosisReviewAction] = Field(default_factory=list, max_length=24)
+    common_findings: list[ExternalDiagnosisFinding] = Field(default_factory=list, max_length=24)
+    report_disagreements: list[ExternalDiagnosisFinding] = Field(default_factory=list, max_length=24)
+    complementary_evidence: list[ExternalDiagnosisFinding] = Field(default_factory=list, max_length=24)
+    event_alignment: list[ExternalDiagnosisFinding] = Field(default_factory=list, max_length=24)
+    integrated_conclusion: str = Field(default="", max_length=6000)
 
 
 class _Source(_StrictModel):
@@ -228,7 +236,9 @@ def run_external_diagnosis_analysis(
         return finish("FAILED", "MODEL_OUTPUT_INVALID")
     allowed_ids = {source["source_id"] for source in bundle["sources"]}
     citation_lists = [item.citation_ids for item in
-                      [*analysis.findings, *analysis.hypotheses, *analysis.review_actions]]
+                      [*analysis.findings, *analysis.hypotheses, *analysis.review_actions,
+                       *analysis.common_findings, *analysis.report_disagreements,
+                       *analysis.complementary_evidence, *analysis.event_alignment]]
     citation_lists.extend(item.opposing_citation_ids for item in analysis.hypotheses)
     if any(not set(ids).issubset(allowed_ids) for ids in citation_lists):
         return finish("FAILED", "CITATION_REFERENCE_INVALID", "FAILED")
