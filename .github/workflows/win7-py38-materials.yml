@@ -1,0 +1,60 @@
+name: Win7 Python38 build materials
+on:
+  push:
+    branches: [feat/portable-win7-py38]
+    paths: [.github/workflows/win7-py38-materials.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  materials:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+      - name: Download official runtime and dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p materials/windows materials/linux
+          python - <<'PY'
+          import urllib.request, hashlib, json, pathlib
+          root = pathlib.Path('materials')
+          records = []
+          for name, url in [
+              ('python-3.8.10-embed-amd64.zip', 'https://www.python.org/ftp/python/3.8.10/python-3.8.10-embed-amd64.zip'),
+              ('Python-3.8.20.tar.xz', 'https://www.python.org/ftp/python/3.8.20/Python-3.8.20.tar.xz'),
+          ]:
+              urllib.request.urlretrieve(url, root / name)
+              data = (root / name).read_bytes()
+              if name.endswith('embed-amd64.zip'):
+                  assert hashlib.md5(data).hexdigest() == '3acb1d7d9bde5a79f840167b166bb633'
+              records.append({'name': name, 'url': url, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()})
+          (root / 'runtime-sources.json').write_text(json.dumps(records, indent=2))
+          PY
+          python -m pip download --only-binary=:all: --platform win_amd64 --python-version 38 --implementation cp --abi cp38 --dest materials/windows pydantic==2.10.6 pydantic-core==2.27.2 annotated-types==0.7.0 typing-extensions==4.13.2 pypdf==5.9.0 eval-type-backport==0.2.2 certifi
+          python -m pip download --only-binary=:all: --dest materials/linux pydantic==2.10.6 pydantic-core==2.27.2 annotated-types==0.7.0 typing-extensions==4.13.2 pypdf==5.9.0 eval-type-backport==0.2.2 certifi reportlab pefile
+          python - <<'PY'
+          import hashlib, json, pathlib, urllib.request, zipfile
+          root = pathlib.Path('materials')
+          entries = []
+          for p in sorted(root.rglob('*.whl')):
+              with zipfile.ZipFile(p) as z:
+                  metadata = z.read(next(n for n in z.namelist() if n.endswith('.dist-info/METADATA'))).decode()
+              name = next(x.split(': ',1)[1] for x in metadata.splitlines() if x.startswith('Name: '))
+              version = next(x.split(': ',1)[1] for x in metadata.splitlines() if x.startswith('Version: '))
+              with urllib.request.urlopen('https://pypi.org/pypi/%s/%s/json' % (name, version)) as r:
+                  release = json.load(r)
+              item = next(x for x in release['urls'] if x['filename'] == p.name)
+              digest = hashlib.sha256(p.read_bytes()).hexdigest()
+              assert digest == item['digests']['sha256'], p.name
+              entries.append({'path': p.as_posix(), 'name': name, 'version': version, 'url': item['url'], 'sha256': digest})
+          (root/'wheel-sources.json').write_text(json.dumps(entries, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: win7-py38-official-materials
+          path: materials/
+          retention-days: 7
