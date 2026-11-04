@@ -1,0 +1,67 @@
+name: Win7 candidate runtime on Windows host
+on:
+  push:
+    branches: [feat/portable-win7-py38]
+    paths: [.github/workflows/win7-py38-runtime-check.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  embedded-runtime:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/download-artifact@v4
+        with:
+          name: win7-py38-official-materials
+          run-id: 41820347322
+          github-token: ${{ github.token }}
+          path: materials
+      - name: Stage official embedded runtime and wheels
+        shell: python
+        run: |
+          from pathlib import Path
+          import zipfile
+          root = Path('Chinese path with spaces')
+          root.mkdir()
+          with zipfile.ZipFile('materials/python-3.8.10-embed-amd64.zip') as z:
+              z.extractall(root/'runtime')
+          for wheel in Path('materials/windows').glob('*.whl'):
+              with zipfile.ZipFile(wheel) as z:
+                  z.extractall(root/'packages')
+          (root/'runtime/python38._pth').write_text('python38.zip\n.\n../packages\n..\n', encoding='ascii')
+          code = '''from __future__ import annotations
+          import sys, ssl, json, platform, pathlib, hashlib
+          from typing_extensions import Annotated
+          import certifi, pydantic, pydantic_core, pypdf
+          from pydantic import BaseModel, ConfigDict, Field
+          class Model(BaseModel):
+              model_config = ConfigDict(extra="forbid", strict=True)
+              values: list[Annotated[str, Field(min_length=1)]]
+              answer: str | None = None
+          item = Model.model_validate({"values": ["source-1"]})
+          assert item.model_dump()["values"] == ["source-1"]
+          assert sys.version_info[:3] == (3, 8, 10)
+          assert pydantic.__version__ == "2.10.6"
+          assert pydantic_core.__version__ == "2.27.2"
+          context = ssl.create_default_context(cafile=certifi.where())
+          assert context.check_hostname and context.verify_mode == ssl.CERT_REQUIRED
+          assert len(context.get_ca_certs()) > 50
+          result = {"python": sys.version, "host": platform.platform(), "pydantic": pydantic.__version__, "core": pydantic_core.__version__, "pypdf": pypdf.__version__, "openssl": ssl.OPENSSL_VERSION, "ca_certificates": len(context.get_ca_certs()), "windows_execution": True, "native_win7_tested": False, "check": "PASS"}
+          pathlib.Path(__file__).with_name("runtime-check.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+          print(json.dumps(result, indent=2))
+          '''
+          (root/'runtime_check.py').write_text(code, encoding='utf-8')
+          (root/'CHECK.bat').write_bytes(('@echo off\r\nsetlocal DisableDelayedExpansion\r\n"%~dp0runtime\\python.exe" -X utf8 -B "%~dp0runtime_check.py"\r\nexit /b %ERRORLEVEL%\r\n').encode('ascii'))
+      - name: Execute candidate runtime using CMD launcher
+        shell: cmd
+        run: |
+          call "Chinese path with spaces\CHECK.bat"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: win7-candidate-windows-host-evidence
+          path: Chinese path with spaces/runtime-check.json
+          retention-days: 7
