@@ -329,7 +329,9 @@ class PortableTests(unittest.TestCase):
             explanation = result["report"]["analysis"]["knowledge_enrichment"]["model_explanation"]
             self.assertEqual(explanation["citation_reference_validation"], "PASS",
                              f"job={result['job'].get('status')}, reason={result['job'].get('reason_code')}, "
-                             f"generation={result['report']['analysis']['knowledge_enrichment']['generation']}")
+                             f"generation={result['report']['analysis']['knowledge_enrichment']['generation']}, "
+                             f"requests={[(q.get('status'),q.get('http_status'),q.get('latency_ms')) for run in result['execution']['runs'] for q in run['requests']][-12:]}, "
+                             f"model_calls={model['calls']}")
             self.assertGreater(explanation["processing"]["chunk_count"], 1)
             allowed = {source["source_id"] for source in explanation["sources"]}
             for finding in explanation["findings"]:

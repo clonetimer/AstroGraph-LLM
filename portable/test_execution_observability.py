@@ -127,7 +127,10 @@ class ExecutionObservabilityTests(unittest.TestCase):
             store=app.Workbench(self.root)
             job=store.create_job({'task':'核查','connection':connection(url),'files':[file_input()]})
             data=wait_job(store,job['job_id']);execution=data['execution']
-            self.assertEqual(execution['runs'][0]['status'],'SUCCEEDED')
+            self.assertEqual(execution['runs'][0]['status'],'SUCCEEDED',
+                f"status={data['job'].get('status')} reason={data['job'].get('reason_code')} "
+                f"requests={[(q.get('status'),q.get('http_status'),q.get('latency_ms')) for q in execution['runs'][0]['requests'][-12:]]} "
+                f"model_calls={model['calls']}")
             self.assertEqual(execution['usage']['http_requests'],model['calls'])
             self.assertIsNone(execution['usage']['input_tokens'])  # fixture supplies no usage
             self.assertEqual({a['name'] for a in execution['runs'][0]['artifacts']},{'report.json','report.md'})
