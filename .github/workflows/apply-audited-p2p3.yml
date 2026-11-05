@@ -20,7 +20,44 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD^)" = "187453966fd5e0a5ce488f81e27dc01376982a75"
+          git merge-base --is-ancestor 187453966fd5e0a5ce488f81e27dc01376982a75 HEAD
+          changed="$(git diff --name-only 187453966fd5e0a5ce488f81e27dc01376982a75 HEAD | grep -Ev '^(\.sync/p0p1p2p3-20261105\.patch|\.github/workflows/apply-audited-p2p3\.yml)
+          echo '1da250f2ecb92e4852d5c29d3a9329e8ceb78a7c7596278b7fa7be222834cfef  .sync/p0p1p2p3-20261105.patch' | sha256sum -c -
+          git apply --check .sync/p0p1p2p3-20261105.patch
+      - name: Apply source changes
+        run: git apply .sync/p0p1p2p3-20261105.patch
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install source-only test dependencies
+        run: |
+          python -m pip install -e '.[platform,test]'
+          python -m pip install 'pypdf==5.9.0' 'reportlab==4.4.3'
+      - name: Validate external report and traceability chain
+        run: |
+          python -m pytest -q --astrograph-test-profile source-only \
+            tests/test_external_diagnosis_analysis.py \
+            tests/test_external_diagnosis_platform.py \
+            tests/test_external_diagnosis_conversation.py \
+            tests/test_external_execution_observability.py \
+            tests/test_p2_context_platform.py \
+            tests/ui/test_execution_views_integration.py
+      - name: Validate portable regression
+        run: python -B -m unittest discover -s portable -p 'test*.py'
+      - name: Commit only tested implementation to feature branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'feat: integrate audited P0-P3 report workspace and traceability'
+          git push origin HEAD:refs/heads/feat/pilotdeck-observability
+ || true)"
+          test -z "$changed" || { printf 'Unexpected previous changes:\n%s\n' "$changed"; exit 1; }
           echo '1da250f2ecb92e4852d5c29d3a9329e8ceb78a7c7596278b7fa7be222834cfef  .sync/p0p1p2p3-20261105.patch' | sha256sum -c -
           git apply --check .sync/p0p1p2p3-20261105.patch
       - name: Apply source changes
