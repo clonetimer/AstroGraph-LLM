@@ -6,6 +6,7 @@ import ssl
 
 import urllib.request
 import urllib.error
+from urllib.parse import urlsplit
 
 
 def verified_tls_context():
@@ -41,8 +42,14 @@ def main():
             headers={"Content-Type":"application/json",**config["headers"]},method="POST")
         # urllib's default redirect handler can forward Authorization headers.
         # Provider endpoint changes must be explicit configuration changes.
+        # A loopback provider must NEVER send diagnostic material or credentials
+        # to an operating-system or environment-configured HTTP proxy. This is
+        # stronger than NO_PROXY, whose handling differs across Windows/Python.
+        hostname = urlsplit(config["url"]).hostname
+        loopback = hostname is not None and hostname.lower() in {"127.0.0.1", "localhost", "::1"}
+        proxy_handler = urllib.request.ProxyHandler({}) if loopback else urllib.request.ProxyHandler()
         with urllib.request.build_opener(
-            _NoRedirect(), urllib.request.HTTPSHandler(context=verified_tls_context())
+            proxy_handler, _NoRedirect(), urllib.request.HTTPSHandler(context=verified_tls_context())
         ).open(
             req, timeout=config["timeout_s"]
         ) as response:
