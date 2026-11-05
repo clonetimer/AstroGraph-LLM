@@ -10,7 +10,7 @@ const statusZH = {SUCCEEDED:'已完成',FAILED:'失败',RUNNING:'执行中',QUEU
 const domainZH={ADCS:'姿态控制',EPS:'电源',THERMAL:'热控',PROP:'推进',COMM:'通信数传',CDH:'星载计算',PAYLOAD:'有效载荷'};
 const kindZH={COMPONENT:'部件',FAULT_MODE:'故障',FAILURE_MECHANISM:'机理',SYMPTOM:'现象',VERIFICATION:'核查',ACTION:'措施',CONDITION:'条件'};
 const roleRights={viewer:['viewer'],operator:['viewer','operator'],reviewer:['viewer','reviewer'],admin:['viewer','operator','reviewer','admin']};
-const S={overview:null,demos:null,selectedEvent:null,token:'',identity:null,expert:null,engine:null,jobId:'',report:null,reportTab:'conclusion',graph:null,graphCode:'',files:{diagnosis_results:[],log_reports:[],references:[]},preflight:null,preflightId:'',busy:false,authMode:'local',knowledgeTab:'graph',graphEdgeId:'',accountInit:false,autoTimer:null,uploadRevision:0,openRequest:0,commandRequest:0,analysisEngines:[],analysisEngineId:'rules',analysisEngineLoaded:false};
+const S={overview:null,demos:null,selectedEvent:null,token:'',identity:null,expert:null,engine:null,jobId:'',report:null,reportTab:'conclusion',graph:null,graphCode:'',files:{diagnosis_results:[],log_reports:[],references:[]},preflight:null,preflightId:'',busy:false,authMode:'local',knowledgeTab:'graph',graphEdgeId:'',accountInit:false,autoTimer:null,uploadRevision:0,openRequest:0,commandRequest:0,analysisEngines:[],analysisEngineId:'rules',analysisEngineLoaded:false,followupEngineId:'',chunkEngineId:'',synthesisEngineId:''};
 let toastTimeout;
 let missionContextControls=null;
 function mountMissionContext(){
@@ -78,7 +78,7 @@ function clearPrivateWorkspace(){
   S.openRequest++; // Invalidates any older asynchronous report response across accounts.
   const citation=$('#evidence-detail');if(citation?.open)citation.close();
   S.commandRequest++; // Prevents stale event queues crossing account sessions.
-  S.jobId=''; S.report=null; S.overview=null;S.selectedEvent=null; S.expert=null; S.engine=null; S.preflight=null; S.preflightId='';S.analysisEngines=[];S.analysisEngineId='rules';S.analysisEngineLoaded=false;
+  S.jobId=''; S.report=null; S.overview=null;S.selectedEvent=null; S.expert=null; S.engine=null; S.preflight=null; S.preflightId='';S.analysisEngines=[];S.analysisEngineId='rules';S.analysisEngineLoaded=false;S.followupEngineId='';S.chunkEngineId='';S.synthesisEngineId='';
   const extra=$('#nav-secondary');if(extra)extra.open=false;
   S.files={diagnosis_results:[],log_reports:[],references:[]};S.uploadRevision++;clearTimeout(S.autoTimer);
   try{localStorage.removeItem('astrograph-mission-job-id')}catch{}
@@ -198,15 +198,46 @@ function renderAnalysisEngines(){
   host.innerHTML=S.analysisEngines.map(item=>`<button type="button" class="analysis-engine-option" role="option" data-analysis-engine="${html(item.engine_id)}" aria-selected="${item.engine_id===S.analysisEngineId?'true':'false'}" ${item.available?'':'disabled'}><span class="engine-kind-mark">${item.kind==='llm'?'AI':'文'}</span><span><strong>${html(item.kind==='rules'?'仅导入材料':(item.name||item.model||'大模型'))}</strong><small>${html(item.kind==='rules'?'保存并查看外部诊断原文；不调用大模型或规则诊断':(item.description||''))}</small></span><span class="engine-selected-mark">${item.engine_id===S.analysisEngineId?'已选':''}</span></button>`).join('')||'<div class="engine-menu-state">当前没有可用处理引擎</div>';
   $$('[data-analysis-engine]').forEach(button=>button.onclick=()=>selectAnalysisEngine(button.dataset.analysisEngine));
 }
+function renderFollowupEngines(){
+  const container=$('#mission-followup-options'),select=$('#mission-followup-engine');
+  if(!container||!select)return;
+  const primary=S.analysisEngines.find(item=>item.engine_id===S.analysisEngineId);
+  const choices=S.analysisEngines.filter(item=>item.kind==='llm'&&item.engine_id.startsWith('llm:')&&item.available);
+  const valid=choices.some(item=>item.engine_id===S.followupEngineId);
+  if(S.followupEngineId&&!valid){S.followupEngineId='';S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;schedulePreflight()}
+  if(primary?.kind==='rules'&&S.followupEngineId){S.followupEngineId='';S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;schedulePreflight()}
+  container.hidden=!primary||primary.kind==='rules'||choices.length===0;
+  select.innerHTML='<option value="">与本次分析模型相同</option>'+choices.map(item=>`<option value="${html(item.engine_id)}">${html(item.name||item.model||'模型')}</option>`).join('');
+  select.value=S.followupEngineId;
+  // Stage selectors do not alter the default single-model workflow.
+  for(const [stage,state] of [['chunk','chunkEngineId'],['synthesis','synthesisEngineId']]){
+    const panel=$('#mission-'+stage+'-options'),input=$('#mission-'+stage+'-engine');
+    if(!panel||!input)continue;
+    const found=choices.some(item=>item.engine_id===S[state]);
+    if(S[state]&&(!found||primary?.kind==='rules')){
+      S[state]='';S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;schedulePreflight();
+    }
+    panel.hidden=container.hidden;
+    input.innerHTML='<option value="">使用主分析模型</option>'+choices.map(item=>`<option value="${html(item.engine_id)}">${html(item.name||item.model||'模型')}</option>`).join('');
+    input.value=S[state]||'';
+  }
+}
+function phaseEngineSelections(){
+  const stages={};
+  if(S.chunkEngineId)stages.chunk=S.chunkEngineId;
+  if(S.synthesisEngineId)stages.synthesis=S.synthesisEngineId;
+  if(S.followupEngineId)stages.follow_up=S.followupEngineId;
+  return stages;
+}
 function selectAnalysisEngine(engineId){
   const engine=S.analysisEngines.find(x=>x.engine_id===engineId&&x.available);if(!engine)return;
   S.analysisEngineLoaded=true;if(S.analysisEngineId!==engineId){S.analysisEngineId=engineId;S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;$('#preflight-results').textContent='';setUploadMessage(`已选择“${engine.kind==='rules'?'仅导入材料':engine.name}”，需要重新检查材料。`);schedulePreflight()}
-  renderAnalysisEngines();$('#analysis-engine-menu').hidden=true;$('#analysis-engine-toggle').setAttribute('aria-expanded','false');
+  renderAnalysisEngines();renderFollowupEngines();$('#analysis-engine-menu').hidden=true;$('#analysis-engine-toggle').setAttribute('aria-expanded','false');
 }
 async function loadAnalysisEngines(){
   const host=$('#analysis-engine-options');if(host)host.innerHTML='<div class="engine-menu-state">正在读取可用引擎…</div>';
-  try{const data=await api('/v1/platform/analysis-engines');S.analysisEngines=(data.engines||[]).filter(x=>x.available!==false);const current=S.analysisEngineLoaded&&S.analysisEngines.some(x=>x.engine_id===S.analysisEngineId)?S.analysisEngineId:data.default_engine_id;S.analysisEngineId=current||'rules';S.analysisEngineLoaded=true;renderAnalysisEngines()}
-  catch(error){S.analysisEngines=[{engine_id:'rules',kind:'rules',name:'仅导入材料',description:'保存原文；未调用大模型或规则诊断',available:true}];S.analysisEngineId='rules';renderAnalysisEngines();if(host)host.title=error.message}
+  try{const data=await api('/v1/platform/analysis-engines');S.analysisEngines=(data.engines||[]).filter(x=>x.available!==false);const current=S.analysisEngineLoaded&&S.analysisEngines.some(x=>x.engine_id===S.analysisEngineId)?S.analysisEngineId:data.default_engine_id;S.analysisEngineId=current||'rules';S.analysisEngineLoaded=true;renderAnalysisEngines();renderFollowupEngines()}
+  catch(error){S.analysisEngines=[{engine_id:'rules',kind:'rules',name:'仅导入材料',description:'保存原文；未调用大模型或规则诊断',available:true}];S.analysisEngineId='rules';renderAnalysisEngines();renderFollowupEngines();if(host)host.title=error.message}
 }
 function getRoleFiles(role){return S.files[role]||[]}
 function schedulePreflight(){clearTimeout(S.autoTimer);
@@ -267,7 +298,7 @@ function mappedFiles(files){
 function setUploadMessage(msg){$('#upload-state').textContent=msg}
 async function preflight(){if(S.busy)return;const revision=S.uploadRevision, context=missionContextControls?.selection();S.busy=true;$('#mission-preflight').disabled=true;$('#mission-start').disabled=true;try{
   const files=mappedFiles(validUploads());setUploadMessage('正在安全保存你添加的材料…');setAnalysisProcess('working','正在整理材料','先保存文件，再确认每类材料是否可读');
-  const job=await api('/v1/platform/jobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({task:$('#mission-task').value.trim()||'分析故障原因与处置建议',work_mode:'normal',analysis_engine_id:S.analysisEngineId||'rules'})});
+  const job=await api('/v1/platform/jobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({task:$('#mission-task').value.trim()||'分析故障原因与处置建议',work_mode:'normal',analysis_engine_id:S.analysisEngineId||'rules',phase_engine_ids:phaseEngineSelections()})});
   const id=job.job_id;for(const item of files){setUploadMessage(`正在读取：${item.name}`);await api(`/v1/platform/jobs/${qs(id)}/files/${qs(item.name)}`,{method:'PUT',body:item.file})}
   const manifest={schema_version:'astrograph-result-log-review.v1',analysis_mode:'EXTERNAL_DIAGNOSIS_ANALYSIS',diagnosis_results:files.filter(f=>f.role==='diagnosis_results').map(f=>f.name),log_reports:files.filter(f=>f.role==='log_reports').map(f=>f.name),references:files.filter(f=>f.role==='references').map(f=>f.name)};
   const scope=$('#mission-scope').value.trim();if(scope)manifest.equipment_scope=scope;
@@ -740,6 +771,17 @@ function bind(){
   $('#chat-add-material').onclick=()=>useView('upload');$('#chat-open-report').onclick=()=>useView('report');
   $('#analysis-thinking-toggle').onclick=()=>{const body=$('#analysis-thinking-body'),expanded=!body.hidden;body.hidden=expanded;$('#analysis-thinking-toggle').setAttribute('aria-expanded',String(!expanded))};
   $('#analysis-attach-toggle').onclick=e=>{e.stopPropagation();const menu=$('#analysis-attach-menu'),open=!menu.hidden;menu.hidden=open;$('#analysis-attach-toggle').setAttribute('aria-expanded',String(!open))};
+  $('#mission-followup-engine').onchange=event=>{const value=event.target.value;
+    if(value===S.followupEngineId)return;
+    S.followupEngineId=value;S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;
+    $('#preflight-results').textContent='';schedulePreflight();};
+  for(const [stage,key] of [['chunk','chunkEngineId'],['synthesis','synthesisEngineId']]){
+    const input=$('#mission-'+stage+'-engine');if(!input)continue;
+    input.onchange=event=>{const value=event.target.value;
+      if(value===S[key])return;
+      S[key]=value;S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;
+      $('#preflight-results').textContent='';schedulePreflight();};
+  }
   $('#analysis-engine-toggle').onclick=e=>{e.stopPropagation();const menu=$('#analysis-engine-menu'),open=!menu.hidden;menu.hidden=open;$('#analysis-engine-toggle').setAttribute('aria-expanded',String(!open));if(!open&&!S.analysisEngines.length)loadAnalysisEngines()};
   $('#analysis-attach-menu').onclick=e=>e.stopPropagation();$('#analysis-engine-menu').onclick=e=>e.stopPropagation();document.addEventListener('click',()=>{const attach=$('#analysis-attach-menu');if(attach&&!attach.hidden){attach.hidden=true;$('#analysis-attach-toggle').setAttribute('aria-expanded','false')}const engines=$('#analysis-engine-menu');if(engines&&!engines.hidden){engines.hidden=true;$('#analysis-engine-toggle').setAttribute('aria-expanded','false')}});
   $('#mission-diagnosis').onchange=e=>setFiles('diagnosis_results',e.target.files);$('#mission-logs').onchange=e=>setFiles('log_reports',e.target.files);$('#mission-references').onchange=e=>setFiles('references',e.target.files);

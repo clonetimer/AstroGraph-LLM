@@ -122,6 +122,21 @@
               </div>
               <details id="mission-context-picker" class="context-workbench"></details>
 <div class="attachment-tray" id="attachment-tray" aria-live="polite"><span class="attachment-empty">尚未添加材料</span></div>
+              <div class="analysis-followup-control" id="mission-chunk-options" hidden>
+                <label for="mission-chunk-engine">长报告片段分析模型（可选）</label>
+                <select id="mission-chunk-engine" aria-label="长报告片段分析模型"><option value="">使用主分析模型</option></select>
+                <small>仅适用于超过 60,000 字符的外部诊断报告；分块仍保留原文引用。</small>
+              </div>
+              <div class="analysis-followup-control" id="mission-synthesis-options" hidden>
+                <label for="mission-synthesis-engine">长报告综合分析模型（可选）</label>
+                <select id="mission-synthesis-engine" aria-label="长报告综合分析模型"><option value="">使用主分析模型</option></select>
+                <small>在所有片段完成后综合分析；切换模型会使历史片段检查点失效。</small>
+              </div>
+              <div class="analysis-followup-control" id="mission-followup-options" hidden>
+                <label for="mission-followup-engine">证据追问使用的模型（可选）</label>
+                <select id="mission-followup-engine" aria-label="可选的证据追问模型"><option value="">与本次分析模型相同</option></select>
+                <small>仅列出已审核可用的模型服务。设置变更后会重新预检材料。</small>
+              </div>
               <div class="analysis-composer">
                 <textarea id="mission-task" rows="3" maxlength="4000" aria-label="描述需要分析的问题">请结合我上传的诊断结果、运行日志和参考资料，判断最可能的故障原因，说明证据是否充分，并给出下一步核查建议。</textarea>
                 <div class="analysis-composer-actions">

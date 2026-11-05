@@ -649,9 +649,10 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
                 request_id=request.headers.get("X-Request-ID", ""),
                 # Sensitive configuration payloads must not be echoed into
                 # validation errors (including pydantic ctx.error objects).
-                details=([{"loc":err.get("loc"),"type":err.get("type"),"msg":err.get("msg")}
-                    for err in exc.errors()] if request.url.path.startswith(
-                        "/v1/platform/settings/knowledge-engine") else exc.errors()),
+                details=[{"loc": [str(part) for part in err.get("loc", ())],
+                          "type": str(err.get("type") or "INVALID"),
+                          "msg": str(err.get("msg") or "Request payload is invalid")}
+                         for err in exc.errors()],
             ),
         )
 
@@ -1940,9 +1941,15 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
 
     @app.post("/v1/platform/jobs")
     def create_upload_report_job(request: PlatformJobCreateRequest) -> dict:
-        return get_upload_report_store().create(
-            request.task, request.work_mode, request.analysis_engine_id,
-        )
+        try:
+            return get_upload_report_store().create(
+                request.task, request.work_mode, request.analysis_engine_id,
+                phase_engine_ids=request.phase_engine_ids,
+            )
+        except ValueError as exc:
+            # Profile IDs can be invalidated by administrative changes.
+            # Do not expose provider endpoints, credentials or profile internals.
+            raise HTTPException(status_code=422, detail="ANALYSIS_ENGINE_PROFILE_UNAVAILABLE") from exc
 
     @app.get("/v1/platform/overview")
     def get_platform_overview(limit: int = Query(default=50, ge=1, le=200)) -> dict:
