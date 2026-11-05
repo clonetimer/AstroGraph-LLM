@@ -327,7 +327,9 @@ class PortableTests(unittest.TestCase):
             result = wait_job(self.store, job["job_id"])
             self.assertEqual(result["job"]["status"], "SUCCEEDED")
             explanation = result["report"]["analysis"]["knowledge_enrichment"]["model_explanation"]
-            self.assertEqual(explanation["citation_reference_validation"], "PASS")
+            self.assertEqual(explanation["citation_reference_validation"], "PASS",
+                             f"job={result['job'].get('status')}, reason={result['job'].get('reason_code')}, "
+                             f"generation={result['report']['analysis']['knowledge_enrichment']['generation']}")
             self.assertGreater(explanation["processing"]["chunk_count"], 1)
             allowed = {source["source_id"] for source in explanation["sources"]}
             for finding in explanation["findings"]:
@@ -566,7 +568,9 @@ class PortableTests(unittest.TestCase):
             with model_server() as model:
                 job = store.create_job(self.payload(connection(model["base_url"])))
                 result = wait_job(store, job["job_id"])
-                self.assertEqual(result["report"]["analysis"]["knowledge_enrichment"]["generation"]["status"], "SUCCEEDED")
+                self.assertIsNotNone(result["report"], f"job={result['job']}")
+                self.assertEqual(result["report"]["analysis"]["knowledge_enrichment"]["generation"]["status"], "SUCCEEDED",
+                                 f"job={result['job']}, generation={result['report']['analysis']['knowledge_enrichment']['generation']}")
 
     def test_ipv6_local_model_never_sends_material_to_proxy(self):
         with model_server() as proxy, model_server(ipv6=True) as model:

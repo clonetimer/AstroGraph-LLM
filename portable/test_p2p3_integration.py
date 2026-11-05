@@ -45,7 +45,7 @@ class FlowTests(unittest.TestCase):
             a=self.store.create_job({'task':'one','files':[item()],'connection':c,'phases':ph,'queue':True})
             b=self.store.create_job({'task':'two','files':[item()],'connection':c,'phases':ph,'queue':True})
             r=done(self.store,a['job_id']);done(self.store,b['job_id'])
-            self.assertEqual(model['calls'],2)
+            self.assertEqual(model['calls'],2, f"job_a={r['job']}, job_b={self.store.get(b['job_id'])}")
             self.assertTrue(self.store._queue.wait_idle(5))
             self.store.follow_up(a['job_id'],{'question':'explain','input_sha256':r['job']['input_sha256'],'request_id':'phase-qa','connection':c,'phases':ph})
             self.assertEqual(model['bodies'][-1]['model'],'qa')
