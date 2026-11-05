@@ -95,7 +95,12 @@ class FlowTests(unittest.TestCase):
             j=self.store.create_job({'task':'compare','files':[item(text=text)],'connection':c,'phases':ph})
             result=done(self.store,j['job_id'],timeout=30)
             self.assertTrue(self.store._queue.wait_idle(5))
-            self.assertEqual(result['report']['analysis']['knowledge_enrichment']['generation']['status'],'SUCCEEDED')
+            generation=result['report']['analysis']['knowledge_enrichment']['generation']
+            self.assertEqual(generation['status'],'SUCCEEDED',
+                f"Windows long report: status={result['job'].get('status')} "
+                f"reason={generation.get('reason_code')} chunk={generation.get('failed_chunk')} "
+                f"chunk_reason={generation.get('chunk_reason_code')} "
+                f"model_calls={model['calls']} models={[x.get('model') for x in model['bodies']]}")
             names=[x['model'] for x in model['bodies']]
             self.assertGreater(names.count('small'),1);self.assertEqual(names[-1],'large')
             self.assertEqual(len(names),names.count('small')+1)

@@ -580,7 +580,13 @@ class PortableTests(unittest.TestCase):
                 store = app.Workbench(Path(self.temp.name))
                 job = store.create_job(self.payload(connection(model["base_url"])))
                 result = wait_job(store, job["job_id"])
-                self.assertEqual(result["report"]["analysis"]["knowledge_enrichment"]["generation"]["status"], "SUCCEEDED")
+                self.assertIsNotNone(result["report"],
+                    f"Windows IPv6: status={result['job'].get('status')} reason={result['job'].get('reason_code')} "
+                    f"local_calls={model['calls']} proxy_calls={proxy['calls']}")
+                self.assertEqual(result["report"]["analysis"]["knowledge_enrichment"]["generation"]["status"], "SUCCEEDED",
+                    f"Windows IPv6: status={result['job'].get('status')} "
+                    f"reason={result['report']['analysis']['knowledge_enrichment']['generation'].get('reason_code')} "
+                    f"local_calls={model['calls']} proxy_calls={proxy['calls']}")
                 self.assertEqual(proxy["calls"], 0)
                 self.assertEqual(model["calls"], 1)
 
