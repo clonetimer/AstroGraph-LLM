@@ -36,7 +36,7 @@ class ManifestDiagnosticsTests(unittest.TestCase):
             asset = fixture(root)
             real_read = Path.read_bytes
             def guarded_read(path):
-                if path == asset:
+                if path.name == asset.name:
                     raise PermissionError(13, "Access denied", str(asset))
                 return real_read(path)
             with mock.patch.object(Path, "read_bytes", guarded_read):
@@ -52,7 +52,7 @@ class ManifestDiagnosticsTests(unittest.TestCase):
             asset = fixture(root)
             real_stat = Path.stat
             def guarded_stat(path, *args, **kwargs):
-                if path == asset:
+                if path.name == asset.name:
                     raise OSError(123, "Invalid path", str(asset))
                 return real_stat(path, *args, **kwargs)
             with mock.patch.object(Path, "stat", guarded_stat):
