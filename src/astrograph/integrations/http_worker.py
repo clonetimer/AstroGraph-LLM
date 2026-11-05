@@ -2,8 +2,23 @@
 import base64
 import json
 import sys
+import ssl
+
 import urllib.request
 import urllib.error
+
+
+def verified_tls_context():
+    """Add the shipped Mozilla roots without disabling OS trust or verification."""
+    context = ssl.create_default_context()
+    try:
+        import certifi
+    except ImportError:
+        pass  # Full-source installations can rely on OS trust; portable profiles bundle roots.
+    else:
+        context.load_verify_locations(cafile=certifi.where())
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
+    return context
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -26,7 +41,9 @@ def main():
             headers={"Content-Type":"application/json",**config["headers"]},method="POST")
         # urllib's default redirect handler can forward Authorization headers.
         # Provider endpoint changes must be explicit configuration changes.
-        with urllib.request.build_opener(_NoRedirect()).open(
+        with urllib.request.build_opener(
+            _NoRedirect(), urllib.request.HTTPSHandler(context=verified_tls_context())
+        ).open(
             req, timeout=config["timeout_s"]
         ) as response:
             length=response.headers.get("Content-Length")

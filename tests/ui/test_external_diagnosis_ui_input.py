@@ -44,7 +44,7 @@ if(surface==='mission'){
   const source=fs.readFileSync(root+'/mission_console.js','utf8');
   const input=source.slice(source.indexOf('function getRoleFiles('),source.indexOf('async function fetchDemos('));
   const submit=source.slice(source.indexOf('function fileList('),source.indexOf('function remember('));
-  vm.runInContext('const qs=encodeURIComponent;'+input+'\n'+submit,context);
+  vm.runInContext('const qs=encodeURIComponent;let missionContextControls=null;'+input+'\n'+submit,context);
 }else{
   let source=fs.readFileSync(root+'/platform_job.js','utf8');
   source=source.split('\n').filter(line=>!line.startsWith('import ')).join('\n').split('\nexport {')[0];

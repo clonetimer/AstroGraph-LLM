@@ -297,13 +297,28 @@ class OpenAICompatibleStructuredBackend:
         from astrograph.integrations.bounded_http import request_json
         from .audit import current_audit
         audit=current_audit()
-        return request_json(self.config.chat_completions_url, payload=body,
-            headers={
-                "Authorization": f"Bearer {self.config.api_key.get_secret_value()}",
-                "X-Request-Id": self._request_id(body),
-            },
-            timeout_s=self.config.timeout_s, max_response_bytes=self.config.max_response_bytes,
-            response_observer=audit.response if audit else None)
+        from astrograph.integrations.execution_observability import current_run
+        run = current_run()
+        from astrograph.integrations.stage_execution import check_cancelled
+        check_cancelled()
+        def invoke(observer=None):
+            check_cancelled()
+            def response(raw, *, http_status=None):
+                if audit is not None:
+                    audit.response(raw, http_status=http_status)
+                if observer is not None:
+                    observer(raw, http_status=http_status)
+            return request_json(self.config.chat_completions_url, payload=body,
+                headers={
+                    "Authorization": f"Bearer {self.config.api_key.get_secret_value()}",
+                    "X-Request-Id": self._request_id(body),
+                },
+                timeout_s=self.config.timeout_s, max_response_bytes=self.config.max_response_bytes,
+                response_observer=response if audit is not None or observer is not None else None)
+        if run is None:
+            return invoke()
+        from .audit import wire_bytes
+        return run.http_call(invoke, request_sha256=hashlib.sha256(wire_bytes(body)).hexdigest())
 
     @staticmethod
     def _reference_items(payload: dict[str, Any]) -> list[dict[str, Any]]:
@@ -1087,6 +1102,13 @@ class OpenAICompatibleStructuredBackend:
                     self.call_history.append(dict(self.last_call_metadata))
                     return result
                 except Exception as exc:
+                    from astrograph.integrations.execution_observability import ExecutionJournalError
+                    from astrograph.integrations.stage_execution import AnalysisCancelled
+                    if isinstance(exc, (ExecutionJournalError, AnalysisCancelled)):
+                        self.last_call_metadata = {"status": "FAILED", "failure_category": "EXECUTION_JOURNAL",
+                                                   "attempts": attempts}
+                        self.call_history.append(dict(self.last_call_metadata))
+                        raise
                     message = f"{strategy}/attempt-{repair_index + 1}: {type(exc).__name__}: {exc}"
                     errors.append(message)
                     if isinstance(exc, ModelRefusalError):

@@ -151,7 +151,8 @@ def test_provider_error_is_fixed_and_not_used_as_history(prepared):
     assert backend.calls[0][1]['history'] == []
 
 
-def test_no_model_and_large_input_are_explicit(tmp_path):
+def test_no_model_and_large_input_are_explicit(tmp_path, monkeypatch):
+    monkeypatch.setattr("astrograph.integrations.external_diagnosis_conversation.MAX_SOURCE_CHARACTERS", 60_000)
     store = UploadReportJobStore(tmp_path / 'jobs', knowledge_service=PlatformKnowledgeEnrichmentService(PlatformKnowledgeConfig()))
     job_id = stage(store)
     state = ask((store, job_id, None))

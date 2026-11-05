@@ -5,17 +5,23 @@ initial model analysis and previous answers are context, never new evidence.
 """
 from __future__ import annotations
 
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from copy import deepcopy
 from datetime import datetime, timezone
 import hashlib
 import json
 import os
 from pathlib import Path
-from typing import Annotated, Any, Literal, TYPE_CHECKING
+from typing_extensions import Annotated
+from typing import Any, Literal, TYPE_CHECKING
 from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
+
+from .reviewed_context import load_task_context, CONTEXT_POLICY
+from .stage_execution import for_stage, check_cancelled, AnalysisCancelled
+
+from .execution_observability import RunJournal, current_run, run_scope, event
 
 from .external_diagnosis_analysis import (
     ExternalDiagnosisAnalysis, ExternalDiagnosisFinding, MAX_SOURCE_CHARACTERS,
@@ -106,6 +112,11 @@ def _context(store: UploadReportJobStore, job_id: str):
         bundle = _validate_binding(job_id, json.loads((output / "external_diagnosis_input.json").read_bytes()))
         knowledge = report["analysis"]["knowledge_enrichment"]
         model = knowledge["model_explanation"]
+        snapshot = load_task_context(store._job_root(job_id))
+        if (snapshot["sha256"] if snapshot else None) != job.get("context_sha256"):
+            raise ValueError("task context changed")
+        if snapshot != report.get("reviewed_context") or snapshot != model.get("reviewed_context"):
+            raise ValueError("report/context mismatch")
         if model.get("input_sha256") != bundle["input_sha256"] or model.get("sources") != bundle["sources"]:
             raise ValueError("report/input mismatch")
         # Check against the separate canonical initial-analysis artifact as well.
@@ -228,51 +239,70 @@ def ask_follow_up(
             return state
         if len(state["turns"]) >= MAX_TURNS:
             raise ConversationConflict("FOLLOW_UP_LIMIT_REACHED")
-        turn = {**request.model_dump(), "created_at": datetime.now(timezone.utc).isoformat(),
-                "status": "FAILED", "citation_reference_validation": "NOT_EVALUATED"}
+        owned_run = current_run() is None
+        run = current_run() or RunJournal(store._job_root(job_id), task_id=job_id,
+            kind="follow_up", bundle=bundle)
+        with (run_scope(run) if owned_run else nullcontext(run)):
+            if owned_run:
+                run.event("FOLLOW_UP")
+            turn = {**request.model_dump(), "created_at": datetime.now(timezone.utc).isoformat(),
+                    "status": "FAILED", "citation_reference_validation": "NOT_EVALUATED"}
 
-        def finish(status: str, reason: str | None = None, citation: str = "NOT_EVALUATED"):
-            # Detect changes while a model call was in flight, before saving its result.
-            _job, _output, current, current_hash, _prior = _context(store, job_id)
-            if current["input_sha256"] != bundle["input_sha256"] or current_hash != report_hash:
-                raise ConversationConflict("FOLLOW_UP_INPUT_CHANGED")
-            turn.update(status=status, citation_reference_validation=citation)
-            if reason is not None:
-                turn["reason_code"] = reason
-            validated = _Turn.model_validate(turn).model_dump(mode="json", exclude_none=True)
-            state["turns"].append(validated)
-            state["revision"] = len(state["turns"])
-            _save(output / "external_diagnosis_conversation.json", state)
-            return state
+            def finish(status: str, reason: str | None = None, citation: str = "NOT_EVALUATED"):
+                # Detect changes while a model call was in flight, before saving its result.
+                _job, _output, current, current_hash, _prior = _context(store, job_id)
+                if current["input_sha256"] != bundle["input_sha256"] or current_hash != report_hash:
+                    raise ConversationConflict("FOLLOW_UP_INPUT_CHANGED")
+                turn.update(status=status, citation_reference_validation=citation)
+                if reason is not None:
+                    turn["reason_code"] = reason
+                validated = _Turn.model_validate(turn).model_dump(mode="json", exclude_none=True)
+                state["turns"].append(validated)
+                state["revision"] = len(state["turns"])
+                _save(output / "external_diagnosis_conversation.json", state)
+                if owned_run:
+                    run.artifact("conversation.json", (_canonical(state) + "\n").encode("utf-8"))
+                    run.finish(status, reason)
+                return state
 
-        if bundle["character_count"] > MAX_SOURCE_CHARACTERS:
-            return finish("INPUT_TOO_LARGE", "INPUT_CHARACTER_LIMIT_EXCEEDED")
-        history = [{key: deepcopy(item[key]) for key in ("question", "answer", "information_gaps")}
-                   for item in state["turns"] if item["status"] == "SUCCEEDED"]
-        context = {"question": request.question, "prior_analysis": prior, "history": history}
-        if len(_canonical(context)) > MAX_HISTORY_CHARACTERS:
-            return finish("CONTEXT_TOO_LARGE", "CONTEXT_CHARACTER_LIMIT_EXCEEDED")
-        try:
-            backend = store._knowledge_service_for_job(job).llm_backend
-        except Exception:
-            return finish("FAILED", "MODEL_CONFIGURATION_UNAVAILABLE")
-        if backend is None:
-            return finish("NOT_CONFIGURED", "LLM_NOT_CONFIGURED")
-        payload = {**context, "task_id": job_id, "task": job["task"],
-                   "input_sha256": bundle["input_sha256"], "sources": deepcopy(bundle["sources"]),
-                   "system_policy": FOLLOW_UP_POLICY}
-        try:
-            raw = backend.generate_structured(agent_id="external-diagnosis-follow-up",
-                                             output_model=ExternalDiagnosisFollowUp, payload=payload)
-        except Exception:
-            return finish("FAILED", "MODEL_GENERATION_FAILED")
-        try:
-            if isinstance(raw, BaseModel):
-                raw = raw.model_dump(mode="python")
-            answer = ExternalDiagnosisFollowUp.model_validate(raw).model_dump(mode="json")
-        except Exception:
-            return finish("FAILED", "MODEL_OUTPUT_INVALID")
-        if not _references_known(answer, {source["source_id"] for source in bundle["sources"]}):
-            return finish("FAILED", "CITATION_REFERENCE_INVALID", "FAILED")
-        turn.update(answer)
-        return finish("SUCCEEDED", citation="PASS")
+            if bundle["character_count"] > MAX_SOURCE_CHARACTERS:
+                return finish("INPUT_TOO_LARGE", "INPUT_CHARACTER_LIMIT_EXCEEDED")
+            history = [{key: deepcopy(item[key]) for key in ("question", "answer", "information_gaps")}
+                       for item in state["turns"] if item["status"] == "SUCCEEDED"]
+            context = {"question": request.question, "prior_analysis": prior, "history": history}
+            snapshot = load_task_context(store._job_root(job_id))
+            if snapshot is not None:
+                context["reviewed_context"] = snapshot
+            if len(_canonical(context)) > MAX_HISTORY_CHARACTERS:
+                return finish("CONTEXT_TOO_LARGE", "CONTEXT_CHARACTER_LIMIT_EXCEEDED")
+            try:
+                backend = store._knowledge_service_for_job(job).llm_backend
+            except Exception:
+                return finish("FAILED", "MODEL_CONFIGURATION_UNAVAILABLE")
+            if backend is None:
+                return finish("NOT_CONFIGURED", "LLM_NOT_CONFIGURED")
+            if owned_run:
+                run.identify_model(getattr(backend, "model_id", ""))
+            payload = {**context, "task_id": job_id, "task": job["task"],
+                       "input_sha256": bundle["input_sha256"], "sources": deepcopy(bundle["sources"]),
+                       "system_policy": FOLLOW_UP_POLICY + (" " + CONTEXT_POLICY if snapshot else "")}
+            try:
+                check_cancelled()
+                raw = for_stage(backend, "follow_up").generate_structured(agent_id="external-diagnosis-follow-up",
+                                                 output_model=ExternalDiagnosisFollowUp, payload=payload)
+            except AnalysisCancelled:
+                raise
+            except Exception:
+                return finish("FAILED", "MODEL_GENERATION_FAILED")
+            try:
+                if isinstance(raw, BaseModel):
+                    raw = raw.model_dump(mode="python")
+                answer = ExternalDiagnosisFollowUp.model_validate(raw).model_dump(mode="json")
+            except Exception:
+                return finish("FAILED", "MODEL_OUTPUT_INVALID")
+            event("SCHEMA_VALIDATED")
+            if not _references_known(answer, {source["source_id"] for source in bundle["sources"]}):
+                return finish("FAILED", "CITATION_REFERENCE_INVALID", "FAILED")
+            event("CITATIONS_VALIDATED")
+            turn.update(answer)
+            return finish("SUCCEEDED", citation="PASS")

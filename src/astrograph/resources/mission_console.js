@@ -12,6 +12,15 @@ const kindZH={COMPONENT:'部件',FAULT_MODE:'故障',FAILURE_MECHANISM:'机理',
 const roleRights={viewer:['viewer'],operator:['viewer','operator'],reviewer:['viewer','reviewer'],admin:['viewer','operator','reviewer','admin']};
 const S={overview:null,demos:null,selectedEvent:null,token:'',identity:null,expert:null,engine:null,jobId:'',report:null,reportTab:'conclusion',graph:null,graphCode:'',files:{diagnosis_results:[],log_reports:[],references:[]},preflight:null,preflightId:'',busy:false,authMode:'local',knowledgeTab:'graph',graphEdgeId:'',accountInit:false,autoTimer:null,uploadRevision:0,openRequest:0,commandRequest:0,analysisEngines:[],analysisEngineId:'rules',analysisEngineLoaded:false};
 let toastTimeout;
+let missionContextControls=null;
+function mountMissionContext(){
+  const host=$("#mission-context-picker");
+  if(!host||!globalThis.AstroGraphContexts||!S.identity)return;
+  missionContextControls?.dispose();
+  missionContextControls=globalThis.AstroGraphContexts.mount(host,{api,baseUrl:"/v1/platform/workspaces",onChange:()=>{
+    S.uploadRevision++;S.preflight=null;S.preflightId="";$("#mission-start").disabled=true;
+  }});
+}
 let welcomeMarkup='';
 let externalConversation=null,externalConversationKey=null,externalConversationRevision=null,externalConversationReport=null;
 function resetConversation(){externalConversation?.dispose();externalConversation=null;externalConversationKey=null;externalConversationRevision=null;externalConversationReport=null;const host=$('#conversation');if(host)host.innerHTML=welcomeMarkup;const send=$('#chat-send'),status=$('#chat-status');if(send)send.disabled=false;if(status)status.textContent='';}
@@ -65,6 +74,7 @@ function renderIdentity(){
 }
 function clearPrivateWorkspace(){
   // Switching accounts must not display the previous account's report or conversation.
+  missionContextControls?.dispose();missionContextControls=null;
   S.openRequest++; // Invalidates any older asynchronous report response across accounts.
   const citation=$('#evidence-detail');if(citation?.open)citation.close();
   S.commandRequest++; // Prevents stale event queues crossing account sessions.
@@ -97,7 +107,7 @@ async function refreshIdentity(){
   try{
     const identity=await api('/v1/platform/mission/identity');
     if(previous && (previous!==identity.subject || S.identity?.mode!==identity.mode))clearPrivateWorkspace();
-    S.identity=identity;renderIdentity();$('#identity-modal').open&&$('#identity-modal').close();
+    S.identity=identity;renderIdentity();mountMissionContext();$('#identity-modal').open&&$('#identity-modal').close();
   }catch{
     clearPrivateWorkspace();S.identity=null;renderIdentity();
     if(S.authMode==='accounts'){if(!$('#account-modal').open)$('#account-modal').showModal()}else if(!$('#identity-modal').open)$('#identity-modal').showModal();
@@ -255,13 +265,14 @@ function mappedFiles(files){
   return entries;
 }
 function setUploadMessage(msg){$('#upload-state').textContent=msg}
-async function preflight(){if(S.busy)return;const revision=S.uploadRevision;S.busy=true;$('#mission-preflight').disabled=true;$('#mission-start').disabled=true;try{
+async function preflight(){if(S.busy)return;const revision=S.uploadRevision, context=missionContextControls?.selection();S.busy=true;$('#mission-preflight').disabled=true;$('#mission-start').disabled=true;try{
   const files=mappedFiles(validUploads());setUploadMessage('正在安全保存你添加的材料…');setAnalysisProcess('working','正在整理材料','先保存文件，再确认每类材料是否可读');
   const job=await api('/v1/platform/jobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({task:$('#mission-task').value.trim()||'分析故障原因与处置建议',work_mode:'normal',analysis_engine_id:S.analysisEngineId||'rules'})});
   const id=job.job_id;for(const item of files){setUploadMessage(`正在读取：${item.name}`);await api(`/v1/platform/jobs/${qs(id)}/files/${qs(item.name)}`,{method:'PUT',body:item.file})}
   const manifest={schema_version:'astrograph-result-log-review.v1',analysis_mode:'EXTERNAL_DIAGNOSIS_ANALYSIS',diagnosis_results:files.filter(f=>f.role==='diagnosis_results').map(f=>f.name),log_reports:files.filter(f=>f.role==='log_reports').map(f=>f.name),references:files.filter(f=>f.role==='references').map(f=>f.name)};
   const scope=$('#mission-scope').value.trim();if(scope)manifest.equipment_scope=scope;
   setAnalysisProcess('working','正在核对材料','检查诊断、日志和参考资料是否能够互相对应');await api(`/v1/platform/jobs/${qs(id)}/files/analysis_input.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(manifest)});
+  if(context)await api(`/v1/platform/jobs/${qs(id)}/context`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(context)});
   const check=await api(`/v1/platform/jobs/${qs(id)}/preflight`,{method:'POST'});if(S.uploadRevision!==revision){setUploadMessage('材料已更新，正在重新检查最新输入。');return;}S.preflight=check;S.preflightId=id;
   $('#preflight-results').innerHTML=`<div class="check-row"><strong>${check.can_start?'输入预检通过':'输入预检未通过'}</strong></div>`;
   const problem=check.blockers||check.issues||check.errors||check.reason;setUploadMessage(check.can_start?'材料检查完成，可以开始分析。':(Array.isArray(problem)?problem.join('；'):String(problem||'有些材料还不能用于分析，请根据提示补充。')));
@@ -344,7 +355,7 @@ function externalDiagnosisAnalysisHtml(model,generation,escape){
   const success=model.status==='AVAILABLE_REQUIRES_EXPERT_REVIEW'&&generation.status==='SUCCEEDED'&&model.citation_reference_validation==='PASS';
   if(!success){
     const status=generation.status==='SUCCEEDED'?model.status:(generation.status||model.status||'FAILED');
-    const messages={NOT_CONFIGURED:['尚未配置大模型','请选择并配置可用的大模型服务，再重新运行本次分析。'],INPUT_TOO_LARGE:['输入材料超出分析容量','本次导入原文合计超过固定的 60000 字符上限。请拆分材料后重新分析；本次没有截断原文生成结论。'],FAILED:['大模型分析未完成','模型调用或结构与引用检查未通过。请检查服务配置后重试，已导入材料仍可查看。']};
+    const messages={NOT_CONFIGURED:['尚未配置大模型','请选择并配置可用的大模型服务，再重新运行本次分析。'],INPUT_TOO_LARGE:['输入材料超出分析容量','材料超过本次执行配置的容量上限。请拆分材料后重新分析；本次没有截断原文生成结论。'],FAILED:['大模型分析未完成','模型调用或结构与引用检查未通过。请检查服务配置后重试，已导入材料仍可查看。']};
     const [title,message]=messages[status]||messages.FAILED;
     return `<section class="panel card card-pad model-result model-result-unavailable"><h2>${title}</h2><p>${message}</p><p>本次没有可展示的大模型分析结果。</p></section>${sourcePanel}`;
   }
@@ -380,11 +391,29 @@ function renderModelExplanation(report,knowledge,review){
   const limitations=(model.limitations||[]).slice(0,6).map(x=>`<li>${html(x)}</li>`).join('');
   return `<section class="panel model-result"><div class="model-result-head"><div><span>大模型综合处置结果</span><h2>${html(engineName)}</h2></div><span class="chip">需专家复核</span></div><div class="model-source-strip"><span>本次上传文献 <b>${uploaded}</b> 条命中</span><span>内置已审核图谱 <b>${graphPaths}</b> 条路径</span><span>引用检查 <b>${html(model.citation_reference_validation||'未评估')}</b></span></div><div class="model-summary"><span>综合判断</span><p>${html(model.summary||'模型未提供摘要。')}</p></div>${claimRows?`<div class="model-result-section"><h3>原因与依据</h3><ol>${claimRows}</ol></div>`:''}${actionRows?`<div class="model-result-section"><h3>建议处置与核查</h3><ol>${actionRows}</ol></div>`:''}${limitations?`<details class="technical-details"><summary>查看模型局限与使用边界</summary><ul class="list">${limitations}</ul></details>`:''}<div class="model-safety-line">这是基于证据的辅助研判，不构成自动控制授权；涉及设备操作时仍需人工审批。</div></section>`;
 }
+function mountExecutionReport(host,report){
+  if(globalThis.AstroGraphContexts){const context=document.createElement('section');host.append(context);globalThis.AstroGraphContexts.renderSnapshot(context,report.reviewed_context);}
+  const view=globalThis.AstroGraphExecution;if(!view)return;
+  const panel=document.createElement('section');host.append(panel);
+  const token=S.token;
+  const current=()=>S.report===report&&S.reportTab==='conclusion'&&S.token===token;
+  const download=async(url,name)=>{
+    if(!current())throw Error('TASK_CHANGED');
+    const headers={};if(token)headers.Authorization='Bearer '+token;
+    const response=await fetch(url,{headers,credentials:'same-origin'});
+    if(!response.ok)throw Error('ARTIFACT_UNAVAILABLE');
+    const blob=await response.blob();if(!current())return;
+    const address=URL.createObjectURL(blob),link=document.createElement('a');
+    link.href=address;link.download=name;document.body.append(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(address),1000);
+  };
+  view.mount(panel,{baseUrl:'/v1/platform/jobs/'+qs(report.job_id),api,current,download});
+}
 function renderReport(){const host=$('#report-content');for(const id of ['report-export-json','report-export-md'])$('#'+id).hidden=!S.report;if(!S.report){updateActionSummary();host.innerHTML='<div class="empty">请选择已完成的任务，或上传材料生成报告。</div>';$('#report-job-label').textContent='未选择任务';return}
   const report=S.report,cases=candidates(),review=report.analysis?.material_reasoning||{},knowledge=report.analysis?.knowledge_enrichment||{};
   ensureExternalConversation();
   $('#report-job-label').textContent=report.job_id||S.jobId;updateActionSummary();
-  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'&&S.reportTab==='conclusion'){host.innerHTML=renderModelExplanation(report,knowledge,review);return}
+  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'&&S.reportTab==='conclusion'){host.innerHTML=renderModelExplanation(report,knowledge,review);mountExecutionReport(host,report);return}
   if(S.reportTab==='conclusion'){
     const cards=cases.length?cases.map(c=>{const causes=(c.cause_hypotheses||[]),measures=(c.handling_measures||[]),checks=(c.verification_checks||[]);return `<article class="panel report-block report-narrative"><div class="result-lead"><span>目前最值得核查的方向</span><strong>${html(c.fault_name||'尚未形成明确故障方向')}</strong></div><section class="report-section"><h3>为什么会这样判断</h3>${causes.map(x=>`<p>${html(x.text)}</p>`).join('')||'<p>现有材料还不足以支持具体的故障原因，因此系统没有补造解释。</p>'}</section><section class="report-section"><h3>建议先做什么</h3><ul class="list">${measures.map(x=>`<li><span class="measure-tag">${html(/检查|核对|查看|记录|比对|读取/.test(x.action||'')&&!/重启|切换|复位|卸载|执行|发送指令/.test(x.action||'')?'可以先核查':/重启|切换|复位|卸载|执行|发送指令/.test(x.action||'')?'需要审批':'分析建议')}</span>${html(x.action)}</li>`).join('')||'<li>先补充独立证据，再请领域专家复核。</li>'}</ul></section>${checks.length?`<section class="report-section"><h3>怎样确认</h3><ol class="list">${checks.map(x=>`<li>${html(x)}</li>`).join('')}</ol></section>`:''}<details class="detail-row technical-details"><summary>查看技术标识与系统状态</summary><div class="report-meta"><span class="chip">故障标识：${html(c.fault_id)}</span><span class="chip">${html(c.status==='PROVISIONAL_LOG_CUE'?'日志线索仍需核验':'还缺少独立日志佐证')}</span></div></details></article>`}).join(''):'<div class="panel"><div class="empty">现有材料没有形成可信的故障方向。系统不会仅凭零散日志或参考资料编造结论。</div></div>';
     const abstain=review.answer_policy?.all_candidates_abstained!==false;

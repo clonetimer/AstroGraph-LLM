@@ -6,15 +6,20 @@ material; neither that material nor the model's interpretation is certified true
 """
 from __future__ import annotations
 
+from astrograph.integrations.reviewed_context import validate_snapshot, load_task_context, CONTEXT_POLICY
+from astrograph.integrations.stage_execution import AnalysisCancelled, check_cancelled, for_stage
+
 from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
-from typing import Annotated, Any, Literal
+from typing_extensions import Annotated
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from astrograph.integrations.result_log_review import load_manifest, read_lines
+from astrograph.integrations.execution_observability import event
 
 
 INPUT_SCHEMA = "astrograph-external-diagnosis-input.v1"
@@ -177,7 +182,7 @@ def _provenance(bundle: Any) -> list[dict[str, str]]:
 
 def run_external_diagnosis_analysis(
     *, task_id: str, task: str, input_bundle: dict[str, Any],
-    llm_backend: Any | None, output_root: Path,
+    llm_backend: Any | None, output_root: Path, context_snapshot=None,
 ) -> dict[str, Any]:
     """Call the existing structured backend and publish only validated output.
 
@@ -214,18 +219,32 @@ def run_external_diagnosis_analysis(
         bundle = _validate_binding(task_id, input_bundle)
     except Exception:
         return finish("FAILED", "INVALID_INPUT_BINDING")
+    event("INPUT_VALIDATED")
     explanation["sources"] = deepcopy(bundle["sources"])
     if bundle["character_count"] > MAX_SOURCE_CHARACTERS:
         return finish("INPUT_TOO_LARGE", "INPUT_CHARACTER_LIMIT_EXCEEDED")
     if llm_backend is None:
         return finish("NOT_CONFIGURED", "LLM_NOT_CONFIGURED")
+    if context_snapshot is not None:
+        try:
+            context_snapshot = validate_snapshot(context_snapshot)
+            explanation["reviewed_context"] = deepcopy(context_snapshot)
+        except ValueError:
+            return finish("FAILED", "INVALID_CONTEXT_SNAPSHOT")
+    check_cancelled()
     payload = {"task_id": task_id, "task": task, "input_sha256": bundle["input_sha256"],
                "sources": deepcopy(bundle["sources"]), "system_policy": SYSTEM_POLICY}
+    if context_snapshot is not None:
+        payload["reviewed_context"] = deepcopy(context_snapshot)
+        payload["system_policy"] += " " + CONTEXT_POLICY
     try:
         raw = llm_backend.generate_structured(
             agent_id="external-diagnosis-analysis", output_model=ExternalDiagnosisAnalysis, payload=payload)
+    except AnalysisCancelled:
+        raise
     except Exception:
         return finish("FAILED", "MODEL_GENERATION_FAILED")
+    check_cancelled()
     try:
         # A fake backend may bypass Pydantic with model_construct; never trust its
         # claimed output type or rely solely on the provider's schema mechanism.
@@ -234,6 +253,7 @@ def run_external_diagnosis_analysis(
         analysis = ExternalDiagnosisAnalysis.model_validate(raw)
     except Exception:
         return finish("FAILED", "MODEL_OUTPUT_INVALID")
+    event("SCHEMA_VALIDATED")
     allowed_ids = {source["source_id"] for source in bundle["sources"]}
     citation_lists = [item.citation_ids for item in
                       [*analysis.findings, *analysis.hypotheses, *analysis.review_actions,
@@ -242,5 +262,6 @@ def run_external_diagnosis_analysis(
     citation_lists.extend(item.opposing_citation_ids for item in analysis.hypotheses)
     if any(not set(ids).issubset(allowed_ids) for ids in citation_lists):
         return finish("FAILED", "CITATION_REFERENCE_INVALID", "FAILED")
+    event("CITATIONS_VALIDATED")
     explanation.update(analysis.model_dump(mode="json"))
     return finish("SUCCEEDED", citation_status="PASS")

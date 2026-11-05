@@ -6,6 +6,7 @@
   <meta name="color-scheme" content="dark light" />
   <title>AstroGraph · 智能故障分析</title>
   <link rel="stylesheet" href="/platform/mission/assets/mission_console.css?v=20261012-analysis-engines" />
+<link rel="stylesheet" href="/platform/mission/assets/execution_view.css"><link rel="stylesheet" href="/platform/mission/assets/workspace_view.css">
 </head>
 <body data-theme="dark" data-size="standard">
   <div class="layout" id="layout">
@@ -119,7 +120,8 @@
                 <label for="mission-scope">任务或设备名称 <span>可选</span></label>
                 <input id="mission-scope" type="text" maxlength="80" placeholder="例如：SAT-A 姿控分系统" />
               </div>
-              <div class="attachment-tray" id="attachment-tray" aria-live="polite"><span class="attachment-empty">尚未添加材料</span></div>
+              <details id="mission-context-picker" class="context-workbench"></details>
+<div class="attachment-tray" id="attachment-tray" aria-live="polite"><span class="attachment-empty">尚未添加材料</span></div>
               <div class="analysis-composer">
                 <textarea id="mission-task" rows="3" maxlength="4000" aria-label="描述需要分析的问题">请结合我上传的诊断结果、运行日志和参考资料，判断最可能的故障原因，说明证据是否充分，并给出下一步核查建议。</textarea>
                 <div class="analysis-composer-actions">
@@ -195,7 +197,9 @@
   </dialog>
   <dialog class="modal" id="demo-modal"><h2>载入演示案例</h2><div id="demo-list"></div><form method="dialog"><button class="btn">关闭</button></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="/platform/mission/assets/external_follow_up.js?v=20261102"></script>
+  <script src="/platform/mission/assets/workspace_view.js"></script>
+<script src="/platform/mission/assets/execution_view.js"></script>
+<script src="/platform/mission/assets/external_follow_up.js?v=20261102"></script>
   <script type="module" src="/platform/mission/assets/mission_console.js?v=20261102-source-bound-follow-up"></script>
 </body>
 </html>

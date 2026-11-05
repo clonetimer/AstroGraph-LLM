@@ -33,14 +33,22 @@ def verify_files(root: Path) -> dict:
                     or not isinstance(digest,str) or not re.fullmatch(r'[0-9a-f]{64}',digest)):
                 raise ValueError('invalid manifest entry')
             seen.add(name.casefold());path=root/name
-            if not path.resolve().is_relative_to(root) or any(p.is_symlink() for p in [path,*path.parents] if p!=root.parent):
+            try:
+                path.resolve().relative_to(root)
+                inside = True
+            except ValueError:
+                inside = False
+            if not inside or any(p.is_symlink() for p in [path,*path.parents] if p!=root.parent):
                 failures.append({'path':name,'code':'LINK_OR_ESCAPE'});continue
             if not path.is_file():
                 failures.append({'path':name,'code':'MISSING'});continue
             if path.stat().st_size!=size:
                 failures.append({'path':name,'code':'SIZE_MISMATCH'});continue
             with path.open('rb') as handle:
-                actual=hashlib.file_digest(handle,'sha256').hexdigest()
+                hasher=hashlib.sha256()
+                for chunk in iter(lambda: handle.read(1024*1024), b''):
+                    hasher.update(chunk)
+                actual=hasher.hexdigest()
             if actual!=digest: failures.append({'path':name,'code':'HASH_MISMATCH'})
             checked+=1
     except (OSError,ValueError,TypeError,KeyError):

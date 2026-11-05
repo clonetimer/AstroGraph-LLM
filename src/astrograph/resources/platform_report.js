@@ -148,7 +148,7 @@ function externalDiagnosisAnalysisHtml(model,generation,escape){
   const success=model.status==='AVAILABLE_REQUIRES_EXPERT_REVIEW'&&generation.status==='SUCCEEDED'&&model.citation_reference_validation==='PASS';
   if(!success){
     const status=generation.status==='SUCCEEDED'?model.status:(generation.status||model.status||'FAILED');
-    const messages={NOT_CONFIGURED:['尚未配置大模型','请选择并配置可用的大模型服务，再重新运行本次分析。'],INPUT_TOO_LARGE:['输入材料超出分析容量','本次导入原文合计超过固定的 60000 字符上限。请拆分材料后重新分析；本次没有截断原文生成结论。'],FAILED:['大模型分析未完成','模型调用或结构与引用检查未通过。请检查服务配置后重试，已导入材料仍可查看。']};
+    const messages={NOT_CONFIGURED:['尚未配置大模型','请选择并配置可用的大模型服务，再重新运行本次分析。'],INPUT_TOO_LARGE:['输入材料超出分析容量','材料超过本次执行配置的容量上限。请拆分材料后重新分析；本次没有截断原文生成结论。'],FAILED:['大模型分析未完成','模型调用或结构与引用检查未通过。请检查服务配置后重试，已导入材料仍可查看。']};
     const [title,message]=messages[status]||messages.FAILED;
     return `<section class="panel card card-pad model-result model-result-unavailable"><h2>${title}</h2><p>${message}</p><p>本次没有可展示的大模型分析结果。</p></section>${sourcePanel}`;
   }
@@ -187,7 +187,13 @@ async function mountExternalFollowUp(report){
   }catch{if(state.report===report&&epoch===externalFollowUpGeneration)host.innerHTML='<p role="status">无法读取追问权限，请重新打开报告。</p>'}
 }
 function renderResultLogReview(report){
-  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'){const knowledge=report.analysis.knowledge_enrichment||{};$('#result-content').innerHTML=externalDiagnosisAnalysisHtml(knowledge.model_explanation||{},knowledge.generation||{},esc);mountExternalFollowUp(report);return;}
+  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'){const knowledge=report.analysis.knowledge_enrichment||{};$('#result-content').innerHTML=externalDiagnosisAnalysisHtml(knowledge.model_explanation||{},knowledge.generation||{},esc);mountExternalFollowUp(report);
+    if(globalThis.AstroGraphContexts){const context=document.createElement('section');$('#result-content').append(context);globalThis.AstroGraphContexts.renderSnapshot(context,report.reviewed_context);}
+    const view=globalThis.AstroGraphExecution;
+    if(view){const panel=document.createElement('section');$('#result-content').append(panel);
+      view.mount(panel,{baseUrl:'/v1/platform/jobs/'+encodeURIComponent(report.job_id),api,
+        current:()=>state.report===report});}
+    return;}
   const review=report.analysis?.result_log_review||{};
   const reasoning=report.analysis?.material_reasoning||{},fused=reasoning.candidates||[];
   const approvalByFault=new Map(fused.map(item=>[item.fault_id,item.multi_hop||{}]));

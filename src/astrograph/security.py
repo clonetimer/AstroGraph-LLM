@@ -75,6 +75,8 @@ def required_role(method: str, path: str) -> str | None:
         return None
     if path == "/v1/platform/accounts" or path.startswith("/v1/platform/accounts/"):
         return "admin"
+    if method.upper() == "POST" and path.startswith("/v1/platform/workspaces/") and path.rstrip("/").endswith("/review"):
+        return "reviewer"
     if path.startswith("/v1/platform/material-knowledge/") and path != "/v1/platform/material-knowledge/review-session":
         if path.startswith("/v1/platform/material-knowledge/graph/releases/") and method.upper() != "GET":
             return "admin"

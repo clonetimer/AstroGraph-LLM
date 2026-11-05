@@ -7,7 +7,8 @@
   const ROLE_LABELS = { diagnosis_results: '诊断报告', log_reports: '补充日志', references: '参考资料' };
   const STORAGE_KEY = 'astrograph.portable.public-settings.v1';
   const SETTINGS = ['mode', 'preset', 'base-url', 'model', 'max-tokens', 'timeout', 'strategy'];
-  const STATES = { RUNNING: '分析进行中', SUCCEEDED: '报告已完成', FAILED: '任务失败', INTERRUPTED: '任务已中断' };
+  const ACTIVE = new Set(['RUNNING', 'QUEUED', 'CANCEL_REQUESTED']);
+  const STATES = { QUEUED: '等待队列中', CANCEL_REQUESTED: '正在取消', CANCELLED: '已取消', RUNNING: '分析进行中', SUCCEEDED: '报告已完成', FAILED: '任务失败', INTERRUPTED: '任务已中断' };
   const REASONS = {
     MODEL_GENERATION_FAILED: '模型调用失败。请检查模型是否已加载、接口配置及超时设置。',
     MODEL_OUTPUT_INVALID: '模型输出未通过结构检查，本次没有可展示的模型分析。',
@@ -22,10 +23,15 @@
     FOLLOW_UP_LIMIT_REACHED: '本任务已达到 12 次追问记录上限。',
     FOLLOW_UP_HISTORY_INVALID: '对话历史完整性检查未通过，请重新打开任务。',
     FOLLOW_UP_REPORT_NOT_READY: '原始报告尚未准备好，请等待任务完成。',
+    SYNTHESIS_CONTEXT_TOO_LARGE: '分块分析已保存，但综合摘要超出容量。请按事件拆分材料后新建任务；没有截断摘要。',
+    CHUNK_ANALYSIS_FAILED: '部分片段分析未完成。检查模型连接后点击“继续 / 重试分析”，已完成的片段会被复用。',
+    SYNTHESIS_FAILED: '最终综合分析未完成。检查模型连接后可重试，不必重新导入材料。',
     CONTEXT_TOO_LARGE: '对话上下文超出容量，请新建分析任务。'
   };
   const state = { token: null, session: null, files: [], busy: false, job: null, report: null,
-    sources: new Map(), conversation: null, epoch: 0, timer: null, attempt: null };
+    submitting: false, contexts: null, sources: new Map(), conversation: null, epoch: 0, timer: null, attempt: null, jobs: [] };
+
+  const navigate = route => window.AstroGraphShell.navigate(route);
 
   function node(tag, className, text) {
     const el = document.createElement(tag);
@@ -39,6 +45,7 @@
   }
   function setBadge(id, text, kind = 'neutral') {
     const el = $(id); el.textContent = text; el.className = 'badge ' + kind;
+    if (id === 'connection-badge') updateConnectionSummary();
   }
   function readableError(error) {
     return REASONS[error.code] || error.message || '操作未完成，请检查本机工作台状态。';
@@ -76,11 +83,36 @@
     for (const id of ['analyze', 'probe', 'history', 'refresh-history', 'send-question', 'reload-conversation', 'resume-job', 'restore-trigger']) {
       $(id).disabled = busy || !state.token;
     }
-    $('analyze').textContent = busy ? '模型操作进行中…' : '开始分析 →';
+    const canQueue = busy && ACTIVE.has(state.job?.status) && $('queue-analysis').checked;
+    $('analyze').disabled = !state.token || state.submitting || (busy && !canQueue);
+    $('analyze').textContent = canQueue ? '加入等待队列 →' : busy ? '模型操作进行中…' : '开始分析 →';
+    for (const button of document.querySelectorAll('.history-open')) button.disabled = busy || !state.token;
+    $('active-operation').hidden = !busy;
+    $('active-operation-text').textContent = state.job?.status === 'RUNNING' ? '当前报告正在分析，可切换页面查看。' : '模型或文件操作进行中，请勿重复提交。';
     updateTurnLimit();
   }
+  function phaseSettings() {
+    const result = {};
+    for (const [stage, id] of [['chunk','phase-chunk'],['synthesis','phase-synthesis'],['follow_up','phase-follow-up']]) {
+      const model = $(id).value.trim(); if (model) result[stage] = { model };
+    }
+    return Object.keys(result).length ? { phases: result } : {};
+  }
+  function contextSelection() {
+    const selected = state.contexts?.selection();
+    return selected ? JSON.parse(JSON.stringify(selected)) : null;
+  }
   function publicSettings() { return Object.fromEntries(SETTINGS.map(id => [id, $(id).value])); }
+  function updateConnectionSummary() {
+    const model = $('model').value.trim();
+    $('analysis-model-summary').textContent = (model || '尚未填写模型 ID') + ' · ' + ($('mode').value === 'local' ? '本地模型' : '在线 API');
+    const status = $('analysis-model-status'), tested = $('connection-badge').textContent;
+    status.textContent = !model ? '未配置模型' : tested === '已连通' ? '列表接口已连通'
+      : tested === '测试中' ? '正在测试连接' : tested === '测试未通过' ? '连接测试未通过' : '已填写 · 未测试';
+    status.className = 'badge ' + (tested === '测试未通过' && model ? 'error' : !model ? 'warning' : 'neutral');
+  }
   function saveSettings() {
+    updateConnectionSummary();
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(publicSettings())); } catch (_) { /* Memory-only if unavailable. */ }
   }
   function connection(requireModel = true) {
@@ -112,6 +144,7 @@
       ? '材料将发送给所配置的本地模型服务。'
       : '开始分析将把选定材料发送至所配置的在线 API。';
     $('preset').disabled = !local;
+    updateConnectionSummary();
   }
   function resetConnectionBadge() {
     setBadge('connection-badge', '未测试');
@@ -150,10 +183,21 @@
       row.append(name, node('span', 'file-size', sizeText(item.file.size)), remove);
       const options = node('div', 'file-options');
       const allowedRoles = /\.log$/i.test(item.file.name) ? { log_reports: ROLE_LABELS.log_reports }
-        : /\.(txt|md)$/i.test(item.file.name) ? ROLE_LABELS
+        : /\.(txt|md|pdf|docx)$/i.test(item.file.name) ? ROLE_LABELS
         : { diagnosis_results: ROLE_LABELS.diagnosis_results, log_reports: ROLE_LABELS.log_reports };
-      options.append(selectControl(allowedRoles, item.role, value => { item.role = value; }, item.file.name + ' 材料角色'),
-        selectControl({ auto: '自动 / UTF-8 / BOM', 'utf-8': 'UTF-8', gb18030: 'GB18030' }, item.encoding, value => { item.encoding = value; }, item.file.name + ' 文件编码'));
+      options.append(selectControl(allowedRoles, item.role, value => { item.role = value; }, item.file.name + ' 材料角色'));
+      if (!/\.(pdf|docx)$/i.test(item.file.name)) {
+        const advanced = node('details', 'file-advanced'), summary = node('summary');
+        const encodingNames = { auto: '自动', 'utf-8': 'UTF-8', gb18030: 'GB18030' };
+        const updateLabel = () => { summary.textContent = '编码：' + encodingNames[item.encoding]; };
+        updateLabel(); advanced.open = !!item.encodingAdvancedOpen;
+        advanced.addEventListener('toggle', () => { item.encodingAdvancedOpen = advanced.open; });
+        advanced.append(summary, selectControl({ auto: '自动 / UTF-8 / BOM', 'utf-8': 'UTF-8', gb18030: 'GB18030' },
+          item.encoding, value => { item.encoding = value; updateLabel(); }, item.file.name + ' 文件编码'));
+        options.append(advanced);
+      } else {
+        options.append(node('span', 'document-encoding-note', '文档自动解析'));
+      }
       li.append(row, options); $('file-list').append(li);
     }
     inputStats();
@@ -168,7 +212,7 @@
     const errors = [];
     for (const file of files) {
       const key = file.name.toLocaleLowerCase();
-      if (!/\.(txt|md|json|csv|log)$/i.test(file.name)) { errors.push(file.name + '：仅支持 TXT、MD、JSON、CSV、LOG。'); continue; }
+      if (!/\.(txt|md|json|csv|log|pdf|docx)$/i.test(file.name)) { errors.push(file.name + '：仅支持 TXT、MD、JSON、CSV、LOG、PDF、DOCX。'); continue; }
       if (!safeFilename(file.name)) { errors.push(file.name + '：文件名不适用于 Windows，请重命名后重试。'); continue; }
       if (names.has(key)) { errors.push(file.name + '：名称重复，请重命名后重试。'); continue; }
       if (!file.size) { errors.push(file.name + '：文件为空。'); continue; }
@@ -201,11 +245,21 @@
     return Promise.all(entries.map(async item => ({ filename: item.file.name, role: item.role, encoding: item.encoding,
       content_base64: base64(new Uint8Array(await item.file.arrayBuffer())) })));
   }
+  function probeIdentity() {
+    // Snapshot remains in memory only; it must never enter logs or saved settings.
+    return JSON.stringify([$('mode').value, $('base-url').value.trim(), $('model').value.trim(), $('api-key').value]);
+  }
+  function probeSettingsChanged() {
+    resetConnectionBadge();
+    $('probe-status').textContent = '配置已改变，请重新测试当前连接。';
+  }
   async function probe() {
+    let identity;
     try {
-      const config = connection(false); setBusy(true); say(''); setBadge('connection-badge', '测试中', 'running');
+      const config = connection(false); identity = probeIdentity(); setBusy(true); say(''); setBadge('connection-badge', '测试中', 'running');
       $('probe-status').textContent = '正在读取模型列表，本次不会生成分析…';
       const data = await api('/api/probe', config);
+      if (identity !== probeIdentity()) { probeSettingsChanged(); return; }
       const models = (data.models || []).filter(model => typeof model.id === 'string');
       $('models').replaceChildren(...models.map(model => { const option = node('option'); option.value = model.id; return option; }));
       if (!$('model').value.trim() && models.length) { $('model').value = models[0].id; saveSettings(); }
@@ -214,7 +268,8 @@
         ? '连接测试成功，读取到 ' + models.length + ' 个模型 ID。请核对所选模型；生成能力需在分析时验证。'
         : '接口连接成功，模型列表为空。请在服务端加载模型并填写模型 ID。';
     } catch (error) {
-      setBadge('connection-badge', '测试未通过', 'error'); $('probe-status').textContent = readableError(error); say(readableError(error), 'error');
+      if (identity !== undefined && identity !== probeIdentity()) { probeSettingsChanged(); }
+      else { setBadge('connection-badge', '测试未通过', 'error'); $('probe-status').textContent = readableError(error); say(readableError(error), 'error'); }
     } finally { setBusy(false); }
   }
   function formatDate(value) {
@@ -224,11 +279,35 @@
     const data = await api('/api/jobs');
     const selected = state.job?.job_id || $('history').value;
     $('history').replaceChildren(node('option', '', '选择历史任务…')); $('history').firstChild.value = '';
-    for (const job of data.jobs || []) {
+    state.jobs = Array.isArray(data.jobs) ? data.jobs : [];
+    for (const job of state.jobs) {
       const option = node('option', '', formatDate(job.created_at) + ' · ' + (STATES[job.status] || job.status) + ' · ' + String(job.task || job.job_id).slice(0, 45));
       option.value = job.job_id; $('history').append(option);
     }
     $('history').value = selected;
+    renderHistory();
+  }
+  function renderHistory() {
+    const query = $('history-search').value.trim().toLocaleLowerCase();
+    const status = $('history-status-filter').value;
+    const jobs = state.jobs.filter(job => (!status || job.status === status) &&
+      [job.task, job.job_id, job.model].some(value => String(value || '').toLocaleLowerCase().includes(query)));
+    $('history-items').replaceChildren();
+    $('history-count').textContent = '显示 ' + jobs.length + ' / ' + state.jobs.length + ' 项本机任务';
+    $('history-empty').hidden = jobs.length > 0;
+    $('history-empty').querySelector('h3').textContent = state.jobs.length ? '没有匹配的任务' : '暂无历史任务';
+    $('history-empty').querySelector('p').textContent = state.jobs.length ? '请调整关键词或状态筛选。' : '完成一次分析后，任务会保存在这里。';
+    for (const job of jobs) {
+      const item = node('article', 'card history-item'), summary = node('div', 'history-summary');
+      summary.append(node('h3', '', job.task || '外部诊断分析'),
+        paragraph(formatDate(job.created_at) + ' · ' + (job.model || '未配置模型'), 'small muted'),
+        paragraph(job.job_id, 'history-id'));
+      const badge = node('span', 'badge history-status ' + (job.status === 'RUNNING' ? 'running' : job.status === 'FAILED' ? 'error' : 'neutral'), STATES[job.status] || job.status);
+      const open = node('button', 'button secondary history-open', '打开任务'); open.type = 'button';
+      open.disabled = state.busy || !state.token;
+      open.onclick = () => { if (!state.busy) openJob(job.job_id); };
+      item.append(summary, badge, open); $('history-items').append(item);
+    }
   }
   function clearPoll() { if (state.timer) clearTimeout(state.timer); state.timer = null; }
   function knowledge(report) { return report?.analysis?.knowledge_enrichment || {}; }
@@ -243,6 +322,7 @@
       button.title = source ? source.filename + ' · ' + source.locator : '此引用来源不可用'; button.disabled = !source;
       button.onclick = () => {
         const target = document.getElementById(source.domId); if (!target) return;
+        navigate('result');
         target.open = true; target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
         target.classList.add('highlight'); setTimeout(() => target.classList.remove('highlight'), 2800);
       };
@@ -276,19 +356,12 @@
   function renderAnalysis(model) {
     const host = $('analysis-content'); host.replaceChildren();
     const summary = card('分析摘要'); summary.append(paragraph(model.summary, 'body-text summary-text')); host.append(summary);
+    if (!model.integrated_conclusion) summary.classList.add('report-overview');
     const findings = card('对诊断材料的解读');
     for (const finding of model.findings || []) {
       const section = node('div', 'finding'); section.append(paragraph(finding.text), citationRow(finding.citation_ids)); findings.append(section);
     }
     if (!model.findings?.length) findings.append(paragraph('模型未列出解读条目。', 'small muted')); host.append(findings);
-    for (const [field, title] of [['common_findings', '跨报告共识'], ['report_disagreements', '报告间分歧'], ['complementary_evidence', '互补证据'], ['event_alignment', '事件与时间对齐']]) {
-      if (model[field]?.length) {
-        const section = card(title);
-        for (const item of model[field]) { const row = node('div', 'finding'); row.append(paragraph(item.text), citationRow(item.citation_ids)); section.append(row); }
-        host.append(section);
-      }
-    }
-    if (model.integrated_conclusion) { const integrated = card('综合结论'); integrated.append(paragraph(model.integrated_conclusion, 'body-text')); host.append(integrated); }
     const hypotheses = card('原因假设与反向证据');
     for (const [index, hypothesis] of (model.hypotheses || []).entries()) {
       const section = node('article', 'hypothesis');
@@ -321,23 +394,26 @@
       host.append(comparison);
     }
     if (model.integrated_conclusion) {
-      const integrated = card('多报告综合结论'); integrated.append(paragraph(model.integrated_conclusion, 'body-text summary-text')); host.append(integrated);
+      const integrated = card('多报告综合结论'); integrated.classList.add('report-overview'); integrated.append(paragraph(model.integrated_conclusion, 'body-text summary-text')); host.prepend(integrated);
     }
     const actions = card('建议核查'); actions.append(list(model.recommended_review_actions));
     for (const action of model.review_actions || []) {
       const section = node('div', 'finding'); section.append(node('h4', '', action.check), detail('核查目的', action.rationale), detail('预期观察', action.expected_observations), citationRow(action.citation_ids)); actions.append(section);
     }
-    host.append(actions);
+    actions.classList.add('report-next-steps');
+    host.querySelector('.report-overview').after(actions);
   }
   function renderReport(job, report) {
     $('empty-state').hidden = true; $('result').hidden = false;
+    window.AstroGraphContexts.renderSnapshot($('context-snapshot'), report?.reviewed_context);
     $('job-task').textContent = job.task || '外部诊断分析';
     $('job-meta').textContent = formatDate(job.created_at) + ' · ' + (job.mode === 'online' ? '在线 API' : '本地模型') + ' · ' + (job.model || '未配置模型') + ' · ' + job.job_id;
     const path = '/api/jobs/' + encodeURIComponent(job.job_id);
     $('download-md').href = path + '/report.md'; $('download-json').href = path + '/report.json'; $('download-conversation').href = path + '/conversation.json';
     const ready = job.status === 'SUCCEEDED' && report;
     $('download-md').hidden = !ready; $('download-json').hidden = !ready;
-    $('resume-job').hidden = job.status !== 'INTERRUPTED';
+    $('resume-job').hidden = job.status !== 'INTERRUPTED' && !job.resumable;
+    $('resume-job').textContent = '继续 / 重试分析';
     const k = knowledge(report), model = k.model_explanation || {}, generation = k.generation || {};
     const successful = ready && generation.status === 'SUCCEEDED' && model.status === 'AVAILABLE_REQUIRES_EXPERT_REVIEW' && model.citation_reference_validation === 'PASS';
     renderSources(model.sources || []);
@@ -346,22 +422,25 @@
       status.textContent = '模型分析已生成 · 来源归属检查通过 · 需专家复核'; renderAnalysis(model);
     } else {
       $('analysis-content').replaceChildren();
-      const message = job.status === 'INTERRUPTED' ? '任务因工作台停止而中断，不会自动重试。请核对左侧材料与模型连接后新建分析。'
-        : job.status === 'FAILED' ? '任务未完成。请核对材料与模型连接，然后重新创建分析。'
+      const message = job.status === 'CANCELLED' ? '任务已取消，原始材料和已完成片段仍保留。需要时可核对原配置后手动重试。' : job.status === 'INTERRUPTED' ? '任务因工作台停止而中断。核对原模型连接后，点击“继续 / 重试分析”；已完成片段将从检查点恢复。'
+        : job.status === 'FAILED' ? '任务未完成。请核对材料与模型连接；可续跑时使用下方“继续 / 重试分析”。'
         : REASONS[generation.reason_code] || (generation.status === 'NOT_CONFIGURED' ? '原始材料已导入，但尚未配置模型，本次没有生成模型分析。'
           : generation.status === 'INPUT_TOO_LARGE' ? '原始材料已导入，但超过模型分析容量，本次未调用模型。请拆分材料。'
           : '报告已保存，但模型调用或输出校验未成功，本次没有可展示的模型分析。');
       status.textContent = message + (generation.reason_code ? '\n原因代码：' + generation.reason_code : '');
-      const info = card('本次分析状态'); info.append(paragraph(message), paragraph('可查看右侧原始材料；请检查配置并在左侧重新发起分析。原始材料不会被静默截断。', 'small muted')); $('analysis-content').append(info);
+      const info = card('本次分析状态'); info.append(paragraph(message), paragraph('可查看右侧原始材料；请到“模型设置”检查配置，再继续 / 重试分析。原始材料不会被静默截断。', 'small muted')); $('analysis-content').append(info);
     }
     $('follow-up').hidden = !ready;
+    $('chat-empty').hidden = !!ready;
+    $('chat-context').hidden = !ready;
+    $('question-job-title').textContent = job.task || job.job_id;
     setBadge('job-badge', successful ? '模型分析已生成' : STATES[job.status] || job.status, successful ? 'success' : 'warning');
   }
   async function loadConversation(jobId, epoch) {
     try {
       const data = await api('/api/jobs/' + encodeURIComponent(jobId) + '/conversation');
       if (epoch !== state.epoch || state.job?.job_id !== jobId) return;
-      acceptConversation(data); $('follow-up-status').textContent = '使用左侧当前连接设置；重启后需重新输入 API Key。Ctrl + Enter 发送。';
+      acceptConversation(data); $('follow-up-status').textContent = '使用“模型设置”中的连接信息；重启后需重新输入 API Key。Ctrl + Enter 发送。';
     } catch (error) {
       if (epoch === state.epoch) { $('follow-up-status').textContent = readableError(error); $('send-question').disabled = true; }
     }
@@ -370,7 +449,10 @@
     const data = await api('/api/jobs/' + encodeURIComponent(id));
     if (epoch !== state.epoch) return;
     state.job = data.job; state.report = data.report; $('history').value = id;
-    if (data.job.status === 'RUNNING') {
+    window.AstroGraphExecution.render($('execution-panel'), data.execution, {baseUrl:'/api/jobs/'+encodeURIComponent(id)});
+    $('cancel-job').hidden = !ACTIVE.has(data.job.status);
+    $('cancel-job').disabled = data.job.status === 'CANCEL_REQUESTED';
+    if (ACTIVE.has(data.job.status)) {
       $('empty-state').hidden = true; $('result').hidden = true; $('job-progress').hidden = false;
       const progress = data.job.progress || null;
       if (progress?.stage === 'CHUNK_ANALYSIS') {
@@ -388,7 +470,11 @@
           ? `正在恢复分块检查点：已保存 ${progress.completed}/${progress.total} 个片段。`
           : '正在等待模型响应与结构检查。完成后会自动显示结果。';
       }
-      setBadge('job-badge', '分析进行中', 'running'); setBusy(true);
+      if (data.job.status !== 'RUNNING') {
+        $('progress-title').textContent = STATES[data.job.status];
+        $('progress-copy').textContent = data.job.status === 'QUEUED' ? '任务已保存；前序任务结束后执行。可取消等待任务。' : '等待当前请求结束后停止；已发出的模型调用可能产生费用。';
+      }
+      setBadge('job-badge', STATES[data.job.status], 'running'); setBusy(true);
       state.timer = setTimeout(() => fetchJob(id, epoch).catch(error => pollFailed(error, epoch)), 1400);
     } else {
       $('job-progress').hidden = true; setBusy(false); renderReport(data.job, data.report);
@@ -403,21 +489,27 @@
   }
   async function openJob(id) {
     if (!id) return;
+    navigate('result');
     clearPoll(); const epoch = ++state.epoch;
+    $('execution-panel').hidden = true; $('execution-panel').replaceChildren();
     state.conversation = null; state.attempt = null; state.report = null; state.sources.clear(); $('question').value = ''; $('turns').replaceChildren(); $('follow-up').hidden = true;
+    $('chat-empty').hidden = false; $('chat-context').hidden = true;
     say(''); setBusy(true); $('result').hidden = true; $('empty-state').hidden = true;
     $('job-progress').hidden = false; $('progress-title').textContent = '正在读取报告'; $('progress-copy').textContent = '正在从本机载入任务与原始材料。';
     try { await fetchJob(id, epoch); } catch (error) { pollFailed(error, epoch); }
   }
   async function analyze() {
-    if (state.busy) return;
+    const queued = $('queue-analysis').checked;
+    if (state.submitting || (state.busy && !(queued && ACTIVE.has(state.job?.status)))) return;
     try {
-      const config = connection(), task = $('task').value.trim();
+      const config = connection(), task = $('task').value.trim(), context = contextSelection(), phases = phaseSettings();
       if (!task || task.length > 4000) throw new Error('分析目标请输入 1 至 4,000 字。');
-      setBusy(true); say(''); const files = await materials();
-      const data = await api('/api/jobs', { task, files, connection: config });
+      state.submitting = true; setBusy(true); say(''); const files = await materials();
+      const data = await api('/api/jobs', { task, files, connection: config, ...phases,
+        ...(context ? {context} : {}), ...(queued ? {queue: true} : {}) });
       await refreshHistory(); await openJob(data.job.job_id);
-    } catch (error) { setBusy(false); say(readableError(error), 'error'); }
+    } catch (error) { setBusy(ACTIVE.has(state.job?.status)); say(readableError(error), 'error'); }
+    finally { state.submitting = false; setBusy(state.busy); }
   }
   function acceptConversation(data) {
     if (data.job_id !== state.job?.job_id || !Array.isArray(data.turns) || !Array.isArray(data.sources) ||
@@ -462,13 +554,17 @@
       const attempt = state.attempt; setBusy(true);
       $('follow-up-status').textContent = '正在等待模型回答；请保持本页打开。问题与回答将保存在当前任务中。';
       const data = await api('/api/jobs/' + encodeURIComponent(jobId) + '/follow-up', {
-        question: attempt.question, input_sha256: attempt.input_sha256, request_id: attempt.request_id, connection: config
+        question: attempt.question, input_sha256: attempt.input_sha256, request_id: attempt.request_id, connection: config, ...phaseSettings()
       });
       if (epoch !== state.epoch) return;
       acceptConversation(data);
       const turn = data.turns.find(item => item.request_id === attempt.request_id);
       if (!turn) throw new Error('提交结果尚未确认，请重新读取记录；重试当前问题会复用请求编号。');
       state.attempt = null;
+      window.AstroGraphExecution.mount($('execution-panel'), {
+        baseUrl:'/api/jobs/'+encodeURIComponent(jobId), api,
+        current:()=>epoch===state.epoch && state.job?.job_id===jobId
+      });
       const ok = turn.status === 'SUCCEEDED' && turn.citation_reference_validation === 'PASS';
       if (ok && $('question').value.trim() === question) $('question').value = '';
       $('follow-up-status').textContent = ok ? '回答已保存；可点击引用核对原文。' : '本次追问未完成，失败记录已保存。' + (REASONS[turn.reason_code] || '');
@@ -477,18 +573,30 @@
     } finally { if (epoch === state.epoch) setBusy(false); }
   }
   function bind() {
+    $('queue-analysis').onchange = () => setBusy(state.busy);
+    $('cancel-job').onclick = async () => {
+      const jobId = state.job?.job_id, epoch = state.epoch;
+      if (!jobId || !ACTIVE.has(state.job.status)) return;
+      $('cancel-job').disabled = true;
+      try { await api('/api/jobs/' + encodeURIComponent(jobId) + '/cancel', {});
+        if (epoch === state.epoch) { clearPoll(); await fetchJob(jobId, epoch); }
+      } catch (error) { say(readableError(error), 'error'); $('cancel-job').disabled = false; }
+    };
     $('files').onchange = event => { addFiles(event.target.files); event.target.value = ''; };
     $('paste').oninput = inputStats;
     $('dropzone').ondragover = event => { event.preventDefault(); $('dropzone').classList.add('dragging'); };
     $('dropzone').ondragleave = () => $('dropzone').classList.remove('dragging');
     $('dropzone').ondrop = event => { event.preventDefault(); $('dropzone').classList.remove('dragging'); addFiles(event.dataTransfer.files); };
     $('probe').onclick = probe; $('analyze').onclick = analyze;
-    $('history').onchange = () => openJob($('history').value);
+    $('history').onchange = () => { if (!state.busy) openJob($('history').value); };
+    $('history-search').oninput = renderHistory;
+    $('history-status-filter').onchange = renderHistory;
+    for (const id of ['model', 'base-url']) $(id).addEventListener('input', resetConnectionBadge);
     $('resume-job').onclick = async () => {
-      if (!state.job || state.job.status !== 'INTERRUPTED') return;
+      if (!state.job || (state.job.status !== 'INTERRUPTED' && !state.job.resumable)) return;
       try {
         const config = connection(); setBusy(true); say('正在从已保存的分块检查点继续任务。');
-        await api('/api/jobs/' + encodeURIComponent(state.job.job_id) + '/resume', { connection: config });
+        await api('/api/jobs/' + encodeURIComponent(state.job.job_id) + '/resume', { connection: config, ...phaseSettings(), ...($('queue-analysis').checked ? {queue:true} : {}) });
         await openJob(state.job.job_id);
       } catch (error) { setBusy(false); say(readableError(error), 'error'); }
     };
@@ -524,12 +632,13 @@
     $('base-url').addEventListener('input', () => { $('preset').value = 'custom'; resetConnectionBadge(); });
     $('follow-up-form').onsubmit = followUp;
     $('question').onkeydown = event => { if ((event.ctrlKey || event.metaKey) && event.key === 'Enter' && !event.isComposing) { event.preventDefault(); if (!$('send-question').disabled) $('follow-up-form').requestSubmit(); } };
-    $('reload-conversation').onclick = () => loadConversation(state.job.job_id, state.epoch);
+    $('reload-conversation').onclick = () => { if (state.job) loadConversation(state.job.job_id, state.epoch); };
   }
   async function init() {
     bind(); setBusy(false);
     try {
       const data = await api('/api/session'); state.session = data; state.token = data.token;
+      document.querySelectorAll('.version-label').forEach(el => {el.textContent = typeof data.version === 'string' ? data.version : '源码开发版';});
       const defaults = data.defaults?.connection || data.defaults || {};
       const mapping = { mode: 'mode', base_url: 'base-url', model: 'model', max_tokens: 'max-tokens', timeout_s: 'timeout', response_format_strategy: 'strategy' };
       for (const [key, id] of Object.entries(mapping)) if (defaults[key] !== undefined) $(id).value = String(defaults[key]);
@@ -542,6 +651,9 @@
       if (!$('preset').value) $('preset').value = 'custom';
       updateMode(); inputStats();
       $('service-dot').classList.add('ready'); $('service-status').textContent = '本机工作台已就绪'; setBusy(false);
+      state.contexts = window.AstroGraphContexts.mount($('context-picker'), {
+        api: (path, options = {}) => api(path, options.method === 'POST' ? JSON.parse(options.body || '{}') : undefined)
+      });
       await refreshHistory();
     } catch (error) { $('service-status').textContent = '本机工作台未连接'; say(readableError(error), 'error'); }
   }

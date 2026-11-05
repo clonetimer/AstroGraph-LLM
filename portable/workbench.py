@@ -6,6 +6,7 @@ modules. It never imports or invokes the telemetry/diagnosis engine.
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
 import base64
 import binascii
 from datetime import datetime, timezone
@@ -19,6 +20,7 @@ import re
 import secrets
 import shutil
 import socket
+import subprocess
 import sys
 import tempfile
 import threading
@@ -32,6 +34,12 @@ import webbrowser
 import zipfile
 
 from pydantic import ValidationError
+from astrograph.integrations.reviewed_context import (
+    ContextStore, ContextError, context_request, write_task_context, load_task_context,
+)
+from astrograph.integrations.stage_execution import (
+    BoundedExecutor, StageRouter, AnalysisCancelled, for_stage, check_cancelled,
+)
 
 from astrograph.integrations.external_diagnosis_analysis import (
     MAX_SOURCE_CHARACTERS, _canonical, _digest, _validate_binding, load_external_diagnosis_input,
@@ -47,12 +55,15 @@ from astrograph.integrations.long_report_analysis import (
     MAX_PORTABLE_SOURCE_CHARACTERS, DEFAULT_CHUNK_CHARACTERS, coalesce_sources, run_hierarchical_analysis,
 )
 ONE_SHOT_SOURCE_CHARACTERS = 60_000
-from astrograph.integrations.http_worker import _NoRedirect
+from astrograph.integrations.http_worker import _NoRedirect, verified_tls_context
 from astrograph.integrations.process_control import run_managed_subprocess
+from astrograph.integrations.execution_observability import (
+    RunJournal, run_scope, execution_snapshot, recover_interrupted, read_artifact,
+)
 from astrograph.llm.openai_compatible import OpenAICompatibleConfig, OpenAICompatibleStructuredBackend
 
 
-VERSION = "2.6.0-rc.1"
+VERSION = "2.8.0-dev.2"
 BASE = Path(__file__).resolve().parent
 MAX_TOTAL_BYTES = 4 * 1024 * 1024
 MAX_BODY_BYTES = 6 * 1024 * 1024
@@ -139,6 +150,36 @@ def parse_connection(value: Any, *, allow_empty_model: bool = False) -> dict:
     return settings
 
 
+def parse_phase_connections(primary: dict, overrides: Any = None) -> dict:
+    """Explicit overrides only; changed endpoints never inherit primary credentials."""
+    overrides = {} if overrides is None else overrides
+    if not isinstance(overrides, dict) or set(overrides) - {"chunk", "synthesis", "follow_up"}:
+        raise WorkbenchError("INVALID_PHASE_MODELS", "只支持片段、综合和追问三个阶段的显式配置。")
+    result = {"analysis": dict(primary)}
+    for stage in ("chunk", "synthesis", "follow_up"):
+        change = overrides.get(stage, {})
+        if not isinstance(change, dict) or set(change) - set(DEFAULTS):
+            raise WorkbenchError("INVALID_PHASE_MODELS", "阶段配置格式不正确。")
+        settings = {**primary, **change}
+        # Same identity normalization as parse_connection; mode changes also clear credentials.
+        endpoint = change.get("base_url", primary["base_url"])
+        if (not isinstance(endpoint, str) or endpoint.strip().rstrip("/") != primary["base_url"]
+                or change.get("mode", primary["mode"]) != primary["mode"]):
+            settings["api_key"] = change.get("api_key", "")
+        result[stage] = parse_connection(settings)
+    return result
+
+
+def _plan_fingerprint(phases: dict) -> str:
+    # Execution parameters are frozen, but secrets are never hashed into metadata.
+    return _digest({stage: {k: v for k, v in settings.items() if k != "api_key"}
+                    for stage, settings in phases.items()})
+
+
+def _stage_backends(phases: dict) -> StageRouter:
+    return StageRouter({stage: _backend(settings) for stage, settings in phases.items()})
+
+
 def _execution_fingerprint(settings: dict) -> str:
     identity = {"mode": settings["mode"], "base_url": settings["base_url"], "model": settings["model"]}
     return hashlib.sha256(_canonical(identity).encode("utf-8")).hexdigest()
@@ -211,23 +252,155 @@ def _decode_file(item: Any) -> tuple[str, str, bytes, str, str]:
     return name, role, raw, text, encoding
 
 
+DOCUMENT_ERRORS = {
+    "DOCUMENT_NEEDS_OCR": "PDF 没有可提取的文字。请先 OCR 或导出为可读文本，再导入工作台。",
+    "DOCUMENT_ENCRYPTED": "PDF 已加密。请先提供已解锁的副本，再导入。",
+    "DOCUMENT_PARSE_TIMEOUT": "文档解析超过 30 秒，已停止解析。请拆分文档或导出为 TXT / DOCX 后重试。",
+    "DOCUMENT_STRUCTURE_TOO_LARGE": "文档结构过于复杂，超过解析容量。请按章节拆分或导出为纯文本。",
+    "INPUT_PARSE_FAILED": "材料解析失败。请检查文件是否损坏、JSON 格式或 CSV 行数；PDF 和 DOCX 需包含可读文字。",
+}
+
+
+def _parse_bundle_bounded(task_id: str, expanded: Path) -> dict:
+    """Keep document parsers out of the HTTP process and bound their runtime."""
+    try:
+        process = run_managed_subprocess(
+            [sys.executable, "-B", str(Path(__file__).resolve()), "--parse-worker"],
+            input=_canonical({"task_id": task_id, "expanded": str(expanded)}).encode("utf-8"),
+            capture_output=True, timeout=30, check=False)
+        if process.returncode or len(process.stdout) > 6 * 1024 * 1024:
+            raise ValueError("parser worker failed")
+        result = json.loads(process.stdout)
+        if result.get("status") != "SUCCEEDED":
+            code = result.get("code", "INPUT_PARSE_FAILED")
+            if code not in DOCUMENT_ERRORS:
+                code = "INPUT_PARSE_FAILED"
+            raise WorkbenchError(code, DOCUMENT_ERRORS[code])
+        return _validate_binding(task_id, result["bundle"])
+    except subprocess.TimeoutExpired as exc:
+        raise WorkbenchError("DOCUMENT_PARSE_TIMEOUT", DOCUMENT_ERRORS["DOCUMENT_PARSE_TIMEOUT"]) from exc
+    except WorkbenchError:
+        raise
+    except Exception as exc:
+        raise WorkbenchError("INPUT_PARSE_FAILED", DOCUMENT_ERRORS["INPUT_PARSE_FAILED"]) from exc
+
+
+def _parse_worker() -> None:
+    # Exercise the same bundled PDF engine on Linux tests and Windows delivery.
+    os.environ["ASTROGRAPH_PDF_ENGINE"] = "pypdf"
+    try:
+        if os.name == "posix":
+            import resource
+            resource.setrlimit(resource.RLIMIT_AS, (512 * 1024 * 1024, 512 * 1024 * 1024))
+        request = json.loads(sys.stdin.buffer.read(16385))
+        expanded = Path(request["expanded"])
+        bundle = load_external_diagnosis_input(task_id=request["task_id"], expanded=expanded,
+                                               manifest_path=expanded / "analysis_input.json")
+        raw = _canonical({"status": "SUCCEEDED", "bundle": bundle}).encode("utf-8")
+        if len(raw) > 6 * 1024 * 1024:
+            raise ValueError("DOCUMENT_STRUCTURE_TOO_LARGE")
+    except Exception as exc:
+        detail = str(exc).lower()
+        code = ("DOCUMENT_NEEDS_OCR" if "no extractable text" in detail or "no retrievable elements" in detail
+                else "DOCUMENT_ENCRYPTED" if "encrypted pdf" in detail
+                else "DOCUMENT_STRUCTURE_TOO_LARGE" if "document_structure_too_large" in detail
+                else "INPUT_PARSE_FAILED")
+        raw = _canonical({"status": "FAILED", "code": code}).encode("utf-8")
+    sys.stdout.buffer.write(raw)
+
+
 class Workbench:
     def __init__(self, data_dir: Path):
         self.root = Path(data_dir).resolve()
         self.jobs_dir = self.root / "jobs"
         self.jobs_dir.mkdir(parents=True, exist_ok=True)
         self._operation = threading.Lock()
+        self.contexts = ContextStore(self.root / "reviewed_context")
+        self._queue = BoundedExecutor(max_waiting=8)
         self._active_backends: dict[str, Any] = {}
         self._threads: dict[str, threading.Thread] = {}
         _bypass_loopback_proxies()
         for path in self.jobs_dir.glob("*/job.json"):
             try:
                 job = _json_read(path)
-                if job.get("status") == "RUNNING":
+                recover_interrupted(path.parent, job["job_id"])
+                if job.get("status") in {"RUNNING", "QUEUED", "CANCEL_REQUESTED"}:
                     job.update(status="INTERRUPTED", reason_code="APPLICATION_RESTARTED")
                     _json_write(path, job)
             except (OSError, ValueError):
                 continue
+
+    @contextmanager
+    def _idle_operation(self):
+        if not self._operation.acquire(blocking=False):
+            raise WorkbenchError("MODEL_BUSY", "已有操作正在进行。", 409)
+        try:
+            with self._queue.idle_guard():
+                yield
+        except ValueError as exc:
+            if str(exc) == "BUSY":
+                raise WorkbenchError("MODEL_BUSY", "分析或排队任务尚未完成。", 409) from exc
+            raise
+        finally:
+            self._operation.release()
+
+    def context_api(self, method, path, body=None):
+        # Single-user loopback UI. Platform API uses its authenticated identity instead.
+        try:
+            if method == "GET":
+                return context_request(self.contexts, method, path, actor="local-user")
+            with self._idle_operation():
+                return context_request(self.contexts, method, path, body, actor="local-user")
+        except (ContextError, TypeError) as exc:
+            raise WorkbenchError("CONTEXT_REQUEST_FAILED", "上下文请求无效、版本已变化或范围不匹配。", 409) from exc
+
+    def _selected_context(self, value):
+        if value is None:
+            return None
+        if not isinstance(value, dict) or set(value) != {"workspace_id", "entries"}:
+            raise WorkbenchError("INVALID_CONTEXT_SELECTION", "请选择工作区及已审阅条目。")
+        try:
+            return self.contexts.snapshot(value["workspace_id"], value["entries"])
+        except (ValueError, TypeError) as exc:
+            raise WorkbenchError("INVALID_CONTEXT_SELECTION", "所选上下文已改变或尚未审阅，请刷新后重新选择。", 409) from exc
+
+    def _frozen_context(self, job):
+        try:
+            snapshot = load_task_context(self._job_root(job["job_id"]))
+            if (snapshot["sha256"] if snapshot else None) != job.get("context_sha256"):
+                raise ContextError("TASK_CONTEXT_CHANGED")
+            return snapshot
+        except (ContextError, OSError) as exc:
+            raise WorkbenchError("TASK_CONTEXT_CHANGED", "任务上下文快照校验失败，未发起模型请求。", 409) from exc
+
+    def _persist_queue_state(self, job_id, status):
+        job = self.get(job_id)
+        job["status"] = status
+        if status in {"CANCELLED", "INTERRUPTED"}:
+            job.update(resumable=True, reason_code="USER_CANCELLED" if status == "CANCELLED" else "APPLICATION_RESTARTED")
+        _json_write(self._job_root(job_id) / "job.json", job)
+
+    def cancel_job(self, job_id):
+        self.get(job_id)
+        try:
+            self._queue.cancel(job_id)
+        except ValueError as exc:
+            raise WorkbenchError("JOB_NOT_CANCELLABLE", "任务已结束或报告已保存，不能再取消。", 409) from exc
+        return self.get(job_id)
+
+    def _schedule(self, job, bundle, phases, allow_queue):
+        backend = _stage_backends(phases)
+        def execute(token):
+            self._run_job(self.get(job["job_id"]), bundle, backend)
+        try:
+            state = self._queue.submit(job["job_id"], execute, persist=self._persist_queue_state,
+                                       allow_queue=allow_queue)
+        except ValueError as exc:
+            code = "QUEUE_FULL" if str(exc) == "QUEUE_FULL" else "MODEL_BUSY"
+            raise WorkbenchError(code, "队列已满或有任务正在运行；可明确选择排队后重试。", 409) from exc
+        # Keep historical thread diagnostics compatible with the shared worker.
+        self._threads[job["job_id"]] = self._queue.thread
+        return {**job, "status": state}
 
     def _job_root(self, job_id: str) -> Path:
         if not isinstance(job_id, str) or not re.fullmatch(r"[a-f0-9]{32}", job_id):
@@ -256,17 +429,15 @@ class Workbench:
         return sorted(jobs, key=lambda item: item.get("created_at", ""), reverse=True)[:100]
 
     def create_backup(self) -> bytes:
-        # A backup must be a consistent snapshot, not a mix of two task states.
-        if not self._operation.acquire(blocking=False):
-            raise WorkbenchError("MODEL_BUSY", "正在分析或追问，请完成后再备份。", 409)
-        try:
-            return self._create_backup_unlocked()
-        finally:
-            self._operation.release()
+        with self._idle_operation():
+            return self._create_backup()
 
-    def _create_backup_unlocked(self) -> bytes:
+    def _create_backup(self) -> bytes:
         """Return a self-verifying archive of local job records and source files."""
-        files: list[tuple[str, bytes]] = []
+        context_bytes = (_canonical(self.contexts.export_bundle()) + "\n").encode("utf-8")
+        if len(context_bytes) > 32 * 1024 * 1024:
+            raise WorkbenchError("BACKUP_TOO_LARGE", "上下文备份超过 32 MiB。", 413)
+        files: list[tuple[str, bytes]] = [("context_backup.json", context_bytes)]
         for job_dir in sorted(self.jobs_dir.iterdir()):
             if not re.fullmatch(r"[a-f0-9]{32}", job_dir.name) or job_dir.is_symlink() or not job_dir.is_dir():
                 continue
@@ -292,14 +463,10 @@ class Workbench:
         return data
 
     def restore_backup(self, raw: bytes) -> dict[str, Any]:
-        if not self._operation.acquire(blocking=False):
-            raise WorkbenchError("MODEL_BUSY", "正在分析或追问，请完成后再恢复备份。", 409)
-        try:
-            return self._restore_backup_unlocked(raw)
-        finally:
-            self._operation.release()
+        with self._idle_operation():
+            return self._restore_backup(raw)
 
-    def _restore_backup_unlocked(self, raw: bytes) -> dict[str, Any]:
+    def _restore_backup(self, raw: bytes) -> dict[str, Any]:
         """Validate a complete backup before atomically adding non-conflicting jobs."""
         if not isinstance(raw, bytes) or not raw or len(raw) > MAX_BACKUP_BYTES:
             raise WorkbenchError("BACKUP_INVALID", "备份文件为空或超过 64 MiB。", 413)
@@ -315,19 +482,20 @@ class Workbench:
                 if len(infos) > 20000 or sum(item.file_size for item in infos) > 256 * 1024 * 1024:
                     raise WorkbenchError("BACKUP_TOO_LARGE", "备份展开后超过安全容量。", 413)
                 names: set[str] = set()
-                windows_names: set[str] = set()
+                portable_names: set[str] = set()
                 for item in infos:
                     name = item.filename
                     parts = name.split("/")
                     mode = (item.external_attr >> 16) & 0o170000
-                    if (name.casefold() in windows_names or mode == 0o120000
+                    if (name.casefold() in portable_names or name.startswith(("/", "\\")) or ".." in parts
+                            or "\\" in name or ":" in name or mode == 0o120000
                             or any(not part or part in {".", ".."} or part.endswith((".", " "))
-                                   or re.search(r'[<>:"\\|?*\x00-\x1f]', part)
+                                   or re.search(r'[<>:"|?*\x00-\x1f]', part)
                                    or re.fullmatch(r"(?i)(con|prn|aux|nul|com[0-9¹²³]|lpt[0-9¹²³])(?:\..*)?", part)
                                    for part in parts)):
                         raise WorkbenchError("BACKUP_UNSAFE_ARCHIVE", "备份包含重复、越界或链接路径。")
                     names.add(name)
-                    windows_names.add(name.casefold())
+                    portable_names.add(name.casefold())
                 if "backup.json" not in names:
                     raise WorkbenchError("BACKUP_INVALID", "备份缺少校验清单。")
                 try:
@@ -339,8 +507,9 @@ class Workbench:
                 listed = {}
                 for item in manifest["files"]:
                     if (not isinstance(item, dict) or not isinstance(item.get("path"), str)
-                            or not re.fullmatch(r"jobs/[a-f0-9]{32}/.+", item["path"])
+                            or (item["path"] != "context_backup.json" and not re.fullmatch(r"jobs/[a-f0-9]{32}/.+", item["path"]))
                             or item["path"] in listed or type(item.get("bytes")) is not int
+                            or item["bytes"] < 0
                             or not re.fullmatch(r"[a-f0-9]{64}", str(item.get("sha256", "")))):
                         raise WorkbenchError("BACKUP_INVALID", "备份文件清单存在无效条目。")
                     listed[item["path"]] = item
@@ -355,24 +524,31 @@ class Workbench:
                     destination = staging / name
                     destination.parent.mkdir(parents=True, exist_ok=True)
                     destination.write_bytes(content)
-                    job_ids.add(name.split("/")[1])
+                    if name != "context_backup.json":
+                        job_ids.add(name.split("/")[1])
                 for job_id in job_ids:
                     job_path = staging / "jobs" / job_id / "job.json"
-                    if not job_path.is_file():
+                    if not job_path.is_file() or _json_read(job_path).get("job_id") != job_id:
                         raise WorkbenchError("BACKUP_INVALID", "备份任务记录与目录编号不匹配。")
                     restored_job = _json_read(job_path)
-                    if restored_job.get("job_id") != job_id:
-                        raise WorkbenchError("BACKUP_INVALID", "备份任务记录与目录编号不匹配。")
-                    if restored_job.get("status") == "RUNNING":
+                    if restored_job.get("status") in {"RUNNING", "QUEUED", "CANCEL_REQUESTED"}:
                         restored_job.update(status="INTERRUPTED", reason_code="RESTORED_INCOMPLETE_TASK")
                         _json_write(job_path, restored_job)
+                    recover_interrupted(staging / "jobs" / job_id, job_id)
                     if self._job_root(job_id).exists():
                         raise WorkbenchError("BACKUP_CONFLICT", "目标数据目录已有同编号任务；未覆盖任何现有数据。", 409)
-                for job_id in sorted(job_ids):
-                    destination = self._job_root(job_id)
-                    destination.parent.mkdir(parents=True, exist_ok=True)
-                    os.replace(staging / "jobs" / job_id, destination)
-                    moved.append(destination)
+                # Publish filesystem jobs inside the context-store transaction. On any
+                # later error the DB rolls back and the outer handler removes moved jobs.
+                def publish():
+                    for job_id in sorted(job_ids):
+                        destination = self._job_root(job_id)
+                        os.replace(staging / "jobs" / job_id, destination)
+                        moved.append(destination)
+                context_path = staging / "context_backup.json"
+                if context_path.exists():
+                    self.contexts.import_bundle(_json_read(context_path), before_commit=publish)
+                else:
+                    publish()
                 return {"restored_jobs": len(moved), "job_ids": sorted(job_ids)}
         except WorkbenchError:
             for path in reversed(moved):
@@ -393,15 +569,34 @@ class Workbench:
                 report = _json_read(self._job_root(job_id) / "output" / "report.json")
             except (OSError, ValueError) as exc:
                 raise WorkbenchError("REPORT_UNAVAILABLE", "报告文件无法读取，请检查 data 文件夹。", 409) from exc
-        return {"job": job, "report": report}
+        return {"job": job, "report": report, "execution": self.execution(job_id)}
+
+    def execution(self, job_id: str) -> dict:
+        self.get(job_id)
+        try:
+            return execution_snapshot(self._job_root(job_id), job_id)
+        except (ValueError, OSError, TypeError) as exc:
+            raise WorkbenchError("EXECUTION_UNAVAILABLE", "执行记录无法读取，请检查任务文件。", 409) from exc
+
+    def export_run(self, job_id: str, run_id: str, name: str) -> tuple[bytes, str]:
+        self.get(job_id)
+        try:
+            raw = read_artifact(self._job_root(job_id), job_id, run_id, name)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            raise WorkbenchError("EXECUTION_ARTIFACT_UNAVAILABLE", "该版本文件不存在、未完成或校验未通过。", 404) from exc
+        return raw, "application/json; charset=utf-8" if name.endswith(".json") else "text/markdown; charset=utf-8"
 
     def create_job(self, payload: Any) -> dict:
-        if not isinstance(payload, dict) or set(payload) != {"task", "files", "connection"}:
+        if (not isinstance(payload, dict) or not {"task", "files", "connection"}.issubset(payload)
+                or set(payload) - {"task", "files", "connection", "context", "phases", "queue"}):
             raise WorkbenchError("INVALID_REQUEST", "分析请求不完整。")
         task = payload["task"]
         if not isinstance(task, str) or not task.strip() or len(task) > 4000:
             raise WorkbenchError("INVALID_TASK", "请填写不超过 4,000 字符的分析目标。")
         settings = parse_connection(payload["connection"])
+        phases = parse_phase_connections(settings, payload.get("phases"))
+        if type(payload.get("queue", False)) is not bool:
+            raise WorkbenchError("INVALID_REQUEST", "排队选项必须为布尔值。")
         files = payload["files"]
         if not isinstance(files, list) or not 1 <= len(files) <= 36:
             raise WorkbenchError("INVALID_FILES", "请提供至少一份诊断结果，材料总数不超过 36 份。")
@@ -418,6 +613,9 @@ class Workbench:
         job_id = secrets.token_hex(16)
         root = self._job_root(job_id)
         try:
+            if self._queue.busy() and not payload.get("queue", False):
+                raise WorkbenchError("MODEL_BUSY", "已有分析进行中，请明确勾选排队。", 409)
+            snapshot = self._selected_context(payload.get("context"))
             expanded = root / "input"
             original = root / "input_original"
             expanded.mkdir(parents=True)
@@ -436,10 +634,15 @@ class Workbench:
                                  "imported_utf8_sha256": hashlib.sha256(normalized).hexdigest()})
             _json_write(expanded / "analysis_input.json", manifest)
             try:
-                bundle = load_external_diagnosis_input(task_id=job_id, expanded=expanded,
-                                                      manifest_path=expanded / "analysis_input.json")
+                if any(Path(name).suffix.lower() in {".pdf", ".docx"} for name, *_ in decoded):
+                    bundle = _parse_bundle_bounded(job_id, expanded)
+                else:
+                    bundle = load_external_diagnosis_input(task_id=job_id, expanded=expanded,
+                                                          manifest_path=expanded / "analysis_input.json")
+            except WorkbenchError:
+                raise
             except Exception as exc:
-                raise WorkbenchError("INPUT_PARSE_FAILED", "材料解析失败。JSON 需为有效对象或数组；CSV 不超过 3,000 行；文本不能为空。") from exc
+                raise WorkbenchError("INPUT_PARSE_FAILED", DOCUMENT_ERRORS["INPUT_PARSE_FAILED"]) from exc
             if bundle["character_count"] > MAX_PORTABLE_SOURCE_CHARACTERS:
                 raise WorkbenchError("INPUT_TOO_LARGE", "解析后的材料超过 180,000 字符，请拆分材料；系统不会截断原文。", 413)
             if bundle["character_count"] > ONE_SHOT_SOURCE_CHARACTERS:
@@ -447,92 +650,119 @@ class Workbench:
                 bundle["input_sha256"] = _digest(bundle["sources"])
                 bundle["character_count"] = sum(len(source["text"]) for source in bundle["sources"])
             output = root / "output"
+            if snapshot is not None:
+                write_task_context(root, snapshot)
             _json_write(output / "external_diagnosis_input.json", bundle)
             _json_write(root / "import_receipts.json", {"files": receipts})
             job = {"job_id": job_id, "task": task.strip(),
                    "created_at": datetime.now(timezone.utc).isoformat(), "status": "RUNNING",
                    "model": settings["model"], "mode": settings["mode"],
                    "input_sha256": bundle["input_sha256"], "character_count": bundle["character_count"],
-                   "execution_fingerprint": _execution_fingerprint(settings)}
+                   "execution_fingerprint": _plan_fingerprint(phases), "execution_plan_version": 1,
+                   "context_sha256": snapshot["sha256"] if snapshot else None}
             _json_write(root / "job.json", job)
-            backend = _backend(settings)
-            thread = threading.Thread(target=self._run_job, args=(job, bundle, backend), daemon=True)
-            self._threads[job_id] = thread
-            accepted = dict(job)
-            thread.start()
-            return accepted
+            return self._schedule(job, bundle, phases, payload.get("queue", False))
         except Exception:
             shutil.rmtree(root, ignore_errors=True)
-            self._operation.release()
             raise
+        finally:
+            self._operation.release()
 
     def _run_job(self, job: dict, bundle: dict, backend: Any) -> None:
         root = self._job_root(job["job_id"])
+        run = None
         try:
-            if bundle["character_count"] > ONE_SHOT_SOURCE_CHARACTERS:
-                def update_progress(value: dict) -> None:
-                    job["progress"] = value
+            snapshot = self._frozen_context(job)
+            receipts_path = root / "import_receipts.json"
+            receipts = _json_read(receipts_path).get("files", []) if receipts_path.is_file() else []
+            run = RunJournal(root, task_id=job["job_id"], kind="analysis", bundle=bundle,
+                             model=job.get("model", ""), mode=job.get("mode", ""), receipts=receipts)
+            job["active_run_id"] = run.run_id
+            with self._queue.lock:
+                check_cancelled()
+                _json_write(root / "job.json", job)
+            with run_scope(run):
+                run.event("INPUT_VALIDATED")
+                if bundle["character_count"] > ONE_SHOT_SOURCE_CHARACTERS:
+                    def update_progress(value: dict) -> None:
+                        with self._queue.lock:
+                            check_cancelled()
+                            job["progress"] = value
+                            _json_write(root / "job.json", job)
+                    knowledge = run_hierarchical_analysis(
+                        task_id=job["job_id"], task=job["task"], input_bundle=bundle,
+                        llm_backend=backend, output_root=root / "output" / "knowledge", progress=update_progress,
+                        execution_fingerprint=job.get("execution_fingerprint", ""), context_snapshot=snapshot)
+                else:
+                    knowledge = run_external_diagnosis_analysis(
+                        task_id=job["job_id"], task=job["task"], input_bundle=bundle,
+                        llm_backend=for_stage(backend, "analysis"), output_root=root / "output" / "knowledge",
+                        context_snapshot=snapshot)
+                check_cancelled()
+                if snapshot is not None:
+                    knowledge["model_explanation"]["reviewed_context"] = snapshot
+                _json_write(root / "output/knowledge/external_diagnosis_analysis.json", knowledge)
+                review = imported_diagnosis_review(bundle)
+                report = {"schema_version": "astrograph-portable-report.v1", "job_id": job["job_id"],
+                          "task": job["task"], "input_sha256": bundle["input_sha256"],
+                          "analysis": {"analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS",
+                                       "imported_diagnosis_review": review, "knowledge_enrichment": knowledge},
+                          "model": job["model"], "mode": job["mode"],
+                          "created_at": job["created_at"], "automatic_control_authorized": False}
+                if snapshot is not None:
+                    report["reviewed_context"] = snapshot
+                with self._queue.publication(job["job_id"]):
+                    run.event("REPORT_WRITE")
+                    _json_write(root / "output" / "report.json", report)
+                    (root / "output" / "report.md").write_text(
+                        render_external_diagnosis_markdown(job, review, knowledge), encoding="utf-8")
+                    run.artifact("report.json", (root / "output" / "report.json").read_bytes())
+                    run.artifact("report.md", (root / "output" / "report.md").read_bytes())
+                    run.finish(knowledge["generation"]["status"], knowledge["generation"].get("reason_code"))
+                    job.update(status="SUCCEEDED", generation_status=knowledge["generation"]["status"],
+                               resumable=knowledge["generation"]["status"] == "FAILED",
+                               reason_code=knowledge["generation"].get("reason_code"),
+                               completed_at=datetime.now(timezone.utc).isoformat())
                     _json_write(root / "job.json", job)
-                knowledge = run_hierarchical_analysis(
-                    task_id=job["job_id"], task=job["task"], input_bundle=bundle,
-                    llm_backend=backend, output_root=root / "output" / "knowledge", progress=update_progress,
-                    execution_fingerprint=job.get("execution_fingerprint", ""))
-            else:
-                knowledge = run_external_diagnosis_analysis(
-                    task_id=job["job_id"], task=job["task"], input_bundle=bundle,
-                    llm_backend=backend, output_root=root / "output" / "knowledge")
-            review = imported_diagnosis_review(bundle)
-            report = {"schema_version": "astrograph-portable-report.v1", "job_id": job["job_id"],
-                      "task": job["task"], "input_sha256": bundle["input_sha256"],
-                      "analysis": {"analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS",
-                                   "imported_diagnosis_review": review, "knowledge_enrichment": knowledge},
-                      "model": job["model"], "mode": job["mode"],
-                      "created_at": job["created_at"], "automatic_control_authorized": False}
-            _json_write(root / "output" / "report.json", report)
-            (root / "output" / "report.md").write_text(
-                render_external_diagnosis_markdown(job, review, knowledge), encoding="utf-8")
-            job.update(status="SUCCEEDED", generation_status=knowledge["generation"]["status"],
-                       completed_at=datetime.now(timezone.utc).isoformat())
-            _json_write(root / "job.json", job)
+        except AnalysisCancelled:
+            if run is not None:
+                run.finish("CANCELLED", "USER_CANCELLED")
+            self._persist_queue_state(job["job_id"], "CANCELLED")
         except Exception:
-            job.update(status="FAILED", reason_code="REPORT_WRITE_FAILED")
+            job.update(status="FAILED", reason_code="REPORT_WRITE_FAILED", resumable=True)
             try:
                 _json_write(root / "job.json", job)
             except OSError:
                 pass
         finally:
             self._threads.pop(job["job_id"], None)
-            self._operation.release()
 
-    def resume_job(self, job_id: str, connection: Any) -> dict:
+    def resume_job(self, job_id: str, connection: Any, *, phases=None, queue=False) -> dict:
         settings = parse_connection(connection)
-        job = self.get(job_id)
-        if job.get("status") != "INTERRUPTED":
-            raise WorkbenchError("JOB_NOT_RESUMABLE", "只有中断的任务可以继续。", 409)
-        if not job.get("execution_fingerprint") or not secrets.compare_digest(
-                job["execution_fingerprint"], _execution_fingerprint(settings)):
-            raise WorkbenchError("RESUME_MODEL_MISMATCH", "继续任务必须使用原来的模型模式、服务地址和模型 ID。")
+        plan = parse_phase_connections(settings, phases)
+        if type(queue) is not bool:
+            raise WorkbenchError("INVALID_REQUEST")
         if not self._operation.acquire(blocking=False):
-            raise WorkbenchError("MODEL_BUSY", "已有模型操作进行中，请等待完成。", 409)
-        root = self._job_root(job_id)
+            raise WorkbenchError("MODEL_BUSY", "已有操作进行中。", 409)
         try:
+            job = self.get(job_id)
+            if job.get("status") not in {"INTERRUPTED", "CANCELLED"} and not job.get("resumable", False):
+                raise WorkbenchError("JOB_NOT_RESUMABLE", "只有中断、取消或模型分析失败的任务可以继续。", 409)
+            fingerprint = _plan_fingerprint(plan) if job.get("execution_plan_version") == 1 else _execution_fingerprint(settings)
+            if (not job.get("execution_fingerprint") or not secrets.compare_digest(job["execution_fingerprint"], fingerprint)
+                    or (job.get("execution_plan_version") != 1 and phases)):
+                raise WorkbenchError("RESUME_MODEL_MISMATCH", "继续任务必须使用原来的连接、阶段模型和执行参数。")
+            root = self._job_root(job_id)
+            self._frozen_context(job)
             try:
-                bundle = _validate_binding(job_id, _json_read(root / "output" / "external_diagnosis_input.json"))
-            except (ValueError, TypeError, OSError) as exc:
-                raise WorkbenchError("RESUME_INPUT_CHANGED", "保存的输入校验失败，不能继续；请重新导入原始材料。", 409) from exc
-            if bundle.get("input_sha256") != job.get("input_sha256"):
-                raise WorkbenchError("RESUME_INPUT_CHANGED", "原始输入与任务记录不一致，不能继续。", 409)
-            job.update(status="RUNNING", reason_code=None, resumed_at=datetime.now(timezone.utc).isoformat())
-            _json_write(root / "job.json", job)
-            backend = _backend(settings)
-            thread = threading.Thread(target=self._run_job, args=(job, bundle, backend), daemon=True)
-            self._threads[job_id] = thread
-            accepted = dict(job)
-            thread.start()
-            return accepted
-        except Exception:
+                bundle = _validate_binding(job_id, _json_read(root / "output/external_diagnosis_input.json"))
+                if bundle["input_sha256"] != job.get("input_sha256"):
+                    raise ValueError("hash differs")
+            except Exception as exc:
+                raise WorkbenchError("RESUME_INPUT_CHANGED", "原始输入完整性校验失败，不能继续。", 409) from exc
+            return self._schedule(job, bundle, plan, queue)
+        finally:
             self._operation.release()
-            raise
 
     def _knowledge_service_for_job(self, job: dict) -> SimpleNamespace:
         return SimpleNamespace(llm_backend=self._active_backends.get(job["job_id"]))
@@ -545,16 +775,34 @@ class Workbench:
 
     def follow_up(self, job_id: str, payload: Any) -> dict:
         if (not isinstance(payload, dict)
-                or set(payload) != {"question", "input_sha256", "request_id", "connection"}):
+                or not {"question", "input_sha256", "request_id", "connection"}.issubset(payload)
+                or set(payload) - {"question", "input_sha256", "request_id", "connection", "phases"}):
             raise WorkbenchError("INVALID_REQUEST", "追问请求不完整。")
         settings = parse_connection(payload["connection"])
-        self.get(job_id)
+        plan = parse_phase_connections(settings, payload.get("phases"))
+        self._frozen_context(self.get(job_id))
         if not self._operation.acquire(blocking=False):
             raise WorkbenchError("MODEL_BUSY", "已有模型操作进行中，请等待完成。", 409)
         try:
-            self._active_backends[job_id] = _backend(settings)
-            state = ask_follow_up(self, job_id, question=payload["question"],
-                                  input_sha256=payload["input_sha256"], request_id=payload["request_id"])
+            with self._queue.lock:
+                if self._queue.busy():
+                    raise WorkbenchError("MODEL_BUSY", "分析或排队任务尚未结束。", 409)
+            self._active_backends[job_id] = _backend(plan["follow_up"])
+            previous = self.conversation(job_id)
+            if any(turn.get("request_id") == payload["request_id"] for turn in previous["turns"]):
+                return ask_follow_up(self, job_id, question=payload["question"],
+                                     input_sha256=payload["input_sha256"], request_id=payload["request_id"])
+            root = self._job_root(job_id)
+            bundle = _validate_binding(job_id, _json_read(root / "output" / "external_diagnosis_input.json"))
+            run = RunJournal(root, task_id=job_id, kind="follow_up", bundle=bundle,
+                             model=plan["follow_up"]["model"], mode=plan["follow_up"]["mode"])
+            with run_scope(run):
+                run.event("FOLLOW_UP")
+                state = ask_follow_up(self, job_id, question=payload["question"],
+                                      input_sha256=payload["input_sha256"], request_id=payload["request_id"])
+                turn = next(t for t in state["turns"] if t["request_id"] == payload["request_id"])
+                run.artifact("conversation.json", (_canonical(state) + "\n").encode("utf-8"))
+                run.finish(turn["status"], turn.get("reason_code"))
             return state
         except ConversationConflict as exc:
             raise WorkbenchError(str(exc), "无法继续这次追问：请检查原始报告、追问次数，或重新提交新任务。", 409) from exc
@@ -610,7 +858,7 @@ def _probe_worker() -> None:
             base_url = base_url[:-len("/chat/completions")]
         request = urllib.request.Request(base_url + "/models", headers={
             "Authorization": "Bearer " + (settings["api_key"] or "local-no-key"), "Accept": "application/json"})
-        handlers: list[Any] = [_NoRedirect()]
+        handlers: list[Any] = [_NoRedirect(), urllib.request.HTTPSHandler(context=verified_tls_context())]
         if settings["mode"] == "local":
             handlers.append(urllib.request.ProxyHandler({}))
         with urllib.request.build_opener(*handlers).open(request, timeout=min(settings["timeout_s"], 15)) as response:
@@ -719,6 +967,13 @@ def make_server(store: Workbench, *, port: int = 8765) -> LocalServer:
                         raise WorkbenchError("BACKUP_INVALID", "备份上传不完整。")
                     return self._send_json(store.restore_backup(raw))
                 body = self._body()
+                if path == "/api/workspaces" or path.startswith("/api/workspaces/"):
+                    return self._send_json(store.context_api("POST", path[len("/api/"):], body))
+                match = re.fullmatch(r"/api/jobs/([a-f0-9]{32})/cancel", path)
+                if match:
+                    if body != {}:
+                        raise WorkbenchError("INVALID_REQUEST")
+                    return self._send_json({"job": store.cancel_job(match[1])})
                 if path == "/api/jobs":
                     return self._send_json({"job": store.create_job(body)}, 202)
                 if path == "/api/probe":
@@ -727,18 +982,21 @@ def make_server(store: Workbench, *, port: int = 8765) -> LocalServer:
                 if match:
                     return self._send_json(store.follow_up(match[1], body))
                 match = re.fullmatch(r"/api/jobs/([a-f0-9]{32})/resume", path)
-                if match and isinstance(body, dict) and set(body) == {"connection"}:
-                    return self._send_json({"job": store.resume_job(match[1], body["connection"])}, 202)
+                if match and isinstance(body, dict) and "connection" in body and not set(body) - {"connection", "phases", "queue"}:
+                    return self._send_json({"job": store.resume_job(match[1], body["connection"],
+                        phases=body.get("phases"), queue=body.get("queue", False))}, 202)
             else:
                 if path == "/api/session":
                     sample = (BASE / "examples" / "diagnosis_sample.txt")
                     sample_text = sample.read_text("utf-8") if sample.exists() else "外部诊断结果：设备温度偏高，待人工核查。\n日志：温度告警持续 3 分钟。"
                     return self._send_json({"token": token, "version": VERSION, "defaults": DEFAULTS,
                                            "limits": {"max_files": 36, "max_total_bytes": MAX_TOTAL_BYTES,
-                                                      "max_characters": MAX_PORTABLE_SOURCE_CHARACTERS},
+                                                      "max_characters": MAX_SOURCE_CHARACTERS},
                                            "sample": {"filename": "diagnosis_sample.txt", "text": sample_text}})
                 if path == "/api/health":
                     return self._send_json({"status": "OK", "version": VERSION, "offline_startup": True})
+                if path == "/api/workspaces" or path.startswith("/api/workspaces/"):
+                    return self._send_json(store.context_api("GET", path[len("/api/"):]))
                 if path == "/api/jobs":
                     return self._send_json({"jobs": store.list_jobs()})
                 if path == "/api/backup":
@@ -746,6 +1004,15 @@ def make_server(store: Workbench, *, port: int = 8765) -> LocalServer:
                     self._headers(200, "application/zip", len(raw), "astrograph-portable-backup.zip")
                     self.wfile.write(raw)
                     return
+                match = re.fullmatch(r"/api/jobs/([a-f0-9]{32})/runs/([a-f0-9]{32})/(report\.md|report\.json|conversation\.json)", path)
+                if match:
+                    job_id, run_id, name = match.groups()
+                    raw, mime = store.export_run(job_id, run_id, name)
+                    self._headers(200, mime, len(raw), f"astrograph-{run_id[:8]}-{name}")
+                    return self.wfile.write(raw)
+                match = re.fullmatch(r"/api/jobs/([a-f0-9]{32})/execution", path)
+                if match:
+                    return self._send_json(store.execution(match[1]))
                 match = re.fullmatch(r"/api/jobs/([a-f0-9]{32})(?:/(conversation|report\.md|report\.json|conversation\.json))?", path)
                 if match:
                     job_id, action = match.groups()
@@ -759,6 +1026,11 @@ def make_server(store: Workbench, *, port: int = 8765) -> LocalServer:
                 assets = {"/": ("index.html", "text/html; charset=utf-8"),
                           "/index.html": ("index.html", "text/html; charset=utf-8"),
                           "/app.js": ("app.js", "text/javascript; charset=utf-8"),
+                          "/navigation.js": ("navigation.js", "text/javascript; charset=utf-8"),
+                          "/execution_view.js": ("execution_view.js", "text/javascript; charset=utf-8"),
+                          "/execution_view.css": ("execution_view.css", "text/css; charset=utf-8"),
+                          "/workspace_view.js": ("workspace_view.js", "text/javascript; charset=utf-8"),
+                          "/workspace_view.css": ("workspace_view.css", "text/css; charset=utf-8"),
                           "/app.css": ("app.css", "text/css; charset=utf-8")}
                 if path in assets:
                     name, mime = assets[path]
@@ -852,7 +1124,11 @@ def main() -> int:
     parser.add_argument("--open-browser", action="store_true")
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--probe-worker", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--parse-worker", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
+    if args.parse_worker:
+        _parse_worker()
+        return 0
     if args.probe_worker:
         _probe_worker()
         return 0

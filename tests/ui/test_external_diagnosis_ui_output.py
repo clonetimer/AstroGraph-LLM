@@ -82,7 +82,7 @@ for(const output of outputs){
   assert.ok(!output.includes('没有形成可信的故障方向')&&!output.includes('无法确诊'),'no candidate IDs does not mean failed text analysis');
   for(const text of ['外部导入材料','SRC-1','SRC-2','diagnosis&lt;script&gt;.txt','unquoted&lt;img&gt;.log','line:8','SOURCE_BEGIN','SOURCE_END','未被模型引用的完整原文','&lt;script&gt;source()&lt;/script&gt;'])
     assert.ok(output.includes(text),'all imported sources remain accessible: '+text);
-  if(status==='INPUT_TOO_LARGE'){assert.ok(output.includes('60000'));assert.ok(!output.includes('更大上下文'));}
+  if(status==='INPUT_TOO_LARGE'){assert.ok(output.includes('本次执行配置的容量上限'));assert.ok(!output.includes('更大上下文'));}
   if(success){
     for(const text of ['外部未知候选的分析','&lt;script&gt;','分析依据 24','待核查假设 12',
       '缺少负载状态','请人工核对记录','反证 &lt;script&gt;','前提 &lt;img&gt;','不确定性说明','区分检查','核查负载 &lt;img&gt;','核查目的','预期观察','diagnosis&lt;script&gt;.txt','line:7','SOURCE_BEGIN','SOURCE_END'])

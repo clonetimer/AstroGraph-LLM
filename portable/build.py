@@ -6,6 +6,8 @@ runtime archive and verified wheels, and performs no network access or pip calls
 from __future__ import annotations
 
 import argparse
+import ast
+import tempfile
 from datetime import datetime, timezone
 from email.parser import BytesParser
 import hashlib
@@ -29,19 +31,24 @@ CORE_FILES = (
     "integrations/external_diagnosis_analysis.py",
     "integrations/external_diagnosis_report.py",
     "integrations/external_diagnosis_conversation.py",
-    "integrations/long_report_analysis.py",
+    "integrations/long_report_analysis.py", "integrations/execution_observability.py",
+    "integrations/reviewed_context.py", "integrations/stage_execution.py",
     "integrations/result_log_review.py", "integrations/execution_budget.py",
     "integrations/bounded_http.py", "integrations/process_control.py",
     "integrations/http_worker.py", "llm/__init__.py", "llm/openai_compatible.py",
     "llm/candidate_selection.py", "llm/token_budget.py", "llm/task_prompts.py",
-    "llm/audit.py", "retrieval/structured_document.py", "retrieval/models.py",
+    "llm/audit.py", "resources/execution_view.js", "resources/execution_view.css",
+    "resources/workspace_view.js", "resources/workspace_view.css", "retrieval/structured_document.py", "retrieval/models.py",
     "retrieval/document_governance.py",
 )
 
 
 def sha256(path: Path) -> str:
     with path.open("rb") as handle:
-        return hashlib.file_digest(handle, "sha256").hexdigest()
+        digest = hashlib.sha256()
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+        return digest.hexdigest()
 
 
 def _json_write(path: Path, value: object) -> None:
@@ -74,7 +81,61 @@ def stage_app(repo_root: Path, destination: Path) -> Path:
     for directory in ("assets", "examples"):
         shutil.copytree(portable_root / directory, destination / directory,
                         ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+    for asset in ("execution_view.js", "execution_view.css", "workspace_view.js", "workspace_view.css"):
+        shutil.copy2(source_root / "resources" / asset, destination / "assets" / asset)
     return destination
+
+
+def application_version(repo_root: Path) -> str:
+    """Read metadata without importing the application or its dependencies."""
+    source = Path(repo_root) / "portable" / "workbench.py"
+    for statement in ast.parse(source.read_text(encoding="utf-8")).body:
+        if isinstance(statement, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "VERSION" for t in statement.targets):
+            value = ast.literal_eval(statement.value)
+            if isinstance(value, str) and re.fullmatch(r"[0-9A-Za-z.+-]+", value):
+                return value
+    raise ValueError("application VERSION is missing or invalid")
+
+
+def stage_bootstrap(repo_root: Path, destination: Path, profile: str = "win10") -> None:
+    """Package every file referenced by the selected offline startup scripts."""
+    root, target = Path(repo_root), Path(destination)
+    if profile not in {"win10", "win7"}:
+        raise ValueError("unknown runtime profile")
+    scripts = root / "portable" if profile == "win10" else root / "portable/profiles/win7"
+    for name in ("CHECK.bat", "START.bat"):
+        text = (scripts / name).read_text(encoding="ascii").replace("\r\n", "\n")
+        (target / name).write_bytes(text.replace("\n", "\r\n").encode("ascii"))
+    for name in ("verify_manifest.py", "win7_environment.py") if profile == "win7" else ("verify_manifest.py",):
+        shutil.copy2(root / "portable" / name, target / name)
+    guide = (scripts / "README_zh-CN.md").read_text(encoding="utf-8")
+    (target / "README_zh-CN.md").write_text(guide, encoding="utf-8")
+    (target / "README_zh-CN.txt").write_text(guide, encoding="utf-8-sig")
+
+
+def stage_source(repo_root: Path, destination: Path) -> None:
+    """Export the portable source closure, not all research/diagnostic modules."""
+    root, target = Path(repo_root), Path(destination)
+    target.mkdir(parents=True, exist_ok=False)
+    ignored = shutil.ignore_patterns('__pycache__', '*.pyc', '*.pyo', '.git', '.pytest_cache',
+                                    '_test_artifacts', '*.ttf', '*.otf', '*.woff', '*.woff2')
+    with tempfile.TemporaryDirectory() as directory:
+        staged = Path(directory) / 'app'
+        stage_app(root, staged)
+        shutil.copytree(staged / 'astrograph', target / 'src/astrograph', ignore=ignored)
+    shutil.copytree(root / 'portable', target / 'portable', ignore=ignored)
+    (target / 'docs').mkdir()
+    for pattern in ('WIN7_*.md', 'PORTABLE_OBSERVABILITY*.md'):
+        for doc in (root / 'docs').glob(pattern):
+            shutil.copy2(doc, target / 'docs' / doc.name)
+    for name in ('LICENSE', 'LICENSE.txt', 'COPYING'):
+        if (root / name).is_file():
+            shutil.copy2(root / name, target / name)
+    (target / 'README.md').write_text(
+        '# AstroGraph portable source subset\n\n'
+        'Run `python -m unittest discover -s portable -p "test*.py"`.\n'
+        'This is the minimal shared source closure, not the full repository. '
+        'Do not overwrite an existing repository with it. Runtime materials are separate.\n', encoding='utf-8')
 
 
 def _extract_archive(archive: Path, destination: Path) -> None:
@@ -157,32 +218,9 @@ def build_distribution(repo_root: Path, runtime: Path, wheels_dir: Path,
     for extension in (package / "packages").rglob("*.pyd"):
         _verify_amd64(extension)
     (package / "data").mkdir()
-    for name in ("START.bat", "CHECK.bat", "README_zh-CN.md"):
-        source = repo_root / "portable" / name
-        if name.endswith(".bat"):
-            (package / name).write_bytes(source.read_text(encoding="ascii").replace("\r\n", "\n").replace("\n", "\r\n").encode("ascii"))
-        else:
-            shutil.copy2(source, package / name)
-    # A BOM makes the same complete guide readable in Windows Notepad directly.
-    (package / "README_zh-CN.txt").write_text(
-        (repo_root / "portable" / "README_zh-CN.md").read_text(encoding="utf-8"),
-        encoding="utf-8-sig")
-    shutil.copy2(repo_root / "portable" / "check_installation.py", package / "CHECK_INSTALLATION.py")
-    source_dir = package / "source"
-    source_dir.mkdir()
-    for name in ("build.py", "prepare_vendor.py", "requirements.txt", "test_workbench.py", "test_closeout.py", "test_installation.py", "check_installation.py"):
-        shutil.copy2(repo_root / "portable" / name, source_dir / name)
-    # Keep additions recoverable before remote source synchronization. Shallow
-    # CI checkouts may not contain the baseline object and can omit this patch.
-    base_available = subprocess.run(
-        ["git", "cat-file", "-e", SOURCE_BASE_COMMIT], cwd=repo_root,
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False).returncode == 0
-    if base_available:
-        (source_dir / "SOURCE_CHANGES.patch").write_bytes(subprocess.check_output(
-            ["git", "diff", "--binary", SOURCE_BASE_COMMIT, "HEAD"], cwd=repo_root))
-    for document in ("2026-11-02-win10-portable-workbench.md",):
-        for kind in ("plans", "specs"):
-            shutil.copy2(repo_root / "docs" / "superpowers" / kind / document, source_dir / f"{kind}-{document}")
+    stage_bootstrap(repo_root, package, "win10")
+    shutil.copy2(repo_root / "portable/check_installation.py", package / "CHECK_INSTALLATION.py")
+    stage_source(repo_root, package / "source")
     for name in ("LICENSE", "LICENSE.txt", "COPYING"):
         if (repo_root / name).is_file():
             shutil.copy2(repo_root / name, package / name)
@@ -205,10 +243,9 @@ def build_distribution(repo_root: Path, runtime: Path, wheels_dir: Path,
         "built_at": datetime.now(timezone.utc).isoformat(), "target": "Windows 10 x64",
         "python_version": RUNTIME_VERSION, "runtime_archive_sha256": RUNTIME_SHA256,
         "dependencies": PINNED, "native_windows_execution_verified": False,
-        "package_version": "2.6.0-rc.1",
-        "core_modules_modified": ["integrations/external_diagnosis_analysis.py", "integrations/external_diagnosis_conversation.py", "retrieval/structured_document.py"],
-        "core_modules_added": ["integrations/long_report_analysis.py"],
-        "core_modules_copied_unchanged": [item for item in CORE_FILES if item not in {"integrations/external_diagnosis_analysis.py", "integrations/external_diagnosis_conversation.py", "retrieval/structured_document.py", "integrations/long_report_analysis.py"}],
+        "package_version": application_version(repo_root),
+        "shared_source_closure": list(CORE_FILES),
+        "profile": "win10",
         "files": [{"path": p.relative_to(package).as_posix(), "bytes": p.stat().st_size, "sha256": sha256(p)}
                   for p in sorted(package.rglob("*")) if p.is_file()],
     }
