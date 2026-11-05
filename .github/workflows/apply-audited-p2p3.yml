@@ -54,6 +54,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f .github/workflows/observability-source.yml
           git add -A
           git commit -m 'feat: integrate audited P0-P3 report workspace and traceability'
           git push origin HEAD:refs/heads/feat/pilotdeck-observability
