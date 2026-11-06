@@ -161,5 +161,5 @@ def test_model_pricing_api_is_admin_scoped_and_append_only(tmp_path, monkeypatch
         assert saved.status_code == 200, saved.text
         assert saved.json()["price"]["revision"] == 1
         listed = client.get(endpoint).json()
-        assert listed["prices"][0]["created_by"] == "local:127.0.0.1"
+        assert listed["prices"][0]["created_by"] == "local:testclient"
         assert listed["prices"][0]["input_per_million_tokens"] == "1.25"
