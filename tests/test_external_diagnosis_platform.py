@@ -381,15 +381,15 @@ def test_external_claim_review_api_uses_authenticated_expert_session(tmp_path, m
 
     with TestClient(app, base_url="http://localhost") as client:
         private = f"/v1/platform/material-knowledge/report-reviews/{job_id}"
-        assert client.get(private).status_code == 200
-        detail = client.get(private).json()
-        assert detail["claim_total_count"] >= 1
-        claim_id = detail["claims"][0]["claim_id"]
+        assert client.get(private).status_code == 403
         login = client.post("/v1/platform/material-knowledge/review-session", json={
             "credential": "external-claim-review-token-2026",
         })
         assert login.status_code == 200
         headers = {"X-Material-CSRF": login.json()["csrf"]}
+        detail = client.get(private).json()
+        assert detail["claim_total_count"] >= 1
+        claim_id = detail["claims"][0]["claim_id"]
         accepted = client.post(
             f"{private}/claims/{claim_id}/decisions",
             headers=headers,
