@@ -244,6 +244,7 @@ class RunJournal:
             raise
         finally:
             with self.lock:
+                item['cost'] = _request_cost(item.get('usage') or {}, item.get('pricing') or {}, item.get('status'))
                 item.update(ended_at=_now(), latency_ms=round((time.monotonic() - start)*1000, 3))
                 self._save()
 
@@ -377,6 +378,9 @@ def recover_interrupted(root, task_id):
             for request in value.get('requests', []):
                 if request.get('status') == 'STARTED':
                     request['status'] = 'INTERRUPTED'  # Server may still have billed it; usage stays unknown.
+                    request['cost'] = _request_cost(
+                        request.get('usage') or {}, request.get('pricing') or {}, 'INTERRUPTED'
+                    )
             _write(path, value)
         except (OSError, ValueError, TypeError, AttributeError):
             continue

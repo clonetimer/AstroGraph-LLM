@@ -12,6 +12,7 @@ import time
 STAGES={'analysis','chunk','synthesis','follow_up','verification'}
 _CANCEL=ContextVar('astrograph_cancel',default=None)
 _MODEL=ContextVar('astrograph_phase_model',default=None)
+_PROVIDER=ContextVar('astrograph_phase_provider',default=None)
 class AnalysisCancelled(RuntimeError):
     def __init__(self):super().__init__('ANALYSIS_CANCELLED')
 def check_cancelled():
@@ -23,6 +24,7 @@ def cancellation_scope(event):
     try:yield
     finally:_CANCEL.reset(token)
 def phase_model():return _MODEL.get()
+def phase_provider():return _PROVIDER.get()
 class StageRouter:
     def __init__(self,backends):
         if 'analysis' not in backends or set(backends)-STAGES:raise ValueError('INVALID_PHASE_MODELS')
@@ -34,12 +36,16 @@ class StageRouter:
         return _SelectedBackend(self.backends.get(stage,self.backends['analysis']))
     def generate_structured(self,**kwargs):return self.for_stage('analysis').generate_structured(**kwargs)
 class _SelectedBackend:
-    def __init__(self,backend):self.backend=backend;self.model_id=getattr(backend,'model_id','')
+    def __init__(self,backend):
+        self.backend=backend
+        self.model_id=getattr(backend,'model_id','')
+        self.provider=str(getattr(getattr(backend,'config',None),'provider',None) or getattr(backend,'provider','') or '')
     def generate_structured(self,**kwargs):
-        check_cancelled();token=_MODEL.set(self.model_id)
+        check_cancelled();model_token=_MODEL.set(self.model_id);provider_token=_PROVIDER.set(self.provider)
         try:
             value=self.backend.generate_structured(**kwargs);check_cancelled();return value
-        finally:_MODEL.reset(token)
+        finally:
+            _PROVIDER.reset(provider_token);_MODEL.reset(model_token)
 def for_stage(backend,stage):
     if stage not in STAGES:raise ValueError('INVALID_PHASE')
     return backend.for_stage(stage) if isinstance(backend,StageRouter) else _SelectedBackend(backend)

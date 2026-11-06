@@ -183,18 +183,32 @@ class PlatformLLMSettingsRequest(BaseModel):
     timeout_s: float = Field(default=120.0, gt=0.0, le=3600.0)
     response_format_strategy: Literal["auto", "json_schema", "json_object", "plain_json"] = "auto"
     structured_max_tokens: int = Field(default=1200, ge=64, le=8192)
+    pricing_version: str | None = Field(default=None, min_length=1, max_length=80)
+    pricing_currency: Literal["USD"] = "USD"
+    input_usd_per_million_tokens: float | None = Field(default=None, ge=0.0, le=1_000_000.0)
+    output_usd_per_million_tokens: float | None = Field(default=None, ge=0.0, le=1_000_000.0)
 
     @model_validator(mode="after")
     def validate_enabled_configuration(self) -> "PlatformLLMSettingsRequest":
-        if not self.enabled:
-            return self
-        base_url = (self.base_url or "").strip()
-        model = (self.model or "").strip()
-        if not base_url or not model:
-            raise ValueError("enabled LLM configuration requires base_url and model")
-        parsed = urlparse(base_url)
-        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
-            raise ValueError("base_url must be an absolute http(s) URL")
+        if self.enabled:
+            base_url = (self.base_url or "").strip()
+            model = (self.model or "").strip()
+            if not base_url or not model:
+                raise ValueError("enabled LLM configuration requires base_url and model")
+            parsed = urlparse(base_url)
+            if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+                raise ValueError("base_url must be an absolute http(s) URL")
+        pricing_supplied = (
+            self.pricing_version is not None
+            or self.input_usd_per_million_tokens is not None
+            or self.output_usd_per_million_tokens is not None
+        )
+        if pricing_supplied and (
+            not self.pricing_version
+            or self.input_usd_per_million_tokens is None
+            or self.output_usd_per_million_tokens is None
+        ):
+            raise ValueError("pricing requires a version and both input/output USD rates")
         return self
 
 
@@ -633,6 +647,13 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             structured_max_tokens = 1200
         active_profile_id = os.environ.get("ASTROGRAPH_PLATFORM_LLM_ACTIVE_PROFILE_ID") or None
         active_profile = get_platform_state().get_service_profile(active_profile_id) if active_profile_id else None
+        active_config = dict(active_profile.get("config") or {}) if active_profile else {}
+        pricing_configured = bool(
+            active_config.get("pricing_version")
+            and active_config.get("input_usd_per_million_tokens") is not None
+            and active_config.get("output_usd_per_million_tokens") is not None
+            and active_config.get("pricing_currency", "USD") == "USD"
+        )
         return {
             "schema_version": "astrograph-platform-llm-settings.v3",
             "enabled": bool(base_url and model),
@@ -649,6 +670,11 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             "persists_across_restart": bool(active_profile),
             "active_profile_id": active_profile_id,
             "active_profile_name": (active_profile.get("name") if active_profile else None),
+            "pricing_configured": pricing_configured,
+            "pricing_version": active_config.get("pricing_version") if pricing_configured else None,
+            "pricing_currency": "USD" if pricing_configured else None,
+            "input_usd_per_million_tokens": active_config.get("input_usd_per_million_tokens") if pricing_configured else None,
+            "output_usd_per_million_tokens": active_config.get("output_usd_per_million_tokens") if pricing_configured else None,
             "diagnostic_vote_allowed": False,
             "applies_to": "POST_DIAGNOSIS_KNOWLEDGE_AND_AGENT_INVESTIGATION",
             "mission_agent_policy_changed": False,
@@ -2521,18 +2547,32 @@ class PlatformLLMSettingsRequest(BaseModel):
     timeout_s: float = Field(default=120.0, gt=0.0, le=3600.0)
     response_format_strategy: Literal["auto", "json_schema", "json_object", "plain_json"] = "auto"
     structured_max_tokens: int = Field(default=1200, ge=64, le=8192)
+    pricing_version: str | None = Field(default=None, min_length=1, max_length=80)
+    pricing_currency: Literal["USD"] = "USD"
+    input_usd_per_million_tokens: float | None = Field(default=None, ge=0.0, le=1_000_000.0)
+    output_usd_per_million_tokens: float | None = Field(default=None, ge=0.0, le=1_000_000.0)
 
     @model_validator(mode="after")
     def validate_enabled_configuration(self) -> "PlatformLLMSettingsRequest":
-        if not self.enabled:
-            return self
-        base_url = (self.base_url or "").strip()
-        model = (self.model or "").strip()
-        if not base_url or not model:
-            raise ValueError("enabled LLM configuration requires base_url and model")
-        parsed = urlparse(base_url)
-        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
-            raise ValueError("base_url must be an absolute http(s) URL")
+        if self.enabled:
+            base_url = (self.base_url or "").strip()
+            model = (self.model or "").strip()
+            if not base_url or not model:
+                raise ValueError("enabled LLM configuration requires base_url and model")
+            parsed = urlparse(base_url)
+            if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+                raise ValueError("base_url must be an absolute http(s) URL")
+        pricing_supplied = (
+            self.pricing_version is not None
+            or self.input_usd_per_million_tokens is not None
+            or self.output_usd_per_million_tokens is not None
+        )
+        if pricing_supplied and (
+            not self.pricing_version
+            or self.input_usd_per_million_tokens is None
+            or self.output_usd_per_million_tokens is None
+        ):
+            raise ValueError("pricing requires a version and both input/output USD rates")
         return self
 
 
@@ -2971,6 +3011,13 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             structured_max_tokens = 1200
         active_profile_id = os.environ.get("ASTROGRAPH_PLATFORM_LLM_ACTIVE_PROFILE_ID") or None
         active_profile = get_platform_state().get_service_profile(active_profile_id) if active_profile_id else None
+        active_config = dict(active_profile.get("config") or {}) if active_profile else {}
+        pricing_configured = bool(
+            active_config.get("pricing_version")
+            and active_config.get("input_usd_per_million_tokens") is not None
+            and active_config.get("output_usd_per_million_tokens") is not None
+            and active_config.get("pricing_currency", "USD") == "USD"
+        )
         return {
             "schema_version": "astrograph-platform-llm-settings.v3",
             "enabled": bool(base_url and model),
@@ -2987,6 +3034,11 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             "persists_across_restart": bool(active_profile),
             "active_profile_id": active_profile_id,
             "active_profile_name": (active_profile.get("name") if active_profile else None),
+            "pricing_configured": pricing_configured,
+            "pricing_version": active_config.get("pricing_version") if pricing_configured else None,
+            "pricing_currency": "USD" if pricing_configured else None,
+            "input_usd_per_million_tokens": active_config.get("input_usd_per_million_tokens") if pricing_configured else None,
+            "output_usd_per_million_tokens": active_config.get("output_usd_per_million_tokens") if pricing_configured else None,
             "diagnostic_vote_allowed": False,
             "applies_to": "POST_DIAGNOSIS_KNOWLEDGE_AND_AGENT_INVESTIGATION",
             "mission_agent_policy_changed": False,

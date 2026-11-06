@@ -5,7 +5,8 @@
   'use strict';
   const stages = { RUN_STARTED: '开始运行', INPUT_VALIDATED: '材料完整性检查通过',
     MODEL_ANALYSIS: '模型分析', FOLLOW_UP: '证据追问', SCHEMA_VALIDATED: '输出结构检查通过',
-    CITATIONS_VALIDATED: '引用归属检查通过', CHUNK_ANALYSIS: '片段分析',
+    CITATIONS_VALIDATED: '引用归属检查通过', INDEPENDENT_VERIFICATION: '独立证据审阅',
+    CHUNK_ANALYSIS: '片段分析',
     CHUNK_RESTORED: '复用已完成片段', SYNTHESIS: '综合分析', REPORT_WRITE: '保存报告版本',
     RUN_FINISHED: '本次运行结束', INTERRUPTED: '运行中断' };
   const states = { RUNNING: '运行中', SUCCEEDED: '分析成功', FAILED: '未完成',
@@ -28,6 +29,25 @@
     const value = usage[field];
     return numeric(value) ? String(value) : '未提供完整统计（已知部分 ' + (usage['known_' + field] || 0) + '）';
   }
+  function costText(cost, partial = false) {
+    if (cost?.status === 'CALCULATED' && typeof cost.estimated_cost === 'string')
+      return cost.currency + ' ' + cost.estimated_cost;
+    if (cost?.status === 'PARTIALLY_KNOWN' && cost.known_estimated_cost)
+      return '已知 ' + (cost.cost_currency || 'USD') + ' ' + cost.known_estimated_cost + ' · 总额不完整';
+    const labels = {
+      PRICING_NOT_CONFIGURED: '未配置计价', PRICING_SNAPSHOT_INVALID: '计价快照无效',
+      PRICING_IDENTITY_INCOMPLETE: '模型身份不完整', PRICING_IDENTITY_MISMATCH: '计价模型不匹配',
+      USAGE_NOT_REPORTED: '服务商未返回用量', USAGE_INCOMPLETE: '用量不完整',
+      USAGE_UNKNOWN_AFTER_FAILURE: '失败调用费用未知', NO_MODEL_REQUESTS: '无模型请求',
+      PARTIALLY_KNOWN: '仅部分费用可计算'
+    };
+    return labels[cost?.status] || '费用未知';
+  }
+  function requestCostText(request) {
+    const value = costText(request?.cost || {});
+    const version = request?.pricing?.pricing_version;
+    return version && request?.cost?.status === 'CALCULATED' ? value + ' · ' + version : value;
+  }
   function render(host, snapshot, options = {}) {
     host.classList.add('execution-view'); host.replaceChildren(); host.hidden = false;
     host.append(node('h2', '执行记录、材料与报告版本'));
@@ -38,10 +58,11 @@
     const usage = snapshot.usage || {}, summary = node('div', null, 'execution-metrics');
     for (const [label, value] of [['已记录请求尝试', usage.http_requests || 0], ['传输失败', usage.failed_requests || 0],
       ['输入 tokens', tokenText(usage, 'input_tokens')], ['输出 tokens', tokenText(usage, 'output_tokens')],
-      ['费用', '未配置计价，未估算']]) {
+      ['费用估算', costText(usage)],
+      ['计价状态', usage.cost_status || '未知']]) {
       const cell = node('div'); cell.append(node('span', label), node('strong', value)); summary.append(cell);
     }
-    host.append(summary, node('p', '收到 HTTP 响应不等于分析成功。统计只覆盖已记录的 OpenAI 兼容 HTTP 调用尝试；缺失用量不能视为零。', 'execution-note'));
+    host.append(summary, node('p', '费用按任务创建时冻结的计价版本和服务端实际返回的 Token 用量估算；不代表供应商最终账单。失败调用、缺失用量或未配置计价不会被当作零费用。', 'execution-note'));
     if (snapshot.unavailable_runs) host.append(node('p', '有 ' + snapshot.unavailable_runs + ' 次记录无法读取，汇总不完整。', 'execution-warning'));
     for (const run of [...(snapshot.runs || [])].reverse()) {
       const section = node('section', null, 'execution-run');
@@ -66,13 +87,14 @@
       timeline.append(events);
       const requests = detail('模型请求 · ' + (run.requests || []).length + ' 次'), scroll = node('div', null, 'execution-table-scroll');
       const table = node('table'), head = node('tr');
-      for (const title of ['序号', '阶段', '传输状态', 'HTTP', '耗时 ms', '输入 tokens', '输出 tokens']) head.append(node('th', title));
+      for (const title of ['序号', '阶段', '模型 / 服务商', '传输状态', 'HTTP', '耗时 ms', '输入 tokens', '输出 tokens', '费用估算']) head.append(node('th', title));
       const thead = node('thead'); thead.append(head); table.append(thead); const body = node('tbody');
       for (const request of run.requests || []) {
         const tr = node('tr');
-        const values = [request.sequence, stages[request.stage] || '模型请求', states[request.status] || '未知',
-          request.http_status ?? '未记录', request.latency_ms ?? '未记录',
-          request.usage?.input_tokens ?? '未提供', request.usage?.output_tokens ?? '未提供'];
+        const values = [request.sequence, stages[request.stage] || '模型请求',
+          [request.model, request.provider].filter(Boolean).join(' · ') || '未记录',
+          states[request.status] || '未知', request.http_status ?? '未记录', request.latency_ms ?? '未记录',
+          request.usage?.input_tokens ?? '未提供', request.usage?.output_tokens ?? '未提供', requestCostText(request)];
         for (const value of values) tr.append(node('td', value)); body.append(tr);
       }
       table.append(body); scroll.append(table); requests.append(scroll);

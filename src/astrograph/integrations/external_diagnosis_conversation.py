@@ -240,8 +240,10 @@ def ask_follow_up(
         if len(state["turns"]) >= MAX_TURNS:
             raise ConversationConflict("FOLLOW_UP_LIMIT_REACHED")
         owned_run = current_run() is None
-        run = current_run() or RunJournal(store._job_root(job_id), task_id=job_id,
-            kind="follow_up", bundle=bundle)
+        run = current_run() or RunJournal(
+            store._job_root(job_id), task_id=job_id, kind="follow_up", bundle=bundle,
+            pricing_snapshots=job.get("model_pricing_snapshots") or {},
+        )
         with (run_scope(run) if owned_run else nullcontext(run)):
             if owned_run:
                 run.event("FOLLOW_UP")

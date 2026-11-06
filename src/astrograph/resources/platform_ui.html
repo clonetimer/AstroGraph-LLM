@@ -308,6 +308,10 @@
               <div class="field-group"><label for="llm-timeout">总超时（秒）</label><input class="field" id="llm-timeout" type="number" min="1" max="3600" step="1" value="120"></div>
               <div class="field-group"><label for="llm-structured-strategy">结构化输出策略</label><select class="field" id="llm-structured-strategy"><option value="auto">自动兼容（LM Studio 推荐）</option><option value="json_object">JSON Object + 主机 Schema 校验</option><option value="json_schema">严格 JSON Schema</option><option value="plain_json">纯 JSON + 主机校验</option></select></div>
               <div class="field-group"><label for="llm-max-tokens">结构化最大 Tokens</label><input class="field" id="llm-max-tokens" type="number" min="64" max="8192" step="64" value="1200"></div>
+              <div class="field-group"><label for="llm-pricing-version">计价版本（可选）</label><input class="field" id="llm-pricing-version" maxlength="80" placeholder="例如 provider-price-2026-11"></div>
+              <div class="field-group"><label for="llm-input-price">输入价格 · USD / 100 万 tokens</label><input class="field" id="llm-input-price" type="number" min="0" max="1000000" step="0.000001" placeholder="留空表示未配置"></div>
+              <div class="field-group"><label for="llm-output-price">输出价格 · USD / 100 万 tokens</label><input class="field" id="llm-output-price" type="number" min="0" max="1000000" step="0.000001" placeholder="留空表示未配置"></div>
+              <div class="field-group full"><small>计价仅用于本平台估算：必须填写计价版本及输入、输出两项价格；留空则不估算。任务创建时冻结价格版本，费用根据服务端实际返回的 Token 用量计算，不代表供应商最终账单。保存为模型配置后，价格才会随配置跨重启保留。</small></div>
             </div><div class="settings-actions"><button class="btn" type="button" id="test-llm">检测服务</button><button class="btn primary" type="submit">应用配置</button><button class="btn" type="button" id="clear-llm">清除配置</button></div><div id="llm-probe-result" class="llm-probe hidden" aria-live="polite"></div></form>
           </div>
           <div class="card card-pad"><div class="card-title">运行时状态</div><div class="status-list" id="llm-status-list"></div><div class="divider"></div></div>

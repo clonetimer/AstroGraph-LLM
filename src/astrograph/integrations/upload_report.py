@@ -276,6 +276,9 @@ class UploadReportJobStore:
                 raise ValueError("phase model must reference an approved LLM profile")
             phase_pins[stage] = self._phase_profile_fingerprint(selected_engine)
         primary_pin = self._primary_profile_fingerprint(engine_id) if phase_engine_ids else None
+        model_pricing_snapshots = {"analysis": self._pricing_snapshot_for_engine(engine_id)}
+        for stage, selected_engine in phase_engine_ids.items():
+            model_pricing_snapshots[stage] = self._pricing_snapshot_for_engine(selected_engine)
         if len(normalized) > 4000:
             raise ValueError("task exceeds 4000 characters")
         while True:
@@ -298,6 +301,7 @@ class UploadReportJobStore:
             "phase_engine_ids": phase_engine_ids,
             "phase_profile_fingerprints": phase_pins,
             "primary_profile_fingerprint": primary_pin,
+            "model_pricing_snapshots": model_pricing_snapshots,
             "analysis_engine": self._analysis_engine_snapshot(engine_id),
             "created_at": _now(),
             "updated_at": _now(),
@@ -434,6 +438,56 @@ class UploadReportJobStore:
             }
         runtime = self._llm_runtime_snapshot()
         return {"engine_id": "auto", "kind": "llm" if runtime["configured"] else "rules", "name": runtime.get("model") or "规则引擎", **runtime}
+
+    def _pricing_snapshot_for_engine(self, engine_id: str) -> dict[str, Any]:
+        """Freeze operator-entered price metadata; never infer provider prices."""
+        runtime = self._llm_runtime_snapshot() if engine_id == "auto" else {}
+        profile = None
+        if engine_id.startswith("llm:"):
+            profile = self.state_repository.get_service_profile(engine_id.split(":", 1)[1])
+        elif engine_id == "auto":
+            active_id = os.environ.get("ASTROGRAPH_PLATFORM_LLM_ACTIVE_PROFILE_ID", "").strip()
+            if active_id:
+                profile = self.state_repository.get_service_profile(active_id)
+            if profile:
+                config = dict(profile.get("config") or {})
+                if (str(config.get("model") or "") != str(runtime.get("model") or "")
+                        or str(config.get("provider") or "local-openai-compatible")
+                        != str(runtime.get("provider") or "local-openai-compatible")):
+                    profile = None
+        if not profile or profile.get("service_kind") != "llm":
+            return {
+                "status": "PRICING_NOT_CONFIGURED",
+                "provider": str(runtime.get("provider") or ""),
+                "model": str(runtime.get("model") or ""),
+            }
+        config = dict(profile.get("config") or {})
+        provider = str(config.get("provider") or "local-openai-compatible").strip()
+        model = str(config.get("model") or "").strip()
+        version = str(config.get("pricing_version") or "").strip()
+        currency = str(config.get("pricing_currency") or "USD").upper()
+        input_rate, output_rate = config.get("input_usd_per_million_tokens"), config.get("output_usd_per_million_tokens")
+        try:
+            input_rate, output_rate = float(input_rate), float(output_rate)
+        except (TypeError, ValueError):
+            input_rate = output_rate = None
+        configured = (
+            profile.get("validation_status") == "PASS" and bool(provider) and bool(model)
+            and bool(version) and currency == "USD"
+            and input_rate is not None and output_rate is not None
+            and 0 <= input_rate <= 1_000_000 and 0 <= output_rate <= 1_000_000
+        )
+        if not configured:
+            return {
+                "status": "PRICING_NOT_CONFIGURED", "provider": provider, "model": model,
+            }
+        return {
+            "status": "CONFIGURED", "provider": provider, "model": model,
+            "pricing_version": version, "currency": "USD",
+            "input_usd_per_million_tokens": input_rate,
+            "output_usd_per_million_tokens": output_rate,
+            "profile_id": str(profile.get("profile_id") or ""),
+        }
 
     def _primary_profile_fingerprint(self, engine_id: str) -> str:
         if engine_id.startswith("llm:"):
@@ -1571,8 +1625,12 @@ class UploadReportJobStore:
         from astrograph.integrations.execution_observability import RunJournal, run_scope
         context_snapshot = self._reviewed_context(job_id)
         backend = knowledge_service.llm_backend
-        run = RunJournal(self._job_root(job_id), task_id=job_id, kind="analysis", bundle=bundle,
-                         model=getattr(backend, "model_id", ""), mode="configured")
+        run = RunJournal(
+            self._job_root(job_id), task_id=job_id, kind="analysis", bundle=bundle,
+            model=getattr(backend, "model_id", ""), mode="configured",
+            pricing_snapshots=job.get("model_pricing_snapshots") or {},
+            provider=getattr(getattr(knowledge_service, "config", None), "llm_provider", ""),
+        )
         with run_scope(run):
             review = imported_diagnosis_review(bundle)
             _json_write(output / "external_diagnosis_input.json", bundle)
