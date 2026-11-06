@@ -147,7 +147,7 @@ def test_local_document_uri_must_bind_exact_content():
 
 def test_async_start_queues_only_one_worker_and_freezes_inputs(tmp_path, monkeypatch):
     import subprocess
-    monkeypatch.setenv("ASTROGRAPH_PLATFORM_JOB_EXECUTOR", "process")
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "1")
     calls = []
     monkeypatch.setattr(subprocess, 'Popen', lambda *a, **kw: calls.append((a, kw)))
     store = UploadReportJobStore(tmp_path/'jobs')
@@ -156,18 +156,24 @@ def test_async_start_queues_only_one_worker_and_freezes_inputs(tmp_path, monkeyp
     assert store.start(job['job_id'])['status'] == 'QUEUED'
     assert store.start(job['job_id'])['status'] == 'QUEUED'
     assert len(calls) == 1 and calls[0][1]['start_new_session'] is True
+    assert '--queue-slot' in calls[0][0][0]
     with pytest.raises(ValueError, match='immutable'):
         store.put_file(job['job_id'], 'changed.json', b'{}')
-    # The worker consumes the same canonical store, including queued inputs.
-    assert store.run(job['job_id'])['status'] == 'SUCCEEDED'
+    # The queue worker claims the same canonical task and finalizes its durable receipt.
+    worker_id = "test-worker-" + job['job_id']
+    assert store.queue.claim_next(worker_id, max_running=1)
+    assert store.run(job['job_id'], worker_id=worker_id)['status'] == 'SUCCEEDED'
+    assert store.queue.get(job['job_id'])['status'] == 'SUCCEEDED'
 
 
 def test_run_lock_rejects_concurrent_job_writers(tmp_path):
+    from astrograph.agents.mission.run_lock import task_lease
     store = UploadReportJobStore(tmp_path/'jobs')
     job = store.create('run lock')
     store.put_file(job['job_id'], 'input.json', prediction_input().model_dump_json().encode())
-    (store._job_root(job['job_id'])/'.run.lock').touch()
-    with pytest.raises(ValueError, match='already running'): store.run(job['job_id'])
+    with task_lease(store.root, f"upload-report-run-{job['job_id']}"):
+        with pytest.raises(ValueError, match='already running'):
+            store.run(job['job_id'])
 
 
 def test_render_oag_report_accepts_evidence_aware_fusion_decision_schema(tmp_path):
