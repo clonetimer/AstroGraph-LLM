@@ -141,6 +141,33 @@ function materialGraphPreview(relations=[],variant='draft'){
   const notice=variant==='draft'?'LLM 待审核文献关系':'专家已审核的参考关系';
   return `<div class="material-graph-scroller" aria-label="${notice}"><svg role="img" aria-label="${notice}，共 ${edges.length} 条关系" viewBox="0 0 855 ${h}" width="855" height="${h}" xmlns="http://www.w3.org/2000/svg">${links}${boxes}</svg></div><small>图谱展示文献关系，不代表当前故障已确诊。橙色表示否定，红色虚线表示相互矛盾的已审陈述；最多展示 12 条。</small>`;
 }
+
+function claimGovernanceHtml(governance,escape,citations){
+  const claims=Array.isArray(governance?.claims)?governance.claims:[];
+  if(!claims.length)return '';
+  const verification=governance.verification||{};
+  const verificationLabels={
+    COMPLETED_REQUIRES_EXPERT_REVIEW:'独立模型审阅已完成 · 仍需专家确认',
+    NOT_CONFIGURED:'未配置独立审阅模型',
+    NOT_RUN:'本次未执行独立审阅',
+    FAILED:'独立审阅未完成'
+  };
+  const epistemicLabels={REPORTED:'原文报告',DERIVED:'确定性推导',INFERRED:'模型推断'};
+  const supportLabels={
+    SUPPORTED:'来源支持',PARTIALLY_SUPPORTED:'部分支持',CONTRADICTED:'存在反向证据',
+    CONFLICTING_EVIDENCE:'证据冲突',INSUFFICIENT_EVIDENCE:'证据不足',NOT_EVALUATED:'尚未核验'
+  };
+  const assessments=new Map((verification.assessments||[]).map(item=>[item.claim_id,item]));
+  const rows=claims.map(claim=>{
+    const assessment=assessments.get(claim.claim_id)||{};
+    const evidence=(assessment.supporting_evidence_refs||claim.evidence_refs||[]).map(x=>x.source_id);
+    const counter=(assessment.counter_evidence_refs||claim.opposing_evidence_refs||[]).map(x=>x.source_id);
+    return '<article class="claim-governance-row"><div class="mini-tags"><span class="mini-tag">'+escape(epistemicLabels[claim.epistemic_status]||claim.epistemic_status||'模型推断')+'</span><span class="mini-tag">'+escape(supportLabels[claim.support_status]||claim.support_status||'尚未核验')+'</span><span class="mini-tag">专家：'+escape(claim.expert_review_status||'PENDING')+'</span></div><strong>'+escape(claim.claim_type||'CLAIM')+' · '+escape(claim.claim_id||'')+'</strong><p>'+escape(claim.text||'')+'</p>'+(claim.verification_rationale?'<p>独立审阅：'+escape(claim.verification_rationale)+'</p>':'')+(evidence.length?'<h5>支持来源</h5>'+citations(evidence):'')+(counter.length?'<h5>反向来源</h5>'+citations(counter):'')+((assessment.information_gaps||claim.verification_information_gaps||[]).length?'<small>仍需补充：'+escape((assessment.information_gaps||claim.verification_information_gaps).join('；'))+'</small>':'')+'</article>';
+  }).join('');
+  const reason=verification.reason_code?'<small>状态原因：'+escape(verification.reason_code)+'</small>':'';
+  return '<section class="panel card card-pad claim-governance"><h3>主张与证据核验</h3><p>'+escape(verificationLabels[verification.status]||verification.status||'尚未执行独立审阅')+'</p><div class="mini-tags"><span class="mini-tag">主张 '+claims.length+' 项</span><span class="mini-tag">独立模型 '+escape(verification.verifier_model||'未配置')+'</span><span class="mini-tag">现实事实认证：否</span></div>'+reason+'<p class="maintenance-boundary">独立审阅只判断已提供材料与主张之间的支持关系，不证明现实世界事实。专家确认前，所有主张均保持待审状态。</p>'+rows+'</section>';
+}
+
 function externalDiagnosisAnalysisHtml(model,generation,escape){
   const roleLabels={diagnosis_results:'诊断结果',log_reports:'运行日志',references:'参考资料'};
   const imported=(model.sources||[]).map(source=>`<details class="model-imported-source"><summary>${escape(roleLabels[source.role]||source.role)} · ${escape(source.filename)} · ${escape(source.locator)} · ${escape(source.source_id)}</summary><pre class="evidence-source-text" style="white-space:pre-wrap;overflow-wrap:anywhere">${escape(source.text)}</pre><small>材料角色 ${escape(source.role)} · SHA-256 ${escape(source.sha256)}</small></details>`).join('');
@@ -158,11 +185,12 @@ function externalDiagnosisAnalysisHtml(model,generation,escape){
     return `<details class="model-citation-source"><summary>${escape(source.filename)} · ${escape(source.locator)} · ${escape(id)}</summary><pre class="evidence-source-text" style="white-space:pre-wrap;overflow-wrap:anywhere">${escape(source.text)}</pre><small>SHA-256 ${escape(source.sha256)}</small></details>`;
   }).join('');
   const findings=(model.findings||[]).map(item=>`<li><p>${escape(item.text)}</p>${citations(item.citation_ids)}</li>`).join('');
+  const governancePanel=claimGovernanceHtml(model.claim_governance||{},escape,citations);
   const hypotheses=(model.hypotheses||[]).map(item=>`<li><h4>${escape(item.title)}</h4><p>${escape(item.analysis)}</p>${citations(item.citation_ids)}${item.counterpoints?`<h5>反证与替代解释</h5><p>${escape(item.counterpoints)}</p>`:''}${item.opposing_citation_ids?.length?`<h5>相反依据</h5>${citations(item.opposing_citation_ids)}`:''}${item.assumptions?.length?`<h5>成立前提</h5><ul>${item.assumptions.map(text=>`<li>${escape(text)}</li>`).join('')}</ul>`:''}${item.uncertainty?`<h5>不确定性</h5><p>${escape(item.uncertainty)}</p>`:''}${item.discriminating_check?`<h5>区分性核查</h5><p>${escape(item.discriminating_check)}</p>`:''}</li>`).join('');
   const richActions=(model.review_actions||[]).map(item=>`<li><h4>${escape(item.check)}</h4><p>核查目的：${escape(item.rationale)}</p><p>预期观察：${escape(item.expected_observations)}</p>${citations(item.citation_ids)}</li>`).join('');
   const gaps=(model.information_gaps||[]).map(text=>`<li>${escape(text)}</li>`).join('');
   const actions=(model.recommended_review_actions||[]).map(text=>`<li>${escape(text)}</li>`).join('');
-  return `<section class="panel card card-pad model-result"><div class="model-result-head"><h2>大模型对外部诊断结果的分析</h2><span class="chip">需专家复核</span></div><section class="model-summary"><h3>外部诊断材料分析摘要</h3><p>${escape(model.summary)}</p></section>${findings?`<section><h3>原文依据与分析</h3><ol>${findings}</ol></section>`:''}${hypotheses?`<section><h3>待核查假设</h3><ol>${hypotheses}</ol></section>`:''}${gaps?`<section><h3>仍缺少的信息</h3><ul>${gaps}</ul></section>`:''}${richActions?`<section><h3>有依据的核查建议</h3><ol>${richActions}</ol></section>`:''}${actions?`<section><h3>建议复核步骤</h3><ol>${actions}</ol></section>`:''}<p class="model-safety-line">引用编号检查已通过；模型解释和假设仍需人工核对，不能据此自动执行设备操作。</p></section>${sourcePanel}`;
+  return `<section class="panel card card-pad model-result"><div class="model-result-head"><h2>大模型对外部诊断结果的分析</h2><span class="chip">需专家复核</span></div><section class="model-summary"><h3>外部诊断材料分析摘要</h3><p>${escape(model.summary)}</p></section>${findings?`<section><h3>原文依据与分析</h3><ol>${findings}</ol></section>`:''}${governancePanel}${hypotheses?`<section><h3>待核查假设</h3><ol>${hypotheses}</ol></section>`:''}${gaps?`<section><h3>仍缺少的信息</h3><ul>${gaps}</ul></section>`:''}${richActions?`<section><h3>有依据的核查建议</h3><ol>${richActions}</ol></section>`:''}${actions?`<section><h3>建议复核步骤</h3><ol>${actions}</ol></section>`:''}<p class="model-safety-line">引用编号检查已通过；模型解释和假设仍需人工核对，不能据此自动执行设备操作。</p></section>${sourcePanel}`;
 }
 function extractiveModelExplanationHtml(model,generation,escape){
   if(model.status!=='EXTRACTIVE_REVIEW_ONLY'||generation.status!=='SUCCEEDED')return '';

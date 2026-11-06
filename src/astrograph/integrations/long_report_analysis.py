@@ -5,6 +5,7 @@ from copy import deepcopy
 from astrograph.integrations.reviewed_context import validate_snapshot, CONTEXT_POLICY
 from astrograph.integrations.stage_execution import for_stage, check_cancelled, AnalysisCancelled
 from astrograph.integrations.execution_observability import event
+from astrograph.integrations.claim_governance import build_claim_governance
 import hashlib
 import json
 from pathlib import Path
@@ -314,6 +315,15 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
     except Exception:
         return _failure(input_bundle, "SYNTHESIS_FAILED", sources=[*input_bundle["sources"], *chunk_records])
 
+    analysis_backend = for_stage(llm_backend, "synthesis")
+    verification_backend = (for_stage(llm_backend, "verification")
+                            if callable(getattr(llm_backend, "has_stage", None))
+                            and llm_backend.has_stage("verification") else None)
+    claim_governance = build_claim_governance(
+        task_id=task_id, input_sha256=input_bundle["input_sha256"], analysis=analysis,
+        sources=input_bundle["sources"], analysis_backend=analysis_backend,
+        verification_backend=verification_backend,
+    )
     explanation = {
         "schema_version": ANALYSIS_SCHEMA, "status": "AVAILABLE_REQUIRES_EXPERT_REVIEW",
         "source": "LLM_EXTERNAL_DIAGNOSIS", "input_sha256": input_bundle["input_sha256"],
@@ -321,6 +331,7 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
         "analysis_verification": "UNVERIFIED_MODEL_ANALYSIS",
         "sources": input_bundle["sources"],
         "automatic_control_authorized": False,
+        "claim_governance": claim_governance,
         **analysis.model_dump(mode="json"),
         "processing": {"mode": "HIERARCHICAL_CHUNK_SYNTHESIS", "chunk_count": len(chunks),
                        "chunk_characters": DEFAULT_CHUNK_CHARACTERS, "overlap_characters": DEFAULT_OVERLAP_CHARACTERS,

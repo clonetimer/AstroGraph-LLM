@@ -53,6 +53,9 @@ def test_phase_profile_stored_as_ids_and_hash_but_no_endpoint(tmp_path):
     assert '127.0.0.1' not in json.dumps(job['phase_profile_fingerprints'])
     with pytest.raises(ValueError):
         store.create('bad', phase_engine_ids={'not_a_phase': 'llm:' + p['profile_id']})
+    verified = store.create('verification phase', phase_engine_ids={'verification': 'llm:' + p['profile_id']})
+    assert verified['phase_engine_ids']['verification'] == 'llm:' + p['profile_id']
+    assert len(verified['phase_profile_fingerprints']['verification']) == 64
     with pytest.raises(ValueError):
         store.create('bad', phase_engine_ids={'follow_up': 'llm:does-not-exist'})
     with pytest.raises(ValueError):
@@ -106,6 +109,8 @@ def test_api_schema_and_mission_ui_surface_profile_selection():
     html = (root / 'mission_console.html').read_text(encoding='utf-8')
     js = (root / 'mission_console.js').read_text(encoding='utf-8')
     assert 'id="mission-followup-engine"' in html
+    assert 'id="mission-verification-engine"' in html
+    assert "verificationEngineId" in js
     assert 'phase_engine_ids' in js
     assert 'mission-followup-engine' in js
 

@@ -56,7 +56,32 @@ def render_external_diagnosis_markdown(
     if generation["status"] == "SUCCEEDED" and model["status"] == "AVAILABLE_REQUIRES_EXPERT_REVIEW":
         lines.extend(["## LLM 分析摘要", "", _text(model["summary"]), "",
                       "以下内容是模型对所提供材料的解读与假设；引用检查仅确认来源归属。", "",
-                      "## 对报告内容的解读", ""])
+                      "## 主张与证据核验", ""])
+        governance = model.get("claim_governance") or {}
+        verification = governance.get("verification") or {}
+        verification_labels = {
+            "COMPLETED_REQUIRES_EXPERT_REVIEW": "独立模型审阅已完成，仍需专家确认",
+            "NOT_CONFIGURED": "未配置独立审阅模型",
+            "NOT_RUN": "本次未执行独立审阅",
+            "FAILED": "独立审阅未完成",
+        }
+        lines.extend([f"- 主张数量：`{len(governance.get('claims') or [])}`",
+                      f"- 独立审阅：{verification_labels.get(verification.get('status'), verification.get('status', '未执行'))}",
+                      f"- 审阅方法：`{verification.get('method', 'SOURCE_REFERENCE_ONLY')}`",
+                      "- 边界：来源支持关系不等于现实事实已被证实；所有主张仍需专家复核。", ""])
+        for claim in governance.get("claims") or []:
+            evidence_ids = [item.get("source_id") for item in claim.get("evidence_refs") or []]
+            opposing_ids = [item.get("source_id") for item in claim.get("opposing_evidence_refs") or []]
+            lines.extend([f"### {_text(claim.get('claim_type', 'CLAIM'))} · `{_text(claim.get('claim_id', ''))}`",
+                          "", _text(claim.get("text", "")),
+                          f"- 认识状态：`{claim.get('epistemic_status', 'INFERRED')}`",
+                          f"- 证据关系：`{claim.get('support_status', 'NOT_EVALUATED')}`",
+                          f"- 专家审阅：`{claim.get('expert_review_status', 'PENDING')}`",
+                          "- 支持来源：" + (", ".join(f"`{sid}`" for sid in evidence_ids) or "无"),
+                          "- 反向来源：" + (", ".join(f"`{sid}`" for sid in opposing_ids) or "无"), ""])
+        if verification.get("reason_code"):
+            lines.append(f"- 审阅原因代码：`{verification['reason_code']}`")
+        lines.extend(["", "## 对报告内容的解读", ""])
         for finding in model["findings"]:
             lines.extend([f"- {_text(finding['text'])}",
                           "  - 依据：" + ", ".join(f"`{sid}`" for sid in finding["citation_ids"])])

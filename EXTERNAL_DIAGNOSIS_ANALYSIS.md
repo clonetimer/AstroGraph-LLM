@@ -74,6 +74,8 @@ astrograph-platform --root runs/platform analyze-report \
 | `input_sha256` | 本次来源集合的完整性摘要 |
 
 成功输出的 `model_explanation.status` 为 `AVAILABLE_REQUIRES_EXPERT_REVIEW`。
+新增 `claim_governance`：将 Findings、Hypotheses、跨报告共识/分歧等转换为带稳定 `claim_id` 的主张记录，标记 `REPORTED` / `DERIVED` / `INFERRED`，绑定支持与反向来源，并默认保持 `expert_review_status: PENDING`。模型不能写入专家确认状态。
+可在新建任务时通过 `phase_engine_ids.verification` 选择已审核的独立审阅模型。该模型必须与主分析模型不同；审阅输入只包含主张文本和原始来源，不包含生成模型的摘要、推理过程或已选引用。未配置独立模型、模型身份相同、上下文超限或审阅失败时，会明确记录状态，不静默回退到主模型。独立模型审阅只判断给定材料是否支持主张，不认证现实事实，仍必须由专家确认。
 模型对报告的解读与原因假设可以使用自然语言，不再要求逐字摘录。
 引用验证只检查来源归属，不代表模型判断或原始报告已被独立证实。
 外部诊断文本与文件哈希独立保留，模型不会改写上游诊断状态。

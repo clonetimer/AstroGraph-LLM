@@ -20,6 +20,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from astrograph.integrations.result_log_review import load_manifest, read_lines
 from astrograph.integrations.execution_observability import event
+from astrograph.integrations.claim_governance import build_claim_governance
 
 
 INPUT_SCHEMA = "astrograph-external-diagnosis-input.v1"
@@ -33,6 +34,9 @@ SYSTEM_POLICY = (
     "commands, diagnostic computations, control actions or change upstream results. "
     "Analyze arbitrary reported phenomena without requiring fault catalog identifiers. "
     "Clearly distinguish what a source reports from your hypotheses and uncertainty. "
+    "For findings, use REPORTED only for statements explicitly present in a source, DERIVED only "
+    "for deterministic calculations from supplied values, and INFERRED for interpretations. "
+    "Never label any model-generated statement as expert-confirmed. "
     "Every finding and hypothesis must cite source_id values from the supplied registry. "
     "A citation only references provided material, and does not certify factual truth. "
     "All of your prose is unverified analysis requiring expert review. Recommend review "
@@ -63,6 +67,7 @@ class _CitedText(_StrictModel):
 
 class ExternalDiagnosisFinding(_CitedText):
     text: str = Field(min_length=1, max_length=4000)
+    epistemic_status: Literal["REPORTED", "DERIVED", "INFERRED"] = "INFERRED"
 
 
 class ExternalDiagnosisHypothesis(_CitedText):
@@ -237,8 +242,9 @@ def run_external_diagnosis_analysis(
     if context_snapshot is not None:
         payload["reviewed_context"] = deepcopy(context_snapshot)
         payload["system_policy"] += " " + CONTEXT_POLICY
+    analysis_backend = for_stage(llm_backend, "analysis")
     try:
-        raw = llm_backend.generate_structured(
+        raw = analysis_backend.generate_structured(
             agent_id="external-diagnosis-analysis", output_model=ExternalDiagnosisAnalysis, payload=payload)
     except AnalysisCancelled:
         raise
@@ -264,4 +270,12 @@ def run_external_diagnosis_analysis(
         return finish("FAILED", "CITATION_REFERENCE_INVALID", "FAILED")
     event("CITATIONS_VALIDATED")
     explanation.update(analysis.model_dump(mode="json"))
+    verification_backend = (for_stage(llm_backend, "verification")
+                           if callable(getattr(llm_backend, "has_stage", None))
+                           and llm_backend.has_stage("verification") else None)
+    explanation["claim_governance"] = build_claim_governance(
+        task_id=task_id, input_sha256=bundle["input_sha256"], analysis=analysis,
+        sources=bundle["sources"], analysis_backend=analysis_backend,
+        verification_backend=verification_backend,
+    )
     return finish("SUCCEEDED", citation_status="PASS")
