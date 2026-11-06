@@ -4,6 +4,10 @@ on:
     branches: [dev/foundation-r11-integration, feat/platform-persistent-queue]
   pull_request:
     branches: [main, dev/foundation-r11-integration]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   source-smoke:
     runs-on: ubuntu-latest
