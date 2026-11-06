@@ -381,6 +381,11 @@ def _project(value):
         if pricing and pricing.get('status') == 'PRICE_PINNED':
             from decimal import Decimal, InvalidOperation
             try:
+                input_rate = Decimal(str(pricing.get('input_per_million_tokens')))
+                output_rate = Decimal(str(pricing.get('output_per_million_tokens')))
+                if (not input_rate.is_finite() or not output_rate.is_finite()
+                        or input_rate < 0 or output_rate < 0):
+                    raise ValueError('invalid pinned rate')
                 item['pricing'] = {
                     'status': 'PRICE_PINNED',
                     'price_id': _text(pricing.get('price_id', ''), 32),
@@ -388,8 +393,8 @@ def _project(value):
                     'provider': _text(pricing.get('provider', ''), 80),
                     'model': _text(pricing.get('model', ''), 200),
                     'currency': _text(pricing.get('currency', ''), 3),
-                    'input_per_million_tokens': str(Decimal(str(pricing.get('input_per_million_tokens')))),
-                    'output_per_million_tokens': str(Decimal(str(pricing.get('output_per_million_tokens')))),
+                    'input_per_million_tokens': format(input_rate, 'f'),
+                    'output_per_million_tokens': format(output_rate, 'f'),
                     'effective_from': _text(pricing.get('effective_from', ''), 80),
                     'source_type': _text(pricing.get('source_type', ''), 40),
                     'source_ref': _text(pricing.get('source_ref', ''), 500),
@@ -402,7 +407,13 @@ def _project(value):
         else:
             item['pricing'] = None
         cost = r.get('cost') if isinstance(r.get('cost'), dict) else {}
-        cost_status = cost.get('status')
+        if not cost:
+            legacy_status = r.get('status')
+            cost_status = ('POSSIBLE_UNMETERED_BILLING'
+                           if legacy_status in {'STARTED', 'FAILED', 'INTERRUPTED'}
+                           else 'PRICING_NOT_CONFIGURED')
+        else:
+            cost_status = cost.get('status')
         if cost_status not in {'CALCULATED', 'PRICING_NOT_CONFIGURED', 'USAGE_MISSING', 'POSSIBLE_UNMETERED_BILLING'}:
             cost_status = 'USAGE_MISSING'
         amount = cost.get('amount')
@@ -410,7 +421,10 @@ def _project(value):
         if cost_status == 'CALCULATED':
             from decimal import Decimal, InvalidOperation
             try:
-                amount = format(Decimal(str(amount)), 'f')
+                parsed_amount = Decimal(str(amount))
+                if not parsed_amount.is_finite() or parsed_amount < 0:
+                    raise ValueError('invalid cost amount')
+                amount = format(parsed_amount, 'f')
             except (InvalidOperation, TypeError, ValueError):
                 raise ValueError('EXECUTION_COST_RECORD_INVALID')
             if not isinstance(currency, str) or not re.fullmatch(r'[A-Z]{3}', currency):
