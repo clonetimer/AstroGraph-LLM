@@ -1,12 +1,14 @@
 name: External analysis source regression
 on:
   push:
-    branches: [feat/pilotdeck-observability, feat/platform-persistent-queue]
+    branches: [feat/pilotdeck-observability, feat/platform-persistent-queue, feat/external-diagnosis-p4-cd-quality-cost]
     paths:
       - 'src/astrograph/**'
       - 'portable/**'
       - 'tests/test_p3_platform*'
       - 'tests/test_platform_persistent_queue.py'
+      - 'tests/test_model_pricing.py'
+      - 'tests/test_manual_report_review_workflow.py'
       - 'tests/test_p2_context_platform.py'
       - '.github/workflows/observability-source.yml'
   pull_request:
@@ -63,6 +65,9 @@ jobs:
           python -m pytest -q --astrograph-test-profile source-only \
             tests/test_external_diagnosis_analysis.py \
             tests/test_external_diagnosis_platform.py \
+            tests/test_manual_report_review_workflow.py \
+            tests/test_model_pricing.py \
+            tests/test_platform_ui_assets.py \
             tests/test_external_diagnosis_conversation.py \
             tests/test_external_execution_observability.py \
             tests/test_platform_persistent_queue.py \
