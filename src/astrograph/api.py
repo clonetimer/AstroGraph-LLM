@@ -119,7 +119,17 @@ class ManualReportReviewDecision(BaseModel):
 class ManualClaimReviewDecision(BaseModel):
     """Append-only expert review of one immutable model-generated claim."""
     model_config = ConfigDict(extra='forbid')
-    report_sha256: str = Field(pattern=r'^[0-9a-f]{64}    """Explicit independent review; cannot be submitted by the analyzer."""
+    report_sha256: str = Field(pattern=r'^[0-9a-f]{64}$')
+    decision: Literal['ACCEPT', 'REJECT', 'REVISE', 'NEEDS_EVIDENCE']
+    evidence_ref: str = Field(default='', max_length=500)
+    note: str = Field(min_length=8, max_length=2000)
+    revised_text: str = Field(default='', max_length=4000)
+    revised_epistemic_status: Literal['REPORTED', 'DERIVED', 'INFERRED'] = 'INFERRED'
+    expected_revision: int = Field(ge=0)
+
+
+class MaterialCaseReviewDecision(BaseModel):
+    """Explicit independent review; cannot be submitted by the analyzer."""
     model_config = ConfigDict(extra='forbid')
     decision: Literal['CONFIRM','REJECT']
     truth_source_ref: str = Field(min_length=3,max_length=500)
