@@ -267,11 +267,12 @@ def run_independent_verification(
 def build_claim_governance(
     *, task_id: str, input_sha256: str, analysis: Any, sources: list[dict[str, Any]],
     analysis_backend: Any, verification_backend: Any | None,
+    analysis_model_id: str | None = None,
 ) -> dict[str, Any]:
     registry = build_claim_registry(
         task_id=task_id, input_sha256=input_sha256, analysis=analysis, sources=sources,
     )
-    generator_model = _backend_id(analysis_backend) or None
+    generator_model = str(analysis_model_id or _backend_id(analysis_backend) or "").strip() or None
     registry["generator_model"] = generator_model
     for claim in registry["claims"]:
         claim["generator_model"] = generator_model
