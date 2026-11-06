@@ -1572,7 +1572,7 @@ class UploadReportJobStore:
         context_snapshot = self._reviewed_context(job_id)
         backend = knowledge_service.llm_backend
         run = RunJournal(self._job_root(job_id), task_id=job_id, kind="analysis", bundle=bundle,
-                         model=getattr(backend, "model_id", ""), mode="configured")
+                         model=getattr(backend, "model_id", ""), mode="configured", pricing_root=self.root)
         with run_scope(run):
             review = imported_diagnosis_review(bundle)
             _json_write(output / "external_diagnosis_input.json", bundle)
