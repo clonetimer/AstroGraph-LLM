@@ -15,6 +15,8 @@ from astrograph.integrations.platform_job_queue import (
     PlatformQueueConflict,
 )
 from astrograph.integrations.upload_report import UploadReportJobStore
+from fastapi.testclient import TestClient
+from astrograph.api import create_app
 
 
 def test_claim_is_atomic_across_independent_queue_connections(tmp_path: Path) -> None:
@@ -240,3 +242,67 @@ def test_worker_entrypoint_drains_a_persisted_job_in_a_separate_process(
     assert result.returncode == 0, result.stdout + result.stderr
     assert store.get(job["job_id"])["status"] == "SUCCEEDED"
     assert store.queue.get(job["job_id"])["status"] == "SUCCEEDED"
+
+
+def test_api_cancel_endpoint_exposes_persisted_queue_state(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("ASTROGRAPH_AUTH_MODE", "local")
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_ROOT", str(tmp_path / "api-platform"))
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "1")
+    monkeypatch.setattr(subprocess, "Popen", lambda *args, **kwargs: type("P", (), {"pid": 4242})())
+    with TestClient(create_app()) as client:
+        created = client.post("/v1/platform/jobs", json={"task": "API queue cancellation"})
+        assert created.status_code == 200, created.text
+        job_id = created.json()["job_id"]
+        started = client.post(f"/v1/platform/jobs/{job_id}/start")
+        assert started.status_code == 202, started.text
+        cancelled = client.post(
+            f"/v1/platform/jobs/{job_id}/cancel",
+            json={"reason": "operator test"},
+        )
+        assert cancelled.status_code == 200, cancelled.text
+        assert cancelled.json()["cancel_result"] == "CANCELLED"
+        snapshot = client.get(f"/v1/platform/jobs/{job_id}")
+        assert snapshot.status_code == 200
+        assert snapshot.json()["queue"]["status"] == "CANCELLED"
+
+
+def test_api_resume_requires_explicit_duplicate_cost_confirmation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("ASTROGRAPH_AUTH_MODE", "local")
+    root = tmp_path / "api-resume-platform"
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_ROOT", str(root))
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "1")
+    monkeypatch.setattr(subprocess, "Popen", lambda *args, **kwargs: type("P", (), {"pid": 4242})())
+    store = UploadReportJobStore(root)
+    job = store.create("API interrupted recovery")
+    store.queue.enqueue(job["job_id"])
+    store.queue.claim_next("crashed-worker", lease_seconds=1, max_running=1, now=100.0)
+    store.queue.recover_expired(now=102.0)
+
+    with TestClient(create_app()) as client:
+        refused = client.post(
+            f"/v1/platform/jobs/{job['job_id']}/resume",
+            json={"confirm_duplicate_risk": False},
+        )
+        assert refused.status_code == 422
+        resumed = client.post(
+            f"/v1/platform/jobs/{job['job_id']}/resume",
+            json={"confirm_duplicate_risk": True},
+        )
+        assert resumed.status_code == 202, resumed.text
+        assert resumed.json()["queue"]["status"] == "QUEUED"
+        assert resumed.json()["duplicate_model_cost_confirmed"] is True
+
+
+def test_platform_ui_exposes_queue_cancellation_and_recovery_controls() -> None:
+    resources = Path(__file__).resolve().parents[1] / "src" / "astrograph" / "resources"
+    html = (resources / "platform_ui.html").read_text(encoding="utf-8")
+    js = (resources / "platform_job.js").read_text(encoding="utf-8")
+    assert 'id="cancel-job"' in html
+    assert 'id="resume-job"' in html
+    assert "/cancel" in js and "/resume" in js
+    assert "CANCEL_REQUESTED" in js and "INTERRUPTED" in js
+    assert "confirm_duplicate_risk:true" in js
