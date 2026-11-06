@@ -448,6 +448,28 @@ class ManualReportReviewStore:
         if len(rows) > MAX_FEEDBACK_EVENTS:
             raise ManualReviewConflict("Claim review export exceeds the bounded event limit")
         by_id = {item["claim_id"]: item for item in claims}
+        latest_by_id = {row["claim_id"]: row for row in rows}
+        model_feedback: dict[str, dict[str, int | str]] = {}
+        for claim in claims:
+            model_id = str(claim.get("generator_model") or "UNATTRIBUTED")
+            bucket = model_feedback.setdefault(model_id, {
+                "generator_model": model_id, "claim_count": 0, "reviewed_claim_count": 0,
+                "pending_claim_count": 0, "accept_count": 0, "reject_count": 0,
+                "revise_count": 0, "needs_evidence_count": 0,
+            })
+            bucket["claim_count"] += 1
+            review = latest_by_id.get(claim["claim_id"])
+            if review is None:
+                bucket["pending_claim_count"] += 1
+                continue
+            bucket["reviewed_claim_count"] += 1
+            decision_key = {
+                "ACCEPT": "accept_count", "REJECT": "reject_count",
+                "REVISE": "revise_count", "NEEDS_EVIDENCE": "needs_evidence_count",
+            }.get(str(review.get("decision")))
+            if decision_key:
+                bucket[decision_key] += 1
+        model_feedback_summary = [model_feedback[key] for key in sorted(model_feedback)]
         return {
             "schema_version": "astrograph-expert-claim-feedback.v1",
             "job_id": job_id, "report_sha256": digest,
@@ -456,6 +478,11 @@ class ManualReportReviewStore:
             "event_count": len(rows),
             "history_integrity": "VERIFIED",
             "history": rows,
+            "model_feedback_summary": model_feedback_summary,
+            "model_feedback_interpretation": (
+                "Counts are expert feedback outcomes, not model accuracy. "
+                "They require sample-size, reviewer and case-mix context."
+            ),
             "fact_truth_certified": False,
             "automatic_training_authorized": False,
             "note": "Expert feedback is a review overlay for evaluation. It is not a training label until separately curated and approved.",
