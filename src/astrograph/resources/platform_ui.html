@@ -336,7 +336,7 @@
                 <div class="field-group"><label for="model-pricing-currency">币种</label><input class="field" id="model-pricing-currency" value="USD" minlength="3" maxlength="3" required></div>
                 <div class="field-group"><label for="model-pricing-effective-from">生效时间（本地时区）</label><input class="field" id="model-pricing-effective-from" type="datetime-local" required></div>
                 <div class="field-group"><label for="model-pricing-source-type">价格依据</label><select class="field" id="model-pricing-source-type"><option value="OFFICIAL_PUBLISHED">官方公开价格</option><option value="CONTRACT">合同价格</option><option value="ADMIN_ESTIMATE">管理员估算</option></select></div>
-                <div class="field-group full"><label for="model-pricing-source-ref">来源链接 / 合同编号 / 审批记录</label><input class="field" id="model-pricing-source-ref" class="field" minlength="8" maxlength="500" required placeholder="填写可追溯的价格来源"></div>
+                <div class="field-group full"><label for="model-pricing-source-ref">来源链接 / 合同编号 / 审批记录</label><input class="field" id="model-pricing-source-ref" minlength="8" maxlength="500" required placeholder="填写可追溯的价格来源"></div>
               </div>
               <div class="settings-actions"><button class="btn primary" id="model-pricing-save" type="submit">追加价格版本</button></div>
             </form>
