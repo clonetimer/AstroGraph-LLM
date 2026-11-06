@@ -59,7 +59,7 @@ class ExecutionObservabilityTests(unittest.TestCase):
         self.assertEqual(snap['usage']['input_tokens'],22)
         self.assertEqual(snap['usage']['output_tokens'],14)
         self.assertTrue(all(x['http_status']==200 for x in records))
-        disk='\n'.join(p.read_text() for p in self.root.rglob('*.json'))
+        disk='\n'.join(p.read_text(encoding='utf-8') for p in self.root.rglob('*.json'))
         for secret in ['SECRET_TOKEN','PRIVATE_REPORT','PRIVATE_QUESTION','PRIVATE_SERVER_RESPONSE','Authorization']:
             self.assertNotIn(secret,disk)
 
@@ -178,7 +178,7 @@ class ExecutionObservabilityTests(unittest.TestCase):
 
     def test_restored_unknown_nested_fields_are_not_exposed(self):
         m=self.module();run=self.recorder();run.finish('SUCCEEDED')
-        path=run.path/'run.json';value=json.loads(path.read_text())
+        path=run.path/'run.json';value=json.loads(path.read_text(encoding='utf-8'))
         value['api_key']='PRIVATE_KEY'
         value['events'][0]['counts']={'total':1,'api_key':'PRIVATE_KEY'}
         value['requests']=[{'sequence':1,'status':'RESPONSE_RECEIVED','stage':'MODEL_ANALYSIS',
@@ -191,7 +191,7 @@ class ExecutionObservabilityTests(unittest.TestCase):
 
     def test_unreadable_run_does_not_silently_become_zero_cost(self):
         m=self.module();run=self.recorder();run.finish('SUCCEEDED')
-        path=run.path/'run.json';value=json.loads(path.read_text());value['requests']='not-a-list'
+        path=run.path/'run.json';value=json.loads(path.read_text(encoding='utf-8'));value['requests']='not-a-list'
         path.write_text(json.dumps(value))
         data=m.execution_snapshot(self.root,'a'*32)
         self.assertEqual(data['unavailable_runs'],1)

@@ -35,12 +35,12 @@ class SharedDeliveryTests(unittest.TestCase):
     def test_version_metadata_is_read_from_canonical_application(self):
         self.assertTrue(hasattr(builder,'application_version'),'source-bound version metadata missing')
         import ast
-        version=next(x.value.value for x in ast.parse((ROOT/'portable/workbench.py').read_text()).body
+        version=next(x.value.value for x in ast.parse((ROOT/'portable/workbench.py').read_text(encoding='utf-8')).body
                      if isinstance(x,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='VERSION' for t in x.targets))
         self.assertEqual(builder.application_version(ROOT),version)
 
     def test_production_shell_loads_shared_renderer_before_application(self):
         import re
-        scripts=re.findall(r'<script[^>]*src="/([^"]+)"', (ROOT/'portable/assets/index.html').read_text())
+        scripts=re.findall(r'<script[^>]*src="/([^"]+)"', (ROOT/'portable/assets/index.html').read_text(encoding='utf-8'))
         self.assertIn('execution_view.js',scripts)
         self.assertLess(scripts.index('execution_view.js'),scripts.index('app.js'))

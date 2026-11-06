@@ -51,7 +51,7 @@ class FlowTests(unittest.TestCase):
             self.assertEqual(model['bodies'][-1]['model'],'qa')
             execution=self.store.read_job(a['job_id'])['execution'];self.assertTrue(any(x.get('model')=='qa' for run in execution['runs'] for x in run['requests']))
             for p in self.store.root.rglob('*.json'):
-                text=p.read_text();self.assertNotIn(c['api_key'],text);self.assertNotIn(model['base_url'],text)
+                text=p.read_text(encoding='utf-8');self.assertNotIn(c['api_key'],text);self.assertNotIn(model['base_url'],text)
     def test_cancel_running_and_waiting_never_publish_report(self):
         started=threading.Event();release=threading.Event();calls=[]
         class Backend:

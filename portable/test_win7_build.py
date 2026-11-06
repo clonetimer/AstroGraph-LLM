@@ -19,7 +19,7 @@ class Win7BuildTests(unittest.TestCase):
             mod.copy_source(Path(__file__).resolve().parents[1], target)
             self.assertFalse((target / 'src/astrograph/data_driven').exists())
             self.assertTrue((target / 'src/astrograph/integrations/external_diagnosis_analysis.py').is_file())
-            self.assertFalse((target / 'src/astrograph/integrations/__init__.py').read_text().count('sat_sim'))
+            self.assertFalse((target / 'src/astrograph/integrations/__init__.py').read_text(encoding='utf-8').count('sat_sim'))
 
     def test_untrusted_runtime_does_not_create_destination(self):
         mod = self.module()
