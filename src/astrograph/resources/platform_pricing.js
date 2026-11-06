@@ -1,4 +1,4 @@
-import { $, esc, showToast } from './platform_core.js';
+import { $, showToast } from './platform_core.js';
 
 let adminToken = '';
 
@@ -77,6 +77,7 @@ async function loadModelPricing() {
 }
 
 function setupModelPricing() {
+  if (!$('#model-pricing-status')) return;
   const token = $('#model-pricing-admin-token');
   if (token) token.addEventListener('change', () => {
     adminToken = token.value;
