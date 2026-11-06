@@ -29,8 +29,10 @@ def add_price(book, *, input_rate="2.0", output_rate="4.0", effective_from=None,
 
 def test_pricebook_resolves_effective_version_and_is_append_only(tmp_path):
     book = ModelPriceBook(tmp_path)
-    old = add_price(book, input_rate="2", output_rate="4", effective_from=effective(-10))
-    new = add_price(book, input_rate="3", output_rate="6", effective_from=effective(1),
+    old_effective = effective(-10)
+    new_effective = effective(1)
+    old = add_price(book, input_rate="2", output_rate="4", effective_from=old_effective)
+    new = add_price(book, input_rate="3", output_rate="6", effective_from=new_effective,
                     source_ref="https://provider.example/pricing-next")
     before_new = book.resolve(provider="test-provider", model="test-model", at=effective(-1))
     after_new = book.resolve(provider="test-provider", model="test-model", at=effective(2))
@@ -38,7 +40,7 @@ def test_pricebook_resolves_effective_version_and_is_append_only(tmp_path):
     assert after_new["price_id"] == new["price_id"]
     assert [x["revision"] for x in book.list()] == [2, 1]
     with pytest.raises(ValueError, match="PRICE_VERSION_ALREADY_EXISTS"):
-        add_price(book, effective_from=effective(-10))
+        add_price(book, effective_from=old_effective)
     with sqlite3.connect(book.path) as db:
         with pytest.raises(sqlite3.IntegrityError, match="APPEND_ONLY"):
             db.execute("UPDATE model_price_versions SET input_per_million_tokens='0' WHERE price_id=?",
