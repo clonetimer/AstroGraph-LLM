@@ -150,6 +150,8 @@ def run_independent_verification(
 ) -> dict[str, Any]:
     """Review claim/source support with a distinct model and an isolated payload."""
     claims = registry["claims"]
+    for claim in claims:
+        claim.setdefault("verifier_model", None)
 
     def not_run(status: str, reason: str, method: str = "SOURCE_REFERENCE_ONLY") -> dict[str, Any]:
         registry["verification"] = {
@@ -238,6 +240,8 @@ def run_independent_verification(
             "information_gaps": list(assessment.information_gaps),
         })
 
+    for claim in claims:
+        claim["verifier_model"] = verifier_model
     registry["verification"] = {
         "status": "COMPLETED_REQUIRES_EXPERT_REVIEW", "method": "INDEPENDENT_MODEL_REVIEW",
         "scope": "ALL_SUPPLIED_SOURCE_TEXT", "verifier_model": verifier_model,
@@ -259,6 +263,11 @@ def build_claim_governance(
     registry = build_claim_registry(
         task_id=task_id, input_sha256=input_sha256, analysis=analysis, sources=sources,
     )
+    generator_model = _backend_id(analysis_backend) or None
+    registry["generator_model"] = generator_model
+    for claim in registry["claims"]:
+        claim["generator_model"] = generator_model
+        claim["verifier_model"] = None
     return run_independent_verification(
         registry, sources=sources, analysis_backend=analysis_backend,
         verification_backend=verification_backend,
