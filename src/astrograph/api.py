@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 import os
 import hmac
 import hashlib
@@ -411,10 +412,21 @@ def error_payload(code: str, message: str, *, request_id: str = "", details: Any
 
 
 def create_app(service: AstroGraphService | None = None) -> FastAPI:
+    @asynccontextmanager
+    async def platform_lifespan(application: FastAPI):
+        """Wake queued jobs after API restart; compatible with modern FastAPI."""
+        try:
+            get_upload_report_store().ensure_queue_workers(only_if_pending=True)
+            application.state.platform_queue_startup_error = None
+        except Exception as exc:
+            application.state.platform_queue_startup_error = type(exc).__name__
+        yield
+
     app = FastAPI(
         title="AstroGraph API",
         version=__version__,
         description="Satellite PHM service with deterministic diagnosis, controlled Agent investigation, and policy-gated release.",
+        lifespan=platform_lifespan,
     )
     app.state.astrograph_service = service
     app.state.auth_config = ApiAuthConfig.from_environment()
@@ -2414,15 +2426,6 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             raise StateConflictError(str(exc), details={"job_id": job_id}) from exc
         return FileResponse(path, media_type="text/markdown; charset=utf-8", filename=f"{job_id}-report.md")
 
-    def start_persisted_platform_workers() -> None:
-        try:
-            get_upload_report_store().ensure_queue_workers(only_if_pending=True)
-            app.state.platform_queue_startup_error = None
-        except Exception as exc:
-            # Keep API startup available; surface only a sanitized diagnostic.
-            app.state.platform_queue_startup_error = type(exc).__name__
-
-    app.add_event_handler("startup", start_persisted_platform_workers)
     app.include_router(build_compat_router())
     return app
 
