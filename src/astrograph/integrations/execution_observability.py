@@ -182,7 +182,7 @@ def _safe_pricing_snapshot(value):
     for field in ("input_usd_per_million_tokens", "output_usd_per_million_tokens"):
         raw = value.get(field)
         try:
-            number = None if isinstance(raw, bool) else float(raw)
+            number = float(raw)
         except (TypeError, ValueError):
             number = None
         if number is not None and math.isfinite(number) and 0 <= number <= 1_000_000:

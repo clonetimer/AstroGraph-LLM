@@ -17,7 +17,7 @@ from urllib.parse import urlparse
 from fastapi import FastAPI, HTTPException, Query, Request, Response, UploadFile, File, Form, Body
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from astrograph.anomaly import AnomalyEpisode, IncrementalAnomalyObservation
 from astrograph.audit.store import sha256_json
@@ -187,6 +187,13 @@ class PlatformLLMSettingsRequest(BaseModel):
     pricing_currency: Literal["USD"] = "USD"
     input_usd_per_million_tokens: float | None = Field(default=None, ge=0.0, le=1_000_000.0)
     output_usd_per_million_tokens: float | None = Field(default=None, ge=0.0, le=1_000_000.0)
+
+    @field_validator("input_usd_per_million_tokens", "output_usd_per_million_tokens", mode="before")
+    @classmethod
+    def reject_boolean_pricing_rates(cls, value):
+        if isinstance(value, bool):
+            raise ValueError("pricing rates must be numeric values, not booleans")
+        return value
 
     @model_validator(mode="after")
     def validate_enabled_configuration(self) -> "PlatformLLMSettingsRequest":
@@ -2554,6 +2561,13 @@ class PlatformLLMSettingsRequest(BaseModel):
     pricing_currency: Literal["USD"] = "USD"
     input_usd_per_million_tokens: float | None = Field(default=None, ge=0.0, le=1_000_000.0)
     output_usd_per_million_tokens: float | None = Field(default=None, ge=0.0, le=1_000_000.0)
+
+    @field_validator("input_usd_per_million_tokens", "output_usd_per_million_tokens", mode="before")
+    @classmethod
+    def reject_boolean_pricing_rates(cls, value):
+        if isinstance(value, bool):
+            raise ValueError("pricing rates must be numeric values, not booleans")
+        return value
 
     @model_validator(mode="after")
     def validate_enabled_configuration(self) -> "PlatformLLMSettingsRequest":

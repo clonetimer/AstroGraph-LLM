@@ -468,6 +468,8 @@ class UploadReportJobStore:
         currency = str(config.get("pricing_currency") or "USD").upper()
         input_rate, output_rate = config.get("input_usd_per_million_tokens"), config.get("output_usd_per_million_tokens")
         try:
+            if isinstance(input_rate, bool) or isinstance(output_rate, bool):
+                raise ValueError("boolean pricing rate")
             input_rate, output_rate = float(input_rate), float(output_rate)
         except (TypeError, ValueError):
             input_rate = output_rate = None
