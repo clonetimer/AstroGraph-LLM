@@ -1,7 +1,7 @@
 name: Foundation smoke (source-only)
 on:
   push:
-    branches: [dev/foundation-r11-integration, feat/platform-persistent-queue]
+    branches: [dev/foundation-r11-integration, feat/platform-persistent-queue, feat/external-diagnosis-p4-cd-quality-cost]
   pull_request:
     branches: [main, dev/foundation-r11-integration]
 concurrency:
@@ -62,6 +62,8 @@ jobs:
             tests/test_p3_platform_phase_models.py \
             tests/test_manual_report_review_workflow.py \
             tests/test_external_diagnosis_platform.py \
+            tests/test_model_pricing.py \
+            tests/test_platform_ui_assets.py \
             tests/test_external_diagnosis_conversation.py \
             tests/test_external_llm_transport_updates.py \
             tests/ui/test_external_diagnosis_ui_input.py \
