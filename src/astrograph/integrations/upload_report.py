@@ -1386,10 +1386,6 @@ class UploadReportJobStore:
                 if process.pid:
                     launched.append(int(process.pid))
             except OSError as exc:
-                self._append_event(
-                    "JOB-" + "0" * 24,
-                    f"[QUEUE_WORKER_LAUNCH_FAILED] slot={slot} error={type(exc).__name__}",
-                ) if False else None
                 try:
                     with (queue_logs / "worker-launch-errors.log").open("a", encoding="utf-8") as handle:
                         handle.write(f"{_now()} slot={slot} error={type(exc).__name__}\\n")
