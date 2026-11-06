@@ -15,6 +15,7 @@ import math
 from pathlib import Path
 import re
 import secrets
+import sqlite3
 import threading
 import time
 from .stage_execution import phase_model, phase_provider, check_cancelled, AnalysisCancelled
