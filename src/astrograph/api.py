@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 import os
 import hmac
 import hashlib
@@ -36,6 +37,7 @@ from astrograph.compat import build_compat_router
 from astrograph.integrations.upload_report import (
     PlatformJobCreateRequest,
     UploadReportJobStore,
+    PlatformQueueConflict,
     PLATFORM_UI_ASSET_VERSION,
     platform_asset,
     platform_html,
@@ -139,6 +141,16 @@ class MaterialGraphRetractionRequest(BaseModel):
     reason: str = Field(min_length=8,max_length=1000)
     truth_source_ref: str = Field(min_length=3,max_length=500)
     expected_snapshot: int | None = Field(default=None,ge=0)
+
+
+class PlatformJobCancelRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    reason: str = Field(default="USER_REQUEST", min_length=1, max_length=200)
+
+
+class PlatformJobResumeRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    confirm_duplicate_risk: bool = False
 
 
 class PlatformLLMSettingsRequest(BaseModel):
@@ -400,10 +412,21 @@ def error_payload(code: str, message: str, *, request_id: str = "", details: Any
 
 
 def create_app(service: AstroGraphService | None = None) -> FastAPI:
+    @asynccontextmanager
+    async def platform_lifespan(application: FastAPI):
+        """Wake queued jobs after API restart; compatible with modern FastAPI."""
+        try:
+            get_upload_report_store().ensure_queue_workers(only_if_pending=True)
+            application.state.platform_queue_startup_error = None
+        except Exception as exc:
+            application.state.platform_queue_startup_error = type(exc).__name__
+        yield
+
     app = FastAPI(
         title="AstroGraph API",
         version=__version__,
         description="Satellite PHM service with deterministic diagnosis, controlled Agent investigation, and policy-gated release.",
+        lifespan=platform_lifespan,
     )
     app.state.astrograph_service = service
     app.state.auth_config = ApiAuthConfig.from_environment()
@@ -1987,7 +2010,37 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
     @app.post("/v1/platform/jobs/{job_id}/start", status_code=202)
     def start_upload_report_job(job_id: str) -> dict:
         try:
-            return get_upload_report_store().start(job_id)
+            store = get_upload_report_store()
+            value = store.start(job_id)
+            value["queue"] = store.queue_snapshot(job_id)
+            return value
+        except KeyError as exc:
+            raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
+        except ValueError as exc:
+            raise InvalidOperationError(str(exc), details={"job_id": job_id}) from exc
+
+    @app.post("/v1/platform/jobs/{job_id}/cancel")
+    def cancel_upload_report_job(
+        job_id: str, request: Request, body: PlatformJobCancelRequest,
+    ) -> dict:
+        try:
+            actor = authenticated_actor(request, "operator")
+            result = get_upload_report_store().cancel(job_id, reason=f"{actor}:{body.reason}")
+            return result
+        except KeyError as exc:
+            raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
+        except ValueError as exc:
+            raise InvalidOperationError(str(exc), details={"job_id": job_id}) from exc
+
+    @app.post("/v1/platform/jobs/{job_id}/resume", status_code=202)
+    def resume_upload_report_job(
+        job_id: str, request: Request, body: PlatformJobResumeRequest,
+    ) -> dict:
+        try:
+            actor = authenticated_actor(request, "operator")
+            return get_upload_report_store().resume(
+                job_id, confirm_duplicate_risk=body.confirm_duplicate_risk, actor=actor,
+            )
         except KeyError as exc:
             raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
         except ValueError as exc:
@@ -1996,7 +2049,10 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
     @app.get("/v1/platform/jobs/{job_id}")
     def get_upload_report_job(job_id: str) -> dict:
         try:
-            return get_upload_report_store().get(job_id)
+            store = get_upload_report_store()
+            value = store.get(job_id)
+            value["queue"] = store.queue_snapshot(job_id)
+            return value
         except KeyError as exc:
             raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
 

@@ -1,9 +1,13 @@
 name: Foundation smoke (source-only)
 on:
   push:
-    branches: [dev/foundation-r11-integration]
+    branches: [dev/foundation-r11-integration, feat/platform-persistent-queue]
   pull_request:
     branches: [main, dev/foundation-r11-integration]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   source-smoke:
     runs-on: ubuntu-latest
@@ -38,6 +42,7 @@ jobs:
             tests/test_foundation_r11b2_post_diagnosis_bridge.py \
             tests/test_platform_knowledge_enrichment.py \
             tests/test_upload_report_platform.py \
+            tests/test_platform_persistent_queue.py \
             tests/test_design_diagnostic_harness.py \
             tests/test_foundation_r11b3_oag_post_diagnosis.py \
             tests/test_foundation_r11c_online_post_diagnosis.py \

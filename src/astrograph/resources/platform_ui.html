@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AstroGraph 故障分析与知识工程平台</title>
-<link rel="stylesheet" href="/platform/assets/v0.21.2/platform_ui.css">
-<link rel="stylesheet" href="/platform/assets/v0.21.2/execution_view.css"><link rel="stylesheet" href="/platform/assets/v0.21.2/workspace_view.css">
+<link rel="stylesheet" href="/platform/assets/v0.21.3/platform_ui.css">
+<link rel="stylesheet" href="/platform/assets/v0.21.3/execution_view.css"><link rel="stylesheet" href="/platform/assets/v0.21.3/workspace_view.css">
 </head>
 <body>
 <div class="app">
@@ -154,7 +154,7 @@
           </div>
         </div>
         <div class="card card-pad job-runtime-panel" id="active-job-panel" hidden>
-          <div class="cap-action"><div><div class="card-title">当前任务执行状态</div><div class="card-sub mono" id="active-job-id">—</div></div><div class="job-runtime-actions"><button class="btn small" type="button" id="refresh-job-diagnostics">刷新状态</button><button class="btn small" type="button" id="retry-job" hidden>重试当前任务</button><button class="btn small" type="button" id="open-job-result" hidden>打开结果</button></div></div>
+          <div class="cap-action"><div><div class="card-title">当前任务执行状态</div><div class="card-sub mono" id="active-job-id">—</div></div><div class="job-runtime-actions"><button class="btn small" type="button" id="refresh-job-diagnostics">刷新状态</button><button class="btn small" type="button" id="cancel-job" hidden>取消任务</button><button class="btn small" type="button" id="resume-job" hidden>恢复中断任务</button><button class="btn small" type="button" id="retry-job" hidden>重试当前任务</button><button class="btn small" type="button" id="open-job-result" hidden>打开结果</button></div></div>
           <div class="job-runtime-grid"><div class="job-runtime-cell"><span>执行状态</span><strong id="jobdiag-status">—</strong></div><div class="job-runtime-cell"><span>执行阶段</span><strong id="jobdiag-stage">—</strong></div><div class="job-runtime-cell"><span>后台执行器</span><strong id="jobdiag-executor">—</strong></div><div class="job-runtime-cell"><span>调查增强</span><strong id="jobdiag-llm">—</strong></div></div>
           <div class="ops-workflow" id="ops-runtime-workflow"><div class="ops-empty">后端尚未返回执行阶段。</div></div>
           <div class="job-error" id="jobdiag-error" hidden></div><pre class="job-log" id="jobdiag-log" hidden></pre>
@@ -364,9 +364,9 @@ search_documents"></textarea></div>
   <div class="dialog-body" id="cap-dialog-body"></div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="/platform/assets/v0.21.2/workspace_view.js"></script>
-<script src="/platform/assets/v0.21.2/execution_view.js"></script>
-<script src="/platform/assets/v0.21.2/external_follow_up.js"></script>
-<script type="module" src="/platform/assets/v0.21.2/platform_ui.js"></script>
+<script src="/platform/assets/v0.21.3/workspace_view.js"></script>
+<script src="/platform/assets/v0.21.3/execution_view.js"></script>
+<script src="/platform/assets/v0.21.3/external_follow_up.js"></script>
+<script type="module" src="/platform/assets/v0.21.3/platform_ui.js"></script>
 </body>
 </html>

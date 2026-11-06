@@ -45,6 +45,14 @@ def _put_all(store: UploadReportJobStore, job_id: str, files: dict[str, bytes]) 
         store.put_file(job_id, name, data)
 
 
+def _run_queued_in_process(store: UploadReportJobStore, job_id: str) -> dict:
+    """Exercise the durable claim/heartbeat/finalize path without spawning a child."""
+    worker_id = "test-worker-" + job_id
+    claim = store.queue.claim_next(worker_id, lease_seconds=15, max_running=1)
+    assert claim is not None and claim["job_id"] == job_id
+    return store.run(job_id, worker_id=worker_id)
+
+
 def _platform_ui_text(client: TestClient) -> str:
     html = client.get("/platform/legacy").text
     js = "\n".join(client.get(f"/platform/assets/{PLATFORM_UI_ASSET_VERSION}/{name}").text for name in ("platform_core.js", "platform_operations.js", "platform_report.js", "platform_system.js", "platform_agent.js", "platform_dashboard.js", "platform_job.js", "platform_agent_live.js", "platform_knowledge.js", "platform_shell.js", "platform_ui.js"))
@@ -460,7 +468,7 @@ def test_agent_capabilities_confirm_upload_execution_binding(tmp_path: Path, mon
 def test_platform_start_uses_explicit_stdio_handles(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     import subprocess
 
-    monkeypatch.setenv("ASTROGRAPH_PLATFORM_JOB_EXECUTOR", "process")
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "1")
     store = UploadReportJobStore(tmp_path / "jobs")
     job = store.create("async launch")
     _put_all(store, job["job_id"], _public_case_files())
@@ -478,6 +486,9 @@ def test_platform_start_uses_explicit_stdio_handles(tmp_path: Path, monkeypatch:
     result = store.start(job["job_id"])
 
     assert result["status"] == "QUEUED"
+    assert result["execution_backend"] == "PROCESS_QUEUE"
+    assert store.queue.snapshot(job["job_id"])["status"] == "QUEUED"
+    assert "--queue-slot" in captured["args"]
     assert captured["stdin"] is subprocess.DEVNULL
     assert captured["stderr"] is subprocess.STDOUT
     assert captured["close_fds"] is True
@@ -485,34 +496,30 @@ def test_platform_start_uses_explicit_stdio_handles(tmp_path: Path, monkeypatch:
         assert captured["start_new_session"] is True
 
 
-def test_platform_local_start_uses_thread_and_exposes_stage_diagnostics(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    import time
-
-    monkeypatch.setenv("ASTROGRAPH_AUTH_MODE", "local")
-    monkeypatch.delenv("ASTROGRAPH_PLATFORM_JOB_EXECUTOR", raising=False)
-    store = UploadReportJobStore(tmp_path / "thread-jobs")
-    job = store.create("thread background diagnosis", "normal")
+def test_platform_start_uses_persistent_queue_and_exposes_stage_diagnostics(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "1")
+    store = UploadReportJobStore(tmp_path / "queued-jobs")
+    monkeypatch.setattr(store, "ensure_queue_workers", lambda **kwargs: [])
+    job = store.create("persistent queue diagnosis", "normal")
     _put_all(store, job["job_id"], _public_case_files())
 
     queued = store.start(job["job_id"])
-    assert queued["execution_backend"] == "THREAD"
-    deadline = time.monotonic() + 10
-    current = queued
-    while current["status"] not in {"SUCCEEDED", "FAILED"} and time.monotonic() < deadline:
-        time.sleep(0.02)
-        current = store.get(job["job_id"])
+    assert queued["execution_backend"] == "PROCESS_QUEUE"
+    assert store.queue.snapshot(job["job_id"])["status"] == "QUEUED"
+    result = _run_queued_in_process(store, job["job_id"])
+    assert result["status"] == "SUCCEEDED"
+    current = store.get(job["job_id"])
     assert current["status"] == "SUCCEEDED"
     assert current["stage"] == "COMPLETED"
     diagnostics = store.diagnostics(job["job_id"])
-    assert diagnostics["execution_backend"] == "THREAD"
+    assert diagnostics["execution_backend"] == "PROCESS_QUEUE"
     assert diagnostics["status"] == "SUCCEEDED"
+    assert diagnostics["queue"]["status"] == "SUCCEEDED"
     assert "CORE_DIAGNOSIS" in diagnostics["log_tail"]
     assert diagnostics["secret_returned"] is False
 
 
-def test_platform_local_thread_reaches_configured_structured_llm_after_core_diagnosis(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    import time
-
+def test_platform_queue_reaches_configured_structured_llm_after_core_diagnosis(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     from astrograph.integrations.platform_knowledge import PlatformKnowledgeEnrichmentService
 
     class FakeStructuredBackend:
@@ -526,17 +533,17 @@ def test_platform_local_thread_reaches_configured_structured_llm_after_core_diag
             return output_model.model_validate({
                 "candidate_fault_id": candidate,
                 "abstained": candidate is None,
-                "summary": "thread executor reached the configured structured LLM backend",
+                "summary": "persistent queue worker reached the configured structured LLM backend",
                 "claims": [],
                 "limitations": [],
                 "recommended_review_actions": [],
             })
 
-    monkeypatch.setenv("ASTROGRAPH_AUTH_MODE", "local")
-    monkeypatch.delenv("ASTROGRAPH_PLATFORM_JOB_EXECUTOR", raising=False)
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "1")
     backend = FakeStructuredBackend()
     service = PlatformKnowledgeEnrichmentService(llm_backend=backend)
-    store = UploadReportJobStore(tmp_path / "thread-llm-jobs", knowledge_service=service)
+    store = UploadReportJobStore(tmp_path / "queue-llm-jobs", knowledge_service=service)
+    monkeypatch.setattr(store, "ensure_queue_workers", lambda **kwargs: [])
     fixtures = Path(__file__).resolve().parent / "fixtures" / "sat_sim_closure"
     job = store.create("run diagnosis then structured explanation", "normal")
     _put_all(store, job["job_id"], {
@@ -545,17 +552,14 @@ def test_platform_local_thread_reaches_configured_structured_llm_after_core_diag
     })
 
     queued = store.start(job["job_id"])
-    assert queued["execution_backend"] == "THREAD"
-    deadline = time.monotonic() + 15
-    current = queued
-    while current["status"] not in {"SUCCEEDED", "FAILED"} and time.monotonic() < deadline:
-        time.sleep(0.02)
-        current = store.get(job["job_id"])
-
-    assert current["status"] == "SUCCEEDED"
+    assert queued["execution_backend"] == "PROCESS_QUEUE"
+    result = _run_queued_in_process(store, job["job_id"])
+    assert result["status"] == "SUCCEEDED"
+    assert store.get(job["job_id"])["status"] == "SUCCEEDED"
     assert backend.calls == ["PlatformKnowledgeExplanation"]
     diagnostics = store.diagnostics(job["job_id"])
     assert diagnostics["llm_call_status"] == "SUCCEEDED"
+    assert diagnostics["queue"]["status"] == "SUCCEEDED"
     assert "POST_DIAGNOSIS_KNOWLEDGE" in diagnostics["log_tail"]
 
 
@@ -624,13 +628,12 @@ def test_platform_llm_probe_exercises_models_and_chat_runtime(tmp_path: Path, mo
         thread.join(timeout=2)
 
 
-def test_platform_thread_pipeline_survives_regular_file_fsync_ebadf_and_reaches_llm(
+def test_platform_queue_pipeline_survives_regular_file_fsync_ebadf_and_reaches_llm(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     import errno
     import os
     import stat
-    import time
     import astrograph.assurance.artifact_paths as artifact_paths
     from astrograph.integrations.platform_knowledge import PlatformKnowledgeEnrichmentService
 
@@ -657,28 +660,25 @@ def test_platform_thread_pipeline_survives_regular_file_fsync_ebadf_and_reaches_
         real_fsync(fd)
 
     monkeypatch.setattr(artifact_paths.os, "fsync", fsync_with_regular_ebadf)
-    monkeypatch.setenv("ASTROGRAPH_AUTH_MODE", "local")
-    monkeypatch.delenv("ASTROGRAPH_PLATFORM_JOB_EXECUTOR", raising=False)
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "1")
     backend = FakeStructuredBackend()
     service = PlatformKnowledgeEnrichmentService(llm_backend=backend)
-    store = UploadReportJobStore(tmp_path / "thread-ebadf-jobs", knowledge_service=service)
+    store = UploadReportJobStore(tmp_path / "queue-ebadf-jobs", knowledge_service=service)
+    monkeypatch.setattr(store, "ensure_queue_workers", lambda **kwargs: [])
     fixtures = Path(__file__).resolve().parent / "fixtures" / "sat_sim_closure"
     job = store.create("regular file EBADF must not block diagnosis", "normal")
     _put_all(store, job["job_id"], {
         "runtime.json": (fixtures / "runtime_rw_jam.json").read_bytes(),
         "mapping_bundle.json": (fixtures / "mapping_bundle.json").read_bytes(),
     })
-    queued = store.start(job["job_id"])
-    deadline = time.monotonic() + 15
-    current = queued
-    while current["status"] not in {"SUCCEEDED", "FAILED"} and time.monotonic() < deadline:
-        time.sleep(0.02)
-        current = store.get(job["job_id"])
-    assert current["status"] == "SUCCEEDED"
+    store.start(job["job_id"])
+    result = _run_queued_in_process(store, job["job_id"])
+    assert result["status"] == "SUCCEEDED"
     assert backend.calls == ["PlatformKnowledgeExplanation"]
     diagnostics = store.diagnostics(job["job_id"])
     assert "CORE_DIAGNOSIS_PERSIST" in diagnostics["log_tail"]
     assert "POST_DIAGNOSIS_KNOWLEDGE" in diagnostics["log_tail"]
+    assert diagnostics["queue"]["status"] == "SUCCEEDED"
 
 
 def test_preflight_accepts_valid_public_case_before_execution(tmp_path: Path) -> None:

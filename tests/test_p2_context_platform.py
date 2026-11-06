@@ -68,11 +68,13 @@ def test_context_assets_resolve_and_legacy_flow_rejects_selected_context(tmp_pat
 
 def test_context_binding_refuses_active_worker_lock_and_restores_own_lock(tmp_path):
     import pytest
+    from astrograph.agents.mission.run_lock import task_lease
     store=UploadReportJobStore(tmp_path/'jobs',knowledge_service=Service())
     jid=store.create('race boundary')['job_id'];root=store._job_root(jid)
-    (root/'.run.lock').write_text('worker')
-    with pytest.raises(ContextError):
-        store.bind_reviewed_context(jid,prepare(store))
-    assert not (root/'context_snapshot.json').exists()
-    assert (root/'.run.lock').read_text()=='worker'
-    assert not (root/'.launch.lock').exists()
+    # An OS-owned lock distinguishes a live worker from a stale marker file.
+    with task_lease(store.root, f"upload-report-run-{jid}"):
+        with pytest.raises(ContextError):
+            store.bind_reviewed_context(jid,prepare(store))
+        assert not (root/'context_snapshot.json').exists()
+    # The launch lock was released: the operator may freeze context afterward.
+    assert store.bind_reviewed_context(jid,prepare(store))['reviewed_context']

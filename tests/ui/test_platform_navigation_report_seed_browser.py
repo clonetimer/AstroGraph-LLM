@@ -15,7 +15,7 @@ from playwright.sync_api import sync_playwright
 RES=Path(__file__).resolve().parents[2]/'src/astrograph/resources'
 SEED=json.loads((RES/'public_spacecraft_seed.v1.json').read_text('utf-8'))
 HTML=(RES/'platform_ui.html').read_text('utf-8')
-OFFLINE=HTML.replace('<link rel="stylesheet" href="/platform/assets/v0.21.2/platform_ui.css">','').replace('<script type="module" src="/platform/assets/v0.21.2/platform_ui.js"></script>','')
+OFFLINE=HTML.replace('<link rel="stylesheet" href="/platform/assets/v0.21.3/platform_ui.css">','').replace('<script type="module" src="/platform/assets/v0.21.3/platform_ui.js"></script>','')
 CSS=(RES/'platform_ui.css').read_text('utf-8')
 
 def script(name):
