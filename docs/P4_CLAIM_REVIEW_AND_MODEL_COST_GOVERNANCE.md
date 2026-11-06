@@ -18,7 +18,7 @@ The existing expert review workspace is reused:
 - \`GET /v1/platform/material-knowledge/report-reviews/{job_id}\`
 - \`POST /v1/platform/material-knowledge/report-reviews/{job_id}/claims/{claim_id}/decisions\`
 
-The review requires an authenticated expert session and CSRF token. Decisions are append-only and hash-chain verified. \`ACCEPT\`, \`REJECT\`, \`REVISE\`, and \`NEEDS_EVIDENCE\` require a reason and independent evidence reference (except the evidence-gap decision). A revision creates a review event; it does not mutate the immutable model report. The exported feedback is not automatically training-authorized.
+The review requires an authenticated expert session and CSRF token. Decisions are append-only and hash-chain verified. \`ACCEPT\`, \`REJECT\`, \`REVISE\`, and \`NEEDS_EVIDENCE\` require a reason and independent evidence reference (except the evidence-gap decision). A revision creates a review event; it does not mutate the immutable model report. The exported feedback is not automatically training-authorized. Each claim snapshot records the generating model and (when configured) the independent verifier model. The export includes a per-generator-model count of ACCEPT / REJECT / REVISE / NEEDS_EVIDENCE / pending outcomes. These are expert-feedback counts, **not accuracy scores**; comparisons require adequate sample size, reviewer agreement and comparable case mix.
 
 ## 2. P4-D: administrator-managed price book
 
