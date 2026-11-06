@@ -180,10 +180,10 @@ def summarize_usage(requests):
     out['unpriced_requests'] = sum(x.get('status') == 'PRICING_NOT_CONFIGURED' for x in costs)
     out['usage_incomplete_requests'] = sum(x.get('status') == 'USAGE_MISSING' for x in costs)
     currencies = {str(x.get('currency')) for x in costs if x.get('status') == 'CALCULATED' and x.get('currency')}
-    if len(currencies) > 1:
-        out['cost_status'] = 'MIXED_CURRENCY'
-    elif out['possible_unmetered_requests']:
+    if out['possible_unmetered_requests']:
         out['cost_status'] = 'POSSIBLE_UNMETERED_BILLING'
+    elif len(currencies) > 1:
+        out['cost_status'] = 'MIXED_CURRENCY'
     elif out['unpriced_requests']:
         out['cost_status'] = 'PRICING_NOT_CONFIGURED'
     elif out['usage_incomplete_requests']:
