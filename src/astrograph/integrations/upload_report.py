@@ -1239,12 +1239,37 @@ class UploadReportJobStore:
         return "\n".join(lines)
 
     def queue_snapshot(self, job_id: str) -> dict[str, Any] | None:
-        """Return queue state and reconcile worker-loss terminal states into job.json."""
+        """Return queue state and reconcile worker-loss states into durable job metadata."""
         self.queue.recover_expired()
         row = self.queue.get(job_id)
         if row is None:
             return None
         status = str(row.get("status") or "")
+        if status == "INTERRUPTED":
+            output = self._job_root(job_id) / "output"
+            report_json = output / "report.json"
+            report_markdown = output / "report.md"
+            if report_json.is_file() and report_markdown.is_file() and report_markdown.stat().st_size > 0:
+                try:
+                    report = _json_read(report_json)
+                except Exception:
+                    report = {}
+                if (
+                    isinstance(report, dict)
+                    and report.get("job_id") == job_id
+                    and report.get("status") == "SUCCEEDED"
+                ):
+                    self.queue.finish_interrupted_success(job_id)
+                    job = self.get(job_id)
+                    job.update(
+                        status="SUCCEEDED", stage="COMPLETED",
+                        stage_detail="从完整报告工件恢复任务状态；未重新调用模型",
+                        completed_at=report.get("completed_at") or _now(),
+                        report_json="output/report.json", report_markdown="output/report.md",
+                    )
+                    self._save(job)
+                    self._append_event(job_id, "[RECOVERED] complete report artifacts validated; no model replay")
+                    return self.queue.snapshot(job_id)
         if status in {"INTERRUPTED", "CANCELLED"}:
             job = self.get(job_id)
             if job.get("status") in {"QUEUED", "RUNNING"}:
@@ -1267,6 +1292,7 @@ class UploadReportJobStore:
         return self.queue.snapshot(job_id)
 
     def cancel(self, job_id: str, *, reason: str = "USER_REQUEST") -> dict[str, Any]:
+        self.queue_snapshot(job_id)
         row = self.queue.request_cancel(job_id, reason=reason)
         status = str(row.get("cancel_result") or row.get("status") or "")
         job = self.get(job_id)
