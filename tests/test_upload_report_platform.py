@@ -487,7 +487,7 @@ def test_platform_start_uses_explicit_stdio_handles(tmp_path: Path, monkeypatch:
 
     assert result["status"] == "QUEUED"
     assert result["execution_backend"] == "PROCESS_QUEUE"
-    assert result["queue"] if "queue" in result else store.queue.snapshot(job["job_id"])["status"] == "QUEUED"
+    assert store.queue.snapshot(job["job_id"])["status"] == "QUEUED"
     assert "--queue-slot" in captured["args"]
     assert captured["stdin"] is subprocess.DEVNULL
     assert captured["stderr"] is subprocess.STDOUT
