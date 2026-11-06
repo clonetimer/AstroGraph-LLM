@@ -313,7 +313,8 @@ def test_external_claim_registry_flows_into_append_only_expert_review(tmp_path):
     assert reviewed["claim_review_status"] == "IN_PROGRESS"
     assert reviewed["claim_reviewed_count"] == 1
     assert reviewed["claim_history_integrity"] == "VERIFIED"
-    assert reviewed["claims"][0]["review"]["decision"] == "REVISE"
+    reviewed_claim = next(item for item in reviewed["claims"] if item["claim_id"] == claim["claim_id"])
+    assert reviewed_claim["review"]["decision"] == "REVISE"
     assert json.dumps(report, ensure_ascii=False, sort_keys=True) == before
 
     feedback = review_store.export_claim_feedback(job_id=job_id, report=report)
