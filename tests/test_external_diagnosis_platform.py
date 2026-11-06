@@ -314,6 +314,7 @@ def test_external_claim_registry_flows_into_append_only_expert_review(tmp_path):
     assert governance["verification"]["fact_truth_certified"] is False
     claims = report_claims(report)
     assert claims
+    assert all(item["generator_model"] == "primary" for item in claims)
     assert any(item["epistemic_status"] == "REPORTED" for item in claims)
     assert all(item["expert_review_status"] == "PENDING" for item in governance["claims"])
 
