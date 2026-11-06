@@ -55,13 +55,24 @@ def make_docx():
 
 
 def make_pdf(text="Temperature anomaly at page one."):
+    """Create a real, minimal PDF without ReportLab's post-3.8 hash API."""
     import io
-    from reportlab.pdfgen import canvas
-    output = io.BytesIO()
-    pdf = canvas.Canvas(output, pagesize=(300, 300))
+    from pypdf import PdfWriter
+    from pypdf.generic import NameObject, DictionaryObject, DecodedStreamObject
+    writer = PdfWriter()
+    page = writer.add_blank_page(width=300, height=300)
     if text:
-        pdf.drawString(30, 250, text)
-    pdf.save()
+        font = DictionaryObject({NameObject('/Type'): NameObject('/Font'),
+                                 NameObject('/Subtype'): NameObject('/Type1'),
+                                 NameObject('/BaseFont'): NameObject('/Helvetica')})
+        page[NameObject('/Resources')] = DictionaryObject({
+            NameObject('/Font'): DictionaryObject({NameObject('/F1'): font})})
+        stream = DecodedStreamObject()
+        literal = text.replace('\\', '\\\\').replace('(', '\\(').replace(')', '\\)')
+        stream.set_data(('BT /F1 10 Tf 30 250 Td (' + literal + ') Tj ET').encode('ascii'))
+        page[NameObject('/Contents')] = writer._add_object(stream)
+    output = io.BytesIO()
+    writer.write(output)
     return output.getvalue()
 
 
@@ -245,7 +256,7 @@ class PortableTests(unittest.TestCase):
             self.assertTrue(any("pdf#page:1" in source["locator"] for source in sources))
             with self.assertRaises(app.WorkbenchError) as error:
                 self.store.create_job(self.payload(connection(model["base_url"]), [binary_input(make_pdf(""), "scan.pdf")]))
-            self.assertEqual(error.exception.code, "INPUT_PARSE_FAILED")
+            self.assertEqual(error.exception.code, "DOCUMENT_NEEDS_OCR")
 
     def test_encrypted_pdf_is_rejected_before_model_call(self):
         from pypdf import PdfWriter
@@ -275,10 +286,11 @@ class PortableTests(unittest.TestCase):
 
     def test_long_report_resume_reuses_completed_chunks_after_interruption(self):
         from astrograph.integrations.long_report_analysis import run_hierarchical_analysis
-        from astrograph.integrations.external_diagnosis_analysis import _digest
+        from astrograph.integrations.external_diagnosis_analysis import _digest, _source_id
         text = "温度异常与姿态偏差需要分别核对。" * 1100
         source = {"source_id": "source-original", "role": "diagnosis_results", "filename": "长报告.txt",
                   "locator": "line:1-1100", "sha256": hashlib.sha256(text.encode()).hexdigest(), "text": text}
+        source["source_id"] = _source_id("resume-task", source)
         bundle = {"schema_version": "astrograph-external-diagnosis-input.v1", "task_id": "resume-task",
                   "input_sha256": _digest([source]), "sources": [source], "character_count": len(text)}
         class FlakyBackend:
@@ -315,7 +327,11 @@ class PortableTests(unittest.TestCase):
             result = wait_job(self.store, job["job_id"])
             self.assertEqual(result["job"]["status"], "SUCCEEDED")
             explanation = result["report"]["analysis"]["knowledge_enrichment"]["model_explanation"]
-            self.assertEqual(explanation["citation_reference_validation"], "PASS")
+            self.assertEqual(explanation["citation_reference_validation"], "PASS",
+                             f"job={result['job'].get('status')}, reason={result['job'].get('reason_code')}, "
+                             f"generation={result['report']['analysis']['knowledge_enrichment']['generation']}, "
+                             f"requests={[(q.get('status'),q.get('http_status'),q.get('latency_ms')) for run in result['execution']['runs'] for q in run['requests']][-12:]}, "
+                             f"model_calls={model['calls']}")
             self.assertGreater(explanation["processing"]["chunk_count"], 1)
             allowed = {source["source_id"] for source in explanation["sources"]}
             for finding in explanation["findings"]:
@@ -419,13 +435,12 @@ class PortableTests(unittest.TestCase):
                 self.store.conversation(job["job_id"])
 
     def test_interrupted_job_resumes_with_same_model_identity_and_saved_input(self):
-        from astrograph.integrations.external_diagnosis_analysis import _digest
+        from astrograph.integrations.external_diagnosis_analysis import _digest, _source_id
         job_id = "e" * 32
         root = self.store._job_root(job_id); (root / "output").mkdir(parents=True)
         text = "上游诊断报告：温度异常，需要核对。"
         source = {"source_id": "source-resume", "role": "diagnosis_results", "filename": "resume.txt",
                   "locator": "line:1", "sha256": hashlib.sha256(text.encode()).hexdigest(), "text": text}
-        from astrograph.integrations.external_diagnosis_analysis import _source_id
         source["source_id"] = _source_id(job_id, source)
         bundle = {"schema_version": "astrograph-external-diagnosis-input.v1", "task_id": job_id,
                   "input_sha256": _digest([source]), "sources": [source], "character_count": len(text)}
@@ -436,16 +451,24 @@ class PortableTests(unittest.TestCase):
                "execution_fingerprint": app._execution_fingerprint(settings)}
         (root / "job.json").write_text(json.dumps(job), "utf-8")
         (root / "output" / "external_diagnosis_input.json").write_text(json.dumps(bundle), "utf-8")
+        release_model = threading.Event()
         class Backend:
             def generate_structured(self, *, agent_id, output_model, payload):
+                # Keep the fixture model in flight until the RUNNING assertion.
+                # Otherwise a fast worker may legitimately finish before resume returns.
+                if not release_model.wait(5):
+                    raise RuntimeError("test did not release the model fixture")
                 sid = payload["sources"][0]["source_id"]
                 return {"summary": "温度异常需要进一步核查。", "findings": [{"text": "报告记录温度异常。", "citation_ids": [sid]}],
                         "hypotheses": [], "information_gaps": [], "recommended_review_actions": [], "review_actions": [],
                         "common_findings": [], "report_disagreements": [], "complementary_evidence": [],
                         "event_alignment": [], "integrated_conclusion": ""}
         with mock.patch.object(app, "_backend", return_value=Backend()):
-            resumed = self.store.resume_job(job_id, settings)
-            self.assertEqual(resumed["status"], "RUNNING")
+            try:
+                resumed = self.store.resume_job(job_id, settings)
+                self.assertEqual(resumed["status"], "RUNNING")
+            finally:
+                release_model.set()
             result = wait_job(self.store, job_id)
         self.assertEqual(result["job"]["status"], "SUCCEEDED")
         self.assertEqual(result["report"]["input_sha256"], bundle["input_sha256"])
@@ -547,17 +570,25 @@ class PortableTests(unittest.TestCase):
             with model_server() as model:
                 job = store.create_job(self.payload(connection(model["base_url"])))
                 result = wait_job(store, job["job_id"])
-                self.assertEqual(result["report"]["analysis"]["knowledge_enrichment"]["generation"]["status"], "SUCCEEDED")
+                self.assertIsNotNone(result["report"], f"job={result['job']}")
+                self.assertEqual(result["report"]["analysis"]["knowledge_enrichment"]["generation"]["status"], "SUCCEEDED",
+                                 f"job={result['job']}, generation={result['report']['analysis']['knowledge_enrichment']['generation']}")
 
     def test_ipv6_local_model_never_sends_material_to_proxy(self):
         with model_server() as proxy, model_server(ipv6=True) as model:
-            with mock.patch.dict(os.environ, {"HTTP_PROXY": proxy["base_url"].removesuffix("/v1"),
-                                              "HTTPS_PROXY": proxy["base_url"].removesuffix("/v1"),
+            with mock.patch.dict(os.environ, {"HTTP_PROXY": proxy["base_url"].rsplit("/v1", 1)[0],
+                                              "HTTPS_PROXY": proxy["base_url"].rsplit("/v1", 1)[0],
                                               "NO_PROXY": "", "no_proxy": ""}):
                 store = app.Workbench(Path(self.temp.name))
                 job = store.create_job(self.payload(connection(model["base_url"])))
                 result = wait_job(store, job["job_id"])
-                self.assertEqual(result["report"]["analysis"]["knowledge_enrichment"]["generation"]["status"], "SUCCEEDED")
+                self.assertIsNotNone(result["report"],
+                    f"Windows IPv6: status={result['job'].get('status')} reason={result['job'].get('reason_code')} "
+                    f"local_calls={model['calls']} proxy_calls={proxy['calls']}")
+                self.assertEqual(result["report"]["analysis"]["knowledge_enrichment"]["generation"]["status"], "SUCCEEDED",
+                    f"Windows IPv6: status={result['job'].get('status')} "
+                    f"reason={result['report']['analysis']['knowledge_enrichment']['generation'].get('reason_code')} "
+                    f"local_calls={model['calls']} proxy_calls={proxy['calls']}")
                 self.assertEqual(proxy["calls"], 0)
                 self.assertEqual(model["calls"], 1)
 

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -232,9 +233,14 @@ class SectionFirstDocumentIngestor:
                 if asset_root is not None and not re.match(r"^[a-z][a-z0-9+.-]*:", uri, re.I):
                     root = Path(asset_root).resolve()
                     candidate = (root / uri).resolve()
-                    if candidate.is_relative_to(root) and candidate.is_file():
+                    try:
+                        candidate.relative_to(root)
+                        inside_root = True
+                    except ValueError:
+                        inside_root = False
+                    if inside_root and candidate.is_file():
                         path = candidate
-                    elif not candidate.is_relative_to(root):
+                    elif not inside_root:
                         warnings.append(f"IMAGE_ASSET_OUTSIDE_ROOT_BLOCKED:{index}")
                 if path is not None:
                     asset_hash = self._file_sha256(path)
@@ -570,7 +576,7 @@ class SectionFirstDocumentIngestor:
                         representation_method="pypdf-page-text", representation_reviewed=not looks_tabular,
                     ))
             if not elements:
-                warnings.append("PDF_NO_TEXT_OCR_REQUIRED")
+                raise ValueError("PDF contains no extractable text; OCR output must be supplied before analysis")
             audit = PdfParseAudit(
                 source_sha256=self._file_sha256(source_path), parser_id="pypdf-portable",
                 page_count=max(1, len(reader.pages)), text_page_count=text_pages,
@@ -600,7 +606,7 @@ class SectionFirstDocumentIngestor:
             raise ValueError("PDF size limit exceeded")
         pdftotext = shutil.which("pdftotext")
         pdfinfo = shutil.which("pdfinfo")
-        if pdftotext is None or pdfinfo is None:
+        if os.environ.get("ASTROGRAPH_PDF_ENGINE") == "pypdf" or pdftotext is None or pdfinfo is None:
             return self._parse_pdf_with_pypdf(source_path, maximum_bytes=maximum_bytes)
         try:
             info = subprocess.run(

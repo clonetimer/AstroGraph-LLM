@@ -164,8 +164,9 @@ def test_backend_failure_does_not_publish_exceptions_or_raw_receipts(tmp_path):
 
 
 def test_oversized_input_stays_importable_and_never_calls_provider(tmp_path):
-    bundle = load(tmp_path, "q" * 60_001)
-    assert len(bundle["sources"][0]["text"]) == 60_001
+    bundle = load(tmp_path, "q" * api().MAX_SOURCE_CHARACTERS)
+    assert len(bundle["sources"][0]["text"]) == api().MAX_SOURCE_CHARACTERS
+    assert bundle["character_count"] > api().MAX_SOURCE_CHARACTERS
     backend = Backend()
     result = run(tmp_path, bundle, backend)
     assert backend.calls == []

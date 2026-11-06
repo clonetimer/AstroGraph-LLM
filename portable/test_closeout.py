@@ -38,7 +38,7 @@ def backup(files):
 
 
 class ImmediateThread:
-    def __init__(self, *, target, args, daemon=True): self.target, self.args = target, args
+    def __init__(self, *, target, args=(), daemon=True, name=None): self.target, self.args = target, args
     def start(self): self.target(*self.args)
 
 
@@ -160,7 +160,9 @@ class DeliveryTests(unittest.TestCase):
             def generate_structured(self, *, agent_id, output_model, payload):
                 calls.append(payload['task_id'])
                 return result(payload['sources'][0]['source_id'], '分块解释。'*1100)
-        run=run_hierarchical_analysis(task_id=bundle['task_id'],task='分析',input_bundle=bundle,llm_backend=Backend(),output_root=self.root/'long')
+        # Pin a deliberately smaller budget; production now permits 120k summaries.
+        with mock.patch('astrograph.integrations.long_report_analysis.MAX_SYNTHESIS_CHARACTERS', 60_000):
+            run=run_hierarchical_analysis(task_id=bundle['task_id'],task='分析',input_bundle=bundle,llm_backend=Backend(),output_root=self.root/'long')
         self.assertEqual(run['generation']['reason_code'], 'SYNTHESIS_CONTEXT_TOO_LARGE')
         self.assertNotIn(bundle['task_id'], calls)
         self.assertTrue((self.root/'long/checkpoint.json').is_file())

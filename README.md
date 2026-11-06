@@ -1,3 +1,5 @@
+> 外部诊断分析源码增量（2026-11-04）：当前功能分支新增执行记录、逐次请求用量、材料清单和报告版本，详见 [P0/P1 使用与边界](docs/PORTABLE_OBSERVABILITY.md)。这是源码开发版，不替换已交付的 Win7/Win10 便携 ZIP。
+
 > 外部诊断文本分析：新建分析只需一份外部诊断结果，日志与参考资料可选。配置模型后，报告显示实际生成的摘要、原因假设、引用依据、信息缺口和核查建议；本入口不计算诊断结果。使用说明：[`EXTERNAL_DIAGNOSIS_ANALYSIS.md`](EXTERNAL_DIAGNOSIS_ANALYSIS.md)。
 
 > 兼容材料审查入口 R11-A：已审核材料对照、R7 因果路径、R9 工况与 R10 时序检查成为任务绑定的只读工具；可选择性开启模型工具选择（默认关闭）。该旧模式公开报告保留确定性审查结论和来源摘录：[`FOUNDATION_R11_LLM_MATERIAL_TOOLS.md`](FOUNDATION_R11_LLM_MATERIAL_TOOLS.md)。

@@ -1,20 +1,24 @@
 """Bounded, source-preserving hierarchical analysis for long external reports."""
 from __future__ import annotations
 from dataclasses import dataclass
+from copy import deepcopy
+from astrograph.integrations.reviewed_context import validate_snapshot, CONTEXT_POLICY
+from astrograph.integrations.stage_execution import for_stage, check_cancelled, AnalysisCancelled
+from astrograph.integrations.execution_observability import event
 import hashlib
 import json
 from pathlib import Path
 from typing import Any, Callable
 from astrograph.integrations.external_diagnosis_analysis import (
     ANALYSIS_SCHEMA, SYSTEM_POLICY, ExternalDiagnosisAnalysis, _canonical, _digest,
-    _source_id, run_external_diagnosis_analysis,
+    _source_id, _validate_binding, run_external_diagnosis_analysis,
 )
 
 MAX_PORTABLE_SOURCE_CHARACTERS = 180_000
 MAX_ANALYSIS_CHUNKS = 24
+MAX_SYNTHESIS_CHARACTERS = 120_000
 DEFAULT_CHUNK_CHARACTERS = 12_000
 DEFAULT_OVERLAP_CHARACTERS = 600
-MAX_SYNTHESIS_CHARACTERS = 60_000
 
 @dataclass(frozen=True)
 class AnalysisChunk:
@@ -161,7 +165,14 @@ def _failure(input_bundle: dict, code: str, status: str = "FAILED", sources: lis
 def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str, Any],
                               llm_backend: Any, output_root: Path,
                               progress: Callable[[dict[str, Any]], None] | None = None,
-                              execution_fingerprint: str = "") -> dict[str, Any]:
+                              execution_fingerprint: str = "", context_snapshot=None) -> dict[str, Any]:
+    try:
+        input_bundle = _validate_binding(task_id, input_bundle)
+    except Exception:
+        return _failure(input_bundle, "INVALID_INPUT_BINDING")
+    if context_snapshot is not None:
+        context_snapshot = validate_snapshot(context_snapshot)
+    check_cancelled()
     try:
         chunks = plan_analysis_chunks(input_bundle["sources"])
     except ValueError as exc:
@@ -184,12 +195,13 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
     checkpoint = {"schema_version": "astrograph-long-report-checkpoint.v1",
                   "input_sha256": input_bundle["input_sha256"], "task_sha256": task_hash,
                   "chunk_fingerprint": chunk_fingerprint, "execution_fingerprint": execution_fingerprint,
-                  "chunk_count": len(chunks), "completed": []}
+                  "chunk_count": len(chunks), "completed": [],
+                  "context_sha256": context_snapshot["sha256"] if context_snapshot else None}
     try:
         saved = json.loads(checkpoint_path.read_text(encoding="utf-8"))
         if all(saved.get(key) == checkpoint[key] for key in
                ("schema_version", "input_sha256", "task_sha256", "chunk_fingerprint",
-                "execution_fingerprint", "chunk_count")) and isinstance(saved.get("completed"), list):
+                "execution_fingerprint", "chunk_count", "context_sha256")) and isinstance(saved.get("completed"), list):
             valid = []
             for item in saved["completed"]:
                 sequence = item.get("sequence") if isinstance(item, dict) else None
@@ -212,8 +224,10 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
 
     summaries_by_sequence = {item["sequence"]: item["summary"] for item in checkpoint["completed"]}
     for index, chunk in enumerate(chunks, start=1):
+        check_cancelled()
         record = chunk_records[index - 1]
         if index in summaries_by_sequence:
+            event("CHUNK_RESTORED", index=index, total=len(chunks))
             if progress:
                 progress({"stage": "CHUNK_RESTORED", "completed": len(summaries_by_sequence), "total": len(chunks)})
             continue
@@ -222,11 +236,12 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
         subrecord["source_id"] = _source_id(subtask, subrecord)
         subbundle = {"schema_version": input_bundle["schema_version"], "task_id": subtask,
                      "input_sha256": _digest([subrecord]), "sources": [subrecord], "character_count": len(chunk.text)}
+        event("CHUNK_ANALYSIS", index=index, total=len(chunks))
         result = run_external_diagnosis_analysis(
             task_id=subtask,
             task=f"{task}\n仅分析第 {index}/{len(chunks)} 个连续原文片段，保留局部不确定性，不推断片段之外的信息。",
-            input_bundle=subbundle, llm_backend=llm_backend,
-            output_root=Path(output_root) / "chunks" / f"{index:03d}")
+            input_bundle=subbundle, llm_backend=for_stage(llm_backend, "chunk"),
+            output_root=Path(output_root) / "chunks" / f"{index:03d}", context_snapshot=context_snapshot)
         if result["generation"]["status"] != "SUCCEEDED":
             failed = _failure(input_bundle, "CHUNK_ANALYSIS_FAILED", sources=[*input_bundle["sources"], *chunk_records])
             failed["generation"]["failed_chunk"] = index
@@ -249,6 +264,7 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
 
     # Synthesis sees validated per-chunk analysis summaries, while citations point
     # to exact character spans in the immutable original files.
+    event("SYNTHESIS", total=len(chunks))
     synthesis_sources = []
     for item in chunk_summaries:
         source = next(source for source in chunk_records if source["source_id"] == item["source_id"])
@@ -264,8 +280,12 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
         "sources": synthesis_sources,
         "system_policy": SYSTEM_POLICY,
     }
+    if context_snapshot is not None:
+        payload["reviewed_context"] = deepcopy(context_snapshot)
+        payload["system_policy"] += " " + CONTEXT_POLICY
+    check_cancelled()
     try:
-        raw = llm_backend.generate_structured(agent_id="external-diagnosis-analysis",
+        raw = for_stage(llm_backend, "synthesis").generate_structured(agent_id="external-diagnosis-analysis",
                                               output_model=ExternalDiagnosisAnalysis, payload=payload)
         if hasattr(raw, "model_dump"):
             raw = raw.model_dump(mode="python")
@@ -289,6 +309,8 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
             item["opposing_citation_ids"] = list(dict.fromkeys(
                 source_id for chunk_id in item["opposing_citation_ids"] for source_id in chunk_to_original[chunk_id]))
         analysis = ExternalDiagnosisAnalysis.model_validate(data)
+    except AnalysisCancelled:
+        raise
     except Exception:
         return _failure(input_bundle, "SYNTHESIS_FAILED", sources=[*input_bundle["sources"], *chunk_records])
 
@@ -308,6 +330,9 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
                                       "start_offset": chunk.start_offset, "end_offset": chunk.end_offset}
                                      for record, chunk in zip(chunk_records, chunks)]},
     }
+    if context_snapshot is not None:
+        explanation["reviewed_context"] = deepcopy(context_snapshot)
+    check_cancelled()
     result = {"generation": {"status": "SUCCEEDED", "citation_reference_validation": "PASS"},
               "model_explanation": explanation}
     Path(output_root).mkdir(parents=True, exist_ok=True)

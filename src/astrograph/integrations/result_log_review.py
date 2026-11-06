@@ -13,7 +13,7 @@ import json
 import os
 import re
 from dataclasses import dataclass
-from importlib.resources import files
+from importlib import resources
 from pathlib import Path
 from typing import Any, Literal
 
@@ -180,7 +180,7 @@ def validate_review_inputs(expanded: Path, manifest_path: Path) -> dict[str, Any
 
 
 def _rules() -> list[dict[str, Any]]:
-    data = json.loads(files("astrograph.resources").joinpath("result_log_fault_rules.json").read_text(encoding="utf-8"))
+    data = json.loads(resources.read_text("astrograph.resources", "result_log_fault_rules.json", encoding="utf-8"))
     if data.get("schema_version") != "astrograph-result-log-rule-catalog.v1":
         raise ValueError("invalid review rule catalog")
     return data["rules"]

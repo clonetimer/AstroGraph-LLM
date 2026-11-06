@@ -449,3 +449,10 @@ body::before,body[data-theme=light]::before{background:none}
 .model-result>section:not(.model-summary){margin:0 23px;padding:16px 0}
 .model-result>section li{line-height:1.7;margin-bottom:12px;overflow-wrap:anywhere}
 .external-imported-material{margin-top:16px;overflow-wrap:anywhere}
+
+/* P3: optional task-bound follow-up model selection */
+.analysis-followup-control{display:grid;gap:5px;margin:8px 0 10px;padding:8px 12px;background:var(--panel-bg,rgba(108,136,173,.08));border:1px solid rgba(108,136,173,.22);border-radius:10px}
+.analysis-followup-control[hidden]{display:none}
+.analysis-followup-control label{font-size:13px;font-weight:600}
+.analysis-followup-control select{max-width:100%;min-height:36px;padding:5px 9px;border-radius:7px;border:1px solid rgba(108,136,173,.38);background:var(--input-bg,#fff);color:var(--text-main,#162438)}
+.analysis-followup-control small{font-size:12px;opacity:.7}

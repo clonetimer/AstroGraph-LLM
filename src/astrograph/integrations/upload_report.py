@@ -124,6 +124,7 @@ class PlatformJobCreateRequest(BaseModel):
     task: str = Field(default="分析诊断结果、日志和参考文献，给出有依据的故障原因和处置建议", max_length=4000)
     work_mode: WorkMode = "normal"
     analysis_engine_id: str = Field(default="auto", min_length=1, max_length=180)
+    phase_engine_ids: dict[str, str] = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def validate_analysis_engine(self) -> "PlatformJobCreateRequest":
@@ -131,6 +132,13 @@ class PlatformJobCreateRequest(BaseModel):
         if engine not in {"auto", "rules"} and not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", engine):
             raise ValueError("analysis_engine_id must be auto, rules, or llm:<profile_id>")
         self.analysis_engine_id = engine
+        if set(self.phase_engine_ids) - {"chunk", "synthesis", "follow_up"} or any(
+            not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", value)
+            for value in self.phase_engine_ids.values()
+        ):
+            raise ValueError("only approved chunk/synthesis/follow_up LLM profile IDs are supported")
+        if engine == "rules" and self.phase_engine_ids:
+            raise ValueError("follow-up LLM cannot be attached to rules engine")
         return self
 
 
@@ -173,6 +181,48 @@ class UploadReportJobStore:
             raise KeyError("invalid job id")
         return root
 
+    @property
+    def contexts(self):
+        from .reviewed_context import ContextStore
+        return ContextStore(self.root / "reviewed_context")
+
+    def bind_reviewed_context(self, job_id: str, selection: dict) -> dict:
+        """Freeze a reviewed selection before running; old jobs remain unbound."""
+        from .reviewed_context import ContextError, write_task_context
+        root = self._job_root(job_id)
+        owned_locks = []
+        try:
+            # Share both existing launch/run gates; never unlink another worker's lock.
+            for name in (".launch.lock", ".run.lock"):
+                lock = root / name
+                try:
+                    with lock.open("x"):
+                        pass
+                except FileExistsError as exc:
+                    raise ContextError("TASK_CONTEXT_ALREADY_FROZEN") from exc
+                owned_locks.append(lock)
+            job = self.get(job_id)
+            if job["status"] not in {"CREATED", "UPLOADING"}:
+                raise ContextError("TASK_CONTEXT_ALREADY_FROZEN")
+            if not isinstance(selection, dict) or set(selection) != {"workspace_id", "entries"}:
+                raise ContextError("INVALID_CONTEXT_SELECTION")
+            snapshot = self.contexts.snapshot(selection["workspace_id"], selection["entries"])
+            write_task_context(self._job_root(job_id), snapshot)
+            job["context_sha256"] = snapshot["sha256"]
+            job["preflight"] = None
+            self._save(job)
+            return {"reviewed_context": snapshot}
+        finally:
+            for lock in reversed(owned_locks):
+                lock.unlink(missing_ok=True)
+
+    def _reviewed_context(self, job_id: str):
+        from .reviewed_context import ContextError, load_task_context
+        snapshot = load_task_context(self._job_root(job_id))
+        if (snapshot or {}).get("sha256") != self.get(job_id).get("context_sha256"):
+            raise ContextError("CONTEXT_BINDING_MISMATCH")
+        return snapshot
+
     def _metadata_path(self, job_id: str) -> Path:
         return self._job_root(job_id) / "job.json"
 
@@ -181,6 +231,7 @@ class UploadReportJobStore:
         task: str,
         work_mode: WorkMode = "normal",
         analysis_engine_id: str = "auto",
+        phase_engine_ids: dict[str, str] | None = None,
     ) -> dict[str, Any]:
         normalized = (task or "").strip() or "分析诊断结果、日志和参考文献，给出有依据的故障原因和处置建议"
         engine_id = (analysis_engine_id or "auto").strip()
@@ -195,6 +246,17 @@ class UploadReportJobStore:
             config = dict(profile.get("config") or {})
             if not config.get("enabled", True) or not config.get("base_url") or not config.get("model"):
                 raise ValueError("selected LLM profile is not enabled")
+        phase_engine_ids = dict(phase_engine_ids or {})
+        if set(phase_engine_ids) - {"chunk", "synthesis", "follow_up"} or (engine_id == "rules" and phase_engine_ids):
+            raise ValueError("invalid phase engine selection")
+        if phase_engine_ids and engine_id == "auto" and self.knowledge_service.llm_backend is None:
+            raise ValueError("analysis LLM must be configured before selecting a follow-up model")
+        phase_pins = {}
+        for stage, selected_engine in phase_engine_ids.items():
+            if not isinstance(selected_engine, str) or not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", selected_engine):
+                raise ValueError("phase model must reference an approved LLM profile")
+            phase_pins[stage] = self._phase_profile_fingerprint(selected_engine)
+        primary_pin = self._primary_profile_fingerprint(engine_id) if phase_engine_ids else None
         if len(normalized) > 4000:
             raise ValueError("task exceeds 4000 characters")
         while True:
@@ -214,6 +276,9 @@ class UploadReportJobStore:
             "task": normalized,
             "work_mode": work_mode,
             "analysis_engine_id": engine_id,
+            "phase_engine_ids": phase_engine_ids,
+            "phase_profile_fingerprints": phase_pins,
+            "primary_profile_fingerprint": primary_pin,
             "analysis_engine": self._analysis_engine_snapshot(engine_id),
             "created_at": _now(),
             "updated_at": _now(),
@@ -349,10 +414,71 @@ class UploadReportJobStore:
         runtime = self._llm_runtime_snapshot()
         return {"engine_id": "auto", "kind": "llm" if runtime["configured"] else "rules", "name": runtime.get("model") or "规则引擎", **runtime}
 
+    def _primary_profile_fingerprint(self, engine_id: str) -> str:
+        if engine_id.startswith("llm:"):
+            return self._phase_profile_fingerprint(engine_id)
+        if engine_id != "auto" or self.knowledge_service.llm_backend is None:
+            raise ValueError("primary LLM is not configured")
+        config = self.knowledge_service.config
+        identity = {
+            "model_id": getattr(self.knowledge_service.llm_backend, "model_id", ""),
+            "config": {key: getattr(config, key, None) for key in (
+                "llm_base_url", "llm_model", "llm_provider",
+                "llm_timeout_s", "llm_response_format_strategy", "llm_max_tokens")},
+        }
+        return hashlib.sha256(json.dumps(identity, sort_keys=True, default=str).encode("utf-8")).hexdigest()
+
+    def _phase_profile_fingerprint(self, engine_id: str) -> str:
+        """Hash non-secret execution identity to reject silent stage-model drift."""
+        if not isinstance(engine_id, str) or not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", engine_id):
+            raise ValueError("invalid stage model profile")
+        profile = self.state_repository.get_service_profile(engine_id.split(":", 1)[1])
+        if not profile or profile.get("service_kind") != "llm":
+            raise ValueError("stage model profile missing")
+        config = dict(profile.get("config") or {})
+        if (profile.get("validation_status") != "PASS" or not config.get("enabled", True)
+                or not config.get("base_url") or not config.get("model")):
+            raise ValueError("stage model profile unavailable or not verified")
+        identity = {
+            "profile_id": profile["profile_id"],
+            "secret_ref": profile.get("secret_ref"),
+            "config": {key: config.get(key) for key in (
+                "base_url", "model", "provider", "enabled", "timeout_s",
+                "structured_max_tokens", "response_format_strategy")},
+        }
+        return hashlib.sha256(json.dumps(identity, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
     def _knowledge_service_for_job(self, job: dict[str, Any]) -> PlatformKnowledgeEnrichmentService:
         engine_id = str(job.get("analysis_engine_id") or "auto")
         if engine_id == "auto":
-            return self.knowledge_service
+            service = self.knowledge_service
+        else:
+            service = self._knowledge_service_for_engine(engine_id)
+        phases = job.get("phase_engine_ids") or {}
+        if not phases:
+            return service
+        if not isinstance(phases, dict) or not phases or set(phases) - {"chunk", "synthesis", "follow_up"} or service.llm_backend is None:
+            raise ValueError("invalid frozen stage model selection")
+        if job.get("primary_profile_fingerprint") != self._primary_profile_fingerprint(engine_id):
+            raise ValueError("primary model profile changed since job creation")
+        pins = job.get("phase_profile_fingerprints") or {}
+        if not isinstance(pins, dict) or set(pins) != set(phases):
+            raise ValueError("stage model profile binding is incomplete")
+        from copy import copy
+        from astrograph.integrations.stage_execution import StageRouter
+        backends = {"analysis": service.llm_backend}
+        for stage, stage_engine in phases.items():
+            if pins.get(stage) != self._phase_profile_fingerprint(stage_engine):
+                raise ValueError("stage model profile changed since job creation")
+            alternate = self._knowledge_service_for_engine(stage_engine)
+            if alternate.llm_backend is None:
+                raise ValueError("stage model is not configured")
+            backends[stage] = alternate.llm_backend
+        configured = copy(service)
+        configured.llm_backend = StageRouter(backends)
+        return configured
+
+    def _knowledge_service_for_engine(self, engine_id: str) -> PlatformKnowledgeEnrichmentService:
         base = PlatformKnowledgeConfig.from_environment()
         if engine_id == "rules":
             return PlatformKnowledgeEnrichmentService(base.model_copy(update={
@@ -722,6 +848,35 @@ class UploadReportJobStore:
                     "message": str(exc),
                     "error_type": type(exc).__name__,
                 })
+
+        try:
+            context = self._reviewed_context(job_id)
+            if context and (artifact_kind != "RESULT_LOG_REVIEW" or
+                            validation.get("details", {}).get("analysis_mode") != "EXTERNAL_DIAGNOSIS_ANALYSIS"):
+                blockers.append({"code": "CONTEXT_REQUIRES_EXTERNAL_ANALYSIS",
+                                 "message": "已选上下文仅适用于外部诊断文本分析入口，请新建外部分析任务。"})
+        except (ValueError, OSError):
+            blockers.append({"code": "INVALID_CONTEXT_BINDING", "message": "任务上下文快照不完整或已改变。"})
+
+        phases = job.get("phase_engine_ids") or {}
+        if phases:
+            if (artifact_kind != "RESULT_LOG_REVIEW"
+                    or validation.get("details", {}).get("analysis_mode") != "EXTERNAL_DIAGNOSIS_ANALYSIS"):
+                blockers.append({"code": "PHASE_MODELS_REQUIRE_EXTERNAL_ANALYSIS",
+                                 "message": "分阶段大模型配置仅适用于外部诊断文本分析。"})
+            else:
+                try:
+                    fingerprints = job.get("phase_profile_fingerprints") or {}
+                    if (not isinstance(phases, dict) or not phases
+                            or set(phases) - {"chunk", "synthesis", "follow_up"}
+                            or job.get("primary_profile_fingerprint") != self._primary_profile_fingerprint(str(job.get("analysis_engine_id") or "auto"))
+                            or not isinstance(fingerprints, dict) or set(fingerprints) != set(phases)
+                            or any(fingerprints.get(stage) != self._phase_profile_fingerprint(engine)
+                                   for stage, engine in phases.items())):
+                        raise ValueError("stage model binding changed")
+                except (TypeError, ValueError, KeyError):
+                    blockers.append({"code": "PHASE_MODEL_PROFILE_CHANGED",
+                                     "message": "追问模型配置已修改或不可用，请新建任务选择最新配置。"})
 
         can_start = not blockers and artifact_kind is not None
         status = "BLOCKED" if blockers else ("WARNING" if warnings else "PASS")
@@ -1195,57 +1350,91 @@ class UploadReportJobStore:
         bundle = load_external_diagnosis_input(
             task_id=job_id, expanded=expanded, manifest_path=manifest_path,
         )
-        review = imported_diagnosis_review(bundle)
-        _json_write(output / "external_diagnosis_input.json", bundle)
-        _json_write(output / "result_log_review.json", review)
-        job = self.get(job_id)
-        self._set_stage(job_id, "POST_DIAGNOSIS_KNOWLEDGE", "分析外部诊断文本，生成摘要、假设与核查建议",
-                        llm_call_status="PENDING" if knowledge_service.llm_backend is not None else "NOT_CONFIGURED")
-        knowledge = run_external_diagnosis_analysis(
-            task_id=job_id, task=job["task"], input_bundle=bundle,
-            llm_backend=knowledge_service.llm_backend, output_root=output / "knowledge",
-        )
-        llm_status = knowledge["generation"]["status"]
-        knowledge.update(status=llm_status, diagnostic_candidate_can_be_overridden=False,
-                         active_kg_modified=False)
-        self._set_stage(job_id, "REPORTING", "保存原始材料、模型分析与引用定位", llm_call_status=llm_status)
-        report = {
-            "schema_version": PLATFORM_REPORT_SCHEMA_VERSION,
-            "job_id": job_id, "status": "SUCCEEDED", "task": job["task"],
-            "work_mode": job.get("work_mode", "normal"),
-            "analysis_engine": job.get("analysis_engine") or job.get("llm_runtime"),
-            "artifact_kind": "RESULT_LOG_REVIEW", "completed_at": _now(),
-            "input_files": job["files"],
-            "agent_execution": {"status": "NOT_EXECUTED_EXTERNAL_TEXT_ANALYSIS",
-                                "executed_actions": [], "diagnostic_candidate_modified": False},
-            "analysis": {
-                "artifact_kind": "RESULT_LOG_REVIEW", "analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS",
-                "result_log_review": review, "knowledge_enrichment": knowledge,
-                "effect_guard": {"upstream_result_is_ground_truth": False,
-                                 "diagnosis_calculation_executed": False,
-                                 "raw_telemetry_detection_executed": False,
-                                 "rule_evaluation_executed": False, "graph_reasoning_executed": False,
-                                 "automatic_control_authorized": False, "active_kg_modified": False},
-            },
-            "formal_diagnosis_publishable": False,
-            "claim_boundary": "External report interpretation and model hypotheses; no upstream diagnosis computation.",
-            "visualization": {"status": "NOT_APPLICABLE_DOCUMENT_ONLY", "channel_count": 0},
-        }
-        _json_write(output / "report.json", report)
-        (output / "report.md").write_text(render_external_diagnosis_markdown(job, review, knowledge), encoding="utf-8")
-        _json_write(output / "visualization.json", {
-            "schema_version": "astrograph-platform-visualization.v1", "status": "NOT_APPLICABLE_DOCUMENT_ONLY",
-            "channels": [], "truth_or_labels_used": False,
-        })
-        job.update({"status": "SUCCEEDED", "stage": "COMPLETED",
-                    "stage_detail": "外部报告已保存；模型分析完成" if llm_status == "SUCCEEDED"
-                    else "外部报告已保存；模型分析状态：" + llm_status,
-                    "llm_call_status": llm_status, "artifact_kind": "RESULT_LOG_REVIEW",
-                    "analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS", "completed_at": report["completed_at"],
-                    "report_json": "output/report.json", "report_markdown": "output/report.md"})
-        self._save(job)
-        self._append_event(job_id, "[COMPLETED] 外部诊断报告已保存；模型状态：" + llm_status)
-        return report
+        from astrograph.integrations.execution_observability import RunJournal, run_scope
+        context_snapshot = self._reviewed_context(job_id)
+        backend = knowledge_service.llm_backend
+        run = RunJournal(self._job_root(job_id), task_id=job_id, kind="analysis", bundle=bundle,
+                         model=getattr(backend, "model_id", ""), mode="configured")
+        with run_scope(run):
+            review = imported_diagnosis_review(bundle)
+            _json_write(output / "external_diagnosis_input.json", bundle)
+            _json_write(output / "result_log_review.json", review)
+            job = self.get(job_id)
+            self._set_stage(job_id, "POST_DIAGNOSIS_KNOWLEDGE", "分析外部诊断文本，生成摘要、假设与核查建议",
+                            llm_call_status="PENDING" if knowledge_service.llm_backend is not None else "NOT_CONFIGURED")
+            if bundle["character_count"] > 60_000 and knowledge_service.llm_backend is not None:
+                from astrograph.integrations.long_report_analysis import run_hierarchical_analysis
+                # The checkpoint identity includes the pinned non-secret model
+                # profiles, preventing reuse after a model/profile change.
+                fingerprint = hashlib.sha256(json.dumps({
+                    "analysis_engine_id": job.get("analysis_engine_id"),
+                    "primary_profile_fingerprint": job.get("primary_profile_fingerprint"),
+                    "phase_engine_ids": job.get("phase_engine_ids") or {},
+                    "phase_profile_fingerprints": job.get("phase_profile_fingerprints") or {},
+                }, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+                def report_progress(value: dict[str, Any]) -> None:
+                    stage = str(value.get("stage") or "CHUNK_ANALYSIS")
+                    completed, total = value.get("completed", 0), value.get("total", 0)
+                    self._set_stage(job_id, stage, f"长报告处理：{stage} {completed}/{total}",
+                                    llm_call_status="PENDING")
+                knowledge = run_hierarchical_analysis(
+                    task_id=job_id, task=job["task"], input_bundle=bundle,
+                    llm_backend=knowledge_service.llm_backend, output_root=output / "knowledge",
+                    context_snapshot=context_snapshot,
+                    execution_fingerprint=fingerprint, progress=report_progress,
+                )
+            else:
+                knowledge = run_external_diagnosis_analysis(
+                    task_id=job_id, task=job["task"], input_bundle=bundle,
+                    llm_backend=knowledge_service.llm_backend, output_root=output / "knowledge",
+                    context_snapshot=context_snapshot,
+                )
+            llm_status = knowledge["generation"]["status"]
+            knowledge.update(status=llm_status, diagnostic_candidate_can_be_overridden=False,
+                             active_kg_modified=False)
+            self._set_stage(job_id, "REPORTING", "保存原始材料、模型分析与引用定位", llm_call_status=llm_status)
+            report = {
+                "schema_version": PLATFORM_REPORT_SCHEMA_VERSION,
+                "job_id": job_id, "status": "SUCCEEDED", "task": job["task"],
+                "reviewed_context": context_snapshot,
+                "work_mode": job.get("work_mode", "normal"),
+                "analysis_engine": job.get("analysis_engine") or job.get("llm_runtime"),
+                "artifact_kind": "RESULT_LOG_REVIEW", "completed_at": _now(),
+                "input_files": job["files"],
+                "agent_execution": {"status": "NOT_EXECUTED_EXTERNAL_TEXT_ANALYSIS",
+                                    "executed_actions": [], "diagnostic_candidate_modified": False},
+                "analysis": {
+                    "artifact_kind": "RESULT_LOG_REVIEW", "analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS",
+                    "result_log_review": review, "knowledge_enrichment": knowledge,
+                    "effect_guard": {"upstream_result_is_ground_truth": False,
+                                     "diagnosis_calculation_executed": False,
+                                     "raw_telemetry_detection_executed": False,
+                                     "rule_evaluation_executed": False, "graph_reasoning_executed": False,
+                                     "automatic_control_authorized": False, "active_kg_modified": False},
+                },
+                "formal_diagnosis_publishable": False,
+                "claim_boundary": "External report interpretation and model hypotheses; no upstream diagnosis computation.",
+                "visualization": {"status": "NOT_APPLICABLE_DOCUMENT_ONLY", "channel_count": 0},
+            }
+            run.event("REPORT_WRITE")
+            _json_write(output / "report.json", report)
+            (output / "report.md").write_text(render_external_diagnosis_markdown(job, review, knowledge), encoding="utf-8")
+            _json_write(output / "visualization.json", {
+                "schema_version": "astrograph-platform-visualization.v1", "status": "NOT_APPLICABLE_DOCUMENT_ONLY",
+                "channels": [], "truth_or_labels_used": False,
+            })
+            job.update({"status": "SUCCEEDED", "stage": "COMPLETED",
+                        "stage_detail": "外部报告已保存；模型分析完成" if llm_status == "SUCCEEDED"
+                        else "外部报告已保存；模型分析状态：" + llm_status,
+                        "llm_call_status": llm_status, "artifact_kind": "RESULT_LOG_REVIEW",
+                        "analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS", "completed_at": report["completed_at"],
+                        "report_json": "output/report.json", "report_markdown": "output/report.md"})
+            self._save(job)
+            self._append_event(job_id, "[COMPLETED] 外部诊断报告已保存；模型状态：" + llm_status)
+            run.artifact("report.json", (output / "report.json").read_bytes())
+            run.artifact("report.md", (output / "report.md").read_bytes())
+            run.finish(llm_status, knowledge["generation"].get("reason_code"))
+            return report
 
     def _run_result_log_review(
         self, job_id: str, *, expanded: Path, manifest_path: Path,
@@ -1406,7 +1595,6 @@ class UploadReportJobStore:
 
     def _run_unlocked(self, job_id: str) -> dict[str, Any]:
         job = self.get(job_id)
-        knowledge_service = self._knowledge_service_for_job(job)
         if job["status"] == "SUCCEEDED":
             return self.report(job_id)
         if job["status"] == "RUNNING":
@@ -1425,6 +1613,7 @@ class UploadReportJobStore:
             if not preflight["can_start"]:
                 detail = "; ".join(item["message"] for item in preflight["blockers"])
                 raise PreflightBlockedError(f"preflight blocked: {detail}")
+            knowledge_service = self._knowledge_service_for_job(job)
             expanded = self._safe_expand(job_id)
             self._set_stage(job_id, "CLASSIFYING_ARTIFACT", "识别可执行诊断工件类型")
             artifact_kind, paths = self._classify(expanded)
@@ -3684,6 +3873,10 @@ class UploadReportJobStore:
 
 PLATFORM_UI_ASSET_VERSION = "v0.21.2"
 _PLATFORM_UI_ASSETS = {
+    "execution_view.js": "application/javascript; charset=utf-8",
+    "execution_view.css": "text/css; charset=utf-8",
+    "workspace_view.js": "application/javascript; charset=utf-8",
+    "workspace_view.css": "text/css; charset=utf-8",
     "external_follow_up.js": "application/javascript; charset=utf-8",
     "platform_ui.css": "text/css; charset=utf-8",
     "platform_ui.js": "application/javascript; charset=utf-8",

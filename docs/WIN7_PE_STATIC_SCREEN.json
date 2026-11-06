@@ -1,0 +1,269 @@
+{
+  "files": [
+    {
+      "path": "packages/pydantic_core/_pydantic_core.cp38-win_amd64.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_asyncio.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_bz2.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_ctypes.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_decimal.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_elementtree.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_hashlib.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_lzma.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_msi.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_multiprocessing.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_overlapped.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_queue.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_socket.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_sqlite3.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/_ssl.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/libcrypto-1_1.dll",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/libffi-7.dll",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/libssl-1_1.dll",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/pyexpat.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/python.exe",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/python3.dll",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/python38.dll",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/pythonw.exe",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/select.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/sqlite3.dll",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/unicodedata.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/vcruntime140.dll",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/vcruntime140_1.dll",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    },
+    {
+      "path": "runtime/winsound.pyd",
+      "machine": "0x8664",
+      "subsystem_version": [
+        6,
+        0
+      ],
+      "known_post_win7_static_imports": []
+    }
+  ],
+  "count": 29,
+  "all_amd64": true,
+  "known_post_win7_static_imports": {},
+  "note": "Static screening only. Not exhaustive Windows API coverage, dynamic symbol lookup or native Windows 7 execution."
+}
