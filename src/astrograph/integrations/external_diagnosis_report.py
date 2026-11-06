@@ -66,6 +66,8 @@ def render_external_diagnosis_markdown(
             "FAILED": "独立审阅未完成",
         }
         lines.extend([f"- 主张数量：`{len(governance.get('claims') or [])}`",
+                      f"- 生成模型：`{governance.get('generator_model') or '未记录'}`",
+                      f"- 独立审阅模型：`{verification.get('verifier_model') or '未配置'}`",
                       f"- 独立审阅：{verification_labels.get(verification.get('status'), verification.get('status', '未执行'))}",
                       f"- 审阅方法：`{verification.get('method', 'SOURCE_REFERENCE_ONLY')}`",
                       "- 边界：来源支持关系不等于现实事实已被证实；所有主张仍需专家复核。", ""])
