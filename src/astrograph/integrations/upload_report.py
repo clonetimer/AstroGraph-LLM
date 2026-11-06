@@ -213,17 +213,23 @@ class UploadReportJobStore:
         from astrograph.agents.mission.run_lock import task_lease
         try:
             with task_lease(self.root, f"upload-report-launch-{job_id}"):
-                job = self.get(job_id)
-                if job["status"] not in {"CREATED", "UPLOADING"}:
-                    raise ContextError("TASK_CONTEXT_ALREADY_FROZEN")
-                if not isinstance(selection, dict) or set(selection) != {"workspace_id", "entries"}:
-                    raise ContextError("INVALID_CONTEXT_SELECTION")
-                snapshot = self.contexts.snapshot(selection["workspace_id"], selection["entries"])
-                write_task_context(self._job_root(job_id), snapshot)
-                job["context_sha256"] = snapshot["sha256"]
-                job["preflight"] = None
-                self._save(job)
-                return {"reviewed_context": snapshot}
+                # The worker holds the OS-managed run lease. File existence alone
+                # cannot distinguish a live worker from a crashed process.
+                with task_lease(self.root, f"upload-report-run-{job_id}"):
+                    job = self.get(job_id)
+                    queued = self.queue.get(job_id)
+                    if job["status"] not in {"CREATED", "UPLOADING"} or (
+                        queued is not None and queued["status"] not in {"FAILED", "CANCELLED"}
+                    ):
+                        raise ContextError("TASK_CONTEXT_ALREADY_FROZEN")
+                    if not isinstance(selection, dict) or set(selection) != {"workspace_id", "entries"}:
+                        raise ContextError("INVALID_CONTEXT_SELECTION")
+                    snapshot = self.contexts.snapshot(selection["workspace_id"], selection["entries"])
+                    write_task_context(self._job_root(job_id), snapshot)
+                    job["context_sha256"] = snapshot["sha256"]
+                    job["preflight"] = None
+                    self._save(job)
+                    return {"reviewed_context": snapshot}
         except ContextError:
             raise
         except (OSError, RuntimeError) as exc:
