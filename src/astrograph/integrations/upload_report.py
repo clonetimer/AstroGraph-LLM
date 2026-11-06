@@ -1424,11 +1424,42 @@ class UploadReportJobStore:
             "checkpoint_preserved": checkpoint_preserved,
         }
 
+    def reconcile_queue_intents(self) -> int:
+        """Repair submission-only crashes without replaying already-claimed model calls.
+
+        The intent is persisted before the SQLite queue row is published. A task
+        can only qualify if no queue row exists and job.json still says QUEUED;
+        a worker must first mark job.json RUNNING before any model invocation.
+        Do not infer safe replay for historical/legacy in-flight tasks.
+        """
+        recovered = 0
+        for directory in self.root.glob("JOB-*"):
+            if not directory.is_dir() or not re.fullmatch(r"JOB-[0-9A-F]{24}", directory.name):
+                continue
+            job_id = directory.name
+            try:
+                job = self.get(job_id)
+            except (KeyError, ValueError, OSError):
+                continue
+            if (
+                job.get("status") != "QUEUED"
+                or job.get("execution_backend") != "PROCESS_QUEUE"
+                or job.get("queue_enqueue_intent") is not True
+                or not job.get("files")
+                or self.queue.get(job_id) is not None
+            ):
+                continue
+            self.queue.enqueue(job_id, allow_failed_retry=False)
+            recovered += 1
+            self._append_event(job_id, "[QUEUED] recovered submission intent; no model replay")
+        return recovered
+
     def ensure_queue_workers(self, *, only_if_pending: bool = False) -> list[int]:
         """Launch fixed worker slots; OS leases prevent duplicate slots across API processes."""
         import subprocess
         import sys
 
+        self.reconcile_queue_intents()
         if only_if_pending and not self.queue.has_work():
             return []
         try:
@@ -1502,17 +1533,19 @@ class UploadReportJobStore:
                 detail = "; ".join(item["message"] for item in preflight["blockers"])
                 raise PreflightBlockedError(f"preflight blocked: {detail}")
 
-            self.queue.enqueue(job_id, allow_failed_retry=True)
+            # Stage a durable intent before making the SQLite row claimable.
+            # Existing workers cannot race a stale job.json into RUNNING.
             job = self.get(job_id)
             job.update(
                 status="QUEUED", stage="QUEUED",
-                stage_detail="已写入持久化队列，等待独立 Worker 认领",
-                execution_backend="PROCESS_QUEUE",
+                stage_detail="已提交持久化执行请求，等待独立 Worker 认领",
+                execution_backend="PROCESS_QUEUE", queue_enqueue_intent=True,
                 llm_runtime=self._analysis_engine_snapshot(str(job.get("analysis_engine_id") or "auto")),
                 llm_call_status="NOT_STARTED", error=None, completed_at=None,
             )
             self._save(job)
-            self._append_event(job_id, "[QUEUED] persisted SQLite queue; awaiting worker claim")
+            self._append_event(job_id, "[QUEUED] submission intent persisted; awaiting atomic claim")
+            self.queue.enqueue(job_id, allow_failed_retry=True)
 
         self.ensure_queue_workers()
         return self.get(job_id)
