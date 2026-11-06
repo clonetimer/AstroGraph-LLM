@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import os
 from pathlib import Path
 import socket
@@ -66,7 +67,7 @@ def run_queue_worker(
                         job.update(
                             status="FAILED", stage="FAILED",
                             stage_detail="独立 Worker 异常退出",
-                            completed_at=store._now() if hasattr(store, "_now") else None,
+                            completed_at=datetime.now(timezone.utc).isoformat(),
                             error={"type": type(exc).__name__, "message": str(exc)[:500]},
                         )
                         store._save(job)
