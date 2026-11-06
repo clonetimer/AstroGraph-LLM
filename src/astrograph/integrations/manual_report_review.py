@@ -123,6 +123,8 @@ def report_claims(report: dict[str, Any]) -> list[dict[str, Any]]:
             "claim_id": claim_id,
             "claim_type": str(item.get("claim_type") or "CLAIM")[:80],
             "text": text[:4000],
+            "generator_model": str(item.get("generator_model") or governance.get("generator_model") or "")[:200],
+            "verifier_model": str(item.get("verifier_model") or (governance.get("verification") or {}).get("verifier_model") or "")[:200],
             "epistemic_status": str(item.get("epistemic_status") or "INFERRED"),
             "epistemic_status_basis": str(item.get("epistemic_status_basis") or "LEGACY_DEFAULT"),
             "evidence_refs": list(item.get("evidence_refs") or []),
