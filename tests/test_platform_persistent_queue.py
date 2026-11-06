@@ -187,6 +187,12 @@ def test_interrupted_partial_output_is_archived_before_explicit_resume(
     store.queue.recover_expired(now=102.0)
     output = store._job_root(job_id) / "output"
     (output / "partial-attempt.log").write_text("model request may already have been sent", encoding="utf-8")
+    checkpoint = output / "knowledge" / "checkpoint.json"
+    checkpoint.parent.mkdir(parents=True)
+    checkpoint.write_text(json.dumps({
+        "schema_version": "astrograph-long-report-checkpoint.v1",
+        "input_sha256": "f" * 64, "completed": [],
+    }), encoding="utf-8")
 
     with pytest.raises(PlatformQueueConflict, match="DUPLICATE_MODEL_COST_CONFIRMATION_REQUIRED"):
         store.resume(job_id, confirm_duplicate_risk=False, actor="operator")
@@ -195,6 +201,11 @@ def test_interrupted_partial_output_is_archived_before_explicit_resume(
     result = store.resume(job_id, confirm_duplicate_risk=True, actor="operator")
     assert result["status"] == "QUEUED"
     assert result["duplicate_model_cost_confirmed"] is True
+    assert result["checkpoint_preserved"] is True
+    assert (output / "knowledge" / "checkpoint.json").read_text(encoding="utf-8") == checkpoint.read_text(encoding="utf-8") if checkpoint.exists() else (
+        (output / "knowledge" / "checkpoint.json").read_text(encoding="utf-8")
+        == json.dumps({"schema_version": "astrograph-long-report-checkpoint.v1", "input_sha256": "f" * 64, "completed": []})
+    )
     assert not (output / "partial-attempt.log").exists()
     archived = store._job_root(job_id) / "interrupted-attempts" / "attempt-001" / "partial-attempt.log"
     assert archived.is_file()
