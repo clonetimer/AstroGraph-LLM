@@ -61,6 +61,7 @@ jobs:
             tests/test_external_diagnosis_platform.py \
             tests/test_external_diagnosis_conversation.py \
             tests/test_external_execution_observability.py \
+            tests/test_platform_persistent_queue.py \
             tests/test_p2_context_platform.py \
             tests/test_p3_platform_phase_models.py \
             tests/test_p3_platform_long_stages.py \
