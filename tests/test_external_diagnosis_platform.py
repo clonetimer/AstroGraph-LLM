@@ -30,8 +30,8 @@ def manifest(**extra):
             "diagnosis_results": ["diagnosis.txt"], **extra}
 
 
-def stage(store, text="冷却组件的响应变慢，具体原因尚未确定。", **extra):
-    job = store.create("分析外部报告中的可能原因及需要补充的信息。")
+def stage(store, text="冷却组件的响应变慢，具体原因尚未确定。", *, job_options=None, **extra):
+    job = store.create("分析外部报告中的可能原因及需要补充的信息。", **(job_options or {}))
     store.put_file(job["job_id"], "diagnosis.txt", text.encode("utf-8"))
     store.put_file(job["job_id"], "analysis_input.json", json.dumps(manifest(**extra)).encode())
     return job["job_id"]
@@ -114,7 +114,9 @@ def test_docx_headings_and_body_reach_model_once_in_original_order(tmp_path, blo
 
 
 class CaptureBackend:
-    def __init__(self):
+    def __init__(self, model_id="primary"):
+        self.model_id = model_id
+        self.provider = "test-provider"
         self.calls = []
 
     def generate_structured(self, *, agent_id, output_model, payload):
