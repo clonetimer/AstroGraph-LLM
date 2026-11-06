@@ -124,6 +124,26 @@ class CaptureBackend:
         return output_model.model_validate(answer(payload))
 
 
+class CaptureVerifierBackend:
+    model_id = "reviewer-model"
+    provider = "test-provider"
+
+    def __init__(self):
+        self.calls = []
+
+    def generate_structured(self, *, agent_id, output_model, payload):
+        self.calls.append((agent_id, payload))
+        source_id = payload["sources"][0]["source_id"]
+        return output_model.model_validate({"assessments": [{
+            "claim_id": claim["claim_id"],
+            "support_status": "SUPPORTED",
+            "rationale": "独立审阅在原始来源中找到了对该表述的直接支持。",
+            "supporting_source_ids": [source_id],
+            "counter_evidence_source_ids": [],
+            "information_gaps": [],
+        } for claim in payload["claims"]]})
+
+
 def test_external_mode_bypasses_diagnosis_and_graph_and_keeps_model_output(tmp_path, monkeypatch):
     import astrograph.integrations.result_log_review as legacy
     import astrograph.integrations.material_reasoning as material
@@ -332,13 +352,30 @@ def test_external_claim_review_api_uses_authenticated_expert_session(tmp_path, m
     monkeypatch.setenv("ASTROGRAPH_MATERIAL_REVIEWER", "domain-expert")
     monkeypatch.setenv("ASTROGRAPH_MATERIAL_REVIEWERS", "domain-expert")
 
-    backend = CaptureBackend()
+    from astrograph.integrations import upload_report
+
+    backend = CaptureBackend("analysis-model")
+    verifier = CaptureVerifierBackend()
     store = UploadReportJobStore(
         tmp_path / "platform",
         knowledge_service=PlatformKnowledgeEnrichmentService(PlatformKnowledgeConfig(), llm_backend=backend),
     )
-    job_id = stage(store, "报告记录组件响应异常，尚待独立验证。")
+    profile = store.state_repository.save_service_profile(
+        service_kind="llm", name="independent-reviewer", validation_status="PASS",
+        config={"enabled": True, "base_url": "http://127.0.0.1:1234/v1",
+                "model": "reviewer-model", "provider": "test-provider"},
+    )
+    monkeypatch.setattr(upload_report, "OpenAICompatibleStructuredBackend", lambda config: verifier)
+    job_id = stage(
+        store, "报告记录组件响应异常，尚待独立验证。",
+        job_options={"phase_engine_ids": {"verification": "llm:" + profile["profile_id"]}},
+    )
     report = store.run(job_id)
+    governance = report["analysis"]["knowledge_enrichment"]["model_explanation"]["claim_governance"]
+    assert governance["verification"]["status"] == "COMPLETED_REQUIRES_EXPERT_REVIEW"
+    assert governance["verification"]["verifier_model"] == "reviewer-model"
+    assert all(item["expert_review_status"] == "PENDING" for item in governance["claims"])
+    assert verifier.calls and verifier.calls[0][0] == "external-diagnosis-evidence-verifier"
     app = create_app()
     app.state.upload_report_store = store
 
