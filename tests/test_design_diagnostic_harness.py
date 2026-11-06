@@ -149,7 +149,14 @@ def test_async_start_queues_only_one_worker_and_freezes_inputs(tmp_path, monkeyp
     import subprocess
     monkeypatch.setenv("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "1")
     calls = []
-    monkeypatch.setattr(subprocess, 'Popen', lambda *a, **kw: calls.append((a, kw)))
+    class DummyProcess:
+        pid = 4242
+
+    def fake_popen(*a, **kw):
+        calls.append((a, kw))
+        return DummyProcess()
+
+    monkeypatch.setattr(subprocess, 'Popen', fake_popen)
     store = UploadReportJobStore(tmp_path/'jobs')
     job = store.create('async review')
     store.put_file(job['job_id'], 'input.json', prediction_input().model_dump_json().encode())
