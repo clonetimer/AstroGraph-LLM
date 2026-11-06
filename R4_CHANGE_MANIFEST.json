@@ -1,0 +1,53 @@
+{
+  "schema_version": "astrograph-foundation-r4-manifest.v1",
+  "parent_artifact": "astrograph_source_foundation_r3_candidate_20261014.zip",
+  "parent_zip_sha256": "24e61d036d5dda89a688659fc3395e040f83a0c0ab6c02806953cf26f32a1a22",
+  "stage": "R4_CANDIDATE_NOT_FORMAL_RELEASE",
+  "candidate_set_modified": false,
+  "diagnostic_ranking_modified": false,
+  "active_kg_modified": false,
+  "changed_files": [
+    {
+      "path": "README.md",
+      "sha256": "d9b401abd5b3e8b5e9cf1964074c1a07d2a67b7d9546ff9be11b8447545ccfdc"
+    },
+    {
+      "path": "FOUNDATION_R4_COMPETITION_AND_CLAIM_AUDIT.md",
+      "sha256": "c495943c3af7388c02f84c4bbbbfe75163e14eeab6d98ab5a424614adbb48e7a"
+    },
+    {
+      "path": "src/astrograph/llm/task_prompts.py",
+      "sha256": "37ddda61141bd14b5129a637b4ae2d9aa2ffdc47b4d1b3fefd943f06a7d5b804"
+    },
+    {
+      "path": "src/astrograph/integrations/material_reasoning.py",
+      "sha256": "0e12e94691819cfebac4feba64b2c3feabffd223522fe6713295fd7cbf2ed07d"
+    },
+    {
+      "path": "src/astrograph/integrations/platform_knowledge.py",
+      "sha256": "4702f59382bd01718bcf8931d6214c1da03a8c986f10dc722e832de83067a727"
+    },
+    {
+      "path": "src/astrograph/integrations/material_multihop.py",
+      "sha256": "3202c0a6b8c79687b7e8d116167872d5575041e3709761226a923ea1dcd1c85e"
+    },
+    {
+      "path": "src/astrograph/integrations/result_log_review.py",
+      "sha256": "1c9e3048941805d674a1c7a30dbd00378bc1bffb351da100f218cc9a1dbbb00e"
+    },
+    {
+      "path": "src/astrograph/retrieval/material_claim_guard.py",
+      "sha256": "984f09260f680d2e538e21fc2db658f5ac1ad53dba66da53508cf219632764a3"
+    },
+    {
+      "path": "tests/test_foundation_r4_competition_claim_guard.py",
+      "sha256": "ddc1f5986a183196ca721e001dae70d55019fd05ae37ee5dbcb14912779bdc6f"
+    },
+    {
+      "path": "tests/test_material_multihop_reasoning.py",
+      "sha256": "3f777bbb0a9e680c4c0e0ed3fc428fa66c01fe698f0533995d306ff203abd11c"
+    }
+  ],
+  "claim_validation_boundary": "STRICT_EXTRACTIVE_SOURCE_MATCH_ONLY_NOT_SEMANTIC_ENTAILMENT",
+  "reproducibility": "logs and patch replay supplied separately"
+}

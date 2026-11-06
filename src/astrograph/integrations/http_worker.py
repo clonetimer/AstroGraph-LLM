@@ -2,8 +2,31 @@
 import base64
 import json
 import sys
+import ssl
+
 import urllib.request
 import urllib.error
+from urllib.parse import urlsplit
+
+
+def verified_tls_context():
+    """Add the shipped Mozilla roots without disabling OS trust or verification."""
+    context = ssl.create_default_context()
+    try:
+        import certifi
+    except ImportError:
+        pass  # Full-source installations can rely on OS trust; portable profiles bundle roots.
+    else:
+        context.load_verify_locations(cafile=certifi.where())
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
+    return context
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Prevent accidental forwarding of API credentials to redirected hosts."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise ValueError("HTTP_REDIRECT_NOT_ALLOWED")
 
 
 def main():
@@ -17,7 +40,19 @@ def main():
                         separators=(",",":"),allow_nan=False).encode("utf-8")
         req=urllib.request.Request(config["url"],data=body,
             headers={"Content-Type":"application/json",**config["headers"]},method="POST")
-        with urllib.request.urlopen(req,timeout=config["timeout_s"]) as response:
+        # urllib's default redirect handler can forward Authorization headers.
+        # Provider endpoint changes must be explicit configuration changes.
+        # A loopback provider must NEVER send diagnostic material or credentials
+        # to an operating-system or environment-configured HTTP proxy. This is
+        # stronger than NO_PROXY, whose handling differs across Windows/Python.
+        hostname = urlsplit(config["url"]).hostname
+        loopback = hostname is not None and hostname.lower() in {"127.0.0.1", "localhost", "::1"}
+        proxy_handler = urllib.request.ProxyHandler({}) if loopback else urllib.request.ProxyHandler()
+        with urllib.request.build_opener(
+            proxy_handler, _NoRedirect(), urllib.request.HTTPSHandler(context=verified_tls_context())
+        ).open(
+            req, timeout=config["timeout_s"]
+        ) as response:
             length=response.headers.get("Content-Length")
             if length and int(length)>limit:raise ValueError("HTTP_RESPONSE_TOO_LARGE")
             raw=response.read(limit+1)
@@ -35,9 +70,11 @@ def main():
         exc.close()
         out={"ok":False,"error":"HTTP_STATUS_"+str(exc.code)}
     except Exception as exc:
-        code=str(exc) if str(exc)=="HTTP_RESPONSE_TOO_LARGE" else type(exc).__name__
+        code=(str(exc) if str(exc) in {"HTTP_RESPONSE_TOO_LARGE", "HTTP_REDIRECT_NOT_ALLOWED"}
+              else type(exc).__name__)
         out={"ok":False,"error":code}
     out.update(captured)
-    sys.stdout.write(json.dumps(out,ensure_ascii=False))
+    # This is a machine protocol; a Windows/GBK console encoding must not alter it.
+    sys.stdout.buffer.write(json.dumps(out,ensure_ascii=False).encode("utf-8"))
 
 if __name__=="__main__":main()

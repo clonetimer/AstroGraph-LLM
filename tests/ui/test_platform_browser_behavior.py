@@ -62,9 +62,9 @@ def _classic_test_bundle() -> str:
 
 JS = _classic_test_bundle()
 OFFLINE_HTML = HTML.replace(
-    '<link rel="stylesheet" href="/platform/assets/v0.21.1/platform_ui.css">', ''
+    '<link rel="stylesheet" href="/platform/assets/v0.21.3/platform_ui.css">', ''
 ).replace(
-    '<script type="module" src="/platform/assets/v0.21.1/platform_ui.js"></script>', ''
+    '<script type="module" src="/platform/assets/v0.21.3/platform_ui.js"></script>', ''
 )
 
 

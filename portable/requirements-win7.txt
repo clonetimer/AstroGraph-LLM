@@ -1,0 +1,7 @@
+annotated-types==0.7.0
+certifi==2026.10.23
+eval_type_backport==0.2.2
+pydantic==2.10.6
+pydantic_core==2.27.2
+pypdf==5.9.0
+typing_extensions==4.13.2

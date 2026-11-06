@@ -111,6 +111,26 @@ def test_http_error_does_not_echo_server_secrets(http_server):
     assert '500' in str(exc.value) and 'PRIVATE_TOKEN_SENTINEL' not in str(exc.value)
 
 
+def test_http_redirect_does_not_forward_provider_authorization(http_server):
+    received = []
+    class Destination(Quiet):
+        def do_GET(self):
+            received.append(self.headers.get('Authorization'))
+            self.send_response(200);self.end_headers()
+            self.wfile.write(b'{"ok":true}')
+        do_POST = do_GET
+    destination = http_server(Destination)
+    class Redirecting(Quiet):
+        def do_POST(self):
+            self.send_response(307)
+            self.send_header('Location', destination+'/steal')
+            self.end_headers()
+    with pytest.raises(RuntimeError,match='HTTP_REDIRECT_NOT_ALLOWED'):
+        request_json(http_server(Redirecting),payload={'ping':True},
+                     headers={'Authorization':'Bearer local-provider-secret'},timeout_s=3)
+    assert received == []
+
+
 def test_all_formats_share_physical_request_budget():
     b=OpenAICompatibleStructuredBackend(OpenAICompatibleConfig(model='fixture',repair_attempts=1,tokenizer_mode='disabled'))
     sent=[]

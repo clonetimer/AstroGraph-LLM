@@ -1,0 +1,42 @@
+{
+  "schema_version": "astrograph-foundation-r10-changes.v1",
+  "baseline": "astrograph_source_foundation_r9_candidate_20261015.zip",
+  "changed_files": [
+    {
+      "path": "README.md",
+      "sha256": "80c39373c311288edafe038c9d7539e8d58252e10762af36c6e781518a16bacf"
+    },
+    {
+      "path": "FOUNDATION_R10_TEMPORAL_CAUSAL.md",
+      "sha256": "c3f6a4d8f1581ea72c94006b19d23f55f26bf7ddb1c1d18e60a65de827806d8b"
+    },
+    {
+      "path": "src/astrograph/integrations/material_temporal.py",
+      "sha256": "413727ac28cd39ea8db0edc18428a5308a187ac7fe18e21d9c4da4fbb252d806"
+    },
+    {
+      "path": "src/astrograph/integrations/material_multihop.py",
+      "sha256": "68784bb1754b560395154527cdb4d1fd17db8ba3d4a557ce4f87e700bde10bb1"
+    },
+    {
+      "path": "src/astrograph/integrations/material_case_memory.py",
+      "sha256": "8b00570f7a1a71ae13b71937cce042903e5ffcf70b85c375a6a814f13093554a"
+    },
+    {
+      "path": "src/astrograph/integrations/material_graph_release.py",
+      "sha256": "6721dca1f5e176dd9b9112b3c528e47740eaa628765cd667f0c547697dc0db13"
+    },
+    {
+      "path": "src/astrograph/llm/task_prompts.py",
+      "sha256": "ce612a076c6b6d71fea92d5ecf11bad4b5a9e057ec709275b248abd58c6b5ddc"
+    },
+    {
+      "path": "tests/test_foundation_r10_temporal_causal.py",
+      "sha256": "551d831ec694cb7b4a3076c908c5fead7864e59ffb72afaff1fc4d17269d0038"
+    }
+  ],
+  "known_root_cause_label_included": false,
+  "authority": "independent expert reviewed temporal reference, no automatic flight diagnostic vote",
+  "related_tests": "254 passed, 2 skipped; see validation_logs/r10-final-related-v2/done.json",
+  "known_unrelated_test_failure": "tests/test_graph_projection.py missing legacy satellite battery CSV in R9 baseline"
+}

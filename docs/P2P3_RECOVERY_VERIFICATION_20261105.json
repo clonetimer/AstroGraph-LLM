@@ -1,0 +1,323 @@
+{
+  "date": "2026-11-05",
+  "version": "2.8.0-dev.2",
+  "scope": "P2 reviewed context on both services; P3 explicit phase models and bounded queue on portable service",
+  "remote_base": "187453966fd5e0a5ce488f81e27dc01376982a75",
+  "p0p1_base": "4e5d3331a8d346e98f7f90be6d90ae9f61225c17",
+  "recovered_checkpoint": "8df7405",
+  "verification": {
+    "portable-release-py313": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "portable",
+        "-p",
+        "test*.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "seconds": 95.278,
+      "timed_out": false,
+      "log": "portable-release-py313.log",
+      "log_sha256": "56d901d6dc04eefe6020606771f7a64f6e1fcc23e177890bf99928f1458e8d22",
+      "total": 111,
+      "passed": 110,
+      "skipped": 1
+    },
+    "portable-release-py38": {
+      "command": [
+        "/mnt/data/astrograph_continue_20261105/py38/Python-3.8.20/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "portable",
+        "-p",
+        "test*.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "seconds": 41.732,
+      "timed_out": false,
+      "log": "portable-release-py38.log",
+      "log_sha256": "38713d7b1d665a47667255f207e96391924ca772905949c06060476a5452774a",
+      "total": 111,
+      "passed": 110,
+      "skipped": 1
+    },
+    "platform-release": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "--astrograph-test-profile",
+        "source-only",
+        "tests/test_candidate_selection.py",
+        "tests/test_pre_reasoning_retrieval.py",
+        "tests/test_foundation_r3_literature_bidirectional.py",
+        "tests/test_foundation_r4_competition_claim_guard.py",
+        "tests/test_foundation_r5_reported_observations.py",
+        "tests/test_foundation_r6_observation_retrieval.py",
+        "tests/test_foundation_r7_causal_claims.py",
+        "tests/test_foundation_r8_causal_differential.py",
+        "tests/test_foundation_r9_reviewed_applicability.py",
+        "tests/test_foundation_r10_temporal_causal.py",
+        "tests/test_foundation_r11_material_llm_tool_integration.py",
+        "tests/test_foundation_r11b_task_bound_explanations.py",
+        "tests/test_foundation_r11b2_post_diagnosis_bridge.py",
+        "tests/test_platform_knowledge_enrichment.py",
+        "tests/test_upload_report_platform.py",
+        "tests/test_design_diagnostic_harness.py",
+        "tests/test_foundation_r11b3_oag_post_diagnosis.py",
+        "tests/test_foundation_r11c_online_post_diagnosis.py",
+        "tests/test_online_acceptance.py",
+        "tests/test_whole_spacecraft_runtime_dag.py",
+        "tests/test_online_hybrid_tool_registry.py",
+        "tests/test_foundation_r11d_model_wire_protocol.py",
+        "tests/test_openai_compatible_backend.py",
+        "tests/test_foundation_r11e_investigation_quality.py",
+        "tests/test_foundation_r11f_blind_material_campaign.py",
+        "tests/test_foundation_r11f_cli_and_separate_scoring.py",
+        "tests/test_result_log_review.py",
+        "tests/test_material_multihop_reasoning.py",
+        "tests/test_mission_console_integration.py",
+        "tests/test_external_diagnosis_analysis.py",
+        "tests/test_external_diagnosis_platform.py",
+        "tests/test_external_diagnosis_conversation.py",
+        "tests/test_external_llm_transport_updates.py",
+        "tests/ui/test_external_diagnosis_ui_input.py",
+        "tests/ui/test_external_diagnosis_ui_output.py",
+        "tests/ui/test_external_diagnosis_follow_up_ui.py",
+        "tests/test_structured_document_retrieval.py",
+        "tests/test_document_governance_and_docx.py",
+        "tests/test_multimodal_docx_contract.py",
+        "tests/test_external_execution_observability.py",
+        "tests/ui/test_execution_views_integration.py",
+        "tests/test_p2_context_platform.py"
+      ],
+      "returncode": 0,
+      "seconds": 162.024,
+      "timed_out": false,
+      "log": "platform-release.log",
+      "log_sha256": "9dfa9d8ccfd9c02b2c5455c34882019180e30a880ba2dc4246de9b23c29e9fd7",
+      "total": 405,
+      "passed": 402,
+      "skipped": 3,
+      "modules": 42
+    },
+    "app-selftest-py38": {
+      "command": [
+        "/mnt/data/astrograph_continue_20261105/py38/Python-3.8.20/python",
+        "-B",
+        "/mnt/data/astrograph_continue_20261105/final-staged-app/workbench.py",
+        "--self-test"
+      ],
+      "returncode": 0,
+      "seconds": 1.728,
+      "timed_out": false,
+      "log": "app-selftest-py38.log",
+      "log_sha256": "ec20634b279ff8916763595c59499e03ffed594acdba6f737cb577952081116f"
+    },
+    "browser-navigation": {
+      "command": [
+        "python",
+        "portable/browser_navigation.py",
+        "--chromium",
+        "/usr/bin/chromium",
+        "--output",
+        "/mnt/data/astrograph_continue_20261105/logs/browser-navigation"
+      ],
+      "returncode": 0,
+      "seconds": 25.803,
+      "timed_out": false,
+      "log": "browser-navigation.log",
+      "log_sha256": "b6c6ebafe4f0b0479c4ca35d2a9977b972403f233d417b36ce2c508395f7f131",
+      "passed_groups": 9,
+      "uses_api_fixtures": true
+    },
+    "browser-polish-2": {
+      "command": [
+        "python",
+        "portable/browser_polish.py",
+        "--chromium",
+        "/usr/bin/chromium",
+        "--output",
+        "/mnt/data/astrograph_continue_20261105/logs/browser-polish-2"
+      ],
+      "returncode": 0,
+      "seconds": 26.834,
+      "timed_out": false,
+      "log": "browser-polish-2.log",
+      "log_sha256": "092b4b3a2a8cfaf797b29c016f8dd6e07b4bb8278d6c4d30660435c4a89f5082",
+      "passed_groups": 10,
+      "uses_api_fixtures": true
+    },
+    "browser-execution": {
+      "command": [
+        "python",
+        "portable/browser_execution.py",
+        "--chromium",
+        "/usr/bin/chromium",
+        "--output",
+        "/mnt/data/astrograph_continue_20261105/logs/browser-execution"
+      ],
+      "returncode": 0,
+      "seconds": 6.219,
+      "timed_out": false,
+      "log": "browser-execution.log",
+      "log_sha256": "f83b124c8b35cee3a3f545a5cda8a51bf2285a81285909fdc398399dd9388850",
+      "passed_groups": 4,
+      "uses_api_fixtures": true
+    },
+    "browser-smoke": {
+      "command": [
+        "python",
+        "portable/browser_smoke.py",
+        "--chromium",
+        "/usr/bin/chromium",
+        "--output",
+        "/mnt/data/astrograph_continue_20261105/logs/browser-smoke"
+      ],
+      "returncode": 0,
+      "seconds": 9.794,
+      "timed_out": false,
+      "log": "browser-smoke.log",
+      "log_sha256": "6758e469ee83b17de52de2e06b3932f75345f36db937a31cae3be47eb54acb9d",
+      "passed_groups": 3,
+      "uses_api_fixtures": true
+    },
+    "browser-p2p3-release": {
+      "command": [
+        "python",
+        "portable/browser_p2p3.py",
+        "--output",
+        "/mnt/data/astrograph_continue_20261105/logs/browser-p2p3-release"
+      ],
+      "returncode": 0,
+      "seconds": 7.437,
+      "timed_out": false,
+      "log": "browser-p2p3-release.log",
+      "log_sha256": "414cb2ad14b912280c7a4ac74596bb2b493113f12d5c8a87ab7a6222568b3221",
+      "passed_groups": 4,
+      "uses_api_fixtures": true
+    },
+    "whole-repo-attempt": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "--astrograph-test-profile",
+        "source-only",
+        "--maxfail=1"
+      ],
+      "returncode": 124,
+      "seconds": 248.031,
+      "timed_out": true,
+      "log": "whole-repo-attempt.log",
+      "log_sha256": "e3c3644c60504410419d2ae7adabf87fa70f6c7c9b6df07acf96620b36c7352d",
+      "passed_before_timeout": 303,
+      "skipped_before_timeout": 3,
+      "not_counted_as_pass": true
+    }
+  },
+  "limitations": {
+    "native_win7": false,
+    "native_win10": false,
+    "production_model": false,
+    "independent_review": false,
+    "full_repository_suite_complete": false,
+    "full_platform_distributed_queue": false,
+    "full_platform_phase_settings_ui": false,
+    "new_portable_binary_built": false
+  },
+  "static_checks": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "portable/assets/app.js"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "portable/assets/navigation.js"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "src/astrograph/resources/workspace_view.js"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "src/astrograph/resources/mission_console.js"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "src/astrograph/resources/platform_job.js"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "src/astrograph/resources/platform_report.js"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "src/astrograph/resources/execution_view.js"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check (cr-at-eol)"
+      ],
+      "returncode": 0,
+      "output": ""
+    }
+  ],
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "python38": "actual Linux CPython 3.8.20 built from supplied official source; _ctypes missing (unused by scoped app/tests)",
+    "api_tests": "real local HTTP with scripted model; no paid/production model",
+    "browser": "Chromium production DOM/JS with fixture API responses; not native legacy browser"
+  }
+}

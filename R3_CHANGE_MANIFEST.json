@@ -1,0 +1,52 @@
+{
+  "phase": "R3",
+  "release_status": "DEVELOPMENT_CANDIDATE",
+  "base_archive": "astrograph_source_foundation_r2_candidate_20261014.zip",
+  "base_sha256": "eedfb01841ea47b414a2de50f21812877c8d82f68d7690f3f23f47037fae2508",
+  "modified_or_added_paths": [
+    "README.md",
+    "docs/implementation/ASTROGRAPH_R3_LITERATURE_RETRIEVAL_GRAPHRAG_AUDIT.md",
+    "src/astrograph/retrieval/approved_community_search.py",
+    "src/astrograph/retrieval/structured_document.py",
+    "src/astrograph/integrations/material_hierarchical_rag.py",
+    "src/astrograph/integrations/material_multihop.py",
+    "src/astrograph/integrations/material_reasoning.py",
+    "tests/test_foundation_r3_literature_bidirectional.py",
+    "tests/test_material_hierarchical_rag.py",
+    "tests/test_material_multihop_reasoning.py",
+    "tests/test_next_rag_community_vectors_multimodal.py",
+    "tests/test_material_knowledge_fusion.py"
+  ],
+  "file_sha256": {
+    "README.md": "2560c0b4497aa1ff6e6d8b041317e9a1132defa35e1957e3428becb4793d2613",
+    "docs/implementation/ASTROGRAPH_R3_LITERATURE_RETRIEVAL_GRAPHRAG_AUDIT.md": "c7e047fcbd92d304c69132a6d5a4cfe092cc44ed99f6dfa2bfa157799b6da9d3",
+    "src/astrograph/retrieval/approved_community_search.py": "90187703e63e8a9aa4814655b6ab5264f06652852bd0b013ce52b959f6a8be40",
+    "src/astrograph/retrieval/structured_document.py": "e925699ea6f6da78c1afc9352ed562500978eb4e06a9a6e626a4d7f3ef2f707b",
+    "src/astrograph/integrations/material_hierarchical_rag.py": "79b777e4f86eb7e21d50cf93011547d9f8a16fe98a6b6ea6157fd3457d3c03e2",
+    "src/astrograph/integrations/material_multihop.py": "117c6a5edc28d2a6fae59d41e983f870b49f94fac43587efaff6c43482e794f7",
+    "src/astrograph/integrations/material_reasoning.py": "5d50bdd68edaf282033b2a674664a85af6d5dd0bb026a7ac68b17127b74365eb",
+    "tests/test_foundation_r3_literature_bidirectional.py": "49932dcb9d3c4375664c5f0011d4f689ec47a220484436c0ba22d7cf7dda68bd",
+    "tests/test_material_hierarchical_rag.py": "0837ea014cd4d8d721bd845b76f353e01610d9c88fbffd85ffa1ea69aab562c3",
+    "tests/test_material_multihop_reasoning.py": "ca6309b6663222216e88f5bd8843d08c273c5106613d80f9a9c4f7638ecc4bad",
+    "tests/test_next_rag_community_vectors_multimodal.py": "791a0bf51ce0c46a86f12facf38765fb3422051bb1acfeb97318a95e49b943a5",
+    "tests/test_material_knowledge_fusion.py": "9e9115cd40f965d1fdf7cfd983ee938d64cacfa028dac79074a96a7bcba07da1"
+  },
+  "guardrails": [
+    "NON_VOTING_LITERATURE_AND_GRAPH_HINTS",
+    "NO_NEW_FAULT_CANDIDATES",
+    "NO_AUTOMATIC_CONTROL",
+    "HUMAN_APPROVED_SCOPED_KNOWLEDGE",
+    "RETRACTION_FILTERED_BY_SNAPSHOT_PINNED_REPOSITORY"
+  ],
+  "test_jobs": [
+    "r3-final-broad"
+  ],
+  "tested_results": {
+    "r3-final-broad": "191 passed, 2 skipped"
+  },
+  "not_in_scope": [
+    "model_online_run",
+    "legacy_delivery_receipts",
+    "upstream_time_chain"
+  ]
+}

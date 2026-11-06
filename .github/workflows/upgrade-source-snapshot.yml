@@ -1,0 +1,32 @@
+name: Upgrade source baseline
+on:
+  push:
+    branches: [feat/pilotdeck-observability]
+    paths: [.github/workflows/upgrade-source-snapshot.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Archive exact source and shallow Git baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD > /tmp/BASE_COMMIT.txt
+          tar -czf /tmp/astrograph-upgrade-baseline.tar.gz --exclude=.git/hooks .
+          sha256sum /tmp/astrograph-upgrade-baseline.tar.gz > /tmp/baseline.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: astrograph-upgrade-baseline
+          path: |
+            /tmp/astrograph-upgrade-baseline.tar.gz
+            /tmp/BASE_COMMIT.txt
+            /tmp/baseline.sha256
+          retention-days: 7

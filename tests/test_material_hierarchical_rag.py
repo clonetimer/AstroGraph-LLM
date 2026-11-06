@@ -22,10 +22,10 @@ def chunk(i, text, section='Document', source='manual', kind='TEXT', safe=True):
     )
 
 
-def search(chunks, name, *, fid='NONSTANDARD_FAULT', references=(), graph=()):
+def search(chunks, name, *, fid='NONSTANDARD_FAULT', references=(), graph=(), scope=None):
     return HierarchicalMaterialIndex(chunks).retrieve(
         base_query=f'{fid} {name}', fault_id=fid, fault_name=name,
-        reference_terms=references, approved_edges=graph,
+        reference_terms=references, approved_edges=graph, equipment_scope=scope,
     )
 
 
@@ -85,19 +85,24 @@ def test_unknown_query_abstains_not_a_fake_reference():
 
 def test_direct_approved_graph_neighbor_is_query_hint_not_root_cause_vote():
     edge={
+        'proposal_id':'MGR-REVIEW-001', 'equipment_scope':'SAT_X_ADCS_V1',
+        'snapshot':3, 'review_status':'INDEPENDENTLY_REVIEWED_REFERENCE_RELATION',
         'source': {'entity_id':'f1','name':'SAMPLE_FAULT','entity_type':'FAULT_MODE'},
         'target': {'entity_id':'m1','name':'thermoelastic deformation','entity_type':'FAILURE_MECHANISM'},
-        'polarity':'AFFIRMATIVE'
+        'relation_type':'ASSOCIATED_WITH', 'polarity':'AFFIRMATIVE',
+        'provenance':{'source_sha256':'a'*64,'source_locators':['line:1']},
+        'evidence_quote':'SAMPLE_FAULT associated with thermoelastic deformation',
+        'reviewer':'reviewer', 'truth_source_ref':'independent-source',
     }
     hits=search([chunk(1,'Thermoelastic deformation can cause misalignment.')],
-                'SAMPLE_FAULT',fid='SAMPLE_FAULT',graph=[edge])
+                'SAMPLE_FAULT',fid='SAMPLE_FAULT',graph=[edge],scope='SAT_X_ADCS_V1')
     assert 'APPROVED_GRAPH_HINTS' in hits['methods']
     assert any(p['role']=='APPROVED_GRAPH_QUERY_HINT' for p in hits['query_plan'])
     assert hits['hits'][0]['knowledge_validation_status']=='UNREVIEWED_UPLOADED_REFERENCE'
     assert not hits['causal_proof']
     negative={**edge,'polarity':'NEGATIVE'}
     blocked=search([chunk(1,'Thermoelastic deformation can cause misalignment.')],
-                'SAMPLE_FAULT',fid='SAMPLE_FAULT',graph=[negative])
+                'SAMPLE_FAULT',fid='SAMPLE_FAULT',graph=[negative],scope='SAT_X_ADCS_V1')
     assert 'APPROVED_GRAPH_HINTS' not in blocked['methods']
 
 

@@ -49,6 +49,9 @@ def _summary(report: dict) -> dict:
         "work_mode": report.get("work_mode"),
         "candidate": candidate,
         "disposition": disposition,
+        **({"analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS",
+            "llm_call_status": ((analysis.get("knowledge_enrichment") or {}).get("generation") or {}).get("status", "UNKNOWN")}
+           if analysis.get("analysis_mode") == "EXTERNAL_DIAGNOSIS_ANALYSIS" else {}),
     }
 
 
@@ -87,6 +90,7 @@ def cmd_review(args: argparse.Namespace) -> int:
             store.put_file(job["job_id"], path.name, path.read_bytes())
     manifest = {"schema_version": "astrograph-result-log-review.v1",
                 **{role: [path.name for path in values] for role, values in paths.items()}}
+    manifest["analysis_mode"] = args.analysis_mode
     if args.equipment_scope:
         manifest["equipment_scope"] = args.equipment_scope
     store.put_file(job["job_id"], "analysis_input.json", json.dumps(manifest, ensure_ascii=False).encode("utf-8"))
@@ -253,15 +257,19 @@ def main(argv: list[str] | None = None) -> int:
     diagnose.add_argument("--full", action="store_true", help="Print the complete report JSON")
     diagnose.set_defaults(func=cmd_diagnose)
 
-    review = sub.add_parser("review", help="Root-cause review from upstream diagnosis, log and reference files")
-    review.add_argument("--result", required=True, action="append", help="Upstream diagnosis result (repeatable)")
-    review.add_argument("--log", required=True, action="append", help="Operations log/report (repeatable)")
-    review.add_argument("--reference", required=True, action="append", help="Reference document (repeatable)")
-    review.add_argument("--task", default="核对故障原因并给出有证据出处的人工处置建议")
-    review.add_argument("--mode", choices=["normal", "thinking", "creative"], default="normal")
-    review.add_argument("--equipment-scope", help="Expert-known model/device scope for exact historical case retrieval")
-    review.add_argument("--full", action="store_true", help="Print the complete review JSON")
-    review.set_defaults(func=cmd_review)
+    for command, analysis_mode, help_text in (
+        ("review", "MATERIAL_REVIEW", "Legacy material review with optional logs and references"),
+        ("analyze-report", "EXTERNAL_DIAGNOSIS_ANALYSIS", "Analyse an external diagnosis report with the configured LLM"),
+    ):
+        review = sub.add_parser(command, help=help_text)
+        review.add_argument("--result", required=True, action="append", help="External diagnosis result (repeatable)")
+        review.add_argument("--log", action="append", default=[], help="Optional operations log/report (repeatable)")
+        review.add_argument("--reference", action="append", default=[], help="Optional reference document (repeatable)")
+        review.add_argument("--task", default="分析外部诊断报告中的原因假设、证据与待核查信息")
+        review.add_argument("--mode", choices=["normal", "thinking", "creative"], default="normal")
+        review.add_argument("--equipment-scope", help="Known model/device scope (legacy material review)")
+        review.add_argument("--full", action="store_true", help="Print the complete report JSON")
+        review.set_defaults(func=cmd_review, analysis_mode=analysis_mode)
 
     pending=sub.add_parser('memory-pending',help='List material review cases pending independent expert confirmation (local host)')
     pending.add_argument('--limit',type=int,default=30)

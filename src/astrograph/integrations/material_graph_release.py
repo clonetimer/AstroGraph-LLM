@@ -13,7 +13,9 @@ import os
 from pathlib import Path
 from typing import Any
 
-from astrograph.integrations.material_graph_builder import ALLOWED_TRIPLES, GRAPH_PROPOSAL_SCHEMA
+from astrograph.integrations.material_graph_builder import ALLOWED_TRIPLES, GRAPH_PROPOSAL_SCHEMA, causal_quotation_defects
+from astrograph.integrations.material_applicability import assess_contexts
+from astrograph.integrations.material_temporal import normalize_reviewed_temporal, assess_temporal_causal_path
 
 
 class MaterialGraphReleaseError(ValueError):
@@ -69,6 +71,15 @@ def verify_graph_release(path: str | Path, *, require_signature: bool = False) -
             not entry.get('reason') for entry in tombstones)):
         raise MaterialGraphReleaseError('graph release has duplicate or invalid revocation records')
     for relation in graph['relations']:
+        if relation.get('reviewed_temporal') is not None:
+            try:
+                if (relation.get('relation_type') != 'CAUSES' or relation.get('reviewed_applicability') is None):
+                    raise ValueError('invalid temporal causality')
+                normalize_reviewed_temporal(relation['reviewed_temporal'], equipment_scope=manifest['equipment_scope'])
+                if assess_temporal_causal_path([relation], equipment_scope=manifest['equipment_scope'])['conflict_reasons']:
+                    raise ValueError('temporal context exceeds approved scope')
+            except (ValueError, TypeError, KeyError, OverflowError) as exc:
+                raise MaterialGraphReleaseError('invalid approved causal temporal metadata') from exc
         if (relation.get('schema_version')!=GRAPH_PROPOSAL_SCHEMA or
             relation.get('review_status')!='INDEPENDENTLY_REVIEWED_REFERENCE_RELATION' or
             relation.get('equipment_scope')!=manifest['equipment_scope'] or
@@ -78,6 +89,8 @@ def verify_graph_release(path: str | Path, *, require_signature: bool = False) -
             (relation['source']['entity_type'],relation['relation_type'],
              relation['target']['entity_type']) not in ALLOWED_TRIPLES or
             relation.get('polarity') not in {'AFFIRMATIVE','NEGATED'} or
+            causal_quotation_defects(relation) or
+            assess_contexts([relation], equipment_scope=manifest['equipment_scope'])['conflict_reasons'] or
             not relation.get('evidence_quote') or
             indexed.get(relation['source']['entity_id']) is None or
             indexed.get(relation['target']['entity_id']) is None):
@@ -97,7 +110,10 @@ ON CREATE SET c.relation_type=$relation_type, c.polarity=$polarity,
               c.evidence_quote=$quote, c.source_sha256=$source_sha256,
               c.locators=$locators, c.review_status=$review_status,
               c.equipment_scope=$scope, c.snapshot=$snapshot,
-              c.truth_source_ref=$truth_source_ref, c.release_id=$release_id
+              c.truth_source_ref=$truth_source_ref, c.release_id=$release_id,
+              c.claim_modality=$claim_modality, c.condition_quote=$condition_quote,
+              c.reviewer=$reviewer, c.reviewed_applicability_json=$reviewed_applicability_json,
+              c.reviewed_temporal_json=$reviewed_temporal_json
 SET c.current_release_active=true, c.release_id=$release_id
 MERGE (s)-[:ASTRO_MATERIAL_SUBJECT]->(c)
 MERGE (c)-[:ASTRO_MATERIAL_OBJECT]->(t)
@@ -141,7 +157,14 @@ def _publish_batch(tx: Any, release: dict[str, Any], graph: dict[str, Any]):
             polarity=item['polarity'],quote=item['evidence_quote'],
             source_sha256=item['provenance']['source_sha256'],
             locators=item['provenance']['source_locators'],
-            review_status=item['review_status'],scope=release['equipment_scope'],
+            review_status=item['review_status'],
+            claim_modality=item.get('claim_modality',''),
+            condition_quote=item.get('condition_quote') or '',reviewer=item['reviewer'],
+            reviewed_applicability_json=json.dumps(item.get('reviewed_applicability'),
+                                               sort_keys=True,ensure_ascii=False),
+            reviewed_temporal_json=json.dumps(item.get('reviewed_temporal'),
+                                               sort_keys=True,ensure_ascii=False),
+            scope=release['equipment_scope'],
             snapshot=item['snapshot'],truth_source_ref=item['truth_source_ref'],
             release_id=release['release_id'])
         count+=1

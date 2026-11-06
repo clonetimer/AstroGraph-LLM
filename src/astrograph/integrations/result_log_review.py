@@ -13,7 +13,7 @@ import json
 import os
 import re
 from dataclasses import dataclass
-from importlib.resources import files
+from importlib import resources
 from pathlib import Path
 from typing import Any, Literal
 
@@ -33,9 +33,10 @@ _MAX_CITATIONS_PER_CANDIDATE = 4
 class ResultLogReviewManifest(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
     schema_version: Literal["astrograph-result-log-review.v1"]
+    analysis_mode: Literal["MATERIAL_REVIEW", "EXTERNAL_DIAGNOSIS_ANALYSIS"] = "MATERIAL_REVIEW"
     diagnosis_results: list[str] = Field(min_length=1, max_length=8)
-    log_reports: list[str] = Field(min_length=1, max_length=12)
-    references: list[str] = Field(min_length=1, max_length=16)
+    log_reports: list[str] = Field(default_factory=list, max_length=12)
+    references: list[str] = Field(default_factory=list, max_length=16)
     equipment_scope: str | None = Field(default=None, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]{1,79}$")
 
     @model_validator(mode="after")
@@ -96,7 +97,7 @@ def load_manifest(expanded: Path, path: Path) -> tuple[ResultLogReviewManifest, 
     return manifest, bound
 
 
-def read_lines(path: Path, role: str) -> list[SourceLine]:
+def read_lines(path: Path, role: str, *, include_docx_headings: bool = False) -> list[SourceLine]:
     """Use AstroGraph's existing DOCX/PDF structural parser; expose real locators."""
     suffix = path.suffix.lower()
     digest = _sha(path)
@@ -115,7 +116,10 @@ def read_lines(path: Path, role: str) -> list[SourceLine]:
                 return [SourceLine(role,path.name,'pdf#scan:ocr-review-required',
                     '[SCANNED_REFERENCE_OCR_PENDING_INDEPENDENT_REVIEW]',digest)]
         else:
-            parsed, _audit = parser.ingest_docx(path, source_id=digest[:16], knowledge_version="result-log-review-v1")
+            parsed, _audit = parser.ingest_docx(
+                path, source_id=digest[:16], knowledge_version="result-log-review-v1",
+                include_headings=include_docx_headings,
+            )
         content = [SourceLine(role, path.name, x.source_locator, x.text_representation, digest)
                    for x in parsed.elements if x.kind.value != "IMAGE" and x.text_representation.strip()]
         if sum(len(x.text) for x in content) > _MAX_TEXT_CHARS:
@@ -136,11 +140,11 @@ def read_lines(path: Path, role: str) -> list[SourceLine]:
                 raise ValueError(f"CSV row count exceeds analysis limit: {path.name}")
             content = [
                 SourceLine(role, path.name, f"csv-row:{i}",
-                           " | ".join(cell[:600] for cell in row[:80]), digest)
+                           " | ".join(row), digest)
                 for i, row in enumerate(rows, start=1) if any(cell.strip() for cell in row)
             ]
         if suffix != ".csv":
-            content = [SourceLine(role, path.name, f"line:{i}", line.strip()[:2500], digest)
+            content = [SourceLine(role, path.name, f"line:{i}", line.strip(), digest)
                        for i, line in enumerate(raw.splitlines(), start=1) if line.strip()]
     if not content:
         raise ValueError(f"no extractable text; scanned PDF requires reviewed transcription: {path.name}")
@@ -152,7 +156,7 @@ def validate_review_inputs(expanded: Path, manifest_path: Path) -> dict[str, Any
     descriptors: list[dict[str, Any]] = []
     for role, paths in roles.items():
         for path in paths:
-            lines = read_lines(path, role)
+            lines = read_lines(path, role, include_docx_headings=manifest.analysis_mode == "EXTERNAL_DIAGNOSIS_ANALYSIS")
             pending_ocr = (len(lines) == 1
                            and lines[0].text == '[SCANNED_REFERENCE_OCR_PENDING_INDEPENDENT_REVIEW]')
             descriptors.append({
@@ -163,6 +167,7 @@ def validate_review_inputs(expanded: Path, manifest_path: Path) -> dict[str, Any
             })
     return {
         "detected_schema_versions": [manifest.schema_version],
+        "analysis_mode": manifest.analysis_mode,
         "files": descriptors,
         "role_counts": {k: len(v) for k, v in roles.items()},
         "executable_files": ["analysis_input.json", *manifest.diagnosis_results, *manifest.log_reports],
@@ -175,7 +180,7 @@ def validate_review_inputs(expanded: Path, manifest_path: Path) -> dict[str, Any
 
 
 def _rules() -> list[dict[str, Any]]:
-    data = json.loads(files("astrograph.resources").joinpath("result_log_fault_rules.json").read_text(encoding="utf-8"))
+    data = json.loads(resources.read_text("astrograph.resources", "result_log_fault_rules.json", encoding="utf-8"))
     if data.get("schema_version") != "astrograph-result-log-rule-catalog.v1":
         raise ValueError("invalid review rule catalog")
     return data["rules"]
@@ -570,8 +575,8 @@ def render_result_log_markdown(job: dict[str, Any], result: dict[str, Any], know
         lines.extend(["", "## 可选知识 / LLM 辅助解释（仅供复核）", ""])
         lines.append(f"- 检索与生成状态：`{knowledge.get('status', 'UNKNOWN')}` / `{(knowledge.get('generation') or {}).get('status', 'UNKNOWN')}`")
         model_explanation = knowledge.get("model_explanation") or {}
-        if model_explanation.get("status") == "AVAILABLE_REQUIRES_EXPERT_REVIEW":
-            lines.extend(["", "### 大模型综合处置结果（需专家复核）", ""])
+        if model_explanation.get("status") == "EXTRACTIVE_REVIEW_ONLY":
+            lines.extend(["", "### 大模型来源原文摘录（非诊断结论，需专家复核）", ""])
             lines.append(f"- 综合判断：{safe(model_explanation.get('summary'))}")
             for claim in (model_explanation.get("claims") or [])[:12]:
                 citations = ", ".join(str(item) for item in (claim.get("citation_ids") or []))

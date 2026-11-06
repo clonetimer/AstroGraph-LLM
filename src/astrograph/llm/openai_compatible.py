@@ -90,6 +90,10 @@ class OutputTruncatedError(StructuredBackendError):
     pass
 
 
+class ModelRefusalError(StructuredBackendError):
+    pass
+
+
 class OpenAICompatibleConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -264,8 +268,11 @@ class OpenAICompatibleStructuredBackend:
     def _message_content(document: dict[str, Any]) -> tuple[str, str | None]:
         try:
             choice = document["choices"][0]
-            content = choice["message"]["content"]
             finish_reason = choice.get("finish_reason")
+            message = choice["message"]
+            if message.get("refusal") or finish_reason == "content_filter":
+                raise ModelRefusalError("MODEL_REFUSAL: provider declined or filtered this response")
+            content = message["content"]
         except (KeyError, IndexError, TypeError) as exc:
             raise StructuredBackendError(f"invalid OpenAI-compatible response shape: {document}") from exc
         if isinstance(content, str):
@@ -290,13 +297,28 @@ class OpenAICompatibleStructuredBackend:
         from astrograph.integrations.bounded_http import request_json
         from .audit import current_audit
         audit=current_audit()
-        return request_json(self.config.chat_completions_url, payload=body,
-            headers={
-                "Authorization": f"Bearer {self.config.api_key.get_secret_value()}",
-                "X-Request-Id": self._request_id(body),
-            },
-            timeout_s=self.config.timeout_s, max_response_bytes=self.config.max_response_bytes,
-            response_observer=audit.response if audit else None)
+        from astrograph.integrations.execution_observability import current_run
+        run = current_run()
+        from astrograph.integrations.stage_execution import check_cancelled
+        check_cancelled()
+        def invoke(observer=None):
+            check_cancelled()
+            def response(raw, *, http_status=None):
+                if audit is not None:
+                    audit.response(raw, http_status=http_status)
+                if observer is not None:
+                    observer(raw, http_status=http_status)
+            return request_json(self.config.chat_completions_url, payload=body,
+                headers={
+                    "Authorization": f"Bearer {self.config.api_key.get_secret_value()}",
+                    "X-Request-Id": self._request_id(body),
+                },
+                timeout_s=self.config.timeout_s, max_response_bytes=self.config.max_response_bytes,
+                response_observer=response if audit is not None or observer is not None else None)
+        if run is None:
+            return invoke()
+        from .audit import wire_bytes
+        return run.http_call(invoke, request_sha256=hashlib.sha256(wire_bytes(body)).hexdigest())
 
     @staticmethod
     def _reference_items(payload: dict[str, Any]) -> list[dict[str, Any]]:
@@ -1080,8 +1102,25 @@ class OpenAICompatibleStructuredBackend:
                     self.call_history.append(dict(self.last_call_metadata))
                     return result
                 except Exception as exc:
+                    from astrograph.integrations.execution_observability import ExecutionJournalError
+                    from astrograph.integrations.stage_execution import AnalysisCancelled
+                    if isinstance(exc, (ExecutionJournalError, AnalysisCancelled)):
+                        self.last_call_metadata = {"status": "FAILED", "failure_category": "EXECUTION_JOURNAL",
+                                                   "attempts": attempts}
+                        self.call_history.append(dict(self.last_call_metadata))
+                        raise
                     message = f"{strategy}/attempt-{repair_index + 1}: {type(exc).__name__}: {exc}"
                     errors.append(message)
+                    if isinstance(exc, ModelRefusalError):
+                        # Refusal is terminal, not malformed JSON to repair or bypass.
+                        self.last_call_metadata = {
+                            "status": "REFUSED", "strategy": strategy,
+                            "latency_s": round(time.perf_counter() - started, 6),
+                            "attempts": attempts, "request_ids": list(request_ids),
+                            "errors": errors, "failure_category": "MODEL_REFUSAL",
+                        }
+                        self.call_history.append(dict(self.last_call_metadata))
+                        raise
                     if isinstance(exc, (AttemptBudgetExceeded, ExecutionDeadlineExceeded, OutputBudgetError)):
                         self.last_call_metadata = {"status":"BUDGET_REJECTED", "attempts":attempts,"errors":errors,"output_budget":getattr(exc,"budget",{})}
                         self.call_history.append(dict(self.last_call_metadata))

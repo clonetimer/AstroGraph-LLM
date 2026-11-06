@@ -13,12 +13,12 @@ HTML = (RESOURCES / "platform_ui.html").read_text(encoding="utf-8")
 
 
 def test_r35_10_asset_version_and_workspace_module_are_served() -> None:
-    assert PLATFORM_UI_ASSET_VERSION == "v0.21.1"
+    assert PLATFORM_UI_ASSET_VERSION == "v0.21.2"
     source, media_type = platform_asset("platform_diagnostic_workspace.js")
     assert media_type.startswith("application/javascript")
     assert "renderDiagnosticWorkspace" in source
-    assert "/platform/assets/v0.21.1/platform_ui.js" in HTML
-    assert "/platform/assets/v0.21.1/platform_ui.css" in HTML
+    assert "/platform/assets/v0.21.2/platform_ui.js" in HTML
+    assert "/platform/assets/v0.21.2/platform_ui.css" in HTML
 
 
 def test_workspace_is_hooked_to_the_production_projection_endpoint() -> None:

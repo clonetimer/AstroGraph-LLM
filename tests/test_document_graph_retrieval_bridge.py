@@ -308,6 +308,7 @@ def test_document_claim_requires_all_explicit_fusion_gates() -> None:
             independent_provenance_group_ids=["independent:HIL:1"],
             applicability_context=["episode:episode:claim-gate"],
         ),
+        observation_time_s=10.0,
     )[0]
     assert admitted.formal_fusion_eligible is True
     assert admitted.reason_codes == ["FORMAL_FUSION_ELIGIBLE"]

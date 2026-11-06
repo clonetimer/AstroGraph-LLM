@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AstroGraph 故障分析与知识工程平台</title>
-<link rel="stylesheet" href="/platform/assets/v0.21.1/platform_ui.css">
+<link rel="stylesheet" href="/platform/assets/v0.21.5/platform_ui.css">
+<link rel="stylesheet" href="/platform/assets/v0.21.5/execution_view.css"><link rel="stylesheet" href="/platform/assets/v0.21.5/workspace_view.css">
 </head>
 <body>
 <div class="app">
@@ -126,16 +127,17 @@
         <div class="grid-2 new-task-grid">
           <div class="card card-pad new-task-primary">
             <label class="field-group task-box"><span style="display:block;font-weight:690;margin-bottom:6px">任务目标</span><textarea id="task">根据已有诊断结果、运行日志和参考文献，分析可能的故障原因，提供处置建议、验证步骤和可追溯引用。</textarea></label>
-            <div class="field-group" style="margin-bottom:12px"><label for="input-flow">分析入口</label><select class="field" id="input-flow"><option value="review" selected>诊断结果 + 日志 + 参考文献（新需求）</option><option value="legacy">原始遥测 / 旧版结构化诊断（兼容入口）</option></select><small class="card-sub">新入口不需要原始遥测；每类至少上传一份，并在下方确认文件角色。是否可执行以后端预检为准。</small></div>
+            <div class="field-group" style="margin-bottom:12px"><label for="input-flow">分析入口</label><select class="field" id="input-flow"><option value="review" selected>外部诊断结果（日志与参考文献可选）</option><option value="legacy">原始遥测 / 旧版结构化诊断（兼容入口）</option></select><small class="card-sub">至少上传一份外部诊断结果；日志和参考文献可选，并在下方确认文件角色。使用已配置的默认大模型；未配置模型时仅导入材料，不运行规则诊断。是否可执行以后端预检为准。</small></div>
             <div class="field-group" style="margin-bottom:12px"><label for="equipment-scope">设备型号/构型标识（可选）</label><input class="field" id="equipment-scope" placeholder="例如 SAT-A_ADCS_V2（需与已审案例完全一致）" maxlength="80"><small class="card-sub">仅用于同型号已审核知识检索；留空则不跨型号检索历史案例和文献，不影响本次分析。</small></div>
-            <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="上传诊断结果、运行日志和参考文献"><strong>拖入诊断结果、日志报告、参考文献</strong><span>JSON / CSV / LOG / TXT / MD / PDF / DOCX；旧版支持 ZIP / YAML</span><input class="file-input" id="file-input" type="file" multiple accept=".json,.csv,.zip,.log,.pdf,.docx,.txt,.md,.yaml,.yml"></div>
+            <details id="platform-context-picker" class="context-workbench"></details>
+<div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="上传诊断结果、运行日志和参考文献"><strong>拖入诊断结果、日志报告、参考文献</strong><span>JSON / CSV / LOG / TXT / MD / PDF / DOCX；旧版支持 ZIP / YAML</span><input class="file-input" id="file-input" type="file" multiple accept=".json,.csv,.zip,.log,.pdf,.docx,.txt,.md,.yaml,.yml"></div>
             <div class="file-list" id="file-list"></div>
             <div class="ops-section"><div class="card-title">诊断模式</div><div class="ops-mode-aliases" id="ops-mode-aliases"><div class="ops-empty">等待服务器返回可用诊断模式。</div></div></div>
             <details class="advanced-settings">
               <summary id="new-advanced-summary">高级诊断设置</summary>
               <div class="advanced-settings-body"><div class="cap-action"><div class="card-title">手动指定调查策略</div><button class="btn small" type="button" id="mode-help">查看模式差异</button></div><div class="mode-segment" id="new-mode-segment"><div class="empty">正在读取模式…</div></div></div>
             </details>
-            <div class="run-bar"><div class="run-note" id="run-note">请上传诊断结果、日志报告与参考文献，各至少一份。</div><div class="page-actions"><button class="btn" id="preflight-btn">校验输入</button><button class="btn primary" id="start-btn" disabled>开始分析</button></div></div>
+            <div class="run-bar"><div class="run-note" id="run-note">请至少上传一份诊断结果；日志报告与参考文献可选。</div><div class="page-actions"><button class="btn" id="preflight-btn">校验输入</button><button class="btn primary" id="start-btn" disabled>开始分析</button></div></div>
           </div>
           <div class="card card-pad new-task-side">
             <div class="card-title">输入与执行状态</div>
@@ -143,7 +145,7 @@
             <div class="divider"></div><div class="card-title">服务器识别结果</div><div id="ops-recognized-inputs" class="ops-recognized-inputs"><div class="ops-empty">等待服务器识别输入；浏览器不会猜测数据类型。</div></div>
             <div class="divider"></div>
             <div class="card-title">诊断可执行性预检</div>
-            <div class="card-sub">后端校验三类材料的文件角色、完整性、可解析文本和支持能力；不会从文件名猜测故障原因。</div>
+            <div class="card-sub">后端校验诊断结果和已添加辅助材料的文件角色、完整性、可解析文本和支持能力；不会从文件名猜测故障原因。</div>
             <div class="preflight-box" id="preflight-result"><div class="empty">尚未校验输入。</div></div>
             <details class="advanced-settings">
               <summary>高级 · 当前策略允许的工具</summary>
@@ -152,7 +154,7 @@
           </div>
         </div>
         <div class="card card-pad job-runtime-panel" id="active-job-panel" hidden>
-          <div class="cap-action"><div><div class="card-title">当前任务执行状态</div><div class="card-sub mono" id="active-job-id">—</div></div><div class="job-runtime-actions"><button class="btn small" type="button" id="refresh-job-diagnostics">刷新状态</button><button class="btn small" type="button" id="retry-job" hidden>重试当前任务</button><button class="btn small" type="button" id="open-job-result" hidden>打开结果</button></div></div>
+          <div class="cap-action"><div><div class="card-title">当前任务执行状态</div><div class="card-sub mono" id="active-job-id">—</div></div><div class="job-runtime-actions"><button class="btn small" type="button" id="refresh-job-diagnostics">刷新状态</button><button class="btn small" type="button" id="cancel-job" hidden>取消任务</button><button class="btn small" type="button" id="resume-job" hidden>恢复中断任务</button><button class="btn small" type="button" id="retry-job" hidden>重试当前任务</button><button class="btn small" type="button" id="open-job-result" hidden>打开结果</button></div></div>
           <div class="job-runtime-grid"><div class="job-runtime-cell"><span>执行状态</span><strong id="jobdiag-status">—</strong></div><div class="job-runtime-cell"><span>执行阶段</span><strong id="jobdiag-stage">—</strong></div><div class="job-runtime-cell"><span>后台执行器</span><strong id="jobdiag-executor">—</strong></div><div class="job-runtime-cell"><span>调查增强</span><strong id="jobdiag-llm">—</strong></div></div>
           <div class="ops-workflow" id="ops-runtime-workflow"><div class="ops-empty">后端尚未返回执行阶段。</div></div>
           <div class="job-error" id="jobdiag-error" hidden></div><pre class="job-log" id="jobdiag-log" hidden></pre>
@@ -362,6 +364,9 @@ search_documents"></textarea></div>
   <div class="dialog-body" id="cap-dialog-body"></div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script type="module" src="/platform/assets/v0.21.1/platform_ui.js"></script>
+<script src="/platform/assets/v0.21.5/workspace_view.js"></script>
+<script src="/platform/assets/v0.21.5/execution_view.js"></script>
+<script src="/platform/assets/v0.21.5/external_follow_up.js"></script>
+<script type="module" src="/platform/assets/v0.21.5/platform_ui.js"></script>
 </body>
 </html>

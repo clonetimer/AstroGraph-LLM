@@ -376,7 +376,7 @@ class MaterialCaseMemory:
                               proposals: list[dict[str, Any]],
                               producer: str = 'ASTROGRAPH_MATERIAL_GRAPH_EXTRACTOR') -> list[dict[str, Any]]:
         """Idempotent staging, without granting a graph write or query vote."""
-        from astrograph.integrations.material_graph_builder import GRAPH_PROPOSAL_SCHEMA, ALLOWED_TRIPLES
+        from astrograph.integrations.material_graph_builder import GRAPH_PROPOSAL_SCHEMA, ALLOWED_TRIPLES, causal_quotation_defects
         if not re.fullmatch(r'JOB-[0-9A-F]{24}', source_group_id):
             raise ValueError('graph source_group_id must be a valid job ID')
         output=[]
@@ -390,7 +390,10 @@ class MaterialCaseMemory:
                     not re.fullmatch(r'[0-9a-f]{64}', str(proposal['provenance']['source_sha256'])) or
                     not proposal['provenance'].get('source_locators') or
                     not proposal.get('evidence_quote') or
-                    proposal.get('polarity') not in {'AFFIRMATIVE','NEGATED'}):
+                    proposal.get('polarity') not in {'AFFIRMATIVE','NEGATED'} or
+                    'reviewed_applicability' in proposal or
+                    'reviewed_temporal' in proposal or
+                    causal_quotation_defects(proposal)):
                     raise ValueError('invalid sourced, ontology-constrained graph proposal')
                 identity=proposal['proposal_id']
                 data=_serial(proposal)
@@ -413,6 +416,8 @@ class MaterialCaseMemory:
 
     def decide_graph(self, *, proposal_id: str, reviewer: str, decision: str,
                      truth_source_ref: str, equipment_scope: str | None = None,
+                     reviewed_applicability: dict[str, Any] | None = None,
+                     reviewed_temporal: dict[str, Any] | None = None,
                      expected_snapshot: int | None = None) -> dict[str, Any]:
         """Independently approve one sourced proposition at a time (not a whole LLM batch)."""
         if reviewer not in self.reviewers:
@@ -434,6 +439,27 @@ class MaterialCaseMemory:
             if expected_snapshot is not None and expected_snapshot!=head:
                 raise MaterialMemoryConflict('graph snapshot compare-and-swap failed')
             scope=self._scope(equipment_scope or '') if decision=='CONFIRM' else None
+            # R9: only authenticated independent approval can attach context.
+            # Extraction/staging payloads are forbidden to supply it.
+            if decision != 'CONFIRM' and (reviewed_applicability is not None or reviewed_temporal is not None):
+                raise ValueError('rejected relation cannot receive approved applicability')
+            approved_context = None
+            if reviewed_applicability is not None:
+                from astrograph.integrations.material_applicability import normalize_reviewed_applicability
+                approved_context = normalize_reviewed_applicability(
+                    reviewed_applicability, equipment_scope=scope)
+            approved_timing = None
+            if reviewed_temporal is not None:
+                if approved_context is None or json.loads(row['body']).get('relation_type') != 'CAUSES':
+                    raise ValueError('reviewed temporal metadata requires reviewed CAUSES applicability')
+                from astrograph.integrations.material_temporal import normalize_reviewed_temporal
+                approved_timing = normalize_reviewed_temporal(reviewed_temporal, equipment_scope=scope)
+                from astrograph.integrations.material_temporal import assess_temporal_causal_path
+                temporal_validation = assess_temporal_causal_path(
+                    [{'reviewed_applicability': approved_context,
+                      'reviewed_temporal': approved_timing}], equipment_scope=scope)
+                if temporal_validation['conflict_reasons']:
+                    raise ValueError('temporal review conflicts with approved scope')
             timestamp=_now()
             db.execute('INSERT INTO graph_decisions(proposal_id,decision,reviewer,truth_source_ref,decided_at) VALUES(?,?,?,?,?)',
                        (proposal_id,decision,reviewer,truth_source_ref.strip(),timestamp))
@@ -444,6 +470,8 @@ class MaterialCaseMemory:
             item=json.loads(row['body'])
             version=head+1
             body={**item,'equipment_scope':scope, 'reviewer':reviewer,
+                  **({'reviewed_applicability': approved_context} if approved_context is not None else {}),
+                  **({'reviewed_temporal': approved_timing} if approved_timing is not None else {}),
                   'truth_source_ref':truth_source_ref.strip(),'available_at':timestamp,
                   'snapshot':version, 'review_status':'INDEPENDENTLY_REVIEWED_REFERENCE_RELATION',
                   'current_root_cause_proven':False, 'active_kg_modified':False}

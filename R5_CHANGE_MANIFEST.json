@@ -1,0 +1,41 @@
+{
+  "schema_version": "astrograph-foundation-r5-change-manifest.v1",
+  "based_on": "R4_CANDIDATE_20261014",
+  "scope": "NARRATIVE_SYMPTOM_INTAKE_NONVOTING_SAFETY_REGRESSION",
+  "paths": [
+    {
+      "path": "README.md",
+      "sha256": "75f439a356002cb9c386ebaadc9ea163d13849b44ef2f7395f8c7739fbd45f05"
+    },
+    {
+      "path": "FOUNDATION_R5_REPORTED_OBSERVATION_AUDIT.md",
+      "sha256": "c13672c13989c012a9aa6e0938853049e37b87edffc7ed01453b1c37698384d5"
+    },
+    {
+      "path": "src/astrograph/retrieval/reported_observations.py",
+      "sha256": "d1f053ea499a84dfc34d4525790f3f19ef1debaa5cd4ab48aab7af6f34524e18"
+    },
+    {
+      "path": "src/astrograph/integrations/platform_knowledge.py",
+      "sha256": "113741e4683e9bca6521a1a4dcac8e3ecc66c1cb884688da15ea8c718a864ba6"
+    },
+    {
+      "path": "src/astrograph/llm/task_prompts.py",
+      "sha256": "5ae5830d0d0ad8f7fb7bc3fa2a868758662dccfd0c0f5784aa66f5eff5426d9c"
+    },
+    {
+      "path": "scripts/review_reported_observations.py",
+      "sha256": "feeec24e13228e0d0eb144999672e490e9010eb3f25dca2cbdc069dd15b4761e"
+    },
+    {
+      "path": "examples/r5_south_solar_wing_observations.txt",
+      "sha256": "9feded5a4b1d65afa8f4cfae9a0014e8542ce0fcd4411d40cd680e90f582c121"
+    },
+    {
+      "path": "tests/test_foundation_r5_reported_observations.py",
+      "sha256": "22c0a5a3d85a78bb3de5397f15d39aee83e44258dabc9f0e23485f9e4a436821"
+    }
+  ],
+  "diagnostic_vote_allowed": false,
+  "formal_release": false
+}

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -223,11 +224,28 @@ class SectionFirstDocumentIngestor:
             if image:
                 flush(index - 1)
                 alt, uri = image.groups()
-                path = Path(asset_root, uri) if asset_root and not re.match(r"^[a-z]+://", uri) else None
-                asset_hash = hashlib.sha256(path.read_bytes()).hexdigest() if path and path.is_file() else None
-                reviewed = bool(alt.strip()) and asset_hash is not None
-                if not reviewed:
-                    warnings.append(f"IMAGE_REPRESENTATION_REVIEW_REQUIRED:{index}")
+                # Never resolve a document-controlled link outside the explicit
+                # asset directory (including absolute paths and symlink escapes).
+                # The image alt text is author-supplied, NOT an independent
+                # human-verified caption even when the image bytes exist.
+                path = None
+                asset_hash = None
+                if asset_root is not None and not re.match(r"^[a-z][a-z0-9+.-]*:", uri, re.I):
+                    root = Path(asset_root).resolve()
+                    candidate = (root / uri).resolve()
+                    try:
+                        candidate.relative_to(root)
+                        inside_root = True
+                    except ValueError:
+                        inside_root = False
+                    if inside_root and candidate.is_file():
+                        path = candidate
+                    elif not inside_root:
+                        warnings.append(f"IMAGE_ASSET_OUTSIDE_ROOT_BLOCKED:{index}")
+                if path is not None:
+                    asset_hash = self._file_sha256(path)
+                reviewed = False
+                warnings.append(f"IMAGE_REPRESENTATION_REVIEW_REQUIRED:{index}")
                 ordinal += 1
                 elements.append(DocumentElement(
                     element_id=f"element:{ordinal:05d}", kind=DocumentElementKind.IMAGE,
@@ -300,6 +318,7 @@ class SectionFirstDocumentIngestor:
         *,
         maximum_archive_entries: int = 10_000,
         maximum_uncompressed_bytes: int = 256 * 1024 * 1024,
+        include_headings: bool = False,
     ) -> tuple[list[DocumentElement], list[str], DocxParseAudit]:
         """Parse DOCX natively without flattening it through PDF or Markdown."""
 
@@ -363,6 +382,18 @@ class SectionFirstDocumentIngestor:
                                 "source_locator": f"word/document.xml#paragraph:{block_index}",
                             }
                         )
+                        if include_headings:
+                            ordinal += 1
+                            elements.append(DocumentElement(
+                                element_id=f"element:{ordinal:05d}",
+                                kind=DocumentElementKind.TEXT,
+                                section_path=[item[1] for item in heading_stack],
+                                text_representation=text,
+                                source_locator=f"word/document.xml#paragraph:{block_index}",
+                                representation_method="docx-native-heading",
+                                representation_reviewed=True,
+                                style_id=style_id, style_name=style_name,
+                            ))
                         continue
 
                     blips = list(child.iter(self._a + "blip"))
@@ -505,6 +536,60 @@ class SectionFirstDocumentIngestor:
             )
             return elements, warnings, audit
 
+    def _parse_pdf_with_pypdf(
+        self, source_path: Path, *, maximum_bytes: int
+    ) -> tuple[list[DocumentElement], list[str], PdfParseAudit]:
+        """Bounded pure-Python PDF extraction for portable deployments."""
+        try:
+            from pypdf import PdfReader
+            reader = PdfReader(str(source_path), strict=True)
+            if reader.is_encrypted:
+                raise ValueError("encrypted PDF is not supported; provide an unlocked copy")
+            if len(reader.pages) > 3000:
+                raise ValueError("PDF page count exceeds analysis limit")
+            elements: list[DocumentElement] = []
+            warnings: list[str] = []
+            ordinal = 0
+            text_pages = 0
+            extracted_characters = 0
+            for page_number, page in enumerate(reader.pages, start=1):
+                page_text = (page.extract_text() or "").replace("\x00", "").strip()
+                if not page_text:
+                    warnings.append(f"PDF_PAGE_TEXT_EMPTY_OCR_REQUIRED:{page_number}")
+                    continue
+                text_pages += 1
+                blocks = [block.strip() for block in re.split(r"\n\s*\n", page_text) if block.strip()]
+                for block_index, block in enumerate(blocks, start=1):
+                    extracted_characters += len(block)
+                    if extracted_characters > 180_000:
+                        raise ValueError("PDF extracted text exceeds 180000 character limit")
+                    lines = block.splitlines()
+                    looks_tabular = len(lines) >= 2 and sum(bool(re.search(r"\S\s{2,}\S", line)) for line in lines) >= 2
+                    kind = DocumentElementKind.TABLE if looks_tabular else DocumentElementKind.TEXT
+                    if looks_tabular:
+                        warnings.append(f"PDF_TABLE_STRUCTURE_REVIEW_REQUIRED:{page_number}:{block_index}")
+                    ordinal += 1
+                    elements.append(DocumentElement(
+                        element_id=f"element:{ordinal:05d}", kind=kind,
+                        section_path=[f"Page {page_number}"], text_representation=block,
+                        source_locator=f"pdf#page:{page_number}:block:{block_index}",
+                        representation_method="pypdf-page-text", representation_reviewed=not looks_tabular,
+                    ))
+            if not elements:
+                raise ValueError("PDF contains no extractable text; OCR output must be supplied before analysis")
+            audit = PdfParseAudit(
+                source_sha256=self._file_sha256(source_path), parser_id="pypdf-portable",
+                page_count=max(1, len(reader.pages)), text_page_count=text_pages,
+                text_block_count=len(elements),
+                table_like_block_count=sum(item.kind == DocumentElementKind.TABLE for item in elements),
+                warnings=warnings,
+            )
+            return elements, warnings, audit
+        except ValueError:
+            raise
+        except Exception as exc:
+            raise ValueError("PDF parsing failed or file is malformed") from exc
+
     def parse_pdf_layout(
         self,
         path: str | Path,
@@ -521,8 +606,8 @@ class SectionFirstDocumentIngestor:
             raise ValueError("PDF size limit exceeded")
         pdftotext = shutil.which("pdftotext")
         pdfinfo = shutil.which("pdfinfo")
-        if pdftotext is None or pdfinfo is None:
-            raise RuntimeError("Poppler pdftotext and pdfinfo are required for PDF parsing")
+        if os.environ.get("ASTROGRAPH_PDF_ENGINE") == "pypdf" or pdftotext is None or pdfinfo is None:
+            return self._parse_pdf_with_pypdf(source_path, maximum_bytes=maximum_bytes)
         try:
             info = subprocess.run(
                 [pdfinfo, str(source_path)],
@@ -740,9 +825,10 @@ class SectionFirstDocumentIngestor:
         source_id: str,
         knowledge_version: str,
         document_descriptor: GovernedDocumentDescriptor | None = None,
+        include_headings: bool = False,
     ) -> tuple[StructuredDocumentIngestion, DocxParseAudit]:
         source_path = Path(path).resolve()
-        elements, warnings, audit = self.parse_docx(source_path)
+        elements, warnings, audit = self.parse_docx(source_path, include_headings=include_headings)
         ingestion = self.ingest_elements(
             source_id=source_id,
             source_uri=str(source_path),

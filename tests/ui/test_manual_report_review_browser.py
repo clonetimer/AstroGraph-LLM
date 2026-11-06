@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[2]/'src/astrograph/resources'
 HTML=(ROOT/'platform_ui.html').read_text('utf-8')
-OFFLINE=HTML.replace('<link rel="stylesheet" href="/platform/assets/v0.21.1/platform_ui.css">','').replace('<script type="module" src="/platform/assets/v0.21.1/platform_ui.js"></script>','')
+OFFLINE=HTML.replace('<link rel="stylesheet" href="/platform/assets/v0.21.5/platform_ui.css">','').replace('<script type="module" src="/platform/assets/v0.21.5/platform_ui.js"></script>','')
 CSS=(ROOT/'platform_ui.css').read_text('utf-8')
 
 def script(name):
@@ -21,7 +21,7 @@ STUB=r"""
 const j='JOB-1234567890ABCDEF12345678',f='ADCS_RW_FRICTION_INCREASE';
 window.__rv={auth:false,rev:0,decision:null};
 const summary=()=>({job_id:j,report_sha256:'f'.repeat(64),status:window.__rv.rev?'REVIEWED':'PENDING',
-  reviewed_count:window.__rv.rev?1:0,total_count:1,revision:window.__rv.rev,
+  reviewed_count:window.__rv.rev?1:0,total_count:1,revision:window.__rv.rev,\n  claim_review_status:'PENDING',claim_reviewed_count:0,claim_total_count:1,claim_revision:0,claim_history_integrity:'VERIFIED',
   current_root_cause_confirmed:false,automatic_control_authorized:false});
 window.fetch=async(url,opts={})=>{
   let data={};const uri=String(url);let status=200;
@@ -37,7 +37,10 @@ window.fetch=async(url,opts={})=>{
     }
     data={...summary(),candidates:[{fault_id:f,fault_name:'飞轮摩擦增大',review:window.__rv.rev?{actor:'expert',
       decision:window.__rv.decision.decision,note:window.__rv.decision.note,evidence_ref:window.__rv.decision.evidence_ref,
-      recorded_at:'2026-10-09'}:null}],history:[]};
+      recorded_at:'2026-10-09'}:null}],claims:[{claim_id:'claim-1234567890abcdef1234567890abcdef',
+      claim_type:'HYPOTHESIS',text:'时间对齐风险可能影响轮速异常解释。',epistemic_status:'INFERRED',
+      evidence_refs:[],opposing_evidence_refs:[],verification_status:'NOT_EVALUATED',
+      verification_evidence_refs:[],verification_counter_evidence_refs:[],review:null}],claim_history:[],history:[]};
   }
   return {ok:status===200,status,statusText:'error',headers:{get:()=> 'application/json'},json:async()=>data};
 };

@@ -9,7 +9,10 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from astrograph.retrieval.document_governance import DocumentEvidenceClaim
+from astrograph.retrieval.document_governance import (
+    ClaimTemporalScope, ClaimEpistemicStatus, DocumentEvidenceClaim,
+    DocumentVisibilityClass, DocumentAuthority, DocumentReviewState,
+)
 from astrograph.retrieval.document_claims import evaluate_document_claim_admissions
 from astrograph.retrieval.models import (
     DocumentClaimAdmission,
@@ -136,6 +139,7 @@ def build_online_document_claim_shadow(
     config: DocumentClaimOnlineShadowConfig,
     episode_id: str,
     registered_fault_ids: list[str],
+    observation_time_s: float | None = None,
 ) -> DocumentClaimOnlineShadowResult:
     """Reload and revalidate frozen document claims without modifying online fusion."""
 
@@ -143,6 +147,8 @@ def build_online_document_claim_shadow(
         return DocumentClaimOnlineShadowResult(
             status="DISABLED", reason_codes=["DOCUMENT_CLAIM_SHADOW_DISABLED"]
         )
+    if observation_time_s is None or not math.isfinite(observation_time_s) or observation_time_s < 0:
+        raise ValueError("enabled document claim shadow requires a trusted finite observation_time_s")
     trace_path = Path(config.claim_trace_path or "")
     mapping_path = Path(config.mapping_bundle_path or "")
     if not trace_path.is_file() or not mapping_path.is_file():
@@ -165,7 +171,9 @@ def build_online_document_claim_shadow(
     mapping_bundle = DocumentClaimMappingBundle.model_validate_json(
         mapping_text
     )
-    recomputed = evaluate_document_claim_admissions(trace.claims, trace.policy)
+    recomputed = evaluate_document_claim_admissions(
+        trace.claims, trace.policy, observation_time_s=observation_time_s
+    )
     if recomputed != trace.admissions:
         raise ValueError("stored document claim admissions differ from policy recomputation")
     eligible = {item.claim_id for item in recomputed if item.formal_fusion_eligible}
@@ -184,6 +192,7 @@ def build_online_document_claim_shadow(
     )
     build = build_document_claim_forward_ranking(
         episode_id=episode_id,
+        observation_time_s=observation_time_s,
         claims=trace.claims,
         admissions=recomputed,
         mappings=mapping_bundle.mappings,
@@ -213,6 +222,7 @@ class DocumentClaimRankingBuild(BaseModel):
     consumed_claim_ids: list[str]
     consumed_mapping_ids: list[str]
     ignored_ineligible_claim_ids: list[str]
+    observation_time_s: float | None = None
     active_graph_modified: Literal[False] = False
     claim_boundary: str = (
         "Only explicitly admitted and exactly mapped document claims contribute. This adapter "
@@ -229,6 +239,7 @@ class DocumentClaimRankingBuild(BaseModel):
 def build_document_claim_forward_ranking(
     *,
     episode_id: str,
+    observation_time_s: float | None = None,
     claims: list[DocumentEvidenceClaim],
     admissions: list[DocumentClaimAdmission],
     mappings: list[DocumentClaimFaultMapping],
@@ -260,6 +271,36 @@ def build_document_claim_forward_ranking(
     eligible_ids = {
         item.claim_id for item in admissions if item.formal_fusion_eligible
     }
+    # Independent defense: callers cannot bypass the admission evaluator by
+    # passing a previously approved or forged admission at a later time.
+    for claim_id in eligible_ids:
+        claim = claim_by_id[claim_id]
+        if f"episode:{episode_id}" not in claim.applicability:
+            raise ValueError("eligible document claim is not bound to the requested episode")
+        if (
+            claim.source_authority != DocumentAuthority.APPROVED_SOURCE
+            or claim.source_review_state != DocumentReviewState.HUMAN_REVIEWED
+            or claim.epistemic_status != ClaimEpistemicStatus.SOURCE_FACT
+            or not claim.publication_eligible
+            or not claim.source_runtime_vote_allowed
+            or not claim.runtime_evidence_eligible
+            or claim.source_provenance_group_id is None
+        ):
+            raise ValueError("eligible document claim lacks approved runtime authority")
+        if claim.source_visibility_class != DocumentVisibilityClass.OBSERVATION_CAUSAL:
+            raise ValueError("document claim voting supports only governed causal observations")
+        if claim.temporal_scope != ClaimTemporalScope.TIME_BOUNDED:
+            raise ValueError("causal observation claim must be time bounded")
+        if observation_time_s is None or not math.isfinite(observation_time_s) or observation_time_s < 0:
+            raise ValueError("eligible document claims require a trusted finite observation_time_s")
+        if (
+            claim.valid_time_end_s is None or claim.observable_cutoff_time_s is None
+            or not math.isfinite(claim.valid_time_end_s)
+            or not math.isfinite(claim.observable_cutoff_time_s)
+            or claim.valid_time_end_s > observation_time_s
+            or claim.observable_cutoff_time_s > observation_time_s
+        ):
+            raise ValueError("eligible document claim contains future observation evidence")
     unmapped_eligible = eligible_ids - set(mapping_by_claim)
     if unmapped_eligible:
         raise ValueError(
@@ -359,6 +400,7 @@ def build_document_claim_forward_ranking(
             "claim_ids": sorted(eligible_ids),
             "mapping_hashes": mapping_hashes,
             "source_artifact_sha256": source_artifact_sha256,
+            "observation_time_s": observation_time_s if eligible_ids else None,
         })[:20].upper(),
         episode_id=episode_id,
         source=RankingSource.KG_FORWARD,
@@ -370,6 +412,7 @@ def build_document_claim_forward_ranking(
         metadata={
             "document_claim_ranking": True,
             "formal_fusion_eligible_claim_count": len(eligible_ids),
+            "observation_time_s": observation_time_s if eligible_ids else None,
             "mapping_sha256": mapping_hashes,
             "source_artifact_sha256": source_artifact_sha256,
         },
@@ -379,6 +422,7 @@ def build_document_claim_forward_ranking(
         consumed_claim_ids=sorted(eligible_ids),
         consumed_mapping_ids=sorted(item.mapping_id for item in consumed_mappings),
         ignored_ineligible_claim_ids=sorted(set(claim_by_id) - eligible_ids),
+        observation_time_s=observation_time_s if eligible_ids else None,
     )
 
 

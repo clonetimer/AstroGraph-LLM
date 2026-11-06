@@ -1,0 +1,48 @@
+{
+  "schema_version": "astrograph-foundation-r7-change-manifest.v1",
+  "baseline": "astrograph-source-foundation-r6-candidate-20261014",
+  "focus": [
+    "CAUSAL_RELATION_ONTOLOGY",
+    "SOURCE_QUOTE_AND_CONDITION_GATES",
+    "REVIEWED_FORWARD_CAUSAL_CHAIN",
+    "PER_HOP_PROVENANCE",
+    "LEGACY_ASSOCIATION_COMPATIBILITY"
+  ],
+  "new_fields": [
+    "GraphRelationProposal.condition_quote",
+    "material_reasoning.candidates[].multi_hop.causal_chain_review"
+  ],
+  "limits": {
+    "default_hops": 3,
+    "opt_in_max_hops": 4,
+    "chain_limit": 20,
+    "edge_limit": 10000
+  },
+  "not_claimed": [
+    "AUTOMATIC_ROOT_CAUSE_PROOF",
+    "VERIFIED_SENSOR_ALIGNMENT",
+    "BLIND_SADA_DIAGNOSIS",
+    "AUTONOMOUS_CONTROL"
+  ],
+  "changes_require_independent_review": true,
+  "outcome_label_in_production_retrieval": false,
+  "validation": {
+    "final_job": "validation_logs/r7-final-v2",
+    "passed": 157,
+    "skipped": 3,
+    "exit_code": 0,
+    "test_scope": "19 selected modules; not all-project acceptance"
+  },
+  "modified_file_sha256": {
+    "README.md": "a89805a5e4af0e526db5e3cc0c51e4096116ab7c0c3de18180c81fae75fb0721",
+    "FOUNDATION_R7_CAUSAL_CLAIMS.md": "81eba7d54a31c31c3a999fe4617d702ae43108745a15471372771e7d959c4c02",
+    "src/astrograph/integrations/material_case_memory.py": "7ca42b822ff6ddb4c5a3157f90400089beda4e7054f0f1b0e24f5a5d3742a491",
+    "src/astrograph/integrations/material_graph_builder.py": "08abeb65340e211197c98ac775c06adcc02bc3465086f78c7c1123757d48d509",
+    "src/astrograph/integrations/material_graph_release.py": "490a4454e798ca1b5defcfb13c3b45804faa3b33dbc68f2946595ee64cb00dc1",
+    "src/astrograph/integrations/material_multihop.py": "7c1db914aa1d14d62890b6fb6b5b8a30e62faed93ec840f1e34a26ae6bd571cc",
+    "src/astrograph/integrations/material_reasoning.py": "50e14b52d354dfc3ba6f913d4cae784d940ecb88b5aca6792995a791803e8fcd",
+    "src/astrograph/llm/task_prompts.py": "c35c800428818b5287d53bf6d861b62048bf3f36e264872334cde2d1628697e6",
+    "tests/test_foundation_r7_causal_claims.py": "3bfb19c26789d7928fd07eefbda3f6e8941fde4053f4327db6c240876b165f80",
+    "tests/test_material_knowledge_fusion.py": "0284958f68a7dc6b95b3d5ef681cc9a702895934f010112ced2b9184d833f7a5"
+  }
+}

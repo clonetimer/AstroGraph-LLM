@@ -1,0 +1,116 @@
+name: Portable P2-P3 Windows release-candidate packages
+on:
+  push:
+    branches: [feat/platform-persistent-queue]
+    paths:
+      - '.github/workflows/portable-p3-release-candidate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: portable-p3-packaging-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  win10-package:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Fetch hash-verified official Win10 runtime and wheels
+        run: python portable/prepare_vendor.py --output-dir vendor-cache
+      - name: Build self-contained Win10 x64 package
+        run: python portable/build.py --runtime vendor-cache/python-3.14.10-embed-amd64.zip --wheels-dir vendor-cache/wheels-win314 --output-dir dist
+      - name: Verify extracted package, embedded runtime and offline diagnostic analysis
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force evidence | Out-Null
+          $pkg = 'dist/AstroGraph-LLM-Win10-x64'
+          & "$pkg/runtime/python.exe" -X utf8 -B "$pkg/verify_manifest.py" 2>&1 | Tee-Object evidence/manifest-win10.log
+          if ($LASTEXITCODE -ne 0) { throw 'Win10 package manifest verification failed' }
+          & "$pkg/runtime/python.exe" -X utf8 -B "$pkg/app/workbench.py" --data-dir "$pkg/data" --self-test 2>&1 | Tee-Object evidence/selftest-win10.log
+          if ($LASTEXITCODE -ne 0) { throw 'Win10 embedded self-test failed' }
+          $zip = Get-ChildItem dist -Filter '*.zip' | Select-Object -First 1
+          if ($null -eq $zip) { throw 'Win10 ZIP missing' }
+          $actual = (Get-FileHash $zip.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          $expected = ((Get-Content "$($zip.FullName).sha256" -Raw).Trim() -split '\s+')[0].ToLowerInvariant()
+          if ($actual -ne $expected) { throw 'Win10 ZIP hash mismatch' }
+          @{
+            source_commit = $env:GITHUB_SHA
+            package = $zip.Name
+            package_sha256 = $actual
+            runtime = 'Python 3.14.10 embedded x64'
+            target = 'Windows 10 x64'
+            windows_server_ci_verified = $true
+            native_win10_verified = $false
+            native_win7_verified = $false
+            production_model_quality_verified = $false
+            end_user_network_installation_required = $false
+          } | ConvertTo-Json | Set-Content -Encoding utf8 evidence/validation-scope-win10.json
+      - name: Upload Win10 package and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astrograph-p2p3-win10-py314-preview
+          path: |
+            dist/*.zip
+            dist/*.sha256
+            evidence/
+          if-no-files-found: warn
+          retention-days: 30
+
+  win7-package:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch only hash-pinned Windows 7 Python 3.8 runtime and wheels
+        run: python portable/prepare_win7_vendor.py --output-dir vendor-cache
+      - name: Build self-contained Win7 SP1 x64 Python 3.8 preview
+        run: python portable/build_win7.py --runtime vendor-cache/python-3.8.10-embed-amd64.zip --wheels-dir vendor-cache/wheels-win38 --output-dir dist
+      - name: Verify extracted package and Python 3.8 embedded runtime on Windows Server
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force evidence | Out-Null
+          $pkg = 'dist/AstroGraph-LLM-Win7-x64-Python38'
+          & "$pkg/runtime/python.exe" -X utf8 -B "$pkg/verify_manifest.py" 2>&1 | Tee-Object evidence/manifest-win7.log
+          if ($LASTEXITCODE -ne 0) { throw 'Win7 package manifest verification failed' }
+          & "$pkg/runtime/python.exe" -X utf8 -B "$pkg/win7_environment.py" 2>&1 | Tee-Object evidence/environment-win7-on-server2022.log
+          if ($LASTEXITCODE -ne 0) { throw 'Win7 runtime prerequisites failed on Windows Server' }
+          & "$pkg/runtime/python.exe" -X utf8 -B "$pkg/app/workbench.py" --data-dir "$pkg/data" --self-test 2>&1 | Tee-Object evidence/selftest-win7-on-server2022.log
+          if ($LASTEXITCODE -ne 0) { throw 'Win7 runtime embedded self-test failed' }
+          $zip = Get-ChildItem dist -Filter '*.zip' | Select-Object -First 1
+          if ($null -eq $zip) { throw 'Win7 ZIP missing' }
+          $actual = (Get-FileHash $zip.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          $expected = ((Get-Content "$($zip.FullName).sha256" -Raw).Trim() -split '\s+')[0].ToLowerInvariant()
+          if ($actual -ne $expected) { throw 'Win7 ZIP hash mismatch' }
+          @{
+            source_commit = $env:GITHUB_SHA
+            package = $zip.Name
+            package_sha256 = $actual
+            runtime = 'Python 3.8.10 embedded x64'
+            target = 'Windows 7 SP1 x64 (compatibility preview)'
+            windows_server_ci_verified = $true
+            native_win7_verified = $false
+            native_win10_verified = $false
+            production_model_quality_verified = $false
+            end_user_network_installation_required = $false
+          } | ConvertTo-Json | Set-Content -Encoding utf8 evidence/validation-scope-win7.json
+      - name: Upload Win7 package and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astrograph-p2p3-win7-py38-preview
+          path: |
+            dist/*.zip
+            dist/*.sha256
+            evidence/
+            vendor-cache/win7-vendor-provenance.json
+          if-no-files-found: warn
+          retention-days: 30

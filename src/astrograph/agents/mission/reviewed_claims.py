@@ -49,8 +49,18 @@ class ReviewedClaimRAGEnricher:
         mapping_bundle: DocumentClaimMappingBundle,
         trace_sha256: str,
         mapping_bundle_sha256: str,
+        observation_time_s: float | None = None,
+        episode_id: str | None = None,
     ) -> None:
-        recomputed = evaluate_document_claim_admissions(trace.claims, trace.policy)
+        # A contextual-only RAG hit must not acquire a reviewed stance from a
+        # time-bounded claim without the task's trusted inference cutoff.
+        if any(item.formal_fusion_eligible and claim.temporal_scope.value == "TIME_BOUNDED"
+               for item in trace.admissions for claim in trace.claims
+               if claim.claim_id == item.claim_id) and (observation_time_s is None or episode_id is None):
+            raise ValueError("reviewed claim RAG requires trusted observation_time_s and episode_id for causal claims")
+        recomputed = evaluate_document_claim_admissions(
+            trace.claims, trace.policy, observation_time_s=observation_time_s
+        )
         if recomputed != trace.admissions:
             raise ValueError("stored document claim admissions differ from policy recomputation")
         admission_by_id = {item.claim_id: item for item in recomputed}
@@ -70,6 +80,9 @@ class ReviewedClaimRAGEnricher:
             # relevance and prevents a reviewed-looking but ineligible claim from
             # acquiring SUPPORTS/CONTRADICTS semantics at runtime.
             if not admission.formal_fusion_eligible:
+                continue
+            if (episode_id is not None and claim.temporal_scope.value == "TIME_BOUNDED"
+                    and f"episode:{episode_id}" not in claim.applicability):
                 continue
             if mapping.calibration_receipt_sha256 != admission.calibration_receipt_sha256:
                 raise ValueError("reviewed mapping and admission calibration receipts differ")
@@ -92,7 +105,10 @@ class ReviewedClaimRAGEnricher:
         self.mapping_bundle_sha256 = mapping_bundle_sha256
 
     @classmethod
-    def from_binding(cls, binding: ReviewedClaimRAGBinding) -> "ReviewedClaimRAGEnricher":
+    def from_binding(
+        cls, binding: ReviewedClaimRAGBinding, *, observation_time_s: float | None = None,
+        episode_id: str | None = None
+    ) -> "ReviewedClaimRAGEnricher":
         trace_path = Path(binding.claim_trace_path)
         mapping_path = Path(binding.mapping_bundle_path)
         if not trace_path.is_file() or not mapping_path.is_file():
@@ -108,6 +124,8 @@ class ReviewedClaimRAGEnricher:
             mapping_bundle=mapping_bundle,
             trace_sha256=binding.claim_trace_sha256,
             mapping_bundle_sha256=binding.mapping_bundle_sha256,
+            observation_time_s=observation_time_s,
+            episode_id=episode_id,
         )
 
     @property

@@ -1,0 +1,115 @@
+name: Portable Windows build and regression
+on:
+  push:
+    branches: [feat/portable-v2]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: portable-closeout-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  source:
+    if: github.ref == 'refs/heads/feat/portable-v2'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      sha: ${{ steps.source.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Restore hash-pinned source snapshot once
+        id: source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python .delivery/restore_source.py
+          git add -A -- .delivery portable src/astrograph/integrations/external_diagnosis_analysis.py src/astrograph/integrations/external_diagnosis_report.py src/astrograph/integrations/long_report_analysis.py src/astrograph/retrieval/structured_document.py docs/superpowers
+          if ! git diff --cached --quiet; then
+            test "$(git ls-remote origin refs/heads/feat/portable-v2 | cut -f1)" = "$GITHUB_SHA"
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat: restore portable V2 source and closeout fixes as ordinary files'
+            git push origin HEAD:refs/heads/feat/portable-v2
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+  tests:
+    needs: source
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.source.outputs.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test-only dependencies
+        run: python -m pip install -r portable/requirements.txt "reportlab>=4,<5"
+      - name: Portable regression
+        run: python -m unittest discover -s portable -p "test_*.py" -v
+      - name: Syntax checks
+        run: |
+          python -m compileall -q portable
+          node --check portable/assets/app.js
+  windows-package:
+    needs: [source, tests]
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.source.outputs.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Fetch and verify official Windows runtime and wheels
+        run: python portable/prepare_vendor.py --output-dir vendor-cache
+      - name: Build with no network installation in target package
+        run: python portable/build.py --runtime vendor-cache/python-3.14.10-embed-amd64.zip --wheels-dir vendor-cache/wheels-win314 --output-dir dist
+      - name: Execute bundled Python and offline self-test
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force evidence | Out-Null
+          & .\dist\AstroGraph-LLM-Win10-x64\CHECK.bat --no-pause 2>&1 | Tee-Object evidence\check-normal.log
+          if ($LASTEXITCODE -ne 0) { throw "Bundled runtime check failed" }
+          Copy-Item dist\AstroGraph-LLM-Win10-x64\data\diagnostics\installation-check.json evidence\installation-normal.json
+          $chinese = Join-Path $env:RUNNER_TEMP '中文路径 空格\AstroGraph 测试'
+          New-Item -ItemType Directory -Force (Split-Path $chinese) | Out-Null
+          Copy-Item -Recurse dist\AstroGraph-LLM-Win10-x64 $chinese
+          & (Join-Path $chinese 'CHECK.bat') --no-pause 2>&1 | Tee-Object evidence\check-chinese-path.log
+          if ($LASTEXITCODE -ne 0) { throw "Chinese path check failed" }
+          Copy-Item (Join-Path $chinese 'data\diagnostics\installation-check.json') evidence\installation-chinese-path.json
+          @{
+            source_commit = '${{ needs.source.outputs.sha }}'
+            runner_os = [System.Environment]::OSVersion.VersionString
+            runner_image = $env:ImageOS
+            native_windows_server_verified = $true
+            native_windows10_verified = $false
+            real_model_quality_verified = $false
+            package_sha256 = (Get-FileHash dist\AstroGraph-LLM-Win10-x64.zip -Algorithm SHA256).Hash.ToLower()
+          } | ConvertTo-Json | Set-Content -Encoding utf8 evidence\validation-scope.json
+      - name: Publish package and verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astrograph-portable-v2.6-rc-windows
+          path: |
+            dist/*.zip
+            dist/*.sha256
+            evidence/
+            dist/AstroGraph-LLM-Win10-x64/data/diagnostics/installation-check.json
+          if-no-files-found: warn
+          retention-days: 30

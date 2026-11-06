@@ -1,0 +1,163 @@
+{
+  "kind": "source-development-checkpoint",
+  "base_commit": "4e5d3331a8d346e98f7f90be6d90ae9f61225c17",
+  "remote_base": "187453966fd5e0a5ce488f81e27dc01376982a75",
+  "verification": {
+    "browser-execution-final.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "portable/browser_execution.py",
+        "--chromium",
+        "/usr/bin/chromium",
+        "--output",
+        "/mnt/data/astrograph_resume_logs/browser-execution-final"
+      ],
+      "returncode": 0,
+      "seconds": 6.546
+    },
+    "browser-navigation-final.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "portable/browser_navigation.py",
+        "--chromium",
+        "/usr/bin/chromium",
+        "--output",
+        "/mnt/data/astrograph_resume_logs/browser-navigation-final"
+      ],
+      "returncode": 0,
+      "seconds": 19.936
+    },
+    "browser-p2p3-final.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "portable/browser_p2p3.py",
+        "--output",
+        "/mnt/data/astrograph_resume_logs/browser-p2p3-final"
+      ],
+      "returncode": 1,
+      "seconds": 1.99
+    },
+    "browser-polish-final.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "portable/browser_polish.py",
+        "--chromium",
+        "/usr/bin/chromium",
+        "--output",
+        "/mnt/data/astrograph_resume_logs/browser-polish-final"
+      ],
+      "returncode": 0,
+      "seconds": 24.528
+    },
+    "browser-smoke-final.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "portable/browser_smoke.py",
+        "--chromium",
+        "/usr/bin/chromium",
+        "--output",
+        "/mnt/data/astrograph_resume_logs/browser-smoke-final"
+      ],
+      "returncode": 0,
+      "seconds": 9.494
+    },
+    "platform-final.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_external_execution_observability.py",
+        "tests/test_p2_context_platform.py",
+        "tests/ui/test_execution_views_integration.py",
+        "--astrograph-test-profile",
+        "source-only"
+      ],
+      "returncode": 2,
+      "seconds": 11.331
+    },
+    "platform-related.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_external_execution_observability.py",
+        "tests/test_p2_context_platform.py",
+        "tests/ui/test_execution_views_integration.py",
+        "--astrograph-test-profile",
+        "source-only"
+      ],
+      "returncode": 2,
+      "seconds": 7.047
+    },
+    "portable-all.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "portable",
+        "-p",
+        "test*.py",
+        "-v"
+      ],
+      "returncode": 1,
+      "seconds": 4.756
+    },
+    "portable-final.exit": {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "portable",
+        "-p",
+        "test*.py",
+        "-v"
+      ],
+      "returncode": 1,
+      "seconds": 9.339
+    },
+    "core-final": {
+      "tail": "test_drafts_duplicates_limits_and_empty_selection (test_p2p3_core.ContextTests.test_drafts_duplicates_limits_and_empty_selection) ... ok\ntest_review_freeze_revision_and_scope (test_p2p3_core.ContextTests.test_review_freeze_revision_and_scope) ... ok\ntest_snapshot_tampering_and_backup_conflicts (test_p2p3_core.ContextTests.test_snapshot_tampering_and_backup_conflicts) ... ok\ntest_stale_review_and_frozen_task_write (test_p2p3_core.ContextTests.test_stale_review_and_frozen_task_write) ... ok\ntest_publication_wins_cancellation_atomically (test_p2p3_core.ExecutionTests.test_publication_wins_cancellation_atomically) ... ok\ntest_queue_bound_default_busy_fifo_cancel_and_no_callback_leak (test_p2p3_core.ExecutionTests.test_queue_bound_default_busy_fifo_cancel_and_no_callback_leak) ... ok\ntest_routes_and_cancel_after_response (test_p2p3_core.ExecutionTests.test_routes_and_cancel_after_response) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.057s\n\nOK\n"
+    },
+    "integration-final": {
+      "tail": "test_p2p3_integration (unittest.loader._FailedTest.test_p2p3_integration) ... ERROR\n\n======================================================================\nERROR: test_p2p3_integration (unittest.loader._FailedTest.test_p2p3_integration)\n----------------------------------------------------------------------\nImportError: Failed to import test module: test_p2p3_integration\nTraceback (most recent call last):\n  File \"/usr/lib/python3.13/unittest/loader.py\", line 396, in _find_test_path\n    module = self._get_module_from_name(name)\n  File \"/usr/lib/python3.13/unittest/loader.py\", line 339, in _get_module_from_name\n    __import__(name)\n    ~~~~~~~~~~^^^^^^\n  File \"/mnt/data/astrograph_resume/repo/portable/test_p2p3_integration.py\", line 4, in <module>\n    from test_workbench import app,item,connection,model_server\n  File \"/mnt/data/astrograph_resume/repo/portable/test_workbench.py\", line 31, in <module>\n    import workbench as app\n  File \"/tmp/astrograph-portable-tests-e2e3fdce/workbench.py\", line 37, in <module>\n    from astrograph.integrations.external_diagnosis_analysis import (\n    ...<2 lines>...\n    )\n  File \"/tmp/astrograph-portable-tests-e2e3fdce/astrograph/integrations/external_diagnosis_analysis.py\", line 9, in <module>\n    from astrograph.integrations.reviewed_context import validate_snapshot, load_task_context, CONTEXT_POLICY\nModuleNotFoundError: No module named 'astrograph.integrations.reviewed_context'\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n"
+    },
+    "syntax": {
+      "src/astrograph/integrations/reviewed_context.py": "Python 3.8 grammar PASS (not execution)",
+      "src/astrograph/integrations/stage_execution.py": "Python 3.8 grammar PASS (not execution)",
+      "portable/workbench.py": "Python 3.8 grammar PASS (not execution)",
+      "portable/assets/app.js": {
+        "returncode": 0,
+        "stderr": ""
+      },
+      "src/astrograph/resources/workspace_view.js": {
+        "returncode": 0,
+        "stderr": ""
+      },
+      "src/astrograph/resources/mission_console.js": {
+        "returncode": 0,
+        "stderr": ""
+      },
+      "src/astrograph/resources/platform_job.js": {
+        "returncode": 0,
+        "stderr": ""
+      }
+    }
+  },
+  "native_windows_tested": false,
+  "production_model_tested": false,
+  "review": "author-only",
+  "full_platform_queue_integrated": false,
+  "full_platform_stage_settings_ui_integrated": false,
+  "evidence_status": "HISTORICAL_INCOMPLETE_CHECKPOINT_NOT_CURRENT_ACCEPTANCE",
+  "superseded_by": "docs/P2P3_RECOVERY_VERIFICATION_20261105.md"
+}
