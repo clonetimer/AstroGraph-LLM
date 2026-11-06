@@ -4053,6 +4053,27 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
         except ValueError as exc:
             raise HTTPException(status_code=422,detail=str(exc)) from exc
 
+    @app.post('/v1/platform/material-knowledge/report-reviews/{job_id}/claims/{claim_id}/decisions')
+    def material_report_claim_review_decide(job_id: str, claim_id: str,
+                                            decision: ManualClaimReviewDecision,
+                                            request: Request, response: Response) -> dict:
+        _store, actor = _material_review_memory(request, write=True)
+        response.headers['Cache-Control'] = 'no-store'
+        report, reviews = _report_review_context(job_id)
+        from astrograph.integrations.manual_report_review import ManualReviewConflict
+        try:
+            return reviews.record_claim(
+                job_id=job_id, report=report, report_sha256=decision.report_sha256,
+                claim_id=claim_id, decision=decision.decision, evidence_ref=decision.evidence_ref,
+                note=decision.note, actor=actor, expected_revision=decision.expected_revision,
+                revised_text=decision.revised_text,
+                revised_epistemic_status=decision.revised_epistemic_status,
+            )
+        except ManualReviewConflict as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+
     @app.get('/v1/platform/material-knowledge/pending')
     def pending_material_reviews(request: Request, limit: int = Query(default=30,ge=1,le=100)) -> dict:
         store, _actor = _material_review_memory(request)
