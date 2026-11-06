@@ -1456,6 +1456,8 @@ class UploadReportJobStore:
                 return job
             if job["status"] == "SUCCEEDED":
                 return job
+            if job["status"] == "RUNNING":
+                raise PlatformQueueConflict("JOB_ALREADY_RUNNING_OUTSIDE_QUEUE")
             if job["status"] in {"INTERRUPTED", "CANCELLED"}:
                 raise PlatformQueueConflict("INTERRUPTED_OR_CANCELLED_JOB_REQUIRES_EXPLICIT_ACTION")
             if not job["files"]:
@@ -1731,6 +1733,12 @@ class UploadReportJobStore:
         from astrograph.integrations.material_engine_settings import load_active_engine_environment
         load_active_engine_environment(self.root)
         self.get(job_id)
+        if worker_id is None:
+            queued = self.queue.get(job_id)
+            if queued and queued.get("status") in {
+                "QUEUED", "RUNNING", "CANCEL_REQUESTED", "COMMITTING"
+            }:
+                raise ValueError("job is managed by the persistent queue; use its worker")
         with _platform_run_lease(self.root, job_id):
             if worker_id is None:
                 return self._run_unlocked(job_id)
