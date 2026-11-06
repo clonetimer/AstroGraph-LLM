@@ -43,7 +43,12 @@ def test_claim_is_atomic_across_independent_queue_connections(tmp_path: Path) ->
 
     assert len(claims) == 2
     assert len(set(claims)) == 2
-    assert len([x for x in first.get("JOB-000000000000000000000000") or []]) == 0
+    statuses = [
+        first.get(f"JOB-{index:024X}")["status"]
+        for index in range(6)
+    ]
+    assert statuses.count("RUNNING") == 2
+    assert statuses.count("QUEUED") == 4
 
 
 def test_expired_worker_lease_becomes_interrupted_and_never_auto_replays(tmp_path: Path) -> None:
