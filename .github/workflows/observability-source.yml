@@ -96,5 +96,5 @@ jobs:
       - name: Windows cross-process queue, cancellation and regression
         shell: pwsh
         run: |
-          python -m pytest -q --astrograph-test-profile source-only tests/test_platform_persistent_queue.py tests/test_upload_report_platform.py tests/test_p2_context_platform.py
+          python -m pytest -q --astrograph-test-profile source-only tests/test_platform_persistent_queue.py tests/test_upload_report_platform.py tests/test_p2_context_platform.py tests/test_external_diagnosis_platform.py tests/test_manual_report_review_workflow.py tests/test_model_pricing.py tests/test_platform_ui_assets.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
