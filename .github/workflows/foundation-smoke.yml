@@ -1,7 +1,7 @@
 name: Foundation smoke (source-only)
 on:
   push:
-    branches: [dev/foundation-r11-integration]
+    branches: [dev/foundation-r11-integration, feat/platform-persistent-queue]
   pull_request:
     branches: [main, dev/foundation-r11-integration]
 jobs:
