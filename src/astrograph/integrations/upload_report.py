@@ -136,11 +136,11 @@ class PlatformJobCreateRequest(BaseModel):
         if engine not in {"auto", "rules"} and not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", engine):
             raise ValueError("analysis_engine_id must be auto, rules, or llm:<profile_id>")
         self.analysis_engine_id = engine
-        if set(self.phase_engine_ids) - {"chunk", "synthesis", "follow_up"} or any(
+        if set(self.phase_engine_ids) - {"chunk", "synthesis", "follow_up", "verification"} or any(
             not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", value)
             for value in self.phase_engine_ids.values()
         ):
-            raise ValueError("only approved chunk/synthesis/follow_up LLM profile IDs are supported")
+            raise ValueError("only approved chunk/synthesis/follow_up/verification LLM profile IDs are supported")
         if engine == "rules" and self.phase_engine_ids:
             raise ValueError("follow-up LLM cannot be attached to rules engine")
         return self
@@ -266,7 +266,7 @@ class UploadReportJobStore:
             if not config.get("enabled", True) or not config.get("base_url") or not config.get("model"):
                 raise ValueError("selected LLM profile is not enabled")
         phase_engine_ids = dict(phase_engine_ids or {})
-        if set(phase_engine_ids) - {"chunk", "synthesis", "follow_up"} or (engine_id == "rules" and phase_engine_ids):
+        if set(phase_engine_ids) - {"chunk", "synthesis", "follow_up", "verification"} or (engine_id == "rules" and phase_engine_ids):
             raise ValueError("invalid phase engine selection")
         if phase_engine_ids and engine_id == "auto" and self.knowledge_service.llm_backend is None:
             raise ValueError("analysis LLM must be configured before selecting a follow-up model")
@@ -478,7 +478,7 @@ class UploadReportJobStore:
         phases = job.get("phase_engine_ids") or {}
         if not phases:
             return service
-        if not isinstance(phases, dict) or not phases or set(phases) - {"chunk", "synthesis", "follow_up"} or service.llm_backend is None:
+        if not isinstance(phases, dict) or not phases or set(phases) - {"chunk", "synthesis", "follow_up", "verification"} or service.llm_backend is None:
             raise ValueError("invalid frozen stage model selection")
         if job.get("primary_profile_fingerprint") != self._primary_profile_fingerprint(engine_id):
             raise ValueError("primary model profile changed since job creation")
@@ -889,7 +889,7 @@ class UploadReportJobStore:
                 try:
                     fingerprints = job.get("phase_profile_fingerprints") or {}
                     if (not isinstance(phases, dict) or not phases
-                            or set(phases) - {"chunk", "synthesis", "follow_up"}
+                            or set(phases) - {"chunk", "synthesis", "follow_up", "verification"}
                             or job.get("primary_profile_fingerprint") != self._primary_profile_fingerprint(str(job.get("analysis_engine_id") or "auto"))
                             or not isinstance(fingerprints, dict) or set(fingerprints) != set(phases)
                             or any(fingerprints.get(stage) != self._phase_profile_fingerprint(engine)
@@ -4177,7 +4177,7 @@ class UploadReportJobStore:
         return path
 
 
-PLATFORM_UI_ASSET_VERSION = "v0.21.3"
+PLATFORM_UI_ASSET_VERSION = "v0.21.5"
 _PLATFORM_UI_ASSETS = {
     "execution_view.js": "application/javascript; charset=utf-8",
     "execution_view.css": "text/css; charset=utf-8",

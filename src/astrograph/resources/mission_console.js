@@ -10,7 +10,7 @@ const statusZH = {SUCCEEDED:'已完成',FAILED:'失败',RUNNING:'执行中',QUEU
 const domainZH={ADCS:'姿态控制',EPS:'电源',THERMAL:'热控',PROP:'推进',COMM:'通信数传',CDH:'星载计算',PAYLOAD:'有效载荷'};
 const kindZH={COMPONENT:'部件',FAULT_MODE:'故障',FAILURE_MECHANISM:'机理',SYMPTOM:'现象',VERIFICATION:'核查',ACTION:'措施',CONDITION:'条件'};
 const roleRights={viewer:['viewer'],operator:['viewer','operator'],reviewer:['viewer','reviewer'],admin:['viewer','operator','reviewer','admin']};
-const S={overview:null,demos:null,selectedEvent:null,token:'',identity:null,expert:null,engine:null,jobId:'',report:null,reportTab:'conclusion',graph:null,graphCode:'',files:{diagnosis_results:[],log_reports:[],references:[]},preflight:null,preflightId:'',busy:false,authMode:'local',knowledgeTab:'graph',graphEdgeId:'',accountInit:false,autoTimer:null,uploadRevision:0,openRequest:0,commandRequest:0,analysisEngines:[],analysisEngineId:'rules',analysisEngineLoaded:false,followupEngineId:'',chunkEngineId:'',synthesisEngineId:''};
+const S={overview:null,demos:null,selectedEvent:null,token:'',identity:null,expert:null,engine:null,jobId:'',report:null,reportTab:'conclusion',graph:null,graphCode:'',files:{diagnosis_results:[],log_reports:[],references:[]},preflight:null,preflightId:'',busy:false,authMode:'local',knowledgeTab:'graph',graphEdgeId:'',accountInit:false,autoTimer:null,uploadRevision:0,openRequest:0,commandRequest:0,analysisEngines:[],analysisEngineId:'rules',analysisEngineLoaded:false,followupEngineId:'',chunkEngineId:'',synthesisEngineId:'',verificationEngineId:''};
 let toastTimeout;
 let missionContextControls=null;
 function mountMissionContext(){
@@ -78,7 +78,7 @@ function clearPrivateWorkspace(){
   S.openRequest++; // Invalidates any older asynchronous report response across accounts.
   const citation=$('#evidence-detail');if(citation?.open)citation.close();
   S.commandRequest++; // Prevents stale event queues crossing account sessions.
-  S.jobId=''; S.report=null; S.overview=null;S.selectedEvent=null; S.expert=null; S.engine=null; S.preflight=null; S.preflightId='';S.analysisEngines=[];S.analysisEngineId='rules';S.analysisEngineLoaded=false;S.followupEngineId='';S.chunkEngineId='';S.synthesisEngineId='';
+  S.jobId=''; S.report=null; S.overview=null;S.selectedEvent=null; S.expert=null; S.engine=null; S.preflight=null; S.preflightId='';S.analysisEngines=[];S.analysisEngineId='rules';S.analysisEngineLoaded=false;S.followupEngineId='';S.chunkEngineId='';S.synthesisEngineId='';S.verificationEngineId='';
   const extra=$('#nav-secondary');if(extra)extra.open=false;
   S.files={diagnosis_results:[],log_reports:[],references:[]};S.uploadRevision++;clearTimeout(S.autoTimer);
   try{localStorage.removeItem('astrograph-mission-job-id')}catch{}
@@ -210,7 +210,7 @@ function renderFollowupEngines(){
   select.innerHTML='<option value="">与本次分析模型相同</option>'+choices.map(item=>`<option value="${html(item.engine_id)}">${html(item.name||item.model||'模型')}</option>`).join('');
   select.value=S.followupEngineId;
   // Stage selectors do not alter the default single-model workflow.
-  for(const [stage,state] of [['chunk','chunkEngineId'],['synthesis','synthesisEngineId']]){
+  for(const [stage,state] of [['chunk','chunkEngineId'],['synthesis','synthesisEngineId'],['verification','verificationEngineId']]){
     const panel=$('#mission-'+stage+'-options'),input=$('#mission-'+stage+'-engine');
     if(!panel||!input)continue;
     const found=choices.some(item=>item.engine_id===S[state]);
@@ -218,7 +218,8 @@ function renderFollowupEngines(){
       S[state]='';S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;schedulePreflight();
     }
     panel.hidden=container.hidden;
-    input.innerHTML='<option value="">使用主分析模型</option>'+choices.map(item=>`<option value="${html(item.engine_id)}">${html(item.name||item.model||'模型')}</option>`).join('');
+    const defaultLabel=stage==='verification'?'不启用独立审阅':'使用主分析模型';
+    input.innerHTML=`<option value="">${defaultLabel}</option>`+choices.map(item=>`<option value="${html(item.engine_id)}">${html(item.name||item.model||'模型')}</option>`).join('');
     input.value=S[state]||'';
   }
 }
@@ -227,6 +228,7 @@ function phaseEngineSelections(){
   if(S.chunkEngineId)stages.chunk=S.chunkEngineId;
   if(S.synthesisEngineId)stages.synthesis=S.synthesisEngineId;
   if(S.followupEngineId)stages.follow_up=S.followupEngineId;
+  if(S.verificationEngineId)stages.verification=S.verificationEngineId;
   return stages;
 }
 function selectAnalysisEngine(engineId){
@@ -775,7 +777,7 @@ function bind(){
     if(value===S.followupEngineId)return;
     S.followupEngineId=value;S.uploadRevision++;S.preflight=null;S.preflightId='';$('#mission-start').disabled=true;
     $('#preflight-results').textContent='';schedulePreflight();};
-  for(const [stage,key] of [['chunk','chunkEngineId'],['synthesis','synthesisEngineId']]){
+  for(const [stage,key] of [['chunk','chunkEngineId'],['synthesis','synthesisEngineId'],['verification','verificationEngineId']]){
     const input=$('#mission-'+stage+'-engine');if(!input)continue;
     input.onchange=event=>{const value=event.target.value;
       if(value===S[key])return;

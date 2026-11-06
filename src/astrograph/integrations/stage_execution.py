@@ -9,7 +9,7 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 import threading
 import time
-STAGES={'analysis','chunk','synthesis','follow_up'}
+STAGES={'analysis','chunk','synthesis','follow_up','verification'}
 _CANCEL=ContextVar('astrograph_cancel',default=None)
 _MODEL=ContextVar('astrograph_phase_model',default=None)
 class AnalysisCancelled(RuntimeError):
@@ -27,6 +27,8 @@ class StageRouter:
     def __init__(self,backends):
         if 'analysis' not in backends or set(backends)-STAGES:raise ValueError('INVALID_PHASE_MODELS')
         self.backends=dict(backends);self.model_id=getattr(backends['analysis'],'model_id','')
+    def has_stage(self,stage):
+        return stage in self.backends
     def for_stage(self,stage):
         if stage not in STAGES:raise ValueError('INVALID_PHASE')
         return _SelectedBackend(self.backends.get(stage,self.backends['analysis']))

@@ -58,6 +58,9 @@ jobs:
             tests/test_material_multihop_reasoning.py \
             tests/test_mission_console_integration.py \
             tests/test_external_diagnosis_analysis.py \
+            tests/test_external_diagnosis_claim_governance.py \
+            tests/test_p3_platform_phase_models.py \
+            tests/test_manual_report_review_workflow.py \
             tests/test_external_diagnosis_platform.py \
             tests/test_external_diagnosis_conversation.py \
             tests/test_external_llm_transport_updates.py \

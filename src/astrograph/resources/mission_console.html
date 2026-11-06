@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark light" />
   <title>AstroGraph · 智能故障分析</title>
-  <link rel="stylesheet" href="/platform/mission/assets/mission_console.css?v=20261012-analysis-engines" />
+  <link rel="stylesheet" href="/platform/mission/assets/mission_console.css?v=20261106-p4-claim-governance" />
 <link rel="stylesheet" href="/platform/mission/assets/execution_view.css"><link rel="stylesheet" href="/platform/mission/assets/workspace_view.css">
 </head>
 <body data-theme="dark" data-size="standard">
@@ -132,6 +132,11 @@
                 <select id="mission-synthesis-engine" aria-label="长报告综合分析模型"><option value="">使用主分析模型</option></select>
                 <small>在所有片段完成后综合分析；切换模型会使历史片段检查点失效。</small>
               </div>
+              <div class="analysis-followup-control" id="mission-verification-options" hidden>
+                <label for="mission-verification-engine">独立证据审阅模型（可选）</label>
+                <select id="mission-verification-engine" aria-label="独立证据审阅模型"><option value="">不启用独立审阅</option></select>
+                <small>请选择与主分析模型不同的模型。审阅器只检查主张与原始材料的支持关系，不会认证现实事实，仍需专家确认。</small>
+              </div>
               <div class="analysis-followup-control" id="mission-followup-options" hidden>
                 <label for="mission-followup-engine">证据追问使用的模型（可选）</label>
                 <select id="mission-followup-engine" aria-label="可选的证据追问模型"><option value="">与本次分析模型相同</option></select>
@@ -215,6 +220,6 @@
   <script src="/platform/mission/assets/workspace_view.js"></script>
 <script src="/platform/mission/assets/execution_view.js"></script>
 <script src="/platform/mission/assets/external_follow_up.js?v=20261102"></script>
-  <script type="module" src="/platform/mission/assets/mission_console.js?v=20261102-source-bound-follow-up"></script>
+  <script type="module" src="/platform/mission/assets/mission_console.js?v=20261106-p4-claim-governance"></script>
 </body>
 </html>

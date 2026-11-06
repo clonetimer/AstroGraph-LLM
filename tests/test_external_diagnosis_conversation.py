@@ -361,11 +361,11 @@ def test_api_real_http_follow_up_permissions_idempotence_and_immutable_downloads
         viewer = {'Authorization': 'Bearer read-token'}
         with TestClient(app) as client:
             for asset in ('/platform/mission/assets/external_follow_up.js',
-                          '/platform/assets/v0.21.3/external_follow_up.js'):
+                          '/platform/assets/v0.21.5/external_follow_up.js'):
                 script = client.get(asset)
                 assert script.status_code == 200 and 'ExternalDiagnosisFollowUp' in script.text
                 assert 'javascript' in script.headers['content-type']
-            assert '/platform/assets/v0.21.3/external_follow_up.js' in client.get('/platform/legacy').text
+            assert '/platform/assets/v0.21.5/external_follow_up.js' in client.get('/platform/legacy').text
             job_id = client.post('/v1/platform/jobs', json={'task': '分析外部文本'}, headers=op).json()['job_id']
             prefix = f'/v1/platform/jobs/{job_id}'
             manifest = {'schema_version': 'astrograph-result-log-review.v1', 'analysis_mode': 'EXTERNAL_DIAGNOSIS_ANALYSIS', 'diagnosis_results': ['diagnosis.txt']}
