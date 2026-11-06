@@ -4077,6 +4077,21 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
         except ValueError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
 
+    @app.get('/v1/platform/material-knowledge/report-reviews/{job_id}/claims/export')
+    def export_material_report_claim_feedback(
+        job_id: str, request: Request, response: Response,
+    ) -> dict:
+        _material_review_memory(request)
+        response.headers['Cache-Control'] = 'no-store'
+        report, reviews = _report_review_context(job_id)
+        from astrograph.integrations.manual_report_review import ManualReviewConflict
+        try:
+            return reviews.export_claim_feedback(job_id=job_id, report=report)
+        except ManualReviewConflict as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+
     @app.get('/v1/platform/material-knowledge/pending')
     def pending_material_reviews(request: Request, limit: int = Query(default=30,ge=1,le=100)) -> dict:
         store, _actor = _material_review_memory(request)

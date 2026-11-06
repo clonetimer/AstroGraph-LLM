@@ -111,6 +111,9 @@ def test_api_schema_and_mission_ui_surface_profile_selection():
     assert 'id="mission-followup-engine"' in html
     assert 'id="mission-verification-engine"' in html
     assert "verificationEngineId" in js
+    graph_js = (root / "platform_graph_workbench.js").read_text(encoding="utf-8")
+    assert "data-claim-feedback-export" in graph_js
+    assert "exportManualClaimFeedback" in graph_js
     report_js = (root / "platform_report.js").read_text(encoding="utf-8")
     assert "主张与证据核验" in report_js
     assert "模型原始引用（未独立核验）" in report_js

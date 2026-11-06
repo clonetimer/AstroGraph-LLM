@@ -191,7 +191,7 @@ function manualReviewDetailHtml(detail){
   }).join('');
   const history=(detail.history||[]).slice(0,12).map(x=>'<div class="evidence-row"><span><strong>'+esc(x.fault_id)+' · '+esc(manualStatusText('REVIEWED'))+' · '+esc(x.decision)+'</strong><small>'+esc(x.actor)+' · '+esc(x.recorded_at)+' · 来源 '+esc(x.evidence_ref||'未提供')+'</small><small>'+esc(x.note)+'</small></span></div>').join('');
   const claimHistory=(detail.claim_history||[]).slice(0,20).map(x=>'<div class="evidence-row"><span><strong>'+esc(x.claim_id)+' · '+esc(x.decision)+'</strong><small>'+esc(x.actor)+' · '+esc(x.recorded_at)+' · 来源 '+esc(x.evidence_ref||'待补证')+'</small><small>'+esc(x.note)+'</small>'+(x.revised_text?'<small>修订文本：'+esc(x.revised_text)+' · '+esc(x.revised_epistemic_status)+'</small>':'')+'</span></div>').join('');
-  return '<div class="report-review-detail"><div class="cap-action"><div><h2>任务 '+esc(detail.job_id)+'</h2><p>候选复核：'+esc(manualStatusText(detail.status))+' · '+esc(detail.reviewed_count)+'/'+esc(detail.total_count)+' 项；主张复核：'+esc(manualStatusText(detail.claim_review_status))+' · '+esc(detail.claim_reviewed_count||0)+'/'+esc(detail.claim_total_count||0)+' 项</p></div><button class="btn small" type="button" data-report-review-back>收起详情</button></div>'+
+  return '<div class="report-review-detail"><div class="cap-action"><div><h2>任务 '+esc(detail.job_id)+'</h2><p>候选复核：'+esc(manualStatusText(detail.status))+' · '+esc(detail.reviewed_count)+'/'+esc(detail.total_count)+' 项；主张复核：'+esc(manualStatusText(detail.claim_review_status))+' · '+esc(detail.claim_reviewed_count||0)+'/'+esc(detail.claim_total_count||0)+' 项</p></div><div class="graph-actions">'+(detail.claim_total_count?'<button class="btn small" type="button" data-claim-feedback-export>导出专家反馈</button>':'')+'<button class="btn small" type="button" data-report-review-back>收起详情</button></div></div>'+
    '<p class="review-scope-note">所有专家意见均以原报告 SHA-256 为边界追加保存；不会改写原始报告、改变诊断结论或授予设备控制权限。</p>'+
    claimReviewDetailHtml(detail.claims||[])+
    '<div class="report-review-editors">'+items+'</div>'+
@@ -231,6 +231,22 @@ async function submitManualReview(button){
     const queue=await expertApi('/report-reviews?limit=100');manualQueue=queue.items||[];
     showPending();showToast('已保存独立复核意见');
   }catch(e){showToast('保存失败：'+e.message);button.disabled=false}
+}
+
+async function exportManualClaimFeedback(button){
+  if(!manualDetail)return;
+  if(manualDetail.claim_history_integrity!=='VERIFIED'){showToast('复核审计链未通过校验，禁止导出');return}
+  button.disabled=true;
+  try{
+    const payload=await expertApi('/report-reviews/'+encodeURIComponent(manualDetail.job_id)+'/claims/export');
+    const blob=new Blob([JSON.stringify(payload,null,2)+'\\n'],{type:'application/json;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement('a');
+    link.href=url;link.download=manualDetail.job_id+'-expert-claim-feedback.json';
+    document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
+    showToast('已导出 '+payload.event_count+' 条专家反馈；该文件不是自动训练标签');
+  }catch(e){showToast('专家反馈导出失败：'+e.message)}
+  finally{button.disabled=false}
 }
 
 async function submitManualClaimReview(button){
@@ -375,6 +391,7 @@ function setupGraphWorkbench(){
     const open=e.target.closest('[data-report-review-open]');if(open){openManualReview(open.dataset.reportReviewOpen);return}
     const submit=e.target.closest('[data-manual-review-submit]');if(submit){submitManualReview(submit);return}
     const claimSubmit=e.target.closest('[data-manual-claim-review-submit]');if(claimSubmit){submitManualClaimReview(claimSubmit);return}
+    const feedbackExport=e.target.closest('[data-claim-feedback-export]');if(feedbackExport){exportManualClaimFeedback(feedbackExport);return}
     if(e.target.closest('[data-report-review-back]')){manualDetail=null;focusedManualJobId=null;showPending();return}
     const g=e.target.closest('[data-gap-resolve]');if(g){resolveReasoningGap(g);return}const b=e.target.closest('[data-graph-decision]');if(b)onReviewDecision(b)
   });
