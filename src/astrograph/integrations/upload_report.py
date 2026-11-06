@@ -1278,7 +1278,7 @@ class UploadReportJobStore:
                     return self.queue.snapshot(job_id)
         if status in {"INTERRUPTED", "CANCELLED"}:
             job = self.get(job_id)
-            if job.get("status") in {"QUEUED", "RUNNING", "INTERRUPTED", "SUCCEEDED"}:
+            if job.get("status") != status:
                 job.update(
                     status=status,
                     stage=status,
@@ -1302,7 +1302,7 @@ class UploadReportJobStore:
         row = self.queue.request_cancel(job_id, reason=reason)
         status = str(row.get("cancel_result") or row.get("status") or "")
         job = self.get(job_id)
-        if status == "CANCELLED" and job.get("status") not in {"SUCCEEDED", "FAILED", "CANCELLED"}:
+        if status == "CANCELLED" and job.get("status") != "CANCELLED":
             job.update(
                 status="CANCELLED", stage="CANCELLED", stage_detail="任务已取消",
                 completed_at=_now(),
@@ -1322,7 +1322,21 @@ class UploadReportJobStore:
     def resume(
         self, job_id: str, *, confirm_duplicate_risk: bool, actor: str,
     ) -> dict[str, Any]:
-        """Explicitly resume an interrupted attempt; never silently replay paid calls."""
+        """Serialize recoveries and preserve reviewed operator confirmation."""
+        from astrograph.agents.mission.run_lock import task_lease
+        try:
+            with task_lease(self.root, f"upload-report-launch-{job_id}"):
+                return self._resume_locked(
+                    job_id, confirm_duplicate_risk=confirm_duplicate_risk, actor=actor,
+                )
+        except RuntimeError as exc:
+            if "TASK_ALREADY_RUNNING" in str(exc):
+                raise PlatformQueueConflict("TASK_RECOVERY_ALREADY_IN_PROGRESS") from exc
+            raise
+
+    def _resume_locked(
+        self, job_id: str, *, confirm_duplicate_risk: bool, actor: str,
+    ) -> dict[str, Any]:
         self.queue_snapshot(job_id)
         row = self.queue.get(job_id)
         if row is None:
@@ -1364,6 +1378,7 @@ class UploadReportJobStore:
                 }
         if not confirm_duplicate_risk:
             raise PlatformQueueConflict("DUPLICATE_MODEL_COST_CONFIRMATION_REQUIRED")
+        archived_output = None
         if output.exists():
             archive_root = root / "interrupted-attempts"
             archive_root.mkdir(parents=True, exist_ok=True)
@@ -1371,7 +1386,20 @@ class UploadReportJobStore:
             if archive.exists():
                 archive = archive_root / f"attempt-{int(row.get('attempt') or 0):03d}-{int(time.time())}"
             shutil.move(str(output), str(archive))
+            archived_output = archive
         output.mkdir(parents=True, exist_ok=True)
+        # Reuse only the bounded checkpoint manifest. The existing hierarchical
+        # analyzer independently verifies input/model/context fingerprints and
+        # each retained chunk summary before trusting it. No stale generated
+        # report or unverified partial chunk is copied into the new attempt.
+        checkpoint_preserved = False
+        if archived_output is not None:
+            checkpoint_source = archived_output / "knowledge" / "checkpoint.json"
+            if checkpoint_source.is_file() and checkpoint_source.stat().st_size <= 2_000_000:
+                checkpoint_target = output / "knowledge" / "checkpoint.json"
+                checkpoint_target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(checkpoint_source, checkpoint_target)
+                checkpoint_preserved = True
         queued = self.queue.resume(
             job_id, confirm_duplicate_risk=True, actor=actor,
         )
@@ -1393,6 +1421,7 @@ class UploadReportJobStore:
             "job_id": job_id, "recovered_from_complete_report": False,
             "queue": self.queue.snapshot(job_id), "status": "QUEUED",
             "duplicate_model_cost_confirmed": True,
+            "checkpoint_preserved": checkpoint_preserved,
         }
 
     def ensure_queue_workers(self, *, only_if_pending: bool = False) -> list[int]:
