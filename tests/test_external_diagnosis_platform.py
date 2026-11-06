@@ -41,7 +41,7 @@ def answer(payload):
     sid = payload["sources"][0]["source_id"]
     return {
         "summary": "模型分析：响应变慢可能与散热或传感链路有关，目前无法区分。",
-        "findings": [{"text": "报告记录了响应变慢，但没有提供事件时间窗。", "citation_ids": [sid]}],
+        "findings": [{"text": "报告记录了响应变慢，但没有提供事件时间窗。", "epistemic_status": "REPORTED", "citation_ids": [sid]}],
         "hypotheses": [{"title": "传感链路延迟", "analysis": "这是可核查的解释，需对照独立读数。", "citation_ids": [sid]}],
         "information_gaps": ["缺少独立读数与事件时间。"],
         "recommended_review_actions": ["比对独立读数与响应时间。"],
@@ -272,3 +272,98 @@ def test_api_upload_to_actual_http_transport_to_json_and_markdown(tmp_path, monk
             assert expected["hypotheses"][0]["analysis"] in markdown.text
             assert model["sources"][0]["source_id"] in markdown.text
             assert store.diagnostics(job_id)["llm_call_status"] == "SUCCEEDED"
+
+
+def test_external_claim_registry_flows_into_append_only_expert_review(tmp_path):
+    from astrograph.integrations.manual_report_review import ManualReportReviewStore, report_claims
+
+    backend = CaptureBackend()
+    store = UploadReportJobStore(
+        tmp_path / "platform",
+        knowledge_service=PlatformKnowledgeEnrichmentService(PlatformKnowledgeConfig(), llm_backend=backend),
+    )
+    job_id = stage(store, "报告明确记录响应变慢，但尚无独立时序。")
+    report = store.run(job_id)
+    model = report["analysis"]["knowledge_enrichment"]["model_explanation"]
+    governance = model["claim_governance"]
+
+    assert governance["status"] == "READY_FOR_REVIEW"
+    assert governance["verification"]["status"] == "NOT_CONFIGURED"
+    assert governance["verification"]["fact_truth_certified"] is False
+    claims = report_claims(report)
+    assert claims
+    assert any(item["epistemic_status"] == "REPORTED" for item in claims)
+    assert all(item["expert_review_status"] == "PENDING" for item in governance["claims"])
+
+    review_store = ManualReportReviewStore(store.root / "material_knowledge" / "manual_report_reviews.sqlite3")
+    detail = review_store.detail(job_id, report, include_history=True)
+    assert detail["claim_total_count"] == len(claims)
+    claim = next(item for item in detail["claims"] if item["epistemic_status"] == "REPORTED")
+    before = json.dumps(report, ensure_ascii=False, sort_keys=True)
+
+    reviewed = review_store.record_claim(
+        job_id=job_id, report=report, report_sha256=detail["report_sha256"],
+        claim_id=claim["claim_id"], decision="REVISE",
+        evidence_ref="INDEPENDENT-TEST-LOG-2026-11",
+        note="专家核对了独立日志，修订该主张的适用时间范围。",
+        actor="domain-reviewer", expected_revision=0,
+        revised_text="原始报告在给定时间窗内记录了响应变慢。",
+        revised_epistemic_status="REPORTED",
+    )
+    assert reviewed["claim_review_status"] == "IN_PROGRESS"
+    assert reviewed["claim_reviewed_count"] == 1
+    assert reviewed["claim_history_integrity"] == "VERIFIED"
+    assert reviewed["claims"][0]["review"]["decision"] == "REVISE"
+    assert json.dumps(report, ensure_ascii=False, sort_keys=True) == before
+
+    feedback = review_store.export_claim_feedback(job_id=job_id, report=report)
+    assert feedback["history_integrity"] == "VERIFIED"
+    assert feedback["automatic_training_authorized"] is False
+    assert feedback["event_count"] == 1
+
+
+def test_external_claim_review_api_uses_authenticated_expert_session(tmp_path, monkeypatch):
+    monkeypatch.setenv("ASTROGRAPH_AUTH_MODE", "local")
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_ROOT", str(tmp_path / "platform"))
+    monkeypatch.setenv("ASTROGRAPH_MATERIAL_REVIEW_TOKEN", "external-claim-review-token-2026")
+    monkeypatch.setenv("ASTROGRAPH_MATERIAL_REVIEWER", "domain-expert")
+    monkeypatch.setenv("ASTROGRAPH_MATERIAL_REVIEWERS", "domain-expert")
+
+    backend = CaptureBackend()
+    store = UploadReportJobStore(
+        tmp_path / "platform",
+        knowledge_service=PlatformKnowledgeEnrichmentService(PlatformKnowledgeConfig(), llm_backend=backend),
+    )
+    job_id = stage(store, "报告记录组件响应异常，尚待独立验证。")
+    report = store.run(job_id)
+    app = create_app()
+    app.state.upload_report_store = store
+
+    with TestClient(app, base_url="http://localhost") as client:
+        private = f"/v1/platform/material-knowledge/report-reviews/{job_id}"
+        assert client.get(private).status_code == 200
+        detail = client.get(private).json()
+        assert detail["claim_total_count"] >= 1
+        claim_id = detail["claims"][0]["claim_id"]
+        login = client.post("/v1/platform/material-knowledge/review-session", json={
+            "credential": "external-claim-review-token-2026",
+        })
+        assert login.status_code == 200
+        headers = {"X-Material-CSRF": login.json()["csrf"]}
+        accepted = client.post(
+            f"{private}/claims/{claim_id}/decisions",
+            headers=headers,
+            json={
+                "report_sha256": detail["report_sha256"],
+                "decision": "ACCEPT",
+                "evidence_ref": "INDEPENDENT-TEST-REPORT-2026",
+                "note": "已对照独立试验记录，允许保留为经专家审阅的解释主张。",
+                "expected_revision": 0,
+            },
+        )
+        assert accepted.status_code == 200, accepted.text
+        assert accepted.json()["claim_review_status"] in {"IN_PROGRESS", "REVIEWED"}
+        refreshed = client.get(private).json()
+        assert refreshed["claim_history_integrity"] == "VERIFIED"
+        assert any(item.get("review", {}).get("decision") == "ACCEPT" for item in refreshed["claims"])
+        assert store.report(job_id) == report
