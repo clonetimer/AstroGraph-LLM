@@ -37,6 +37,12 @@ class PersistentPlatformJobQueue:
             db.execute("PRAGMA journal_mode=WAL")
             db.execute("PRAGMA synchronous=FULL")
             yield db
+            if db.in_transaction:
+                db.commit()
+        except BaseException:
+            if db.in_transaction:
+                db.rollback()
+            raise
         finally:
             db.close()
 
@@ -275,10 +281,10 @@ class PersistentPlatformJobQueue:
             db.execute(
                 """
                 UPDATE platform_job_queue SET status=?,updated_at=?,completed_at=?,
-                    worker_id=NULL,heartbeat_at=NULL,lease_expires_at=?,last_error_code=?
+                    worker_id=NULL,heartbeat_at=NULL,lease_expires_at=NULL,last_error_code=?
                 WHERE job_id=? AND worker_id=?
                 """,
-                (status, now, now, now, error_code, job_id, worker_id),
+                (status, now, now, error_code, job_id, worker_id),
             )
             result = db.execute(
                 "SELECT * FROM platform_job_queue WHERE job_id=?", (job_id,)
@@ -368,6 +374,24 @@ class PersistentPlatformJobQueue:
                 "SELECT * FROM platform_job_queue WHERE job_id=?", (job_id,)
             ).fetchone()
             return self._decode(result) or {}
+
+    def finish_interrupted_success(self, job_id: str) -> dict[str, Any]:
+        now = time.time()
+        with self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            changed = db.execute(
+                """
+                UPDATE platform_job_queue
+                SET status='SUCCEEDED',updated_at=?,completed_at=?,worker_id=NULL,
+                    heartbeat_at=NULL,lease_expires_at=NULL,last_error_code='RECOVERED_COMPLETE_REPORT'
+                WHERE job_id=? AND status='INTERRUPTED'
+                """,
+                (now, now, job_id),
+            ).rowcount
+            if changed != 1:
+                raise PlatformQueueConflict("ONLY_INTERRUPTED_JOBS_CAN_RECOVER_COMPLETED_REPORT")
+            row = db.execute("SELECT * FROM platform_job_queue WHERE job_id=?", (job_id,)).fetchone()
+            return self._decode(row) or {}
 
     def get(self, job_id: str) -> dict[str, Any] | None:
         with self._connect() as db:
