@@ -143,33 +143,65 @@ async function resolveReasoningGap(button){
   catch(e){showToast('处理失败：'+e.message);button.disabled=false}
 }
 
-function manualStatusText(status){return ({PENDING:'待复核',IN_PROGRESS:'部分复核',REVIEWED:'已记录所有复核意见',REVIEWED_WITH_GAPS:'已复核 · 仍有证据缺口'})[status]||'待复核'}
+function manualStatusText(status){return ({PENDING:'待复核',IN_PROGRESS:'部分复核',REVIEWED:'已记录所有复核意见',REVIEWED_WITH_GAPS:'已复核 · 仍有证据缺口',NOT_APPLICABLE:'无主张复核项'})[status]||'待复核'}
+function claimReviewComplete(item){return ['REVIEWED','REVIEWED_WITH_GAPS','NOT_APPLICABLE'].includes(item.claim_review_status||'NOT_APPLICABLE')}
+function reportReviewComplete(item){return ['REVIEWED','REVIEWED_WITH_GAPS'].includes(item.status)&&claimReviewComplete(item)}
 function manualReviewCard(item){
-  return `<article class="report-review-queue-item"><div><strong>${esc(item.job_id)}</strong><span>${esc(item.completed_at||'')} · ${esc(manualStatusText(item.status))} · ${esc(item.reviewed_count)}/${esc(item.total_count)} 项</span></div><button type="button" class="btn small" data-report-review-open="${esc(item.job_id)}">${focusedManualJobId===item.job_id?'刷新详情':'查看并复核'}</button></article>`;
+  const claims=item.claim_total_count?' · 主张 '+esc(item.claim_reviewed_count)+'/'+esc(item.claim_total_count)+'（'+esc(manualStatusText(item.claim_review_status))+'）':'';
+  return '<article class="report-review-queue-item"><div><strong>'+esc(item.job_id)+'</strong><span>'+esc(item.completed_at||'')+' · 候选 '+esc(manualStatusText(item.status))+' '+esc(item.reviewed_count)+'/'+esc(item.total_count)+' 项'+claims+'</span></div><button type="button" class="btn small" data-report-review-open="'+esc(item.job_id)+'">'+(focusedManualJobId===item.job_id?'刷新详情':'查看并复核')+'</button></article>';
+}
+function claimSourceLabel(items){
+  return (items||[]).map(x=>[x.filename,x.locator,x.source_id].filter(Boolean).join(' · ')).join('；');
+}
+function claimReviewDetailHtml(claims=[]){
+  if(!claims.length)return '';
+  const labels={ACCEPT:'接受为保留主张',REJECT:'不支持该主张',REVISE:'专家修订',NEEDS_EVIDENCE:'需要补充证据'};
+  const cards=claims.map(item=>{
+    const r=item.review;
+    const previous=r?'<div class="report-review-existing"><strong>最近意见：'+esc(labels[r.decision]||r.decision)+'</strong><span>'+esc(r.actor)+' · '+esc(r.recorded_at)+' · '+esc(r.note)+'</span>'+(r.revised_text?'<p>专家修订文本：'+esc(r.revised_text)+' · '+esc(r.revised_epistemic_status)+'</p>':'')+'</div>':'';
+    const support=claimSourceLabel(item.evidence_refs),opposing=claimSourceLabel(item.opposing_evidence_refs);
+    const independent=claimSourceLabel(item.verification_evidence_refs),counter=claimSourceLabel(item.verification_counter_evidence_refs);
+    return '<article class="card card-pad claim-review-editor" data-manual-claim="'+esc(item.claim_id)+'">'+
+      '<div class="cap-action"><strong>'+esc(item.claim_type)+' · '+esc(item.claim_id)+'</strong><span class="badge review">'+esc(item.epistemic_status||'INFERRED')+' · '+esc(item.verification_status||'NOT_EVALUATED')+'</span></div>'+
+      '<p class="claim-review-original">'+esc(item.text)+'</p>'+
+      '<div class="claim-review-sources"><small>模型原始引用（未独立核验）：'+esc(support||'无')+'</small><small>模型标注的反向来源（未独立核验）：'+esc(opposing||'无')+'</small><small>独立审阅支持来源：'+esc(independent||'无')+'；反向来源：'+esc(counter||'无')+'</small></div>'+
+      previous+
+      '<div class="field-group"><label>专家复核决定</label><select class="field" data-claim-decision><option value="NEEDS_EVIDENCE">证据不足 · 要求补充材料</option><option value="ACCEPT">接受为保留主张（非事实确诊）</option><option value="REJECT">不支持该主张</option><option value="REVISE">专家修订主张文本</option></select></div>'+
+      '<div class="field-group"><label>独立核验材料编号 / 来源</label><input class="field" data-claim-evidence maxlength="500" placeholder="接受、驳回或修订时必填；待补证可留空"></div>'+
+      '<div class="field-group"><label>修订后的主张文本（仅“专家修订”时填写）</label><textarea class="field" data-claim-revised-text rows="3" maxlength="4000" placeholder="保留原始主张，修订内容作为单独审核覆盖记录"></textarea></div>'+
+      '<div class="field-group"><label>修订后的认识状态</label><select class="field" data-claim-epistemic><option value="REPORTED">原文报告</option><option value="DERIVED">确定性推导</option><option value="INFERRED" selected>模型推断</option></select></div>'+
+      '<div class="field-group"><label>专家复核理由与下一步（至少 8 字符）</label><textarea class="field" data-claim-note rows="3" maxlength="2000" placeholder="说明核验依据、接受/驳回/修订理由及仍需完成的工作"></textarea></div>'+
+      '<div class="graph-actions"><button class="btn primary" type="button" data-manual-claim-review-submit="'+esc(item.claim_id)+'">保存本项主张复核</button></div></article>';
+  }).join('');
+  return '<section class="card card-pad claim-review-section"><div class="card-title">逐条主张复核 · '+claims.length+' 项</div>'+
+    '<p class="card-sub">对模型生成的每条主张单独作出判断。接受表示允许保留为经专家审阅的报告主张，不等于现实故障已确诊。专家修订作为独立覆盖记录保存，不改写原始报告。</p>'+
+    '<div class="claim-review-editors">'+cards+'</div></section>';
 }
 function manualReviewDetailHtml(detail){
   if(!detail)return '<div class="empty">请选择待复核的材料分析任务，或从原因与处置报告点击“进入人工复核”。</div>';
   const items=(detail.candidates||[]).map(item=>{
     const r=item.review;
-    const previous=r?`<div class="report-review-existing"><strong>最近复核：${esc(({FOLLOW_UP_HYPOTHESIS:'保留为排查假设',NOT_SUPPORTED:'不支持此候选',EVIDENCE_INSUFFICIENT:'证据不足'})[r.decision]||r.decision)}</strong><span>${esc(r.actor)} · ${esc(r.recorded_at)} · ${esc(r.note)}</span></div>`:'';
-    return `<article class="card card-pad report-review-editor" data-manual-candidate="${esc(item.fault_id)}">
-      <div class="card-title">${esc(item.fault_name)}</div><div class="graph-evidence-meta">${esc(item.fault_id)}</div>${previous}
-      <div class="field-group"><label>复核意见</label><select class="field" data-manual-decision><option value="EVIDENCE_INSUFFICIENT">证据不足 · 继续补充材料</option><option value="FOLLOW_UP_HYPOTHESIS">支持继续排查（不是已确诊）</option><option value="NOT_SUPPORTED">独立证据不支持该候选</option></select></div>
-      <div class="field-group"><label>独立核验材料编号 / 来源</label><input class="field" data-manual-evidence maxlength="500" placeholder="例如手册版本号、复测记录或工单；证据不足可留空"></div>
-      <div class="field-group"><label>复核记录与下一步检查（至少 8 字符）</label><textarea class="field" data-manual-note rows="3" maxlength="2000" placeholder="填写实际核对过的证据及处理建议，不能仅重复模型结论"></textarea></div>
-      <div class="graph-actions"><button class="btn primary" type="button" data-manual-review-submit="${esc(item.fault_id)}">保存本项复核</button></div>
-    </article>`;
+    const previous=r?'<div class="report-review-existing"><strong>最近复核：'+esc(({FOLLOW_UP_HYPOTHESIS:'保留为排查假设',NOT_SUPPORTED:'不支持此候选',EVIDENCE_INSUFFICIENT:'证据不足'})[r.decision]||r.decision)+'</strong><span>'+esc(r.actor)+' · '+esc(r.recorded_at)+' · '+esc(r.note)+'</span></div>':'';
+    return '<article class="card card-pad report-review-editor" data-manual-candidate="'+esc(item.fault_id)+'">'+
+      '<div class="card-title">'+esc(item.fault_name)+'</div><div class="graph-evidence-meta">'+esc(item.fault_id)+'</div>'+previous+
+      '<div class="field-group"><label>复核意见</label><select class="field" data-manual-decision><option value="EVIDENCE_INSUFFICIENT">证据不足 · 继续补充材料</option><option value="FOLLOW_UP_HYPOTHESIS">支持继续排查（不是已确诊）</option><option value="NOT_SUPPORTED">独立证据不支持该候选</option></select></div>'+
+      '<div class="field-group"><label>独立核验材料编号 / 来源</label><input class="field" data-manual-evidence maxlength="500" placeholder="例如手册版本号、复测记录或工单；证据不足可留空"></div>'+
+      '<div class="field-group"><label>复核记录与下一步检查（至少 8 字符）</label><textarea class="field" data-manual-note rows="3" maxlength="2000" placeholder="填写实际核对过的证据及处理建议，不能仅重复模型结论"></textarea></div>'+
+      '<div class="graph-actions"><button class="btn primary" type="button" data-manual-review-submit="'+esc(item.fault_id)+'">保存本项复核</button></div></article>';
   }).join('');
-  const history=(detail.history||[]).slice(0,12).map(x=>`<div class="evidence-row"><span><strong>${esc(x.fault_id)} · ${esc(manualStatusText('REVIEWED'))} · ${esc(x.decision)}</strong><small>${esc(x.actor)} · ${esc(x.recorded_at)} · 来源 ${esc(x.evidence_ref||'未提供')}</small><small>${esc(x.note)}</small></span></div>`).join('');
-  return `<div class="report-review-detail"><div class="cap-action"><div><h2>任务 ${esc(detail.job_id)}</h2><p>${esc(manualStatusText(detail.status))} · 已办理 ${detail.reviewed_count}/${detail.total_count}</p></div><button class="btn small" type="button" data-report-review-back>收起详情</button></div>
-   <p class="review-scope-note">复核意见属于独立人工记录，不修改原始报告、已审知识图谱和设备控制权限。</p>
-   <div class="report-review-editors">${items}</div>
-   <details class="card card-pad"><summary>复核修订历史（追加记录，不覆盖）</summary><div class="evidence-list">${history||'<div class="empty">暂无复核修订。</div>'}</div></details></div>`;
+  const history=(detail.history||[]).slice(0,12).map(x=>'<div class="evidence-row"><span><strong>'+esc(x.fault_id)+' · '+esc(manualStatusText('REVIEWED'))+' · '+esc(x.decision)+'</strong><small>'+esc(x.actor)+' · '+esc(x.recorded_at)+' · 来源 '+esc(x.evidence_ref||'未提供')+'</small><small>'+esc(x.note)+'</small></span></div>').join('');
+  const claimHistory=(detail.claim_history||[]).slice(0,20).map(x=>'<div class="evidence-row"><span><strong>'+esc(x.claim_id)+' · '+esc(x.decision)+'</strong><small>'+esc(x.actor)+' · '+esc(x.recorded_at)+' · 来源 '+esc(x.evidence_ref||'待补证')+'</small><small>'+esc(x.note)+'</small>'+(x.revised_text?'<small>修订文本：'+esc(x.revised_text)+' · '+esc(x.revised_epistemic_status)+'</small>':'')+'</span></div>').join('');
+  return '<div class="report-review-detail"><div class="cap-action"><div><h2>任务 '+esc(detail.job_id)+'</h2><p>候选复核：'+esc(manualStatusText(detail.status))+' · '+esc(detail.reviewed_count)+'/'+esc(detail.total_count)+' 项；主张复核：'+esc(manualStatusText(detail.claim_review_status))+' · '+esc(detail.claim_reviewed_count||0)+'/'+esc(detail.claim_total_count||0)+' 项</p></div><button class="btn small" type="button" data-report-review-back>收起详情</button></div>'+
+   '<p class="review-scope-note">所有专家意见均以原报告 SHA-256 为边界追加保存；不会改写原始报告、改变诊断结论或授予设备控制权限。</p>'+
+   claimReviewDetailHtml(detail.claims||[])+
+   '<div class="report-review-editors">'+items+'</div>'+
+   '<details class="card card-pad"><summary>主张复核修订历史（追加记录，不覆盖）</summary><div class="evidence-list">'+(claimHistory||'<div class="empty">暂无主张复核修订。</div>')+'</div></details>'+
+   '<details class="card card-pad"><summary>候选复核历史（追加记录，不覆盖）</summary><div class="evidence-list">'+(history||'<div class="empty">暂无候选复核修订。</div>')+'</div></details></div>';
 }
 function showManualReviewQueue(){
   const list=$('#graph-review-list');if(!list)return;
-  const queue=manualQueue.filter(x=>x.status!=='REVIEWED'&&x.status!=='REVIEWED_WITH_GAPS');
-  const rest=manualQueue.filter(x=>x.status==='REVIEWED'||x.status==='REVIEWED_WITH_GAPS');
+  const queue=manualQueue.filter(x=>!reportReviewComplete(x));
+  const rest=manualQueue.filter(reportReviewComplete);
   const cards=[...queue,...rest].map(manualReviewCard).join('');
   list.innerHTML=`<section class="card card-pad"><div class="card-title">材料分析报告复核</div><p class="card-sub">先检查报告中的候选原因与证据，再逐项登记独立复核意见。</p><div class="report-review-queue">${cards||'<div class="empty">近期没有已完成的材料分析任务。</div>'}</div></section>${manualReviewDetailHtml(manualDetail)}`;
 }
@@ -201,10 +233,36 @@ async function submitManualReview(button){
   }catch(e){showToast('保存失败：'+e.message);button.disabled=false}
 }
 
+async function submitManualClaimReview(button){
+  const card=button.closest('[data-manual-claim]');if(!card||!manualDetail)return;
+  const claim_id=card.dataset.manualClaim;
+  const decision=card.querySelector('[data-claim-decision]').value;
+  const evidence_ref=card.querySelector('[data-claim-evidence]').value.trim();
+  const revised_text=card.querySelector('[data-claim-revised-text]').value.trim();
+  const revised_epistemic_status=card.querySelector('[data-claim-epistemic]').value;
+  const note=card.querySelector('[data-claim-note]').value.trim();
+  if(note.length<8){showToast('请填写至少 8 字符的专家复核理由');return}
+  if(decision!=='NEEDS_EVIDENCE'&&evidence_ref.length<8){showToast('接受、驳回或修订主张必须提供独立证据编号');return}
+  if(decision==='REVISE'&&revised_text.length<8){showToast('请填写至少 8 字符的修订主张文本');return}
+  if(decision!=='REVISE'&&revised_text){showToast('只有选择“专家修订”时才填写修订文本');return}
+  if(!confirm('确认保存主张 '+claim_id+' 的专家意见？原始报告不会被改写。'))return;
+  button.disabled=true;
+  try{
+    manualDetail=await expertApi('/report-reviews/'+encodeURIComponent(manualDetail.job_id)+'/claims/'+encodeURIComponent(claim_id)+'/decisions',jsonRequest({
+      report_sha256:manualDetail.report_sha256,decision,evidence_ref,note,
+      revised_text:decision==='REVISE'?revised_text:'',
+      revised_epistemic_status:decision==='REVISE'?revised_epistemic_status:'INFERRED',
+      expected_revision:manualDetail.claim_revision
+    }));
+    const queue=await expertApi('/report-reviews?limit=100');manualQueue=queue.items||[];
+    showPending();showToast('已保存该主张的独立专家意见');
+  }catch(e){showToast('主张复核保存失败：'+e.message);button.disabled=false}
+}
+
 function showPending(){
   const counts=$('#graph-review-counts'), list=$('#graph-review-list');if(!counts||!list)return;
   if(!session?.authenticated){counts.innerHTML='';list.innerHTML='<div class="empty">请先登录专家审核台；待审核知识及来源资料不对普通用户开放。</div>';return}
-  counts.innerHTML=(selectedKind==='manual'?statsTile('待办材料复核',manualQueue.filter(x=>x.status==='PENDING'||x.status==='IN_PROGRESS').length)+statsTile('近期完成',manualQueue.filter(x=>x.status==='REVIEWED'||x.status==='REVIEWED_WITH_GAPS').length):statsTile('当前知识快照',pending.snapshot)+statsTile('待审图谱关系',(pending.graph_proposals||[]).length)+statsTile('待审文献',(pending.documents||[]).length)+statsTile('待审案例',(pending.cases||[]).length)+statsTile('待补知识',(pending.reasoning_gaps||[]).length));
+  counts.innerHTML=(selectedKind==='manual'?statsTile('待办材料复核',manualQueue.filter(x=>!reportReviewComplete(x)).length)+statsTile('近期完成',manualQueue.filter(reportReviewComplete).length):statsTile('当前知识快照',pending.snapshot)+statsTile('待审图谱关系',(pending.graph_proposals||[]).length)+statsTile('待审文献',(pending.documents||[]).length)+statsTile('待审案例',(pending.cases||[]).length)+statsTile('待补知识',(pending.reasoning_gaps||[]).length));
   if(selectedKind==='manual')showManualReviewQueue();
   else {
     const items=pending[selectedKind==='graph'?'graph_proposals':selectedKind]||[];
@@ -316,6 +374,7 @@ function setupGraphWorkbench(){
   $('#graph-review-list').addEventListener('click',e=>{
     const open=e.target.closest('[data-report-review-open]');if(open){openManualReview(open.dataset.reportReviewOpen);return}
     const submit=e.target.closest('[data-manual-review-submit]');if(submit){submitManualReview(submit);return}
+    const claimSubmit=e.target.closest('[data-manual-claim-review-submit]');if(claimSubmit){submitManualClaimReview(claimSubmit);return}
     if(e.target.closest('[data-report-review-back]')){manualDetail=null;focusedManualJobId=null;showPending();return}
     const g=e.target.closest('[data-gap-resolve]');if(g){resolveReasoningGap(g);return}const b=e.target.closest('[data-graph-decision]');if(b)onReviewDecision(b)
   });

@@ -168,3 +168,8 @@ OpenAI-compatible 服务，用于验证协议和数据贯通。它不证明某�
 
 本轮本地完整门禁：39 个模块，**391 passed / 3 skipped / 0 failed**。跳过的是 source-only
 模式下两份不随源码交付的历史冻结证据和一个 Windows 限定测试；没有把跳过项计为通过。
+
+
+## P4-C：逐条主张的专家反馈闭环
+
+`claim_governance.claims[]` 中每条主张均可独立登记 `ACCEPT`、`REJECT`、`REVISE` 或 `NEEDS_EVIDENCE`。每次决定都绑定原报告 SHA-256、主张 ID、独立证据编号、专家账号和时间，并通过独立 revision 防止并发覆盖。`REVISE` 只生成专家修订覆盖，不改写原始模型主张或报告；接受也只表示允许保留为经专家审阅的报告主张，不等于当前设备根因确诊。专家意见使用独立 SQLite append-only 事件表，与候选故障复核和知识图谱审批分开管理。

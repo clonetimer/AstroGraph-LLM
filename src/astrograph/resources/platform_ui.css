@@ -386,3 +386,12 @@ html[data-font-band="xlarge"] .dw-review-status-overview-grid{grid-template-colu
 .claim-governance-row>strong{display:block;margin:8px 0;font-size:.9em;overflow-wrap:anywhere}
 .claim-governance-row p{line-height:1.65;margin:7px 0}
 .claim-governance-row h5{margin:9px 0 5px;font-size:.82em;color:var(--muted)}
+
+/* P4 claim-level expert feedback: preserve provenance and keep review overlays distinct from source claims. */
+.claim-review-section{margin:18px 0;border-color:var(--stroke)}
+.claim-review-editor{margin:14px 0;background:var(--panel-2);border:1px solid var(--stroke)}
+.claim-review-original{padding:12px 14px;border-left:3px solid var(--accent);background:var(--panel);border-radius:8px;line-height:1.7;overflow-wrap:anywhere}
+.claim-review-sources{display:grid;gap:5px;color:var(--muted);font-size:.8em;overflow-wrap:anywhere;margin:10px 0}
+.claim-review-sources small{line-height:1.55}
+.claim-review-editor .field-group{margin:12px 0}
+.claim-review-editor textarea{min-height:78px}
