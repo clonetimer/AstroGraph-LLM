@@ -159,13 +159,15 @@ function claimGovernanceHtml(governance,escape,citations){
   };
   const assessments=new Map((verification.assessments||[]).map(item=>[item.claim_id,item]));
   const rows=claims.map(claim=>{
-    const assessment=assessments.get(claim.claim_id)||{};
-    const evidence=(assessment.supporting_evidence_refs||claim.evidence_refs||[]).map(x=>x.source_id);
-    const counter=(assessment.counter_evidence_refs||claim.opposing_evidence_refs||[]).map(x=>x.source_id);
-    return '<article class="claim-governance-row"><div class="mini-tags"><span class="mini-tag">'+escape(epistemicLabels[claim.epistemic_status]||claim.epistemic_status||'模型推断')+'</span><span class="mini-tag">'+escape(supportLabels[claim.support_status]||claim.support_status||'尚未核验')+'</span><span class="mini-tag">专家：'+escape(claim.expert_review_status||'PENDING')+'</span></div><strong>'+escape(claim.claim_type||'CLAIM')+' · '+escape(claim.claim_id||'')+'</strong><p>'+escape(claim.text||'')+'</p>'+(claim.verification_rationale?'<p>独立审阅：'+escape(claim.verification_rationale)+'</p>':'')+(evidence.length?'<h5>支持来源</h5>'+citations(evidence):'')+(counter.length?'<h5>反向来源</h5>'+citations(counter):'')+((assessment.information_gaps||claim.verification_information_gaps||[]).length?'<small>仍需补充：'+escape((assessment.information_gaps||claim.verification_information_gaps).join('；'))+'</small>':'')+'</article>';
+    const assessment=assessments.get(claim.claim_id);
+    const modelEvidence=(claim.evidence_refs||[]).map(x=>x.source_id);
+    const modelCounter=(claim.opposing_evidence_refs||[]).map(x=>x.source_id);
+    const independentSupport=(assessment?.supporting_evidence_refs||[]).map(x=>x.source_id);
+    const independentCounter=(assessment?.counter_evidence_refs||[]).map(x=>x.source_id);
+    return '<article class="claim-governance-row"><div class="mini-tags"><span class="mini-tag">'+escape(epistemicLabels[claim.epistemic_status]||claim.epistemic_status||'模型推断')+'</span><span class="mini-tag">'+escape(supportLabels[claim.support_status]||claim.support_status||'尚未核验')+'</span><span class="mini-tag">专家：'+escape(claim.expert_review_status||'PENDING')+'</span></div><strong>'+escape(claim.claim_type||'CLAIM')+' · '+escape(claim.claim_id||'')+'</strong><p>'+escape(claim.text||'')+'</p>'+(claim.verification_rationale?'<p>独立审阅：'+escape(claim.verification_rationale)+'</p>':'')+(modelEvidence.length?'<h5>模型原始引用（未独立核验）</h5>'+citations(modelEvidence):'')+(modelCounter.length?'<h5>模型标注的反向来源（未独立核验）</h5>'+citations(modelCounter):'')+(independentSupport.length?'<h5>独立审阅支持来源</h5>'+citations(independentSupport):'')+(independentCounter.length?'<h5>独立审阅反向来源</h5>'+citations(independentCounter):'')+((assessment?.information_gaps||claim.verification_information_gaps||[]).length?'<small>仍需补充：'+escape((assessment?.information_gaps||claim.verification_information_gaps).join('；'))+'</small>':'')+'</article>';
   }).join('');
   const reason=verification.reason_code?'<small>状态原因：'+escape(verification.reason_code)+'</small>':'';
-  return '<section class="panel card card-pad claim-governance"><h3>主张与证据核验</h3><p>'+escape(verificationLabels[verification.status]||verification.status||'尚未执行独立审阅')+'</p><div class="mini-tags"><span class="mini-tag">主张 '+claims.length+' 项</span><span class="mini-tag">独立模型 '+escape(verification.verifier_model||'未配置')+'</span><span class="mini-tag">现实事实认证：否</span></div>'+reason+'<p class="maintenance-boundary">独立审阅只判断已提供材料与主张之间的支持关系，不证明现实世界事实。专家确认前，所有主张均保持待审状态。</p>'+rows+'</section>';
+  return '<section class="panel card card-pad claim-governance"><h3>主张与证据核验</h3><p>'+escape(verificationLabels[verification.status]||verification.status||'尚未执行独立审阅')+'</p><div class="mini-tags"><span class="mini-tag">主张 '+claims.length+' 项</span><span class="mini-tag">独立模型 '+escape(verification.verifier_model||'未配置')+'</span><span class="mini-tag">现实事实认证：否</span></div>'+reason+'<p class="maintenance-boundary">模型原始引用只是来源指针；独立审阅只判断已提供材料与主张之间的支持关系，不证明现实世界事实。专家确认前，所有主张均保持待审状态。</p>'+rows+'</section>';
 }
 
 function externalDiagnosisAnalysisHtml(model,generation,escape){

@@ -57,6 +57,7 @@ def test_claim_registry_binds_source_receipts_and_keeps_expert_state_pending():
     hypothesis = next(item for item in result["claims"] if item["claim_type"] == "HYPOTHESIS")
     assert reported["epistemic_status"] == "REPORTED"
     assert reported["evidence_refs"][0]["sha256"] == "a" * 64
+    assert reported["epistemic_status_basis"] == "MODEL_OUTPUT_FIELD"
     assert hypothesis["epistemic_status"] == "INFERRED"
     assert hypothesis["opposing_evidence_refs"][0]["source_id"] == "source-a"
     assert all(item["expert_review_status"] == "PENDING" for item in result["claims"])

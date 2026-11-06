@@ -103,7 +103,7 @@ def build_claim_registry(
                 epistemic_status, epistemic_basis = "INFERRED", "HOST_RULE"
             else:
                 epistemic_status = str(item.get("epistemic_status") or "INFERRED")
-                epistemic_basis = "MODEL_DECLARED" if "epistemic_status" in item else "HOST_DEFAULT"
+                epistemic_basis = "MODEL_OUTPUT_FIELD"
             if not text or epistemic_status not in {"REPORTED", "DERIVED", "INFERRED"}:
                 raise ValueError("CLAIM_CONTENT_INVALID")
             citation_ids = list(item.get("citation_ids") or [])

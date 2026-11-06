@@ -69,18 +69,25 @@ def render_external_diagnosis_markdown(
                       f"- 独立审阅：{verification_labels.get(verification.get('status'), verification.get('status', '未执行'))}",
                       f"- 审阅方法：`{verification.get('method', 'SOURCE_REFERENCE_ONLY')}`",
                       "- 边界：来源支持关系不等于现实事实已被证实；所有主张仍需专家复核。", ""])
+        verification_assessments = {
+            item.get("claim_id"): item for item in verification.get("assessments") or []
+        }
         for claim in governance.get("claims") or []:
-            evidence_ids = [item.get("source_id") for item in claim.get("evidence_refs") or []]
-            opposing_ids = [item.get("source_id") for item in claim.get("opposing_evidence_refs") or []]
+            assessment = verification_assessments.get(claim.get("claim_id")) or {}
+            model_evidence_ids = [item.get("source_id") for item in claim.get("evidence_refs") or []]
+            model_opposing_ids = [item.get("source_id") for item in claim.get("opposing_evidence_refs") or []]
+            independent_support_ids = [item.get("source_id") for item in assessment.get("supporting_evidence_refs") or []]
+            independent_counter_ids = [item.get("source_id") for item in assessment.get("counter_evidence_refs") or []]
             lines.extend([f"### {_text(claim.get('claim_type', 'CLAIM'))} · `{_text(claim.get('claim_id', ''))}`",
                           "", _text(claim.get("text", "")),
                           f"- 认识状态：`{claim.get('epistemic_status', 'INFERRED')}`",
                           f"- 证据关系：`{claim.get('support_status', 'NOT_EVALUATED')}`",
                           f"- 专家审阅：`{claim.get('expert_review_status', 'PENDING')}`",
-                          "- 支持来源：" + (", ".join(f"`{sid}`" for sid in evidence_ids) or "无"),
-                          "- 反向来源：" + (", ".join(f"`{sid}`" for sid in opposing_ids) or "无"), ""])
-        if verification.get("reason_code"):
-            lines.append(f"- 审阅原因代码：`{verification['reason_code']}`")
+                          "- 模型原始引用（未独立核验）：" + (", ".join(f"`{sid}`" for sid in model_evidence_ids) or "无"),
+                          "- 模型标注的反向来源（未独立核验）：" + (", ".join(f"`{sid}`" for sid in model_opposing_ids) or "无"),
+                          "- 独立审阅支持来源：" + (", ".join(f"`{sid}`" for sid in independent_support_ids) or "无"),
+                          "- 独立审阅反向来源：" + (", ".join(f"`{sid}`" for sid in independent_counter_ids) or "无"),
+                          ""])
         lines.extend(["", "## 对报告内容的解读", ""])
         for finding in model["findings"]:
             lines.extend([f"- {_text(finding['text'])}",
