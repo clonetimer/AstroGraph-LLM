@@ -2464,13 +2464,6 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
 
 
 app = create_app()
-)
-    decision: Literal['ACCEPT', 'REJECT', 'REVISE', 'NEEDS_EVIDENCE']
-    evidence_ref: str = Field(default='', max_length=500)
-    note: str = Field(min_length=8, max_length=2000)
-    revised_text: str = Field(default='', max_length=4000)
-    revised_epistemic_status: Literal['REPORTED', 'DERIVED', 'INFERRED'] = 'INFERRED'
-    expected_revision: int = Field(ge=0)
 
 
 class MaterialCaseReviewDecision(BaseModel):
