@@ -241,7 +241,7 @@ def ask_follow_up(
             raise ConversationConflict("FOLLOW_UP_LIMIT_REACHED")
         owned_run = current_run() is None
         run = current_run() or RunJournal(store._job_root(job_id), task_id=job_id,
-            kind="follow_up", bundle=bundle)
+            kind="follow_up", bundle=bundle, pricing_root=store.root)
         with (run_scope(run) if owned_run else nullcontext(run)):
             if owned_run:
                 run.event("FOLLOW_UP")
