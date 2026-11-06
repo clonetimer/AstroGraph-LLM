@@ -6,6 +6,7 @@ on:
       - 'src/astrograph/**'
       - 'portable/**'
       - 'tests/test_p3_platform*'
+      - 'tests/test_platform_persistent_queue.py'
       - 'tests/test_p2_context_platform.py'
       - '.github/workflows/observability-source.yml'
   pull_request:
