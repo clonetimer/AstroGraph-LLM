@@ -156,6 +156,22 @@ class PreflightBlockedError(ValueError):
     """Raised when immutable uploaded inputs cannot enter a supported diagnostic path."""
 
 
+@contextmanager
+def _platform_run_lease(root: Path, job_id: str):
+    from astrograph.agents.mission.run_lock import task_lease
+    lease = task_lease(root, f"upload-report-run-{job_id}")
+    try:
+        lease.__enter__()
+    except RuntimeError as exc:
+        if "TASK_ALREADY_RUNNING" in str(exc):
+            raise ValueError("job is already running") from exc
+        raise
+    try:
+        yield
+    finally:
+        lease.__exit__(None, None, None)
+
+
 
 class UploadReportJobStore:
     """Small persistent local job store with immutable post-run inputs."""
@@ -1680,10 +1696,9 @@ class UploadReportJobStore:
     def run(self, job_id: str, *, worker_id: str | None = None) -> dict[str, Any]:
         """Run one job under an OS lease; queue workers add durable heartbeat/cancel state."""
         from astrograph.integrations.material_engine_settings import load_active_engine_environment
-        from astrograph.agents.mission.run_lock import task_lease
         load_active_engine_environment(self.root)
         self.get(job_id)
-        with task_lease(self.root, f"upload-report-run-{job_id}"):
+        with _platform_run_lease(self.root, job_id):
             if worker_id is None:
                 return self._run_unlocked(job_id)
 
