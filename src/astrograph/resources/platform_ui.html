@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AstroGraph 故障分析与知识工程平台</title>
-<link rel="stylesheet" href="/platform/assets/v0.21.5/platform_ui.css">
-<link rel="stylesheet" href="/platform/assets/v0.21.5/execution_view.css"><link rel="stylesheet" href="/platform/assets/v0.21.5/workspace_view.css">
+<link rel="stylesheet" href="/platform/assets/v0.21.6/platform_ui.css">
+<link rel="stylesheet" href="/platform/assets/v0.21.6/execution_view.css"><link rel="stylesheet" href="/platform/assets/v0.21.6/workspace_view.css">
 </head>
 <body>
 <div class="app">
@@ -312,6 +312,37 @@
           </div>
           <div class="card card-pad"><div class="card-title">运行时状态</div><div class="status-list" id="llm-status-list"></div><div class="divider"></div></div>
         </div>
+        <section class="card card-pad" style="margin-top:16px" aria-labelledby="model-pricing-heading">
+          <div class="cap-action">
+            <div><div class="card-title" id="model-pricing-heading">模型价格与费用核算</div>
+              <div class="card-sub">仅登记明确来源的 Token 单价。每次请求按发起时生效的价格版本冻结快照；历史记录不随价格表修改。未配置价格或用量缺失时不会按零费用计算。</div>
+            </div>
+            <button class="btn small" type="button" id="model-pricing-refresh">刷新价格表</button>
+          </div>
+          <div class="field-group full" style="margin-top:12px">
+            <label for="model-pricing-admin-token">管理员 API Token（仅 Bearer 模式需要；只保存在当前页面内存）</label>
+            <input class="field" type="password" autocomplete="off" id="model-pricing-admin-token" placeholder="本机 local 模式无需填写">
+          </div>
+          <div id="model-pricing-status" class="card-sub" aria-live="polite">价格表尚未读取</div>
+          <div id="model-pricing-list" style="margin-top:10px"></div>
+          <details style="margin-top:14px">
+            <summary>新增价格版本（仅管理员）</summary>
+            <form id="model-pricing-form" autocomplete="off">
+              <div class="form-grid" style="margin-top:12px">
+                <div class="field-group"><label for="model-pricing-provider">服务商 ID</label><input class="field" id="model-pricing-provider" required maxlength="80" value="openai" placeholder="openai / anthropic / lmstudio"></div>
+                <div class="field-group"><label for="model-pricing-model">模型 ID（必须与调用记录一致）</label><input class="field" id="model-pricing-model" required maxlength="200" placeholder="例如 gpt-4.1"></div>
+                <div class="field-group"><label for="model-pricing-input">输入价格 / 百万 Token</label><input class="field" id="model-pricing-input" type="number" min="0" max="1000000" step="0.000000001" required></div>
+                <div class="field-group"><label for="model-pricing-output">输出价格 / 百万 Token</label><input class="field" id="model-pricing-output" type="number" min="0" max="1000000" step="0.000000001" required></div>
+                <div class="field-group"><label for="model-pricing-currency">币种</label><input class="field" id="model-pricing-currency" value="USD" minlength="3" maxlength="3" required></div>
+                <div class="field-group"><label for="model-pricing-effective-from">生效时间（本地时区）</label><input class="field" id="model-pricing-effective-from" type="datetime-local" required></div>
+                <div class="field-group"><label for="model-pricing-source-type">价格依据</label><select class="field" id="model-pricing-source-type"><option value="OFFICIAL_PUBLISHED">官方公开价格</option><option value="CONTRACT">合同价格</option><option value="ADMIN_ESTIMATE">管理员估算</option></select></div>
+                <div class="field-group full"><label for="model-pricing-source-ref">来源链接 / 合同编号 / 审批记录</label><input class="field" id="model-pricing-source-ref" class="field" minlength="8" maxlength="500" required placeholder="填写可追溯的价格来源"></div>
+              </div>
+              <div class="settings-actions"><button class="btn primary" id="model-pricing-save" type="submit">追加价格版本</button></div>
+            </form>
+          </details>
+          <p class="maintenance-boundary">费用范围仅为已记录的模型 API 输入 / 输出 Token 费用；本地算力、托管、税费、缓存折扣及未返回用量的请求不自动推算。自托管模型不应随意登记为零成本。</p>
+        </section>
         <details class="card card-pad system-advanced" style="margin-top:16px"><summary class="card-title">知识图谱数据库连接（Neo4j）</summary><div class="system-advanced-content">
           <div class="card-title">知识图谱服务 <span class="badge audit" id="neo4j-status-badge">读取中</span></div>
           <div class="card-sub">用于故障机理追溯和按现象查找相关故障。维护 Agent 只调用受限的只读领域工具，不开放任意 Cypher。</div>
@@ -364,9 +395,9 @@ search_documents"></textarea></div>
   <div class="dialog-body" id="cap-dialog-body"></div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="/platform/assets/v0.21.5/workspace_view.js"></script>
-<script src="/platform/assets/v0.21.5/execution_view.js"></script>
-<script src="/platform/assets/v0.21.5/external_follow_up.js"></script>
-<script type="module" src="/platform/assets/v0.21.5/platform_ui.js"></script>
+<script src="/platform/assets/v0.21.6/workspace_view.js"></script>
+<script src="/platform/assets/v0.21.6/execution_view.js"></script>
+<script src="/platform/assets/v0.21.6/external_follow_up.js"></script>
+<script type="module" src="/platform/assets/v0.21.6/platform_ui.js"></script>
 </body>
 </html>
