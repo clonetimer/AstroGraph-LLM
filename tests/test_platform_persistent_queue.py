@@ -255,6 +255,28 @@ def test_api_cancel_endpoint_exposes_persisted_queue_state(
         created = client.post("/v1/platform/jobs", json={"task": "API queue cancellation"})
         assert created.status_code == 200, created.text
         job_id = created.json()["job_id"]
+        import hashlib
+        import io
+        import csv
+        store = UploadReportJobStore(tmp_path / "api-platform")
+        buffer = io.StringIO()
+        writer = csv.DictWriter(buffer, fieldnames=["time_s", "eps.battery.soc"])
+        writer.writeheader()
+        writer.writerows([
+            {"time_s": 0, "eps.battery.soc": 0.8},
+            {"time_s": 1, "eps.battery.soc": 0.7},
+        ])
+        telemetry = buffer.getvalue().encode("utf-8")
+        manifest = {
+            "schema_version": "sat-sim.astrograph-public-case.v1",
+            "case_id": "api-cancel-case",
+            "telemetry": {
+                "file": "telemetry.csv", "sha256": hashlib.sha256(telemetry).hexdigest(),
+                "rows": 2, "fields": ["time_s", "eps.battery.soc"],
+            },
+        }
+        store.put_file(job_id, "manifest.json", json.dumps(manifest).encode("utf-8"))
+        store.put_file(job_id, "telemetry.csv", telemetry)
         started = client.post(f"/v1/platform/jobs/{job_id}/start")
         assert started.status_code == 202, started.text
         cancelled = client.post(
