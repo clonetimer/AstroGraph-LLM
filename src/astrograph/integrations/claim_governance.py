@@ -155,6 +155,7 @@ def build_claim_registry(
 def run_independent_verification(
     registry: dict[str, Any], *, sources: list[dict[str, Any]],
     analysis_backend: Any, verification_backend: Any | None,
+    analysis_model_id: str | None = None,
 ) -> dict[str, Any]:
     """Review claim/source support with a distinct model and an isolated payload."""
     claims = registry["claims"]
@@ -171,7 +172,8 @@ def run_independent_verification(
 
     if verification_backend is None:
         return not_run("NOT_CONFIGURED", "INDEPENDENT_VERIFIER_NOT_CONFIGURED")
-    analysis_model, verifier_model = _backend_id(analysis_backend), _backend_id(verification_backend)
+    analysis_model = str(analysis_model_id or _backend_id(analysis_backend) or "").strip()
+    verifier_model = _backend_id(verification_backend)
     if (not analysis_model or not verifier_model
             or _root_backend(analysis_backend) is _root_backend(verification_backend)
             or analysis_model.casefold() == verifier_model.casefold()):
@@ -279,5 +281,5 @@ def build_claim_governance(
         claim["verifier_model"] = None
     return run_independent_verification(
         registry, sources=sources, analysis_backend=analysis_backend,
-        verification_backend=verification_backend,
+        verification_backend=verification_backend, analysis_model_id=generator_model,
     )
