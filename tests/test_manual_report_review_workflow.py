@@ -264,7 +264,8 @@ def test_claim_feedback_hash_chain_is_append_only_and_exportable(tmp_path):
     assert second["claim_history_integrity"] == "VERIFIED"
     assert [x["snapshot_binding_status"] for x in second["claim_history"]] == ["BOUND", "BOUND"]
     assert all(len(x["event_sha256"]) == 64 for x in second["claim_history"])
-    assert second["claim_history"][1]["previous_event_sha256"] == second["claim_history"][0]["event_sha256"]
+    # History is newest-first for the review UI; the newest event links to the older hash.
+    assert second["claim_history"][0]["previous_event_sha256"] == second["claim_history"][1]["event_sha256"]
 
     exported = store.export_claim_feedback(job_id=job_id, report=report)
     assert exported["history_integrity"] == "VERIFIED"
@@ -287,7 +288,7 @@ def test_claim_feedback_tampering_is_detected_and_blocks_writes_and_export(tmp_p
     job_id = "JOB-" + "E" * 24
     path = tmp_path / "review.sqlite3"
     store = ManualReportReviewStore(path)
-    detail = store.detail(job_id, report)
+    detail = store.detail(job_id, report, include_history=True)
     claim_id = detail["claims"][0]["claim_id"]
     recorded = store.record_claim(
         job_id=job_id, report=report, report_sha256=detail["report_sha256"],
@@ -317,7 +318,7 @@ def test_claim_review_schema_migrates_legacy_events_as_unbound_but_verifiable(tm
     import sqlite3
     path = tmp_path / "legacy.sqlite3"
     report = governed_claim_report()
-    detail = ManualReportReviewStore(path).detail("JOB-" + "F" * 24, report)
+    detail = ManualReportReviewStore(path).detail("JOB-" + "F" * 24, report, include_history=True)
     claim_id = detail["claims"][0]["claim_id"]
     with sqlite3.connect(path) as db:
         db.execute("DROP TRIGGER report_claim_review_events_no_update")
