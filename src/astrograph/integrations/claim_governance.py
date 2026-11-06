@@ -64,7 +64,15 @@ def _source_ref(source: dict[str, Any]) -> dict[str, str]:
 
 
 def _backend_id(backend: Any) -> str:
-    return str(getattr(backend, "model_id", "") or "").strip()
+    direct = str(getattr(backend, "model_id", "") or "").strip()
+    if direct:
+        return direct
+    root = _root_backend(backend)
+    model = str(getattr(root, "model_id", "") or "").strip()
+    if model:
+        return model
+    config = getattr(root, "config", None)
+    return str(getattr(config, "model", "") or "").strip()
 
 
 def _root_backend(backend: Any) -> Any:
