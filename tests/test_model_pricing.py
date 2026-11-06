@@ -163,3 +163,17 @@ def test_model_pricing_api_is_admin_scoped_and_append_only(tmp_path, monkeypatch
         listed = client.get(endpoint).json()
         assert listed["prices"][0]["created_by"] == "local:testclient"
         assert listed["prices"][0]["input_per_million_tokens"] == "1.25"
+
+
+def test_possible_unmetered_billing_is_not_hidden_by_mixed_currencies():
+    from astrograph.integrations.execution_observability import summarize_usage
+
+    usage = summarize_usage([
+        {"status": "RESPONSE_RECEIVED", "usage": {"input_tokens": 10, "output_tokens": 5},
+         "cost": {"status": "CALCULATED", "currency": "USD", "amount": "0.1"}},
+        {"status": "FAILED", "usage": {"input_tokens": None, "output_tokens": None},
+         "cost": {"status": "POSSIBLE_UNMETERED_BILLING", "currency": "EUR", "amount": None}},
+    ])
+    assert usage["cost_status"] == "POSSIBLE_UNMETERED_BILLING"
+    assert usage["estimated_cost"] is None
+    assert usage["possible_unmetered_requests"] == 1
