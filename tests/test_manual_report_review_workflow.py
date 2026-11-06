@@ -120,6 +120,9 @@ def test_report_navigation_assets_have_action_and_do_not_expose_bootstrap_secret
     assert 'data-review-kind="manual"' in shell
     assert 'data-manual-review-submit' in graph
     assert 'X-Material-CSRF' in graph
+    assert 'AUDIT_INTEGRITY_FAILED' in graph
+    assert '审计链异常' in graph
+    assert 'data-claim-feedback-export' in graph
     assert PLATFORM_UI_ASSET_VERSION in shell
 
 

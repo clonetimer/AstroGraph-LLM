@@ -143,7 +143,7 @@ async function resolveReasoningGap(button){
   catch(e){showToast('处理失败：'+e.message);button.disabled=false}
 }
 
-function manualStatusText(status){return ({PENDING:'待复核',IN_PROGRESS:'部分复核',REVIEWED:'已记录所有复核意见',REVIEWED_WITH_GAPS:'已复核 · 仍有证据缺口',NOT_APPLICABLE:'无主张复核项'})[status]||'待复核'}
+function manualStatusText(status){return ({PENDING:'待复核',IN_PROGRESS:'部分复核',REVIEWED:'已记录所有复核意见',REVIEWED_WITH_GAPS:'已复核 · 仍有证据缺口',NOT_APPLICABLE:'无主张复核项',AUDIT_INTEGRITY_FAILED:'审计链异常 · 禁止复核与导出'})[status]||'待复核'}
 function claimReviewComplete(item){return ['REVIEWED','REVIEWED_WITH_GAPS','NOT_APPLICABLE'].includes(item.claim_review_status||'NOT_APPLICABLE')}
 function reportReviewComplete(item){return ['REVIEWED','REVIEWED_WITH_GAPS'].includes(item.status)&&claimReviewComplete(item)}
 function manualReviewCard(item){
@@ -191,12 +191,18 @@ function manualReviewDetailHtml(detail){
   }).join('');
   const history=(detail.history||[]).slice(0,12).map(x=>'<div class="evidence-row"><span><strong>'+esc(x.fault_id)+' · '+esc(manualStatusText('REVIEWED'))+' · '+esc(x.decision)+'</strong><small>'+esc(x.actor)+' · '+esc(x.recorded_at)+' · 来源 '+esc(x.evidence_ref||'未提供')+'</small><small>'+esc(x.note)+'</small></span></div>').join('');
   const claimHistory=(detail.claim_history||[]).slice(0,20).map(x=>'<div class="evidence-row"><span><strong>'+esc(x.claim_id)+' · '+esc(x.decision)+'</strong><small>'+esc(x.actor)+' · '+esc(x.recorded_at)+' · 来源 '+esc(x.evidence_ref||'待补证')+'</small><small>'+esc(x.note)+'</small>'+(x.revised_text?'<small>修订文本：'+esc(x.revised_text)+' · '+esc(x.revised_epistemic_status)+'</small>':'')+'</span></div>').join('');
-  return '<div class="report-review-detail"><div class="cap-action"><div><h2>任务 '+esc(detail.job_id)+'</h2><p>候选复核：'+esc(manualStatusText(detail.status))+' · '+esc(detail.reviewed_count)+'/'+esc(detail.total_count)+' 项；主张复核：'+esc(manualStatusText(detail.claim_review_status))+' · '+esc(detail.claim_reviewed_count||0)+'/'+esc(detail.claim_total_count||0)+' 项</p></div><div class="graph-actions">'+(detail.claim_total_count?'<button class="btn small" type="button" data-claim-feedback-export>导出专家反馈</button>':'')+'<button class="btn small" type="button" data-report-review-back>收起详情</button></div></div>'+
+  const claimAuditFailed=detail.claim_history_integrity==='FAILED';
+  const candidateAuditFailed=detail.review_history_integrity==='FAILED';
+  const auditWarnings=(claimAuditFailed?'<div class="card card-pad warning">主张复核审计链校验失败。历史意见不再作为可信审核结论，已禁止继续写入和导出。请保留数据库副本并进行管理员调查。</div>':'')+
+    (candidateAuditFailed?'<div class="card card-pad warning">候选复核审计链校验失败。候选意见不再作为可信审核结论，已禁止继续写入。</div>':'');
+  const claimSection=claimAuditFailed?'<div class="card card-pad warning">主张复核表单已锁定：检测到历史审计记录异常。</div>':claimReviewDetailHtml(detail.claims||[]);
+  const candidateSection=candidateAuditFailed?'<div class="card card-pad warning">候选复核表单已锁定：检测到历史审计记录异常。</div>':'<div class="report-review-editors">'+items+'</div>';
+  return '<div class="report-review-detail"><div class="cap-action"><div><h2>任务 '+esc(detail.job_id)+'</h2><p>候选复核：'+esc(manualStatusText(detail.status))+' · '+esc(detail.reviewed_count)+'/'+esc(detail.total_count)+' 项；主张复核：'+esc(manualStatusText(detail.claim_review_status))+' · '+esc(detail.claim_reviewed_count||0)+'/'+esc(detail.claim_total_count||0)+' 项</p></div><div class="graph-actions">'+(detail.claim_total_count&&!claimAuditFailed?'<button class="btn small" type="button" data-claim-feedback-export>导出专家反馈</button>':'')+'<button class="btn small" type="button" data-report-review-back>收起详情</button></div></div>'+
+   auditWarnings+
    '<p class="review-scope-note">所有专家意见均以原报告 SHA-256 为边界追加保存；不会改写原始报告、改变诊断结论或授予设备控制权限。</p>'+
-   claimReviewDetailHtml(detail.claims||[])+
-   '<div class="report-review-editors">'+items+'</div>'+
-   '<details class="card card-pad"><summary>主张复核修订历史（追加记录，不覆盖）</summary><div class="evidence-list">'+(claimHistory||'<div class="empty">暂无主张复核修订。</div>')+'</div></details>'+
-   '<details class="card card-pad"><summary>候选复核历史（追加记录，不覆盖）</summary><div class="evidence-list">'+(history||'<div class="empty">暂无候选复核修订。</div>')+'</div></details></div>';
+   claimSection+candidateSection+
+   '<details class="card card-pad"><summary>主张复核修订历史（追加记录，不覆盖）</summary><div class="evidence-list">'+(claimAuditFailed?'<div class="empty">审计链异常，历史意见已隐藏。</div>':(claimHistory||'<div class="empty">暂无主张复核修订。</div>'))+'</div></details>'+
+   '<details class="card card-pad"><summary>候选复核历史（追加记录，不覆盖）</summary><div class="evidence-list">'+(candidateAuditFailed?'<div class="empty">审计链异常，历史意见已隐藏。</div>':(history||'<div class="empty">暂无候选复核修订。</div>'))+'</div></details></div>';
 }
 function showManualReviewQueue(){
   const list=$('#graph-review-list');if(!list)return;
