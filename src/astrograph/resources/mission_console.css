@@ -456,9 +456,3 @@ body::before,body[data-theme=light]::before{background:none}
 .analysis-followup-control label{font-size:13px;font-weight:600}
 .analysis-followup-control select{max-width:100%;min-height:36px;padding:5px 9px;border-radius:7px;border:1px solid rgba(108,136,173,.38);background:var(--input-bg,#fff);color:var(--text-main,#162438)}
 .analysis-followup-control small{font-size:12px;opacity:.7}
-
-/* P4 claim/evidence governance: separate model claims from independent review receipts. */
-.claim-governance-row{padding:14px 0;border-top:1px solid var(--stroke)}
-.claim-governance-row>strong{display:block;margin:8px 0;font-size:.9em;overflow-wrap:anywhere}
-.claim-governance-row p{line-height:1.65;margin:7px 0}
-.claim-governance-row h5{margin:9px 0 5px;font-size:.82em;color:var(--muted)}
