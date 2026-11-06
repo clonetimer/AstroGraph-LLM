@@ -381,6 +381,9 @@ def test_external_claim_review_api_uses_authenticated_expert_session(tmp_path, m
     governance = report["analysis"]["knowledge_enrichment"]["model_explanation"]["claim_governance"]
     assert governance["verification"]["status"] == "COMPLETED_REQUIRES_EXPERT_REVIEW"
     assert governance["verification"]["verifier_model"] == "reviewer-model"
+    assert governance["generator_model"] == "analysis-model"
+    assert all(item["generator_model"] == "analysis-model" for item in governance["claims"])
+    assert all(item["verifier_model"] == "reviewer-model" for item in governance["claims"])
     assert all(item["expert_review_status"] == "PENDING" for item in governance["claims"])
     assert verifier.calls and verifier.calls[0][0] == "external-diagnosis-evidence-verifier"
     app = create_app()
