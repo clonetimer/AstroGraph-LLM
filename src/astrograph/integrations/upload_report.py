@@ -1317,9 +1317,15 @@ class UploadReportJobStore:
         self, job_id: str, *, confirm_duplicate_risk: bool, actor: str,
     ) -> dict[str, Any]:
         """Explicitly resume an interrupted attempt; never silently replay paid calls."""
+        self.queue_snapshot(job_id)
         row = self.queue.get(job_id)
         if row is None:
             raise KeyError(job_id)
+        if row.get("status") == "SUCCEEDED" and row.get("last_error_code") == "RECOVERED_COMPLETE_REPORT":
+            return {
+                "job_id": job_id, "recovered_from_complete_report": True,
+                "queue": self.queue.snapshot(job_id), "status": "SUCCEEDED",
+            }
         if row.get("status") != "INTERRUPTED":
             raise PlatformQueueConflict("ONLY_INTERRUPTED_JOBS_CAN_BE_RESUMED")
         root = self._job_root(job_id)
