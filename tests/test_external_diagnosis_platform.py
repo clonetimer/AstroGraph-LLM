@@ -343,6 +343,13 @@ def test_external_claim_registry_flows_into_append_only_expert_review(tmp_path):
     assert feedback["history_integrity"] == "VERIFIED"
     assert feedback["automatic_training_authorized"] is False
     assert feedback["event_count"] == 1
+    assert feedback["model_feedback_summary"] == [{
+        "generator_model": "primary", "claim_count": len(claims),
+        "reviewed_claim_count": 1, "pending_claim_count": len(claims) - 1,
+        "accept_count": 0, "reject_count": 0, "revise_count": 1,
+        "needs_evidence_count": 0,
+    }]
+    assert "not model accuracy" in feedback["model_feedback_interpretation"].lower()
 
 
 def test_external_claim_review_api_uses_authenticated_expert_session(tmp_path, monkeypatch):
