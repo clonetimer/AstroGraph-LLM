@@ -48,6 +48,21 @@ def _digest(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
+def retry_share_violation(operation, *, attempts=8):
+    """Retry transient file-sharing denials, not model calls or real access errors.
+
+    Windows reader handles and atomic receipt replacements briefly conflict;
+    repeating the same path operation is safe, but invoking an LLM again is not.
+    """
+    for attempt in range(attempts):
+        try:
+            return operation()
+        except PermissionError:
+            if attempt + 1 >= attempts:
+                raise
+            time.sleep(0.005 * (attempt + 1))
+
+
 def _write(path, document):
     raw = (json.dumps(document, ensure_ascii=False, sort_keys=True, allow_nan=False) + '\n').encode('utf-8')
     if len(raw) > MAX_BYTES:
@@ -58,7 +73,7 @@ def _write(path, document):
         with temporary.open('xb') as handle:
             handle.write(raw)
             handle.flush()
-        temporary.replace(path)
+        retry_share_violation(lambda: temporary.replace(path))
     finally:
         temporary.unlink(missing_ok=True)
 
@@ -82,9 +97,11 @@ def _run_path(root, run_id):
 
 def _load(root, task_id, run_id):
     path = _run_path(root, run_id) / 'run.json'
-    if path.stat().st_size > MAX_BYTES:
-        raise ValueError('EXECUTION_RECEIPT_TOO_LARGE')
-    value = json.loads(path.read_text(encoding='utf-8'))
+    def read_receipt():
+        if path.stat().st_size > MAX_BYTES:
+            raise ValueError('EXECUTION_RECEIPT_TOO_LARGE')
+        return json.loads(path.read_text(encoding='utf-8'))
+    value = retry_share_violation(read_receipt)
     if (not isinstance(value, dict) or value.get('schema_version') != SCHEMA
             or value.get('task_id') != task_id or value.get('run_id') != run_id
             or value.get('status') not in STATUSES):

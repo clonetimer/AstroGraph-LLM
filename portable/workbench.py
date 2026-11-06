@@ -59,6 +59,7 @@ from astrograph.integrations.http_worker import _NoRedirect, verified_tls_contex
 from astrograph.integrations.process_control import run_managed_subprocess
 from astrograph.integrations.execution_observability import (
     RunJournal, run_scope, execution_snapshot, recover_interrupted, read_artifact,
+    retry_share_violation,
 )
 from astrograph.llm.openai_compatible import OpenAICompatibleConfig, OpenAICompatibleStructuredBackend
 
@@ -86,13 +87,13 @@ def _json_write(path: Path, value: Any) -> None:
     temporary = path.with_name(path.name + "." + secrets.token_hex(8) + ".tmp")
     try:
         temporary.write_text(_canonical(value) + "\n", encoding="utf-8")
-        temporary.replace(path)
+        retry_share_violation(lambda: temporary.replace(path))
     finally:
         temporary.unlink(missing_ok=True)
 
 
 def _json_read(path: Path) -> dict:
-    value = json.loads(path.read_text(encoding="utf-8"))
+    value = json.loads(retry_share_violation(lambda: path.read_text(encoding="utf-8")))
     if not isinstance(value, dict):
         raise ValueError("object required")
     return value
