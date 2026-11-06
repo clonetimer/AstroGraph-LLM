@@ -29,6 +29,7 @@ PINNED = {
 CORE_FILES = (
     "__init__.py", "provider_lifecycle.py",
     "integrations/external_diagnosis_analysis.py",
+    "integrations/claim_governance.py", "integrations/model_pricing.py",
     "integrations/external_diagnosis_report.py",
     "integrations/external_diagnosis_conversation.py",
     "integrations/long_report_analysis.py", "integrations/execution_observability.py",
