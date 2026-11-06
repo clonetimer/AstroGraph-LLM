@@ -337,3 +337,41 @@ def test_platform_ui_exposes_queue_cancellation_and_recovery_controls() -> None:
     assert "/cancel" in js and "/resume" in js
     assert "CANCEL_REQUESTED" in js and "INTERRUPTED" in js
     assert "confirm_duplicate_risk:true" in js
+
+
+
+def test_submission_intent_recovers_only_never_claimed_jobs(tmp_path: Path) -> None:
+    """Source-only crash window: job.json committed, SQLite enqueue not yet done."""
+    root = tmp_path / "intent"
+    store = UploadReportJobStore(root)
+    waiting = store.create("safe startup intent")
+    store.put_file(waiting["job_id"], "diagnosis.txt", b"fake upstream output")
+    snapshot = store.get(waiting["job_id"])
+    snapshot.update(status="QUEUED", execution_backend="PROCESS_QUEUE", queue_enqueue_intent=True)
+    store._save(snapshot)
+
+    # An existing legacy QUEUED task without the explicit new intent must not
+    # be silently replayed as a billable model request.
+    legacy = store.create("legacy queued process")
+    store.put_file(legacy["job_id"], "diagnosis.txt", b"old upstream output")
+    old = store.get(legacy["job_id"])
+    old.update(status="QUEUED", execution_backend="PROCESS", queue_enqueue_intent=False)
+    store._save(old)
+
+    fresh = UploadReportJobStore(root)
+    assert fresh.reconcile_queue_intents() == 1
+    assert fresh.queue.get(waiting["job_id"])["status"] == "QUEUED"
+    assert fresh.queue.get(legacy["job_id"]) is None
+    assert fresh.reconcile_queue_intents() == 0
+
+
+def test_recovered_cancelled_job_metadata_matches_durable_queue(tmp_path: Path) -> None:
+    store = UploadReportJobStore(tmp_path / "status")
+    item = store.create("cancellation before worker claim")
+    store.queue.enqueue(item["job_id"])
+    store.queue.request_cancel(item["job_id"])
+    stale = store.get(item["job_id"])
+    stale["status"] = "FAILED"
+    store._save(stale)
+    assert store.queue_snapshot(item["job_id"])["status"] == "CANCELLED"
+    assert store.get(item["job_id"])["status"] == "CANCELLED"
