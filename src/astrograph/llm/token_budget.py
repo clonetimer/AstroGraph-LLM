@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 import math
 import os
 from pathlib import Path
@@ -29,8 +30,8 @@ def rough_token_estimate(value: Any, *, chars_per_token: float = 3.5) -> int:
 def _token_count(encoded: Any) -> int:
     if hasattr(encoded, "tolist"):
         encoded = encoded.tolist()
-    if isinstance(encoded, dict):
-        encoded = encoded.get("input_ids")
+    if isinstance(encoded, Mapping):
+        return _token_count(encoded.get("input_ids"))
     if isinstance(encoded, tuple):
         encoded = list(encoded)
     if isinstance(encoded, list):

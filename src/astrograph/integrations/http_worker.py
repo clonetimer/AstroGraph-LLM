@@ -2,8 +2,24 @@
 import base64
 import json
 import sys
+import ssl
+
 import urllib.request
 import urllib.error
+from urllib.parse import urlsplit
+
+
+def verified_tls_context():
+    """Add the shipped Mozilla roots without disabling OS trust or verification."""
+    context = ssl.create_default_context()
+    try:
+        import certifi
+    except ImportError:
+        pass  # Full-source installations can rely on OS trust; portable profiles bundle roots.
+    else:
+        context.load_verify_locations(cafile=certifi.where())
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
+    return context
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -26,7 +42,15 @@ def main():
             headers={"Content-Type":"application/json",**config["headers"]},method="POST")
         # urllib's default redirect handler can forward Authorization headers.
         # Provider endpoint changes must be explicit configuration changes.
-        with urllib.request.build_opener(_NoRedirect()).open(
+        # A loopback provider must NEVER send diagnostic material or credentials
+        # to an operating-system or environment-configured HTTP proxy. This is
+        # stronger than NO_PROXY, whose handling differs across Windows/Python.
+        hostname = urlsplit(config["url"]).hostname
+        loopback = hostname is not None and hostname.lower() in {"127.0.0.1", "localhost", "::1"}
+        proxy_handler = urllib.request.ProxyHandler({}) if loopback else urllib.request.ProxyHandler()
+        with urllib.request.build_opener(
+            proxy_handler, _NoRedirect(), urllib.request.HTTPSHandler(context=verified_tls_context())
+        ).open(
             req, timeout=config["timeout_s"]
         ) as response:
             length=response.headers.get("Content-Length")
@@ -50,6 +74,7 @@ def main():
               else type(exc).__name__)
         out={"ok":False,"error":code}
     out.update(captured)
-    sys.stdout.write(json.dumps(out,ensure_ascii=False))
+    # This is a machine protocol; a Windows/GBK console encoding must not alter it.
+    sys.stdout.buffer.write(json.dumps(out,ensure_ascii=False).encode("utf-8"))
 
 if __name__=="__main__":main()

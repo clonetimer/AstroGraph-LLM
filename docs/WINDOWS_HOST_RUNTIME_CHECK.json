@@ -1,0 +1,12 @@
+{
+  "python": "3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]",
+  "host": "Windows-10-10.0.20348-SP0",
+  "pydantic": "2.10.6",
+  "core": "2.27.2",
+  "pypdf": "5.9.0",
+  "openssl": "OpenSSL 1.1.1k  25 Mar 2021",
+  "ca_certificates": 118,
+  "windows_execution": true,
+  "native_win7_tested": false,
+  "check": "PASS"
+}

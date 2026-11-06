@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 import os
 import hmac
 import hashlib
@@ -13,7 +14,7 @@ from pathlib import Path
 from typing import Any, Literal
 from urllib.parse import urlparse
 
-from fastapi import FastAPI, HTTPException, Query, Request, Response, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, Query, Request, Response, UploadFile, File, Form, Body
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -36,11 +37,15 @@ from astrograph.compat import build_compat_router
 from astrograph.integrations.upload_report import (
     PlatformJobCreateRequest,
     UploadReportJobStore,
+    PlatformQueueConflict,
     PLATFORM_UI_ASSET_VERSION,
     platform_asset,
     platform_html,
 )
 from astrograph.integrations.platform_state import PlatformStateRepository
+from astrograph.integrations.external_diagnosis_conversation import (
+    ConversationConflict, FollowUpRequest, ask_follow_up, get_conversation,
+)
 from astrograph.integrations.platform_secrets import PlatformSecretStore
 from astrograph.integrations.material_engine_settings import (
     MaterialEngineRegistry, MaterialEngineSettings, EngineUpdateRequest,
@@ -136,6 +141,16 @@ class MaterialGraphRetractionRequest(BaseModel):
     reason: str = Field(min_length=8,max_length=1000)
     truth_source_ref: str = Field(min_length=3,max_length=500)
     expected_snapshot: int | None = Field(default=None,ge=0)
+
+
+class PlatformJobCancelRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    reason: str = Field(default="USER_REQUEST", min_length=1, max_length=200)
+
+
+class PlatformJobResumeRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    confirm_duplicate_risk: bool = False
 
 
 class PlatformLLMSettingsRequest(BaseModel):
@@ -397,10 +412,21 @@ def error_payload(code: str, message: str, *, request_id: str = "", details: Any
 
 
 def create_app(service: AstroGraphService | None = None) -> FastAPI:
+    @asynccontextmanager
+    async def platform_lifespan(application: FastAPI):
+        """Wake queued jobs after API restart; compatible with modern FastAPI."""
+        try:
+            get_upload_report_store().ensure_queue_workers(only_if_pending=True)
+            application.state.platform_queue_startup_error = None
+        except Exception as exc:
+            application.state.platform_queue_startup_error = type(exc).__name__
+        yield
+
     app = FastAPI(
         title="AstroGraph API",
         version=__version__,
         description="Satellite PHM service with deterministic diagnosis, controlled Agent investigation, and policy-gated release.",
+        lifespan=platform_lifespan,
     )
     app.state.astrograph_service = service
     app.state.auth_config = ApiAuthConfig.from_environment()
@@ -646,9 +672,10 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
                 request_id=request.headers.get("X-Request-ID", ""),
                 # Sensitive configuration payloads must not be echoed into
                 # validation errors (including pydantic ctx.error objects).
-                details=([{"loc":err.get("loc"),"type":err.get("type"),"msg":err.get("msg")}
-                    for err in exc.errors()] if request.url.path.startswith(
-                        "/v1/platform/settings/knowledge-engine") else exc.errors()),
+                details=[{"loc": [str(part) for part in err.get("loc", ())],
+                          "type": str(err.get("type") or "INVALID"),
+                          "msg": str(err.get("msg") or "Request payload is invalid")}
+                         for err in exc.errors()],
             ),
         )
 
@@ -945,6 +972,11 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
         allowed = {
             "mission_console.css": "text/css",
             "mission_console.js": "application/javascript",
+            "external_follow_up.js": "application/javascript",
+            "execution_view.js": "application/javascript",
+            "execution_view.css": "text/css",
+            "workspace_view.js": "application/javascript",
+            "workspace_view.css": "text/css",
             "mission_demo_cases.json": "application/json",
             "home.css": "text/css",
             "home.js": "application/javascript",
@@ -1462,8 +1494,9 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
                 {
                     "kind": "RESULT_LOG_REVIEW",
                     "required": ["analysis_input.json (astrograph-result-log-review.v1)",
-                                 "diagnosis_results", "log_reports", "references"],
-                    "diagnosis": "material-first root cause hypotheses, log corroboration and cited handling advice; no telemetry required",
+                                 "diagnosis_results"],
+                    "optional": ["log_reports", "references"],
+                    "diagnosis": "external diagnosis text analysis or legacy material review; no telemetry required",
                     "formal_release_granted": False,
                 },
                 {
@@ -1483,6 +1516,9 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             "knowledge_documents": [".txt", ".md", ".docx", ".pdf"],
             "result_log_review": {
                 "schema_version": "astrograph-result-log-review.v1",
+                "analysis_modes": ["EXTERNAL_DIAGNOSIS_ANALYSIS", "MATERIAL_REVIEW"],
+                "default_manifest_mode": "MATERIAL_REVIEW",
+                "external_analysis_max_source_characters": 60000,
                 "accepted_roles": {
                     "diagnosis_results": [".json", ".csv", ".txt", ".md", ".docx", ".pdf"],
                     "log_reports": [".log", ".json", ".csv", ".txt", ".md", ".docx", ".pdf"],
@@ -1889,11 +1925,54 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
         except (ValueError,PermissionError,FileNotFoundError) as exc:
             raise HTTPException(status_code=422,detail=str(exc)) from exc
 
+    def reviewed_context_request(request: Request, tail: str = "", body=None):
+        from astrograph.integrations.reviewed_context import ContextError, context_request
+        identity = getattr(request.state, "auth_identity", None)
+        if identity is None:
+            raise HTTPException(status_code=401, detail="Authentication required")
+        try:
+            value = context_request(get_upload_report_store().contexts, request.method,
+                                    "workspaces" + ("/" + tail if tail else ""), body,
+                                    actor=identity.subject)
+            return JSONResponse(value, headers={"Cache-Control": "no-store"})
+        except (ContextError, TypeError, KeyError):
+            raise HTTPException(status_code=409, detail="INVALID_OR_CONFLICTING_CONTEXT_REQUEST")
+
+    @app.get("/v1/platform/workspaces")
+    def list_reviewed_workspaces(request: Request):
+        return reviewed_context_request(request)
+
+    @app.post("/v1/platform/workspaces")
+    def create_reviewed_workspace(request: Request, body: dict = Body(...)):
+        return reviewed_context_request(request, body=body)
+
+    @app.get("/v1/platform/workspaces/{context_path:path}")
+    def get_reviewed_context(context_path: str, request: Request):
+        return reviewed_context_request(request, context_path)
+
+    @app.post("/v1/platform/workspaces/{context_path:path}")
+    def change_reviewed_context(context_path: str, request: Request, body: dict = Body(...)):
+        return reviewed_context_request(request, context_path, body)
+
+    @app.post("/v1/platform/jobs/{job_id}/context")
+    def bind_job_context(job_id: str, body: dict = Body(...)):
+        try:
+            value = get_upload_report_store().bind_reviewed_context(job_id, body)
+            return JSONResponse(value, headers={"Cache-Control": "no-store"})
+        except (ValueError, KeyError, TypeError):
+            raise HTTPException(status_code=409, detail="INVALID_OR_FROZEN_TASK_CONTEXT")
+
     @app.post("/v1/platform/jobs")
     def create_upload_report_job(request: PlatformJobCreateRequest) -> dict:
-        return get_upload_report_store().create(
-            request.task, request.work_mode, request.analysis_engine_id,
-        )
+        try:
+            return get_upload_report_store().create(
+                request.task, request.work_mode, request.analysis_engine_id,
+                phase_engine_ids=request.phase_engine_ids,
+            )
+        except ValueError as exc:
+            # Profile IDs can be invalidated by administrative changes.
+            # Do not expose provider endpoints, credentials or profile internals.
+            raise HTTPException(status_code=422, detail="ANALYSIS_ENGINE_PROFILE_UNAVAILABLE") from exc
 
     @app.get("/v1/platform/overview")
     def get_platform_overview(limit: int = Query(default=50, ge=1, le=200)) -> dict:
@@ -1931,7 +2010,37 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
     @app.post("/v1/platform/jobs/{job_id}/start", status_code=202)
     def start_upload_report_job(job_id: str) -> dict:
         try:
-            return get_upload_report_store().start(job_id)
+            store = get_upload_report_store()
+            value = store.start(job_id)
+            value["queue"] = store.queue_snapshot(job_id)
+            return value
+        except KeyError as exc:
+            raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
+        except ValueError as exc:
+            raise InvalidOperationError(str(exc), details={"job_id": job_id}) from exc
+
+    @app.post("/v1/platform/jobs/{job_id}/cancel")
+    def cancel_upload_report_job(
+        job_id: str, request: Request, body: PlatformJobCancelRequest,
+    ) -> dict:
+        try:
+            actor = authenticated_actor(request, "operator")
+            result = get_upload_report_store().cancel(job_id, reason=f"{actor}:{body.reason}")
+            return result
+        except KeyError as exc:
+            raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
+        except ValueError as exc:
+            raise InvalidOperationError(str(exc), details={"job_id": job_id}) from exc
+
+    @app.post("/v1/platform/jobs/{job_id}/resume", status_code=202)
+    def resume_upload_report_job(
+        job_id: str, request: Request, body: PlatformJobResumeRequest,
+    ) -> dict:
+        try:
+            actor = authenticated_actor(request, "operator")
+            return get_upload_report_store().resume(
+                job_id, confirm_duplicate_risk=body.confirm_duplicate_risk, actor=actor,
+            )
         except KeyError as exc:
             raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
         except ValueError as exc:
@@ -1940,7 +2049,10 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
     @app.get("/v1/platform/jobs/{job_id}")
     def get_upload_report_job(job_id: str) -> dict:
         try:
-            return get_upload_report_store().get(job_id)
+            store = get_upload_report_store()
+            value = store.get(job_id)
+            value["queue"] = store.queue_snapshot(job_id)
+            return value
         except KeyError as exc:
             raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
 
@@ -1951,6 +2063,32 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
         except KeyError as exc:
             raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
 
+    @app.get("/v1/platform/jobs/{job_id}/execution")
+    def get_external_execution(job_id: str, response: Response) -> dict:
+        from astrograph.integrations.execution_observability import execution_snapshot
+        response.headers["Cache-Control"] = "no-store"
+        store = get_upload_report_store()
+        try:
+            store.get(job_id)
+            return execution_snapshot(store._job_root(job_id), job_id)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail="Platform job not found") from exc
+        except (ValueError, OSError) as exc:
+            raise HTTPException(status_code=409, detail="Execution record unavailable") from exc
+
+    @app.get("/v1/platform/jobs/{job_id}/runs/{run_id}/{artifact_name}")
+    def get_external_run_artifact(job_id: str, run_id: str, artifact_name: str) -> Response:
+        from astrograph.integrations.execution_observability import read_artifact
+        store = get_upload_report_store()
+        try:
+            store.get(job_id)
+            raw = read_artifact(store._job_root(job_id), job_id, run_id, artifact_name)
+        except (KeyError, ValueError, OSError, TypeError) as exc:
+            raise HTTPException(status_code=404, detail="Execution artifact unavailable") from exc
+        return Response(content=raw, media_type="application/json" if artifact_name.endswith(".json") else "text/markdown",
+            headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff",
+                     "Content-Disposition": 'attachment; filename="' + artifact_name + '"'})
+
     @app.get("/v1/platform/jobs/{job_id}/report")
     def get_upload_report(job_id: str) -> dict:
         try:
@@ -1959,6 +2097,26 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
             raise ResourceNotFoundError("Platform job not found.", details={"job_id": job_id}) from exc
         except ValueError as exc:
             raise StateConflictError(str(exc), details={"job_id": job_id}) from exc
+
+    @app.get("/v1/platform/jobs/{job_id}/follow-up")
+    def get_external_report_follow_up(job_id: str, response: Response) -> dict:
+        response.headers["Cache-Control"] = "no-store"
+        try:
+            return get_conversation(get_upload_report_store(), job_id)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail="Platform job not found", headers={"Cache-Control": "no-store"}) from exc
+        except ConversationConflict as exc:
+            raise HTTPException(status_code=409, detail=str(exc), headers={"Cache-Control": "no-store"}) from exc
+
+    @app.post("/v1/platform/jobs/{job_id}/follow-up")
+    def ask_external_report_follow_up(job_id: str, request: FollowUpRequest, response: Response) -> dict:
+        response.headers["Cache-Control"] = "no-store"
+        try:
+            return ask_follow_up(get_upload_report_store(), job_id, **request.model_dump())
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail="Platform job not found", headers={"Cache-Control": "no-store"}) from exc
+        except ConversationConflict as exc:
+            raise HTTPException(status_code=409, detail=str(exc), headers={"Cache-Control": "no-store"}) from exc
 
     @app.get("/v1/platform/jobs/{job_id}/visualization")
     def get_upload_report_visualization(job_id: str) -> dict:

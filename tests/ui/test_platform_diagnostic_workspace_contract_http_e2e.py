@@ -83,9 +83,9 @@ def live_workspace_contract(tmp_path: Path):
     @app.get("/r34-2-positive", response_class=HTMLResponse)
     def positive_page():
         return f"""<!doctype html><html lang='zh-CN'><head>
-        <link rel='stylesheet' href='/platform/assets/v0.21.1/platform_ui.css'></head>
+        <link rel='stylesheet' href='/platform/assets/v0.21.3/platform_ui.css'></head>
         <body><main id='result-content'></main><script type='module'>
-        import {{renderDiagnosticWorkspace,workspaceSnapshot}} from '/platform/assets/v0.21.1/platform_diagnostic_workspace.js';
+        import {{renderDiagnosticWorkspace,workspaceSnapshot}} from '/platform/assets/v0.21.3/platform_diagnostic_workspace.js';
         const projection=await fetch('/v1/platform/jobs/{job_id}/maintenance/diagnostic-workspace').then(r=>r.json());
         renderDiagnosticWorkspace({{diagnosticWorkspace:projection}});
         window.workspaceSnapshot=workspaceSnapshot;window.__projection=projection;window.__ready=true;

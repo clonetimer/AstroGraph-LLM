@@ -141,7 +141,59 @@ function materialGraphPreview(relations=[],variant='draft'){
   const notice=variant==='draft'?'LLM 待审核文献关系':'专家已审核的参考关系';
   return `<div class="material-graph-scroller" aria-label="${notice}"><svg role="img" aria-label="${notice}，共 ${edges.length} 条关系" viewBox="0 0 855 ${h}" width="855" height="${h}" xmlns="http://www.w3.org/2000/svg">${links}${boxes}</svg></div><small>图谱展示文献关系，不代表当前故障已确诊。橙色表示否定，红色虚线表示相互矛盾的已审陈述；最多展示 12 条。</small>`;
 }
+function externalDiagnosisAnalysisHtml(model,generation,escape){
+  const roleLabels={diagnosis_results:'诊断结果',log_reports:'运行日志',references:'参考资料'};
+  const imported=(model.sources||[]).map(source=>`<details class="model-imported-source"><summary>${escape(roleLabels[source.role]||source.role)} · ${escape(source.filename)} · ${escape(source.locator)} · ${escape(source.source_id)}</summary><pre class="evidence-source-text" style="white-space:pre-wrap;overflow-wrap:anywhere">${escape(source.text)}</pre><small>材料角色 ${escape(source.role)} · SHA-256 ${escape(source.sha256)}</small></details>`).join('');
+  const sourcePanel=`<section class="panel card card-pad external-imported-material"><details><summary>外部导入材料 · ${(model.sources||[]).length} 个原文片段</summary>${imported||'<p>没有可展示的已导入文本片段。</p>'}</details></section>`;
+  const success=model.status==='AVAILABLE_REQUIRES_EXPERT_REVIEW'&&generation.status==='SUCCEEDED'&&model.citation_reference_validation==='PASS';
+  if(!success){
+    const status=generation.status==='SUCCEEDED'?model.status:(generation.status||model.status||'FAILED');
+    const messages={NOT_CONFIGURED:['尚未配置大模型','请选择并配置可用的大模型服务，再重新运行本次分析。'],INPUT_TOO_LARGE:['输入材料超出分析容量','材料超过本次执行配置的容量上限。请拆分材料后重新分析；本次没有截断原文生成结论。'],FAILED:['大模型分析未完成','模型调用或结构与引用检查未通过。请检查服务配置后重试，已导入材料仍可查看。']};
+    const [title,message]=messages[status]||messages.FAILED;
+    return `<section class="panel card card-pad model-result model-result-unavailable"><h2>${title}</h2><p>${message}</p><p>本次没有可展示的大模型分析结果。</p></section>${sourcePanel}`;
+  }
+  const sources=new Map((model.sources||[]).map(source=>[source.source_id,source]));
+  const citations=ids=>(ids||[]).map(id=>{
+    const source=sources.get(id);if(!source)return `<code>${escape(id)} · 来源不可用</code>`;
+    return `<details class="model-citation-source"><summary>${escape(source.filename)} · ${escape(source.locator)} · ${escape(id)}</summary><pre class="evidence-source-text" style="white-space:pre-wrap;overflow-wrap:anywhere">${escape(source.text)}</pre><small>SHA-256 ${escape(source.sha256)}</small></details>`;
+  }).join('');
+  const findings=(model.findings||[]).map(item=>`<li><p>${escape(item.text)}</p>${citations(item.citation_ids)}</li>`).join('');
+  const hypotheses=(model.hypotheses||[]).map(item=>`<li><h4>${escape(item.title)}</h4><p>${escape(item.analysis)}</p>${citations(item.citation_ids)}${item.counterpoints?`<h5>反证与替代解释</h5><p>${escape(item.counterpoints)}</p>`:''}${item.opposing_citation_ids?.length?`<h5>相反依据</h5>${citations(item.opposing_citation_ids)}`:''}${item.assumptions?.length?`<h5>成立前提</h5><ul>${item.assumptions.map(text=>`<li>${escape(text)}</li>`).join('')}</ul>`:''}${item.uncertainty?`<h5>不确定性</h5><p>${escape(item.uncertainty)}</p>`:''}${item.discriminating_check?`<h5>区分性核查</h5><p>${escape(item.discriminating_check)}</p>`:''}</li>`).join('');
+  const richActions=(model.review_actions||[]).map(item=>`<li><h4>${escape(item.check)}</h4><p>核查目的：${escape(item.rationale)}</p><p>预期观察：${escape(item.expected_observations)}</p>${citations(item.citation_ids)}</li>`).join('');
+  const gaps=(model.information_gaps||[]).map(text=>`<li>${escape(text)}</li>`).join('');
+  const actions=(model.recommended_review_actions||[]).map(text=>`<li>${escape(text)}</li>`).join('');
+  return `<section class="panel card card-pad model-result"><div class="model-result-head"><h2>大模型对外部诊断结果的分析</h2><span class="chip">需专家复核</span></div><section class="model-summary"><h3>外部诊断材料分析摘要</h3><p>${escape(model.summary)}</p></section>${findings?`<section><h3>原文依据与分析</h3><ol>${findings}</ol></section>`:''}${hypotheses?`<section><h3>待核查假设</h3><ol>${hypotheses}</ol></section>`:''}${gaps?`<section><h3>仍缺少的信息</h3><ul>${gaps}</ul></section>`:''}${richActions?`<section><h3>有依据的核查建议</h3><ol>${richActions}</ol></section>`:''}${actions?`<section><h3>建议复核步骤</h3><ol>${actions}</ol></section>`:''}<p class="model-safety-line">引用编号检查已通过；模型解释和假设仍需人工核对，不能据此自动执行设备操作。</p></section>${sourcePanel}`;
+}
+function extractiveModelExplanationHtml(model,generation,escape){
+  if(model.status!=='EXTRACTIVE_REVIEW_ONLY'||generation.status!=='SUCCEEDED')return '';
+  const claims=(model.claims||[]).map(item=>`<li><p>${escape(item.text)}</p><small>${(item.citation_ids||[]).map(escape).join(' · ')}</small></li>`).join('');
+  return `<section class="panel card card-pad model-result"><h2>大模型来源摘录复核</h2><p>${escape(model.summary||'以下仅为通过来源检查的摘录。')}</p><ol>${claims}</ol><p>原文摘录不等于已证明因果关系，仍需专家复核。</p></section>`;
+}
+let externalFollowUpController=null,externalFollowUpGeneration=0;
+async function mountExternalFollowUp(report){
+  const F=globalThis.ExternalDiagnosisFollowUp;if(!F)return;
+  externalFollowUpController?.dispose();externalFollowUpController=null;
+  const epoch=++externalFollowUpGeneration;
+  const inputHash=report.analysis.knowledge_enrichment?.model_explanation?.input_sha256;
+  if(!inputHash)return;
+  const host=document.createElement('div');$('#result-content').append(host);
+  host.innerHTML='<p role="status">正在核对追问权限…</p>';
+  try{
+    const identity=await api('/v1/platform/mission/identity');
+    if(state.report!==report||epoch!==externalFollowUpGeneration||!host.isConnected)return;
+    const subject=identity.subject,canAsk=(identity.roles||[]).some(r=>r==='operator'||r==='admin');
+    externalFollowUpController=F.mount({host,api,jobId:report.job_id,inputHash,identity:subject,canAsk,
+      current:()=>state.report===report&&epoch===externalFollowUpGeneration&&host.isConnected});
+  }catch{if(state.report===report&&epoch===externalFollowUpGeneration)host.innerHTML='<p role="status">无法读取追问权限，请重新打开报告。</p>'}
+}
 function renderResultLogReview(report){
+  if(report.analysis?.analysis_mode==='EXTERNAL_DIAGNOSIS_ANALYSIS'){const knowledge=report.analysis.knowledge_enrichment||{};$('#result-content').innerHTML=externalDiagnosisAnalysisHtml(knowledge.model_explanation||{},knowledge.generation||{},esc);mountExternalFollowUp(report);
+    if(globalThis.AstroGraphContexts){const context=document.createElement('section');$('#result-content').append(context);globalThis.AstroGraphContexts.renderSnapshot(context,report.reviewed_context);}
+    const view=globalThis.AstroGraphExecution;
+    if(view){const panel=document.createElement('section');$('#result-content').append(panel);
+      view.mount(panel,{baseUrl:'/v1/platform/jobs/'+encodeURIComponent(report.job_id),api,
+        current:()=>state.report===report});}
+    return;}
   const review=report.analysis?.result_log_review||{};
   const reasoning=report.analysis?.material_reasoning||{},fused=reasoning.candidates||[];
   const approvalByFault=new Map(fused.map(item=>[item.fault_id,item.multi_hop||{}]));
@@ -201,7 +253,7 @@ function renderResultLogReview(report){
   $('#result-content').innerHTML=`<section class="report-hero card card-pad"><div class="report-hero-top"><span class="report-status ${guardStatus==='ABSTAIN'?'is-abstain':'is-provisional'}" role="status" aria-live="polite">${guardStatus==='ABSTAIN'?'证据不足 · 无法确诊':'待核验的原因假设'}</span><span class="report-hero-note">人工辅助研判</span></div><h2>研判摘要</h2><p>${esc(review.conclusion||'当前尚无充分证据形成确定结论。')}</p><div class="report-compact-stats"><span>故障候选 <b>${(review.candidates||[]).length}</b></span><span>知识融合 <b>${fused.length}</b></span><span>待补充证据 <b>${(review.evidence_gaps||[]).length}</b></span></div></section>
     <section class="report-review-cta" aria-label="人工复核办理"><div><strong id="report-manual-review-label">报告复核：待专家处理</strong><span id="report-manual-review-progress">可逐项核验故障候选、记录结论与独立证据。</span></div><button class="btn primary" type="button" id="report-manual-review-open">进入人工复核 →</button></section>
     <div class="report-tabbar" role="tablist" aria-label="报告内容导航"><button class="report-tab active" type="button" role="tab" data-report-tab="summary" aria-selected="true">原因与措施</button><button class="report-tab" type="button" role="tab" data-report-tab="evidence" aria-selected="false">日志与文献</button><button class="report-tab" type="button" role="tab" data-report-tab="graph" aria-selected="false">图谱推理</button><button class="report-tab" type="button" role="tab" data-report-tab="governance" aria-selected="false">审核与溯源</button></div>
-    <div class="report-panel active" role="tabpanel" data-report-panel="summary">${cases}${noCandidate}<section class="card card-pad report-gaps"><div class="card-title">待核查事项</div><div class="actual-checks">${gaps}</div></section></div>
+    <div class="report-panel active" role="tabpanel" data-report-panel="summary">${extractiveModelExplanationHtml(knowledge.model_explanation||{},knowledge.generation||{},esc)}${cases}${noCandidate}<section class="card card-pad report-gaps"><div class="card-title">待核查事项</div><div class="actual-checks">${gaps}</div></section></div>
     <div class="report-panel" role="tabpanel" data-report-panel="evidence">${evidenceCards.join('')||'<div class="empty">未生成日志与参考资料的融合结果。</div>'}</div>
     <div class="report-panel" role="tabpanel" data-report-panel="graph">${graphCards.join('')||'<div class="empty">暂无图谱推理记录。</div>'}<div class="report-footnote">图谱关系表示文献中的知识关联，不等于当前设备故障已确诊。</div></div>
     <div class="report-panel" role="tabpanel" data-report-panel="governance">${knowledgeStatus}<details class="card card-pad"><summary>上传文件与 SHA-256</summary><div class="evidence-list">${(review.source_manifest||[]).map(x=>`<div class="evidence-row"><span>${esc(x.role)} · ${esc(x.filename)}<small>SHA256: ${esc(x.sha256)}</small></span></div>`).join('')}</div></details>${explanation?`<details class="card card-pad"><summary>大模型辅助说明</summary><p>${esc(explanation.summary||'')}</p></details>`:''}</div>`;
@@ -225,6 +277,7 @@ function renderResultLogReview(report){
 }
 
 function renderReport(report){
+  externalFollowUpGeneration++;externalFollowUpController?.dispose();externalFollowUpController=null;
   state.report=report; const vm=toViewModel(report); state.visualization=null;
   $('#current-job').textContent=report.job_id||'当前任务';
   $('#result-subtitle').textContent=`${report.job_id||''} · ${artifactKindZh[vm.kind]||vm.kind||'未知诊断工件'} · ${modeZh[report.work_mode]||report.work_mode||'标准诊断'} · ${report.completed_at?new Date(report.completed_at).toLocaleString('zh-CN'):''}`;

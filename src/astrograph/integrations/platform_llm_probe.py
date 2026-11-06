@@ -17,7 +17,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict
 
 from astrograph.integrations.bounded_http import request_json
-from astrograph.llm.openai_compatible import OpenAICompatibleStructuredBackend
+from astrograph.llm.openai_compatible import ModelRefusalError, OpenAICompatibleStructuredBackend
 
 
 _MAX_MODELS_BYTES = 1_000_000
@@ -174,6 +174,8 @@ def _structured(
                 max_response_bytes=1_000_000,
             )
             content, finish_reason = OpenAICompatibleStructuredBackend._message_content(document)
+            if finish_reason in {"length", "max_tokens"}:
+                raise ValueError("STRUCTURED_PROBE_OUTPUT_TRUNCATED")
             parsed = OpenAICompatibleStructuredBackend._json_from_text(content)
             result = _StructuredProbeResult.model_validate(parsed)
             if result.status != "OK":
@@ -199,7 +201,7 @@ def _structured(
                 "error": {"type": type(exc).__name__, "message": str(exc)},
                 "elapsed_ms": round((time.monotonic() - attempt_started) * 1000.0, 2),
             })
-            if response_format_strategy != "auto":
+            if isinstance(exc, ModelRefusalError) or response_format_strategy != "auto":
                 break
     last = attempts[-1]["error"] if attempts else {"type": "RuntimeError", "message": "NO_STRUCTURED_STRATEGY"}
     return {

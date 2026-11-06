@@ -1,9 +1,13 @@
 name: Foundation smoke (source-only)
 on:
   push:
-    branches: [dev/foundation-r11-integration]
+    branches: [dev/foundation-r11-integration, feat/platform-persistent-queue]
   pull_request:
-    branches: [main]
+    branches: [main, dev/foundation-r11-integration]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   source-smoke:
     runs-on: ubuntu-latest
@@ -13,6 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Install source and test dependencies
         run: |
           python -m pip install --upgrade pip
@@ -35,6 +42,7 @@ jobs:
             tests/test_foundation_r11b2_post_diagnosis_bridge.py \
             tests/test_platform_knowledge_enrichment.py \
             tests/test_upload_report_platform.py \
+            tests/test_platform_persistent_queue.py \
             tests/test_design_diagnostic_harness.py \
             tests/test_foundation_r11b3_oag_post_diagnosis.py \
             tests/test_foundation_r11c_online_post_diagnosis.py \
@@ -45,4 +53,17 @@ jobs:
             tests/test_openai_compatible_backend.py \
             tests/test_foundation_r11e_investigation_quality.py \
             tests/test_foundation_r11f_blind_material_campaign.py \
-            tests/test_foundation_r11f_cli_and_separate_scoring.py
+            tests/test_foundation_r11f_cli_and_separate_scoring.py \
+            tests/test_result_log_review.py \
+            tests/test_material_multihop_reasoning.py \
+            tests/test_mission_console_integration.py \
+            tests/test_external_diagnosis_analysis.py \
+            tests/test_external_diagnosis_platform.py \
+            tests/test_external_diagnosis_conversation.py \
+            tests/test_external_llm_transport_updates.py \
+            tests/ui/test_external_diagnosis_ui_input.py \
+            tests/ui/test_external_diagnosis_ui_output.py \
+            tests/ui/test_external_diagnosis_follow_up_ui.py \
+            tests/test_structured_document_retrieval.py \
+            tests/test_document_governance_and_docx.py \
+            tests/test_multimodal_docx_contract.py

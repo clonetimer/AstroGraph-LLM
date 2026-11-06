@@ -61,7 +61,7 @@ def test_save_applies_runtime_and_restores_from_disk(client, tmp_path, monkeypat
     assert '模型与引擎' in client.get('/platform/mission').text
     assert '检索与多模态配置' in client.get('/platform/legacy').text
     assert '大模型配置' in client.get('/platform/legacy').text
-    assert client.get('/platform/assets/v0.21.1/platform_engine_settings.js').status_code==200
+    assert client.get('/platform/assets/v0.21.2/platform_engine_settings.js').status_code==200
 
 
 def test_revision_conflict_rollback_and_history(client):

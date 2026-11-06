@@ -1,0 +1,11 @@
+{
+  "environment": "Linux system Chromium; production DOM/JS; fixture API responses",
+  "native_windows": false,
+  "live_server_navigation": false,
+  "passed": [
+    "PDF/DOCX file input, reference role and serialized upload: PASS",
+    "Single comparison workspace, citation navigation and text escaping: PASS",
+    "Failed-model report offers real resume action: PASS"
+  ],
+  "failures": []
+}

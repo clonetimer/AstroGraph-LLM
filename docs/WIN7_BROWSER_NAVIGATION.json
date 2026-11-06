@@ -1,0 +1,17 @@
+{
+  "environment": "Linux Chromium; production DOM/JS; scripted API responses",
+  "native_windows": false,
+  "real_model": false,
+  "passed": [
+    "Six routes, one visible panel, draft/files/model/key preservation, no automatic model call",
+    "History filter/open, report rendering, question preservation, real submission and source jump",
+    "PDF/DOCX role retention, probe and one analysis submission",
+    "Failed report resumes with current model settings",
+    "390px navigation drawer, Escape and no horizontal overflow",
+    "Empty history/chat, built-in help and invalid route fallback",
+    "Browser back/forward and keyboard focus follow the active route",
+    "Background polling preserves the chosen page and never resubmits analysis",
+    "900/1024/1280px desktop workspaces have no horizontal overflow"
+  ],
+  "failures": []
+}

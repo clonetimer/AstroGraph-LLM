@@ -13,11 +13,11 @@ REPORT = (RESOURCES / "platform_report.js").read_text(encoding="utf-8")
 
 
 def test_r33_asset_version_and_operations_module_are_served() -> None:
-    assert PLATFORM_UI_ASSET_VERSION == "v0.21.1"
+    assert PLATFORM_UI_ASSET_VERSION == "v0.21.2"
     source, media_type = platform_asset("platform_operations.js")
     assert media_type.startswith("application/javascript")
     assert "operatorStatusViewModel" in source
-    assert "/platform/assets/v0.21.1/platform_ui.js" in HTML
+    assert "/platform/assets/v0.21.2/platform_ui.js" in HTML
 
 
 def test_operations_navigation_and_result_layers_are_present() -> None:

@@ -442,3 +442,17 @@ body::before,body[data-theme=light]::before{background:none}
 @media(max-width:900px){#screen-report .action-summary{grid-template-columns:1fr}.decision-lead{padding-bottom:6px}#screen-report .action-summary-grid{border-left:0;border-top:1px solid var(--stroke);padding-top:12px}.model-result-head{align-items:flex-start}}
 @media(max-width:620px){.analysis-shell{padding-top:0}.analysis-intro h1{font-size:31px}.analysis-process{margin-left:0;padding-left:15px}.analysis-composer-panel{padding:12px;border-radius:19px}.analysis-context-row{align-items:flex-start;flex-direction:column;gap:1px}.analysis-composer-actions{align-items:flex-end;flex-wrap:wrap}.analysis-engine-control{order:3;flex:1 1 100%;margin-top:3px}.analysis-engine-button{max-width:100%;width:100%}.analysis-engine-menu{left:-1px}.analysis-submit-actions .text-btn{display:none}.attachment-menu{left:-12px}.compact-demo-cases .demo-cards{grid-template-columns:1fr}#screen-report .action-summary{padding:24px 20px}#screen-report .action-summary-grid{grid-template-columns:1fr}#screen-report .action-summary-grid>div,#screen-report .action-summary-grid>div:nth-last-child(-n+2){padding:12px 0;border-bottom:1px solid var(--stroke)}#screen-report .action-summary-grid>div:last-child{border-bottom:0}}
 @media(prefers-reduced-motion:reduce){.thinking-pulse{animation:none}.analysis-send,.paperclip-button{transition:none}}
+
+/* External report citations remain readable on narrow displays. */
+.model-citation-source,.model-imported-source{margin:12px 0;min-width:0;overflow-wrap:anywhere}
+.model-citation-source summary,.model-imported-source summary,.external-imported-material summary{cursor:pointer;line-height:1.6;overflow-wrap:anywhere}
+.model-result>section:not(.model-summary){margin:0 23px;padding:16px 0}
+.model-result>section li{line-height:1.7;margin-bottom:12px;overflow-wrap:anywhere}
+.external-imported-material{margin-top:16px;overflow-wrap:anywhere}
+
+/* P3: optional task-bound follow-up model selection */
+.analysis-followup-control{display:grid;gap:5px;margin:8px 0 10px;padding:8px 12px;background:var(--panel-bg,rgba(108,136,173,.08));border:1px solid rgba(108,136,173,.22);border-radius:10px}
+.analysis-followup-control[hidden]{display:none}
+.analysis-followup-control label{font-size:13px;font-weight:600}
+.analysis-followup-control select{max-width:100%;min-height:36px;padding:5px 9px;border-radius:7px;border:1px solid rgba(108,136,173,.38);background:var(--input-bg,#fff);color:var(--text-main,#162438)}
+.analysis-followup-control small{font-size:12px;opacity:.7}

@@ -16,6 +16,7 @@ are administrator-configured and fail explicitly rather than producing mock resu
 """
 from __future__ import annotations
 
+from contextlib import contextmanager
 import hashlib
 import html
 import io
@@ -49,6 +50,9 @@ from astrograph.integrations.post_diagnosis_explanation import run_frozen_post_d
 from astrograph.integrations.platform_knowledge import PlatformKnowledgeConfig, PlatformKnowledgeEnrichmentService
 from astrograph.integrations.platform_secrets import PlatformSecretStore
 from astrograph.integrations.platform_state import PlatformStateRepository
+from astrograph.integrations.platform_job_queue import (
+    PersistentPlatformJobQueue, PlatformQueueConflict,
+)
 from astrograph.llm import OpenAICompatibleConfig, OpenAICompatibleStructuredBackend
 from astrograph.agents.mission.models import WorkMode
 
@@ -124,6 +128,7 @@ class PlatformJobCreateRequest(BaseModel):
     task: str = Field(default="分析诊断结果、日志和参考文献，给出有依据的故障原因和处置建议", max_length=4000)
     work_mode: WorkMode = "normal"
     analysis_engine_id: str = Field(default="auto", min_length=1, max_length=180)
+    phase_engine_ids: dict[str, str] = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def validate_analysis_engine(self) -> "PlatformJobCreateRequest":
@@ -131,6 +136,13 @@ class PlatformJobCreateRequest(BaseModel):
         if engine not in {"auto", "rules"} and not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", engine):
             raise ValueError("analysis_engine_id must be auto, rules, or llm:<profile_id>")
         self.analysis_engine_id = engine
+        if set(self.phase_engine_ids) - {"chunk", "synthesis", "follow_up"} or any(
+            not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", value)
+            for value in self.phase_engine_ids.values()
+        ):
+            raise ValueError("only approved chunk/synthesis/follow_up LLM profile IDs are supported")
+        if engine == "rules" and self.phase_engine_ids:
+            raise ValueError("follow-up LLM cannot be attached to rules engine")
         return self
 
 
@@ -143,6 +155,22 @@ class PlatformFileReceipt(BaseModel):
 
 class PreflightBlockedError(ValueError):
     """Raised when immutable uploaded inputs cannot enter a supported diagnostic path."""
+
+
+@contextmanager
+def _platform_run_lease(root: Path, job_id: str):
+    from astrograph.agents.mission.run_lock import task_lease
+    lease = task_lease(root, f"upload-report-run-{job_id}")
+    try:
+        lease.__enter__()
+    except RuntimeError as exc:
+        if "TASK_ALREADY_RUNNING" in str(exc):
+            raise ValueError("job is already running") from exc
+        raise
+    try:
+        yield
+    finally:
+        lease.__exit__(None, None, None)
 
 
 
@@ -158,6 +186,7 @@ class UploadReportJobStore:
         self.root.mkdir(parents=True, exist_ok=True)
         self.state_repository = state_repository or PlatformStateRepository.from_environment(platform_root=self.root)
         self.knowledge_service = knowledge_service or PlatformKnowledgeEnrichmentService.from_environment()
+        self.queue = PersistentPlatformJobQueue(self.root)
 
     @classmethod
     def from_environment(cls) -> "UploadReportJobStore":
@@ -173,6 +202,46 @@ class UploadReportJobStore:
             raise KeyError("invalid job id")
         return root
 
+    @property
+    def contexts(self):
+        from .reviewed_context import ContextStore
+        return ContextStore(self.root / "reviewed_context")
+
+    def bind_reviewed_context(self, job_id: str, selection: dict) -> dict:
+        """Freeze a reviewed selection before running; share the launch lease."""
+        from .reviewed_context import ContextError, write_task_context
+        from astrograph.agents.mission.run_lock import task_lease
+        try:
+            with task_lease(self.root, f"upload-report-launch-{job_id}"):
+                # The worker holds the OS-managed run lease. File existence alone
+                # cannot distinguish a live worker from a crashed process.
+                with task_lease(self.root, f"upload-report-run-{job_id}"):
+                    job = self.get(job_id)
+                    queued = self.queue.get(job_id)
+                    if job["status"] not in {"CREATED", "UPLOADING"} or (
+                        queued is not None and queued["status"] not in {"FAILED", "CANCELLED"}
+                    ):
+                        raise ContextError("TASK_CONTEXT_ALREADY_FROZEN")
+                    if not isinstance(selection, dict) or set(selection) != {"workspace_id", "entries"}:
+                        raise ContextError("INVALID_CONTEXT_SELECTION")
+                    snapshot = self.contexts.snapshot(selection["workspace_id"], selection["entries"])
+                    write_task_context(self._job_root(job_id), snapshot)
+                    job["context_sha256"] = snapshot["sha256"]
+                    job["preflight"] = None
+                    self._save(job)
+                    return {"reviewed_context": snapshot}
+        except ContextError:
+            raise
+        except (OSError, RuntimeError) as exc:
+            raise ContextError("TASK_CONTEXT_ALREADY_FROZEN") from exc
+
+    def _reviewed_context(self, job_id: str):
+        from .reviewed_context import ContextError, load_task_context
+        snapshot = load_task_context(self._job_root(job_id))
+        if (snapshot or {}).get("sha256") != self.get(job_id).get("context_sha256"):
+            raise ContextError("CONTEXT_BINDING_MISMATCH")
+        return snapshot
+
     def _metadata_path(self, job_id: str) -> Path:
         return self._job_root(job_id) / "job.json"
 
@@ -181,6 +250,7 @@ class UploadReportJobStore:
         task: str,
         work_mode: WorkMode = "normal",
         analysis_engine_id: str = "auto",
+        phase_engine_ids: dict[str, str] | None = None,
     ) -> dict[str, Any]:
         normalized = (task or "").strip() or "分析诊断结果、日志和参考文献，给出有依据的故障原因和处置建议"
         engine_id = (analysis_engine_id or "auto").strip()
@@ -195,6 +265,17 @@ class UploadReportJobStore:
             config = dict(profile.get("config") or {})
             if not config.get("enabled", True) or not config.get("base_url") or not config.get("model"):
                 raise ValueError("selected LLM profile is not enabled")
+        phase_engine_ids = dict(phase_engine_ids or {})
+        if set(phase_engine_ids) - {"chunk", "synthesis", "follow_up"} or (engine_id == "rules" and phase_engine_ids):
+            raise ValueError("invalid phase engine selection")
+        if phase_engine_ids and engine_id == "auto" and self.knowledge_service.llm_backend is None:
+            raise ValueError("analysis LLM must be configured before selecting a follow-up model")
+        phase_pins = {}
+        for stage, selected_engine in phase_engine_ids.items():
+            if not isinstance(selected_engine, str) or not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", selected_engine):
+                raise ValueError("phase model must reference an approved LLM profile")
+            phase_pins[stage] = self._phase_profile_fingerprint(selected_engine)
+        primary_pin = self._primary_profile_fingerprint(engine_id) if phase_engine_ids else None
         if len(normalized) > 4000:
             raise ValueError("task exceeds 4000 characters")
         while True:
@@ -214,6 +295,9 @@ class UploadReportJobStore:
             "task": normalized,
             "work_mode": work_mode,
             "analysis_engine_id": engine_id,
+            "phase_engine_ids": phase_engine_ids,
+            "phase_profile_fingerprints": phase_pins,
+            "primary_profile_fingerprint": primary_pin,
             "analysis_engine": self._analysis_engine_snapshot(engine_id),
             "created_at": _now(),
             "updated_at": _now(),
@@ -256,6 +340,8 @@ class UploadReportJobStore:
             handle.write(line)
 
     def _set_stage(self, job_id: str, stage: str, detail: str = "", **updates: Any) -> dict[str, Any]:
+        from .stage_execution import check_cancelled
+        check_cancelled()
         job = self.get(job_id)
         job["stage"] = stage
         job["stage_detail"] = detail
@@ -349,10 +435,71 @@ class UploadReportJobStore:
         runtime = self._llm_runtime_snapshot()
         return {"engine_id": "auto", "kind": "llm" if runtime["configured"] else "rules", "name": runtime.get("model") or "规则引擎", **runtime}
 
+    def _primary_profile_fingerprint(self, engine_id: str) -> str:
+        if engine_id.startswith("llm:"):
+            return self._phase_profile_fingerprint(engine_id)
+        if engine_id != "auto" or self.knowledge_service.llm_backend is None:
+            raise ValueError("primary LLM is not configured")
+        config = self.knowledge_service.config
+        identity = {
+            "model_id": getattr(self.knowledge_service.llm_backend, "model_id", ""),
+            "config": {key: getattr(config, key, None) for key in (
+                "llm_base_url", "llm_model", "llm_provider",
+                "llm_timeout_s", "llm_response_format_strategy", "llm_max_tokens")},
+        }
+        return hashlib.sha256(json.dumps(identity, sort_keys=True, default=str).encode("utf-8")).hexdigest()
+
+    def _phase_profile_fingerprint(self, engine_id: str) -> str:
+        """Hash non-secret execution identity to reject silent stage-model drift."""
+        if not isinstance(engine_id, str) or not re.fullmatch(r"llm:[A-Za-z0-9_-]{1,160}", engine_id):
+            raise ValueError("invalid stage model profile")
+        profile = self.state_repository.get_service_profile(engine_id.split(":", 1)[1])
+        if not profile or profile.get("service_kind") != "llm":
+            raise ValueError("stage model profile missing")
+        config = dict(profile.get("config") or {})
+        if (profile.get("validation_status") != "PASS" or not config.get("enabled", True)
+                or not config.get("base_url") or not config.get("model")):
+            raise ValueError("stage model profile unavailable or not verified")
+        identity = {
+            "profile_id": profile["profile_id"],
+            "secret_ref": profile.get("secret_ref"),
+            "config": {key: config.get(key) for key in (
+                "base_url", "model", "provider", "enabled", "timeout_s",
+                "structured_max_tokens", "response_format_strategy")},
+        }
+        return hashlib.sha256(json.dumps(identity, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
     def _knowledge_service_for_job(self, job: dict[str, Any]) -> PlatformKnowledgeEnrichmentService:
         engine_id = str(job.get("analysis_engine_id") or "auto")
         if engine_id == "auto":
-            return self.knowledge_service
+            service = self.knowledge_service
+        else:
+            service = self._knowledge_service_for_engine(engine_id)
+        phases = job.get("phase_engine_ids") or {}
+        if not phases:
+            return service
+        if not isinstance(phases, dict) or not phases or set(phases) - {"chunk", "synthesis", "follow_up"} or service.llm_backend is None:
+            raise ValueError("invalid frozen stage model selection")
+        if job.get("primary_profile_fingerprint") != self._primary_profile_fingerprint(engine_id):
+            raise ValueError("primary model profile changed since job creation")
+        pins = job.get("phase_profile_fingerprints") or {}
+        if not isinstance(pins, dict) or set(pins) != set(phases):
+            raise ValueError("stage model profile binding is incomplete")
+        from copy import copy
+        from astrograph.integrations.stage_execution import StageRouter
+        backends = {"analysis": service.llm_backend}
+        for stage, stage_engine in phases.items():
+            if pins.get(stage) != self._phase_profile_fingerprint(stage_engine):
+                raise ValueError("stage model profile changed since job creation")
+            alternate = self._knowledge_service_for_engine(stage_engine)
+            if alternate.llm_backend is None:
+                raise ValueError("stage model is not configured")
+            backends[stage] = alternate.llm_backend
+        configured = copy(service)
+        configured.llm_backend = StageRouter(backends)
+        return configured
+
+    def _knowledge_service_for_engine(self, engine_id: str) -> PlatformKnowledgeEnrichmentService:
         base = PlatformKnowledgeConfig.from_environment()
         if engine_id == "rules":
             return PlatformKnowledgeEnrichmentService(base.model_copy(update={
@@ -622,7 +769,8 @@ class UploadReportJobStore:
             ]]
             model_binding = review["model_binding"]
             details.update({"role_counts": review["role_counts"], "source_receipts": review["files"],
-                            "material_review_only": True})
+                            "analysis_mode": review["analysis_mode"],
+                            "material_review_only": review["analysis_mode"] == "MATERIAL_REVIEW"})
         elif artifact_kind == "PUBLIC_CASE":
             from astrograph.integrations.sat_sim_public_case import _load_public_case
             manifest, telemetry = _load_public_case(paths["case_root"])
@@ -721,6 +869,35 @@ class UploadReportJobStore:
                     "message": str(exc),
                     "error_type": type(exc).__name__,
                 })
+
+        try:
+            context = self._reviewed_context(job_id)
+            if context and (artifact_kind != "RESULT_LOG_REVIEW" or
+                            validation.get("details", {}).get("analysis_mode") != "EXTERNAL_DIAGNOSIS_ANALYSIS"):
+                blockers.append({"code": "CONTEXT_REQUIRES_EXTERNAL_ANALYSIS",
+                                 "message": "已选上下文仅适用于外部诊断文本分析入口，请新建外部分析任务。"})
+        except (ValueError, OSError):
+            blockers.append({"code": "INVALID_CONTEXT_BINDING", "message": "任务上下文快照不完整或已改变。"})
+
+        phases = job.get("phase_engine_ids") or {}
+        if phases:
+            if (artifact_kind != "RESULT_LOG_REVIEW"
+                    or validation.get("details", {}).get("analysis_mode") != "EXTERNAL_DIAGNOSIS_ANALYSIS"):
+                blockers.append({"code": "PHASE_MODELS_REQUIRE_EXTERNAL_ANALYSIS",
+                                 "message": "分阶段大模型配置仅适用于外部诊断文本分析。"})
+            else:
+                try:
+                    fingerprints = job.get("phase_profile_fingerprints") or {}
+                    if (not isinstance(phases, dict) or not phases
+                            or set(phases) - {"chunk", "synthesis", "follow_up"}
+                            or job.get("primary_profile_fingerprint") != self._primary_profile_fingerprint(str(job.get("analysis_engine_id") or "auto"))
+                            or not isinstance(fingerprints, dict) or set(fingerprints) != set(phases)
+                            or any(fingerprints.get(stage) != self._phase_profile_fingerprint(engine)
+                                   for stage, engine in phases.items())):
+                        raise ValueError("stage model binding changed")
+                except (TypeError, ValueError, KeyError):
+                    blockers.append({"code": "PHASE_MODEL_PROFILE_CHANGED",
+                                     "message": "追问模型配置已修改或不可用，请新建任务选择最新配置。"})
 
         can_start = not blockers and artifact_kind is not None
         status = "BLOCKED" if blockers else ("WARNING" if warnings else "PASS")
@@ -1067,29 +1244,288 @@ class UploadReportJobStore:
         ]
         return "\n".join(lines)
 
-    def start(self, job_id: str) -> dict[str, Any]:
-        """Start a background job without tying the HTTP request to diagnosis latency.
+    def queue_snapshot(self, job_id: str) -> dict[str, Any] | None:
+        """Return queue state and reconcile worker-loss states into durable job metadata."""
+        self.queue.recover_expired()
+        row = self.queue.get(job_id)
+        if row is None:
+            return None
+        status = str(row.get("status") or "")
+        if status == "INTERRUPTED":
+            output = self._job_root(job_id) / "output"
+            report_json = output / "report.json"
+            report_markdown = output / "report.md"
+            if report_json.is_file() and report_markdown.is_file() and report_markdown.stat().st_size > 0:
+                try:
+                    report = _json_read(report_json)
+                except Exception:
+                    report = {}
+                if (
+                    isinstance(report, dict)
+                    and report.get("job_id") == job_id
+                    and report.get("status") == "SUCCEEDED"
+                ):
+                    self.queue.finish_interrupted_success(job_id)
+                    job = self.get(job_id)
+                    job.update(
+                        status="SUCCEEDED", stage="COMPLETED",
+                        stage_detail="从完整报告工件恢复任务状态；未重新调用模型",
+                        completed_at=report.get("completed_at") or _now(),
+                        report_json="output/report.json", report_markdown="output/report.md",
+                    )
+                    self._save(job)
+                    self._append_event(job_id, "[RECOVERED] complete report artifacts validated; no model replay")
+                    return self.queue.snapshot(job_id)
+        if status in {"INTERRUPTED", "CANCELLED"}:
+            job = self.get(job_id)
+            if job.get("status") != status:
+                job.update(
+                    status=status,
+                    stage=status,
+                    stage_detail=(
+                        "后台 Worker 租约过期；任务现场已保留，等待人工确认恢复"
+                        if status == "INTERRUPTED" else "任务已取消"
+                    ),
+                    completed_at=_now(),
+                    error={
+                        "type": "WorkerInterrupted" if status == "INTERRUPTED" else "AnalysisCancelled",
+                        "message": row.get("last_error_code") or status,
+                        "failed_stage": job.get("stage"),
+                    },
+                )
+                self._save(job)
+                self._append_event(job_id, f"[{status}] {row.get('last_error_code') or status}")
+        return self.queue.snapshot(job_id)
 
-        Local/desktop mode defaults to a daemon thread.  The structured LLM HTTP call
-        remains isolated by AstroGraph's bounded HTTP worker, while the job shares the
-        exact process-scoped LM Studio configuration that the administrator just tested.
-        Production deployments can select ``process`` explicitly.
+    def cancel(self, job_id: str, *, reason: str = "USER_REQUEST") -> dict[str, Any]:
+        self.queue_snapshot(job_id)
+        row = self.queue.request_cancel(job_id, reason=reason)
+        status = str(row.get("cancel_result") or row.get("status") or "")
+        job = self.get(job_id)
+        if status == "CANCELLED" and job.get("status") != "CANCELLED":
+            job.update(
+                status="CANCELLED", stage="CANCELLED", stage_detail="任务已取消",
+                completed_at=_now(),
+                error={"type": "AnalysisCancelled", "message": "USER_CANCELLED"},
+            )
+            self._save(job)
+            self._append_event(job_id, "[CANCELLED] operator cancellation")
+        elif status == "CANCEL_REQUESTED":
+            self._append_event(job_id, "[CANCEL_REQUESTED] cooperative cancellation requested")
+        return {
+            "job_id": job_id,
+            "queue": self.queue.snapshot(job_id),
+            "cancel_result": status,
+            "cancellation_is_cooperative": status == "CANCEL_REQUESTED",
+        }
+
+    def resume(
+        self, job_id: str, *, confirm_duplicate_risk: bool, actor: str,
+    ) -> dict[str, Any]:
+        """Serialize recoveries and preserve reviewed operator confirmation."""
+        from astrograph.agents.mission.run_lock import task_lease
+        try:
+            with task_lease(self.root, f"upload-report-launch-{job_id}"):
+                return self._resume_locked(
+                    job_id, confirm_duplicate_risk=confirm_duplicate_risk, actor=actor,
+                )
+        except RuntimeError as exc:
+            if "TASK_ALREADY_RUNNING" in str(exc):
+                raise PlatformQueueConflict("TASK_RECOVERY_ALREADY_IN_PROGRESS") from exc
+            raise
+
+    def _resume_locked(
+        self, job_id: str, *, confirm_duplicate_risk: bool, actor: str,
+    ) -> dict[str, Any]:
+        self.queue_snapshot(job_id)
+        row = self.queue.get(job_id)
+        if row is None:
+            raise KeyError(job_id)
+        if row.get("status") == "SUCCEEDED" and row.get("last_error_code") == "RECOVERED_COMPLETE_REPORT":
+            return {
+                "job_id": job_id, "recovered_from_complete_report": True,
+                "queue": self.queue.snapshot(job_id), "status": "SUCCEEDED",
+            }
+        if row.get("status") != "INTERRUPTED":
+            raise PlatformQueueConflict("ONLY_INTERRUPTED_JOBS_CAN_BE_RESUMED")
+        root = self._job_root(job_id)
+        output = root / "output"
+        report_json = output / "report.json"
+        report_markdown = output / "report.md"
+        if report_json.is_file() and report_markdown.is_file() and report_markdown.stat().st_size > 0:
+            try:
+                report = _json_read(report_json)
+            except Exception:
+                report = {}
+            if (
+                isinstance(report, dict)
+                and report.get("job_id") == job_id
+                and report.get("status") == "SUCCEEDED"
+            ):
+                recovered = self.queue.finish_interrupted_success(job_id)
+                job = self.get(job_id)
+                job.update(
+                    status="SUCCEEDED", stage="COMPLETED",
+                    stage_detail="从已完整写入的报告工件恢复任务状态；未重新调用模型",
+                    completed_at=report.get("completed_at") or _now(),
+                    report_json="output/report.json", report_markdown="output/report.md",
+                )
+                self._save(job)
+                self._append_event(job_id, "[RECOVERED] complete report artifacts validated; no model replay")
+                return {
+                    "job_id": job_id, "recovered_from_complete_report": True,
+                    "queue": self.queue.snapshot(job_id), "status": recovered["status"],
+                }
+        if not confirm_duplicate_risk:
+            raise PlatformQueueConflict("DUPLICATE_MODEL_COST_CONFIRMATION_REQUIRED")
+        archived_output = None
+        if output.exists():
+            archive_root = root / "interrupted-attempts"
+            archive_root.mkdir(parents=True, exist_ok=True)
+            archive = archive_root / f"attempt-{int(row.get('attempt') or 0):03d}"
+            if archive.exists():
+                archive = archive_root / f"attempt-{int(row.get('attempt') or 0):03d}-{int(time.time())}"
+            shutil.move(str(output), str(archive))
+            archived_output = archive
+        output.mkdir(parents=True, exist_ok=True)
+        # Reuse only the bounded checkpoint manifest. The existing hierarchical
+        # analyzer independently verifies input/model/context fingerprints and
+        # each retained chunk summary before trusting it. No stale generated
+        # report or unverified partial chunk is copied into the new attempt.
+        checkpoint_preserved = False
+        if archived_output is not None:
+            checkpoint_source = archived_output / "knowledge" / "checkpoint.json"
+            if checkpoint_source.is_file() and checkpoint_source.stat().st_size <= 2_000_000:
+                checkpoint_target = output / "knowledge" / "checkpoint.json"
+                checkpoint_target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(checkpoint_source, checkpoint_target)
+                checkpoint_preserved = True
+        queued = self.queue.resume(
+            job_id, confirm_duplicate_risk=True, actor=actor,
+        )
+        job = self.get(job_id)
+        job.update(
+            status="QUEUED", stage="QUEUED",
+            stage_detail="人工确认后重新排队；此前未完成的模型请求可能已产生费用",
+            execution_backend="PROCESS_QUEUE",
+            error=None, completed_at=None, report_json=None, report_markdown=None,
+        )
+        self._save(job)
+        self._append_event(
+            job_id,
+            f"[RESUMED] actor={actor[:80]} attempt={row.get('attempt')} "
+            f"recovery_count={queued.get('recovery_count')} duplicate_model_cost_confirmed=true",
+        )
+        self.ensure_queue_workers()
+        return {
+            "job_id": job_id, "recovered_from_complete_report": False,
+            "queue": self.queue.snapshot(job_id), "status": "QUEUED",
+            "duplicate_model_cost_confirmed": True,
+            "checkpoint_preserved": checkpoint_preserved,
+        }
+
+    def reconcile_queue_intents(self) -> int:
+        """Repair submission-only crashes without replaying already-claimed model calls.
+
+        The intent is persisted before the SQLite queue row is published. A task
+        can only qualify if no queue row exists and job.json still says QUEUED;
+        a worker must first mark job.json RUNNING before any model invocation.
+        Do not infer safe replay for historical/legacy in-flight tasks.
         """
+        recovered = 0
+        for directory in self.root.glob("JOB-*"):
+            if not directory.is_dir() or not re.fullmatch(r"JOB-[0-9A-F]{24}", directory.name):
+                continue
+            job_id = directory.name
+            try:
+                job = self.get(job_id)
+            except (KeyError, ValueError, OSError):
+                continue
+            if (
+                job.get("status") != "QUEUED"
+                or job.get("execution_backend") != "PROCESS_QUEUE"
+                or job.get("queue_enqueue_intent") is not True
+                or not job.get("files")
+                or self.queue.get(job_id) is not None
+            ):
+                continue
+            self.queue.enqueue(job_id, allow_failed_retry=False)
+            recovered += 1
+            self._append_event(job_id, "[QUEUED] recovered submission intent; no model replay")
+        return recovered
+
+    def ensure_queue_workers(self, *, only_if_pending: bool = False) -> list[int]:
+        """Launch fixed worker slots; OS leases prevent duplicate slots across API processes."""
         import subprocess
         import sys
 
-        self.get(job_id)
-        root = self._job_root(job_id)
-        launch_lock = root / ".launch.lock"
+        self.reconcile_queue_intents()
+        if only_if_pending and not self.queue.has_work():
+            return []
         try:
-            with launch_lock.open("x"):
-                pass
-        except FileExistsError:
-            return self.get(job_id)
-        try:
+            count = int(os.environ.get("ASTROGRAPH_PLATFORM_QUEUE_WORKERS", "2"))
+        except ValueError:
+            count = 2
+        count = max(1, min(8, count))
+        queue_logs = self.root / "queue"
+        queue_logs.mkdir(parents=True, exist_ok=True)
+        source_root = Path(__file__).resolve().parents[2]
+        env = os.environ.copy()
+        env["ASTROGRAPH_PLATFORM_ROOT"] = str(self.root)
+        existing = env.get("PYTHONPATH", "")
+        env["PYTHONPATH"] = str(source_root) + (os.pathsep + existing if existing else "")
+        launched: list[int] = []
+        for slot in range(count):
+            log_path = queue_logs / f"worker-{slot}.log"
+            kwargs: dict[str, Any] = {
+                "stdin": subprocess.DEVNULL,
+                "stdout": None,
+                "stderr": subprocess.STDOUT,
+                "close_fds": True,
+                "env": env,
+                "start_new_session": True,
+            }
+            if os.name == "nt":
+                flags = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
+                kwargs["creationflags"] = flags
+            try:
+                with log_path.open("ab", buffering=0) as log:
+                    kwargs["stdout"] = log
+                    process = subprocess.Popen(
+                        [
+                            sys.executable, "-m", "astrograph.integrations.platform_worker",
+                            "--root", str(self.root), "--queue-slot", str(slot),
+                        ],
+                        **kwargs,
+                    )
+                if process.pid:
+                    launched.append(int(process.pid))
+            except OSError as exc:
+                try:
+                    with (queue_logs / "worker-launch-errors.log").open("a", encoding="utf-8") as handle:
+                        handle.write(f"{_now()} slot={slot} error={type(exc).__name__}\\n")
+                except OSError:
+                    pass
+        return launched
+
+    def start(self, job_id: str) -> dict[str, Any]:
+        """Persist a job in the shared queue; isolated workers claim it atomically."""
+        from astrograph.agents.mission.run_lock import task_lease
+
+        with task_lease(self.root, f"upload-report-launch-{job_id}"):
+            self.get(job_id)
+            queue_state = self.queue_snapshot(job_id)
             job = self.get(job_id)
-            if job["status"] in {"QUEUED", "RUNNING", "SUCCEEDED"}:
+            if queue_state and queue_state.get("status") in {
+                "QUEUED", "RUNNING", "CANCEL_REQUESTED", "COMMITTING", "SUCCEEDED"
+            }:
                 return job
+            if job["status"] == "SUCCEEDED":
+                return job
+            if job["status"] == "RUNNING":
+                raise PlatformQueueConflict("JOB_ALREADY_RUNNING_OUTSIDE_QUEUE")
+            if job["status"] in {"INTERRUPTED", "CANCELLED"}:
+                raise PlatformQueueConflict("INTERRUPTED_OR_CANCELLED_JOB_REQUIRES_EXPLICIT_ACTION")
             if not job["files"]:
                 raise ValueError("job has no uploaded files")
             preflight = self.preflight(job_id)
@@ -1097,88 +1533,132 @@ class UploadReportJobStore:
                 detail = "; ".join(item["message"] for item in preflight["blockers"])
                 raise PreflightBlockedError(f"preflight blocked: {detail}")
 
-            executor = self._job_executor_mode()
-            job["status"] = "QUEUED"
-            job["stage"] = "QUEUED"
-            job["stage_detail"] = "等待后台诊断执行"
-            job["execution_backend"] = executor.upper()
-            job["llm_runtime"] = self._analysis_engine_snapshot(str(job.get("analysis_engine_id") or "auto"))
-            job["llm_call_status"] = "NOT_STARTED"
-            job["error"] = None
-            self._save(job)
-            self._append_event(job_id, f"[QUEUED] execution_backend={executor.upper()}")
-
-            if executor == "thread":
-                def runner() -> None:
-                    try:
-                        self.run(job_id)
-                    except Exception as exc:  # defensive: run() normally records failures itself
-                        failed = self.get(job_id)
-                        failed.update(
-                            status="FAILED",
-                            stage="FAILED",
-                            stage_detail="后台线程异常终止",
-                            completed_at=_now(),
-                            error={"type": type(exc).__name__, "message": str(exc)},
-                        )
-                        self._save(failed)
-                        self._append_event(job_id, f"[FAILED] {type(exc).__name__}: {exc}")
-
-                thread = threading.Thread(
-                    target=runner,
-                    name=f"astrograph-platform-{job_id[-8:]}",
-                    daemon=True,
-                )
-                thread.start()
-                return self.get(job_id)
-
-            with (root / "worker.log").open("ab", buffering=0) as log:
-                source_root = Path(__file__).resolve().parents[2]
-                env = os.environ.copy()
-                existing = env.get("PYTHONPATH", "")
-                env["PYTHONPATH"] = str(source_root) + (os.pathsep + existing if existing else "")
-                popen_kwargs: dict[str, Any] = {
-                    "stdin": subprocess.DEVNULL,
-                    "stdout": log,
-                    "stderr": subprocess.STDOUT,
-                    "close_fds": True,
-                    "env": env,
-                    # Keep the worker detached from the caller's console/session.
-                    # On Windows CREATE_NEW_PROCESS_GROUP supplies the native
-                    # boundary; retaining this flag also keeps the launch receipt
-                    # platform-independent.
-                    "start_new_session": True,
-                }
-                if os.name == "nt":
-                    flags = 0
-                    if hasattr(subprocess, "CREATE_NEW_PROCESS_GROUP"):
-                        flags |= subprocess.CREATE_NEW_PROCESS_GROUP
-                    popen_kwargs["creationflags"] = flags
-                subprocess.Popen(
-                    [sys.executable, "-m", "astrograph.integrations.platform_worker",
-                     "--root", str(self.root), "--job-id", job_id],
-                    **popen_kwargs,
-                )
-            return self.get(job_id)
-        except PreflightBlockedError:
-            raise
-        except Exception as exc:
+            # Stage a durable intent before making the SQLite row claimable.
+            # Existing workers cannot race a stale job.json into RUNNING.
             job = self.get(job_id)
             job.update(
-                status="FAILED",
-                stage="FAILED",
-                stage_detail="后台执行器启动失败",
-                error={"type": type(exc).__name__, "message": str(exc)},
+                status="QUEUED", stage="QUEUED",
+                stage_detail="已提交持久化执行请求，等待独立 Worker 认领",
+                execution_backend="PROCESS_QUEUE", queue_enqueue_intent=True,
+                llm_runtime=self._analysis_engine_snapshot(str(job.get("analysis_engine_id") or "auto")),
+                llm_call_status="NOT_STARTED", error=None, completed_at=None,
             )
             self._save(job)
-            self._append_event(job_id, f"[FAILED] launch: {type(exc).__name__}: {exc}")
-            raise
-        finally:
-            launch_lock.unlink(missing_ok=True)
+            self._append_event(job_id, "[QUEUED] submission intent persisted; awaiting atomic claim")
+            self.queue.enqueue(job_id, allow_failed_retry=True)
+
+        self.ensure_queue_workers()
+        return self.get(job_id)
+
+    def _run_external_diagnosis_analysis(
+        self, job_id: str, *, expanded: Path, manifest_path: Path,
+        knowledge_service: PlatformKnowledgeEnrichmentService, before_publish=None,
+    ) -> dict[str, Any]:
+        """Import external text and analyse it without executing diagnosis or graph code."""
+        from astrograph.integrations.external_diagnosis_analysis import (
+            load_external_diagnosis_input, run_external_diagnosis_analysis,
+        )
+        from astrograph.integrations.external_diagnosis_report import (
+            imported_diagnosis_review, render_external_diagnosis_markdown,
+        )
+
+        self._set_stage(job_id, "READING_EXTERNAL_DIAGNOSIS", "读取外部诊断文本与来源定位",
+                        artifact_kind="RESULT_LOG_REVIEW")
+        output = self._job_root(job_id) / "output"
+        bundle = load_external_diagnosis_input(
+            task_id=job_id, expanded=expanded, manifest_path=manifest_path,
+        )
+        from astrograph.integrations.execution_observability import RunJournal, run_scope
+        context_snapshot = self._reviewed_context(job_id)
+        backend = knowledge_service.llm_backend
+        run = RunJournal(self._job_root(job_id), task_id=job_id, kind="analysis", bundle=bundle,
+                         model=getattr(backend, "model_id", ""), mode="configured")
+        with run_scope(run):
+            review = imported_diagnosis_review(bundle)
+            _json_write(output / "external_diagnosis_input.json", bundle)
+            _json_write(output / "result_log_review.json", review)
+            job = self.get(job_id)
+            self._set_stage(job_id, "POST_DIAGNOSIS_KNOWLEDGE", "分析外部诊断文本，生成摘要、假设与核查建议",
+                            llm_call_status="PENDING" if knowledge_service.llm_backend is not None else "NOT_CONFIGURED")
+            if bundle["character_count"] > 60_000 and knowledge_service.llm_backend is not None:
+                from astrograph.integrations.long_report_analysis import run_hierarchical_analysis
+                # The checkpoint identity includes the pinned non-secret model
+                # profiles, preventing reuse after a model/profile change.
+                fingerprint = hashlib.sha256(json.dumps({
+                    "analysis_engine_id": job.get("analysis_engine_id"),
+                    "primary_profile_fingerprint": job.get("primary_profile_fingerprint"),
+                    "phase_engine_ids": job.get("phase_engine_ids") or {},
+                    "phase_profile_fingerprints": job.get("phase_profile_fingerprints") or {},
+                }, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+                def report_progress(value: dict[str, Any]) -> None:
+                    stage = str(value.get("stage") or "CHUNK_ANALYSIS")
+                    completed, total = value.get("completed", 0), value.get("total", 0)
+                    self._set_stage(job_id, stage, f"长报告处理：{stage} {completed}/{total}",
+                                    llm_call_status="PENDING")
+                knowledge = run_hierarchical_analysis(
+                    task_id=job_id, task=job["task"], input_bundle=bundle,
+                    llm_backend=knowledge_service.llm_backend, output_root=output / "knowledge",
+                    context_snapshot=context_snapshot,
+                    execution_fingerprint=fingerprint, progress=report_progress,
+                )
+            else:
+                knowledge = run_external_diagnosis_analysis(
+                    task_id=job_id, task=job["task"], input_bundle=bundle,
+                    llm_backend=knowledge_service.llm_backend, output_root=output / "knowledge",
+                    context_snapshot=context_snapshot,
+                )
+            llm_status = knowledge["generation"]["status"]
+            knowledge.update(status=llm_status, diagnostic_candidate_can_be_overridden=False,
+                             active_kg_modified=False)
+            self._set_stage(job_id, "REPORTING", "保存原始材料、模型分析与引用定位", llm_call_status=llm_status)
+            report = {
+                "schema_version": PLATFORM_REPORT_SCHEMA_VERSION,
+                "job_id": job_id, "status": "SUCCEEDED", "task": job["task"],
+                "reviewed_context": context_snapshot,
+                "work_mode": job.get("work_mode", "normal"),
+                "analysis_engine": job.get("analysis_engine") or job.get("llm_runtime"),
+                "artifact_kind": "RESULT_LOG_REVIEW", "completed_at": _now(),
+                "input_files": job["files"],
+                "agent_execution": {"status": "NOT_EXECUTED_EXTERNAL_TEXT_ANALYSIS",
+                                    "executed_actions": [], "diagnostic_candidate_modified": False},
+                "analysis": {
+                    "artifact_kind": "RESULT_LOG_REVIEW", "analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS",
+                    "result_log_review": review, "knowledge_enrichment": knowledge,
+                    "effect_guard": {"upstream_result_is_ground_truth": False,
+                                     "diagnosis_calculation_executed": False,
+                                     "raw_telemetry_detection_executed": False,
+                                     "rule_evaluation_executed": False, "graph_reasoning_executed": False,
+                                     "automatic_control_authorized": False, "active_kg_modified": False},
+                },
+                "formal_diagnosis_publishable": False,
+                "claim_boundary": "External report interpretation and model hypotheses; no upstream diagnosis computation.",
+                "visualization": {"status": "NOT_APPLICABLE_DOCUMENT_ONLY", "channel_count": 0},
+            }
+            if before_publish is not None:
+                before_publish()
+            run.event("REPORT_WRITE")
+            _json_write(output / "report.json", report)
+            (output / "report.md").write_text(render_external_diagnosis_markdown(job, review, knowledge), encoding="utf-8")
+            _json_write(output / "visualization.json", {
+                "schema_version": "astrograph-platform-visualization.v1", "status": "NOT_APPLICABLE_DOCUMENT_ONLY",
+                "channels": [], "truth_or_labels_used": False,
+            })
+            job.update({"status": "SUCCEEDED", "stage": "COMPLETED",
+                        "stage_detail": "外部报告已保存；模型分析完成" if llm_status == "SUCCEEDED"
+                        else "外部报告已保存；模型分析状态：" + llm_status,
+                        "llm_call_status": llm_status, "artifact_kind": "RESULT_LOG_REVIEW",
+                        "analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS", "completed_at": report["completed_at"],
+                        "report_json": "output/report.json", "report_markdown": "output/report.md"})
+            self._save(job)
+            self._append_event(job_id, "[COMPLETED] 外部诊断报告已保存；模型状态：" + llm_status)
+            run.artifact("report.json", (output / "report.json").read_bytes())
+            run.artifact("report.md", (output / "report.md").read_bytes())
+            run.finish(llm_status, knowledge["generation"].get("reason_code"))
+            return report
 
     def _run_result_log_review(
         self, job_id: str, *, expanded: Path, manifest_path: Path,
-        knowledge_service: PlatformKnowledgeEnrichmentService,
+        knowledge_service: PlatformKnowledgeEnrichmentService, before_publish=None,
     ) -> dict[str, Any]:
         """New material-first route, deliberately separate from raw-telemetry engines."""
         from astrograph.integrations.result_log_review import (
@@ -1299,6 +1779,8 @@ class UploadReportJobStore:
             "claim_boundary": "Material-only root cause review. No raw telemetry detection, confirmed physical cause or spacecraft control authorization.",
             "visualization": {"status": "NOT_APPLICABLE_DOCUMENT_ONLY", "channel_count": 0},
         }
+        if before_publish is not None:
+            before_publish()
         _json_write(output / "report.json", report)
         (output / "report.md").write_text(markdown, encoding="utf-8")
         _json_write(output / "visualization.json", {
@@ -1314,28 +1796,87 @@ class UploadReportJobStore:
         self._append_event(job_id, "[COMPLETED] 诊断结果-日志-文献辅助研判报告生成完成")
         return report
 
-    def run(self, job_id: str) -> dict[str, Any]:
-        """Enforce one writer per job across threads and worker processes."""
-        # Worker/CLI processes do not share the API process environment.
-        # Apply only the trusted persisted revision; absent a saved config,
-        # existing environment-based deployments retain their behavior.
+    def run(self, job_id: str, *, worker_id: str | None = None) -> dict[str, Any]:
+        """Run one job under an OS lease; queue workers add durable heartbeat/cancel state."""
         from astrograph.integrations.material_engine_settings import load_active_engine_environment
         load_active_engine_environment(self.root)
         self.get(job_id)
-        lock = self._job_root(job_id) / ".run.lock"
-        try:
-            with lock.open("x"):
-                pass
-        except FileExistsError as exc:
-            raise ValueError("job is already running") from exc
-        try:
-            return self._run_unlocked(job_id)
-        finally:
-            lock.unlink(missing_ok=True)
+        if worker_id is None:
+            queued = self.queue.get(job_id)
+            if queued and queued.get("status") in {
+                "QUEUED", "RUNNING", "CANCEL_REQUESTED", "COMMITTING"
+            }:
+                raise ValueError("job is managed by the persistent queue; use its worker")
+        with _platform_run_lease(self.root, job_id):
+            if worker_id is None:
+                return self._run_unlocked(job_id)
 
-    def _run_unlocked(self, job_id: str) -> dict[str, Any]:
+            import threading
+            from .stage_execution import AnalysisCancelled, cancellation_scope
+            cancel_event = threading.Event()
+            stop_heartbeat = threading.Event()
+            try:
+                lease_seconds = max(3.0, float(os.environ.get("ASTROGRAPH_PLATFORM_QUEUE_LEASE_SECONDS", "30")))
+            except ValueError:
+                lease_seconds = 30.0
+            try:
+                heartbeat_interval = max(
+                    0.1, min(5.0, float(os.environ.get("ASTROGRAPH_PLATFORM_QUEUE_HEARTBEAT_SECONDS", "5")))
+                )
+            except ValueError:
+                heartbeat_interval = min(5.0, lease_seconds / 3.0)
+
+            def heartbeat_loop() -> None:
+                while not stop_heartbeat.wait(heartbeat_interval):
+                    try:
+                        state = self.queue.heartbeat(
+                            job_id, worker_id, lease_seconds=lease_seconds,
+                        )
+                    except Exception:
+                        cancel_event.set()
+                        return
+                    if not state.get("owned") or state.get("cancel_requested"):
+                        cancel_event.set()
+                        return
+
+            heartbeat = threading.Thread(
+                target=heartbeat_loop, name=f"astrograph-queue-heartbeat-{job_id[-8:]}", daemon=True,
+            )
+            heartbeat.start()
+
+            def before_publish() -> None:
+                if cancel_event.is_set():
+                    raise AnalysisCancelled()
+                if not self.queue.begin_publish(job_id, worker_id):
+                    cancel_event.set()
+                    raise AnalysisCancelled()
+
+            try:
+                with cancellation_scope(cancel_event):
+                    result = self._run_unlocked(job_id, before_publish=before_publish)
+                status = str((result or {}).get("status") or self.get(job_id).get("status") or "FAILED")
+                terminal = status if status in {"SUCCEEDED", "FAILED", "CANCELLED"} else "FAILED"
+                error_code = None
+                if terminal == "FAILED":
+                    error = (result or {}).get("error") or self.get(job_id).get("error") or {}
+                    error_code = str(error.get("type") or "WORKER_FAILED")[:120]
+                self.queue.finish(job_id, worker_id, terminal, error_code=error_code)
+                return result
+            except BaseException as exc:
+                try:
+                    self.queue.finish(
+                        job_id, worker_id, "FAILED",
+                        error_code=type(exc).__name__[:120],
+                    )
+                except Exception:
+                    pass
+                raise
+            finally:
+                stop_heartbeat.set()
+                heartbeat.join(timeout=max(1.0, heartbeat_interval * 2.0))
+
+    def _run_unlocked(self, job_id: str, *, before_publish=None) -> dict[str, Any]:
         job = self.get(job_id)
-        knowledge_service = self._knowledge_service_for_job(job)
         if job["status"] == "SUCCEEDED":
             return self.report(job_id)
         if job["status"] == "RUNNING":
@@ -1350,17 +1891,28 @@ class UploadReportJobStore:
         self._save(job)
         self._append_event(job_id, "[RUNNING] 展开并校验上传工件")
         try:
+            from .stage_execution import check_cancelled
+            check_cancelled()
             preflight = self.preflight(job_id)
             if not preflight["can_start"]:
                 detail = "; ".join(item["message"] for item in preflight["blockers"])
                 raise PreflightBlockedError(f"preflight blocked: {detail}")
+            knowledge_service = self._knowledge_service_for_job(job)
             expanded = self._safe_expand(job_id)
             self._set_stage(job_id, "CLASSIFYING_ARTIFACT", "识别可执行诊断工件类型")
             artifact_kind, paths = self._classify(expanded)
             if artifact_kind == "RESULT_LOG_REVIEW":
+                from astrograph.integrations.result_log_review import load_manifest
+                manifest, _roles = load_manifest(expanded, paths["manifest"])
+                if manifest.analysis_mode == "EXTERNAL_DIAGNOSIS_ANALYSIS":
+                    return self._run_external_diagnosis_analysis(
+                        job_id, expanded=expanded, manifest_path=paths["manifest"],
+                        knowledge_service=knowledge_service,
+                        before_publish=before_publish,
+                    )
                 return self._run_result_log_review(
                     job_id, expanded=expanded, manifest_path=paths["manifest"],
-                    knowledge_service=knowledge_service,
+                    knowledge_service=knowledge_service, before_publish=before_publish,
                 )
             self._set_stage(
                 job_id, "CORE_DIAGNOSIS",
@@ -1680,6 +2232,8 @@ class UploadReportJobStore:
             }
 
             self._set_stage(job_id, "REPORTING", "写入结构化诊断报告")
+            if before_publish is not None:
+                before_publish()
             report_path = output / "report.json"
             markdown_path = output / "report.md"
             _json_write(report_path, report)
@@ -1714,6 +2268,24 @@ class UploadReportJobStore:
             self._append_event(job_id, "[COMPLETED] 诊断报告生成完成")
             return report
         except Exception as exc:
+            from .stage_execution import AnalysisCancelled
+            if isinstance(exc, AnalysisCancelled):
+                job = self.get(job_id)
+                cancelled_stage = str(job.get("stage") or "UNKNOWN")
+                job.update(
+                    status="CANCELLED", stage="CANCELLED",
+                    stage_detail=f"收到取消请求；停止发布报告（取消前阶段：{cancelled_stage}）",
+                    completed_at=_now(),
+                    error={"type": "AnalysisCancelled", "message": "USER_CANCELLED",
+                           "failed_stage": cancelled_stage},
+                )
+                self._save(job)
+                self._append_event(job_id, f"[CANCELLED:{cancelled_stage}] USER_CANCELLED")
+                return {
+                    "schema_version": PLATFORM_REPORT_SCHEMA_VERSION,
+                    "job_id": job_id, "status": "CANCELLED",
+                    "task": job["task"], "error": job["error"],
+                }
             job = self.get(job_id)
             failed_stage = str(job.get("stage") or "UNKNOWN")
             trace = traceback.format_exc()
@@ -1770,6 +2342,7 @@ class UploadReportJobStore:
             "work_mode": job.get("work_mode"),
             "llm_runtime": job.get("llm_runtime") or self._llm_runtime_snapshot(),
             "llm_call_status": job.get("llm_call_status", "UNKNOWN"),
+            "queue": self.queue_snapshot(job_id),
             "error": job.get("error"),
             "log_tail": "\n".join(chunks)[-tail_chars:],
             "secret_returned": False,
@@ -3466,6 +4039,9 @@ class UploadReportJobStore:
             policy = (analysis.get("material_reasoning") or {}).get("answer_policy") or {}
             disposition = ("ABSTAIN" if policy.get("all_candidates_abstained") is not False
                            else "REVIEW_REQUIRED")
+            if analysis.get("analysis_mode") == "EXTERNAL_DIAGNOSIS_ANALYSIS":
+                llm_status = ((analysis.get("knowledge_enrichment") or {}).get("generation") or {}).get("status", "UNKNOWN")
+                disposition = "REVIEW_REQUIRED" if llm_status == "SUCCEEDED" else "MODEL_" + llm_status
             requires_human_review = True
         normalized = str(disposition or "UNKNOWN").upper()
         if any(token in normalized for token in ("REVIEW", "AMBIGUOUS", "INSUFFICIENT")):
@@ -3478,6 +4054,8 @@ class UploadReportJobStore:
             "disposition": disposition,  # v2 compatibility alias
             "release_status": ("FORMAL_RELEASE_ALLOWED" if publishable else "FORMAL_RELEASE_BLOCKED"),
             "requires_human_review": requires_human_review,
+            **({"analysis_mode": "EXTERNAL_DIAGNOSIS_ANALYSIS", "llm_call_status": llm_status}
+               if analysis.get("analysis_mode") == "EXTERNAL_DIAGNOSIS_ANALYSIS" else {}),
         }
 
     def overview(self, *, limit: int = 50) -> dict[str, Any]:
@@ -3599,8 +4177,13 @@ class UploadReportJobStore:
         return path
 
 
-PLATFORM_UI_ASSET_VERSION = "v0.21.1"
+PLATFORM_UI_ASSET_VERSION = "v0.21.3"
 _PLATFORM_UI_ASSETS = {
+    "execution_view.js": "application/javascript; charset=utf-8",
+    "execution_view.css": "text/css; charset=utf-8",
+    "workspace_view.js": "application/javascript; charset=utf-8",
+    "workspace_view.css": "text/css; charset=utf-8",
+    "external_follow_up.js": "application/javascript; charset=utf-8",
     "platform_ui.css": "text/css; charset=utf-8",
     "platform_ui.js": "application/javascript; charset=utf-8",
     "platform_core.js": "application/javascript; charset=utf-8",

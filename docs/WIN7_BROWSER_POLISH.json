@@ -1,0 +1,251 @@
+{
+  "environment": "Linux Chromium, real production DOM/CSS/JS, scripted API responses",
+  "native_windows": false,
+  "real_model": false,
+  "passed": [
+    "Analysis action visible in first screen and after scroll; task field not covered",
+    "Connection test action visible, works once and remains accessible with advanced settings",
+    "Essential connection fields visible above action bar; keyboard focus unobscured",
+    "Model status before input at 1024px; distinguishes model configured from tested; no Key display",
+    "Changed connection ignores the previous in-flight probe result",
+    "Collapsed guidance/encoding; material role visible; selected encoding and bytes preserved in submission",
+    "Integrated conclusion and review actions first; evidence sections retained and citations work",
+    "Single-report summary and review actions first without invented integrated conclusion",
+    "Primary form and report text at least 14 CSS pixels",
+    "Six routes across eight viewport widths; no horizontal overflow; actions visible"
+  ],
+  "failures": [],
+  "button_measurements": [
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 893.359375,
+      "right": 1005,
+      "width": 1366,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 644.84375,
+      "bottom": 689.84375,
+      "left": 893.359375,
+      "right": 1005,
+      "width": 1366,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 814.34375,
+      "right": 1005,
+      "width": 1366,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 814.34375,
+      "right": 1005,
+      "width": 1366,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 893.359375,
+      "right": 1005,
+      "width": 1366,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 577,
+      "bottom": 621,
+      "left": 27,
+      "right": 363,
+      "width": 390,
+      "height": 640,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 577,
+      "bottom": 621,
+      "left": 27,
+      "right": 363,
+      "width": 390,
+      "height": 640,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 621.359375,
+      "right": 733,
+      "width": 768,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 542.34375,
+      "right": 733,
+      "width": 768,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 739.359375,
+      "right": 851,
+      "width": 900,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 660.34375,
+      "right": 851,
+      "width": 900,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 863.359375,
+      "right": 975,
+      "width": 1024,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 784.34375,
+      "right": 975,
+      "width": 1024,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 660.359375,
+      "right": 772,
+      "width": 1093,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 581.34375,
+      "right": 772,
+      "width": 1093,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 807.359375,
+      "right": 919,
+      "width": 1280,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 728.34375,
+      "right": 919,
+      "width": 1280,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 893.359375,
+      "right": 1005,
+      "width": 1366,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 814.34375,
+      "right": 1005,
+      "width": 1366,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#analyze",
+      "top": 698,
+      "bottom": 743,
+      "left": 1305.359375,
+      "right": 1417,
+      "width": 1920,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    },
+    {
+      "selector": "#probe",
+      "top": 698,
+      "bottom": 743,
+      "left": 1226.34375,
+      "right": 1417,
+      "width": 1920,
+      "height": 768,
+      "hit": true,
+      "visible": true
+    }
+  ]
+}
