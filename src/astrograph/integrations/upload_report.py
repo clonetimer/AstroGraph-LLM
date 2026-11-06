@@ -1272,7 +1272,7 @@ class UploadReportJobStore:
                     return self.queue.snapshot(job_id)
         if status in {"INTERRUPTED", "CANCELLED"}:
             job = self.get(job_id)
-            if job.get("status") in {"QUEUED", "RUNNING"}:
+            if job.get("status") in {"QUEUED", "RUNNING", "INTERRUPTED", "SUCCEEDED"}:
                 job.update(
                     status=status,
                     stage=status,
