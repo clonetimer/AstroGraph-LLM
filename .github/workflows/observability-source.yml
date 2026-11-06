@@ -1,7 +1,7 @@
 name: External analysis source regression
 on:
   push:
-    branches: [feat/pilotdeck-observability]
+    branches: [feat/pilotdeck-observability, feat/platform-persistent-queue]
     paths:
       - 'src/astrograph/**'
       - 'portable/**'
