@@ -1,16 +1,19 @@
 name: External analysis source regression
 on:
   push:
-    branches: [feat/pilotdeck-observability, feat/platform-persistent-queue]
+    branches: [feat/pilotdeck-observability, feat/platform-persistent-queue, feat/external-diagnosis-p4d-model-cost-governance]
     paths:
       - 'src/astrograph/**'
       - 'portable/**'
       - 'tests/test_p3_platform*'
       - 'tests/test_platform_persistent_queue.py'
+      - 'tests/test_p4_model_cost_governance.py'
+      - 'tests/test_external_execution_observability.py'
+      - 'tests/test_platform_ui_assets.py'
       - 'tests/test_p2_context_platform.py'
       - '.github/workflows/observability-source.yml'
   pull_request:
-    branches: [feat/portable-v2]
+    branches: [feat/portable-v2, feat/external-diagnosis-p4-evidence-governance]
   workflow_dispatch:
 permissions:
   contents: read
@@ -68,12 +71,16 @@ jobs:
             tests/test_platform_persistent_queue.py \
             tests/test_p2_context_platform.py \
             tests/test_p3_platform_phase_models.py \
+            tests/test_p4_model_cost_governance.py \
+            tests/test_platform_ui_assets.py \
             tests/test_p3_platform_long_stages.py \
             tests/ui/test_p3_platform_phase_ui.py \
             tests/ui/test_p3_platform_long_stage_ui.py \
             tests/ui/test_execution_views_integration.py \
             tests/ui/test_external_diagnosis_ui_input.py
           node --check src/astrograph/resources/mission_console.js
+          node --check src/astrograph/resources/platform_system.js
+          node --check src/astrograph/resources/execution_view.js
 
   platform-windows-p3:
     runs-on: windows-2022
@@ -91,5 +98,5 @@ jobs:
       - name: Windows cross-process queue, cancellation and regression
         shell: pwsh
         run: |
-          python -m pytest -q --astrograph-test-profile source-only tests/test_platform_persistent_queue.py tests/test_upload_report_platform.py tests/test_p2_context_platform.py
+          python -m pytest -q --astrograph-test-profile source-only tests/test_platform_persistent_queue.py tests/test_upload_report_platform.py tests/test_p2_context_platform.py tests/test_p4_model_cost_governance.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

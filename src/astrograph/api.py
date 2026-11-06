@@ -683,6 +683,9 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
     def apply_platform_llm_runtime_settings(request: PlatformLLMSettingsRequest) -> dict[str, Any]:
         config = request.model_dump(exclude={"api_key"})
         secret = request.api_key.strip() if request.api_key and request.api_key.strip() else None
+        # A direct process-scoped override is not the saved profile; never keep
+        # stale pricing metadata attached to a different runtime model.
+        os.environ.pop("ASTROGRAPH_PLATFORM_LLM_ACTIVE_PROFILE_ID", None)
         _apply_llm_env(config, secret=secret)
         if not request.enabled:
             os.environ.pop("ASTROGRAPH_LLM_API_KEY", None)
@@ -3047,6 +3050,9 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
     def apply_platform_llm_runtime_settings(request: PlatformLLMSettingsRequest) -> dict[str, Any]:
         config = request.model_dump(exclude={"api_key"})
         secret = request.api_key.strip() if request.api_key and request.api_key.strip() else None
+        # A direct process-scoped override is not the saved profile; never keep
+        # stale pricing metadata attached to a different runtime model.
+        os.environ.pop("ASTROGRAPH_PLATFORM_LLM_ACTIVE_PROFILE_ID", None)
         _apply_llm_env(config, secret=secret)
         if not request.enabled:
             os.environ.pop("ASTROGRAPH_LLM_API_KEY", None)

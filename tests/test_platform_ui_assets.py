@@ -17,6 +17,9 @@ def test_platform_shell_references_versioned_external_assets(tmp_path, monkeypat
     assert '<script type="module"' in response.text
     assert "<style>" not in response.text
     assert "<script>" not in response.text
+    assert 'id="llm-pricing-version"' in response.text
+    assert 'id="llm-input-price"' in response.text
+    assert 'id="llm-output-price"' in response.text
 
 
 def test_versioned_platform_assets_have_immutable_cache_and_correct_types(tmp_path, monkeypatch):
@@ -24,6 +27,7 @@ def test_versioned_platform_assets_have_immutable_cache_and_correct_types(tmp_pa
     client = TestClient(create_app())
     names = [
         "platform_ui.css", "platform_ui.js", "platform_core.js", "platform_report.js",
+        "execution_view.js", "execution_view.css",
         "platform_system.js", "platform_agent.js", "platform_dashboard.js", "platform_job.js",
         "platform_agent_live.js", "platform_knowledge.js", "platform_shell.js", "platform_operations.js", "platform_graph_workbench.js", "platform_engine_settings.js",
     ]
@@ -46,6 +50,9 @@ def test_versioned_platform_assets_have_immutable_cache_and_correct_types(tmp_pa
     assert "function renderKnowledgeLibrary" in responses["platform_knowledge.js"].text
     assert "function initShell" in responses["platform_shell.js"].text
     assert "function operatorStatusViewModel" in responses["platform_operations.js"].text
+    assert "function requestCostText" in responses["execution_view.js"].text
+    assert "费用估算" in responses["execution_view.js"].text
+    assert "pricing_version" in responses["platform_system.js"].text
 
 
 def test_unknown_platform_asset_version_or_name_fails_closed(tmp_path, monkeypatch):

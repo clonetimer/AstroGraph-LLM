@@ -12,12 +12,13 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import math
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from pathlib import Path
 import re
 import secrets
 import threading
 import time
-from .stage_execution import phase_model, check_cancelled, AnalysisCancelled
+from .stage_execution import phase_model, phase_provider, check_cancelled, AnalysisCancelled
 
 SCHEMA = 'astrograph-execution.v1'
 _ACTIVE = ContextVar('astrograph_execution_journal', default=None)
@@ -155,10 +156,89 @@ def _usage(document):
             'output_tokens': _count(value.get('completion_tokens', value.get('output_tokens')))}
 
 
+def _money(value):
+    try:
+        amount = Decimal(str(value))
+    except (InvalidOperation, ValueError, TypeError):
+        return None
+    if not amount.is_finite() or amount < 0:
+        return None
+    return format(amount.quantize(Decimal("0.00000001"), rounding=ROUND_HALF_UP), "f")
+
+
+def _safe_pricing_snapshot(value):
+    if not isinstance(value, dict):
+        return {"status": "PRICING_NOT_CONFIGURED"}
+    status = str(value.get("status") or "PRICING_NOT_CONFIGURED")
+    out = {
+        "status": status,
+        "provider": _text(value.get("provider", ""), 120),
+        "model": _text(value.get("model", ""), 300),
+        "pricing_version": _text(value.get("pricing_version", ""), 80) or None,
+        "currency": "USD" if value.get("currency", "USD") == "USD" else None,
+        "input_usd_per_million_tokens": None,
+        "output_usd_per_million_tokens": None,
+    }
+    for field in ("input_usd_per_million_tokens", "output_usd_per_million_tokens"):
+        raw = value.get(field)
+        try:
+            number = None if isinstance(raw, bool) else float(raw)
+        except (TypeError, ValueError):
+            number = None
+        if number is not None and math.isfinite(number) and 0 <= number <= 1_000_000:
+            out[field] = number
+    if (status == "CONFIGURED" and out["currency"] == "USD" and out["pricing_version"]
+            and out["provider"] and out["model"]
+            and out["input_usd_per_million_tokens"] is not None
+            and out["output_usd_per_million_tokens"] is not None):
+        return out
+    if status == "CONFIGURED":
+        out["status"] = "PRICING_SNAPSHOT_INVALID"
+    return out
+
+
+def _pricing_stage(stage):
+    return {
+        "MODEL_ANALYSIS": "analysis", "CHUNK_ANALYSIS": "chunk",
+        "SYNTHESIS": "synthesis", "FOLLOW_UP": "follow_up",
+        "INDEPENDENT_VERIFICATION": "verification",
+    }.get(stage, "analysis")
+
+
+def _request_pricing(pricing_snapshots, stage, provider, model):
+    candidate = _safe_pricing_snapshot((pricing_snapshots or {}).get(_pricing_stage(stage)))
+    if candidate.get("status") != "CONFIGURED":
+        return candidate
+    if not provider or not model:
+        return {**candidate, "status": "PRICING_IDENTITY_INCOMPLETE"}
+    if (candidate.get("provider", "").casefold() != str(provider).casefold()
+            or candidate.get("model", "").casefold() != str(model).casefold()):
+        return {**candidate, "status": "PRICING_IDENTITY_MISMATCH"}
+    return candidate
+
+
+def _request_cost(usage, pricing, request_status):
+    status = str((pricing or {}).get("status") or "PRICING_NOT_CONFIGURED")
+    if status != "CONFIGURED":
+        return {"status": status, "currency": None, "estimated_cost": None}
+    input_tokens = _count((usage or {}).get("input_tokens"))
+    output_tokens = _count((usage or {}).get("output_tokens"))
+    if input_tokens is None and output_tokens is None:
+        unknown = "USAGE_UNKNOWN_AFTER_FAILURE" if request_status in {"FAILED", "INTERRUPTED"} else "USAGE_NOT_REPORTED"
+        return {"status": unknown, "currency": "USD", "estimated_cost": None}
+    if input_tokens is None or output_tokens is None:
+        return {"status": "USAGE_INCOMPLETE", "currency": "USD", "estimated_cost": None}
+    input_rate = Decimal(str(pricing["input_usd_per_million_tokens"]))
+    output_rate = Decimal(str(pricing["output_usd_per_million_tokens"]))
+    amount = (Decimal(input_tokens) * input_rate + Decimal(output_tokens) * output_rate) / Decimal(1_000_000)
+    return {"status": "CALCULATED", "currency": "USD", "estimated_cost": _money(amount)}
+
+
 def summarize_usage(requests):
     out = {'http_requests': len(requests),
            'failed_requests': sum(r.get('status') == 'FAILED' for r in requests),
-           'estimated_cost': None, 'cost_status': 'PRICING_NOT_CONFIGURED'}
+           'estimated_cost': None, 'known_estimated_cost': None,
+           'cost_currency': None, 'cost_status': 'NO_MODEL_REQUESTS'}
     for field, prefix in [('input_tokens', 'input'), ('output_tokens', 'output')]:
         values = [_count(r.get('usage', {}).get(field)) for r in requests]
         known = [v for v in values if v is not None]
@@ -166,6 +246,30 @@ def summarize_usage(requests):
         out['known_' + field] = sum(known)
         out[prefix + '_reported_requests'] = len(known)
     out['usage_complete'] = bool(requests) and all(out[k] is not None for k in ('input_tokens', 'output_tokens'))
+    if not requests:
+        return out
+    costs = [r.get("cost") if isinstance(r.get("cost"), dict) else {} for r in requests]
+    calculated = [item for item in costs if item.get("status") == "CALCULATED" and _money(item.get("estimated_cost")) is not None]
+    currencies = {str(item.get("currency") or "") for item in calculated}
+    if calculated and len(currencies) == 1:
+        total = sum((Decimal(item["estimated_cost"]) for item in calculated), Decimal("0"))
+        out["known_estimated_cost"] = _money(total)
+        out["cost_currency"] = next(iter(currencies))
+    if len(calculated) == len(requests) and len(currencies) == 1:
+        out["estimated_cost"] = out["known_estimated_cost"]
+        out["cost_status"] = "CALCULATED"
+    elif calculated:
+        out["cost_status"] = "PARTIALLY_KNOWN"
+    else:
+        statuses = {str(item.get("status") or "COST_UNKNOWN") for item in costs}
+        if "PRICING_IDENTITY_MISMATCH" in statuses or "PRICING_IDENTITY_INCOMPLETE" in statuses:
+            out["cost_status"] = "PRICING_IDENTITY_MISMATCH"
+        elif "PRICING_NOT_CONFIGURED" in statuses or "PRICING_SNAPSHOT_INVALID" in statuses:
+            out["cost_status"] = "PRICING_NOT_CONFIGURED"
+        elif "USAGE_INCOMPLETE" in statuses or "USAGE_NOT_REPORTED" in statuses:
+            out["cost_status"] = "USAGE_INCOMPLETE"
+        else:
+            out["cost_status"] = "USAGE_UNKNOWN_AFTER_FAILURE"
     return out
 
 
@@ -174,7 +278,8 @@ class ExecutionJournalError(RuntimeError):
 
 
 class RunJournal:
-    def __init__(self, root, *, task_id, kind, bundle, model='', mode='', receipts=()):
+    def __init__(self, root, *, task_id, kind, bundle, model='', mode='', receipts=(),
+                 pricing_snapshots=None, provider=''):
         if kind not in {'analysis', 'follow_up'} or bundle.get('task_id') != task_id:
             raise ValueError('EXECUTION_BINDING_INVALID')
         self.root = Path(root)
@@ -183,10 +288,14 @@ class RunJournal:
         self.path.mkdir(parents=True, exist_ok=False)
         self.lock = threading.RLock()
         self.stage = 'FOLLOW_UP' if kind == 'follow_up' else 'MODEL_ANALYSIS'
+        self.default_provider = _text(provider, 120)
+        self.pricing_snapshots = {str(key): _safe_pricing_snapshot(value)
+                                  for key, value in (pricing_snapshots or {}).items()}
         self.data = {'schema_version': SCHEMA, 'task_id': task_id, 'run_id': self.run_id,
             'kind': kind, 'status': 'RUNNING', 'started_at': _now(), 'ended_at': None,
             'model': _text(model), 'mode': mode if mode in {'local', 'online'} else 'configured',
             'input_sha256': bundle.get('input_sha256'), 'materials': material_inventory(bundle, receipts),
+            'pricing_snapshots': self.pricing_snapshots,
             'events': [], 'requests': [], 'artifacts': [], 'reason_code': None}
         self.event('RUN_STARTED')
 
@@ -206,7 +315,7 @@ class RunJournal:
                 raise ValueError('EXECUTION_EVENT_LIMIT')
             self.data['events'].append({'sequence': len(self.data['events']) + 1,
                 'at': _now(), 'code': code, 'counts': {k: _count(v) for k, v in counts.items()}})
-            if code in {'MODEL_ANALYSIS', 'FOLLOW_UP', 'CHUNK_ANALYSIS', 'SYNTHESIS'}:
+            if code in {'MODEL_ANALYSIS', 'FOLLOW_UP', 'CHUNK_ANALYSIS', 'SYNTHESIS', 'INDEPENDENT_VERIFICATION'}:
                 self.stage = code
             self._save()
 
@@ -225,9 +334,14 @@ class RunJournal:
         with self.lock:
             if self.data['status'] != 'RUNNING' or len(self.data['requests']) >= 1024:
                 raise ValueError('EXECUTION_REQUEST_REJECTED')
+            model = _text(phase_model() or self.data['model'])
+            provider = _text(phase_provider() or self.default_provider, 120)
+            pricing = _request_pricing(self.pricing_snapshots, self.stage, provider, model)
             item = {'sequence': len(self.data['requests']) + 1, 'stage': self.stage,
                 'request_sha256': request_sha256, 'started_at': _now(), 'ended_at': None,
-                'status': 'STARTED', 'model': _text(phase_model() or self.data['model']), 'http_status': None, 'latency_ms': None,
+                'status': 'STARTED', 'model': model, 'provider': provider,
+                'pricing': pricing, 'cost': {'status': 'PRICING_NOT_CONFIGURED', 'currency': None, 'estimated_cost': None},
+                'http_status': None, 'latency_ms': None,
                 'usage': {'input_tokens': None, 'output_tokens': None}}
             self.data['requests'].append(item)
             self._save()  # Journal failure blocks sending, rather than an unrecorded paid call.
@@ -326,6 +440,17 @@ def _project(value):
         item['latency_ms'] = latency if type(latency) in (int, float) and math.isfinite(latency) and latency >= 0 else None
         usage = r.get('usage') if isinstance(r.get('usage'), dict) else {}
         item['usage'] = {k: _count(usage.get(k)) for k in ('input_tokens', 'output_tokens')}
+        item['provider'] = _text(r.get('provider', ''), 120)
+        item['pricing'] = _safe_pricing_snapshot(r.get('pricing'))
+        cost = r.get('cost') if isinstance(r.get('cost'), dict) else {}
+        cost_status = str(cost.get('status') or 'COST_UNKNOWN')
+        if cost_status not in {'CALCULATED','PRICING_NOT_CONFIGURED','PRICING_SNAPSHOT_INVALID',
+                               'PRICING_IDENTITY_INCOMPLETE','PRICING_IDENTITY_MISMATCH',
+                               'USAGE_NOT_REPORTED','USAGE_INCOMPLETE','USAGE_UNKNOWN_AFTER_FAILURE'}:
+            cost_status = 'COST_UNKNOWN'
+        item['cost'] = {'status': cost_status,
+                        'currency': 'USD' if cost.get('currency') == 'USD' else None,
+                        'estimated_cost': _money(cost.get('estimated_cost'))}
         out['requests'].append(item)
     out['materials'] = []
     for x in value['materials']:
@@ -347,6 +472,8 @@ def _project(value):
                 or not isinstance(x.get('sha256'), str) or not _HASH.fullmatch(x['sha256'])):
             raise ValueError('EXECUTION_RECORD_INVALID')
         out['artifacts'].append({k: x[k] for k in ('name', 'bytes', 'sha256')})
+    raw_pricing = value.get('pricing_snapshots') if isinstance(value.get('pricing_snapshots'), dict) else {}
+    out['pricing_snapshots'] = {str(k): _safe_pricing_snapshot(v) for k, v in raw_pricing.items()}
     out['usage'] = summarize_usage(out['requests'])
     return out
 

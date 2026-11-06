@@ -1,9 +1,9 @@
 name: Foundation smoke (source-only)
 on:
   push:
-    branches: [dev/foundation-r11-integration, feat/platform-persistent-queue]
+    branches: [dev/foundation-r11-integration, feat/platform-persistent-queue, feat/external-diagnosis-p4d-model-cost-governance]
   pull_request:
-    branches: [main, dev/foundation-r11-integration]
+    branches: [main, dev/foundation-r11-integration, feat/external-diagnosis-p4-evidence-governance]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -60,6 +60,9 @@ jobs:
             tests/test_external_diagnosis_analysis.py \
             tests/test_external_diagnosis_claim_governance.py \
             tests/test_p3_platform_phase_models.py \
+            tests/test_p4_model_cost_governance.py \
+            tests/test_external_execution_observability.py \
+            tests/test_platform_ui_assets.py \
             tests/test_manual_report_review_workflow.py \
             tests/test_external_diagnosis_platform.py \
             tests/test_external_diagnosis_conversation.py \

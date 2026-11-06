@@ -210,3 +210,50 @@ def test_llm_pricing_configuration_requires_complete_versioned_rates():
             **base, "pricing_version": "bad-v1",
             "input_usd_per_million_tokens": -1, "output_usd_per_million_tokens": 1,
         })
+
+
+
+def test_pricing_profile_roundtrip_is_versioned_and_never_exposes_secret(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+    import astrograph.integrations.platform_llm_probe as probe
+    from astrograph.api import create_app
+
+    monkeypatch.setenv("ASTROGRAPH_AUTH_MODE", "local")
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_ROOT", str(tmp_path / "profile-api"))
+    for key in (
+        "ASTROGRAPH_PLATFORM_LLM_BASE_URL", "ASTROGRAPH_PLATFORM_LLM_MODEL",
+        "ASTROGRAPH_PLATFORM_LLM_PROVIDER", "ASTROGRAPH_PLATFORM_LLM_ACTIVE_PROFILE_ID",
+        "ASTROGRAPH_LLM_API_KEY",
+    ):
+        monkeypatch.delenv(key, raising=False)
+    monkeypatch.setattr(probe, "probe_openai_compatible_service", lambda **kwargs: {
+        "status": "READY", "model_listed": True,
+    })
+
+    with TestClient(create_app()) as client:
+        saved = client.post("/v1/platform/settings/llm/profiles", json={
+            "name": "priced-test-model", "make_default": True, "activate": True,
+            "settings": {
+                "enabled": True, "provider": "vllm",
+                "base_url": "http://127.0.0.1:9000/v1", "model": "priced-model",
+                "timeout_s": 90, "response_format_strategy": "json_object",
+                "structured_max_tokens": 512, "pricing_version": "provider-price-2026-11",
+                "pricing_currency": "USD", "input_usd_per_million_tokens": 2.0,
+                "output_usd_per_million_tokens": 10.0,
+            },
+        })
+        assert saved.status_code == 200, saved.text
+        assert "secret_ref" not in saved.json()["profile"]
+        listed = client.get("/v1/platform/settings/llm/profiles")
+        assert listed.status_code == 200
+        profile = listed.json()["profiles"][0]
+        assert profile["config"]["pricing_version"] == "provider-price-2026-11"
+        assert profile["config"]["input_usd_per_million_tokens"] == 2.0
+        assert "api_key" not in profile["config"]
+
+        runtime = client.get("/v1/platform/settings/llm")
+        assert runtime.status_code == 200
+        assert runtime.json()["pricing_configured"] is True
+        assert runtime.json()["pricing_version"] == "provider-price-2026-11"
+        assert runtime.json()["output_usd_per_million_tokens"] == 10.0
+        assert "api_key" not in runtime.json()
