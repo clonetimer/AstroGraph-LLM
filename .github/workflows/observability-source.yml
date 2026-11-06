@@ -74,3 +74,22 @@ jobs:
             tests/ui/test_execution_views_integration.py \
             tests/ui/test_external_diagnosis_ui_input.py
           node --check src/astrograph/resources/mission_console.js
+
+  platform-windows-p3:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install platform and test dependencies
+        shell: pwsh
+        run: python -m pip install -e ".[platform,test]" pypdf==5.9.0
+      - name: Windows cross-process queue, cancellation and regression
+        shell: pwsh
+        run: |
+          python -m pytest -q --astrograph-test-profile source-only tests/test_platform_persistent_queue.py tests/test_upload_report_platform.py tests/test_p2_context_platform.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
