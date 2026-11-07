@@ -16,6 +16,7 @@ from astrograph.integrations.platform_knowledge import (
     PlatformKnowledgeConfig,
     PlatformKnowledgeEnrichmentService,
     PlatformKnowledgeExplanation,
+    _validate_explanation,
 )
 from astrograph.integrations.upload_report import UploadReportJobStore
 from astrograph.integrations.sat_sim_pipeline import SatSimPipelineClosureRequest, SatSimPipelineClosureWorkflow
@@ -25,6 +26,113 @@ from astrograph.oag.paperseek_http import PaperSeekConfig, PaperSeekHTTPClient
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures" / "sat_sim_closure"
+
+
+@pytest.mark.parametrize("kind", ["MATERIAL_LOG_CUE", "HYPOTHESIS"])
+def test_material_log_numeric_claim_must_match_cited_excerpt(kind: str) -> None:
+    context = {"candidates": [{"log_evidence_matrix": {"events": [{
+        "evidence_id": "MLOG-00002",
+        "excerpt": "2026-09-20T08:00:35Z wheel_0 motor_current_a=0.34A above baseline",
+    }]}}]}
+    diagnosis = {"candidate_fault_id": "ADCS_RW_FRICTION_INCREASE", "evidence": []}
+
+    def explanation(text: str) -> PlatformKnowledgeExplanation:
+        return PlatformKnowledgeExplanation(
+            candidate_fault_id="ADCS_RW_FRICTION_INCREASE", abstained=False,
+            summary="反作用轮电流出现变化，原因待核查。",
+            claims=[{"kind": kind, "text": text, "citation_ids": ["MLOG-00002"]}],
+        )
+
+    _validate_explanation(
+        explanation("日志记录电流 0.34 A，尚不能据此确诊。"),
+        diagnosis, [], [], material_review_context=context,
+    )
+    with pytest.raises(ValueError, match="numerically inconsistent"):
+        _validate_explanation(
+            explanation("日志记录电流 900 A，尚不能据此确诊。"),
+            diagnosis, [], [], material_review_context=context,
+        )
+
+
+def test_material_log_number_in_summary_must_match_excerpt() -> None:
+    context = {"candidates": [{"log_evidence_matrix": {"events": [{
+        "evidence_id": "MLOG-00002", "excerpt": "motor_current_a=0.34A",
+    }]}}]}
+    diagnosis = {"candidate_fault_id": None, "evidence": []}
+    explanation = PlatformKnowledgeExplanation(
+        candidate_fault_id=None, abstained=True,
+        summary="日志记录电流 900 A，但不能确诊。", claims=[],
+    )
+    with pytest.raises(ValueError, match="numerically inconsistent"):
+        _validate_explanation(
+            explanation, diagnosis, [], [], material_review_context=context,
+        )
+
+
+def test_material_log_cannot_cite_hidden_event_or_hidden_excerpt_tail() -> None:
+    events = [{"evidence_id": f"MLOG-{i:05d}", "excerpt": "ordinary log line"}
+              for i in range(1, 9)]
+    events[0]["excerpt"] = "visible 0.34A" + " " * 250 + "900A"
+    context = {"candidates": [{"log_evidence_matrix": {"events": events}}]}
+    diagnosis = {"candidate_fault_id": None, "evidence": []}
+
+    def explanation(citation: str, text: str) -> PlatformKnowledgeExplanation:
+        return PlatformKnowledgeExplanation(
+            candidate_fault_id=None, abstained=True, summary="日志需复核。",
+            claims=[{"kind": "MATERIAL_LOG_CUE", "text": text, "citation_ids": [citation]}],
+        )
+
+    with pytest.raises(ValueError, match="unknown or unapproved"):
+        _validate_explanation(
+            explanation("MLOG-00008", "引用未展示的第八行日志"),
+            diagnosis, [], [], material_review_context=context,
+        )
+    with pytest.raises(ValueError, match="numerically inconsistent"):
+        _validate_explanation(
+            explanation("MLOG-00001", "摘录中记录 900 A"),
+            diagnosis, [], [], material_review_context=context,
+        )
+
+
+def test_host_validation_feedback_retries_one_wrong_numeric_citation(tmp_path: Path) -> None:
+    class CorrectingBackend:
+        last_call_metadata = {"model_id": "test-double"}
+
+        def __init__(self):
+            self.payloads = []
+
+        def generate_structured(self, *, agent_id, output_model, payload):
+            self.payloads.append(payload)
+            citation = "E-WRONG" if len(self.payloads) == 1 else "E-RIGHT"
+            return output_model(
+                candidate_fault_id="RW_FRICTION", abstained=False,
+                summary="候选机理仍需核查。",
+                claims=[{"kind": "OBSERVATION", "text": "电流为 0.34 A。", "citation_ids": [citation]}],
+            )
+
+    backend = CorrectingBackend()
+    service = PlatformKnowledgeEnrichmentService(
+        PlatformKnowledgeConfig(), llm_backend=backend,
+    )
+    result = service.enrich(
+        task="请解释候选故障", document_paths=[], output_root=tmp_path,
+        diagnosis_snapshot={
+            "candidate_fault_id": "RW_FRICTION",
+            "evidence": [
+                {"evidence_id": "E-WRONG", "interpretation": "电流为 0.20 A。"},
+                {"evidence_id": "E-RIGHT", "interpretation": "电流为 0.34 A。"},
+            ],
+        },
+    )
+    generation = result["generation"]
+    assert generation["status"] == "SUCCEEDED"
+    assert generation["host_validation_attempts"] == 2
+    assert "0.34 A" in generation["host_validation_failures"][0]
+    assert "matching visible observation IDs: E-RIGHT" in generation["host_validation_failures"][0]
+    assert "validation_feedback" not in backend.payloads[0]
+    assert "exact visible source ID" in backend.payloads[1]["validation_feedback"]
+    assert "E-RIGHT" in backend.payloads[1]["validation_feedback"]
+    assert generation["explanation"]["claims"][0]["citation_ids"] == ["E-RIGHT"]
 
 
 def _put_pipeline(store: UploadReportJobStore, job_id: str, *, note: bytes | None = None, name: str = "fmea.md") -> None:
@@ -234,6 +342,15 @@ def test_paperseek_and_llm_are_called_post_diagnosis_with_citation_validation(tm
     assert knowledge["generation"]["citation_reference_validation"] == "PASS"
     assert knowledge["generation"]["explanation"]["candidate_fault_id"] == "ADCS_RW_JAM"
     assert [path for path, _ in calls] == ["/api/search", "/v1/chat/completions"]
+    model_request = json.loads(calls[-1][1]["messages"][1]["content"])
+    assert model_request["payload"]["response_language"] == "zh-CN"
+    prompt = calls[-1][1]["messages"][0]["content"]
+    assert "response_language" in prompt
+    assert "Copy payload.diagnosis.candidate_fault_id exactly" in prompt
+    assert "A retained candidate is not a confirmed root cause" in prompt
+    assert "event timestamps, elapsed durations, communication delays" in prompt
+    assert "equipment variants, and operating modes" in prompt
+    assert "which could weaken it" in prompt
 
 
 def test_llm_override_attempt_is_rejected_but_frozen_diagnosis_survives(tmp_path: Path) -> None:
@@ -260,6 +377,8 @@ def test_llm_override_attempt_is_rejected_but_frozen_diagnosis_survives(tmp_path
     generation = report["analysis"]["knowledge_enrichment"]["generation"]
     assert generation["status"] == "FAILED"
     assert "may not override" in generation["error"]["message"]
+    assert generation["host_validation_attempts"] == 2
+    assert len(generation["host_validation_failures"]) == 2
 
 
 def test_anything2ontology_cli_adapter_isolated_and_review_only(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

@@ -1,0 +1,32 @@
+The lander is expected to operate on the surface for 60 to 90 Martian days through the
+planet's southern summer (a Martian day is 24 hours, 37 minutes). MPL will use the
+MGS as a data relay to Earth in place of the MCO. The mission will continue until the
+spacecraft can no longer protect itself from the cold and dark of lengthening nights and
+the return of the Martian seasonal polar frosts.
+Mars Climate Orbiter
+Cruise
+- 4 midcourse maneuvers
+- 10-Month Cruise
+Launch
+- Delta 7425
+- Launch 12/11/98
+- 629 kg launch mass
+Mars Orbit Insertion and
+Aerobraking
+- Arrival 9/23/99
+- MOI is the only use of the main
+Mapping/Relay
+[bipro] engine. The 16-minute burn
+- 12/3/99 – 3/1/00: Mars Polar
+depletes oxidizer and captures vehicle
+Lander Support Phase
+into 13-14 hour orbit.
+- 3/00 – 1/02 Mapping Phase
+- Subsequent burn using hydrazine
+- PMIRR and MARCI Science
+thrusters reduce orbit period further.
+- Relay for future landers
+- Aerobraking to be completed prior to
+MPL arrival [12/3/99].
+Figure 1
+11

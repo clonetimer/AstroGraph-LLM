@@ -1,0 +1,286 @@
+{
+  "schema_version": "astrograph-p4-case-freeze.v1",
+  "frozen_date": "2026-11-07",
+  "source_repo": "https://github.com/clonetimer/AstroGraph-LLM.git",
+  "source_commit": "cf9a59db3d6790f369452f0a3fbbaaf65899ff94",
+  "cohort_id": "P4_E1_SYNTHETIC_DEVELOPMENT_20261107",
+  "claim_boundary": "Functional and review-rubric pilot only. Historically used synthetic fixtures, not independent holdout, not real-flight or diagnostic-accuracy evidence.",
+  "reviewer_only_policy": "Never include expected_output.json in LLM request, retrieval index, prompt, or model training.",
+  "cases": [
+    {
+      "case_id": "TC01_ADCS_反作用轮摩擦",
+      "case_kind": "MATERIAL_REVIEW",
+      "data_origin": "SYNTHETIC_BUNDLED_ACCEPTANCE_FIXTURE",
+      "independence": "HISTORICALLY_USED_DEVELOPMENT_CASE",
+      "model_quality_eligible": true,
+      "input_files": [
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC01_ADCS_反作用轮摩擦/analysis_input.json",
+          "sha256": "ab2286f1d4c5231ada817b17f4902bfc8536b2a6623b6ef8417cf35a210a6fcf",
+          "bytes": 239
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC01_ADCS_反作用轮摩擦/diagnosis_result.json",
+          "sha256": "82334e2001842e7628a74ff15900e517c6aa2f0181b5d42795815091fa2ceaf6",
+          "bytes": 334
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC01_ADCS_反作用轮摩擦/operations.log",
+          "sha256": "de1ae8aafb857eaf198fe2bb0074623879ac3b506d85e26072c955b530c9c2a6",
+          "bytes": 359
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC01_ADCS_反作用轮摩擦/reference.md",
+          "sha256": "ddf6c6d8348675e3b1fa5af4774e27d1c10af3d1a8c7da1851d103b551199983",
+          "bytes": 509
+        }
+      ],
+      "reviewer_only": {
+        "path": "examples/platform_acceptance_cases_v1/TC01_ADCS_反作用轮摩擦/expected_output.json",
+        "sha256": "5db9bdcc63e0784fc7bbc177173b13cffa705f45548eaba0d91284ac26e41278"
+      },
+      "declared_scope": "LAB_ADCS_V1",
+      "expected_preflight_can_start": true
+    },
+    {
+      "case_id": "TC02_EPS_电池内阻",
+      "case_kind": "MATERIAL_REVIEW",
+      "data_origin": "SYNTHETIC_BUNDLED_ACCEPTANCE_FIXTURE",
+      "independence": "HISTORICALLY_USED_DEVELOPMENT_CASE",
+      "model_quality_eligible": true,
+      "input_files": [
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC02_EPS_电池内阻/analysis_input.json",
+          "sha256": "e97d3652b9fa4b67d3947c9875935625bf3a215a8b5d82362e5ec5915aff5319",
+          "bytes": 238
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC02_EPS_电池内阻/diagnosis_result.json",
+          "sha256": "dc1b782b65c083c6966c5778e30c86b02196e2e48d427fec8f6ae67b43aaf10f",
+          "bytes": 240
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC02_EPS_电池内阻/operations.csv",
+          "sha256": "79cfbe8d46cf2bde4d69e4b0faaf136856bf485584cf7ca05b90a9db9e53cd06",
+          "bytes": 343
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC02_EPS_电池内阻/reference.md",
+          "sha256": "0eb619f11e76a87003c5a59844d11b7307a627659db19715b15fa8b814a8ba77",
+          "bytes": 618
+        }
+      ],
+      "reviewer_only": {
+        "path": "examples/platform_acceptance_cases_v1/TC02_EPS_电池内阻/expected_output.json",
+        "sha256": "10eca3594559838487e22cfa704d7547ac2a3d99d72f08845a25e1528a742d0f"
+      },
+      "declared_scope": "LAB_EPS_V1",
+      "expected_preflight_can_start": true
+    },
+    {
+      "case_id": "TC03_星敏失锁缺日志佐证",
+      "case_kind": "MATERIAL_REVIEW",
+      "data_origin": "SYNTHETIC_BUNDLED_ACCEPTANCE_FIXTURE",
+      "independence": "HISTORICALLY_USED_DEVELOPMENT_CASE",
+      "model_quality_eligible": true,
+      "input_files": [
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC03_星敏失锁缺日志佐证/analysis_input.json",
+          "sha256": "99e9cd4ec1c90b8588e14a2d78f4510844fc43502a4be9fdc3e787d4d179f604",
+          "bytes": 239
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC03_星敏失锁缺日志佐证/diagnosis_result.json",
+          "sha256": "846b0068adac407c9cd105dfd098a179aa1f930ca99761dc9e4b89e77702e8be",
+          "bytes": 196
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC03_星敏失锁缺日志佐证/operations.log",
+          "sha256": "3bc4026dbaa4d4f815f1c6e791b4f216170671270537a7d80b1ceb52f9811ae0",
+          "bytes": 142
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC03_星敏失锁缺日志佐证/reference.md",
+          "sha256": "e8990eae973414521f7d8281e2d9fd39b13897797cb52538558c18b99f913124",
+          "bytes": 279
+        }
+      ],
+      "reviewer_only": {
+        "path": "examples/platform_acceptance_cases_v1/TC03_星敏失锁缺日志佐证/expected_output.json",
+        "sha256": "7c0bf727577f70512ff9503d4e65265738b6b291347340365c9988c3d897ec95"
+      },
+      "declared_scope": "LAB_ADCS_V2",
+      "expected_preflight_can_start": true
+    },
+    {
+      "case_id": "TC04_未知推进故障拒答",
+      "case_kind": "MATERIAL_REVIEW",
+      "data_origin": "SYNTHETIC_BUNDLED_ACCEPTANCE_FIXTURE",
+      "independence": "HISTORICALLY_USED_DEVELOPMENT_CASE",
+      "model_quality_eligible": true,
+      "input_files": [
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC04_未知推进故障拒答/analysis_input.json",
+          "sha256": "14b7141d608598093f88639686a530abdf76d7a0507cd171deea5fbc5dfa4d3c",
+          "bytes": 239
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC04_未知推进故障拒答/diagnosis_result.json",
+          "sha256": "238e79bd3a6a85bbc7df37a8e0871320d5d86202c7dce7f3a228286b81528245",
+          "bytes": 202
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC04_未知推进故障拒答/operations.log",
+          "sha256": "ce3b8419575d9722857f0d98a0a5bcf7f48f83b00c29b4cfd5261d09030734d1",
+          "bytes": 137
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC04_未知推进故障拒答/reference.md",
+          "sha256": "6b273025925fb6954fc8e8424a8415c56bbfb9beab750a618f7342c5be24b2d6",
+          "bytes": 247
+        }
+      ],
+      "reviewer_only": {
+        "path": "examples/platform_acceptance_cases_v1/TC04_未知推进故障拒答/expected_output.json",
+        "sha256": "c80ae229e572f09fff1809c530b7afac77016465ac935aec416d7f218df12c18"
+      },
+      "declared_scope": "LAB_PROP_V1",
+      "expected_preflight_can_start": true
+    },
+    {
+      "case_id": "TC05_仅日志有异常但诊断无候选",
+      "case_kind": "MATERIAL_REVIEW",
+      "data_origin": "SYNTHETIC_BUNDLED_ACCEPTANCE_FIXTURE",
+      "independence": "HISTORICALLY_USED_DEVELOPMENT_CASE",
+      "model_quality_eligible": true,
+      "input_files": [
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC05_仅日志有异常但诊断无候选/analysis_input.json",
+          "sha256": "b681efbf59275a99ac547e2b54db53d6dc05ad0fb222ddb2b2ce1b3216938907",
+          "bytes": 239
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC05_仅日志有异常但诊断无候选/diagnosis_result.json",
+          "sha256": "cd198258b939d8b1616898aa4425e73908d71440414b13aaca34d35a8f1ac92f",
+          "bytes": 173
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC05_仅日志有异常但诊断无候选/operations.log",
+          "sha256": "5b29d8d64bc72e147985fb6a1913118261d394d42f2690f1d491b1976c4d8dbf",
+          "bytes": 163
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC05_仅日志有异常但诊断无候选/reference.md",
+          "sha256": "b2ea58c6bd280c76c2fc2a28a3b1cceb657ad0a7fd62359bfa4ecec253abd517",
+          "bytes": 167
+        }
+      ],
+      "reviewer_only": {
+        "path": "examples/platform_acceptance_cases_v1/TC05_仅日志有异常但诊断无候选/expected_output.json",
+        "sha256": "72dd9f79c75d910dc74c16301718f2c22711ae5f2719e052a5c49c76ee1e687b"
+      },
+      "declared_scope": "LAB_ADCS_V3",
+      "expected_preflight_can_start": true
+    },
+    {
+      "case_id": "TC06_双故障长文档",
+      "case_kind": "MATERIAL_REVIEW",
+      "data_origin": "SYNTHETIC_BUNDLED_ACCEPTANCE_FIXTURE",
+      "independence": "HISTORICALLY_USED_DEVELOPMENT_CASE",
+      "model_quality_eligible": true,
+      "input_files": [
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC06_双故障长文档/analysis_input.json",
+          "sha256": "fb6f64ec07b36aa4214bab99ada4a500dc3f45cc4b3b9b2f17112f88632a5c36",
+          "bytes": 240
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC06_双故障长文档/diagnosis_result.json",
+          "sha256": "416b94488fb6597d01d9e4386c2c5aa8c087c0c143ddde747f2484a41ac1d3fa",
+          "bytes": 380
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC06_双故障长文档/operations.log",
+          "sha256": "4469cd0d1a750c90cefac48f28fa757c421e6e817a79346c81c0ac68b617bc5b",
+          "bytes": 206
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC06_双故障长文档/reference.md",
+          "sha256": "1a90bd2c648dfd45eb795daad40351bbda5d1dfa85a028dba0dfb1cc8c3f0155",
+          "bytes": 5590
+        }
+      ],
+      "reviewer_only": {
+        "path": "examples/platform_acceptance_cases_v1/TC06_双故障长文档/expected_output.json",
+        "sha256": "c7f87aef2691a88715d6dbed87f118ddf90d9f7ccc4b18185fe32aad465cca67"
+      },
+      "declared_scope": "LAB_MULTI_V1",
+      "expected_preflight_can_start": true
+    },
+    {
+      "case_id": "TC07_缺少参考文献预检阻断",
+      "case_kind": "PREFLIGHT_NEGATIVE",
+      "data_origin": "SYNTHETIC_BUNDLED_ACCEPTANCE_FIXTURE",
+      "independence": "HISTORICALLY_USED_DEVELOPMENT_CASE",
+      "model_quality_eligible": false,
+      "input_files": [
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC07_缺少参考文献预检阻断/analysis_input.json",
+          "sha256": "d88aa82681cba6eae13ba5b1131bf6342c4acbff390b95f7411e94f77ece5f4a",
+          "bytes": 243
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC07_缺少参考文献预检阻断/diagnosis_result.json",
+          "sha256": "75cadf4f01e70ff7d00229fbbddbe76967b7e0eb0a3d25d45845c7da504f10fe",
+          "bytes": 166
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC07_缺少参考文献预检阻断/operations.log",
+          "sha256": "408a76b4b2ad3344dd4fde4ac1297e7c61cbd6e445e21a471b3542a71674ffee",
+          "bytes": 58
+        }
+      ],
+      "reviewer_only": {
+        "path": "examples/platform_acceptance_cases_v1/TC07_缺少参考文献预检阻断/expected_output.json",
+        "sha256": "da00176c185d1fa6523ab8ab1a4968465bbbeb0d5f7f1b9800e47172a8728200"
+      },
+      "declared_scope": "LAB_NEGATIVE_V1",
+      "expected_preflight_can_start": false
+    },
+    {
+      "case_id": "TC08_参考文献提示注入",
+      "case_kind": "PROMPT_INJECTION",
+      "data_origin": "SYNTHETIC_BUNDLED_ACCEPTANCE_FIXTURE",
+      "independence": "HISTORICALLY_USED_DEVELOPMENT_CASE",
+      "model_quality_eligible": true,
+      "input_files": [
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC08_参考文献提示注入/analysis_input.json",
+          "sha256": "ace0cc3f7ade277a2effcd2b773bdcac830f9ea37214b9f0c44e28a98b011435",
+          "bytes": 242
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC08_参考文献提示注入/diagnosis_result.json",
+          "sha256": "909cf0c04a046a12c2bb8342bbf4bdfa9d060fb6f925158e284c476532e74bd8",
+          "bytes": 178
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC08_参考文献提示注入/operations.log",
+          "sha256": "aa42afbf49d7acf6acc3d6894d452d7777da06a7670737805ad28b4364530866",
+          "bytes": 140
+        },
+        {
+          "path": "examples/platform_acceptance_cases_v1/TC08_参考文献提示注入/reference.md",
+          "sha256": "3a69a505fc508222f0e1a89a4614d73c622294fe9d69e92f9046d3f3b0c9b8d4",
+          "bytes": 547
+        }
+      ],
+      "reviewer_only": {
+        "path": "examples/platform_acceptance_cases_v1/TC08_参考文献提示注入/expected_output.json",
+        "sha256": "07482e9c786a3b1b864f7e332a1f5c5c6b9f856e8692434268e4277483978ff1"
+      },
+      "declared_scope": "LAB_THERMAL_V1",
+      "expected_preflight_can_start": true
+    }
+  ]
+}

@@ -203,6 +203,7 @@ function setAnalysisProcess(mode,title,summary){
   const box=$('#analysis-process');if(!box)return;
   box.classList.remove('is-ready','is-working','is-error');if(mode)box.classList.add('is-'+mode);
   if(title)$('#analysis-process-title').textContent=title;if(summary)$('#analysis-process-summary').textContent=summary;
+  if(mode==='working'||mode==='error'){$('#analysis-thinking-body').hidden=false;$('#analysis-thinking-toggle').setAttribute('aria-expanded','true')}
 }
 function renderAttachmentTray(){
   const tray=$('#attachment-tray');if(!tray)return;
@@ -328,9 +329,48 @@ function emphasizeEvidence(raw){
 }
 function inspectEvidence(index){
  const e=findings()[index];if(!e)return;
- const entries=[['证据编号',e.evidence_id],['材料角色',({diagnosis_results:'诊断结果',log_reports:'运行日志',references:'参考文献'})[e.role]||e.role],['来源文件',e.filename],['原文定位',e.locator],['文件 SHA-256',e.sha256]];
+ showCitationSource(e,'证据原文定位');
+}
+function citationSource(id){
+ const analysis=S.report?.analysis||{},knowledge=analysis.knowledge_enrichment||{};
+ const evidence=(analysis.result_log_review?.evidence||[]).find(item=>item.evidence_id===id);
+ if(evidence)return evidence;
+ const uploaded=(knowledge.local_retrieval?.hits||[]).find(item=>item.knowledge_id===id);
+ if(uploaded)return {evidence_id:id,role:'uploaded_reference',filename:uploaded.filename,locator:(uploaded.source_locators||[]).join('、')||uploaded.section_path?.join(' / '),sha256:uploaded.source_sha256,excerpt:uploaded.quote};
+ const literature=(knowledge.paperseek?.documents||[]).find(item=>item.document_id===id);
+ if(literature)return {evidence_id:id,role:'public_literature',filename:literature.title||literature.document_id,locator:literature.url||'文献检索结果',excerpt:literature.text||literature.abstract||''};
+ const ontology=(knowledge.anything2ontology?.review_material||[]).find(item=>item.ontology_id===id);
+ if(ontology)return {evidence_id:id,role:'ontology_candidate',filename:ontology.filename||ontology.source_id||id,locator:ontology.locator||'待审核候选',excerpt:ontology.quote||''};
+ for(const candidate of analysis.material_reasoning?.candidates||[]){
+   const log=(candidate.log_evidence_matrix?.events||[]).find(item=>item.evidence_id===id);
+   if(log)return log;
+   const reference=(candidate.reference_retrieval?.hits||[]).find(item=>item.knowledge_id===id);
+   if(reference)return {evidence_id:id,role:reference.knowledge_validation_status==='EXPERT_APPROVED_HISTORICAL_REFERENCE'?'approved_reference':'uploaded_reference',filename:reference.filename,locator:(reference.source_locators||[]).join('、')||reference.section_path?.join(' / '),sha256:reference.source_sha256,excerpt:reference.quote};
+   const path=(candidate.graph_evidence_paths||[]).find(item=>item.graph_path_id===id);
+   if(path)return {evidence_id:id,role:'graph_association',filename:path.knowledge_version||'已审核图谱',locator:path.relation_type||'',excerpt:`${path.fault_id||''} → ${path.evidence_label||path.evidence_definition_id||''}`};
+   const historical=(candidate.historical_confirmed_cases?.hits||[]).find(item=>item.case_id===id);
+   if(historical)return {evidence_id:id,role:'confirmed_case',filename:historical.case_id,locator:historical.truth_source_ref,excerpt:`${historical.relation_status==='PRIOR_UPSTREAM_MISCLASSIFICATION'?'历史反例／上游误判':'历史已审结论'}：${historical.verified_fault_id||'未记录'}；适用范围：${historical.equipment_scope||'待核对'}`};
+ }
+ return null;
+}
+function citationDisplay(id,source){
+ if(['uploaded_reference','approved_reference'].includes(source?.role))return [source.filename,source.locator].filter(Boolean).join(' · ')||'参考资料';
+ if(source?.role==='public_literature')return source.filename||'公开文献';
+ if(source?.role==='graph_association')return '图谱路径';
+ if(source?.role==='confirmed_case')return '历史案例 '+id;
+ return id.length>28?id.slice(0,18)+'…':id;
+}
+function showCitationSource(e,title){
+ const roles={diagnosis_results:'诊断结果',log_reports:'运行日志',references:'参考资料',uploaded_reference:'本次上传资料（未经型号级审核）',approved_reference:'历史已审核参考资料',public_literature:'公开文献',ontology_candidate:'待审核知识候选',graph_association:'已审图谱关联',confirmed_case:'历史核验案例'};
+ const sourceLabel=e.role==='graph_association'?'知识版本':e.role==='confirmed_case'?'案例记录':'来源文件';
+ const locatorLabel=e.role==='graph_association'?'关系类型':e.role==='confirmed_case'?'独立核验来源':e.role==='public_literature'?'来源网址':'原文定位';
+ const entries=[['引用编号',e.evidence_id],['来源类别',roles[e.role]||e.role],[sourceLabel,e.filename===e.evidence_id&&e.role==='confirmed_case'?'':e.filename],[locatorLabel,e.locator],['文件 SHA-256',e.sha256]].filter(([,value])=>value);
+ $('#evidence-detail-title').textContent=title;
  $('#evidence-source-meta').innerHTML=entries.map(([label,val])=>`<div><dt>${html(label)}</dt><dd title="${html(val||'未提供')}">${html(val||'未提供')}</dd></div>`).join('');
+ $('#evidence-quote-title').textContent=['graph_association','confirmed_case'].includes(e.role)?'报告保留的来源信息':'报告保留的原文摘录';
  $('#evidence-source-quote').innerHTML=emphasizeEvidence(e.excerpt||'');
+ const boundaries={uploaded_reference:'这是本次上传资料的检索片段，不是当前卫星遥测或已审核的型号级结论。请以原始文件核验。',approved_reference:'这是历史已审核资料，须核对适用的设备型号和运行工况；不是当前卫星遥测。',graph_association:'这是已审核图谱中的知识关联，不是本次任务的直接观测，也不能单独证明因果关系。',confirmed_case:'这是历史案例的核验记录，须核对设备型号与运行工况，不能直接当作当前任务结论。',ontology_candidate:'这是待审核知识候选，尚未进入已审图谱。'};
+ $('.evidence-source-boundary').textContent=boundaries[e.role]||'这里只显示报告保留的原文片段；请以原始文件和适用设备资料核验。';
  const dialog=$('#evidence-detail');if(!dialog.open)dialog.showModal();
 }
 const candidates=()=>S.report?.analysis?.result_log_review?.candidates||[];
@@ -343,10 +383,11 @@ function renderModelExplanation(report,knowledge,review){
   const claims=(model.claims||[]).filter(x=>x.text);const actions=model.recommended_review_actions||[];
   const uploaded=((knowledge.local_retrieval||{}).hits||[]).length;
   const graphPaths=(review.candidates||[]).reduce((sum,item)=>sum+((item.graph_evidence_paths||[]).length),0);
-  const claimRows=claims.slice(0,8).map(x=>`<li><p>${html(x.text)}</p>${(x.citation_ids||[]).length?`<div class="model-citations">${x.citation_ids.map(id=>`<code>${html(id)}</code>`).join('')}</div>`:''}</li>`).join('');
+  const claimKind={OBSERVATION:'任务观测',HYPOTHESIS:'待核验原因',LOCAL_KNOWLEDGE:'上传资料',LITERATURE:'公开文献',ONTOLOGY_CANDIDATE:'待审核知识',MATERIAL_LOG_CUE:'日志线索',MATERIAL_REFERENCE:'参考资料',GRAPH_ASSOCIATION:'图谱关联',CONFIRMED_CASE:'历史核验案例'};
+  const claimRows=claims.slice(0,8).map(x=>`<li><span class="model-claim-kind">${html(claimKind[x.kind]||'分析说明')}</span><p>${html(x.text)}</p>${(x.citation_ids||[]).length?`<div class="model-citations">${x.citation_ids.map(id=>{const source=citationSource(id);return source?`<button type="button" data-model-citation="${html(id)}" title="${html(id)}" aria-label="查看引用 ${html(id)} 的来源">${html(citationDisplay(id,source))} · 查看来源</button>`:`<code title="报告未保留该引用的原文片段">${html(id)}</code>`}).join('')}</div>`:''}</li>`).join('');
   const actionRows=actions.slice(0,8).map(x=>`<li>${html(x)}</li>`).join('');
   const limitations=(model.limitations||[]).slice(0,6).map(x=>`<li>${html(x)}</li>`).join('');
-  return `<section class="panel model-result"><div class="model-result-head"><div><span>大模型综合处置结果</span><h2>${html(engineName)}</h2></div><span class="chip">需专家复核</span></div><div class="model-source-strip"><span>本次上传文献 <b>${uploaded}</b> 条命中</span><span>内置已审核图谱 <b>${graphPaths}</b> 条路径</span><span>引用检查 <b>${html(model.citation_reference_validation||'未评估')}</b></span></div><div class="model-summary"><span>综合判断</span><p>${html(model.summary||'模型未提供摘要。')}</p></div>${claimRows?`<div class="model-result-section"><h3>原因与依据</h3><ol>${claimRows}</ol></div>`:''}${actionRows?`<div class="model-result-section"><h3>建议处置与核查</h3><ol>${actionRows}</ol></div>`:''}${limitations?`<details class="technical-details"><summary>查看模型局限与使用边界</summary><ul class="list">${limitations}</ul></details>`:''}<div class="model-safety-line">这是基于证据的辅助研判，不构成自动控制授权；涉及设备操作时仍需人工审批。</div></section>`;
+  return `<section class="panel model-result"><div class="model-result-head"><div><span>大模型辅助分析</span><h2>${html(engineName)}</h2></div><span class="chip">需专家复核</span></div><div class="model-source-strip"><span>本次上传文献 <b>${uploaded}</b> 条命中</span><span>内置已审核图谱 <b>${graphPaths}</b> 条路径</span><span>引用检查 <b>${html(model.citation_reference_validation||'未评估')}</b></span></div>${claimRows?`<div class="model-result-section"><h3>观测、原因假设与依据</h3><ol>${claimRows}</ol></div>`:''}${actionRows?`<div class="model-result-section"><h3>建议处置与核查</h3><ol>${actionRows}</ol></div>`:''}${limitations?`<details class="technical-details"><summary>查看模型局限与使用边界</summary><ul class="list">${limitations}</ul></details>`:''}<div class="model-safety-line">这是基于证据的辅助研判，不构成自动控制授权；涉及设备操作时仍需人工审批。</div></section>`;
 }
 function renderReport(){const host=$('#report-content');for(const id of ['report-export-json','report-export-md'])$('#'+id).hidden=!S.report;if(!S.report){updateActionSummary();host.innerHTML='<div class="empty">请选择已完成的任务，或上传材料生成报告。</div>';$('#report-job-label').textContent='未选择任务';return}
   const report=S.report,cases=candidates(),review=report.analysis?.material_reasoning||{},knowledge=report.analysis?.knowledge_enrichment||{};
@@ -355,7 +396,9 @@ function renderReport(){const host=$('#report-content');for(const id of ['report
     const cards=cases.length?cases.map(c=>{const causes=(c.cause_hypotheses||[]),measures=(c.handling_measures||[]),checks=(c.verification_checks||[]);return `<article class="panel report-block report-narrative"><div class="result-lead"><span>目前最值得核查的方向</span><strong>${html(c.fault_name||'尚未形成明确故障方向')}</strong></div><section class="report-section"><h3>为什么会这样判断</h3>${causes.map(x=>`<p>${html(x.text)}</p>`).join('')||'<p>现有材料还不足以支持具体的故障原因，因此系统没有补造解释。</p>'}</section><section class="report-section"><h3>建议先做什么</h3><ul class="list">${measures.map(x=>`<li><span class="measure-tag">${html(/检查|核对|查看|记录|比对|读取/.test(x.action||'')&&!/重启|切换|复位|卸载|执行|发送指令/.test(x.action||'')?'可以先核查':/重启|切换|复位|卸载|执行|发送指令/.test(x.action||'')?'需要审批':'分析建议')}</span>${html(x.action)}</li>`).join('')||'<li>先补充独立证据，再请领域专家复核。</li>'}</ul></section>${checks.length?`<section class="report-section"><h3>怎样确认</h3><ol class="list">${checks.map(x=>`<li>${html(x)}</li>`).join('')}</ol></section>`:''}<details class="detail-row technical-details"><summary>查看技术标识与系统状态</summary><div class="report-meta"><span class="chip">故障标识：${html(c.fault_id)}</span><span class="chip">${html(c.status==='PROVISIONAL_LOG_CUE'?'日志线索仍需核验':'还缺少独立日志佐证')}</span></div></details></article>`}).join(''):'<div class="panel"><div class="empty">现有材料没有形成可信的故障方向。系统不会仅凭零散日志或参考资料编造结论。</div></div>';
     const abstain=review.answer_policy?.all_candidates_abstained!==false;
     const modelNarrative=renderModelExplanation(report,knowledge,review);
-    host.innerHTML=`${modelNarrative}<div class="warning-strip">${abstain?'先说结论：现在只能把它当作重点排查方向，还不能确认就是根因。':'材料已经给出较明确的排查方向，但仍要由专家结合实际设备状态确认。'}</div>${cards}`;
+    const ruleNarrative=`<div class="warning-strip">${abstain?'规则研判：当前仅支持将该候选列为重点排查方向，尚不能确认根因。':'规则研判：已有待验证的原因假设，仍需结合实际设备状态复核。'}</div>${cards}`;
+    const modelAvailable=report.analysis_engine?.kind==='llm'&&knowledge.model_explanation?.status==='AVAILABLE_REQUIRES_EXPERT_REVIEW';
+    host.innerHTML=modelAvailable?`${modelNarrative}<details class="panel report-block rule-report-details"><summary>查看规则研判与证据边界</summary>${ruleNarrative}</details>`:`${modelNarrative}${ruleNarrative}`;
   }else if(S.reportTab==='evidence'){
     const rows=findings().map(e=>`<div class="evidence-row"><strong>${html(e.evidence_id||'')} · ${html(e.filename||'')} · ${html(e.locator||'')}</strong><p>${html(e.excerpt||'')}</p></div>`).join('');
     const ingest=knowledge.document_ingestion||[];
@@ -374,6 +417,7 @@ function renderReport(){const host=$('#report-content');for(const id of ['report
     host.innerHTML=`<div class="panel"><h2>复核与溯源</h2><div class="evidence-row"><strong>任务编号</strong>${html(report.job_id)}</div><div class="evidence-row"><strong>报告状态</strong>${html(report.status||'SUCCEEDED')}</div><div class="evidence-row"><strong>材料来源</strong>${html(report.artifact_kind||'—')}</div><div class="evidence-row"><strong>自动控制授权</strong>否</div><div id="report-review-status" class="evidence-row">读取专家复核状态…</div>${can('reviewer')?'<button type="button" class="btn primary" id="audit-to-review">进入人工复核</button>':''}</div>`;
     if($('#audit-to-review'))$('#audit-to-review').onclick=()=>useView('review');api(`/v1/platform/jobs/${qs(S.jobId)}/manual-review/status`).then(x=>$('#report-review-status').textContent='人工复核：'+(statusZH[x.status]||x.status)+' · '+x.reviewed_count+'/'+x.total_count).catch(()=>$('#report-review-status').textContent='暂无人工复核信息');
   }
+  $$('#report-content [data-model-citation]').forEach(button=>button.onclick=()=>{const source=citationSource(button.dataset.modelCitation);if(source)showCitationSource(source,'引用来源')});
 }
 function updateActionSummary(){
   const host=$('#action-summary');if(!host)return;

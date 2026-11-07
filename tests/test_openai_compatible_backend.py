@@ -8,6 +8,7 @@ from pathlib import Path
 from pydantic import BaseModel, ConfigDict
 
 from astrograph.llm import OpenAICompatibleConfig, OpenAICompatibleStructuredBackend
+from astrograph.integrations.bounded_http import request_json
 
 
 class Probe(BaseModel):
@@ -33,6 +34,35 @@ class Handler(BaseHTTPRequestHandler):
 
     def log_message(self, format, *args):
         return
+
+
+def test_http_worker_emits_utf8_even_with_non_utf8_pipe_encoding(monkeypatch):
+    class UnicodeHandler(BaseHTTPRequestHandler):
+        def do_POST(self):
+            self.rfile.read(int(self.headers.get("Content-Length", "0")))
+            payload = json.dumps({"answer": "反作用轮·摩擦"}, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(payload)))
+            self.end_headers()
+            self.wfile.write(payload)
+
+        def log_message(self, format, *args):
+            return
+
+    server = HTTPServer(("127.0.0.1", 0), UnicodeHandler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    monkeypatch.setenv("PYTHONIOENCODING", "cp1252")
+    try:
+        result = request_json(
+            f"http://127.0.0.1:{server.server_port}/v1/chat/completions",
+            payload={"prompt": "中文"}, timeout_s=5,
+        )
+        assert result == {"answer": "反作用轮·摩擦"}
+    finally:
+        server.shutdown()
+        thread.join(timeout=2)
 
 
 def test_openai_compatible_backend_parses_and_validates():

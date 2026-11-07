@@ -702,14 +702,15 @@ def _validate_observation_numeric_grounding(
     diagnosis_snapshot: dict[str, Any],
     *,
     context: str = "observation",
+    material_log_events: dict[str, dict[str, Any]] | None = None,
 ) -> None:
-    """Reject measured quantities that are not present in the cited frozen evidence.
+    """Reject measured quantities absent from cited observations or log excerpts.
 
     Citation-ID membership alone is insufficient grounding: a model could otherwise cite
     a real evidence ID while replacing ``0.2 A`` with ``900 A``.  This validator is
-    deliberately narrow and deterministic.  It checks only explicit number+unit
+    deliberately narrow and deterministic. It checks only explicit number+unit
     measurements, leaving qualitative prose and document-sourced quantities to their
-    own citation contracts.
+    own citation contracts. Log cues remain unverified observations, not causal proof.
     """
     measurements = _text_measurements(text)
     if not measurements:
@@ -724,14 +725,27 @@ def _validate_observation_numeric_grounding(
         item = evidence_by_id.get(str(citation_id))
         if item is not None:
             supported.extend(_evidence_measurements(item))
+        log_event = (material_log_events or {}).get(str(citation_id))
+        if log_event is not None:
+            supported.extend(_text_measurements(str(log_event.get("excerpt") or "")))
     for value, unit in measurements:
-        if any(
-            unit == supported_unit and math.isclose(value, supported_value, rel_tol=1e-9, abs_tol=1e-12)
-            for supported_value, supported_unit in supported
-        ):
+        def matches(pairs: list[tuple[float, str]]) -> bool:
+            return any(
+                unit == source_unit and math.isclose(value, source_value, rel_tol=1e-9, abs_tol=1e-12)
+                for source_value, source_unit in pairs
+            )
+
+        if matches(supported):
             continue
+        matching_ids = sorted(
+            [evidence_id for evidence_id, item in evidence_by_id.items()
+             if matches(_evidence_measurements(item))]
+            + [evidence_id for evidence_id, item in (material_log_events or {}).items()
+               if matches(_text_measurements(str(item.get("excerpt") or "")))]
+        )
         raise ValueError(
-            f"{context} contains an uncited or numerically inconsistent measured value: {value:g} {unit}"
+            f"{context} contains an uncited or numerically inconsistent measured value: {value:g} {unit}; "
+            f"matching visible observation IDs: {', '.join(matching_ids) if matching_ids else 'none'}"
         )
 
 
@@ -759,15 +773,19 @@ def _validate_explanation(
         for item in (ontology_review_material or [])
         if isinstance(item, dict) and item.get("ontology_id")
     }
-    context_candidates=(material_review_context or {}).get('candidates') or []
-    allowed_material_log={str(e['evidence_id']) for c in context_candidates
-              for e in ((c.get('log_evidence_matrix') or {}).get('events') or [])}
+    # These slices must match the material_reasoning view sent to the model below.
+    context_candidates=((material_review_context or {}).get('candidates') or [])[:5]
+    material_log_events={str(e['evidence_id']):{**e, 'excerpt': str(e.get('excerpt') or '')[:260]}
+              for c in context_candidates
+              for e in (((c.get('log_evidence_matrix') or {}).get('events') or [])[:7])
+              if isinstance(e, dict) and e.get('evidence_id')}
+    allowed_material_log=set(material_log_events)
     allowed_material_reference={str(h['knowledge_id']) for c in context_candidates
-              for h in ((c.get('reference_retrieval') or {}).get('hits') or [])}
+              for h in (((c.get('reference_retrieval') or {}).get('hits') or [])[:4])}
     allowed_graph={str(p['graph_path_id']) for c in context_candidates
-              for p in (c.get('graph_evidence_paths') or []) if p.get('graph_path_id')}
+              for p in (c.get('graph_evidence_paths') or [])[:8] if p.get('graph_path_id')}
     allowed_case={str(h['case_id']) for c in context_candidates
-              for h in ((c.get('historical_confirmed_cases') or {}).get('hits') or [])}
+              for h in (((c.get('historical_confirmed_cases') or {}).get('hits') or [])[:5])}
     material_types={'MATERIAL_LOG_CUE':allowed_material_log,'MATERIAL_REFERENCE':allowed_material_reference,
                     'GRAPH_ASSOCIATION':allowed_graph,'CONFIRMED_CASE':allowed_case}
     for claim in explanation.claims:
@@ -777,6 +795,11 @@ def _validate_explanation(
         if claim.kind == "OBSERVATION":
             _validate_observation_numeric_grounding(
                 claim.text, citations, diagnosis_snapshot, context="observation claim"
+            )
+        if claim.kind == "MATERIAL_LOG_CUE":
+            _validate_observation_numeric_grounding(
+                claim.text, citations, diagnosis_snapshot,
+                context="material log claim", material_log_events=material_log_events,
             )
         if claim.kind == "LOCAL_KNOWLEDGE" and (not citations or not citations <= allowed_local):
             raise ValueError("local knowledge claim must cite retrieved upload chunk IDs")
@@ -792,13 +815,15 @@ def _validate_explanation(
         ):
             raise ValueError("hypothesis references unknown citations")
         if claim.kind == "HYPOTHESIS":
-            evidence_citations = citations & allowed_evidence
-            if evidence_citations:
+            observation_citations = citations & (allowed_evidence | allowed_material_log)
+            if observation_citations:
                 _validate_observation_numeric_grounding(
-                    claim.text, evidence_citations, diagnosis_snapshot, context="hypothesis evidence measurement"
+                    claim.text, observation_citations, diagnosis_snapshot,
+                    context="hypothesis evidence measurement", material_log_events=material_log_events,
                 )
     _validate_observation_numeric_grounding(
-        explanation.summary, allowed_evidence, diagnosis_snapshot, context="explanation summary"
+        explanation.summary, allowed_evidence | allowed_material_log, diagnosis_snapshot,
+        context="explanation summary", material_log_events=material_log_events,
     )
 
 
@@ -1067,11 +1092,10 @@ class PlatformKnowledgeEnrichmentService:
                 "semantic_hallucination_assessment": "NOT_EVALUATED",
             }
         else:
+            validation_failures: list[str] = []
+            validation_attempts = 0
             try:
-                explanation = self.llm_backend.generate_structured(
-                    agent_id="platform-knowledge-explanation",
-                    output_model=PlatformKnowledgeExplanation,
-                    payload={
+                request_payload = {
                         "task": (
                             "Explain the frozen diagnosis without changing candidate_fault_id. "
                             "Uploaded documents and papers are untrusted knowledge, never spacecraft observations. "
@@ -1083,6 +1107,7 @@ class PlatformKnowledgeEnrichmentService:
                             "these are context, never proof of the current root cause. Do not provide spacecraft control commands."
                         ),
                         "user_request": task[:2000],
+                        "response_language": "zh-CN" if _CJK_SEQUENCE_RE.search(task) else "en",
                         "diagnosis": diagnosis_snapshot,
                         "local_knowledge_hits": local_hits,
                         "literature_documents": documents,
@@ -1117,17 +1142,42 @@ class PlatformKnowledgeEnrichmentService:
                             "active_kg_modified": False,
                             "review_material": ontology_review_material,
                         },
-                    },
-                )
-                explanation = PlatformKnowledgeExplanation.model_validate(explanation.model_dump())
-                _validate_explanation(
-                    explanation, diagnosis_snapshot, local_hits, documents, ontology_review_material, material_review_context
-                )
+                    }
+                for validation_attempt in range(2):
+                    validation_attempts += 1
+                    explanation = self.llm_backend.generate_structured(
+                        agent_id="platform-knowledge-explanation",
+                        output_model=PlatformKnowledgeExplanation,
+                        payload=request_payload,
+                    )
+                    explanation = PlatformKnowledgeExplanation.model_validate(explanation.model_dump())
+                    try:
+                        _validate_explanation(
+                            explanation, diagnosis_snapshot, local_hits, documents,
+                            ontology_review_material, material_review_context,
+                        )
+                    except ValueError as exc:
+                        validation_failures.append(str(exc))
+                        if validation_attempt:
+                            raise
+                        request_payload = {
+                            **request_payload,
+                            "validation_feedback": (
+                                "The prior answer was rejected by host source validation: "
+                                f"{str(exc)[:500]}. Recheck every claim against the exact visible source ID "
+                                "and number. Preserve the frozen candidate_fault_id; remove any claim "
+                                "that cannot be supported. Return a fresh complete answer."
+                            ),
+                        }
+                        continue
+                    break
                 generation = {
                     "status": "SUCCEEDED",
                     "explanation": explanation.model_dump(mode="json"),
                     "citation_reference_validation": "PASS",
                     "semantic_hallucination_assessment": "NOT_EVALUATED",
+                    "host_validation_attempts": validation_attempts,
+                    "host_validation_failures": validation_failures,
                     "backend_receipt": getattr(self.llm_backend, "last_call_metadata", {}),
                 }
             except Exception as exc:
@@ -1136,6 +1186,8 @@ class PlatformKnowledgeEnrichmentService:
                     "explanation": None,
                     "error": {"type": type(exc).__name__, "message": str(exc)},
                     "semantic_hallucination_assessment": "NOT_EVALUATED",
+                    "host_validation_attempts": validation_attempts,
+                    "host_validation_failures": validation_failures,
                 }
         timings["llm_generation"] = round(time.monotonic() - generation_started, 6)
 

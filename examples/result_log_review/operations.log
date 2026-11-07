@@ -1,0 +1,2 @@
+2026-10-08T06:10:00Z WARN ADCS_RW_FRICTION_INCREASE: motor_current_a elevated and wheel speed trend changed; unverified synthetic example log.
+2026-10-08T06:11:00Z INFO ADCS subsystem operator review requested; raw telemetry and hardware inspection not performed.

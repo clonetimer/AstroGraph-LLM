@@ -1,0 +1,39 @@
+{
+  "http_status": 200,
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "核查提示：三阶段控制模式均为恒速；电流与力矩变化仍需排除指令变化。\n结论边界：以上数值不代表故障已确诊。"
+        }
+      }
+    ],
+    "created": 1794061507,
+    "model": "E:\\lmstudio\\PaddlePaddle\\PaddleOCR-VL-1.6-GGUF\\PaddleOCR-VL-1.6-GGUF.gguf",
+    "system_fingerprint": "b1-6c01da6",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 34,
+      "prompt_tokens": 878,
+      "total_tokens": 912,
+      "prompt_tokens_details": {
+        "cached_tokens": 7
+      }
+    },
+    "id": "chatcmpl-xz6uaXwJwPUy02NfSVZ7lwJU67YEoUkl",
+    "timings": {
+      "cache_n": 7,
+      "prompt_n": 871,
+      "prompt_ms": 923.669,
+      "prompt_per_token_ms": 1.0604695752009186,
+      "prompt_per_second": 942.9784912127612,
+      "predicted_n": 34,
+      "predicted_ms": 1187.929,
+      "predicted_per_token_ms": 35.99784848484849,
+      "predicted_per_second": 27.77943799671529
+    }
+  }
+}

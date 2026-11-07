@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-4ctzrt1071lh89svae3ci",
+  "object": "chat.completion",
+  "created": 1794038454,
+  "model": "qwen/qwen3.5-9b",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"abstained\": false,\n  \"summary\": \"诊断模型基于反作用轮（RW）电机电流与绕组温度异常升高，提出候选根因为“摩擦增大”（ADCS_RW_FRICTION_INCREASE）。然而，现有证据仅包含两条警告日志，缺乏对转速、力矩指令、控制模式及摩擦力矩估计等关键工况参数的对齐数据。根据本地知识库，机械负载变化虽可导致电流与温升，但无法排除指令变化或测量偏差等其他因素。因此，当前诊断尚不能确认为根因，需进一步核查工况一致性并获取独立测量数据以区分摩擦增大与其他干扰源。\",\n  \"candidate_fault_id\": \"ADCS_RW_FRICTION_INCREASE\",\n  \"claims\": [\n    {\n      \"kind\": \"OBSERVATION\",\n      \"text\": \"2026-09-20T08:00:35Z ADCS wheel_0 电机电流为 0.34A，高于本地基线。\",\n      \"citation_ids\": [\"D1-0006\"]\n    },\n    {\n      \"kind\": \"OBSERVATION\",\n      \"text\": \"2026-09-20T08:01:00Z ADCS wheel_0 绕组温度升至 38.6C，呈上升趋势。\",\n      \"citation_ids\": [\"D1-0007\"]\n    },\n    {\n      \"kind\": \"LOCAL_KNOWLEDGE\",\n      \"text\": \"反作用轮机械负载变化可能使电机电流和绕组温度上升；但电流、温度升高也可能与力矩指令、控制模式、环境条件或测量偏差有关，仅凭两条日志不能确诊摩擦增大。\",\n      \"citation_ids\": [\"upload:d7acca75f74d9a52504f:section:0002\"]\n    },\n    {\n      \"kind\": \"LOCAL_KNOWLEDGE\",\n      \"text\": \"需核对同一轮组在相近转速、力矩指令和控制模式下的电流、绕组温度及摩擦力矩估计，并对齐时间戳；若工况不一致应先排除指令变化，若缺少摩擦力矩估计应保留根因不确定性。\",\n      \"citation_ids\": [\"upload:d7acca75f74d9a52504f:section:0003\"]\n    },\n    {\n      \"kind\": \"LOCAL_KNOWLEDGE\",\n      \"text\": \"本文件为界面和模型链路测试而编写，不是飞行型号手册，也不能作为当前任务根因证明。\",\n      \"citation_ids\": [\"upload:d7acca75f74d9a52504f:section:0001\"]\n    }\n  ],\n  \"limitations\": [\n    \"缺乏对转速、力矩指令、控制模式等工况参数的对齐数据，无法排除非摩擦因素导致的电流与温升。\",\n    \"未提供摩擦力矩估计值，难以量化机械负载变化与观测异常之间的因果关系。\",\n    \"本地知识库明确标注为测试材料，不具备飞行任务根因证明效力。\",\n    \"当前证据仅包含两条警告日志，不足以支撑确诊结论。\"\n  ],\n  \"recommended_review_actions\": [\n    \"获取并比对 wheel_0 在异常时段前后的转速、力矩指令与控制模式数据，确认工况一致性。\",\n    \"补充摩擦力矩估计值或独立测量数据，以区分摩擦增大与其他干扰源。\",\n    \"审查是否存在测量偏差或环境条件变化（如温度波动）对电流与温升的影响。\",\n    \"由人员批准后进行轮组切换、停机或参数调整等操作，以隔离故障变量。\"\n  ]\n}",
+        "reasoning_content": "",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2677,
+    "completion_tokens": 822,
+    "total_tokens": 3499,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "qwen/qwen3.5-9b"
+}

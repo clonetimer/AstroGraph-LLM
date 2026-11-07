@@ -1,0 +1,29 @@
+small errors being introduced in the trajectory estimate over the course of the 9-month journey. At the time of Mars insertion, the spacecraft trajectory was approximately 170 kilometers lower than planned. As a result, MCO either was destroyed in the atmosphere or re-entered heliocentric space after leaving Mars' atmosphere.
+
+The Board recognizes that mistakes occur on spacecraft projects. However, sufficient processes are usually in place on projects to catch these mistakes before they become critical to mission success. Unfortunately for MCO, the root cause was not caught by the processes in-place in the MCO project.
+
+A summary of the findings, contributing causes and MPL recommendations are listed below. These are described in more detail in the body of this report along with the MCO and MPL observations and recommendations.
+
+Root Cause: Failure to use metric units in the coding of a ground software file, “Small Forces,” used in trajectory models
+
+Contributing Causes:
+1. Undetected mismodeling of spacecraft velocity changes
+2. Navigation Team unfamiliar with spacecraft
+3. Trajectory correction maneuver number 5 not performed
+4. System engineering process did not adequately address transition from development to operations
+5. Inadequate communications between project elements
+6. Inadequate operations Navigation Team staffing
+7. Inadequate training
+8. Verification and validation process did not adequately address ground software
+
+MPL Recommendations:
+- Verify the consistent use of units throughout the MPL spacecraft design and operations
+- Conduct software audit for specification compliance on all data transferred between JPL and Lockheed Martin Astronautics
+- Verify Small Forces models used for MPL
+- Compare prime MPL navigation projections with projections by alternate navigation methods
+- Train Navigation Team in spacecraft design and operations
+- Prepare for possibility of executing trajectory correction maneuver number 5
+- Establish MPL systems organization to concentrate on trajectory correction maneuver number 5 and entry, descent and landing operations
+- Take steps to improve communications
+
+7

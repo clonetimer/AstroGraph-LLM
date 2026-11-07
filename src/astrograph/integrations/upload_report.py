@@ -1153,11 +1153,19 @@ class UploadReportJobStore:
                     if hasattr(subprocess, "CREATE_NEW_PROCESS_GROUP"):
                         flags |= subprocess.CREATE_NEW_PROCESS_GROUP
                     popen_kwargs["creationflags"] = flags
-                subprocess.Popen(
+                worker = subprocess.Popen(
                     [sys.executable, "-m", "astrograph.integrations.platform_worker",
                      "--root", str(self.root), "--job-id", job_id],
                     **popen_kwargs,
                 )
+            self._append_event(job_id, f"[WORKER_LAUNCHED] pid={worker.pid}")
+            if hasattr(worker, "wait"):
+                threading.Thread(
+                    target=self._watch_worker_exit,
+                    args=(job_id, worker),
+                    name=f"astrograph-worker-watch-{job_id[-8:]}",
+                    daemon=True,
+                ).start()
             return self.get(job_id)
         except PreflightBlockedError:
             raise
@@ -1174,6 +1182,28 @@ class UploadReportJobStore:
             raise
         finally:
             launch_lock.unlink(missing_ok=True)
+
+    def _watch_worker_exit(self, job_id: str, worker: subprocess.Popen) -> None:
+        """Fail a pending task if its process dies before writing a terminal state."""
+        try:
+            exit_code = worker.wait()
+            job = self.get(job_id)
+            if job["status"] not in {"QUEUED", "RUNNING"}:
+                return
+            job.update(
+                status="FAILED",
+                stage="FAILED",
+                stage_detail="后台进程退出，任务未完成",
+                completed_at=_now(),
+                error={
+                    "type": "WorkerProcessExited",
+                    "message": f"后台进程退出码 {exit_code}；请查看任务 worker.log",
+                },
+            )
+            self._save(job)
+            self._append_event(job_id, f"[FAILED] worker exited before task completion: code={exit_code}")
+        except Exception as exc:
+            self._append_event(job_id, f"[WORKER_MONITOR_ERROR] {type(exc).__name__}")
 
     def _run_result_log_review(
         self, job_id: str, *, expanded: Path, manifest_path: Path,
@@ -1301,6 +1331,9 @@ class UploadReportJobStore:
             "schema_version": "astrograph-platform-visualization.v1", "status": "NOT_APPLICABLE_DOCUMENT_ONLY",
             "channels": [], "truth_or_labels_used": False,
         })
+        # Stage updates persist a fresh job object. Re-read it before the final
+        # save so the LLM result is not overwritten by the pre-enrichment copy.
+        job = self.get(job_id)
         job.update({
             "status": "SUCCEEDED", "stage": "COMPLETED", "stage_detail": "材料复核与处置建议报告已生成",
             "artifact_kind": "RESULT_LOG_REVIEW", "completed_at": report["completed_at"],

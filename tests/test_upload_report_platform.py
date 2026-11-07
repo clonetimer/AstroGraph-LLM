@@ -485,6 +485,35 @@ def test_platform_start_uses_explicit_stdio_handles(tmp_path: Path, monkeypatch:
         assert captured["start_new_session"] is True
 
 
+def test_platform_marks_job_failed_when_worker_exits_before_completion(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import subprocess
+    import time
+
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_JOB_EXECUTOR", "process")
+    store = UploadReportJobStore(tmp_path / "worker-exit-jobs")
+    job = store.create("worker import failure must be visible")
+    _put_all(store, job["job_id"], _public_case_files())
+
+    class ExitedProcess:
+        pid = 4567
+
+        def wait(self):
+            return 17
+
+    monkeypatch.setattr(subprocess, "Popen", lambda *args, **kwargs: ExitedProcess())
+    store.start(job["job_id"])
+    deadline = time.monotonic() + 2
+    current = store.get(job["job_id"])
+    while current["status"] == "QUEUED" and time.monotonic() < deadline:
+        time.sleep(.02)
+        current = store.get(job["job_id"])
+    assert current["status"] == "FAILED"
+    assert current["error"]["type"] == "WorkerProcessExited"
+    assert "17" in current["error"]["message"]
+
+
 def test_platform_local_start_uses_thread_and_exposes_stage_diagnostics(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     import time
 
@@ -508,6 +537,27 @@ def test_platform_local_start_uses_thread_and_exposes_stage_diagnostics(tmp_path
     assert diagnostics["status"] == "SUCCEEDED"
     assert "CORE_DIAGNOSIS" in diagnostics["log_tail"]
     assert diagnostics["secret_returned"] is False
+
+
+def test_platform_account_process_executor_reaches_terminal_state(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import time
+
+    monkeypatch.setenv("ASTROGRAPH_AUTH_MODE", "accounts")
+    monkeypatch.setenv("ASTROGRAPH_PLATFORM_JOB_EXECUTOR", "process")
+    store = UploadReportJobStore(tmp_path / "process-jobs")
+    job = store.create("account process diagnosis", "normal")
+    _put_all(store, job["job_id"], _public_case_files())
+
+    queued = store.start(job["job_id"])
+    assert queued["execution_backend"] == "PROCESS"
+    deadline = time.monotonic() + 40
+    current = queued
+    while current["status"] not in {"SUCCEEDED", "FAILED"} and time.monotonic() < deadline:
+        time.sleep(.05)
+        current = store.get(job["job_id"])
+    assert current["status"] == "SUCCEEDED", store.diagnostics(job["job_id"])
 
 
 def test_platform_local_thread_reaches_configured_structured_llm_after_core_diagnosis(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

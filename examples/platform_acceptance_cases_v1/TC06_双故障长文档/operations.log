@@ -1,0 +1,3 @@
+2026-09-20T14:00:00Z WARN ADCS star_tracker_valid=false tracker invalid
+ 2026-09-20T14:02:00Z WARN COMM tx_power below baseline pa_current=0.17A
+ 2026-09-20T14:02:40Z INFO COMM ground link geometry changed

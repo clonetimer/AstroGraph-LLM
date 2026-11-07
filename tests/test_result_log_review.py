@@ -58,6 +58,7 @@ def test_material_review_store_preflight_report_and_provenance(tmp_path: Path) -
     assert report["analysis"]["effect_guard"]["raw_telemetry_detection_executed"] is False
     assert report["visualization"]["status"] == "NOT_APPLICABLE_DOCUMENT_ONLY"
     assert store.report(job_id) == report
+    assert store.diagnostics(job_id)["llm_call_status"] == report["analysis"]["knowledge_enrichment"]["generation"]["status"]
     assert "处置措施" in store.report_markdown_path(job_id).read_text(encoding="utf-8")
     maintenance = store.maintenance(job_id)
     assert maintenance["diagnosis_disposition"] == "REVIEW_REQUIRED"

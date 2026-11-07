@@ -1,0 +1,33 @@
+{
+  "case_id": "GAL2017",
+  "model_requested": "qwen/qwen3.5-9b",
+  "source_sha256": "15f8ccee436b218cbf6f4cd4561a3512201c9084a065eb9a7afa5bf24c80ceef",
+  "guidance_sha256": "8ad55a04fcd330254894c6d81024313ab4f55d1da9fc2ce2f64372f000317254",
+  "request_sha256": "6840951cacba0812c583e3f4cb5e9842bd2da0611f2cf2a0390d3a379349831f",
+  "settings": {
+    "model": "qwen/qwen3.5-9b",
+    "reasoning": "off",
+    "temperature": 0,
+    "max_output_tokens": 850,
+    "store": false
+  },
+  "started_utc": "2026-11-07T08:18:51.497931+00:00",
+  "endpoint_kind": "LM Studio native /api/v1/chat",
+  "http_status": 200,
+  "output": [
+    {
+      "type": "message",
+      "content": "**来源量表**\n1. **时间量**：信息截止 2017-01-19（ESA 公开通报日），标记为“当时可见材料”；失效事件发生在近期，具体起止时间未知（来源：GAL-INITIAL）。\n2. **设备与构型对应关系**：每颗卫星配有两台铷原子频标（RAFS）和两台无源氢钟（PHM）。RAFS 失效共 3 台，全在 FOC 构型；IOV 构型未报告 RAFS 失效。PHM 失效共 6 台（IOV 5 台、FOC 1 台）（来源：GAL-INITIAL）。\n3. **异常特征描述**：RAFS 失效特征相似，疑似短路及地面试验程序相关；PHM 问题分两类：部分单元参数裕度偏低，以及长时间关闭后无法重启的在轨特性变化（来源：GAL-INITIAL）。\n\n**故障现象与原因辨析**\n当前异常分为两类独立现象。第一类为 RAFS 失效，仅发生于 FOC 构型，IOV 构型表现正常，暗示构型差异或批次因素可能影响机理。第二类为 PHM 失效，跨越 IOV 与 FOC 构型，但内部机制截然不同：一类是参数裕度不足导致的性能退化，另一类则是长期关机引发的不可逆在轨特性改变。严禁将 RAFS 的“短路”机理套用于 PHM，亦不可将 PHM 的“重启失败”归因于 RAFS 的“试验程序”。\n\n**待核查证据与不确定性**\n根因尚未确定，需进一步核查：RAFS 方面，应调取地面试验程序记录以验证“短路”假设，并对比 FOC 与 IOV 的硬件批次差异；PHM 方面，需获取具体遥测数据以区分是“裕度偏低”还是“重启失效”，同时排查长时间关机历史。目前无法确认失效是否由单一事件引发，亦未知地面试验程序的具体内容及其与在轨故障的直接因果链。所有结论均基于公开摘要，缺乏逐台诊断数据支持。"
+    }
+  ],
+  "stats": {
+    "input_tokens": 456,
+    "total_output_tokens": 475,
+    "reasoning_output_tokens": 0,
+    "tokens_per_second": 5.069827081354136,
+    "time_to_first_token_seconds": 1.028739
+  },
+  "error": null,
+  "response_sha256": "8d5679f0c4cd446f8a6b61f9d9977c85edd9ad857a099202490c3afd8eae7f5d",
+  "elapsed_s": 94.623
+}

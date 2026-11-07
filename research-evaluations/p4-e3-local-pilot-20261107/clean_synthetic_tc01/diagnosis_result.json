@@ -1,0 +1,9 @@
+{
+  "schema_version": "external-diagnosis-result.v1",
+  "case_id": "SYNTH-ADCS-001-UTF8",
+  "equipment_scope": "LAB_ADCS_V1",
+  "subsystem": "ADCS",
+  "candidate_fault_id": "ADCS_RW_FRICTION_INCREASE",
+  "diagnostic_summary": "筛查模型提示反作用轮摩擦增大，但缺少独立测量与工况对齐，尚不能确诊根因。",
+  "review_status": "UNVERIFIED"
+}

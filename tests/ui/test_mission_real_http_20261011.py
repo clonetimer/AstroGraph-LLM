@@ -81,10 +81,13 @@ def open_workbench(page, server):
 def test_default_platform_real_http_auto_preflight_and_abstain(server):
     with sync_playwright() as p:
         b=launch(p);page=b.new_page(viewport={'width':1440,'height':900},locale='zh-CN')
+        screenshots=Path(os.environ['ASTROGRAPH_UI_SCREENSHOTS']) if os.environ.get('ASTROGRAPH_UI_SCREENSHOTS') else None
+        if screenshots:screenshots.mkdir(parents=True,exist_ok=True)
         if os.environ.get('ASTROGRAPH_TEST_NETWORK_BRIDGE')!='1': configure_browser_network(page,server)
         errors=[];page.on('pageerror',lambda err:errors.append(str(err)))
         open_workbench(page,server)
         assert page.locator('#screen-command.active').is_visible()
+        if screenshots:page.screenshot(path=str(screenshots/'01_首页.png'),full_page=True)
         page.locator('[data-route="upload"]').click()
         assert not page.locator('#mission-preflight').is_disabled()
         with TestClient(create_app()) as c:
@@ -95,11 +98,14 @@ def test_default_platform_real_http_auto_preflight_and_abstain(server):
         page.wait_for_function("!document.querySelector('#mission-start').disabled",timeout=40000)
         assert '通过' in page.locator('#preflight-results').inner_text()
         assert page.locator('[data-upload-step="3"]').get_attribute('class').find('active')>=0
+        if screenshots:page.screenshot(path=str(screenshots/'02_上传预检.png'),full_page=True)
         page.locator('#mission-start').click()
         page.wait_for_selector('#screen-report.active',timeout=90000)
         page.locator('#action-evidence').wait_for(state='visible')
         assert 'ABSTAIN' in page.locator('#action-evidence').inner_text()
         assert page.locator('#action-evidence').get_attribute('data-decision-code').startswith('ABSTAIN')
+        if screenshots:page.screenshot(path=str(screenshots/'03_分析报告.png'),full_page=True)
+        page.locator('.report-more summary').click()
         assert page.locator('#report-export-json').is_visible()
         assert not errors,errors
         b.close()

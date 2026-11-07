@@ -1,0 +1,2 @@
+2026-09-20T16:00:00Z WARN THERMAL heater_command=OFF heater_current=0.52A
+ 2026-09-20T16:00:25Z WARN temperature rising despite off command

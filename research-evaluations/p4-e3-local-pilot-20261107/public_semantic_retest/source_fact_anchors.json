@@ -1,0 +1,47 @@
+{
+  "status": "DEVELOPMENT_REVIEW_ANCHORS_NOT_INDEPENDENT_GOLD",
+  "NH2015": [
+    {
+      "source_line": 7,
+      "quote": "13:54 失去联系，15:15 恢复联系",
+      "interpretation": "这是地面失联与恢复时刻；两者间隔 81 分钟。"
+    },
+    {
+      "source_line": 7,
+      "quote": "往返通信延迟约 9 小时",
+      "interpretation": "9 小时是往返通信延迟，不是失联持续时间，也不是已知异常原因。"
+    },
+    {
+      "source_line": 7,
+      "quote": "随后开始下传供诊断的遥测；异常审查组已成立",
+      "interpretation": "没有给出星上切换、遥测开始或审查组成立的具体时刻。"
+    }
+  ],
+  "GAL2017": [
+    {
+      "source_line": 7,
+      "quote": "18 颗在轨卫星中有 5 颗出现原子钟异常",
+      "interpretation": "5 颗是出现钟异常的卫星数，不是 RAFS 失效台数。"
+    },
+    {
+      "source_line": 7,
+      "quote": "3 台 RAFS 失效，均在 FOC 构型卫星上；IOV 构型未报告 RAFS 失效",
+      "interpretation": "RAFS：FOC 3 台；IOV 未报告失效。"
+    },
+    {
+      "source_line": 9,
+      "quote": "PHM 在 IOV 卫星上有 5 台失效、FOC 上有 1 台失效",
+      "interpretation": "PHM：IOV 5 台；FOC 1 台。不能转移到 RAFS。"
+    },
+    {
+      "source_line": 7,
+      "quote": "可能与短路及某种地面试验程序有关，但当时尚未确定根因",
+      "interpretation": "这是 RAFS 的未验证线索，不能作为最终根因，也不能直接套给 PHM。"
+    },
+    {
+      "source_line": 9,
+      "quote": "一些长时间关闭后不能重新启动的在轨特性变化",
+      "interpretation": "通报未说明不可逆性，也没有逐台钟的机理确证。"
+    }
+  ]
+}

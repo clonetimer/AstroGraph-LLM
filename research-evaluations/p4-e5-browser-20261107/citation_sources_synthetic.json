@@ -1,0 +1,291 @@
+{
+  "scope": "synthetic backend test output; not mission truth",
+  "cases": {
+    "graph": {
+      "source_test": "jobs",
+      "candidate": {
+        "log_evidence_matrix": {
+          "events": [
+            {
+              "assessment": "POSSIBLE_SUPPORTING_CUE",
+              "evidence_id": "MLOG-00001",
+              "excerpt": "2026-10-08T12:00:00Z WARN ADCS EV_RW_MOTOR_CURRENT motor_current_a elevated",
+              "filename": "operations.log",
+              "locator": "line:1",
+              "role": "log_reports",
+              "severity": "WARNING_OR_ERROR",
+              "sha256": "ec6938062fb7ddbb6c2cc00803e2de363edb53821f0cc53facee6f0e71654ed0",
+              "temporal_causality_verified": false,
+              "timestamp": "2026-10-08T12:00:00+00:00"
+            }
+          ]
+        },
+        "reference_retrieval": {
+          "hits": [
+            {
+              "diagnostic_vote_allowed": false,
+              "filename": "reference.md",
+              "fusion_score": 0.18196721,
+              "knowledge_id": "upload:78db99d2a9f70dbd761c:section:0001",
+              "knowledge_validation_status": "UNREVIEWED_UPLOADED_REFERENCE",
+              "modalities": [
+                "TEXT"
+              ],
+              "quote": "反作用轮摩擦增大时，可交叉核对轮速、电机电流和绕组温度，并需排除驱动限幅。\n执行轮组切换、降额等控制操作须经过任务授权和安全审查。",
+              "quote_chunk_char_offset": 0,
+              "quote_is_contiguous_original_representation": true,
+              "quote_sha256": "22f63ff5902ebe5120e8d0213047c0f3038d150a8dff2e33fc88dc8595563da2",
+              "quote_truncated": false,
+              "rank": 1,
+              "representation_safety_status": "PASS",
+              "retrieval_channels": [
+                "BM25",
+                "CHAR_NGRAM"
+              ],
+              "section_path": [
+                "姿态控制运维手册节选（演示资料，不代表真实飞行操作规程）"
+              ],
+              "source_id": "upload:78db99d2a9f70dbd761c",
+              "source_locators": [
+                "lines:2-3"
+              ],
+              "source_sha256": "78db99d2a9f70dbd761c41d81eb052dfa6602f96e25961742fad4756cebd0bb6",
+              "support_scope": "TOPICAL_KNOWLEDGE_ONLY_NOT_OBSERVED_CAUSE",
+              "table_header_context": "",
+              "table_row_window": false
+            }
+          ]
+        },
+        "graph_evidence_paths": [
+          {
+            "evidence_definition_id": "EV_RW_MOTOR_CURRENT",
+            "evidence_label": "motor_current",
+            "fault_id": "ADCS_RW_FRICTION_INCREASE",
+            "graph_path_id": "KG-9559B13BC2D22CD9",
+            "knowledge_version": "KG-V1",
+            "matched_log_ids": [
+              "MLOG-00001"
+            ],
+            "observation_status": "UNVERIFIED_TEXT_ID_MENTION",
+            "path_entity_ids": [
+              "ADCS_RW_FRICTION_INCREASE",
+              "EV_RW_MOTOR_CURRENT"
+            ],
+            "relation_provenance": {
+              "review_status": "REVIEWED"
+            },
+            "relation_type": "REQUIRES_EVIDENCE",
+            "review_status": "KG_RELATION_NOT_LOG_OBSERVATION"
+          }
+        ],
+        "historical_confirmed_cases": {
+          "hits": []
+        }
+      }
+    },
+    "approved_history": {
+      "source_test": "jobs",
+      "candidate": {
+        "log_evidence_matrix": {
+          "events": [
+            {
+              "assessment": "POSSIBLE_SUPPORTING_CUE",
+              "evidence_id": "MLOG-00001",
+              "excerpt": "2026-10-08T06:10:00Z WARN ADCS_RW_FRICTION_INCREASE: motor_current_a elevated and wheel speed trend changed; unverified synthetic example log.",
+              "filename": "operations.log",
+              "locator": "line:1",
+              "role": "log_reports",
+              "severity": "WARNING_OR_ERROR",
+              "sha256": "caf8645a182cad2a82d311def2362150ff2e94b7b2778a65334775da01be0d4c",
+              "temporal_causality_verified": false,
+              "timestamp": "2026-10-08T06:10:00+00:00"
+            }
+          ]
+        },
+        "reference_retrieval": {
+          "hits": [
+            {
+              "diagnostic_vote_allowed": false,
+              "filename": "reference.md",
+              "fusion_score": 0.18196721,
+              "knowledge_id": "approved:MRD-FC42AF751BAD7A1D345A5F8E:upload:78db99d2a9f70dbd761c:section:0001",
+              "knowledge_validation_status": "EXPERT_APPROVED_HISTORICAL_REFERENCE",
+              "modalities": [
+                "TEXT"
+              ],
+              "quote": "反作用轮摩擦增大时，可交叉核对轮速、电机电流和绕组温度，并需排除驱动限幅。\n执行轮组切换、降额等控制操作须经过任务授权和安全审查。",
+              "quote_chunk_char_offset": 0,
+              "quote_is_contiguous_original_representation": true,
+              "quote_sha256": "22f63ff5902ebe5120e8d0213047c0f3038d150a8dff2e33fc88dc8595563da2",
+              "quote_truncated": false,
+              "rank": 1,
+              "representation_safety_status": "REVIEWED",
+              "retrieval_channels": [
+                "BM25",
+                "CHAR_NGRAM"
+              ],
+              "section_path": [
+                "姿态控制运维手册节选（演示资料，不代表真实飞行操作规程）"
+              ],
+              "source_id": "approved:MRD-FC42AF751BAD7A1D345A5F8E",
+              "source_locators": [
+                "lines:2-3"
+              ],
+              "source_sha256": "78db99d2a9f70dbd761c41d81eb052dfa6602f96e25961742fad4756cebd0bb6",
+              "support_scope": "TOPICAL_KNOWLEDGE_ONLY_NOT_OBSERVED_CAUSE",
+              "table_header_context": "",
+              "table_row_window": false
+            }
+          ]
+        },
+        "graph_evidence_paths": [],
+        "historical_confirmed_cases": {
+          "hits": [
+            {
+              "approved_actions": [
+                "由值班专家复核电机驱动机构，按已批准规程处理"
+              ],
+              "case_id": "MRC-9155EDCF5F3414C9DF0432A3",
+              "diagnostic_vote_allowed": false,
+              "equipment_scope": "SAT-A_ADCS_V2",
+              "proposed_fault_id": "ADCS_RW_FRICTION_INCREASE",
+              "relation_status": "CONSISTENT_HISTORICAL_CASE",
+              "reviewer": "chief-reviewer",
+              "snapshot": 1,
+              "source_group_id": "JOB-FE87E56DB9A1827D131BBD06",
+              "status": "CONFIRMED_HISTORICAL_CASE_NOT_CURRENT_TRUTH",
+              "truth_source_ref": "Independent lab ticket 100",
+              "verified_fault_id": "ADCS_RW_FRICTION_INCREASE"
+            }
+          ]
+        }
+      }
+    },
+    "misclassification_history": {
+      "source_test": "jobs",
+      "candidate": {
+        "log_evidence_matrix": {
+          "events": [
+            {
+              "assessment": "POSSIBLE_SUPPORTING_CUE",
+              "evidence_id": "MLOG-00001",
+              "excerpt": "2026-10-08T06:10:00Z WARN ADCS_RW_FRICTION_INCREASE: motor_current_a elevated and wheel speed trend changed; unverified synthetic example log.",
+              "filename": "operations.log",
+              "locator": "line:1",
+              "role": "log_reports",
+              "severity": "WARNING_OR_ERROR",
+              "sha256": "caf8645a182cad2a82d311def2362150ff2e94b7b2778a65334775da01be0d4c",
+              "temporal_causality_verified": false,
+              "timestamp": "2026-10-08T06:10:00+00:00"
+            }
+          ]
+        },
+        "reference_retrieval": {
+          "hits": [
+            {
+              "diagnostic_vote_allowed": false,
+              "filename": "reference.md",
+              "fusion_score": 0.18196721,
+              "knowledge_id": "upload:78db99d2a9f70dbd761c:section:0001",
+              "knowledge_validation_status": "UNREVIEWED_UPLOADED_REFERENCE",
+              "modalities": [
+                "TEXT"
+              ],
+              "quote": "反作用轮摩擦增大时，可交叉核对轮速、电机电流和绕组温度，并需排除驱动限幅。\n执行轮组切换、降额等控制操作须经过任务授权和安全审查。",
+              "quote_chunk_char_offset": 0,
+              "quote_is_contiguous_original_representation": true,
+              "quote_sha256": "22f63ff5902ebe5120e8d0213047c0f3038d150a8dff2e33fc88dc8595563da2",
+              "quote_truncated": false,
+              "rank": 1,
+              "representation_safety_status": "PASS",
+              "retrieval_channels": [
+                "BM25",
+                "CHAR_NGRAM"
+              ],
+              "section_path": [
+                "姿态控制运维手册节选（演示资料，不代表真实飞行操作规程）"
+              ],
+              "source_id": "upload:78db99d2a9f70dbd761c",
+              "source_locators": [
+                "lines:2-3"
+              ],
+              "source_sha256": "78db99d2a9f70dbd761c41d81eb052dfa6602f96e25961742fad4756cebd0bb6",
+              "support_scope": "TOPICAL_KNOWLEDGE_ONLY_NOT_OBSERVED_CAUSE",
+              "table_header_context": "",
+              "table_row_window": false
+            }
+          ]
+        },
+        "graph_evidence_paths": [],
+        "historical_confirmed_cases": {
+          "hits": [
+            {
+              "approved_actions": [
+                "只针对经确认的卡滞故障使用的独立批准规程"
+              ],
+              "case_id": "MRC-0FC073929B13F6E3665C78E2",
+              "diagnostic_vote_allowed": false,
+              "equipment_scope": "SAT-A_ADCS_V2",
+              "proposed_fault_id": "ADCS_RW_FRICTION_INCREASE",
+              "relation_status": "PRIOR_UPSTREAM_MISCLASSIFICATION",
+              "reviewer": "independent-expert",
+              "snapshot": 1,
+              "source_group_id": "JOB-A95C66F1FF2070D3F8DD318D",
+              "status": "CONFIRMED_HISTORICAL_CASE_NOT_CURRENT_TRUTH",
+              "truth_source_ref": "Lab-failure-analysis-777",
+              "verified_fault_id": "ADCS_RW_JAM"
+            }
+          ]
+        }
+      }
+    },
+    "uploaded_reference": {
+      "source_test": "p4-e3-local-pilot-20261107/platform_tc01_zh",
+      "candidate": {
+        "log_evidence_matrix": {
+          "events": []
+        },
+        "reference_retrieval": {
+          "hits": [
+            {
+              "rank": 1,
+              "knowledge_id": "upload:ddf6c6d8348675e3b1fa:section:0001",
+              "filename": "reference.md",
+              "source_id": "upload:ddf6c6d8348675e3b1fa",
+              "source_sha256": "ddf6c6d8348675e3b1fa5af4774e27d1c10af3d1a8c7da1851d103b551199983",
+              "section_path": [
+                "LAB_ADCS_V1 实验台故障分析手册（合成测试资料）"
+              ],
+              "source_locators": [
+                "lines:2-6"
+              ],
+              "modalities": [
+                "TEXT"
+              ],
+              "quote": "## 反作用轮机械损耗相关机理\n 反作用轮摩擦增大是可能的故障候选。电机电流和轮绕组温度增加可能与其有关，但并不单独构成确诊。\n 需要比较相同指令/轮速条件下的电流、温度、摩擦力矩估计，并排除驱动限幅或测量误差。\n ## 处置限制\n 任何反作用轮切换、停机或控制参数更改都需独立审核和操作授权。本手册仅为测试资料。",
+              "quote_sha256": "fd59aeea6da522541ef97eb4fb1d705af5e6c0c8957a9f6fde9a8983036f3933",
+              "table_header_context": "",
+              "table_row_window": false,
+              "quote_truncated": false,
+              "quote_chunk_char_offset": 0,
+              "quote_is_contiguous_original_representation": true,
+              "fusion_score": 0.18196721,
+              "retrieval_channels": [
+                "BM25",
+                "CHAR_NGRAM"
+              ],
+              "knowledge_validation_status": "UNREVIEWED_UPLOADED_REFERENCE",
+              "representation_safety_status": "PASS",
+              "support_scope": "TOPICAL_KNOWLEDGE_ONLY_NOT_OBSERVED_CAUSE",
+              "diagnostic_vote_allowed": false
+            }
+          ]
+        },
+        "graph_evidence_paths": [],
+        "historical_confirmed_cases": {
+          "hits": []
+        }
+      }
+    }
+  }
+}

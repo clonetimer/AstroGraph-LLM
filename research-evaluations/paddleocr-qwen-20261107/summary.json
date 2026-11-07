@@ -1,0 +1,33 @@
+{
+  "endpoint": "http://127.0.0.1:1235/v1/chat/completions",
+  "model": "E:\\lmstudio\\PaddlePaddle\\PaddleOCR-VL-1.6-GGUF\\PaddleOCR-VL-1.6-GGUF.gguf",
+  "results": {
+    "mco_page_11_generic": {
+      "source_image": "mco_page_11.png",
+      "image_sha256": "6baa8a8449756d559a9f6d6ad8e5e19d0e0637f318b34ab89f04d59d7f16f3f2",
+      "prompt": "Transcribe every visible word on this document page, including all labels and bullet points inside the figure. Preserve reading order as far as possible. Do not infer words that are not visible. Output only the transcription.",
+      "http_status": 200,
+      "elapsed_seconds": 22.254,
+      "content_chars": 1003,
+      "finish_reason": "stop"
+    },
+    "mco_page_07_generic": {
+      "source_image": "mco_page_07.png",
+      "image_sha256": "4f91b6b3bc706c3bf80c1fcb949648942eb91a0c59c8725a9180d2fec87afd62",
+      "prompt": "Transcribe every visible word on this document page, including all labels and bullet points inside the figure. Preserve reading order as far as possible. Do not infer words that are not visible. Output only the transcription.",
+      "http_status": 200,
+      "elapsed_seconds": 16.431,
+      "content_chars": 2140,
+      "finish_reason": "stop"
+    },
+    "mco_page_11_native_ocr": {
+      "source_image": "mco_page_11.png",
+      "image_sha256": "6baa8a8449756d559a9f6d6ad8e5e19d0e0637f318b34ab89f04d59d7f16f3f2",
+      "prompt": "ocr",
+      "http_status": 200,
+      "elapsed_seconds": 21.24,
+      "content_chars": 1002,
+      "finish_reason": "stop"
+    }
+  }
+}

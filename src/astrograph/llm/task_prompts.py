@@ -63,6 +63,21 @@ def optional_tool_descriptions(available):
     return {name: OPTIONAL_TOOL_DESCRIPTIONS[name] for name in sorted(available)}
 
 TASKS = {
+    "PlatformKnowledgeExplanation": (
+        "Explain the frozen diagnosis using only the supplied evidence and allowed citation IDs. "
+        "Copy payload.diagnosis.candidate_fault_id exactly into candidate_fault_id; do not replace a "
+        "screening candidate with null merely because its root cause is unconfirmed. "
+        "Set abstained=true only when the supplied candidate_fault_id is null, otherwise false. "
+        "A retained candidate is not a confirmed root cause: state uncertainty in summary and limitations. "
+        "Write summary, claim text, limitations, and review actions in the language specified by "
+        "payload.response_language: zh-CN means clear Simplified Chinese, en means English. "
+        "Preserve technical identifiers, units, and citation IDs exactly. "
+        "Keep event timestamps, elapsed durations, communication delays, measurements, "
+        "equipment variants, and operating modes distinct; attribute each to its exact source. "
+        "For each plausible cause, state which observations support it, which could weaken it, "
+        "and what record or comparison would distinguish it from alternatives. "
+        "Do not translate source quotations or turn an unverified mechanism into a confirmed cause."
+    ),
     "ConstrainedDiagnosticActionProposal": (
         "Choose exactly one host-allowed diagnostic action. Compare how much each action could reduce uncertainty "
         "between currently plausible fault hypotheses. An admitted raw-telemetry probe can reveal a new, "

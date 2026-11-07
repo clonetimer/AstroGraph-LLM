@@ -1,0 +1,65 @@
+{
+  "source_pdf_sha256": "ed4c0c5a23e4e30df7279924ad0978cf00984fd4ebe58a1f7297ba157b0cdbc6",
+  "reference_method": "pdftotext -layout; PDF embedded text, not independent transcription gold",
+  "page7_text_word_sequence_similarity": 0.9984,
+  "page7_reference_words": 306,
+  "page7_model_words": 305,
+  "page11_whole_page_reference_words": 181,
+  "page11_whole_page_model_words": 76,
+  "page11_whole_page_word_sequence_similarity": 0.5914,
+  "page11_figure_anchor_presence": {
+    "Mars Climate Orbiter": {
+      "whole_page": false,
+      "cropped_figure": true
+    },
+    "Launch 12/11/98": {
+      "whole_page": false,
+      "cropped_figure": true
+    },
+    "629 kg launch mass": {
+      "whole_page": false,
+      "cropped_figure": true
+    },
+    "4 midcourse maneuvers": {
+      "whole_page": false,
+      "cropped_figure": true
+    },
+    "Arrival 9/23/99": {
+      "whole_page": false,
+      "cropped_figure": true
+    },
+    "13–14 hour orbit": {
+      "whole_page": false,
+      "cropped_figure": true
+    },
+    "Aerobraking to be completed prior to MPL arrival": {
+      "whole_page": false,
+      "cropped_figure": true
+    }
+  },
+  "page11_image_analysis_unverified_additions": [
+    "Aerial",
+    "Final Output"
+  ],
+  "layout_box_tokens": {
+    "mco_page_07": 0,
+    "mco_page_11": 0
+  },
+  "alternative_model_comparison": {
+    "qwen/qwen3-vl-4b": {
+      "page11_words": 179,
+      "page11_word_sequence_similarity": 0.7778,
+      "page11_figure_anchors_present": 7,
+      "page7_word_sequence_similarity": 1.0
+    },
+    "qwen2.5-vl-7b-instruct": {
+      "page11_words": 171,
+      "page11_word_sequence_similarity": 0.7898,
+      "page11_figure_anchors_present": 7
+    },
+    "minicpm5-2b": {
+      "http_status": 400,
+      "error_code": "invalid_value"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "http_status": 200,
+  "elapsed_seconds": 16.431,
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "small errors being introduced in the trajectory estimate over the course of the 9-month journey. At the time of Mars insertion, the spacecraft trajectory was approximately 170 kilometers lower than planned. As a result, MCO either was destroyed in the atmosphere or re-entered heliocentric space after leaving Mars' atmosphere.\n\nThe Board recognizes that mistakes occur on spacecraft projects. However, sufficient processes are usually in place on projects to catch these mistakes before they become critical to mission success. Unfortunately for MCO, the root cause was not caught by the processes in-place in the MCO project.\n\nA summary of the findings, contributing causes and MPL recommendations are listed below. These are described in more detail in the body of this report along with the MCO and MPL observations and recommendations.\n\nRoot Cause: Failure to use metric units in the coding of a ground software file, “Small Forces,” used in trajectory models\n\nContributing Causes:\n1. Undetected mismodeling of spacecraft velocity changes\n2. Navigation Team unfamiliar with spacecraft\n3. Trajectory correction maneuver number 5 not performed\n4. System engineering process did not adequately address transition from development to operations\n5. Inadequate communications between project elements\n6. Inadequate operations Navigation Team staffing\n7. Inadequate training\n8. Verification and validation process did not adequately address ground software\n\nMPL Recommendations:\n- Verify the consistent use of units throughout the MPL spacecraft design and operations\n- Conduct software audit for specification compliance on all data transferred between JPL and Lockheed Martin Astronautics\n- Verify Small Forces models used for MPL\n- Compare prime MPL navigation projections with projections by alternate navigation methods\n- Train Navigation Team in spacecraft design and operations\n- Prepare for possibility of executing trajectory correction maneuver number 5\n- Establish MPL systems organization to concentrate on trajectory correction maneuver number 5 and entry, descent and landing operations\n- Take steps to improve communications\n\n7"
+        }
+      }
+    ],
+    "created": 1794061142,
+    "model": "E:\\lmstudio\\PaddlePaddle\\PaddleOCR-VL-1.6-GGUF\\PaddleOCR-VL-1.6-GGUF.gguf",
+    "system_fingerprint": "b1-6c01da6",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 411,
+      "prompt_tokens": 1293,
+      "total_tokens": 1704,
+      "prompt_tokens_details": {
+        "cached_tokens": 48
+      }
+    },
+    "id": "chatcmpl-fD0eg7Pd8gfQ2obPDm6YrcCZl6ocsKaM",
+    "timings": {
+      "cache_n": 48,
+      "prompt_n": 1245,
+      "prompt_ms": 1430.952,
+      "prompt_per_token_ms": 1.1493590361445782,
+      "prompt_per_second": 870.0501484326518,
+      "predicted_n": 411,
+      "predicted_ms": 14908.044,
+      "predicted_per_token_ms": 36.36108292682927,
+      "predicted_per_second": 27.501931172191334
+    }
+  }
+}

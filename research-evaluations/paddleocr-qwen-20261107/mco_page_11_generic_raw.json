@@ -1,0 +1,40 @@
+{
+  "http_status": 200,
+  "elapsed_seconds": 22.254,
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The lander is expected to operate on the surface for 60 to 90 Martian days through the\nplanet's southern summer (a Martian day is 24 hours, 37 minutes). MPL will use the\nMGS as a data relay to Earth in place of the MCO. The mission will continue until the\nspacecraft can no longer protect itself from the cold and dark of lengthening nights and\nthe return of the Martian seasonal polar frosts.\nMars Climate Orbiter\nCruise\n- 4 midcourse maneuvers\n- 10-Month Cruise\nLaunch\n- Delta 7425\n- Launch 12/11/98\n- 629 kg launch mass\nMars Orbit Insertion and\nAerobraking\n- Arrival 9/23/99\n- MOI is the only use of the main\nMapping/Relay\n[biprop] engine. The 16-minute burn\n- 12/3/99 - 3/1/00: Mars Polar\ndepletes oxidizer and captures vehicle\nLander Support Phase\ninto 13-14 hour orbit.\n- 3/00 – 1/02 Mapping Phase\n- PMIRR and MARCI Science\n- Subsequent burn using hydrazine\nthrusters reduce orbit period further.\n- Relay for future landers\n- Aerobraking to be completed prior to\nMPL arrival [12/3/99].\nFigure 1\n11"
+        }
+      }
+    ],
+    "created": 1794061126,
+    "model": "E:\\lmstudio\\PaddlePaddle\\PaddleOCR-VL-1.6-GGUF\\PaddleOCR-VL-1.6-GGUF.gguf",
+    "system_fingerprint": "b1-6c01da6",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 595,
+      "prompt_tokens": 1293,
+      "total_tokens": 1888,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-cSa6WgkCcbUUzUYXXCq7U4o6MTBkOQkN",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 1293,
+      "prompt_ms": 1721.114,
+      "prompt_per_token_ms": 1.3311013147718485,
+      "prompt_per_second": 751.2576157070362,
+      "predicted_n": 595,
+      "predicted_ms": 20462.951,
+      "predicted_per_token_ms": 34.44941245791246,
+      "predicted_per_second": 29.02807126889958
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "job_id": "JOB-D55D40D36E2852785FB8D37B",
+  "report_status": "SUCCEEDED",
+  "llm_call_status": "SUCCEEDED",
+  "expert_reviewed_count": 1,
+  "native_browser_http": true
+}

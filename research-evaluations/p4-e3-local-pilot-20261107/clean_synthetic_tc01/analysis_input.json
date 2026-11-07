@@ -1,0 +1,7 @@
+{
+  "schema_version": "astrograph-result-log-review.v1",
+  "equipment_scope": "LAB_ADCS_V1",
+  "diagnosis_results": ["diagnosis_result.json"],
+  "log_reports": ["operations.txt"],
+  "references": ["reference.md"]
+}

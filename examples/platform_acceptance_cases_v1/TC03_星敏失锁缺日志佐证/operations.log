@@ -1,0 +1,3 @@
+2026-09-20T11:00:00Z INFO CPU scheduler_tick=ok
+ 2026-09-20T11:00:10Z INFO payload_buffer_pct=15
+ 2026-09-20T11:00:20Z INFO bus_mode=STANDARD

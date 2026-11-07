@@ -1,0 +1,2 @@
+2026-09-20T13:00:00Z WARN ADCS_RW_FRICTION_INCREASE motor_current elevated in test log
+ 2026-09-20T13:00:15Z WARN winding_temp rising but no upstream fault report

@@ -1,0 +1,40 @@
+{
+  "http_status": 200,
+  "elapsed_seconds": 6.406,
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "合成样例：反作用轮运行记录\n仅用于 OCR 对比，非真实卫星遥测\n设备编号：RW-A；数据类型：合成测试表\n阶段<fcel>时刻<fcel>轮速 rpm<fcel>电流 A<fcel>摩擦力矩 N·m<fcel>温度 ℃<nl><fcel>基线<fcel>10:00:00<fcel>600<fcel>0.20<fcel>0.003<fcel>31.0<nl><fcel>负载注入<fcel>10:01:00<fcel>600<fcel>0.34<fcel>0.009<fcel>38.6<nl><fcel>负载解除<fcel>10:02:00<fcel>600<fcel>0.21<fcel>0.003<fcel>31.5<nl>"
+        }
+      }
+    ],
+    "created": 1794061460,
+    "model": "E:\\lmstudio\\PaddlePaddle\\PaddleOCR-VL-1.6-GGUF\\PaddleOCR-VL-1.6-GGUF.gguf",
+    "system_fingerprint": "b1-6c01da6",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 158,
+      "prompt_tokens": 1296,
+      "total_tokens": 1454,
+      "prompt_tokens_details": {
+        "cached_tokens": 3
+      }
+    },
+    "id": "chatcmpl-QjEX5ufJ0OKWVxcxxXN5RuJUqtW9ueca",
+    "timings": {
+      "cache_n": 3,
+      "prompt_n": 1293,
+      "prompt_ms": 1280.819,
+      "prompt_per_token_ms": 0.9905792730085073,
+      "prompt_per_second": 1009.5103211304643,
+      "predicted_n": 158,
+      "predicted_ms": 5055.387,
+      "predicted_per_token_ms": 32.19991719745223,
+      "predicted_per_second": 31.055980481810792
+    }
+  }
+}

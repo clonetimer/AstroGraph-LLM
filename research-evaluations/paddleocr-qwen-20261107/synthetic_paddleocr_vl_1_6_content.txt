@@ -1,0 +1,4 @@
+合成样例：反作用轮运行记录
+仅用于 OCR 对比，非真实卫星遥测
+设备编号：RW-A；数据类型：合成测试表
+阶段<fcel>时刻<fcel>轮速 rpm<fcel>电流 A<fcel>摩擦力矩 N·m<fcel>温度 ℃<nl><fcel>基线<fcel>10:00:00<fcel>600<fcel>0.20<fcel>0.003<fcel>31.0<nl><fcel>负载注入<fcel>10:01:00<fcel>600<fcel>0.34<fcel>0.009<fcel>38.6<nl><fcel>负载解除<fcel>10:02:00<fcel>600<fcel>0.21<fcel>0.003<fcel>31.5<nl>

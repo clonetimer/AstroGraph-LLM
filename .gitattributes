@@ -1,0 +1,6 @@
+# The delivery records byte-level SHA-256 hashes. Preserve committed bytes on
+# Windows even when a user's global Git config has core.autocrlf=true.
+* -text
+
+# The acceptance fixtures are intentionally LF text and have their own receipts.
+examples/platform_acceptance_cases_v1/** text eol=lf

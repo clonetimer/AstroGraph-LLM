@@ -1,0 +1,33 @@
+{
+  "http_status": 200,
+  "elapsed_seconds": 65.469,
+  "response": {
+    "id": "chatcmpl-vpgf4u47c86qwh8qovfk8",
+    "object": "chat.completion",
+    "created": 1794061396,
+    "model": "qwen/qwen3-vl-4b",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "合成样例：反作用轮运行记录\n仅用于 OCR 对比，非真实卫星遥测\n设备编号：RW-A；数据类型：合成测试表\n\n| 阶段 | 时刻 | 轮速 rpm | 电流 A | 摩擦力矩 N·m | 温度 °C |\n|---|---|---|---|---|---|\n| 基线 | 10:00:00 | 600 | 0.20 | 0.003 | 31.0 |\n| 负载注入 | 10:01:00 | 600 | 0.34 | 0.009 | 38.6 |\n| 负载解除 | 10:02:00 | 600 | 0.21 | 0.003 | 31.5 |\n\n核查提示：三阶段控制模式均为恒速；电流与力矩变化仍需排除指令变化。\n结论边界：以上数值不代表故障已确诊。",
+          "reasoning_content": "",
+          "tool_calls": []
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1754,
+      "completion_tokens": 238,
+      "total_tokens": 1992,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "stats": {},
+    "system_fingerprint": "qwen/qwen3-vl-4b"
+  }
+}

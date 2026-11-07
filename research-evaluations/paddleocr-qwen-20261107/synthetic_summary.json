@@ -1,0 +1,25 @@
+{
+  "image": "synthetic_rw_table.png",
+  "image_sha256": "68c2425d27b97bbb9dadeb8c8a8e8e0dad2b61b610a080c6ac28324a597f5d4a",
+  "prompt": "请逐字识别这张文档图片中的全部可见文字。表格请保持列标题与每一行的对应关系，保留数值、单位和时间。不要推断图中没有的内容。只输出识别结果。",
+  "temperature": 0,
+  "max_tokens": 2600,
+  "results": {
+    "qwen3_vl_4b": {
+      "endpoint": "http://127.0.0.1:1234/v1/chat/completions",
+      "model": "qwen/qwen3-vl-4b",
+      "http_status": 200,
+      "elapsed_seconds": 65.469,
+      "content_chars": 323,
+      "finish_reason": "stop"
+    },
+    "paddleocr_vl_1_6": {
+      "endpoint": "http://127.0.0.1:1235/v1/chat/completions",
+      "model": "E:\\lmstudio\\PaddlePaddle\\PaddleOCR-VL-1.6-GGUF\\PaddleOCR-VL-1.6-GGUF.gguf",
+      "http_status": 200,
+      "elapsed_seconds": 6.406,
+      "content_chars": 316,
+      "finish_reason": "stop"
+    }
+  }
+}

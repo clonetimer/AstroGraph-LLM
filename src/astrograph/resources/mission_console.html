@@ -91,18 +91,13 @@
         <section class="screen analysis-screen" id="screen-upload">
           <div class="analysis-shell">
             <div class="analysis-intro">
-              <div class="kicker">新建分析</div>
-              <h1>把现象和材料交给 AstroGraph</h1>
-              <p>像和分析人员对话一样描述问题。系统会检查材料、说明正在做什么，并把结论、依据和下一步讲清楚。</p>
+              <h1>新建故障分析</h1>
+              <p>描述异常现象，添加诊断结果、运行日志和参考资料。材料通过预检后即可开始分析。</p>
             </div>
             <div class="analysis-thread" aria-live="polite">
-              <article class="analysis-message assistant-message">
-                <div class="analysis-avatar" aria-hidden="true">A</div>
-                <div><strong>我可以帮你研判这次异常</strong><p>请描述你观察到的现象，并附上诊断结果、运行日志和参考资料。文件内容可以是表格、日志或普通文档，不需要把数据整理成 JSON 再输入。</p></div>
-              </article>
               <section class="analysis-process" id="analysis-process" aria-label="分析过程">
-                <button class="thinking-toggle" id="analysis-thinking-toggle" type="button" aria-expanded="true"><span class="thinking-pulse" aria-hidden="true"></span><span><b id="analysis-process-title">等待材料</b><small id="analysis-process-summary">描述问题并添加三类材料后，我会自动检查</small></span><span aria-hidden="true">⌄</span></button>
-                <div class="thinking-body" id="analysis-thinking-body">
+                <button class="thinking-toggle" id="analysis-thinking-toggle" type="button" aria-expanded="false"><span class="thinking-pulse" aria-hidden="true"></span><span><b id="analysis-process-title">等待材料</b><small id="analysis-process-summary">添加三类材料后自动预检</small></span><span aria-hidden="true">⌄</span></button>
+                <div class="thinking-body" id="analysis-thinking-body" hidden>
                   <ol class="thinking-steps">
                     <li data-upload-step="1" class="active"><b>1</b><span><strong>理解任务</strong><small>读取自然语言问题和设备信息</small></span></li>
                     <li data-upload-step="2"><b>2</b><span><strong>检查材料</strong><small>确认诊断、日志和参考资料是否齐全</small></span></li>
@@ -152,7 +147,7 @@
             </div>
           </div>
         </section>
-        <section class="screen" id="screen-report"><div class="screen-head"><div><div class="kicker">分析结果</div><h1>这次异常，系统怎么看</h1></div><div class="head-actions"><span class="chip" id="report-job-label">未选择任务</span><button class="btn" type="button" id="report-export-md" hidden>下载文字报告</button><details class="report-more"><summary>更多</summary><button class="btn" type="button" id="report-export-json" hidden>导出完整数据</button></details><button class="btn" type="button" id="report-review-jump" data-min-role="reviewer">请专家复核</button></div></div>
+        <section class="screen" id="screen-report"><div class="screen-head"><div><div class="kicker">分析结果</div><h1>故障分析报告</h1></div><div class="head-actions"><span class="chip" id="report-job-label">未选择任务</span><button class="btn" type="button" id="report-export-md" hidden>下载文字报告</button><details class="report-more"><summary>更多</summary><button class="btn" type="button" id="report-export-json" hidden>导出完整数据</button></details><button class="btn" type="button" id="report-review-jump" data-min-role="reviewer">请专家复核</button></div></div>
           <div class="action-summary panel" id="action-summary" role="region" aria-label="行动摘要"><div class="decision-lead"><span>当前结论</span><strong id="action-judgment">等待分析</strong><p>系统只说明材料能够支持到哪一步，不会替代人工完成工程确诊。</p></div><div class="action-summary-grid"><div><span>证据够不够</span><strong id="action-evidence" data-decision-code="NONE">—</strong></div><div><span>现在能否执行处置</span><strong id="action-approval">暂不能自动执行</strong></div><div><span>建议下一步</span><strong id="action-next">添加分析材料</strong></div><div class="risk-detail"><span>风险说明</span><strong id="action-risk">等待分析</strong></div></div></div>
           <div class="report-tabs" role="tablist" aria-label="报告详情"><button class="tab active" data-report-tab="conclusion" type="button">研判结论</button><button class="tab" data-report-tab="evidence" type="button">日志与文献</button><button class="tab" data-report-tab="reasoning" type="button">图谱推理</button><button class="tab" data-report-tab="audit" type="button">审核与溯源</button></div><div id="report-content" class="report-body"><div class="empty">完成分析或在任务记录中选择报告。</div></div>
         </section>
@@ -190,8 +185,8 @@
   <dialog class="modal evidence-detail-dialog" id="evidence-detail" aria-labelledby="evidence-detail-title">
     <div class="evidence-detail-head"><h2 id="evidence-detail-title">证据原文定位</h2><button type="button" class="btn small" id="evidence-detail-close">关闭</button></div>
     <dl class="evidence-source-meta" id="evidence-source-meta"></dl>
-    <div class="evidence-quote-title">报告保留的原文摘录</div><blockquote id="evidence-source-quote" class="evidence-source-quote"></blockquote>
-    <p class="evidence-source-boundary">点击证据定位时以原始上传文件为准；报告仅保留最多 420 字的原文摘录，不代表原文件全文。</p>
+    <div class="evidence-quote-title" id="evidence-quote-title">报告保留的原文摘录</div><blockquote id="evidence-source-quote" class="evidence-source-quote"></blockquote>
+    <p class="evidence-source-boundary">这里只显示报告保留的原文片段；请以原始文件和适用设备资料核验。</p>
   </dialog>
   <dialog class="modal" id="demo-modal"><h2>载入演示案例</h2><div id="demo-list"></div><form method="dialog"><button class="btn">关闭</button></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

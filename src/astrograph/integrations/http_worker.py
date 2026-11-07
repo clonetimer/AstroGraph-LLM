@@ -38,6 +38,8 @@ def main():
         code=str(exc) if str(exc)=="HTTP_RESPONSE_TOO_LARGE" else type(exc).__name__
         out={"ok":False,"error":code}
     out.update(captured)
-    sys.stdout.write(json.dumps(out,ensure_ascii=False))
+    # The parent parses captured bytes as UTF-8. Windows pipe text encoding may
+    # follow the active code page, so write the wire envelope as UTF-8 explicitly.
+    sys.stdout.buffer.write(json.dumps(out,ensure_ascii=False).encode("utf-8"))
 
 if __name__=="__main__":main()

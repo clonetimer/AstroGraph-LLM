@@ -1,0 +1,5 @@
+2026-09-20T08:00:12Z INFO ADCS wheel_0 commanded_torque=0.015_Nm control_mode=SUN_POINT
+ 2026-09-20T08:00:35Z WARN ADCS wheel_0 motor_current_a=0.34A above local baseline
+ 2026-09-20T08:01:00Z WARN ADCS wheel_0 winding_temp=38.6C rising
+ 2026-09-20T08:01:21Z INFO ADCS star_tracker_locked=true
+ 2026-09-20T08:01:40Z INFO ADCS wheel_0 torque_command unchanged

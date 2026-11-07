@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-vfddi56kfjez36y481j3ka",
+  "object": "chat.completion",
+  "created": 1794038607,
+  "model": "qwen/qwen3.5-9b",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"abstained\": false,\n  \"summary\": \"诊断模型基于反作用轮（RW）电机电流与绕组温度异常升高，提出候选根因为“摩擦增大”（ADCS_RW_FRICTION_INCREASE）。证据显示2026-09-20T08:00:35Z时wheel_0电流为0.34A（高于基线），随后绕组温度升至38.6C。然而，现有观测数据缺乏对转速、力矩指令及控制模式的同步记录，无法排除工况变化导致的误判；同时缺少独立的摩擦力矩估计值以验证机械负载假设。根据本地知识，仅凭电流与温度两条日志不足以确诊摩擦增大，必须对齐时间戳并核对工况一致性方可确认根因。\",\n  \"candidate_fault_id\": \"ADCS_RW_FRICTION_INCREASE\",\n  \"claims\": [\n    {\n      \"kind\": \"OBSERVATION\",\n      \"text\": \"2026-09-20T08:00:35Z ADCS wheel_0 电机电流为0.34A，高于本地基线。\",\n      \"citation_ids\": [\n        \"L1-0002\"\n      ]\n    },\n    {\n      \"kind\": \"OBSERVATION\",\n      \"text\": \"2026-09-20T08:01:00Z ADCS wheel_0 绕组温度为38.6C，呈上升趋势。\",\n      \"citation_ids\": [\n        \"L1-0003\"\n      ]\n    },\n    {\n      \"kind\": \"LOCAL_KNOWLEDGE\",\n      \"text\": \"反作用轮机械负载变化可能导致电机电流和绕组温度上升；但电流与温度升高也可能源于力矩指令、控制模式、环境条件或测量偏差，仅凭两条日志不能确诊摩擦增大。\",\n      \"citation_ids\": [\n        \"upload:d7acca75f74d9a52504f:section:0002\"\n      ]\n    },\n    {\n      \"kind\": \"LOCAL_KNOWLEDGE\",\n      \"text\": \"需核对同一轮组在相近转速、力矩指令和控制模式下的电流、绕组温度及摩擦力矩估计，并对齐时间戳；若工况不一致应先排除指令变化，若缺少摩擦力矩估计应保留根因不确定性。\",\n      \"citation_ids\": [\n        \"upload:d7acca75f74d9a52504f:section:0003\"\n      ]\n    },\n    {\n      \"kind\": \"LOCAL_KNOWLEDGE\",\n      \"text\": \"本文件为界面和模型链路测试而编写，不是飞行型号手册，也不能作为当前任务根因证明。\",\n      \"citation_ids\": [\n        \"upload:d7acca75f74d9a52504f:section:0001\"\n      ]\n    }\n  ],\n  \"limitations\": [\n    \"观测数据中缺失关键工况参数（转速、力矩指令、控制模式）的同步记录，无法排除非摩擦因素导致的电流与温度升高。\",\n    \"缺乏独立的摩擦力矩估计值，无法直接验证机械负载变化的假设。\",\n    \"本地知识文档明确标注为测试材料而非飞行手册，不能作为确诊依据，仅能作为机理参考。\",\n    \"当前证据不足以区分是摩擦增大还是指令/环境/测量偏差引起的异常。\"\n  ],\n  \"recommended_review_actions\": [\n    \"检索并比对同一轮组在相近时间窗口内的转速、力矩指令及控制模式数据，以确认工况一致性。\",\n    \"获取或估算当前条件下的摩擦力矩值，用于与观测到的电机电流和温度进行关联分析。\",\n    \"审查是否存在测量偏差或校准漂移，特别是针对电流传感器和温度传感器的历史数据。\",\n    \"若无法对齐工况或缺少摩擦力矩估计，应在诊断结论中明确保留根因不确定性，避免将候选故障视为确诊结果。\"\n  ]\n}",
+        "reasoning_content": "",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2758,
+    "completion_tokens": 903,
+    "total_tokens": 3661,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "qwen/qwen3.5-9b"
+}

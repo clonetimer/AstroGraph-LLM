@@ -1,0 +1,34 @@
+{
+  "job_id": "JOB-906D7A317ABA235F9969250C",
+  "input_sha256": {
+    "analysis_input.json": "7ebbe7a286ae6cbc65a0b3a1b74fee966f53f309ec3dae0c4f2b70c4b12bd1d0",
+    "diagnosis_result.json": "e8a61ef5863f5b59c9c9d3726712067d4b5babc6dbdc6bc216503e4a67256aac",
+    "operations.txt": "dd18c9fa2f3f0742d51c91961051072708c8ecb762c46be08fd5f47f1c574e5b",
+    "reference.md": "d7acca75f74d9a52504fa11139576afb9adf452595a20e619eb161c6c386001d"
+  },
+  "report_status": "SUCCEEDED",
+  "llm_call_status": "SUCCEEDED",
+  "analysis_engine": {
+    "base_url": "http://127.0.0.1:1234/v1",
+    "configured": true,
+    "diagnostic_vote_allowed": false,
+    "engine_id": "auto",
+    "kind": "llm",
+    "model": "qwen/qwen3.5-9b",
+    "name": "qwen/qwen3.5-9b",
+    "provider": "local-openai-compatible",
+    "secret_returned": false,
+    "timeout_s": "240"
+  },
+  "generation": {
+    "status": "SUCCEEDED",
+    "explanation": null,
+    "semantic_hallucination_assessment": "NOT_EVALUATED",
+    "citation_reference_validation": "PASS",
+    "unverified_explanation_sha256": "3085e94af4c5661b736a8d5ecb7d06baab82e720453fa30383cb1d25cf20bb1e",
+    "unverified_explanation_withheld_from_report": false,
+    "raw_audit_location": "SERVER_SIDE_JOB_KNOWLEDGE_ARTIFACT_NOT_PUBLIC_REPORT",
+    "backend_receipt_withheld_from_report": true
+  },
+  "report_json_sha256": "96b67c28c3e2dc56cbc12cd04a57a7e20b2cd8e2c78dcb471d7ceb7aca9ca3a5"
+}
