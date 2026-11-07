@@ -11,6 +11,7 @@ import { setupEngineSettings, loadEngineSettings } from './platform_engine_setti
 import { setupGraphWorkbench, loadGraphBuild, loadGraphReview, loadGraphRelease } from './platform_graph_workbench.js';
 import { renderOperationsWizard, setupOperationsHooks } from './platform_operations.js';
 import { renderDiagnosticWorkspace } from './platform_diagnostic_workspace.js';
+import { setupModelPricing } from './platform_pricing.js';
 
 setupSystemHooks({loadAgentCapabilities:(...args)=>loadAgentCapabilities(...args),loadTools:(...args)=>loadTools(...args)});
 setupAgentHooks({invalidatePreflight:(...args)=>invalidatePreflight(...args),renderInputChecks:(...args)=>renderInputChecks(...args),renderAgentExecution:(...args)=>renderAgentExecution(...args)});
@@ -22,6 +23,7 @@ setupShellHooks({
   loadLLMSettings,loadLLMProfiles,loadNeo4jSettings,loadMCPProviders,loadEngineSettings,loadCapabilities,capabilitiesHtml,renderReport,setMode,
 });
 initShell();setupGraphWorkbench();setupEngineSettings();
+setupModelPricing();
 
 (async()=>{
   renderFiles();renderInputChecks();renderOperationsWizard();

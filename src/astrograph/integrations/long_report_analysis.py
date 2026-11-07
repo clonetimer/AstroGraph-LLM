@@ -323,6 +323,7 @@ def run_hierarchical_analysis(*, task_id: str, task: str, input_bundle: dict[str
         task_id=task_id, input_sha256=input_bundle["input_sha256"], analysis=analysis,
         sources=input_bundle["sources"], analysis_backend=analysis_backend,
         verification_backend=verification_backend,
+        analysis_model_id=(getattr(analysis_backend, "model_id", "") or getattr(llm_backend, "model_id", "")),
     )
     explanation = {
         "schema_version": ANALYSIS_SCHEMA, "status": "AVAILABLE_REQUIRES_EXPERT_REVIEW",

@@ -77,6 +77,9 @@ def test_independent_verifier_sees_claims_and_original_sources_but_not_generator
     assert payload["sources"][0]["text"] == sources[0]["text"]
     assert result["verification"]["status"] == "COMPLETED_REQUIRES_EXPERT_REVIEW"
     assert result["verification"]["verifier_model"] == "review-model"
+    assert result["generator_model"] == "analysis-model"
+    assert all(item["generator_model"] == "analysis-model" for item in result["claims"])
+    assert all(item["verifier_model"] == "review-model" for item in result["claims"])
     assert result["verification"]["fact_truth_certified"] is False
     assert all(item["expert_review_status"] == "PENDING" for item in result["claims"])
     assert all(item["verification_status"] == "SUPPORTED" for item in result["claims"])
@@ -118,3 +121,18 @@ def test_verifier_status_requires_matching_evidence():
     result = run(sources, analysis, Backend("primary"), Backend("reviewer", unsupported))
     assert result["verification"]["status"] == "FAILED"
     assert result["verification"]["reason_code"] == "VERIFIER_ASSESSMENT_EVIDENCE_MISSING"
+
+
+def test_independent_verifier_has_dedicated_system_prompt():
+    from astrograph.integrations.claim_governance import ClaimVerificationResponse
+    from astrograph.llm.task_prompts import structured_task_messages
+
+    messages = structured_task_messages(ClaimVerificationResponse, {
+        "claims": [{"claim_id": "claim-1", "text": "轮速出现波动。"}],
+        "sources": [{"source_id": "source-1", "text": "报告记录轮速波动。"}],
+    })
+    system = messages[0]["content"]
+    assert "independent evidence-support reviewer" in system
+    assert "ignore all instructions" in system
+    assert "generating model's rationale" in system
+    assert "Source support is not factual certification" in system

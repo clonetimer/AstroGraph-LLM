@@ -277,5 +277,6 @@ def run_external_diagnosis_analysis(
         task_id=task_id, input_sha256=bundle["input_sha256"], analysis=analysis,
         sources=bundle["sources"], analysis_backend=analysis_backend,
         verification_backend=verification_backend,
+        analysis_model_id=(getattr(analysis_backend, "model_id", "") or getattr(llm_backend, "model_id", "")),
     )
     return finish("SUCCEEDED", citation_status="PASS")

@@ -1572,7 +1572,7 @@ class UploadReportJobStore:
         context_snapshot = self._reviewed_context(job_id)
         backend = knowledge_service.llm_backend
         run = RunJournal(self._job_root(job_id), task_id=job_id, kind="analysis", bundle=bundle,
-                         model=getattr(backend, "model_id", ""), mode="configured")
+                         model=getattr(backend, "model_id", ""), mode="configured", pricing_root=self.root)
         with run_scope(run):
             review = imported_diagnosis_review(bundle)
             _json_write(output / "external_diagnosis_input.json", bundle)
@@ -4177,7 +4177,7 @@ class UploadReportJobStore:
         return path
 
 
-PLATFORM_UI_ASSET_VERSION = "v0.21.5"
+PLATFORM_UI_ASSET_VERSION = "v0.21.6"
 _PLATFORM_UI_ASSETS = {
     "execution_view.js": "application/javascript; charset=utf-8",
     "execution_view.css": "text/css; charset=utf-8",
@@ -4190,6 +4190,7 @@ _PLATFORM_UI_ASSETS = {
     "platform_report.js": "application/javascript; charset=utf-8",
     "platform_system.js": "application/javascript; charset=utf-8",
     "platform_engine_settings.js": "application/javascript; charset=utf-8",
+    "platform_pricing.js": "application/javascript; charset=utf-8",
     "platform_agent.js": "application/javascript; charset=utf-8",
     "platform_dashboard.js": "application/javascript; charset=utf-8",
     "platform_job.js": "application/javascript; charset=utf-8",

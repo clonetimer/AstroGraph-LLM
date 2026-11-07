@@ -128,6 +128,18 @@ class ManualClaimReviewDecision(BaseModel):
     expected_revision: int = Field(ge=0)
 
 
+class ModelPriceCreateRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    provider: str = Field(min_length=1, max_length=80)
+    model: str = Field(min_length=1, max_length=200)
+    currency: str = Field(default='USD', min_length=3, max_length=3)
+    input_per_million_tokens: str = Field(min_length=1, max_length=40)
+    output_per_million_tokens: str = Field(min_length=1, max_length=40)
+    effective_from: str = Field(min_length=1, max_length=80)
+    source_type: Literal['OFFICIAL_PUBLISHED', 'CONTRACT', 'ADMIN_ESTIMATE']
+    source_ref: str = Field(min_length=8, max_length=500)
+
+
 class MaterialCaseReviewDecision(BaseModel):
     """Explicit independent review; cannot be submitted by the analyzer."""
     model_config = ConfigDict(extra='forbid')
@@ -3542,6 +3554,33 @@ def create_app(service: AstroGraphService | None = None) -> FastAPI:
         for row in rows:
             row["secret_configured"] = bool(row.pop("secret_ref", None))
         return {"schema_version":"astrograph-platform-llm-profiles.v1","profiles":rows,"secret_backend_available":get_platform_secret_store().available()}
+
+    @app.get("/v1/platform/settings/model-pricing")
+    def list_platform_model_pricing() -> dict:
+        from astrograph.integrations.model_pricing import ModelPriceBook
+        store = get_upload_report_store()
+        return {
+            "schema_version": "astrograph-model-pricebook.v1",
+            "prices": ModelPriceBook(store.root).list(),
+            "cost_scope": "Provider token charges only; hosting, taxes, discounts and unmetered charges are excluded.",
+        }
+
+    @app.post("/v1/platform/settings/model-pricing")
+    def add_platform_model_pricing(request: ModelPriceCreateRequest, http_request: Request) -> dict:
+        from astrograph.integrations.model_pricing import ModelPriceBook
+        actor = authenticated_actor(http_request, "admin")
+        store = get_upload_report_store()
+        try:
+            value = ModelPriceBook(store.root).add(
+                provider=request.provider, model=request.model, currency=request.currency,
+                input_per_million_tokens=request.input_per_million_tokens,
+                output_per_million_tokens=request.output_per_million_tokens,
+                effective_from=request.effective_from, source_type=request.source_type,
+                source_ref=request.source_ref, created_by=actor,
+            )
+            return {"schema_version": "astrograph-model-pricebook.v1", "price": value}
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     @app.get("/v1/platform/analysis-engines")
     def list_analysis_engines() -> dict:

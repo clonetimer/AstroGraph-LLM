@@ -25,7 +25,7 @@ def test_versioned_platform_assets_have_immutable_cache_and_correct_types(tmp_pa
     names = [
         "platform_ui.css", "platform_ui.js", "platform_core.js", "platform_report.js",
         "platform_system.js", "platform_agent.js", "platform_dashboard.js", "platform_job.js",
-        "platform_agent_live.js", "platform_knowledge.js", "platform_shell.js", "platform_operations.js", "platform_graph_workbench.js", "platform_engine_settings.js",
+        "platform_agent_live.js", "platform_knowledge.js", "platform_shell.js", "platform_operations.js", "platform_graph_workbench.js", "platform_engine_settings.js", "platform_pricing.js",
     ]
     responses = {name: client.get(f"/platform/assets/{PLATFORM_UI_ASSET_VERSION}/{name}") for name in names}
     assert all(response.status_code == 200 for response in responses.values())
@@ -46,6 +46,7 @@ def test_versioned_platform_assets_have_immutable_cache_and_correct_types(tmp_pa
     assert "function renderKnowledgeLibrary" in responses["platform_knowledge.js"].text
     assert "function initShell" in responses["platform_shell.js"].text
     assert "function operatorStatusViewModel" in responses["platform_operations.js"].text
+    assert "function setupModelPricing" in responses["platform_pricing.js"].text
 
 
 def test_unknown_platform_asset_version_or_name_fails_closed(tmp_path, monkeypatch):

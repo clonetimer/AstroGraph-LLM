@@ -64,7 +64,15 @@ def _source_ref(source: dict[str, Any]) -> dict[str, str]:
 
 
 def _backend_id(backend: Any) -> str:
-    return str(getattr(backend, "model_id", "") or "").strip()
+    direct = str(getattr(backend, "model_id", "") or "").strip()
+    if direct:
+        return direct
+    root = _root_backend(backend)
+    model = str(getattr(root, "model_id", "") or "").strip()
+    if model:
+        return model
+    config = getattr(root, "config", None)
+    return str(getattr(config, "model", "") or "").strip()
 
 
 def _root_backend(backend: Any) -> Any:
@@ -147,9 +155,12 @@ def build_claim_registry(
 def run_independent_verification(
     registry: dict[str, Any], *, sources: list[dict[str, Any]],
     analysis_backend: Any, verification_backend: Any | None,
+    analysis_model_id: str | None = None,
 ) -> dict[str, Any]:
     """Review claim/source support with a distinct model and an isolated payload."""
     claims = registry["claims"]
+    for claim in claims:
+        claim.setdefault("verifier_model", None)
 
     def not_run(status: str, reason: str, method: str = "SOURCE_REFERENCE_ONLY") -> dict[str, Any]:
         registry["verification"] = {
@@ -161,7 +172,8 @@ def run_independent_verification(
 
     if verification_backend is None:
         return not_run("NOT_CONFIGURED", "INDEPENDENT_VERIFIER_NOT_CONFIGURED")
-    analysis_model, verifier_model = _backend_id(analysis_backend), _backend_id(verification_backend)
+    analysis_model = str(analysis_model_id or _backend_id(analysis_backend) or "").strip()
+    verifier_model = _backend_id(verification_backend)
     if (not analysis_model or not verifier_model
             or _root_backend(analysis_backend) is _root_backend(verification_backend)
             or analysis_model.casefold() == verifier_model.casefold()):
@@ -238,6 +250,8 @@ def run_independent_verification(
             "information_gaps": list(assessment.information_gaps),
         })
 
+    for claim in claims:
+        claim["verifier_model"] = verifier_model
     registry["verification"] = {
         "status": "COMPLETED_REQUIRES_EXPERT_REVIEW", "method": "INDEPENDENT_MODEL_REVIEW",
         "scope": "ALL_SUPPLIED_SOURCE_TEXT", "verifier_model": verifier_model,
@@ -255,11 +269,17 @@ def run_independent_verification(
 def build_claim_governance(
     *, task_id: str, input_sha256: str, analysis: Any, sources: list[dict[str, Any]],
     analysis_backend: Any, verification_backend: Any | None,
+    analysis_model_id: str | None = None,
 ) -> dict[str, Any]:
     registry = build_claim_registry(
         task_id=task_id, input_sha256=input_sha256, analysis=analysis, sources=sources,
     )
+    generator_model = str(analysis_model_id or _backend_id(analysis_backend) or "").strip() or None
+    registry["generator_model"] = generator_model
+    for claim in registry["claims"]:
+        claim["generator_model"] = generator_model
+        claim["verifier_model"] = None
     return run_independent_verification(
         registry, sources=sources, analysis_backend=analysis_backend,
-        verification_backend=verification_backend,
+        verification_backend=verification_backend, analysis_model_id=generator_model,
     )

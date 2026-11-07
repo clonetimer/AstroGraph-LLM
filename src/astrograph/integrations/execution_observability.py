@@ -15,9 +15,10 @@ import math
 from pathlib import Path
 import re
 import secrets
+import sqlite3
 import threading
 import time
-from .stage_execution import phase_model, check_cancelled, AnalysisCancelled
+from .stage_execution import phase_model, phase_provider, check_cancelled, AnalysisCancelled
 
 SCHEMA = 'astrograph-execution.v1'
 _ACTIVE = ContextVar('astrograph_execution_journal', default=None)
@@ -156,9 +157,17 @@ def _usage(document):
 
 
 def summarize_usage(requests):
-    out = {'http_requests': len(requests),
-           'failed_requests': sum(r.get('status') == 'FAILED' for r in requests),
-           'estimated_cost': None, 'cost_status': 'PRICING_NOT_CONFIGURED'}
+    from decimal import Decimal, ROUND_HALF_EVEN
+    out = {
+        'http_requests': len(requests),
+        'failed_requests': sum(r.get('status') == 'FAILED' for r in requests),
+        'estimated_cost': None, 'cost_currency': None,
+        'cost_status': 'NO_REQUESTS' if not requests else 'UNKNOWN',
+        'possible_unmetered_requests': 0,
+        'unpriced_requests': 0,
+        'usage_incomplete_requests': 0,
+        'cost_scope': 'PROVIDER_TOKEN_CHARGES_ONLY; excludes hosting, taxes, discounts and unmetered charges',
+    }
     for field, prefix in [('input_tokens', 'input'), ('output_tokens', 'output')]:
         values = [_count(r.get('usage', {}).get(field)) for r in requests]
         known = [v for v in values if v is not None]
@@ -166,6 +175,26 @@ def summarize_usage(requests):
         out['known_' + field] = sum(known)
         out[prefix + '_reported_requests'] = len(known)
     out['usage_complete'] = bool(requests) and all(out[k] is not None for k in ('input_tokens', 'output_tokens'))
+    costs = [r.get('cost') if isinstance(r.get('cost'), dict) else {} for r in requests]
+    out['possible_unmetered_requests'] = sum(x.get('status') == 'POSSIBLE_UNMETERED_BILLING' for x in costs)
+    out['unpriced_requests'] = sum(x.get('status') == 'PRICING_NOT_CONFIGURED' for x in costs)
+    out['usage_incomplete_requests'] = sum(x.get('status') == 'USAGE_MISSING' for x in costs)
+    currencies = {str(x.get('currency')) for x in costs if x.get('status') == 'CALCULATED' and x.get('currency')}
+    if out['possible_unmetered_requests']:
+        out['cost_status'] = 'POSSIBLE_UNMETERED_BILLING'
+    elif len(currencies) > 1:
+        out['cost_status'] = 'MIXED_CURRENCY'
+    elif out['unpriced_requests']:
+        out['cost_status'] = 'PRICING_NOT_CONFIGURED'
+    elif out['usage_incomplete_requests']:
+        out['cost_status'] = 'USAGE_INCOMPLETE'
+    elif requests and all(x.get('status') == 'CALCULATED' for x in costs):
+        currency = next(iter(currencies), None)
+        if currency:
+            total = sum((Decimal(str(x['amount'])) for x in costs), Decimal('0'))
+            out['estimated_cost'] = format(total.quantize(Decimal('0.000000000001'), rounding=ROUND_HALF_EVEN), 'f')
+            out['cost_currency'] = currency
+            out['cost_status'] = 'CALCULATED'
     return out
 
 
@@ -174,10 +203,11 @@ class ExecutionJournalError(RuntimeError):
 
 
 class RunJournal:
-    def __init__(self, root, *, task_id, kind, bundle, model='', mode='', receipts=()):
+    def __init__(self, root, *, task_id, kind, bundle, model='', mode='', receipts=(), pricing_root=None):
         if kind not in {'analysis', 'follow_up'} or bundle.get('task_id') != task_id:
             raise ValueError('EXECUTION_BINDING_INVALID')
         self.root = Path(root)
+        self.pricing_root = Path(pricing_root).expanduser().resolve() if pricing_root is not None else self.root
         self.run_id = secrets.token_hex(16)
         self.path = _run_path(root, self.run_id)
         self.path.mkdir(parents=True, exist_ok=False)
@@ -225,10 +255,23 @@ class RunJournal:
         with self.lock:
             if self.data['status'] != 'RUNNING' or len(self.data['requests']) >= 1024:
                 raise ValueError('EXECUTION_REQUEST_REJECTED')
+            started_at = _now()
+            model = _text(phase_model() or self.data['model'])
+            provider = _text(phase_provider() or '', 80)
+            try:
+                from astrograph.integrations.model_pricing import ModelPriceBook
+                price_snapshot = ModelPriceBook(self.pricing_root).resolve(
+                    provider=provider, model=model, at=started_at,
+                )
+            except (OSError, ValueError, sqlite3.Error):
+                price_snapshot = None
             item = {'sequence': len(self.data['requests']) + 1, 'stage': self.stage,
-                'request_sha256': request_sha256, 'started_at': _now(), 'ended_at': None,
-                'status': 'STARTED', 'model': _text(phase_model() or self.data['model']), 'http_status': None, 'latency_ms': None,
-                'usage': {'input_tokens': None, 'output_tokens': None}}
+                'request_sha256': request_sha256, 'started_at': started_at, 'ended_at': None,
+                'status': 'STARTED', 'provider': provider, 'model': model,
+                'http_status': None, 'latency_ms': None,
+                'usage': {'input_tokens': None, 'output_tokens': None},
+                'pricing': price_snapshot,
+                'cost': {'status': 'PRICING_NOT_CONFIGURED', 'currency': None, 'amount': None}}
             self.data['requests'].append(item)
             self._save()  # Journal failure blocks sending, rather than an unrecorded paid call.
         start = time.monotonic()
@@ -237,10 +280,18 @@ class RunJournal:
             item['http_status'] = http_status if type(http_status) is int and 100 <= http_status <= 599 else None
         try:
             result = invoke(response_observer)
-            item.update(status='RESPONSE_RECEIVED', usage=_usage(result))
+            usage = _usage(result)
+            from astrograph.integrations.model_pricing import calculate_cost
+            item.update(status='RESPONSE_RECEIVED', usage=usage,
+                        cost=calculate_cost(item.get('pricing'), usage))
             return result
         except Exception:
             item['status'] = 'FAILED'
+            item['cost'] = {
+                'status': 'POSSIBLE_UNMETERED_BILLING',
+                'currency': (item.get('pricing') or {}).get('currency'),
+                'amount': None,
+            }
             raise
         finally:
             with self.lock:
@@ -318,6 +369,7 @@ def _project(value):
             continue
         item = {k: r.get(k) for k in ('sequence', 'stage', 'request_sha256', 'started_at', 'ended_at',
                                      'status', 'http_status', 'latency_ms')}
+        item['provider'] = _text(r.get('provider', ''), 80)
         item['model'] = _text(r.get('model', value.get('model', '')))
         item['sequence'] = _count(r.get('sequence'))
         item['http_status'] = _count(r.get('http_status'))
@@ -325,6 +377,62 @@ def _project(value):
         item['latency_ms'] = latency if type(latency) in (int, float) and math.isfinite(latency) and latency >= 0 else None
         usage = r.get('usage') if isinstance(r.get('usage'), dict) else {}
         item['usage'] = {k: _count(usage.get(k)) for k in ('input_tokens', 'output_tokens')}
+        pricing = r.get('pricing') if isinstance(r.get('pricing'), dict) else None
+        if pricing and pricing.get('status') == 'PRICE_PINNED':
+            from decimal import Decimal, InvalidOperation
+            try:
+                input_rate = Decimal(str(pricing.get('input_per_million_tokens')))
+                output_rate = Decimal(str(pricing.get('output_per_million_tokens')))
+                if (not input_rate.is_finite() or not output_rate.is_finite()
+                        or input_rate < 0 or output_rate < 0):
+                    raise ValueError('invalid pinned rate')
+                item['pricing'] = {
+                    'status': 'PRICE_PINNED',
+                    'price_id': _text(pricing.get('price_id', ''), 32),
+                    'revision': _count(pricing.get('revision')),
+                    'provider': _text(pricing.get('provider', ''), 80),
+                    'model': _text(pricing.get('model', ''), 200),
+                    'currency': _text(pricing.get('currency', ''), 3),
+                    'input_per_million_tokens': format(input_rate, 'f'),
+                    'output_per_million_tokens': format(output_rate, 'f'),
+                    'effective_from': _text(pricing.get('effective_from', ''), 80),
+                    'source_type': _text(pricing.get('source_type', ''), 40),
+                    'source_ref': _text(pricing.get('source_ref', ''), 500),
+                    'created_by': _text(pricing.get('created_by', ''), 160),
+                    'created_at': _text(pricing.get('created_at', ''), 80),
+                    'resolved_at': _text(pricing.get('resolved_at', ''), 80),
+                }
+            except (InvalidOperation, TypeError, ValueError):
+                raise ValueError('EXECUTION_PRICING_SNAPSHOT_INVALID')
+        else:
+            item['pricing'] = None
+        cost = r.get('cost') if isinstance(r.get('cost'), dict) else {}
+        if not cost:
+            legacy_status = r.get('status')
+            cost_status = ('POSSIBLE_UNMETERED_BILLING'
+                           if legacy_status in {'STARTED', 'FAILED', 'INTERRUPTED'}
+                           else 'PRICING_NOT_CONFIGURED')
+        else:
+            cost_status = cost.get('status')
+        if cost_status not in {'CALCULATED', 'PRICING_NOT_CONFIGURED', 'USAGE_MISSING', 'POSSIBLE_UNMETERED_BILLING'}:
+            cost_status = 'USAGE_MISSING'
+        amount = cost.get('amount')
+        currency = cost.get('currency')
+        if cost_status == 'CALCULATED':
+            from decimal import Decimal, InvalidOperation
+            try:
+                parsed_amount = Decimal(str(amount))
+                if not parsed_amount.is_finite() or parsed_amount < 0:
+                    raise ValueError('invalid cost amount')
+                amount = format(parsed_amount, 'f')
+            except (InvalidOperation, TypeError, ValueError):
+                raise ValueError('EXECUTION_COST_RECORD_INVALID')
+            if not isinstance(currency, str) or not re.fullmatch(r'[A-Z]{3}', currency):
+                raise ValueError('EXECUTION_COST_RECORD_INVALID')
+        else:
+            amount = None
+            currency = currency if isinstance(currency, str) and re.fullmatch(r'[A-Z]{3}', currency) else None
+        item['cost'] = {'status': cost_status, 'currency': currency, 'amount': amount}
         out['requests'].append(item)
     out['materials'] = []
     for x in value['materials']:
@@ -377,6 +485,11 @@ def recover_interrupted(root, task_id):
             for request in value.get('requests', []):
                 if request.get('status') == 'STARTED':
                     request['status'] = 'INTERRUPTED'  # Server may still have billed it; usage stays unknown.
+                    request['cost'] = {
+                        'status': 'POSSIBLE_UNMETERED_BILLING',
+                        'currency': (request.get('pricing') or {}).get('currency'),
+                        'amount': None,
+                    }
             _write(path, value)
         except (OSError, ValueError, TypeError, AttributeError):
             continue
