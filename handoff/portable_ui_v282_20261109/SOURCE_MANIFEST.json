@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "sha256": "b204fc4386db6930327174145e46762d96d57fe5fa10e08fecb089a322b65d65",
+      "bytes": 50115,
+      "path": "portable/assets/app.js"
+    },
+    {
+      "sha256": "4cbad64f5609f6b1470e0a08e769841ff3311c65a9f952fbdf3f91d4098722fa",
+      "bytes": 28303,
+      "path": "portable/assets/app.css"
+    },
+    {
+      "sha256": "a86b3029294f31f8878ac5874574cf36c13593524aa5138a4509da134e7f0c1f",
+      "bytes": 22475,
+      "path": "portable/assets/index.html"
+    }
+  ],
+  "schema_version": "astrograph-portable-ui-source-overlay.v1",
+  "release": "2.8.2-preview.1",
+  "baseline": "2.8.1-preview.1"
+}
